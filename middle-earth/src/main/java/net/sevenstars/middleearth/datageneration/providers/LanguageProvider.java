@@ -123,6 +123,7 @@ public class LanguageProvider extends FabricLanguageProvider {
         });
 
         TranslationEntries.manualEntries.forEach(translationBuilder::add);
+        net.sevenstars.middleearth.datageneration.content.GemTranslations.ENTRIES.forEach(translationBuilder::add);
 
         createBannerTranslation(translationBuilder, "item", "round_shield");
         createBannerTranslation(translationBuilder, "item", "heater_shield");

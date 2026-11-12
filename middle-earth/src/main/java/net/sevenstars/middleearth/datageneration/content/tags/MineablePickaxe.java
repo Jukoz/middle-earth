@@ -69,6 +69,12 @@ public class MineablePickaxe {
 
             add(BlockRegistryME.ADAMANT_BLOCK);
             add(BlockRegistryME.RUBY_BLOCK);
+            add(net.sevenstars.middleearth.block.registration.NatureBlockRegistryME.GEM_ORE);
+            add(BlockRegistryME.BERYL_BLOCK);
+            add(BlockRegistryME.HADORITE_BLOCK);
+            add(BlockRegistryME.OPAL_BLOCK);
+            add(BlockRegistryME.ONYX_BLOCK);
+            add(BlockRegistryME.MOONSTONE_BLOCK);
             add(BlockRegistryME.SAPPHIRE_BLOCK);
 
             add(DecorativeBlockRegistryME.BIG_BRAZIER);

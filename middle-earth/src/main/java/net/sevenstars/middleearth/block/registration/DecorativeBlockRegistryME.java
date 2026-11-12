@@ -116,6 +116,15 @@ public class DecorativeBlockRegistryME {
     public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
             InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
+    public static final Block LAPIDARY_TABLE = registerBlock("lapidary_table",
+            net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock::new,
+            AbstractBlock.Settings.create().mapColor(net.minecraft.block.MapColor.OAK_TAN)
+                    .instrument(net.minecraft.block.enums.NoteBlockInstrument.BASS).strength(2.5F)
+                    .sounds(net.minecraft.sound.BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
+                    // the study half's candle is always lit: a mild glow
+                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.PART)
+                            == net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.Part.STUDY ? 5 : 0));
+
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
     public static final Block ORC_STRUCTURE_MANAGER = registerBlock("orc_structure_manager",
@@ -772,6 +781,20 @@ public class DecorativeBlockRegistryME {
     public static final Block REINFORCED_SCAFFOLDING = registerBlock("reinforced_scaffolding",
             ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN)
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
+
+    /** The lapidary arts' focused lamps (their items are in ResourceItemsME) and the light their beams leave. */
+    public static final Block CITRINE_BULLSEYE_LAMP = registerBlock("citrine_bullseye_lamp",
+            settings -> new net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlock(net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.BULLSEYE, settings),
+            AbstractBlock.Settings.create().luminance(state -> state.get(Properties.LIT) ? net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.GLOW : 0)
+                    .strength(1.0f).nonOpaque().sounds(net.minecraft.sound.BlockSoundGroup.LANTERN).pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
+    public static final Block MIRDAIN_BEAM_LAMP = registerBlock("mirdain_beam_lamp",
+            settings -> new net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlock(net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.MIRDAIN, settings),
+            AbstractBlock.Settings.create().luminance(state -> state.get(Properties.LIT) ? net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.GLOW : 0)
+                    .strength(1.0f).nonOpaque().sounds(net.minecraft.sound.BlockSoundGroup.LANTERN).pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
+    public static final Block BEAM_LIGHT = registerBlock("beam_light", net.sevenstars.middleearth.block.special.beamlamp.BeamLightBlock::new,
+            AbstractBlock.Settings.create().replaceable().noCollision().dropsNothing().nonOpaque().noBlockBreakParticles()
+                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.beamlamp.BeamLightBlock.LEVEL))
+                    .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));

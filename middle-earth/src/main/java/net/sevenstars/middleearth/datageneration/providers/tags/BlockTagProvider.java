@@ -5,14 +5,19 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
+import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -49,12 +54,29 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var snapsGoatHorn = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("snaps_goat_horn")));
 
+        var slabs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("slabs")));
+        var stairs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("stairs")));
+        var beds = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("beds")));
+
         var cobwebs = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "cobwebs")));
+        var notMineableWithPickaxe = valueLookupBuilder(BlockTagsME.NOT_MINEABLE_WITH_PICKAXE);
 
         mineableAxe.add(MineableAxe.blocks.toArray(new Block[0]));
         mineablePickaxe.add(MineablePickaxe.blocks.toArray(new Block[0]));
         mineableHoe.add(MineableHoe.blocks.toArray(new Block[0]));
         mineableShovel.add(MineableShovel.blocks.toArray(new Block[0]));
+
+        notMineableWithPickaxe.add(NotMineableWithPickaxe.walls.toArray(new Block[0]));
+
+        for (Block block : Registries.BLOCK) {
+            if (!Registries.BLOCK.getId(block).getNamespace().equals(MiddleEarth.MOD_ID)) continue;
+            switch (block) {
+                case SlabBlock slab -> slabs.add(slab);
+                case StairsBlock stair -> stairs.add(stair);
+                case CustomBedBlock bed -> beds.add(bed);
+                default -> {}
+            }
+        }
 
         wool.add(Wool.blocks.toArray(new Block[0]));
 
@@ -70,9 +92,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fences"))).add(Fences.fences.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_fences"))).add(Fences.fences.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "fence_gates"))).add(FenceGates.fenceGates.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_slabs"))).add(Planks.planksSlabs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_stairs"))).add(WoodenVariants.stairs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_doors"))).add(WoodenVariants.doors.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_trapdoors"))).add(WoodenVariants.trapdoors.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "wooden_pressure_plates"))).add(WoodenVariants.pressurePlates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "leaves"))).add(LeavesSets.leaves.toArray(new Block[0])).add(LeavesSets.grayscaleLeaves.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs"))).add(Logs.logs.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "logs_that_burn"))).add(Logs.logs.toArray(new Block[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "overworld_natural_logs"))).add(NaturalLogs.logs.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "pressure_plates"))).add(PressurePlates.pressurePlates.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "walls"))).add(Walls.walls.toArray(new Block[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of( "planks"))).add(Planks.planks.toArray(new Block[0]));
@@ -239,6 +267,18 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         climbable.add(NatureBlockRegistryME.MIRKWOOD_VINES);
         climbable.add(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING);
 
+        needsStoneTools.add(OreStoneSetRegistryME.CHALK.copper_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.CHALK.coal_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.CHALK.tin_ore());
+
+        needsStoneTools.add(OreStoneSetRegistryME.GABBRO.copper_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.GABBRO.coal_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.GABBRO.tin_ore());
+
+        needsStoneTools.add(OreStoneSetRegistryME.TRAVERTINE.copper_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.TRAVERTINE.coal_ore());
+        needsStoneTools.add(OreStoneSetRegistryME.TRAVERTINE.tin_ore());
+
         needsStoneTools.add(OreStoneSetRegistryME.KHAGALABAN.copper_ore());
         needsStoneTools.add(OreStoneSetRegistryME.KHAGALABAN.coal_ore());
         needsStoneTools.add(OreStoneSetRegistryME.KHAGALABAN.tin_ore());
@@ -268,23 +308,17 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsStoneTools.add(OreStoneSetRegistryME.DEEPSLATE.tin_ore());
         needsStoneTools.add(OreStoneSetRegistryME.DEEPSLATE.lead_ore());
 
+        needsIronTools.add(net.sevenstars.middleearth.block.registration.NatureBlockRegistryME.GEM_ORE);
         needsIronTools.add(OreStoneSetRegistryME.NURGON.tin_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.lead_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.silver_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.gold_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.iron_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.sapphire_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.emerald_ore());
-        needsIronTools.add(OreStoneSetRegistryME.NURGON.ruby_ore());
 
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.lead_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.silver_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.gold_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.iron_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.emerald_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.ruby_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.sapphire_ore());
-        needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.adamant_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.mithril_ore());
 
         needsStoneTools.add(DecorativeBlockRegistryME.STONE_ANVIL);
@@ -359,6 +393,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_LEAD_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.CRYSTAL_LAMP);
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP);
+        mineablePickaxe.add(DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP);
+        mineablePickaxe.add(DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP);
         mineablePickaxe.add(DecorativeBlockRegistryME.SILVER_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.WALL_SILVER_LANTERN);
         mineablePickaxe.add(DecorativeBlockRegistryME.ELVEN_LANTERN);
@@ -384,6 +420,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineableAxe.add(DecorativeBlockRegistryME.ARTISAN_TABLE);
         mineableAxe.add(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE);
         mineableAxe.add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        mineableAxe.add(DecorativeBlockRegistryME.LAPIDARY_TABLE);
 
         mineablePickaxe.add(BlockRegistryME.BRICK_VERTICAL_SLAB);
         mineablePickaxe.add(BlockRegistryME.MUD_BRICK_VERTICAL_SLAB);
@@ -420,6 +457,13 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(BlockRegistryME.WAXED_WEATHERED_CUT_COPPER_WALL);
         mineablePickaxe.add(BlockRegistryME.WAXED_OXIDIZED_CUT_COPPER_WALL);
 
+        mineableHoe.add(BlockRegistryME.MOSS_SLAB);
+        mineableHoe.add(BlockRegistryME.MOSS_STAIRS);
+        mineableHoe.add(NatureBlockRegistryME.CORRUPTED_MOSS_BLOCK);
+        mineableHoe.add(NatureBlockRegistryME.CORRUPTED_MOSS_CARPET);
+        mineableHoe.add(NatureBlockRegistryME.FOREST_MOSS_BLOCK);
+        mineableHoe.add(NatureBlockRegistryME.FOREST_MOSS_CARPET);
+
         mineableShovel.add(BlockRegistryME.GRAVEL_LAYER);
         mineableShovel.add(BlockRegistryME.SAND_LAYER);
         mineableShovel.add(BlockRegistryME.BLACK_SAND_LAYER);
@@ -427,10 +471,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineableShovel.add(BlockRegistryME.DIRT_SLAB);
         mineableShovel.add(BlockRegistryME.DIRT_STAIRS);
-        mineableShovel.add(BlockRegistryME.MOSS_STAIRS);
         mineableShovel.add(BlockRegistryME.ROOTED_DIRT_STAIRS);
         mineableShovel.add(BlockRegistryME.MUD_SLAB);
-        mineableShovel.add(BlockRegistryME.MOSS_SLAB);
         mineableShovel.add(BlockRegistryME.MUD_STAIRS);
         mineableShovel.add(BlockRegistryME.COARSE_DIRT_SLAB);
         mineableShovel.add(BlockRegistryME.COARSE_DIRT_STAIRS);

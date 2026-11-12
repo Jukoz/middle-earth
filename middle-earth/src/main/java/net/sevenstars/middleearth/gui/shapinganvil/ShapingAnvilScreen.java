@@ -60,6 +60,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         outputs.clear();
     }
 
+    /** Clears the outputs of the anvil screen if one is open (see ShapingAnvilScreenHandler#clientInputChanged). */
+    public static void clearOpenOutputs() {
+        if (MinecraftClient.getInstance().currentScreen instanceof ShapingAnvilScreen screen) {
+            screen.clearOutputs();
+        }
+    }
+
     private boolean shouldScroll() {
         return this.outputs.size() > 12;
     }

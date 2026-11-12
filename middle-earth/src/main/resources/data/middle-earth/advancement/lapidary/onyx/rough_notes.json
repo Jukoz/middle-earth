@@ -1,0 +1,31 @@
+{
+  "parent": "middle-earth:lapidary/root",
+  "display": {
+    "icon": {
+      "id": "middle-earth:raw_onyx"
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.grade_title",
+      "with": [
+        {
+          "translate": "gem_type.middle-earth.onyx"
+        },
+        {
+          "translate": "study_grade.middle-earth.rough_notes"
+        }
+      ]
+    },
+    "description": {
+      "translate": "gem_info.middle-earth.onyx.host"
+    },
+    "frame": "task",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "studied": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

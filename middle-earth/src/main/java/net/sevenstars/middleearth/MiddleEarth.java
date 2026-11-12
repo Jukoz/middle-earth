@@ -26,7 +26,6 @@ import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
-import net.sevenstars.middleearth.registries.AtlasesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -62,7 +61,6 @@ public class MiddleEarth implements ModInitializer {
 		ServerConfigME.registerConfigs();
 		ClientConfigME.registerConfigs();
 
-		AtlasesME.registerAtlas();
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();
 
@@ -129,6 +127,12 @@ public class MiddleEarth implements ModInitializer {
 		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
+		net.sevenstars.middleearth.recipe.lapidary.GemKnowledge.register();
+		net.sevenstars.middleearth.recipe.lapidary.LapidaryKnowledge.register();
+		net.sevenstars.middleearth.light.HeldLights.registerDefaults();
+		net.sevenstars.middleearth.light.BeamLights.register();
+		net.sevenstars.middleearth.light.LanternToggling.register();
+		net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.registerEvents();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

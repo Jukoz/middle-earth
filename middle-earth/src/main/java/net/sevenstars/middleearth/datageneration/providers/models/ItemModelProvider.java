@@ -25,7 +25,10 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.CustomItemModels;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.EggItemsME;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
@@ -148,6 +151,8 @@ public class ItemModelProvider extends FabricModelProvider {
         SimpleDyeableItemModel.items.forEach(item -> {
             registerDyeableArmor(item, itemModelGenerator);
         });
+
+        registerGems(itemModelGenerator);
 
         registerPalettedItem(ResourceItemsME.ROD, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.LARGE_ROD, itemModelGenerator);
@@ -361,6 +366,41 @@ public class ItemModelProvider extends FabricModelProvider {
         ItemModel.Unbaked unbaked2 = ItemModels.tinted(identifier, new DyeTintSource(-6265536));
 
         itemModelGenerator.output.accept(armor, unbaked2);
+    }
+
+    /** Gem textures are paletted per gem type (blocks atlas, middle-earth:gem_palettes). */
+    private static final Model GEM_MODEL = new Model(java.util.Optional.of(MiddleEarth.id("item/gem")), java.util.Optional.empty(), TextureKey.LAYER0);
+    /**
+     * Cut gems: the paletted gem, and over it its cut's glint (item/cut_gem_glint/<cut>, animated). A paletted sprite
+     * cannot animate, so the glint is a layer of its own, white and see-through, shared by every gem type of the cut.
+     */
+    private static final Model CUT_GEM_MODEL = new Model(java.util.Optional.of(MiddleEarth.id("item/gem")), java.util.Optional.empty(),
+            TextureKey.LAYER0, TextureKey.LAYER1);
+    /** Which of Sind's three raw shapes each gem uses. */
+    private static final java.util.Map<String, Integer> RAW_GEM_SHAPES = java.util.Map.of(
+            "adamant", 1, "ruby", 1, "sapphire", 1, "beryl", 2, "hadorite", 2, "opal", 2, "onyx", 3, "moonstone", 3);
+
+    private void registerGems(ItemModelGenerator itemModelGenerator) {
+        ResourceItemsME.RAW_GEMS.forEach((gemType, item) -> {
+            String gem = GemTypeRegistry.name(gemType);
+            Identifier model = GEM_MODEL.upload(item, TextureMap.layer0(MiddleEarth.id("item/raw_gem/raw_" + RAW_GEM_SHAPES.get(gem) + "_" + gem)),
+                    itemModelGenerator.modelCollector);
+            itemModelGenerator.output.accept(item, ItemModels.basic(model));
+        });
+        ResourceItemsME.CUT_GEMS.forEach((cut, item) -> {
+            List<SelectItemModel.SwitchCase<RegistryKey<GemType>>> cases = new ArrayList<>();
+            Identifier glint = MiddleEarth.id("item/cut_gem_glint/" + cut.id());
+            for (RegistryKey<GemType> gemType : GemTypeRegistry.ALL) {
+                String texture = "item/cut_gem/" + cut.id() + "_" + GemTypeRegistry.name(gemType);
+                Identifier model = CUT_GEM_MODEL.upload(MiddleEarth.id(texture), TextureMap.layered(MiddleEarth.id(texture), glint),
+                        itemModelGenerator.modelCollector);
+                cases.add(ItemModels.switchCase(gemType, ItemModels.basic(model)));
+            }
+            Identifier fallback = CUT_GEM_MODEL.upload(MiddleEarth.id("item/cut_gem/" + cut.id()),
+                    TextureMap.layered(MiddleEarth.id("item/cut_gem/" + cut.id()), glint), itemModelGenerator.modelCollector);
+            itemModelGenerator.output.accept(item, ItemModels.select(new ComponentSelectProperty<>(DataComponentTypesME.GEM_TYPE),
+                    ItemModels.basic(fallback), cases));
+        });
     }
 
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {

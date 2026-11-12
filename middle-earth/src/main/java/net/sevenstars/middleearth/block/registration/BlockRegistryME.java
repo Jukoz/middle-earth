@@ -407,6 +407,16 @@ public class BlockRegistryME {
             Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
     public static final Block SAPPHIRE_BLOCK = registerMiscBlock("sapphire_block",
             Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block BERYL_BLOCK = registerMiscBlock("beryl_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block HADORITE_BLOCK = registerMiscBlock("hadorite_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block OPAL_BLOCK = registerMiscBlock("opal_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block ONYX_BLOCK = registerMiscBlock("onyx_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
+    public static final Block MOONSTONE_BLOCK = registerMiscBlock("moonstone_block",
+            Block::new,AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK).requiresTool(),true);
 
     public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);

@@ -708,6 +708,7 @@ public class TranslationEntries {
             put(of(LangCategory.SCREEN, "playerbook.navigate_to"), "Navigate to");
             put(of(LangCategory.SCREEN, "playerbook.chapter_getting_started"), "Getting Started");
             put(of(LangCategory.SCREEN, "playerbook.chapter_mining"), "Mining");
+            put(of(LangCategory.SCREEN, "playerbook.chapter_gem_studies"), "Gem Studies");
             put(of(LangCategory.SCREEN, "playerbook.chapter_smithing"), "Smithing");
             put(of(LangCategory.SCREEN, "playerbook.chapter_enchanting"), "Enchanting");
             put(of(LangCategory.SCREEN, "playerbook.chapter_mounts"), "Mounts");

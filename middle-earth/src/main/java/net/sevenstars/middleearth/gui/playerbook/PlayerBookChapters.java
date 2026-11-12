@@ -7,5 +7,6 @@ public enum PlayerBookChapters {
     SMITHING,
     ENCHANTING,
     MOUNTS,
-    DUNGEONS
+    DUNGEONS,
+    GEM_STUDIES
 }

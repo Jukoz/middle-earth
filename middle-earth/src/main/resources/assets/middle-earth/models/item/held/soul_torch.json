@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [16, 0, 0],
+      "translation": [-0.0, 4.0854, 1.1715],
+      "scale": [0.85, 0.85, 0.85]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 3, 0],
+      "scale": [0.9, 0.9, 0.9]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [16, 0, 0],
+      "translation": [0.0, 4.0854, 1.1715],
+      "scale": [0.85, 0.85, 0.85]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 3, 0],
+      "scale": [0.9, 0.9, 0.9]
+    },
+    "head": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 13, 7],
+      "scale": [1, 1, 1]
+    }
+  },
+  "textures": {
+    "torch": "minecraft:block/soul_torch"
+  }
+}

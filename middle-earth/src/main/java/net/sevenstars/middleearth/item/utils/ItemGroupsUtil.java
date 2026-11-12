@@ -84,6 +84,14 @@ public class ItemGroupsUtil {
         if(PART_LIST.contains(itemStack.getItem())) {
             return processSmithingMaterial(itemStack.getItem(), displayContext);
         }
+        if(itemStack.getItem() instanceof net.sevenstars.middleearth.item.items.gems.CutGemItem cutGem) {
+            // One entry per gem type, like smithing parts per metal.
+            List<ItemStack> gems = new ArrayList<>();
+            for (var gemType : net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry.ALL) {
+                gems.add(ResourceItemsME.cutGem(cutGem.getCut(), gemType));
+            }
+            return gems;
+        }
         return List.of(itemStack);
     }
 

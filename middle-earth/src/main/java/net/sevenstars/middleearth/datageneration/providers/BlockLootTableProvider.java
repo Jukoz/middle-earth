@@ -181,18 +181,6 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             if (set.mithril_ore() != null) {
                 addDrop(set.mithril_ore(), oreDrops(set.mithril_ore(), ResourceItemsME.RAW_MITHRIL));
             }
-            if (set.adamant_ore() != null) {
-                addDrop(set.adamant_ore(), oreDrops(set.adamant_ore(), ResourceItemsME.ADAMANT));
-            }
-            if (set.emerald_ore() != null) {
-                addDrop(set.emerald_ore(), oreDrops(set.emerald_ore(), Items.EMERALD));
-            }
-            if (set.ruby_ore() != null) {
-                addDrop(set.ruby_ore(), oreDrops(set.ruby_ore(), ResourceItemsME.RUBY));
-            }
-            if (set.sapphire_ore() != null) {
-                addDrop(set.sapphire_ore(), oreDrops(set.sapphire_ore(), ResourceItemsME.SAPPHIRE));
-            }
         }
 
         for (SimplePaneModel.Pane pane : SimplePaneModel.panes){
@@ -202,6 +190,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
         cobbleDrops(BlockRegistryME.STONE_MYCELIUM, Blocks.COBBLESTONE);
 
+        addDrop(DecorativeBlockRegistryME.LAPIDARY_TABLE, LootTable.builder().pool(this.addSurvivesExplosionCondition(DecorativeBlockRegistryME.LAPIDARY_TABLE, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(DecorativeBlockRegistryME.LAPIDARY_TABLE).conditionally(BlockStatePropertyLootCondition.builder(DecorativeBlockRegistryME.LAPIDARY_TABLE).properties(StatePredicate.Builder.create().exactMatch(net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.PART, net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.Part.TABLE)))))));
         largeDoorDrop(DecorativeBlockRegistryME.LARCH_HOBBIT_DOOR);
         largeDoorDrop(DecorativeBlockRegistryME.SPRUCE_HOBBIT_DOOR);
         largeDoorDrop(DecorativeBlockRegistryME.BLUE_HOBBIT_DOOR);

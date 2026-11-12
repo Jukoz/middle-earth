@@ -15,6 +15,30 @@ public class RegistryAliasesME {
         }
     };
 
+    /** Renames inside the current mod id: both middle-earth:old and me:old point at middle-earth:new. */
+    public static List<ManualAlias> renamedAliases = new ArrayList<>(){
+        {
+            // Gem rework: the old gem items became the raw gems.
+            add(new ManualAlias(Registries.ITEM, "adamant", "raw_adamant"));
+            add(new ManualAlias(Registries.ITEM, "ruby", "raw_ruby"));
+            add(new ManualAlias(Registries.ITEM, "sapphire", "raw_sapphire"));
+            // The lapidary lamps became the focused lamps.
+            add(new ManualAlias(Registries.ITEM, "refraction_lamp", "citrine_bullseye_lamp"));
+            add(new ManualAlias(Registries.ITEM, "edhel_beam_lamp", "mirdain_beam_lamp"));
+            // The water pumps became the placeable pumps.
+            add(new ManualAlias(Registries.ITEM, "water_pump", "standard_pump"));
+            add(new ManualAlias(Registries.ITEM, "numenorean_water_pump", "numenorean_pump"));
+            // The old gem ores are no longer items; stacks of them become their gem.
+            add(new ManualAlias(Registries.ITEM, "nurgon_emerald_ore", "raw_beryl"));
+            add(new ManualAlias(Registries.ITEM, "nurgon_ruby_ore", "raw_ruby"));
+            add(new ManualAlias(Registries.ITEM, "nurgon_sapphire_ore", "raw_sapphire"));
+            add(new ManualAlias(Registries.ITEM, "medgon_adamant_ore", "raw_adamant"));
+            add(new ManualAlias(Registries.ITEM, "medgon_emerald_ore", "raw_beryl"));
+            add(new ManualAlias(Registries.ITEM, "medgon_ruby_ore", "raw_ruby"));
+            add(new ManualAlias(Registries.ITEM, "medgon_sapphire_ore", "raw_sapphire"));
+        }
+    };
+
     public static List<ManualAlias> manualAliases = new ArrayList<>(){
         {
             add(new ManualAlias(Registries.ITEM, "strawberry", "strawberries"));

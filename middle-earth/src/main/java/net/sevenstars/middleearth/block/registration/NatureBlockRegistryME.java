@@ -39,6 +39,13 @@ import static net.sevenstars.middleearth.block.registration.WoodBlockSetRegistry
 
 public class NatureBlockRegistryME {
 
+    /** A gem hidden in the rock, disguised as its stone; no block item (see GemOreBlock). */
+    public static final Block GEM_ORE = registerBlock("gem_ore", net.sevenstars.middleearth.block.special.gems.GemOreBlock::new,
+            AbstractBlock.Settings.create().mapColor(net.minecraft.block.MapColor.STONE_GRAY)
+                    .instrument(net.minecraft.block.enums.NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.0F, 6.0F)
+                    // A faint glow to go with the glint; particles can't light the world themselves.
+                    .luminance(state -> 2).sounds(BlockSoundGroup.STONE), false);
+
     public static final Block MORGUL_IVY = registerBlock("morgul_ivy",
             GlowLichenBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LICHEN_GREEN).replaceable().noCollision().strength(0.2f).sounds(BlockSoundGroup.GLOW_LICHEN)
                     .mapColor(DyeColor.GREEN).luminance(GlowLichenBlock.getLuminanceSupplier(5)).burnable(), true);

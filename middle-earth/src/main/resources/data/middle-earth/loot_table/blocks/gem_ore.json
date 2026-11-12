@@ -1,0 +1,201 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_adamant",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "adamant"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_ruby",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "ruby"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_sapphire",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "sapphire"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_beryl",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "beryl"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_hadorite",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "hadorite"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_opal",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "opal"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_onyx",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "onyx"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "middle-earth:raw_moonstone",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "middle-earth:gem_ore",
+                  "properties": {
+                    "gem": "moonstone"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "middle-earth:blocks/gem_ore"
+}

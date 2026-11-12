@@ -408,10 +408,6 @@ public class CaveBiomesME {
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_SILVER);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_JADE);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_GOLD);
-        undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_ADAMANT);
-        undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_EMERALD);
-        undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_RUBY);
-        undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_SAPPHIRE);
         undergroundOres.add(CavesPlacedFeatureRegistryME.SPRING_LAVA);
         undergroundOres.add(MiscPlacedFeatures.SPRING_WATER);
 
@@ -453,6 +449,8 @@ public class CaveBiomesME {
         for (RegistryKey<PlacedFeature> feature: undergroundOres) {
             generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
         }
+        // Gems hide inside the ore clusters placed above, so they come in the next step.
+        net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureRegistryME.addTo(generationSettings);
 
         Biome biome = (new Biome.Builder())
                 .precipitation(precipitation)

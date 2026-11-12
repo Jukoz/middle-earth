@@ -24,7 +24,17 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.item.items.gems.CutGemItem;
+import net.sevenstars.middleearth.item.items.gems.GemCut;
+import net.sevenstars.middleearth.item.items.gems.RawGemItem;
+import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
 
 public class ResourceItemsME {
 
@@ -108,12 +118,67 @@ public class ResourceItemsME {
     public static final Item MITHRIL_NUGGET = registerItem("mithril_nugget",
             Item::new, new Item.Settings().fireproof());
 
-    public static final Item ADAMANT = registerItem("adamant",
-            Item::new, new Item.Settings());
-    public static final Item RUBY = registerItem("ruby",
-            Item::new, new Item.Settings());
-    public static final Item SAPPHIRE = registerItem("sapphire",
-            Item::new, new Item.Settings());
+    // Gems: one raw gem per gem type (replaces the old adamant/ruby/sapphire items, aliased), and one cut gem
+    // item per cut whose gem type is a component on the stack.
+    public static final Item RAW_ADAMANT = registerRawGem(GemTypeRegistry.ADAMANT);
+    public static final Item RAW_RUBY = registerRawGem(GemTypeRegistry.RUBY);
+    public static final Item RAW_SAPPHIRE = registerRawGem(GemTypeRegistry.SAPPHIRE);
+    public static final Item RAW_BERYL = registerRawGem(GemTypeRegistry.BERYL);
+    public static final Item RAW_HADORITE = registerRawGem(GemTypeRegistry.HADORITE);
+    public static final Item RAW_OPAL = registerRawGem(GemTypeRegistry.OPAL);
+    public static final Item RAW_ONYX = registerRawGem(GemTypeRegistry.ONYX);
+    public static final Item RAW_MOONSTONE = registerRawGem(GemTypeRegistry.MOONSTONE);
+
+    /** Raw gem item per gem type, in creative tab order. */
+    public static final Map<RegistryKey<GemType>, Item> RAW_GEMS = new LinkedHashMap<>();
+    /** Cut gem item per cut. */
+    public static final Map<GemCut, CutGemItem> CUT_GEMS = new EnumMap<>(GemCut.class);
+
+    /** Notes written at the Lapidary Table, one item per study grade (the gem is a component); hidden from tabs. */
+    public static final Map<net.sevenstars.middleearth.recipe.lapidary.StudyGrade, Item> GEM_NOTES = new EnumMap<>(net.sevenstars.middleearth.recipe.lapidary.StudyGrade.class);
+
+    static {
+        for (var grade : net.sevenstars.middleearth.recipe.lapidary.StudyGrade.values()) {
+            GEM_NOTES.put(grade, registerHiddenItem(grade.notesId(),
+                    settings -> new net.sevenstars.middleearth.item.items.gems.GemNotesItem(settings, grade), new Item.Settings().maxCount(16)));
+        }
+        List.of(RAW_ADAMANT, RAW_RUBY, RAW_SAPPHIRE, RAW_BERYL, RAW_HADORITE, RAW_OPAL, RAW_ONYX, RAW_MOONSTONE)
+                .forEach(item -> RAW_GEMS.put(item.getComponents().get(DataComponentTypesME.GEM_TYPE), item));
+        for (GemCut cut : GemCut.values()) {
+            CUT_GEMS.put(cut, (CutGemItem) registerItem(cut.id() + "_cut_gem",
+                    settings -> new CutGemItem(settings, cut), new Item.Settings()));
+        }
+    }
+
+
+    // ---- The lost lapidary arts: Lapidary Tools and everything on the way to them (see LapidaryKnowledge). ----
+    /** Every item of the lapidary arts, in creative tab order (their names are in GemTranslations). */
+    public static final List<Item> LAPIDARY_ITEMS = new java.util.ArrayList<>();
+
+    public static final Item CITRINE_GLASS = registerLapidary("citrine_glass", Item::new, new Item.Settings());
+    public static final Item AMETHYST_GLASS = registerLapidary("amethyst_glass", Item::new, new Item.Settings());
+    public static final Item RED_AGATE_GLASS = registerLapidary("red_agate_glass", Item::new, new Item.Settings());
+    public static final Item QUARTZ_GLASS = registerLapidary("quartz_glass", Item::new, new Item.Settings());
+    public static final Item ADAMANT_GLASS = registerLapidary("adamant_glass", Item::new, new Item.Settings());
+    public static final Item RUBY_GLASS = registerLapidary("ruby_glass", Item::new, new Item.Settings());
+    public static final Item SAPPHIRE_GLASS = registerLapidary("sapphire_glass", Item::new, new Item.Settings());
+    public static final Item BERYL_GLASS = registerLapidary("beryl_glass", Item::new, new Item.Settings());
+
+    public static final Item REFINED_FOCUSING_LENSES = registerLapidary("refined_focusing_lenses", Item::new, part(Rarity.UNCOMMON));
+    public static final Item ENHANCED_GRINDING_WHEEL = registerLapidary("enhanced_grinding_wheel", Item::new, part(Rarity.UNCOMMON));
+    public static final Item CITRINE_BULLSEYE_LAMP = registerLamp("citrine_bullseye_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, Rarity.UNCOMMON);
+    public static final Item STANDARD_PUMP = registerLapidary("standard_pump", Item::new, part(Rarity.UNCOMMON));
+    public static final Item EXQUISITE_FOCUSING_LENSES = registerLapidary("exquisite_focusing_lenses", Item::new, part(Rarity.RARE));
+    public static final Item KHAZAD_GRINDING_WHEEL = registerLapidary("khazad_grinding_wheel", Item::new, part(Rarity.RARE));
+    public static final Item MIRDAIN_BEAM_LAMP = registerLamp("mirdain_beam_lamp", net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP, Rarity.RARE);
+    public static final Item NUMENOREAN_PUMP = registerLapidary("numenorean_pump", Item::new, part(Rarity.RARE));
+
+    public static final Item MASTERWORK_LAPIDARY_SCROLL = registerLapidary("masterwork_lapidary_scroll",
+            settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryScrollItem(settings,
+                    net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.MASTERWORK), part(Rarity.RARE));
+    public static final Item RELIC_LAPIDARY_SCROLL = registerLapidary("relic_lapidary_scroll",
+            settings -> new net.sevenstars.middleearth.item.items.gems.LapidaryScrollItem(settings,
+                    net.sevenstars.middleearth.recipe.lapidary.LapidaryTools.RELIC), part(Rarity.EPIC));
 
     public static final Item RED_AGATE_SHARD = registerItem("red_agate_shard",
             Item::new, new Item.Settings());
@@ -308,6 +373,38 @@ public class ResourceItemsME {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
     }
+    /** A lapidary arts item: in the creative tab, named in GemTranslations rather than from its id. */
+    private static Item registerLapidary(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        Item item = factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
+        ItemGroupsME.RESOURCES_CONTENTS.add(item.getDefaultStack());
+        LAPIDARY_ITEMS.add(item);
+        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+    }
+
+    /** A focused lamp: a lapidary part that is also a placeable block and an off-hand lamp. */
+    private static Item registerLamp(String name, net.minecraft.block.Block block, Rarity rarity) {
+        Item item = registerLapidary(name, settings -> new net.sevenstars.middleearth.block.special.beamlamp.BeamLampItem(block, settings),
+            part(rarity).component(DataComponentTypesME.LAMP_ON, false));
+        Item.BLOCK_ITEMS.put(block, item);
+        return item;
+    }
+
+    private static Item.Settings part(Rarity rarity) {
+        return new Item.Settings().maxCount(1).rarity(rarity);
+    }
+
+    private static Item registerRawGem(RegistryKey<GemType> gemType) {
+        return registerItem("raw_" + GemTypeRegistry.name(gemType), RawGemItem::new,
+                new Item.Settings().component(DataComponentTypesME.GEM_TYPE, gemType));
+    }
+
+    /** A full-charge cut gem of the given cut and gem type. */
+    public static ItemStack cutGem(GemCut cut, RegistryKey<GemType> gemType) {
+        ItemStack stack = new ItemStack(CUT_GEMS.get(cut));
+        stack.set(DataComponentTypesME.GEM_TYPE, gemType);
+        return stack;
+    }
+
     private static Item registerHiddenItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         TranslationEntries.itemEntries.add(item);

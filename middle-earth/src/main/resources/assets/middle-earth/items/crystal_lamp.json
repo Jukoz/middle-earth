@@ -1,6 +1,47 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "middle-earth:item/crystal_lamp"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": ["gui", "ground", "fixed"],
+        "model": {
+          "type": "minecraft:select",
+          "property": "minecraft:component",
+          "component": "middle-earth:lamp_on",
+          "cases": [
+            {
+              "when": false,
+              "model": {
+                "type": "minecraft:model",
+                "model": "middle-earth:item/held/shaded_crystal_lamp_flat"
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "middle-earth:item/crystal_lamp"
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:select",
+      "property": "minecraft:component",
+      "component": "middle-earth:lamp_on",
+      "cases": [
+        {
+          "when": false,
+          "model": {
+            "type": "minecraft:model",
+            "model": "middle-earth:item/held/shaded_crystal_lamp"
+          }
+        }
+      ],
+      "fallback": {
+        "type": "minecraft:model",
+        "model": "middle-earth:item/held/crystal_lamp"
+      }
+    }
   }
 }

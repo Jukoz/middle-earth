@@ -74,6 +74,7 @@ import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
+import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
@@ -87,6 +88,7 @@ import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -106,6 +108,15 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        AtlasesME.registerAtlas();
+		// Lensed eyewear says which lenses it has.
+		net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, tooltipContext, type, lines) -> {
+			int lenses = net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear.fitted(stack);
+			if (lenses > 0) {
+				lines.add(net.minecraft.text.Text.translatable("tooltip.middle-earth.eyewear_lenses." + (lenses == 1 ? "refined" : "exquisite"))
+					.formatted(net.minecraft.util.Formatting.AQUA));
+			}
+		});
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
@@ -150,7 +161,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.LAPIDARY_SCREEN_HANDLER, net.sevenstars.middleearth.gui.lapidarytable.LapidaryScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
+        ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
@@ -158,6 +171,13 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
+        // Lapidary Table: turns the crank and wheel while cutting.
+        BlockEntityRendererFactories.register(BlockEntityRegistryME.LAPIDARY_TABLE, net.sevenstars.middleearth.client.renderer.block.LapidaryTableRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityRegistryME.BEAM_LAMP, net.sevenstars.middleearth.client.renderer.light.BeamLampRenderer::new);
+        net.sevenstars.middleearth.client.renderer.light.LampBeams.register();
+        net.sevenstars.middleearth.client.renderer.light.HeldFlames.register();
+        // What the player knows about a gem type, on raw and cut gem tooltips.
+        net.sevenstars.middleearth.client.renderer.GemKnowledgeTooltip.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
@@ -239,6 +259,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     private void initializeRenderLayerMap() {
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.MORGUL_IVY, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME.LAPIDARY_TABLE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.HANGING_WEBS, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.CORNER_COBWEB, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.SHELOBITE_LARVA_EGG, BlockRenderLayer.CUTOUT);
@@ -518,6 +539,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_TREATED_STEEL_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CRYSTAL_LAMP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SILVER_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_SILVER_LANTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ELVEN_LANTERN, BlockRenderLayer.CUTOUT);

@@ -64,6 +64,11 @@ public class SimpleBlockModel {
 
             add(BlockRegistryME.ADAMANT_BLOCK);
             add(BlockRegistryME.RUBY_BLOCK);
+            add(BlockRegistryME.BERYL_BLOCK);
+            add(BlockRegistryME.HADORITE_BLOCK);
+            add(BlockRegistryME.OPAL_BLOCK);
+            add(BlockRegistryME.ONYX_BLOCK);
+            add(BlockRegistryME.MOONSTONE_BLOCK);
             add(BlockRegistryME.SAPPHIRE_BLOCK);
 
             //GEMS

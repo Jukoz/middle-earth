@@ -1,0 +1,23 @@
+{
+  "parent": "middle-earth:lapidary/root",
+  "display": {
+    "icon": {
+      "id": "middle-earth:masterwork_lapidary_scroll"
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.tools.masterwork"
+    },
+    "description": {
+      "translate": "advancement.middle-earth.lapidary.tools.masterwork.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "learned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.datageneration.providers.LanguageProvider;
 import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.*;
+import net.sevenstars.middleearth.datageneration.providers.tags.BiomeTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
@@ -56,9 +57,11 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
+        pack.addProvider(BiomeTagProvider::new);
         pack.addProvider(BlockModelProvider::new);
         pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);
+        pack.addProvider(LapidaryRecipeProvider::new);
         pack.addProvider(ArtisanTableHandheldRecipeProvider::new);
         pack.addProvider(ArtisanTableArmorRecipeProvider::new);
         pack.addProvider(ArtisanTableGenericArmorRecipeProvider::new);
@@ -86,6 +89,8 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, OrePlacedFeatureRegistryME::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, CavesPlacedFeatureRegistryME::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, MiscPlacedFeatureRegistryME::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureRegistryME::bootstrapConfigured);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureRegistryME::bootstrapPlaced);
 
         registryBuilder.addRegistry(DynamicRegistriesME.SKIN_MATERIAL, CharacterMaterialsRegistryME::bootstrapSkins);
         registryBuilder.addRegistry(DynamicRegistriesME.SKIN_PATTERN, CharacterPatternsRegistryME::bootstrapSkins);

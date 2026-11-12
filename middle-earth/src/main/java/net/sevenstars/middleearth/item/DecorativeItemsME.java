@@ -83,6 +83,9 @@ public class DecorativeItemsME {
     public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.INSCRIPTION_TABLE, settings), new Item.Settings());
 
+    public static final Item LAPIDARY_TABLE = registerItem("lapidary_table",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.LAPIDARY_TABLE, settings), new Item.Settings());
+
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item ORC_STRUCTURE_MANAGER = registerItem("orc_structure_manager",
