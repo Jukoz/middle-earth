@@ -104,7 +104,7 @@ public class ToughBerryBushBlock extends CustomPlantBlock
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
+        Hand hand = Hand.MAIN_HAND;
         boolean bl;
         int i = state.get(AGE);
         boolean bl2 = bl = i == MAX_AGE;

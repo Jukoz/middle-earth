@@ -30,7 +30,7 @@ public class GlowWormBlock extends AbstractPlantBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
+        Hand hand = Hand.MAIN_HAND;
         ItemStack itemStack = player.getStackInHand(hand);
 
         if (itemStack.isOf(Items.GLASS_BOTTLE)) {

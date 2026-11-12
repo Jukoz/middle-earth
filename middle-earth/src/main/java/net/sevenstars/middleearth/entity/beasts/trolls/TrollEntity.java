@@ -302,7 +302,7 @@ public class TrollEntity extends AbstractBeastEntity {
                     this.setChargeTimeout(0);
                 }
             }
-            player.getStackInHand(player.getActiveHand()).decrement(1);
+            player.getMainHandStack().decrement(1);
             this.setBondingTimeout(40);
 
         }
