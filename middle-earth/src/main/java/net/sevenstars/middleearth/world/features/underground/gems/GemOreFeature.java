@@ -81,23 +81,43 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
             }
         }
         Util.shuffle(rocks, random);
+        // Clusters can share a stone (one block can touch two veins), so a spot is taken once only: a cluster
+        // whose drawn spot has already gone draws again from its other stones.
+        Set<Long> taken = new HashSet<>();
         int placed = 0;
         while (placed < wanted && !rocks.isEmpty()) {
             for (int i = 0; i < rocks.size() && placed < wanted; i++) {
-                List<Long> rock = rocks.get(i);
-                if (rock.isEmpty()) {
-                    continue;
+                if (placeOne(world, rocks.get(i), taken, config, random)) {
+                    placed++;
                 }
-                BlockPos gemPos = BlockPos.fromLong(rock.remove(random.nextInt(rock.size())));
-                BlockState gemOre = NatureBlockRegistryME.GEM_ORE.getDefaultState()
-                    .with(GemOreBlock.GEM, config.gem())
-                    .with(GemOreBlock.STONE, GemOreStone.of(world.getBlockState(gemPos).getBlock()));
-                world.setBlockState(gemPos, gemOre, Block.NOTIFY_LISTENERS);
-                placed++;
             }
             rocks.removeIf(List::isEmpty);
         }
         return placed > 0;
+    }
+
+    /**
+     * Turns one of {@code rock}'s stones into a gem ore disguised as it, drawing at random until one can be taken
+     * (not already taken, and still a stone a gem can look like). Drawn stones leave {@code rock} either way.
+     */
+    private static boolean placeOne(StructureWorldAccess world, List<Long> rock, Set<Long> taken,
+                                    GemOreFeatureConfig config, Random random) {
+        while (!rock.isEmpty()) {
+            long key = rock.remove(random.nextInt(rock.size()));
+            if (!taken.add(key)) {
+                continue;
+            }
+            BlockPos gemPos = BlockPos.fromLong(key);
+            GemOreStone stone = GemOreStone.of(world.getBlockState(gemPos).getBlock());
+            if (stone == null) {
+                continue;
+            }
+            world.setBlockState(gemPos, NatureBlockRegistryME.GEM_ORE.getDefaultState()
+                .with(GemOreBlock.GEM, config.gem())
+                .with(GemOreBlock.STONE, stone), Block.NOTIFY_LISTENERS);
+            return true;
+        }
+        return false;
     }
 
     /** Region gems: check the surface biome in the middle of the chunk (underground is cave biomes). */

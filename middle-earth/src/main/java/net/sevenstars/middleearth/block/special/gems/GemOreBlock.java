@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.block.special.gems;
 
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
 import com.mojang.serialization.MapCodec;
 
@@ -68,19 +70,23 @@ public class GemOreBlock extends ExperienceDroppingBlock {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT);
     }
 
     /** A lamp's beam falling on the gem (called on the client each tick it does): a few sparks more. */
+    @Environment(EnvType.CLIENT)
     public static void gleam(World world, BlockPos pos, BlockState state, Random random) {
         glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT * GLEAM_SHARE * DISPLAY_TICKS_PER_SECOND / 20);
     }
 
     /**
+     * Client only (sparks are particles), so the server's copy of this block never names the particle code.
      * Sparks in the gem's colour just off every open face (placed as redstone ore's are): on average
      * {@code atFullLight} a face in full light, fewer and dimmer as the light there falls.
      */
+    @Environment(EnvType.CLIENT)
     private static void glint(World world, BlockPos pos, BlockState state, Random random, float atFullLight) {
         if (!world.isClient) {
             return;

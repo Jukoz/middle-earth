@@ -39,7 +39,8 @@ public enum GemOreStone implements StringIdentifiable {
     GREEN_TUFF("middle-earth", "green_tuff"),
     BLUE_TUFF("middle-earth", "blue_tuff");
 
-    private static Map<Block, GemOreStone> byBlock;
+    /** Built once the blocks are registered; world generation reads it from several threads at once. */
+    private static volatile Map<Block, GemOreStone> byBlock;
 
     private final Identifier blockId;
 
@@ -63,14 +64,17 @@ public enum GemOreStone implements StringIdentifiable {
 
     /** The disguise for a given neighbouring block, or null if it isn't one of these stones. */
     public static GemOreStone of(Block block) {
-        if (byBlock == null) {
-            Map<Block, GemOreStone> map = new HashMap<>();
+        Map<Block, GemOreStone> map = byBlock;
+        if (map == null) {
+            Map<Block, GemOreStone> built = new HashMap<>();
             for (GemOreStone stone : values()) {
-                Registries.BLOCK.getOptionalValue(stone.blockId).ifPresent(b -> map.put(b, stone));
+                Registries.BLOCK.getOptionalValue(stone.blockId).ifPresent(b -> built.put(b, stone));
             }
+            // Immutable and published whole, so no thread sees it half built.
+            map = Map.copyOf(built);
             byBlock = map;
         }
-        return byBlock.get(block);
+        return map.get(block);
     }
 
     /** Fallback by depth when no known stone touches the gem: Middle-earth's layers. */
