@@ -172,7 +172,7 @@ public class RegistriesME {
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.leaves.forEach(block -> {
+        LeavesSets.getWoodSetLeaves().forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -527,6 +527,12 @@ public class RegistriesME {
         registry.add(NatureBlockRegistryME.FLOWERING_LILY_PADS, 0.65f);
         registry.add(NatureBlockRegistryME.SMALL_LILY_PADS, 0.65f);
         registry.add(NatureBlockRegistryME.SMALL_FLOWERING_LILY_PADS, 0.65f);
+        registry.add(NatureBlockRegistryME.LARGE_LILY_PAD, 0.65f);
+        registry.add(NatureBlockRegistryME.LARGE_FLOWERING_LILY_PAD, 0.65f);
+        registry.add(NatureBlockRegistryME.DUCKWEED, 0.30f);
+        registry.add(NatureBlockRegistryME.WILLOW_VINES, 0.50f);
+        registry.add(NatureBlockRegistryME.MIRKWOOD_VINES, 0.50f);
+        registry.add(NatureBlockRegistryME.FROZEN_GROWTH, 0.30f);
         registry.add(NatureBlockRegistryME.RED_HEATHER_BUSH, 0.30f);
         registry.add(NatureBlockRegistryME.RUSHES, 0.30f);
         registry.add(NatureBlockRegistryME.BRAMBLES_OF_MORDOR, 0.10f);
@@ -587,7 +593,7 @@ public class RegistriesME {
         registry.add(NatureBlockRegistryME.ASPEN_SAPLING, 0.3F);
         registry.add(NatureBlockRegistryME.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.leaves.forEach(block -> {
+        LeavesSets.getWoodSetLeaves().forEach(block -> {
             registry.add(block, 0.3F);
         });
 
