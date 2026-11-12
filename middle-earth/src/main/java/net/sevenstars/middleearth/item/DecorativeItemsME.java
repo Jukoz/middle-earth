@@ -121,8 +121,14 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(DecorativeBlockRegistryME.WILLOW_COFFER, settings), new Item.Settings());
     public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.REINFORCED_CHEST, settings), new Item.Settings());
+    // A full sack can't go in a bundle or another container, like a shulker box
     public static final Item SACK = registerItem("sack",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SACK, settings), new Item.Settings().maxCount(1));
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.SACK, settings) {
+                @Override
+                public boolean canBeNested() {
+                    return false;
+                }
+            }, new Item.Settings().maxCount(1));
 
     public static final Item WOOD_PILE = registerItem("wood_pile",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.WOOD_PILE, settings), new Item.Settings());
