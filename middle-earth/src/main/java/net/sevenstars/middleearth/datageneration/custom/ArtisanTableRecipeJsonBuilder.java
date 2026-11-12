@@ -69,6 +69,12 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
         this.offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, MiddleEarth.id(Registries.ITEM.getId(this.getOutputItem()).getPath() + "_artisan")));
     }
 
+    // The vanilla default would put a bare path in the minecraft namespace
+    @Override
+    public void offerTo(RecipeExporter exporter, String recipePath) {
+        this.offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, MiddleEarth.id(recipePath)));
+    }
+
     @Override
     public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> recipeKey) {
         this.validate(recipeKey);
