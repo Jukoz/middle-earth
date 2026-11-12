@@ -92,8 +92,7 @@ public class EventRegistryME {
 
             if (hasEnchant) {
                 if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
-                    assert toolComponent != null;
-                    if (toolComponent.isCorrectForDrops(blockState)){
+                    if (toolComponent != null && toolComponent.isCorrectForDrops(blockState)){
                         if (playerEntity.getFacing() == Direction.DOWN || playerEntity.getFacing() == Direction.UP){
                             if (level == 1){
                                 level1BreakVertical(world, playerEntity, blockPos, stack, hardness);
@@ -125,10 +124,9 @@ public class EventRegistryME {
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();
 
-            if (hasEnchant) {
+            if (hasEnchant && blockState.isIn(BlockTags.LOGS)) {
                 if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
-                    assert toolComponent != null;
-                    if (toolComponent.isCorrectForDrops(blockState)){
+                    if (toolComponent != null && toolComponent.isCorrectForDrops(blockState)){
                         int[] blockCount = new int[]{16};
                         if(level == 2) blockCount[0] = 64;
                         else if(level == 3) blockCount[0] = 256;
