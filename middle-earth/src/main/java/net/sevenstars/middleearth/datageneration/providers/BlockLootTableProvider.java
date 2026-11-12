@@ -121,10 +121,15 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
         }
         for (CropDrops.CropDrop cd : CropDrops.wild_crops) {
             addDrop(cd.crop_block,
-                    LootTable.builder().pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
-                            .with(ItemEntry.builder(cd.seeds)
-                                    .conditionally(RandomChanceLootCondition.builder(0.125f)))
-                            .with(ItemEntry.builder(cd.fruit))));
+                    LootTable.builder()
+                            .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                                    .conditionally(this.createWithShearsCondition())
+                                    .with(ItemEntry.builder(cd.crop_block)))
+                            .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F))
+                                    .conditionally(this.createWithShearsCondition().invert())
+                                    .with(ItemEntry.builder(cd.seeds)
+                                            .conditionally(RandomChanceLootCondition.builder(0.125f)))
+                                    .with(ItemEntry.builder(cd.fruit))));
         }
 
         for (Block pot : PotDrops.pots) {
@@ -153,8 +158,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
             addDrop(block, shortPlantDrops(block));
         }
         for (Block block : TintableCrossModel.tintedBlocks) {
-            addDropWithSilkTouch(block);
+            addDrop(block, dropsWithSilkTouchOrShears(block));
         }
+        addDrop(NatureBlockRegistryME.WILD_GRASS, shortPlantDrops(NatureBlockRegistryME.WILD_GRASS));
 
         for (OreStoneSetRegistryME.OreRockSet set : OreStoneSetRegistryME.sets) {
             if (set.coal_ore() != null) {
