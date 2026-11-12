@@ -79,11 +79,11 @@ public final class HeldFlames {
 
     private static final Kind TORCH = new Kind(8, 3, 8, 0.85F, 3, 0.9F, 8, 11.5F, 8, ParticleTypes.SMALL_FLAME);
     private static final Kind SOUL_TORCH = new Kind(8, 3, 8, 0.85F, 3, 0.9F, 8, 11.5F, 8, ParticleTypes.SOUL_FIRE_FLAME);
-    private static final Kind CANDLE = new Kind(8, 0.5F, 8, 0.9F, 5, 1.0F, 8, 7.7F, 8, ParticleTypes.SMALL_FLAME);
-    private static final Kind CANDLESTICK = new Kind(8, 4, 8, 0.6F, 1, 0.6F, 8, 16.7F, 8, ParticleTypes.SMALL_FLAME);
+    private static final Kind CANDLE = new Kind(8, 0.5F, 8, 0.9F, 5, 1.0F, 8, 8.2F, 8, ParticleTypes.SMALL_FLAME);
+    private static final Kind CANDLESTICK = new Kind(8, 4, 8, 0.6F, 1, 0.6F, 8, 17.2F, 8, ParticleTypes.SMALL_FLAME);
     // Held by its loop (turned 45 degrees on the model, at the north-west corner), the loop turned to the hand.
-    private static final Kind CANDLE_HOLDER = new Kind(4.59F, 2.5F, 4.59F, 0.6F, 1, 0.6F, 8, 11.7F, 8, ParticleTypes.SMALL_FLAME).turned(135);
-    private static final Kind SKULL_CANDLE = new Kind(10, 0, 7, 0.5F, 1, 0.55F, 8, 15.7F, 8, ParticleTypes.SMALL_FLAME).turned(-67.5F);
+    private static final Kind CANDLE_HOLDER = new Kind(4.59F, 2.5F, 4.59F, 0.6F, 1, 0.6F, 8, 12.2F, 8, ParticleTypes.SMALL_FLAME).turned(135);
+    private static final Kind SKULL_CANDLE = new Kind(10, 0, 7, 0.5F, 1, 0.55F, 8, 16.2F, 8, ParticleTypes.SMALL_FLAME).turned(-67.5F);
     private static final Kind CERAMIC_LAMP = new Kind(8, 2.5F, 12.5F, 0.6F, 1, 0.6F, 8, 6, 3, ParticleTypes.SMALL_FLAME);
     private static final Map<Item, Kind> KINDS = new IdentityHashMap<>();
 
@@ -112,10 +112,13 @@ public final class HeldFlames {
      */
     private static final Map<Item, List<Vector3f>> WORN_WICKS = Map.of(
         net.sevenstars.middleearth.item.EquipmentItemsME.DWARVEN_MINER_HELMET,
-        List.of(new Vector3f(-5.5F, -10.5F, -6.5F), new Vector3f(5.5F, -10.5F, -6.5F)),
+        List.of(new Vector3f(-5.5F, -11F, -6.5F), new Vector3f(5.5F, -11F, -6.5F)),
         net.sevenstars.middleearth.item.EquipmentItemsME.GOBLIN_TOWN_TUNNELER_HELMET,
-        List.of(new Vector3f(1.4F, -12.5F, 1.5F), new Vector3f(-1.6F, -13.5F, -0.6F)));
+        List.of(new Vector3f(1.4F, -13F, 1.5F), new Vector3f(-1.6F, -14F, -0.6F)));
     private static final Kind WORN_CANDLE = new Kind(8, 8, 8, 1, 0, 1, 8, 8, 8, ParticleTypes.SMALL_FLAME);
+    /** Candles' flames and smoke are a little smaller than a torch's. */
+    private static final java.util.Set<Kind> CANDLES = java.util.Set.of(CANDLE, CANDLESTICK, CANDLE_HOLDER, SKULL_CANDLE, WORN_CANDLE);
+    private static final float CANDLE_PARTICLE_SCALE = 0.75F;
 
     /** Whether a worn stack has candles that burn on it. */
     public static boolean hasWornFlames(ItemStack stack) {
@@ -236,8 +239,15 @@ public final class HeldFlames {
 
     /** A placed torch's flame and smoke, a little at a time. */
     private static void flicker(ClientWorld world, Vec3d at, Kind kind) {
+        boolean candle = CANDLES.contains(kind);
+        net.minecraft.client.particle.ParticleManager particles = MinecraftClient.getInstance().particleManager;
         if (RANDOM.nextInt(3) == 0) {
-            if (kind.tint() < 0) {
+            if (candle) {
+                net.minecraft.client.particle.Particle flame = particles.addParticle(kind.particle(), at.x, at.y, at.z, 0, 0.004, 0);
+                if (flame != null) {
+                    flame.scale(CANDLE_PARTICLE_SCALE);
+                }
+            } else if (kind.tint() < 0) {
                 world.addParticleClient(kind.particle(), at.x, at.y, at.z, 0, 0.004, 0);
             } else {
                 net.minecraft.client.particle.Particle flame = MinecraftClient.getInstance().particleManager
@@ -250,7 +260,14 @@ public final class HeldFlames {
             }
         }
         if (RANDOM.nextInt(12) == 0) {
-            world.addParticleClient(ParticleTypes.SMOKE, at.x, at.y + 0.05, at.z, 0, 0.01, 0);
+            if (candle) {
+                net.minecraft.client.particle.Particle smoke = particles.addParticle(ParticleTypes.SMOKE, at.x, at.y + 0.05, at.z, 0, 0.01, 0);
+                if (smoke != null) {
+                    smoke.scale(CANDLE_PARTICLE_SCALE);
+                }
+            } else {
+                world.addParticleClient(ParticleTypes.SMOKE, at.x, at.y + 0.05, at.z, 0, 0.01, 0);
+            }
         }
     }
 }

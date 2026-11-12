@@ -9,6 +9,7 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.light.HeldLight;
 import net.sevenstars.middleearth.light.HeldLights;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
+import net.sevenstars.middleearth.client.renderer.light.HangingLanterns;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
@@ -40,7 +41,7 @@ public class BipedEntityModelMixin {
             tryItemAnimation(handItem, true);
         }
         middleearth$raiseLamp(state, true);
-
+        middleearth$lowerLantern(state, armPose, true);
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
@@ -53,6 +54,7 @@ public class BipedEntityModelMixin {
             tryItemAnimation(handItem, false);
         }
         middleearth$raiseLamp(state, false);
+        middleearth$lowerLantern(state, armPose, false);
     }
 
     /** How far the arm is raised for a light held up before the holder: a little short of level (level is half pi). */
@@ -78,6 +80,20 @@ public class BipedEntityModelMixin {
         arm.pitch = raised ? RAISED_ARM_PITCH : -MathHelper.HALF_PI + state.pitch * MathHelper.RADIANS_PER_DEGREE;
         arm.yaw = state.relativeHeadYaw * MathHelper.RADIANS_PER_DEGREE * (raised ? 0.5F : 1.0F);
         arm.roll = 0.0F;
+    }
+
+    /**
+     * A shaded lantern in the off hand is carried at the side: the arm hangs down (without the bend forward of an
+     * item held up), swinging as it walks, and the lantern hangs from the fist ({@link HangingLanterns}).
+     */
+    private void middleearth$lowerLantern(BipedEntityRenderState state, BipedEntityModel.ArmPose armPose, boolean rightArm) {
+        ArmedEntityRenderStateAccess access = (ArmedEntityRenderStateAccess) state;
+        boolean offHandRight = state.mainArm == Arm.LEFT;
+        if (access.isRestrained() || offHandRight != rightArm || armPose != BipedEntityModel.ArmPose.ITEM
+            || !HangingLanterns.hangs(access.getOffHandStack())) {
+            return;
+        }
+        (rightArm ? this.rightArm : this.leftArm).pitch += MathHelper.PI / 10;
     }
 
     private void restrainedAnimation() {
