@@ -98,7 +98,7 @@ public class ChandelierBlock extends Block {
             if(state.get(VARIANT) == 1) {
                 spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, -0.375), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 1.375), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.375, 12.5 * 0.0625, 0.5), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(-0.375, 12.5 * 0.0625, 0.5), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(1.375, 12.5 * 0.0625, 0.5), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, -0.125), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, 1.125), random);
