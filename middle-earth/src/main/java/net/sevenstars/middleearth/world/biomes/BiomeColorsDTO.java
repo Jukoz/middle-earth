@@ -19,17 +19,17 @@ public class BiomeColorsDTO {
 
     public BiomeColorsDTO(int grassColor, int foliageColor) {
         // Default vanilla values
-        this.skyColor = 7907327;
-        this.fogColor = 12638463;
+        this.skyColor = BiomeSkyPresetME.CLEAR.skyColor;
+        this.fogColor = BiomeSkyPresetME.CLEAR.fogColor;
         this.waterColor = 4159204;
         this.waterFogColor = 329011;
         this.grassColor = grassColor;
         this.foliageColor = foliageColor;
     }
 
-    public BiomeColorsDTO(int skyColor, int fogColor, int waterColor, int waterFogColor, int grassColor, int foliageColor) {
-        this.skyColor = skyColor;
-        this.fogColor = fogColor;
+    public BiomeColorsDTO(BiomeSkyPresetME sky, int waterColor, int waterFogColor, int grassColor, int foliageColor) {
+        this.skyColor = sky.skyColor;
+        this.fogColor = sky.fogColor;
         this.waterColor = waterColor;
         this.waterFogColor = waterFogColor;
         this.grassColor = grassColor;
