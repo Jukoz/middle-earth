@@ -36,6 +36,7 @@
     "ShearItemMixin",
     "ShovelItemMixin",
     "SpawnHelperMixin",
+    "ToolComponentMixin",
     "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
