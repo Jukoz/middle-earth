@@ -846,7 +846,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aule_blessing_1")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 2, 6)
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 2, 6)
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("gifted")
                         .addWord("core")
@@ -855,7 +855,7 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_aule_blessing_2")));
 
                 InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
-                                getEnchantment(EnchantmentsME.AILMENT_PROTECTION), 3, 8)
+                                getEnchantment(EnchantmentsME.AULE_BLESSING), 3, 8)
                         .chisel(ItemTagsME.MID_CHISELS)
                         .addWord("gifted")
                         .addWord("core")

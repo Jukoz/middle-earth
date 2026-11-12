@@ -17,7 +17,7 @@ public class ItemGroupsWT {
     public static final List<ItemStack> SPAWN_EGGS_CONTENTS = new LinkedList<>();
 
     public static final ItemGroup WILD_THINGS = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + OfBeastsAndWildThings.MOD_ID + ".wild_things"))
+            .displayName(Text.translatable("item_group." + OfBeastsAndWildThings.MOD_ID + ".wild_things"))
             .icon(() -> new ItemStack(EggItemsWT.DEER_SPAWN_EGG))
             .entries((displayContext, entries) -> {
                 for (ItemStack item : BLOCKS_CONTENTS) {
