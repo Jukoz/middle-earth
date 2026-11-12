@@ -34,10 +34,10 @@ public class TorchOfOrthancBlock extends TorchBlock {
         if(world.isClient){
             return ActionResult.SUCCESS;
         } else {
-            if(player.getStackInHand(player.getActiveHand()).isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)){
+            if(player.getMainHandStack().isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)){
                 world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1.0F, 1.5F);
                 world.setBlockState(pos, state.cycle(LIT));
-            } else if (player.getStackInHand(player.getActiveHand()).isIn(ItemTags.SHOVELS) && state.get(LIT)) {
+            } else if (player.getMainHandStack().isIn(ItemTags.SHOVELS) && state.get(LIT)) {
                 world.playSound(null, pos, SoundEvents.BLOCK_CANDLE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.setBlockState(pos, state.cycle(LIT));
             }
