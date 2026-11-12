@@ -369,7 +369,7 @@ public class StoneBlockSetRegistryME {
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder BLUE_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("blue_tuff",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, true, true)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.BLUE, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, true, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.COBBLED_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
@@ -420,7 +420,7 @@ public class StoneBlockSetRegistryME {
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("green_tuff",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, true)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, false, true)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.SMOOTH_BLOCKS)
             .addToSet(StoneBlockTypes.POLISHED_BLOCKS)
@@ -432,7 +432,7 @@ public class StoneBlockSetRegistryME {
             .addToSet(StoneBlockTypes.CARVED_WINDOW));
 
     public static StoneBlockSetBuilder GILDED_GREEN_TUFF_SET = registerStoneSet(new StoneBlockSetBuilder("gilded_green_tuff",
-            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.STONE, false, false)
+            STONE_HARDNESS, STONE_BLAST_RESISTANCE, MapColor.GREEN, NoteBlockInstrument.BASEDRUM, BlockSoundGroup.TUFF, false, false)
             .addToSet(StoneBlockTypes.BASE_BLOCKS)
             .addToSet(StoneBlockTypes.CHISELED_BLOCKS_NO_RESTRICTION));
 
