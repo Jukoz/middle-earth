@@ -101,8 +101,6 @@ public class LapidaryTableBlockEntity extends BlockEntity {
             showCutGem();
         }
     };
-    /** The gem last sent to clients for the dop (server side), so they are only told when it changes. */
-    private ItemStack shownCutGem = ItemStack.EMPTY;
 
     /** Buckets of water in the pump's vessel (saved, synced to clients); lost when the pump comes off. */
     private int water;
@@ -447,11 +445,13 @@ public class LapidaryTableBlockEntity extends BlockEntity {
         return faceting.getStack(CUT_GEM);
     }
 
-    /** Tells clients when the gem on the dop changes. */
+    /**
+     * Tells clients the faceting slots changed, so the dop shows the gem now in them. Sent on every change, with
+     * no note of what was last sent: such a note starts out wrong after a load (clients get the saved gem with the
+     * chunk), and the dop then kept showing a gem taken out. The slots change only on player actions, so it is cheap.
+     */
     private void showCutGem() {
-        ItemStack gem = faceting.getStack(CUT_GEM);
-        if (world != null && !world.isClient && !ItemStack.areEqual(gem, shownCutGem)) {
-            shownCutGem = gem.copy();
+        if (world != null && !world.isClient) {
             world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
         }
     }
