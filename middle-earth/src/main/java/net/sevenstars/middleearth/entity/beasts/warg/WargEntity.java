@@ -64,7 +64,7 @@ public class WargEntity extends AbstractBeastEntity {
     private static final double PASSENGER_SADDLE_Y_OFFSET = 0.12;
     private static final double PASSENGER_SADDLE_BACKWARD_OFFSET = 0.18;
     public int idleAnimationTimeout = this.random.nextInt(600) + 1700;
-    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.WARG.getDimensions().scaled(0.5f);
+    private static final EntityDimensions BABY_BASE_DIMENSIONS = EntitiesME.WARG.getDimensions().scaled(1.0f);
 
     public WargEntity(EntityType<? extends WargEntity> entityType, World world) {
         super(entityType, world);
