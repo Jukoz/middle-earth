@@ -87,6 +87,7 @@ import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -106,6 +107,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        AtlasesME.registerAtlas();
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
