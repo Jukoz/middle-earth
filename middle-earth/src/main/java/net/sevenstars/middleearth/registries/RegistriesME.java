@@ -11,6 +11,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -29,10 +30,11 @@ import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.*;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegistriesME {
@@ -61,53 +63,35 @@ public class RegistriesME {
 
         //ashen_stone
 
-        if (MiddleEarth.IS_DEBUG){
-            try {
-                File aliases = new File("aliases.txt");
-
-                if (aliases.createNewFile()) {
-                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
-                } else {
-                    MiddleEarth.LOGGER.logWarn("File already exists.");
-                }
-            } catch (IOException e) {
-                MiddleEarth.LOGGER.logError("An error occurred.", e);
+        List<String> log = new ArrayList<>();
+        for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
+            String name = alias.name();
+            for (Map.Entry<String, String> map : specialAliases.entrySet()) {
+                name = name.replaceAll(map.getKey(), map.getValue());
             }
+            addAlias(alias.registry(), name, alias.name(), log);
+        }
+        for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
+            addAlias(alias.registry(), alias.oldName(), alias.newName(), log);
+        }
 
-            try {
-                FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
-                    String name = alias.name();
-                    for (Map.Entry<String, String> map : specialAliases.entrySet()) {
-                        name = name.replaceAll(map.getKey(), map.getValue());
-                    }
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
+        if (MiddleEarth.IS_DEBUG){
+            try (FileWriter writer = new FileWriter("aliases.txt")) {
+                for (String line : log) {
+                    writer.write(line + "\r\n");
                 }
-
-                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
-                }
-
-                myWriter.close();
                 MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
                 MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
-        } else {
-            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
-                String name = alias.name();
-                for (Map.Entry<String, String> map : specialAliases.entrySet()) {
-                    name = name.replaceAll(map.getKey(), map.getValue());
-                }
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
-            }
-
-            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
-            }
         }
+    }
+
+    private static void addAlias(Registry<?> registry, String oldName, String newName, List<String> log) {
+        Identifier oldId = Identifier.of(MiddleEarth.OLD_MOD_ID, oldName);
+        Identifier newId = Identifier.of(MiddleEarth.MOD_ID, newName);
+        registry.addAlias(oldId, newId);
+        log.add(registry.getKey().getValue().getPath() + ": " + oldId + " -> " + newId);
     }
 
     public static void registerToolTipAppenders() {
