@@ -67,6 +67,7 @@ public class WallShireLanternBlock extends DwarvenLanternBlock {
 
         for(int var5 = 0; var5 < var4; ++var5) {
             Direction direction = var3[var5];
+            if (direction.getAxis().isVertical()) continue;
             BlockState blockState = this.getDefaultState()
                     .with(HANGING, false)
                     .with(FACING, direction.getOpposite());
@@ -80,6 +81,8 @@ public class WallShireLanternBlock extends DwarvenLanternBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        // Lanterns saved facing up or down show the standing model
+        if (state.get(FACING).getAxis().isVertical()) return super.getOutlineShape(state, world, pos, context);
         switch (state.get(FACING)){
             case SOUTH -> {
                 return Block.createCuboidShape(4, 0, 8, 12, 8, 16);
