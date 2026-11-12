@@ -14,10 +14,12 @@ public class WoodlandRealmBiomeEventPool {
 
     static {
         DEFAULT = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(7).withSameNpcType(1, 256),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(5).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(4).withSameNpcType(1, 256),
+            // The Elvenking's folk hunt in company
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(3).withSameNpcType(2, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_HUNTER, 1, 2)),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(3).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_RANGER, 1, 2)),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3).withSameNpcType(0, 256),
-            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(2).withSameNpcType(3, 256),
+            new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARRIOR).withWeight(1).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_WARRIOR, 1, 2)),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE).withSameNpcType(0, 512)
         ));
 

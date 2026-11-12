@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -252,5 +253,10 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+
+        CIVILIAN.withRoutine(NpcRoutines.GATHERER);
+        SENTINEL.withRoutine(NpcRoutines.WATCH);
+        RANGER.withRoutine(NpcRoutines.WATCH);
+        WARRIOR.withRoutine(NpcRoutines.WATCH);
     }
 }

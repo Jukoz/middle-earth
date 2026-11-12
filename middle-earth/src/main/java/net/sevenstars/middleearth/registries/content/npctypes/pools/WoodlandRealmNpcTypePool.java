@@ -18,6 +18,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
@@ -412,5 +413,10 @@ public class WoodlandRealmNpcTypePool {
                             .withModifier(TOTAL_DAMAGE_MODIFIER, 1.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) // Does 1.5x damage, with 1 -> 2 base damage (strong)
             )));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+
+        ARTISAN.withRoutine(NpcRoutines.GATHERER);
+        HUNTER.withRoutine(NpcRoutines.ELVEN_HUNTER);
+        SENTINEL.withRoutine(NpcRoutines.WATCH);
+        RANGER.withRoutine(NpcRoutines.WATCH);
     }
 }

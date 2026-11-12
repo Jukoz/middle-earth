@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
@@ -19,6 +20,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnEventDataUtil;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnCensus;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
@@ -43,6 +45,13 @@ public class BiomeEventData {
     private List<WildSpawnEventData> wildSpawnEventDatas;
 
     private static HashMap<ChunkPos, Long> disabledChunkSpawningCache = new HashMap<>();
+
+    // In ticks
+    private static final int PENDING_SPAWN_LIFETIME = 40;
+    private static final int MAXIMUM_PENDING_SPAWNS = 256;
+    private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
+
+    private record PendingSpawn(WildSpawnEventData data, long expires) {}
 
     public BiomeEventData(boolean shouldSpawnDefaultWhenUnmet, List<WildSpawnEventData> wildNpcs){
         this(wildNpcs);
@@ -75,8 +84,16 @@ public class BiomeEventData {
     }
 
     public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        List<WildSpawnEventData> weightedData = new ArrayList<>();
         DynamicRegistryManager manager = world.getRegistryManager();
+        // What the spawn check picked for this spot is what gets spawned, instead of rolling again and maybe coming up empty
+        PendingSpawn pending = PENDING_SPAWNS.remove(entity.getBlockPos().asLong());
+        if(pending != null && world.getTime() <= pending.expires() && wildSpawnEventDatas.contains(pending.data())) {
+            Identifier pendingId = pending.data().getNpcType(null);
+            NpcType pendingType = (pendingId != null) ? manager.getOrThrow(DynamicRegistriesME.NPC_TYPE).get(pendingId) : null;
+            return new ContextualizedBiomeData(pendingType, pending.data().getParty());
+        }
+
+        List<WildSpawnEventData> weightedData = new ArrayList<>();
 
         for(WildSpawnEventData data : getWildSpawnEventDatas()){
             if(SpawnEventDataUtil.isConsideredForSpawning(data, Registries.ENTITY_TYPE.getId(EntitiesME.NPC), world, entity.getBlockPos()))
@@ -136,6 +153,12 @@ public class BiomeEventData {
             return false;
         }
         spawningData.broadcastMessage(world, pos);
+        if(type == EntitiesME.NPC) {
+            if(PENDING_SPAWNS.size() >= MAXIMUM_PENDING_SPAWNS)
+                PENDING_SPAWNS.clear();
+            PENDING_SPAWNS.put(pos.asLong(), new PendingSpawn(spawningData, world.getTime() + PENDING_SPAWN_LIFETIME));
+        }
+        SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcType(null) : null, pos);
         return true;
     }
 

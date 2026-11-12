@@ -16,6 +16,7 @@
     "ComponentsIngredientMixin",
     "CraftingMixin",
     "CropBlockMixin",
+    "DoorBlockMixin",
     "EntityDataSaverMixin",
     "EntitySpawnMixin",
     "FilledMapItemMixin",

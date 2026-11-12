@@ -21,11 +21,13 @@ import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatA
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +44,8 @@ public class NpcType {
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcType::getNpcAttributePool),
             NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData),
             MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData),
-            LootData.CODEC.optionalFieldOf("loot").forGetter(NpcType::getOptionalLootData)
+            LootData.CODEC.optionalFieldOf("loot").forGetter(NpcType::getOptionalLootData),
+            RoutineData.CODEC.optionalFieldOf("routine").forGetter(NpcType::getOptionalRoutine)
     ).apply(instance, NpcType::new));
 
     private final Identifier id;
@@ -54,8 +57,9 @@ public class NpcType {
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
     private final MountData mountData;
     private final LootData lootData;
+    private @Nullable RoutineData routine = null;
 
-    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData) {
+    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -79,6 +83,7 @@ public class NpcType {
         this.combatArchetypeData = CombatArchetypeDataUtil.create(combatArchetypeData);
         this.mountData = mount.orElse(null);
         this.lootData = lootData.orElse(null);
+        this.routine = routine.orElse(null);
     }
     public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, LootData lootData) {
         this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null, lootData);
@@ -119,6 +124,17 @@ public class NpcType {
     }
     public LootData getLootData() {
         return lootData;
+    }
+
+    private Optional<RoutineData> getOptionalRoutine() {
+        return Optional.ofNullable(routine);
+    }
+    public @Nullable RoutineData getRoutine() {
+        return routine;
+    }
+    public NpcType withRoutine(RoutineData routine) {
+        this.routine = routine;
+        return this;
     }
 
 

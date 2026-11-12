@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -124,5 +125,10 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(Items.BOOK))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+
+        PEASANT.withRoutine(NpcRoutines.HOBBIT);
+        MILITIA.withRoutine(NpcRoutines.DAY_WATCH);
+        BOUNDER.withRoutine(NpcRoutines.WATCH);
+        SHIRRIFF.withRoutine(NpcRoutines.DAY_WATCH);
     }
 }

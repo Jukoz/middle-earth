@@ -21,6 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
@@ -156,6 +158,54 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
+    public @Nullable SpawnNestManager findNest(UUID entity) {
+        if(structureNestList == null)
+            return null;
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            if(nest.getEntityUuids().contains(entity))
+                return nest;
+        }
+        return null;
+    }
+
+    public boolean ownsBed(BlockPos pos) {
+        return ownsBed(pos, null);
+    }
+
+    private boolean ownsBed(BlockPos pos, @Nullable SpawnNestManager except) {
+        if(structureNestList == null)
+            return false;
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            if(nest == except)
+                continue;
+            for(NestSurvey.Bed taken : nest.getBeds()){
+                if(taken.owner().isPresent() && taken.pos().equals(pos))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    // Gives the npc a bed of its own in the building of its nest, and tells it where things are put away
+    public void assignBed(NpcEntity npc) {
+        SpawnNestManager nest = findNest(npc.getUuid());
+        if(nest == null || !(world instanceof ServerWorld serverWorld) || !nest.survey(serverWorld))
+            return;
+        NestSurvey.Bed bed = nest.claimBed(npc.getUuid(), pos -> ownsBed(pos, nest) || StructureManagerService.isBedTaken(world, pos, this));
+        npc.setHousehold(bed == null ? null : bed.pos(), bed == null ? null : bed.stand().orElse(null), nest.getStore());
+        markDirty();
+    }
+
+    public @Nullable BlockPos findNestOrigin(UUID entity) {
+        if(structureNestList == null)
+            return null;
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            if(nest.getEntityUuids().contains(entity))
+                return nest.getOriginPos();
+        }
+        return null;
+    }
+
     public void respawnAllEntities() {
         if(structureNestList == null)
             return;
@@ -172,6 +222,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
+        if(world instanceof ServerWorld serverWorld)
+            manager.survey(serverWorld);
         this.structureNestList.addNest(manager);
         return true;
     }

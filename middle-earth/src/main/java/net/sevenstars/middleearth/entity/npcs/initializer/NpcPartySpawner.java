@@ -1,12 +1,18 @@
 package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 
@@ -18,16 +24,29 @@ public class NpcPartySpawner {
     public static void spawn(ServerWorld world, NpcEntity leader, PartyData party) {
         Random random = world.getRandom();
         leader.setTravelHeading(random.nextFloat() * 360f);
+        leader.setTravelDestination(RoutineSites.findDestination(world, leader));
 
         for(PartyData.Member member : party.getMembers()) {
             int amount = member.minimumAmount() + random.nextInt(Math.max(1, member.maximumAmount() - member.minimumAmount() + 1));
             for(int i = 0; i < amount; i++) {
                 BlockPos pos = findSpawnPos(world, leader, random);
-                NpcEntity follower = new NpcEntityBuilder(world, pos)
-                        .withNpcType(member.npcType())
-                        .build();
-                follower.setPartyLeader(leader.getUuid());
-                world.spawnEntity(follower);
+                if(member.npcType().isPresent()) {
+                    NpcEntity follower = new NpcEntityBuilder(world, pos)
+                            .withNpcType(member.npcType().get())
+                            .build();
+                    follower.setPartyLeader(leader.getUuid());
+                    world.spawnEntity(follower);
+                } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {
+                    animal.refreshPositionAndAngles(pos, random.nextFloat() * 360f, 0);
+                    animal.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null);
+                    // Pack animals go laden, and a farm dog is nobody's wolf
+                    if(animal instanceof AbstractDonkeyEntity donkey)
+                        donkey.setHasChest(true);
+                    if(animal instanceof WolfEntity dog)
+                        dog.setTamed(true, false);
+                    FollowHerderGoal.assign(animal, leader.getUuid());
+                    world.spawnEntity(animal);
+                }
             }
         }
     }

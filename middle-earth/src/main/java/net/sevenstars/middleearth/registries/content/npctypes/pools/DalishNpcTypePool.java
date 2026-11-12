@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -304,5 +305,11 @@ public class DalishNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+
+        PEASANT.withRoutine(NpcRoutines.GATHERER_AND_FISHER);
+        FISHERMAN.withRoutine(NpcRoutines.FISHER);
+        MILITIA.withRoutine(NpcRoutines.WATCH);
+        SOLDIER.withRoutine(NpcRoutines.WATCH);
+        ARCHER.withRoutine(NpcRoutines.WATCH);
     }
 }

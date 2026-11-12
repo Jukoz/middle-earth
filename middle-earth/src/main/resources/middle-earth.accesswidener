@@ -5,3 +5,4 @@ accessible method net/minecraft/block/AbstractCauldronBlock canBeFilledByDripsto
 accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;Ljava/util/Set;)V
 accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType
 accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;
+accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;

@@ -1,0 +1,7 @@
+{
+  "values": [
+    "minecraft:rabbit",
+    { "id": "wild-things:deer", "required": false },
+    { "id": "wild-things:pheasant", "required": false }
+  ]
+}

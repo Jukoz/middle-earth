@@ -1,6 +1,12 @@
 package net.sevenstars.middleearth.entity.npcs;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.state.property.Properties;
+import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
+import net.sevenstars.middleearth.entity.npcs.pathing.NpcPathNodeMaker;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -65,13 +71,19 @@ import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
+import net.minecraft.item.Item;
+import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
+import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
+import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -90,6 +102,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String IS_FIGHTING = "IsFighting";
         public static final String PARTY_LEADER = "PartyLeader";
         public static final String TRAVEL_HEADING = "TravelHeading";
+        public static final String TRAVEL_DESTINATION = "TravelDestination";
+        public static final String ROUTINE_HOME = "RoutineHome";
+        public static final String ASSIGNED_BED = "AssignedBed";
+        public static final String BED_STAND = "BedStand";
+        public static final String STORE = "Store";
+        public static final String HOUSEHOLD_KNOWN = "HouseholdKnown";
+        public static final String ROUTINE_STOWED_ITEM = "RoutineStowedItem";
+        public static final String ROUTINE_STOWED_MAIN_HAND = "RoutineStowedMainHand";
     }
     // [TrackedDatas]
     private static final TrackedData<NpcData> NPC_DATA;
@@ -97,11 +117,43 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
     private static final TrackedData<Boolean> IS_FIGHTING;
 
+    // In ticks
+    private static final int MANAGER_CHECK_INTERVAL = 100;
+    private static final int WAKE_RANGE = 16;
+    private static final int HATCH_CHECK_INTERVAL = 4;
+    private static final double HATCH_OPEN_DISTANCE = 3;
+    private static final double HATCH_CLOSE_DISTANCE = 3.5;
+    // In days
+    private static final int ELF_SLEEP_INTERVAL = 4;
+    private static final int ALARM_RANGE = 24;
+    private static final int ALARM_HEIGHT_RANGE = 8;
+
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     private @Nullable UUID partyLeader = null;
     private @Nullable Float travelHeading = null;
+    private @Nullable BlockPos travelDestination = null;
+    private @Nullable BlockPos routineHome = null;
+    // Given out by the structure manager of its nest
+    private boolean householdKnown = false;
+    private @Nullable BlockPos assignedBed = null;
+    private @Nullable Vec3d sleptFrom = null;
+    private @Nullable BlockPos openedHatch = null;
+    private @Nullable BlockPos bedStand = null;
+    private @Nullable BlockPos store = null;
+    // What the hand held before a routine put something else in it
+    private @Nullable ItemStack routineStowedItem = null;
+    private boolean routineStowedMainHand = false;
+    private @Nullable LivingEntity huntTarget = null;
+    private @Nullable EntityType<?> huntKill = null;
+    private int huntEndAge = 0;
+    private @Nullable Identifier cachedFactionId = null;
+    private @Nullable Faction cachedFaction = null;
+    private boolean passingDoor = false;
+    private boolean dataInitialized = false;
+    private boolean managerPresent = true;
+    private int managerCheckAge = 0;
 
     private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
     private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
@@ -166,6 +218,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
     // [NpcInitializationData]
     public void saveNpcInitializationData(NpcInitializationData npcInitializationData) {
+        this.dataInitialized = false;
         this.dataTracker.set(NPC_INITIALIZATION_DATA, npcInitializationData);
     }
     public NpcInitializationData retrieveNpcInitializationData() {
@@ -238,9 +291,11 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(5, new NpcTravelGoal(this, 0.8));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(3, new NpcFleeHomeGoal(this, 1.15));
+        this.goalSelector.add(5, new NpcRoutineGoal(this, 0.8));
+        this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
         this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
@@ -249,7 +304,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
         this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
         this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
-        this.targetSelector.add(10, new ActiveTargetGoal<>(this, AbstractHorseEntity.class, true));
     }
 
     @Override
@@ -278,6 +332,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         view.put(KeyStrings.IS_FIGHTING, Codec.BOOL, this.getFighting());
         view.putNullable(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC, this.partyLeader);
         view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
+        view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
+        view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
+        view.putBoolean(KeyStrings.HOUSEHOLD_KNOWN, this.householdKnown);
+        view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
+        view.putNullable(KeyStrings.BED_STAND, BlockPos.CODEC, this.bedStand);
+        view.putNullable(KeyStrings.STORE, BlockPos.CODEC, this.store);
+        view.putNullable(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC, this.routineStowedItem);
+        view.putBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, this.routineStowedMainHand);
     }
 
     @Override
@@ -295,6 +357,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         boolean isFighting = view.read(KeyStrings.IS_FIGHTING, Codec.BOOL).orElse(false);
         this.partyLeader = view.read(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC).orElse(null);
         this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
+        this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
+        this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
+        this.householdKnown = view.getBoolean(KeyStrings.HOUSEHOLD_KNOWN, false);
+        this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
+        this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
+        this.store = view.read(KeyStrings.STORE, BlockPos.CODEC).orElse(null);
+        // The routine itself is not saved, so its prop is put away again
+        this.routineStowedItem = view.read(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC).orElse(null);
+        this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
+        clearRoutineProp();
 
         String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
         if(npcDataId != null){
@@ -385,12 +457,194 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.travelHeading = travelHeading;
     }
 
+    public @Nullable BlockPos getTravelDestination() {
+        return travelDestination;
+    }
+
+    public void setTravelDestination(@Nullable BlockPos travelDestination) {
+        this.travelDestination = travelDestination;
+    }
+
+    public boolean isEvil() {
+        Faction faction = getFaction();
+        return faction != null && faction.getDisposition() == DispositionType.EVIL;
+    }
+
+    public boolean isHostileToFaction(Identifier otherFaction) {
+        Faction faction = getFaction();
+        return faction != null && faction.isHostileToward(otherFaction);
+    }
+
+    public void lieDown(BlockPos bed) {
+        this.sleptFrom = getPos();
+        sleep(bed);
+    }
+
+    // The game leaves a waking sleeper on whatever is next to the bed, a bench or a table as often as the floor,
+    // and from there many never find a way down again
+    @Override
+    public void wakeUp() {
+        super.wakeUp();
+        Vec3d back = sleptFrom != null ? sleptFrom : bedStand != null ? Vec3d.ofBottomCenter(bedStand) : null;
+        sleptFrom = null;
+        if(back != null && !getWorld().isClient && back.squaredDistanceTo(getPos()) < WAKE_RANGE * WAKE_RANGE)
+            refreshPositionAndAngles(back.x, back.y, back.z, getYaw(), getPitch());
+    }
+
+    @Override
+    protected EntityNavigation createNavigation(World world) {
+        return new NpcNavigation(this, world);
+    }
+
+    // Opens the gate or trapdoor of a loft the path leads through, and shuts it again once past
+    private void tickHatch(ServerWorld world) {
+        if(openedHatch != null && !openedHatch.isWithinDistance(getPos(), HATCH_CLOSE_DISTANCE)) {
+            BlockState opened = world.isChunkLoaded(openedHatch.getX() >> 4, openedHatch.getZ() >> 4) ? world.getBlockState(openedHatch) : null;
+            if(opened != null && NpcPathNodeMaker.isHatch(opened) && opened.get(Properties.OPEN))
+                world.setBlockState(openedHatch, opened.with(Properties.OPEN, false));
+            openedHatch = null;
+        }
+        Path path = getNavigation().getCurrentPath();
+        if(path == null || path.isFinished())
+            return;
+        for(int i = path.getCurrentNodeIndex(); i < Math.min(path.getCurrentNodeIndex() + 2, path.getLength()); i++) {
+            BlockPos node = path.getNodePos(i);
+            for(BlockPos pos : new BlockPos[]{node, node.up()}) {
+                if(!pos.isWithinDistance(getPos(), HATCH_OPEN_DISTANCE))
+                    continue;
+                BlockState state = world.getBlockState(pos);
+                if(NpcPathNodeMaker.isHatch(state) && !state.get(Properties.OPEN)) {
+                    world.setBlockState(pos, state.with(Properties.OPEN, true));
+                    openedHatch = pos;
+                }
+            }
+        }
+    }
+
+    public void setHousehold(@Nullable BlockPos bed, @Nullable BlockPos bedStand, @Nullable BlockPos store) {
+        this.householdKnown = true;
+        this.assignedBed = bed;
+        this.bedStand = bedStand;
+        this.store = store;
+    }
+
+    public boolean isHouseholdKnown() {
+        return householdKnown;
+    }
+
+    public @Nullable BlockPos getAssignedBed() {
+        return assignedBed;
+    }
+
+    public @Nullable BlockPos getBedStand() {
+        return bedStand;
+    }
+
+    public @Nullable BlockPos getStore() {
+        return store;
+    }
+
+    public @Nullable BlockPos getRoutineHome() {
+        return routineHome;
+    }
+
+    public void setRoutineHome(@Nullable BlockPos routineHome) {
+        this.routineHome = routineHome;
+    }
+
+    public void showRoutineProp(ItemStack prop) {
+        if(routineStowedItem == null) {
+            // Nothing shows in the off hand next to a two handed weapon, so that weapon is put away
+            Item mainHand = getMainHandStack().getItem();
+            routineStowedMainHand = mainHand instanceof CustomLongbowWeaponItem || mainHand instanceof CustomSiegeShieldItem
+                    || (mainHand instanceof ReachWeaponItem reachWeapon && reachWeapon.type.twoHanded);
+            routineStowedItem = getEquippedStack(routinePropSlot()).copy();
+        }
+        equipStack(routinePropSlot(), prop);
+    }
+
+    public void clearRoutineProp() {
+        if(routineStowedItem == null)
+            return;
+        equipStack(routinePropSlot(), routineStowedItem);
+        routineStowedItem = null;
+    }
+
+    private EquipmentSlot routinePropSlot() {
+        return routineStowedMainHand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+    }
+
+    // Sends the fighters around after whatever frightened this npc
+    public void callGuards(@Nullable LivingEntity threat) {
+        if(threat == null || !(getWorld() instanceof ServerWorld world))
+            return;
+        for(NpcEntity guard : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive())) {
+            NpcType type = guard.getNpcType();
+            boolean fights = type == null || type.getRoutine() == null || !type.getRoutine().isTimid();
+            if(fights && guard.getTarget() == null && !isHostileToward(guard) && guard.canTarget(threat)) {
+                if(guard.isSleeping())
+                    guard.wakeUp();
+                guard.setTarget(threat);
+            }
+        }
+    }
+
+    public boolean isNightShift() {
+        return (getUuid().hashCode() & 1) != 0;
+    }
+
+    public boolean isElf() {
+        NpcType type = getNpcType();
+        return type != null && RaceRegistry.ELF.getValue().equals(type.getRace());
+    }
+
+    public boolean isRestTime() {
+        NpcType type = getNpcType();
+        RoutineData routine = type == null ? null : type.getRoutine();
+        if(routine == null || !routine.getPeriod().isResting(getWorld().getTimeOfDay(), isNightShift()))
+            return false;
+        // Elves rest in waking dreams, and lie down only now and then, each on its own night
+        long day = getWorld().getTimeOfDay() / 24000;
+        return !isElf() || Math.floorMod(getUuid().hashCode() + day, ELF_SLEEP_INTERVAL) == 0;
+    }
+
+    public @Nullable LivingEntity getHuntTarget() {
+        return huntTarget;
+    }
+
+    public void startHunt(LivingEntity prey, int duration) {
+        this.huntTarget = prey;
+        this.huntKill = null;
+        this.huntEndAge = age + duration;
+        setTarget(prey);
+    }
+
+    // The kind of animal the last hunt brought down, once
+    public @Nullable EntityType<?> takeHuntKill() {
+        EntityType<?> kill = huntKill;
+        huntKill = null;
+        return kill;
+    }
+
+    // The fighting goals never let go of a target by themselves
+    private void tickHunt() {
+        if(huntTarget.isAlive() && age < huntEndAge)
+            return;
+        if(huntTarget.isDead())
+            huntKill = huntTarget.getType();
+        if(getTarget() == huntTarget)
+            setTarget(null);
+        huntTarget = null;
+    }
+
     public BlockPos getStructureManagerHostPos() {
         return this.retrieveNpcData().getStructureManagerPos();
     }
     //endregion
 
     public void tryToInitializeData(){
+        if(dataInitialized)
+            return;
         if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
             return;
 
@@ -403,6 +657,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(world instanceof ServerWorld serverWorld){
             if(NpcEntityInitializer.shouldInitialize(serverWorld, this)){
                 NpcEntityInitializer.initializeNpcEntity(serverWorld, this);
+            } else {
+                dataInitialized = true;
             }
         }
     }
@@ -412,12 +668,23 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if (source.isOf(DamageTypes.IN_WALL) && this.hasVehicle()) {
             return true;
         }
+        // A hunter's stray arrow
+        if(source.getAttacker() instanceof NpcEntity hunter && hunter != this && hunter.huntTarget != null && !isHostileToward(hunter))
+            return true;
         return super.isInvulnerableTo(world, source);
     }
 
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
+        if(huntTarget != null)
+            tickHunt();
+        if(age % HATCH_CHECK_INTERVAL == 0)
+            tickHatch(world);
+        // A target set from outside the targeting goals is never dropped by them, and a dead one blocks everything else
+        LivingEntity target = getTarget();
+        if(target != null && !target.isAlive())
+            setTarget(null);
         //CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
        // if(runtimeData != null)
            // runtimeData.tick(this, world);
@@ -626,7 +893,13 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos == null)
             return super.isPersistent();
-        if(getEntityWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
+        // Asked every tick, and reading a block entity in an unloaded chunk would load that chunk
+        if(age >= managerCheckAge) {
+            managerCheckAge = age + MANAGER_CHECK_INTERVAL;
+            if(getWorld().isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4))
+                managerPresent = getWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity;
+        }
+        if(managerPresent)
             return true;
         return super.isPersistent();
     }
@@ -643,11 +916,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         Identifier factionId = data.getFaction();
         if(factionId == null)
             return null;
+        // Asked for every npc in sight when looking for enemies, the registry is too slow for that
+        if(factionId == cachedFactionId)
+            return cachedFaction;
         try {
-            return FactionLookup.getFactionById(getEntityWorld(), factionId);
+            cachedFaction = FactionLookup.getFactionById(getWorld(), factionId);
         } catch (FactionIdentifierException e) {
-            return null;
+            cachedFaction = null;
         }
+        cachedFactionId = factionId;
+        return cachedFaction;
     }
 
     @Override
@@ -743,6 +1021,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         // TODO : datadriven
         if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
             return true;
+        if(target == npcEntity.huntTarget)
+            return true;
         if(!npcEntity.isInSameTeam(target)){
             return true;
         }
@@ -753,6 +1033,18 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
             return 1;
         return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
+    }
+
+    public void setPassingDoor(boolean passingDoor) {
+        this.passingDoor = passingDoor;
+    }
+
+    // Two npcs side by side in a doorway push each other into the frame, and neither gets through
+    @Override
+    public void pushAwayFrom(Entity entity) {
+        if(entity instanceof NpcEntity other && (passingDoor || other.passingDoor))
+            return;
+        super.pushAwayFrom(entity);
     }
 
     @Override

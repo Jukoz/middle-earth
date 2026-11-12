@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
@@ -23,7 +24,7 @@ public class IsengardBiomeEventPool {
         ));
 
         SCOUTS = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT).withWeight(3).withSameNpcType(2, 256).withParty(PartyData.create().add(NpcRegistry.ISENGARD_URUK_HAI_SCOUT, 1, 2)),
+            new WildSpawnEventData(NpcRegistry.ISENGARD_URUK_HAI_SCOUT).withWeight(3).withSameNpcType(2, 256).withParty(PartyData.create().add(NpcRegistry.ISENGARD_URUK_HAI_SCOUT, 1, 2).addAnimals(EntitiesME.WARG, 1, 2)),
             new WildSpawnEventData(NpcRegistry.ISENGARD_ORC_WARRIOR).withWeight(2).withSameNpcType(1, 256)
         ));
     }

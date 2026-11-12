@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
@@ -239,5 +240,8 @@ public class WildGoblinNpcTypePool {
                 )
             ));
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+
+        GATHERER.withRoutine(NpcRoutines.NIGHT_RAIDER);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
     }
 }

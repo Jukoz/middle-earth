@@ -23,6 +23,7 @@ import java.util.Set;
 
 public class StructureManagerService {
     private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
+    private static final int NEIGHBOUR_RANGE = 48;
 
     public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
         if(world == null)
@@ -84,6 +85,20 @@ public class StructureManagerService {
         managers.remove(manager.getPos());
         if (managers.isEmpty())
             STRUCTURE_MANAGERS.remove(world.getRegistryKey());
+    }
+
+    // Buildings stand close together, and two managers can both have found the same bed
+    public static boolean isBedTaken(World world, BlockPos bed, StructureManagerBlockEntity asking) {
+        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+        if (managers == null)
+            return false;
+        for (BlockPos managerPos : managers) {
+            if (managerPos.getSquaredDistance(bed) > NEIGHBOUR_RANGE * NEIGHBOUR_RANGE || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
+                continue;
+            if (world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager && manager != asking && manager.ownsBed(bed))
+                return true;
+        }
+        return false;
     }
 
     public static boolean isClose(World world, BlockPos pos, int radius) {

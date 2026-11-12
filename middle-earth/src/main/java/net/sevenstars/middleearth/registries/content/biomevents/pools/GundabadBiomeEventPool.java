@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.biomevents.pools;
 
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
@@ -16,7 +17,7 @@ public class GundabadBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.GUNDABAD_GOBLIN).withWeight(6).withSameNpcType(4, 128),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_SCOUT).withWeight(7).withSameNpcType(3, 128),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_MILITIA).withWeight(6).withSameNpcType(2, 256),
-            new WildSpawnEventData(NpcRegistry.GUNDABAD_WARRIOR).withWeight(5).withSameNpcType(1, 256).withParty(PartyData.create().add(NpcRegistry.GUNDABAD_GOBLIN, 2, 3)),
+            new WildSpawnEventData(NpcRegistry.GUNDABAD_WARRIOR).withWeight(5).withSameNpcType(1, 256).withParty(PartyData.create().add(NpcRegistry.GUNDABAD_GOBLIN, 2, 3).addAnimals(EntitiesME.WARG, 0, 1)),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_RIDER).withWeight(2).withSameNpcType(2, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_VETERAN).withWeight(2).withSameNpcType(0, 256),
             new WildSpawnEventData(NpcRegistry.GUNDABAD_LEADER).withSameNpcType(0, 512)

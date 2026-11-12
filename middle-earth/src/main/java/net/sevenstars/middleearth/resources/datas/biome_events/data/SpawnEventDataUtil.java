@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.resources.datas.biome_events.data;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -51,32 +52,16 @@ public class SpawnEventDataUtil {
         boolean sameNpcTypeSurfaceOnly = data.getSameNpcTypeSurfaceOnly().orElse(false);
         Box npcSearchBox = hasNpcTypeLimit ? Box.of(pos.toCenterPos(), sameNpcTypeDistance, sameNpcTypeDistance, sameNpcTypeDistance) : null;
 
-        int[] counts = new int[2]; // [0] = entity count, [1] = npc type count
-        world.getOtherEntities(null, searchBox, entity -> {
-            // Same entity type limit
-            boolean isSurface = isSurface(world, entity.getBlockPos());
-            if (entity.getType() == targetEntityType) {
-                if(sameEntitySurfaceOnly && !isSurface)
-                    return false;
-                counts[0]++;
-                if (counts[0] >= sameEntityAmount)
-                    return true;
-            }
-            // Same NPC type limit
-            if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getEntityPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
-                if(sameNpcTypeSurfaceOnly && !isSurface)
-                    return false;
-
-                counts[1]++;
-                return counts[1] >= sameNpcTypeAmount;
-            }
+        // Client worlds never decide a spawn
+        if(!(world instanceof ServerWorld serverWorld))
+            return true;
+        if(SpawnCensus.count(serverWorld, searchBox, targetEntityType, null, sameEntitySurfaceOnly, sameEntityAmount) >= sameEntityAmount)
             return false;
-        });
-        // Entity amount exceeded
-        if (counts[0] >= sameEntityAmount)
+        if(!hasNpcTypeLimit)
+            return true;
+        if(sameNpcTypeAmount <= 0)
             return false;
-        // Same NPC type amount exceeded
-        return !hasNpcTypeLimit || counts[1] < sameNpcTypeAmount;
+        return SpawnCensus.count(serverWorld, npcSearchBox, targetEntityType, data.getNpcType(null), sameNpcTypeSurfaceOnly, sameNpcTypeAmount) < sameNpcTypeAmount;
     }
 
     static boolean meetsStructureManagerClearance(WildSpawnEventData data, World world, BlockPos pos) {

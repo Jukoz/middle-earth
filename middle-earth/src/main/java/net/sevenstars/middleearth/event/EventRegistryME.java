@@ -35,10 +35,15 @@ import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.Objects;
 
+import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+
 public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
 
     public static void register(){
+        RoutineSites.register();
+        FollowHerderGoal.register();
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
             MiddleEarthHeightMap.setSeed(player.getEntityWorld().getSeed());

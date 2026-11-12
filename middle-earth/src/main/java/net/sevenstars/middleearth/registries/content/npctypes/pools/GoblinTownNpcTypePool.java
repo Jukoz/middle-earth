@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -265,5 +266,8 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+
+        SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.NIGHT_WATCH);
     }
 }

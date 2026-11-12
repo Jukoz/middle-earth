@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -21,6 +22,7 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -31,7 +33,10 @@ public class SpawnNestManager {
             Codec.LONG.fieldOf("respawn_event_trigger_tick").forGetter(SpawnNestManager::getRespawnEventTriggerTick),
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
-            Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius)
+            Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
+            Codec.BOOL.optionalFieldOf("surveyed", false).forGetter(manager -> manager.surveyed),
+            Codec.list(NestSurvey.Bed.CODEC).optionalFieldOf("beds", List.of()).forGetter(manager -> manager.beds),
+            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store))
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
@@ -43,9 +48,15 @@ public class SpawnNestManager {
     private BlockPos originPos;
     private int spawnRadius;
 
-    private List<BedBlock> beds = new ArrayList<>();
+    // Found once when the nest registers, and kept with it
+    private boolean surveyed = false;
+    private List<NestSurvey.Bed> beds = new ArrayList<>();
+    private @Nullable BlockPos store = null;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, boolean surveyed, List<NestSurvey.Bed> beds, Optional<BlockPos> store) {
+        this.surveyed = surveyed;
+        this.beds = new ArrayList<>(beds);
+        this.store = store.orElse(null);
         this.id = dataId;
         this.entities =  Lists.newArrayList();
         this.entities.addAll(dataEntities);
@@ -59,7 +70,8 @@ public class SpawnNestManager {
         this.entities = new ArrayList<UUID>();
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
-        this.respawnEventTriggerTick = 0;
+        // The delay is for coming back after a defeat, a new settlement is lived in from the start
+        this.respawnEventTriggerTick = -spawnNestNodeData.getRespawnTickDelay();
         this.originPos = position;
         this.spawnRadius = spawnRadius;
     }
@@ -86,6 +98,58 @@ public class SpawnNestManager {
         return this.spawnRadius;
     }
 
+    // True once the building has been looked through, which needs it loaded
+    public boolean survey(ServerWorld world) {
+        if(surveyed)
+            return true;
+        NestSurvey.Result result = NestSurvey.survey(world, originPos);
+        if(result == null)
+            return false;
+        beds = new ArrayList<>(result.beds());
+        store = result.store().orElse(null);
+        surveyed = true;
+        return true;
+    }
+
+    public List<NestSurvey.Bed> getBeds() {
+        return beds;
+    }
+
+    public @Nullable BlockPos getStore() {
+        return store;
+    }
+
+    public @Nullable NestSurvey.Bed bedOf(UUID owner) {
+        for(NestSurvey.Bed bed : beds) {
+            if(bed.owner().isPresent() && bed.owner().get().equals(owner))
+                return bed;
+        }
+        return null;
+    }
+
+    // A bed nobody of this nest has, and that no other nest of the building gave away
+    public @Nullable NestSurvey.Bed claimBed(UUID owner, Predicate<BlockPos> takenElsewhere) {
+        NestSurvey.Bed own = bedOf(owner);
+        if(own != null)
+            return own;
+        for(int i = 0; i < beds.size(); i++) {
+            NestSurvey.Bed bed = beds.get(i);
+            if(bed.owner().isEmpty() && !takenElsewhere.test(bed.pos())) {
+                beds.set(i, bed.withOwner(owner));
+                return beds.get(i);
+            }
+        }
+        return null;
+    }
+
+    private void releaseBed(UUID owner) {
+        for(int i = 0; i < beds.size(); i++) {
+            NestSurvey.Bed bed = beds.get(i);
+            if(bed.owner().isPresent() && bed.owner().get().equals(owner))
+                beds.set(i, bed.withOwner(null));
+        }
+    }
+
     public void addEntity(LivingEntity entity){
         if(entity.getEntityWorld().isClient())
             return;
@@ -101,6 +165,7 @@ public class SpawnNestManager {
         if(entity.getEntityWorld().isClient() || !this.entities.contains(entity.getUuid()))
             return false;
         this.entities.remove(entity.getUuid());
+        releaseBed(entity.getUuid());
         if(this.entities.isEmpty()){
             beginRespawnSequence(entity.getEntityWorld());
         }
@@ -110,6 +175,7 @@ public class SpawnNestManager {
         if(world.isClient() || !this.entities.contains(uuid))
             return;
         this.entities.remove(uuid);
+        releaseBed(uuid);
         if(this.entities.isEmpty()){
             beginRespawnSequence(world);
         }
@@ -158,6 +224,8 @@ public class SpawnNestManager {
                 }
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
+                if(entityToAdd instanceof NpcEntity npcEntity && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)
+                    manager.assignBed(npcEntity);
             }
             world.markDirty(structureManagerPos);
         }
@@ -179,6 +247,8 @@ public class SpawnNestManager {
             }
         }
         entities = new ArrayList<UUID>();
+        for(int i = 0; i < beds.size(); i++)
+            beds.set(i, beds.get(i).withOwner(null));
 
         refreshBeds(structureManagerData, world);
         respawnAll(structureManagerData, world, structureManagerPos);
