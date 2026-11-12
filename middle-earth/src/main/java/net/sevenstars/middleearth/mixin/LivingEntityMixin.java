@@ -59,13 +59,12 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "getAttackDistanceScalingFactor", at = @At("RETURN"), cancellable = true)
     public void getAttackDistanceScalingFactor(Entity entity, CallbackInfoReturnable<Double> cir) {
         if (entity != null) {
-            ItemStack chestplate = this.getEquippedStack(EquipmentSlot.CHEST);
-            if(!chestplate.isEmpty()) {
+            ItemStack leggings = this.getEquippedStack(EquipmentSlot.LEGS);
+            if(!leggings.isEmpty()) {
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getWorld().getRegistryManager()
                         .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.STEALTHY_TRAIL).orElseThrow();
-                boolean hasEnchant = chestplate.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
-                int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, chestplate);
-                if(hasEnchant) {
+                int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, leggings);
+                if(level > 0) {
                     double original = cir.getReturnValue();
                     double viewDistance = original + Math.max(-0.9f, -0.2f * level);
                     cir.setReturnValue(viewDistance);
