@@ -63,7 +63,7 @@ public class EventRegistryME {
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
             if(entity instanceof PlayerEntity playerEntity) {
-                ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+                ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
                         .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.BEHEADING).orElseThrow();
                 boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
@@ -82,7 +82,7 @@ public class EventRegistryME {
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
-            ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+            ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.HEWING).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
@@ -116,7 +116,7 @@ public class EventRegistryME {
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
-            ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+            ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
                     .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.TREE_FELLER).orElseThrow();

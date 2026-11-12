@@ -50,7 +50,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     shift = At.Shift.AFTER), ordinal = 0)
     public float attack(float damage, Entity target) {
         float newDamage = damage;
-        ItemStack mainStack = getStackInHand(getActiveHand());
+        ItemStack mainStack = getMainHandStack();
         RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
                 .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.FIRST_STRIKE).orElseThrow();
         boolean hasEnchant = mainStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
