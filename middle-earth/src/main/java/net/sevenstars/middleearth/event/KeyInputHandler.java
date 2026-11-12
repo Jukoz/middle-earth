@@ -11,7 +11,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
 
-    public static final String ME_KEY_CATEGORY = "key.category.%s.%s".formatted(MiddleEarth.MOD_ID, MiddleEarth.MOD_ID);
+    public static final String ME_KEY_CATEGORY = "key.category.%s".formatted(MiddleEarth.MOD_ID);
     public static final String ME_KEY_HOOD_STATE_TOGGLE = "key.%s.hood_state_toggle".formatted(MiddleEarth.MOD_ID);
     public static final String ME_KEY_MAP_TELEPORT = "key.%s.map_teleport".formatted(MiddleEarth.MOD_ID);
     public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = "key.%s.map_fullscreen_toggle".formatted(MiddleEarth.MOD_ID);
