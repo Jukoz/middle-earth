@@ -5,7 +5,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,17 +34,17 @@ public class ServerWorldMixin {
     // Link : https://bugs.mojang.com/browse/MC-188578
     @Inject(method = "wakeSleepingPlayers", at = @At("TAIL"))
     private void wakeSleepingPlayers(CallbackInfo ci) {
-        ServerWorld world = (ServerWorld) (Object) this;
-
-        if (world.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
-            long currentTimeOfDay = world.getTimeOfDay() + 24000L;
-            world.setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
-        }
+        ServerWorld overworld = server.getOverworld();
+        // Vanilla already skips the night and clears the weather when the sleepers are in the Overworld
+        if ((Object) this == overworld) return;
 
         // The math is like vanilla (ServerWorld lines ~[310-319])
         if (server.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
-            long currentTimeOfDay = server.getWorld(World.OVERWORLD).getTimeOfDay() + 24000L;
-            server.getWorld(World.OVERWORLD).setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
+            long currentTimeOfDay = overworld.getTimeOfDay() + 24000L;
+            overworld.setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
+        }
+        if (server.getGameRules().getBoolean(GameRules.DO_WEATHER_CYCLE) && overworld.isRaining()) {
+            overworld.resetWeather();
         }
     }
 
