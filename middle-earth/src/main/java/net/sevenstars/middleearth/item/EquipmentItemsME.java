@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
+import net.sevenstars.middleearth.item.dataComponents.ArmorTierDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.CooldownDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
@@ -398,7 +399,8 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_HORSE_ARMOR = registerGeneratedItem("gondorian_horse_armor",
-            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material()).maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GONDORIAN_HORSE_ARMOR.tier())).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
     //endregion
 
@@ -506,7 +508,8 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.HORSE_LORD_CAPE)).component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_HORSE_ARMOR = registerGeneratedItem("rohirric_horse_armor",
-            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material()).maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.ROHIRRIC_HORSE_ARMOR.tier())).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
     //endregion
 
@@ -609,7 +612,8 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_HORSE_ARMOR = registerGeneratedItem("dalish_horse_armor",
-            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.DALISH_HORSE_ARMOR.material()).maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.DALISH_HORSE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.DALISH_HORSE_ARMOR.tier())).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
     //endregion
 
@@ -847,13 +851,16 @@ public class EquipmentItemsME {
 
     public static final Item BROADHOOF_GOAT_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_leather_armor",
             Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_LEATHER_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.BROADHOOF_GOAT_LEATHER_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item BROADHOOF_GOAT_ORNAMENTED_PADDED_ARMOR = registerDyeableArmorPiece("broadhoof_goat_ornamented_leather_armor",
             Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.BROADHOOF_GOAT_ORNAMENTED_LEATHER_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     public static final Item BROADHOOF_GOAT_PLATE_ARMOR = registerGeneratedItem("broadhoof_goat_plate_armor",
             Item::new, ItemSettingsME.goatArmor(ArmorMaterialsME.BROADHOOF_GOAT_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.BROADHOOF_GOAT_PLATE_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
     //endregion
     //endregion
@@ -910,19 +917,25 @@ public class EquipmentItemsME {
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(0x375729)));
     public static final Item GREAT_HORN_LIGHT_ARMOR = registerDyeableArmorPiece("great_horn_light_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_LIGHT_ARMOR.tier()))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3879204)));
     public static final Item GREAT_HORN_LIGHT_GRAY_ARMOR = registerDyeableArmorPiece("great_horn_light_gray_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GRAY_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_LIGHT_GRAY_ARMOR.tier()))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(5464949)));
     public static final Item GREAT_HORN_LIGHT_GREEN_ARMOR = registerDyeableArmorPiece("great_horn_light_green_armor",
             Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_LIGHT_GREEN_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_LIGHT_GREEN_ARMOR.tier()))
                     .component(DataComponentTypes.DYED_COLOR, new DyedColorComponent(3491893)));
     public static final Item GREAT_HORN_PLATE_ARMOR = registerGeneratedItem("great_horn_plate_armor",
-            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material()));
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_PLATE_ARMOR.tier())));
     public static final Item GREAT_HORN_ORNAMENTED_PLATE_ARMOR = registerGeneratedItem("great_horn_ornamented_plate_armor",
-            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.material()));
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_ORNAMENTED_PLATE_ARMOR.tier())));
     public static final Item GREAT_HORN_GREEN_PLATE_ARMOR = registerGeneratedItem("great_horn_green_plate_armor",
-            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.material()));
+            Item::new, ItemSettingsME.greatHornArmor(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.GREAT_HORN_GREEN_PLATE_ARMOR.tier())));
     //endregion
 
     //region LOTHLORIEN
@@ -1053,7 +1066,8 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_HORSE_ARMOR = registerGeneratedItem("lorien_horse_armor",
-            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material()).maxCount(1)
+            Item::new, new Item.Settings().horseArmor(ArmorMaterialsME.LORIEN_HORSE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.LORIEN_HORSE_ARMOR.tier())).maxCount(1)
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
     //endregion
 
@@ -1355,10 +1369,12 @@ public class EquipmentItemsME {
                     .component(DataComponentTypesME.BACK_ATTACHMENT_DATA, BackAttachmentDataComponent.newBackAttachment(BackAttachmentsME.ORCISH_WHITE_FUR_SURCOAT_WITH_BONE)));
 
     public static final Item WARG_LEATHER_ARMOR = registerDyeableArmorPiece("warg_leather_armor",
-            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_LEATHER_ARMOR.material()));
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_LEATHER_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_LEATHER_ARMOR.tier())));
 
     public static final Item WARG_REINFORCED_LEATHER_ARMOR = registerDyeableArmorPiece("warg_reinforced_leather_armor",
-            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_REINFORCED_LEATHER_ARMOR.material()));
+            Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_REINFORCED_LEATHER_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_REINFORCED_LEATHER_ARMOR.tier())));
     //endregion
 
     //region MORDOR
@@ -1561,10 +1577,12 @@ public class EquipmentItemsME {
 
     public static final Item WARG_MORDOR_MAIL_ARMOR = registerDyeableArmorPiece("warg_mordor_mail_armor",
             Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item WARG_MORDOR_PLATE_ARMOR = registerGeneratedItem("warg_mordor_plate_armor",
             Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_MORDOR_PLATE_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
 
@@ -1805,6 +1823,7 @@ public class EquipmentItemsME {
 
     public static final Item WARG_ISENGARD_PLATE_ARMOR = registerGeneratedItem("warg_isengard_plate_armor",
             Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_MORDOR_MAIL_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
     //endregion
 
@@ -1898,6 +1917,7 @@ public class EquipmentItemsME {
 
     public static final Item WARG_GUNDABAD_PLATE_ARMOR = registerGeneratedItem("warg_gundabad_plate_armor",
             Item::new, ItemSettingsME.wargArmor(ArmorMaterialsME.WARG_GUNDABAD_PLATE_ARMOR.material())
+                    .component(DataComponentTypesME.ARMOR_TIER_DATA, new ArmorTierDataComponent(ArmorMaterialsME.WARG_GUNDABAD_PLATE_ARMOR.tier()))
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD)));
     //endregion
 
