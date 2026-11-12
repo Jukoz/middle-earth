@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.registration;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.TintedParticleLeavesBlock;
@@ -20,6 +21,7 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static net.sevenstars.middleearth.block.utils.BlockSetRegistration.getVanillaOrCreateNew;
 
@@ -458,19 +460,16 @@ public class WoodBlockSetRegistryME {
                 case SHINGLE_BLOCKS ->
                         set.shinglesBlocks = BlockSetRegistration.createRegularSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, false, item_group, false);
                 case LEAVES -> {
-                    if(set.setName.equals("mallorn")){
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new CustomLeavesBlock(0.01F, settings, false), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                                        .strength(LEAVES_STRENGTH).mapColor(MapColor.YELLOW).sounds(BlockSoundGroup.GRASS).burnable(), item_group);
-                    } else if(set.setName.equals("holly")){
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new BerryHollyLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                                        .strength(LEAVES_STRENGTH).mapColor(MapColor.YELLOW).sounds(BlockSoundGroup.GRASS).burnable(), item_group);
-                    } else {
-                        set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(),
-                                (settings) -> new TintedParticleLeavesBlock(0.01F, settings), AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)
-                                        .strength(LEAVES_STRENGTH).mapColor(set.leavesMapColor).sounds(BlockSoundGroup.GRASS).burnable(), item_group);
-                    }
+                    Function<AbstractBlock.Settings, Block> factory = switch (set.setName) {
+                        case "mallorn" -> settings -> new CustomLeavesBlock(0.01F, settings, false);
+                        case "holly" -> settings -> new BerryHollyLeavesBlock(0.01F, settings);
+                        // Palm fronds only touch the crown and each other diagonally
+                        case "palm", "white_palm" -> settings -> new CustomLeavesBlock(0.01F, settings, true);
+                        default -> settings -> new TintedParticleLeavesBlock(0.01F, settings);
+                    };
+                    MapColor leavesColor = set.setName.equals("mallorn") || set.setName.equals("holly") ? MapColor.YELLOW : set.leavesMapColor;
+                    set.leaves = getVanillaOrCreateNew(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), factory,
+                            AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).strength(LEAVES_STRENGTH).mapColor(leavesColor).sounds(BlockSoundGroup.GRASS).burnable(), item_group);
                     FlammableBlockRegistry.getDefaultInstance().add(set.leaves, 5, 60);
                 }
             }
