@@ -47,13 +47,15 @@ public class GemTypeRegistry {
         register(context, lookup, SAPPHIRE, gem(GemAspect.DEFENSE, 0x328ECD, DEFENSE_WORDS, 1));
         register(context, lookup, BERYL, gem(GemAspect.UTILITY, 0x1FAE62, UTILITY_WORDS, 1));
         register(context, lookup, HADORITE, gem(GemAspect.MEN, 0x9A74F2, UTILITY_WORDS, 2));
-        register(context, lookup, OPAL, gem(GemAspect.DWARVES, 0x8FD3F0, DEFENSE_WORDS, 2));
+        // Opal's play of colour: its ore sparks lilac, blue and white (from its palette).
+        register(context, lookup, OPAL, gem(GemAspect.DWARVES, 0x8FD3F0, DEFENSE_WORDS, 2, 0xE58FC4, 0x8FD3F0, 0xFFFAF0));
         register(context, lookup, ONYX, gem(GemAspect.MORGUL, 0x6E6E78, ATTACK_WORDS, 2));
         register(context, lookup, MOONSTONE, gem(GemAspect.ELVES, 0xA6CDF8, SPEED_WORDS, 2));
     }
 
-    private static GemType gem(GemAspect aspect, int color, List<String> words, int studyBand) {
-        return new GemType(aspect, TextColor.fromRgb(color), words, studyBand);
+    private static GemType gem(GemAspect aspect, int color, List<String> words, int studyBand, int... sparkColors) {
+        return new GemType(aspect, TextColor.fromRgb(color), words, studyBand,
+            java.util.Arrays.stream(sparkColors).mapToObj(TextColor::fromRgb).toList());
     }
 
     private static void register(Registerable<GemType> context, RegistryEntryLookup<GemType> lookup,

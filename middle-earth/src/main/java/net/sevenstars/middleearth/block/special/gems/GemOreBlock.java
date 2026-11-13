@@ -85,7 +85,7 @@ public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock
 
     /**
      * Client only (sparks are particles), so the server's copy of this block never names the particle code.
-     * Sparks in the gem's colour just off every open face (placed as redstone ore's are): on average
+     * Sparks in the gem's colours just off every open face (placed as redstone ore's are): on average
      * {@code atFullLight} a face in full light, fewer and dimmer as the light there falls.
      */
     @Environment(EnvType.CLIENT)
@@ -93,9 +93,8 @@ public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock
         if (!world.isClient) {
             return;
         }
-        int rgb = GemTypeRegistry.get(world.getRegistryManager(), state.get(GEM).key())
-            .map(gemType -> gemType.color().getRgb())
-            .orElse(0xFFFFFF);
+        java.util.Optional<net.sevenstars.middleearth.resources.datas.gems.GemType> gemType =
+            GemTypeRegistry.get(world.getRegistryManager(), state.get(GEM).key());
         for (Direction face : Direction.values()) {
             BlockPos open = pos.offset(face);
             if (world.getBlockState(open).isOpaqueFullCube()) {
@@ -105,9 +104,10 @@ public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock
             float expected = atFullLight * light;
             int sparks = (int) expected + (random.nextFloat() < expected - (int) expected ? 1 : 0);
             float brightness = DIMMEST + (1 - DIMMEST) * light;
-            int dimmed = ((int) (((rgb >> 16) & 0xFF) * brightness) << 16) | ((int) (((rgb >> 8) & 0xFF) * brightness) << 8)
-                | (int) ((rgb & 0xFF) * brightness);
             for (int i = 0; i < sparks; i++) {
+                int rgb = gemType.map(type -> type.sparkRgb(random)).orElse(0xFFFFFF);
+                int dimmed = ((int) (((rgb >> 16) & 0xFF) * brightness) << 16) | ((int) (((rgb >> 8) & 0xFF) * brightness) << 8)
+                    | (int) ((rgb & 0xFF) * brightness);
                 Direction.Axis axis = face.getAxis();
                 double x = axis == Direction.Axis.X ? 0.5 + 0.5625 * face.getOffsetX() : random.nextFloat();
                 double y = axis == Direction.Axis.Y ? 0.5 + 0.5625 * face.getOffsetY() : random.nextFloat();
