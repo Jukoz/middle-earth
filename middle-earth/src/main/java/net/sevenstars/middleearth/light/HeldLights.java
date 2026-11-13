@@ -176,7 +176,7 @@ public final class HeldLights {
         return of(world.isClient, stack);
     }
 
-    /** Whether a toggled lamp is switched on (lanterns are, until shaded; the focused lamps carry their own default). */
+    /** Whether a toggled lamp is switched on (lanterns are, until shaded). */
     public static boolean isOn(ItemStack stack) {
         return stack.getOrDefault(DataComponentTypesME.LAMP_ON, true);
     }

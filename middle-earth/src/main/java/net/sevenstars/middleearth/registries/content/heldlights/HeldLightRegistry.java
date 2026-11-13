@@ -13,7 +13,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.light.HeldLight;
@@ -43,13 +42,6 @@ public class HeldLightRegistry {
 
     public static void bootstrap(Registerable<HeldLightData> context) {
         RegistryEntryLookup<HeldLightData> lookup = context.getRegistryLookup(KEY);
-
-        // The focused lamps: beams, carried by their handles along the gaze, the beam from the lens (1 px inside it).
-        for (BeamLampKind kind : BeamLampKind.values()) {
-            register(context, lookup, name(kind.item()), new HeldLightData(List.of(id(kind.item())), Slot.OFFHAND, kind.held(),
-                grip(14), new Vector3f(8, (float) kind.lensHeight(), 9 - (float) kind.lensOut()), Display.DEFAULT,
-                Optional.empty(), Optional.empty()));
-        }
 
         // Lanterns: steady, shaded at will, carried by their handles (grip: a pixel under the handle's top).
         lantern(context, lookup, Items.LANTERN, 10);

@@ -189,9 +189,6 @@ public class GemTranslations {
         put("block.middle-earth.citrine_bullseye_lamp", "Citrine Bullseye Lamp");
         put("block.middle-earth.mirdain_beam_lamp", "Mirdain Beam Lamp");
         put("block.middle-earth.beam_light", "Beam Light");
-        put("item.middle-earth.beam_lamp.lit", "Lit");
-        put("item.middle-earth.beam_lamp.shaded", "Shaded");
-        put("item.middle-earth.beam_lamp.hint", "Carry in your off hand and use it to light or shade it");
         // Lapidary arts item names: from their ids, with a few overrides.
         java.util.Map<String, String> lapidaryNames = java.util.Map.of("numenorean_pump", "Númenórean Pump", "masterwork_lapidary_scroll", "Lost Master's Study of Gems", "relic_lapidary_scroll", "Ancient Eregion Gemcraft Folio");
         for (net.minecraft.item.Item item : net.sevenstars.middleearth.item.ResourceItemsME.LAPIDARY_ITEMS) {

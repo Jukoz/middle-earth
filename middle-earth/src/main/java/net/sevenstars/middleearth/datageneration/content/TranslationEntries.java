@@ -812,6 +812,10 @@ public class TranslationEntries {
                     "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
             put(of(LangCategory.SCREEN, "playerbook.dungeon_spider_burrows_desc_right"), "");
 
+            put(of(LangCategory.TOOLTIP, "held_light.lit"), "Lit");
+            put(of(LangCategory.TOOLTIP, "held_light.shaded"), "Shaded");
+            put(of(LangCategory.TOOLTIP, "held_light.hint"), "Carry in your off hand and use it to light or shade it");
+
             put(of(LangCategory.WIDGET, "spawn_tooltip_title"), "Spawns");
             put(of(LangCategory.WIDGET, "marker.selected_title_container.before"), "[");
             put(of(LangCategory.WIDGET, "marker.selected_title_container.after"), "]");

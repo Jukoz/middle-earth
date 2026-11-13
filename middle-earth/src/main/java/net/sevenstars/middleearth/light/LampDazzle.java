@@ -28,7 +28,7 @@ import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A focused lamp's beam in the eyes of the creatures of the dark (orc-kind, trolls, spiders: Shelob's brood and
+ * A beam light's beam in the eyes of the creatures of the dark (orc-kind, trolls, spiders: Shelob's brood and
  * the common kinds) under cover and in the dark, underground, indoors or under a canopy like Mirkwood's: they are
  * blinded for a moment and lose their quarry. Anyone else, anyone under the open sky, or in daylight, or where a
  * torch or the like already lights the place, the beam leaves be. Each is

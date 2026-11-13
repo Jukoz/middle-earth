@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.light.HeldLights;
 import org.joml.Quaternionf;
 
 /**
- * A shaded lantern or beam lamp in the off hand is carried at the side, hanging from the fist by its handle: the arm
+ * A shaded lantern or beam light in the off hand is carried at the side, hanging from the fist by its handle: the arm
  * hangs down and the light hangs straight below the fist however the arm swings. (Lit, it is carried out along the
  * gaze.)
  */

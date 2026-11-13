@@ -61,7 +61,7 @@ public class BipedEntityModelMixin {
     private static final float RAISED_ARM_PITCH = -1.3F;
 
     /**
-     * A light in the off hand is carried up: a focused lamp or lantern out before the face, the arm along the gaze;
+     * A light in the off hand is carried up: a lantern or beam light out before the face, the arm along the gaze;
      * a torch, candle or lamp held up before the holder, a little below level, turning half as far as the head.
      */
     private void middleearth$raiseLamp(BipedEntityRenderState state, boolean rightArm) {

@@ -59,8 +59,8 @@ public class BeamLampItem extends BlockItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent,
                               Consumer<Text> textConsumer, TooltipType type) {
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        textConsumer.accept(Text.translatable(HeldLights.isOn(stack) ? "item.middle-earth.beam_lamp.lit" : "item.middle-earth.beam_lamp.shaded")
+        textConsumer.accept(Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit" : "tooltip.middle-earth.held_light.shaded")
             .formatted(Formatting.GRAY));
-        textConsumer.accept(Text.translatable("item.middle-earth.beam_lamp.hint").formatted(Formatting.DARK_GRAY));
+        textConsumer.accept(Text.translatable("tooltip.middle-earth.held_light.hint").formatted(Formatting.DARK_GRAY));
     }
 }

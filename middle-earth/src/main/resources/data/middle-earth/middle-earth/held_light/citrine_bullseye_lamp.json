@@ -1,0 +1,12 @@
+{
+  "items": ["middle-earth:citrine_bullseye_lamp"],
+  "light": {
+    "type": "beam",
+    "range": 24,
+    "spot_level": 12,
+    "glow_level": 12,
+    "color": "#FFD98A"
+  },
+  "grip": [8, 14, 8],
+  "lens": [8, 4, 6]
+}

@@ -1,0 +1,12 @@
+{
+  "items": ["middle-earth:mirdain_beam_lamp"],
+  "light": {
+    "type": "beam",
+    "range": 36,
+    "spot_level": 15,
+    "glow_level": 14,
+    "color": "#D6E8FF"
+  },
+  "grip": [8, 14, 8],
+  "lens": [8, 7, 7]
+}

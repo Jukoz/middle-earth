@@ -39,7 +39,7 @@ import org.joml.Vector3f;
 
 /**
  * The visible side of beam lights, for every player: the soft beam from each lit one (held in someone's off hand
- * or set down) to where it lands, and any {@link BeamLitBlock} (such as hidden gem ore) answering where a beam
+ * or set down) to where it lands, and any {@link BeamLitBlock} answering where a beam
  * sweeps over it.
  */
 @Environment(EnvType.CLIENT)
@@ -308,7 +308,7 @@ public final class LampBeams {
         buffer.vertex(matrix, (float) at.x, (float) at.y, (float) at.z).color(r, g, b, a);
     }
 
-    /** Every tick: beam-lit blocks (gem ore) in any beam's cone may answer. */
+    /** Every tick: beam-lit blocks in any beam's cone may answer. */
     private static void tick(MinecraftClient client) {
         ClientWorld world = client.world;
         if (world == null || client.isPaused()) {

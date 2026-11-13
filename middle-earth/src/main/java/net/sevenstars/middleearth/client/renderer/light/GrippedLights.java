@@ -24,7 +24,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 /**
- * Your own off hand in first person, holding a lantern or beam lamp by its handle: while the light is lit, the fist
+ * Your own off hand in first person, holding a lantern by its handle: while the light is lit, the fist
  * held low at the right of the view (the left, for the left hand) with the forearm coming up to it from the lower
  * corner, the view showing only their upper part; shaded, the arm lowers the light out of view, carried at your
  * side as third person shows it.
@@ -46,7 +46,7 @@ public final class GrippedLights {
     private GrippedLights() {
     }
 
-    /** Whether this stack is a light carried by its handle along the gaze (lanterns, the beam lamps). */
+    /** Whether this stack is a light carried by its handle along the gaze (lanterns, beam lights). */
     public static boolean gripped(ItemStack stack) {
         return HeldLights.of(true, stack) instanceof HeldLight light && light.toggled() && light.hold() == HeldLight.Hold.GAZE;
     }

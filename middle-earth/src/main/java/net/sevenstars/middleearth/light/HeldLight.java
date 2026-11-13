@@ -55,7 +55,7 @@ public sealed interface HeldLight permits HeldLight.Beam, HeldLight.Glow {
     }
 
     /**
-     * A focused lamp: lights the spot its beam lands on, up to {@code range} blocks away, and glows a little at
+     * A beam light: lights the spot its beam lands on, up to {@code range} blocks away, and glows a little at
      * the holder. {@code color} is the beam's RGB.
      */
     record Beam(int range, int spotLevel, int glowLevel, int color, boolean toggled) implements HeldLight {

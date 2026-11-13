@@ -105,12 +105,12 @@ public final class HeldFlames {
         // The client's held lights: loaded as it joins a world (its tags load then too), forgotten as it leaves.
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> HeldLights.load(handler.getRegistryManager(), true));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> HeldLights.clear(true));
-        // Lanterns and lamps say whether they are lit, and how to shade them (the focused lamps say so themselves).
+        // Lanterns and lamps say whether they are lit, and how to shade them.
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if (HeldLights.of(true, stack) instanceof HeldLight.Glow glow && glow.toggled()) {
-                lines.add(net.minecraft.text.Text.translatable(HeldLights.isOn(stack) ? "item.middle-earth.beam_lamp.lit"
-                    : "item.middle-earth.beam_lamp.shaded").formatted(net.minecraft.util.Formatting.GRAY));
-                lines.add(net.minecraft.text.Text.translatable("item.middle-earth.beam_lamp.hint").formatted(net.minecraft.util.Formatting.DARK_GRAY));
+                lines.add(net.minecraft.text.Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit"
+                    : "tooltip.middle-earth.held_light.shaded").formatted(net.minecraft.util.Formatting.GRAY));
+                lines.add(net.minecraft.text.Text.translatable("tooltip.middle-earth.held_light.hint").formatted(net.minecraft.util.Formatting.DARK_GRAY));
             }
         });
     }

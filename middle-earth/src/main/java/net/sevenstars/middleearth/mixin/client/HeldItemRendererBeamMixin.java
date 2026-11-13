@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Notes where your own off-hand lamp or flame is drawn, so its beam leaves the lens you see and its flame burns at the
- * tip; draws your off hand gripping a lantern or beam lamp by its handle ({@link GrippedLights}); and draws an
+ * tip; draws your off hand gripping a lantern by its handle ({@link GrippedLights}); and draws an
  * off-hand light's held block in place of its item ({@link HeldBlocks}).
  */
 @Mixin(HeldItemRenderer.class)
@@ -44,7 +44,7 @@ public class HeldItemRendererBeamMixin {
     }
 
     /**
-     * A lantern or beam lamp in the off hand is drawn held by its handle in your fist, with your arm. Left to vanilla
+     * A lantern in the off hand is drawn held by its handle in your fist, with your arm. Left to vanilla
      * while invisible (it draws no arm then) or looking through a spyglass (it draws nothing then).
      */
     @Inject(at = @At("HEAD"), method = "renderFirstPersonItem", cancellable = true)
