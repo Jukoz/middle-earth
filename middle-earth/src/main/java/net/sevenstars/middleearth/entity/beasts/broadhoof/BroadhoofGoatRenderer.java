@@ -5,13 +5,10 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
-import net.minecraft.client.render.entity.feature.HorseMarkingFeatureRenderer;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.passive.HorseColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.features.BroadhoofGoatBeadsFeatureRenderer;
@@ -61,19 +58,19 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
     private static final Map<BroadhoofGoatColor, Identifier> TEXTURES = Maps.newEnumMap(
             Map.of(
                     BroadhoofGoatColor.WHITE,
-                    MiddleEarth.of(PATH + "broadhoof_goat_white.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_white.png"),
                     BroadhoofGoatColor.LIGHT_GRAY,
-                    MiddleEarth.of(PATH + "broadhoof_goat_light_gray.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_light_gray.png"),
                     BroadhoofGoatColor.PALE,
-                    MiddleEarth.of(PATH + "broadhoof_goat_pale.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_pale.png"),
                     BroadhoofGoatColor.RED,
-                    MiddleEarth.of(PATH + "broadhoof_goat_red.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_red.png"),
                     BroadhoofGoatColor.BROWN,
-                    MiddleEarth.of(PATH + "broadhoof_goat_brown.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_brown.png"),
                     BroadhoofGoatColor.GRAY,
-                    MiddleEarth.of(PATH + "broadhoof_goat_gray.png"),
+                    MiddleEarth.id(PATH + "broadhoof_goat_gray.png"),
                     BroadhoofGoatColor.BLACK,
-                    MiddleEarth.of(PATH + "broadhoof_goat_black.png")
+                    MiddleEarth.id(PATH + "broadhoof_goat_black.png")
             )
     );
 

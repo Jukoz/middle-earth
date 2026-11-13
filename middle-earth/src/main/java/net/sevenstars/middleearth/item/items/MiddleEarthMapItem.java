@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.item.items;
 
-import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -8,7 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.network.packets.S2C.PacketOpenMapScreen;
+import net.sevenstars.middleearth.network.packets.server2client.PacketOpenMapScreen;
 import net.sevenstars.middleearth.permissions.PermissionsME;
 
 public class MiddleEarthMapItem extends Item {

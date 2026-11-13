@@ -21,7 +21,7 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
@@ -31,7 +31,7 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     private boolean blockPlaced = false;
 
     public PlateBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.PLATE, pos, state);
+        super(BlockEntityRegistryME.PLATE, pos, state);
     }
 
     @Override

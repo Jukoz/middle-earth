@@ -7,12 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 
 import java.util.Optional;
@@ -20,7 +18,7 @@ import java.util.Optional;
 public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
 
     public StoneAnvilBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STONE_ANVIL, pos, state);
+        super(BlockEntityRegistryME.STONE_ANVIL, pos, state);
     }
 
     public StoneAnvilBlockEntity(BlockEntityType type, BlockPos pos, BlockState state) {
@@ -36,9 +34,9 @@ public class StoneAnvilBlockEntity extends ShapingAnvilBlockEntity {
             Optional<RegistryKey<ArmorTrimMaterial>> armorTrimMaterialRegistryKey = trim.material().getKey();
             if(armorTrimMaterialRegistryKey.isPresent()) {
                 RegistryKey<ArmorTrimMaterial> armorTrimMaterial = armorTrimMaterialRegistryKey.get();
-                if (!armorTrimMaterial.getValue().equals(MiddleEarth.of("bronze")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("crude")) &&
-                        !armorTrimMaterial.getValue().equals(MiddleEarth.of("iron"))) {
+                if (!armorTrimMaterial.getValue().equals(MiddleEarth.id("bronze")) &&
+                        !armorTrimMaterial.getValue().equals(MiddleEarth.id("crude")) &&
+                        !armorTrimMaterial.getValue().equals(MiddleEarth.id("iron"))) {
                     return;
                 }
             }

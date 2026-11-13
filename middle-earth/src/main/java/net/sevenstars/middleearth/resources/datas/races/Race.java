@@ -43,7 +43,7 @@ public class Race {
 
     public Race(String id, String raceTypeValue, NbtCompound baseAttributes, NbtCompound categoryBasedAttributes, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands){
         // Create id
-        this.id = MiddleEarth.fetchId(id);
+        this.id = MiddleEarth.ofId(id);
         this.translatableKey = "race.".concat(this.id.toTranslationKey());
         // Create model
         this.raceType = RaceType.valueOf(raceTypeValue.toUpperCase());

@@ -28,7 +28,7 @@ public class DeerEntityRenderer extends MobEntityRenderer<DeerEntity, DeerEntity
 
     @Override
     public Identifier getTexture(DeerEntityRenderState state) {
-        return OfBeastsAndWildThings.of(LOCATION_BY_VARIANT.get(state.variant));
+        return OfBeastsAndWildThings.id(LOCATION_BY_VARIANT.get(state.variant));
     }
 
     @Override

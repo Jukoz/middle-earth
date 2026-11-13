@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.world.features.tree.foliages;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
+import net.sevenstars.middleearth.world.gen.TreeGenerationME;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.property.Properties;
@@ -50,7 +50,7 @@ public class OvalFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return ModTreeGeneration.OVAL_FOLIAGE;
+        return TreeGenerationME.OVAL_FOLIAGE;
     }
 
     @Override

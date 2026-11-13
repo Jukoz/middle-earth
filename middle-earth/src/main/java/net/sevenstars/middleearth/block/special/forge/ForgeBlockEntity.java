@@ -11,10 +11,9 @@ import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
 import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
@@ -89,7 +88,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     //TODO custom metal trim data component with palette
 
     public ForgeBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.FORGE, pos, state);
+        super(BlockEntityRegistryME.FORGE, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -158,7 +157,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
         Direction directionForge = state.get(ForgeBlock.FACING);
 
-        if(world.getBlockState(pos1).isOf(ModDecorativeBlocks.BELLOWS) && world.getBlockState(pos2).isOf(ModDecorativeBlocks.BELLOWS)){
+        if(world.getBlockState(pos1).isOf(DecorativeBlockRegistryME.BELLOWS) && world.getBlockState(pos2).isOf(DecorativeBlockRegistryME.BELLOWS)){
             Direction direction1 = world.getBlockState(pos1).get(BellowsBlock.FACING);
             Direction direction2 = world.getBlockState(pos2).get(BellowsBlock.FACING);
             switch (directionForge){
@@ -327,7 +326,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     public static void switchMode(Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
 
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
@@ -342,7 +341,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, ModBlockEntities.FORGE);
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
 
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){

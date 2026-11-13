@@ -13,7 +13,7 @@ public class SchedulesWT {
         return new ScheduleBuilder(schedule);
     }
 
-    public static void registerModSchedules() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Schedules for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Schedules");
     }
 }

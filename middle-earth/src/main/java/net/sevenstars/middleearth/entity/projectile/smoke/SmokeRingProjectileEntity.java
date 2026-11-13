@@ -14,7 +14,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.utils.ModCollisionUtils;
+import net.sevenstars.middleearth.utils.CollisionUtilsME;
 
 public class SmokeRingProjectileEntity extends ProjectileEntity {
     public static final int MAX_LIFESPAN_TICKS = 40;
@@ -125,7 +125,7 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     }
 
     private boolean checkBlockCollision() {
-        return ModCollisionUtils.checkBlockFanCollision(this.getWorld(),
+        return CollisionUtilsME.checkBlockFanCollision(this.getWorld(),
                 this.getBoundingBox(),
                 this.getVelocity(),
                 this,

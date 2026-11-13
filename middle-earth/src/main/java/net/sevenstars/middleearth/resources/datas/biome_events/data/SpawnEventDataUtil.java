@@ -9,6 +9,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
+import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -26,13 +27,13 @@ public class SpawnEventDataUtil {
         Identifier entityId = entity.getNpcTypeIdentifier();
         if(entityId == null || npcTypeToCompare == null)
             return false;
-        return MiddleEarth.compareId(entityId, npcTypeToCompare);
+        return IdentifierUtil.compareId(entityId, npcTypeToCompare);
     }
 
     static boolean compareEntitiesByType(LivingEntity entity, Identifier entityType) {
         if(entity == null)
             return false;
-        return MiddleEarth.compareId(Registries.ENTITY_TYPE.getId(entity.getType()), entityType);
+        return IdentifierUtil.compareId(Registries.ENTITY_TYPE.getId(entity.getType()), entityType);
     }
 
     // Conditions

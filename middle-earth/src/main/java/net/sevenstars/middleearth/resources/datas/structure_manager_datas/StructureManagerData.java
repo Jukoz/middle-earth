@@ -19,7 +19,7 @@ public class StructureManagerData {
     private final List<SpawnNestNodeData> spawnNestNodeData;
 
     public StructureManagerData(String id, List<SpawnNestNodeData> nests) {
-        this.id = MiddleEarth.fetchId(id);
+        this.id = MiddleEarth.ofId(id);
         this.spawnNestNodeData = nests;
     }
 

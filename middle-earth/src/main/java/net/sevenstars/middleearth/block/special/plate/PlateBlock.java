@@ -29,7 +29,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.minecraft.world.tick.TickPriority;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlock extends BlockWithEntity {
@@ -91,7 +91,7 @@ public class PlateBlock extends BlockWithEntity {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         if (!world.isClient) {
-            return PlateBlock.validateTicker(world, type, ModBlockEntities.PLATE);
+            return PlateBlock.validateTicker(world, type, BlockEntityRegistryME.PLATE);
         }
         return super.getTicker(world, state, type);
     }

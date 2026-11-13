@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -36,7 +36,7 @@ public class AffiliationData {
             if(!spawnData.isDynamic()){ // Return custom spawn coords
                 return blockpos.toCenterPos();
             }
-            int height = ModDimensions.getDimensionHeight(blockpos.getX(), blockpos.getZ()).y;
+            int height = DimensionRegistryME.getDimensionHeight(blockpos.getX(), blockpos.getZ()).y;
             blockpos = new BlockPos(blockpos.getX(), height, blockpos.getZ());
             return blockpos.toCenterPos();
         } catch (FactionIdentifierException e){

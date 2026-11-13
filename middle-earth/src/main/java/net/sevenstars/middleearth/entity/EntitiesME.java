@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.*;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -87,7 +86,7 @@ public class EntitiesME {
 
     public static <T extends Entity> EntityType<T> registerEntity(String name, EntityType.EntityFactory<T> entity, SpawnGroup spawnGroup,
                                                                   float width, float height) {
-        return Registry.register(Registries.ENTITY_TYPE, MiddleEarth.of(name), EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
+        return Registry.register(Registries.ENTITY_TYPE, MiddleEarth.id(name), EntityType.Builder.create(entity, spawnGroup).dimensions(width, height).build(keyOf("name")));
     }
 
     private static <T extends Entity> EntityType<T> register(RegistryKey<EntityType<?>> key, EntityType.Builder<T> type) {

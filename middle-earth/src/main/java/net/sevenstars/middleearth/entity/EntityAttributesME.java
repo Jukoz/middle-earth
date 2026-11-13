@@ -16,7 +16,7 @@ public class EntityAttributesME {
     public static final RegistryEntry<EntityAttribute> WIDTH_SCALE;
 
     private static RegistryEntry<EntityAttribute> register(String name, double defaultValue, double minValue , double MaxValue, boolean tracked) {
-        Identifier id = MiddleEarth.of(name);
+        Identifier id = MiddleEarth.id(name);
         EntityAttribute attribute = new ClampedEntityAttribute(id.toTranslationKey(), defaultValue, minValue, MaxValue).setTracked(tracked);
         return Registry.registerReference(Registries.ATTRIBUTE, id, attribute);
     }

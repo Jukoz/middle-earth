@@ -5,7 +5,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -19,8 +19,8 @@ public class AnvilScreenHandlerMixin {
             var enchants = EnchantmentHelper.getEnchantments(stack);
             for (var entry : enchants.getEnchantmentEntries()) {
                 var enchant = entry.getKey();
-                if ((enchant.matchesKey(Enchantments.SHARPNESS) && entry.getIntValue() >= ModServerConfigs.SHARPNESS_MAX_LEVEL)
-                        || (enchant.matchesKey(Enchantments.POWER) && entry.getIntValue() >= ModServerConfigs.POWER_MAX_LEVEL)) {
+                if ((enchant.matchesKey(Enchantments.SHARPNESS) && entry.getIntValue() >= ServerConfigME.SHARPNESS_MAX_LEVEL)
+                        || (enchant.matchesKey(Enchantments.POWER) && entry.getIntValue() >= ServerConfigME.POWER_MAX_LEVEL)) {
                     outputInventory.setStack(slot, ItemStack.EMPTY);
                     return;
                 }

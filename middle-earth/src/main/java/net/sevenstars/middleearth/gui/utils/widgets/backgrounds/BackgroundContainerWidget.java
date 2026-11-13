@@ -1,14 +1,13 @@
 package net.sevenstars.middleearth.gui.utils.widgets.backgrounds;
 
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.render.RenderLayer;
-import net.sevenstars.middleearth.gui.utils.widgets.ModWidget;
+import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.gui.utils.widgets.UiDirections;
 import net.sevenstars.middleearth.gui.utils.widgets.backgrounds.types.BackgroundContainerTypes;
 import net.minecraft.client.gui.DrawContext;
 import org.joml.Vector2i;
 
-public class BackgroundContainerWidget extends ModWidget {
+public class BackgroundContainerWidget extends CustomWidget {
     BackgroundContainerTypes type;
     public BackgroundContainerWidget(BackgroundContainerTypes type){
         this.type = type;

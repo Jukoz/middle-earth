@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.mixin;
 
 import net.sevenstars.middleearth.utils.LootModifiers;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -22,7 +22,7 @@ public abstract class FishingBobberEntityMixin extends ProjectileEntity {
     @ModifyArg(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/ReloadableRegistries$Lookup;getLootTable(Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/loot/LootTable;"))
     public RegistryKey<LootTable> onUseFishingRod(RegistryKey<LootTable> key) {
         if(!getWorld().isClient) {
-            if(ModDimensions.isInMiddleEarth(getWorld())) {
+            if(DimensionRegistryME.isInMiddleEarth(getWorld())) {
                 return LootModifiers.FISHING_LOOT_TABLE;
             }
         }

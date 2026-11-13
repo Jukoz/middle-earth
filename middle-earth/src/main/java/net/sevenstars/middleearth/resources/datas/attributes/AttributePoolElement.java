@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.resources.datas.attributes;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -139,7 +138,7 @@ public class AttributePoolElement {
         }
         attributes.forEach(attribute -> {
             AttributePoolElement attributePoolElement = new AttributePoolElement();
-            attributePoolElement.withIdentifier(MiddleEarth.fetchId(attribute.getAttribute().getIdAsString()));
+            attributePoolElement.withIdentifier(MiddleEarth.ofId(attribute.getAttribute().getIdAsString()));
             attributePoolElement.withDefineValue(attribute.getBaseValue());
             for(var modifier : attribute.getModifiers())
                 attributePoolElement.withModifier(modifier.id(), modifier.value(), modifier.operation());

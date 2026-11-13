@@ -3,24 +3,20 @@ package net.sevenstars.middleearth.recipe.inscription;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 
 import java.util.List;
 
@@ -40,7 +36,7 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
     }
 
     public ItemStack createIcon() {
-        return new ItemStack(ModDecorativeBlocks.INSCRIPTION_TABLE);
+        return new ItemStack(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
     }
 
     @Override

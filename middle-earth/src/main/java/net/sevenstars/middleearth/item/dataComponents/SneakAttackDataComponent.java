@@ -10,8 +10,6 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.text.Text;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.utils.ModColors;
 
 import java.util.function.Consumer;
 

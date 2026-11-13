@@ -11,7 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.commands.ModCommands;
+import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -28,7 +28,7 @@ public class CommandInformation {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [INFO]
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
+        dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
                 .then(literal(INFO_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player()) // With Player Target

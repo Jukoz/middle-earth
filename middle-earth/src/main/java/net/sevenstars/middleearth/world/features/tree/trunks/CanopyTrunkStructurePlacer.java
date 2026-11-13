@@ -10,7 +10,7 @@ import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
-import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
+import net.sevenstars.middleearth.world.gen.TreeGenerationME;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -54,7 +54,7 @@ public class CanopyTrunkStructurePlacer extends CanopyTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTreeGeneration.CANOPY_TRUNK_STRUCTURE_PLACER;
+        return TreeGenerationME.CANOPY_TRUNK_STRUCTURE_PLACER;
     }
 
     @Override

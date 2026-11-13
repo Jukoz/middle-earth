@@ -44,14 +44,14 @@ public class ItemsWT {
         ItemGroupsWT.ITEMS_CONTENTS.add(item.getDefaultStack());
         SimpleItemModels.items.add(item);
         TranslationEntries.itemEntries.add(item);
-        return Registry.register(Registries.ITEM, OfBeastsAndWildThings.of(idPath), item);
+        return Registry.register(Registries.ITEM, OfBeastsAndWildThings.id(idPath), item);
     }
 
     public static RegistryKey<Item> keyOfItem(String idPath) {
-        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of(idPath));
+        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id(idPath));
     }
 
-    public static void registerModItems() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering Mod Items for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Items");
     }
 }

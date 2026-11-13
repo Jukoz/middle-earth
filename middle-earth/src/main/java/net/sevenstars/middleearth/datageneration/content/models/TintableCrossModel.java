@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -9,127 +9,127 @@ import java.util.List;
 public class TintableCrossModel {
     public static List<Block> notTintedBlocks = new ArrayList<>() {
         {
-            add(ModNatureBlocks.WILD_CUCUMBER);
-            add(ModNatureBlocks.WILD_LEEK);
-            add(ModNatureBlocks.WILD_LETTUCE);
-            add(ModNatureBlocks.WILD_GARLIC);
-            add(ModNatureBlocks.WILD_ONION);
-            add(ModNatureBlocks.WILD_FLAX);
-            add(ModNatureBlocks.WILD_TOMATO);
-            add(ModNatureBlocks.WILD_WHEAT);
-            add(ModNatureBlocks.WILD_BELL_PEPPER);
+            add(NatureBlockRegistryME.WILD_CUCUMBER);
+            add(NatureBlockRegistryME.WILD_LEEK);
+            add(NatureBlockRegistryME.WILD_LETTUCE);
+            add(NatureBlockRegistryME.WILD_GARLIC);
+            add(NatureBlockRegistryME.WILD_ONION);
+            add(NatureBlockRegistryME.WILD_FLAX);
+            add(NatureBlockRegistryME.WILD_TOMATO);
+            add(NatureBlockRegistryME.WILD_WHEAT);
+            add(NatureBlockRegistryME.WILD_BELL_PEPPER);
 
-            add(ModNatureBlocks.BROWN_BOLETE);
-            add(ModNatureBlocks.CAVE_AMANITA);
-            add(ModNatureBlocks.DEEP_FIRECAP);
-            add(ModNatureBlocks.GHOSTSHROOM);
-            add(ModNatureBlocks.MORSEL);
-            add(ModNatureBlocks.SKY_FIRECAP);
-            add(ModNatureBlocks.TRUMPET_SHROOM);
-            add(ModNatureBlocks.TUBESHRROM);
-            add(ModNatureBlocks.VIOLET_CAPS);
-            add(ModNatureBlocks.WHITE_MUSHROOM);
-            add(ModNatureBlocks.YELLOW_AMANITA);
+            add(NatureBlockRegistryME.BROWN_BOLETE);
+            add(NatureBlockRegistryME.CAVE_AMANITA);
+            add(NatureBlockRegistryME.DEEP_FIRECAP);
+            add(NatureBlockRegistryME.GHOSTSHROOM);
+            add(NatureBlockRegistryME.MORSEL);
+            add(NatureBlockRegistryME.SKY_FIRECAP);
+            add(NatureBlockRegistryME.TRUMPET_SHROOM);
+            add(NatureBlockRegistryME.TUBESHRROM);
+            add(NatureBlockRegistryME.VIOLET_CAPS);
+            add(NatureBlockRegistryME.WHITE_MUSHROOM);
+            add(NatureBlockRegistryME.YELLOW_AMANITA);
 
-            add(ModNatureBlocks.BLUE_GENTIAN);
-            add(ModNatureBlocks.GREEN_JEWEL_CORNFLOWER);
-            add(ModNatureBlocks.NOBLEWHITE);
+            add(NatureBlockRegistryME.BLUE_GENTIAN);
+            add(NatureBlockRegistryME.GREEN_JEWEL_CORNFLOWER);
+            add(NatureBlockRegistryME.NOBLEWHITE);
 
-            add(ModNatureBlocks.ELANOR);
-            add(ModNatureBlocks.MALLOS);
-            add(ModNatureBlocks.NIPHREDIL);
-            add(ModNatureBlocks.SIMBELMYNE);
-            add(ModNatureBlocks.YELLOW_FLOWER);
+            add(NatureBlockRegistryME.ELANOR);
+            add(NatureBlockRegistryME.MALLOS);
+            add(NatureBlockRegistryME.NIPHREDIL);
+            add(NatureBlockRegistryME.SIMBELMYNE);
+            add(NatureBlockRegistryME.YELLOW_FLOWER);
 
-            add(ModNatureBlocks.LIGHT_BLUE_FLOWERS);
-            add(ModNatureBlocks.MAGENTA_FLOWERS);
-            add(ModNatureBlocks.ORANGE_FLOWERS);
-            add(ModNatureBlocks.PINK_FLOWERS);
-            add(ModNatureBlocks.PURPLE_FLOWERS);
-            add(ModNatureBlocks.RED_FLOWERS);
-            add(ModNatureBlocks.WHITE_FLOWERS);
-            add(ModNatureBlocks.YELLOW_FLOWERS);
+            add(NatureBlockRegistryME.LIGHT_BLUE_FLOWERS);
+            add(NatureBlockRegistryME.MAGENTA_FLOWERS);
+            add(NatureBlockRegistryME.ORANGE_FLOWERS);
+            add(NatureBlockRegistryME.PINK_FLOWERS);
+            add(NatureBlockRegistryME.PURPLE_FLOWERS);
+            add(NatureBlockRegistryME.RED_FLOWERS);
+            add(NatureBlockRegistryME.WHITE_FLOWERS);
+            add(NatureBlockRegistryME.YELLOW_FLOWERS);
 
-            add(ModNatureBlocks.BLUE_LAVENDER);
-            add(ModNatureBlocks.LAVENDER);
-            add(ModNatureBlocks.WHITE_LAVENDER);
-            add(ModNatureBlocks.YELLOW_TROLLIUS);
+            add(NatureBlockRegistryME.BLUE_LAVENDER);
+            add(NatureBlockRegistryME.LAVENDER);
+            add(NatureBlockRegistryME.WHITE_LAVENDER);
+            add(NatureBlockRegistryME.YELLOW_TROLLIUS);
         }
     };
     public static List<Block> tintedBlocks = new ArrayList<>() {
         {
-            add(ModNatureBlocks.GRASS_TUFT);
-            add(ModNatureBlocks.MEADOWGRASS);
-            add(ModNatureBlocks.SPARSE_GRASS);
-            add(ModNatureBlocks.NETTLES);
-            add(ModNatureBlocks.THISTLE);
-            add(ModNatureBlocks.WHEATGRASS);
+            add(NatureBlockRegistryME.GRASS_TUFT);
+            add(NatureBlockRegistryME.MEADOWGRASS);
+            add(NatureBlockRegistryME.SPARSE_GRASS);
+            add(NatureBlockRegistryME.NETTLES);
+            add(NatureBlockRegistryME.THISTLE);
+            add(NatureBlockRegistryME.WHEATGRASS);
         }
     };
 
     public static List<Block> grassLikeBlocks = new ArrayList<>()
     {
         {
-            add(ModNatureBlocks.ATHELAS);
+            add(NatureBlockRegistryME.ATHELAS);
 
-            add(ModNatureBlocks.SHORT_HOGWEED);
+            add(NatureBlockRegistryME.SHORT_HOGWEED);
 
-            add(ModNatureBlocks.BROWN_GRASS);
-            add(ModNatureBlocks.GREEN_SHRUB);
-            add(ModNatureBlocks.SMALL_DRY_SHRUB);
-            add(ModNatureBlocks.FROZEN_SHRUB);
-            add(ModNatureBlocks.TAN_SHRUB);
+            add(NatureBlockRegistryME.BROWN_GRASS);
+            add(NatureBlockRegistryME.GREEN_SHRUB);
+            add(NatureBlockRegistryME.SMALL_DRY_SHRUB);
+            add(NatureBlockRegistryME.FROZEN_SHRUB);
+            add(NatureBlockRegistryME.TAN_SHRUB);
 
-            add(ModNatureBlocks.BLUE_FESCUE);
-            add(ModNatureBlocks.DYING_GRASS);
-            add(ModNatureBlocks.FROZEN_GRASS);
-            add(ModNatureBlocks.GRIM_GRASS);
-            add(ModNatureBlocks.TEMPERATE_GRASS);
-            add(ModNatureBlocks.FROZEN_TUFT);
-            add(ModNatureBlocks.HEATHER);
-            add(ModNatureBlocks.RED_HEATHER);
-            add(ModNatureBlocks.DEAD_HEATHER);
-            add(ModNatureBlocks.DRY_HEATHER);
-            add(ModNatureBlocks.HEATH);
-            add(ModNatureBlocks.WILDERGRASS);
-            add(ModNatureBlocks.BEACH_GRASS);
-            add(ModNatureBlocks.COASTAL_PANIC_GRASS);
-            add(ModNatureBlocks.MISTWEED);
-            add(ModNatureBlocks.SEDUM);
-            add(ModNatureBlocks.ORANGE_SEDUM);
-            add(ModNatureBlocks.RED_SEDUM);
-            add(ModNatureBlocks.YELLOW_SEDUM);
-            add(ModNatureBlocks.BRAMBLES_OF_MORDOR);
-            add(ModNatureBlocks.SHORT_DEAD_RUSHES);
-            add(ModNatureBlocks.SHORT_RUSHES);
-            add(ModNatureBlocks.SHORT_REEDS);
-            add(ModNatureBlocks.SHORT_CATTAILS);
-            add(ModNatureBlocks.SHORT_BULRUSH);
+            add(NatureBlockRegistryME.BLUE_FESCUE);
+            add(NatureBlockRegistryME.DYING_GRASS);
+            add(NatureBlockRegistryME.FROZEN_GRASS);
+            add(NatureBlockRegistryME.GRIM_GRASS);
+            add(NatureBlockRegistryME.TEMPERATE_GRASS);
+            add(NatureBlockRegistryME.FROZEN_TUFT);
+            add(NatureBlockRegistryME.HEATHER);
+            add(NatureBlockRegistryME.RED_HEATHER);
+            add(NatureBlockRegistryME.DEAD_HEATHER);
+            add(NatureBlockRegistryME.DRY_HEATHER);
+            add(NatureBlockRegistryME.HEATH);
+            add(NatureBlockRegistryME.WILDERGRASS);
+            add(NatureBlockRegistryME.BEACH_GRASS);
+            add(NatureBlockRegistryME.COASTAL_PANIC_GRASS);
+            add(NatureBlockRegistryME.MISTWEED);
+            add(NatureBlockRegistryME.SEDUM);
+            add(NatureBlockRegistryME.ORANGE_SEDUM);
+            add(NatureBlockRegistryME.RED_SEDUM);
+            add(NatureBlockRegistryME.YELLOW_SEDUM);
+            add(NatureBlockRegistryME.BRAMBLES_OF_MORDOR);
+            add(NatureBlockRegistryME.SHORT_DEAD_RUSHES);
+            add(NatureBlockRegistryME.SHORT_RUSHES);
+            add(NatureBlockRegistryME.SHORT_REEDS);
+            add(NatureBlockRegistryME.SHORT_CATTAILS);
+            add(NatureBlockRegistryME.SHORT_BULRUSH);
 
-            add(ModNatureBlocks.SHRIVELED_SHRUB);
+            add(NatureBlockRegistryME.SHRIVELED_SHRUB);
 
-            add(ModNatureBlocks.SCORCHED_GRASS);
-            add(ModNatureBlocks.SCORCHED_TUFT);
-            add(ModNatureBlocks.SCORCHED_SHRUB);
+            add(NatureBlockRegistryME.SCORCHED_GRASS);
+            add(NatureBlockRegistryME.SCORCHED_TUFT);
+            add(NatureBlockRegistryME.SCORCHED_SHRUB);
         }
     };
 
     public static List<Block> largePlants = new ArrayList<>()
     {
         {
-            add(ModNatureBlocks.CAMPION);
-            add(ModNatureBlocks.BLUE_BIGLEAF_HYDRANGEA);
-            add(ModNatureBlocks.PINK_BIGLEAF_HYDRANGEA);
-            add(ModNatureBlocks.WHITE_BIGLEAF_HYDRANGEA);
-            add(ModNatureBlocks.DEAD_HEATHER_BUSH);
-            add(ModNatureBlocks.DRY_HEATHER_BUSH);
-            add(ModNatureBlocks.DEAD_RUSHES);
-            add(ModNatureBlocks.FALSE_OATGRASS);
-            add(ModNatureBlocks.HEATHER_BUSH);
-            add(ModNatureBlocks.LARGE_BLUE_FESCUE);
-            add(ModNatureBlocks.LARGE_SHRIVELED_SHRUB);
-            add(ModNatureBlocks.RED_HEATHER_BUSH);
-            add(ModNatureBlocks.RUSHES);
+            add(NatureBlockRegistryME.CAMPION);
+            add(NatureBlockRegistryME.BLUE_BIGLEAF_HYDRANGEA);
+            add(NatureBlockRegistryME.PINK_BIGLEAF_HYDRANGEA);
+            add(NatureBlockRegistryME.WHITE_BIGLEAF_HYDRANGEA);
+            add(NatureBlockRegistryME.DEAD_HEATHER_BUSH);
+            add(NatureBlockRegistryME.DRY_HEATHER_BUSH);
+            add(NatureBlockRegistryME.DEAD_RUSHES);
+            add(NatureBlockRegistryME.FALSE_OATGRASS);
+            add(NatureBlockRegistryME.HEATHER_BUSH);
+            add(NatureBlockRegistryME.LARGE_BLUE_FESCUE);
+            add(NatureBlockRegistryME.LARGE_SHRIVELED_SHRUB);
+            add(NatureBlockRegistryME.RED_HEATHER_BUSH);
+            add(NatureBlockRegistryME.RUSHES);
         }
     };
 }

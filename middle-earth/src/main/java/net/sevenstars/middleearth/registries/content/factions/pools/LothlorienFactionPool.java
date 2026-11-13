@@ -51,7 +51,7 @@ public class LothlorienFactionPool {
                         new BannerData.BannerPatternWithColor(BannerPatternsME.STAR_AND_LEAF, DyeColor.WHITE)
                 )),
                 new SpawnDataHandler(List.of(
-                        new SpawnData(MiddleEarth.of(FactionRegistry.LOTHLORIEN.getValue().getPath(),  "cerin_amroth"), new Vector2d(1614, 1215))
+                        new SpawnData(MiddleEarth.idAggregate(FactionRegistry.LOTHLORIEN.getValue().getPath(),  "cerin_amroth"), new Vector2d(1614, 1215))
                 )), List.of(), List.of(),
                 List.of(
                         new InitialDiplomacy(FactionRegistry.LOTHLORIEN, AffinityLevel.ALLY),

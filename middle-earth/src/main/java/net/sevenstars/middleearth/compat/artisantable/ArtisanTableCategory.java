@@ -13,7 +13,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
 import net.sevenstars.middleearth.gui.artisantable.InputType;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay> {
-    public static final Identifier TEXTURE = MiddleEarth.of('/', "textures", "gui", "artisan_table_rei.png");
+    public static final Identifier TEXTURE = MiddleEarth.idAggregate('/', "textures", "gui", "artisan_table_rei.png");
 
     @Override
     public CategoryIdentifier<? extends ArtisanTableDisplay> getCategoryIdentifier() {
@@ -36,7 +36,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE.asItem().getDefaultStack());
+        return EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE.asItem().getDefaultStack());
     }
 
     @Override

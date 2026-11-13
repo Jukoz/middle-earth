@@ -11,7 +11,6 @@ import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 
@@ -95,6 +94,6 @@ public class MountArmorAddonRemovalRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_MOUNT_ARMOR_ADDON_REMOVAL;
+        return RecipeSerializerRegistryME.CUSTOM_MOUNT_ARMOR_ADDON_REMOVAL;
     }
 }

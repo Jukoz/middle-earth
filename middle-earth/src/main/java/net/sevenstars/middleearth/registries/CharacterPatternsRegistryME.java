@@ -244,7 +244,7 @@ public class CharacterPatternsRegistryME {
     }
 
     private static RegistryKey<CharacterTexturePattern> of(String idPath, CharacterPatternTypes type) {
-        return RegistryKey.of(getKey(type), MiddleEarth.of(idPath));
+        return RegistryKey.of(getKey(type), MiddleEarth.id(idPath));
     }
 
     private static void register(Registerable<CharacterTexturePattern> registerable, RegistryKey<CharacterTexturePattern> registryKey, CharacterTexturePattern content, RegistryKey<Registry<CharacterTexturePattern>> registryRegistryKey) {

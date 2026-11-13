@@ -19,7 +19,7 @@ public class EntityTagProvider extends FabricTagProvider.EntityTypeTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        var swan_food = valueLookupBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.of("swan_food")));
+        var swan_food = valueLookupBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, OfBeastsAndWildThings.id("swan_food")));
 
         swan_food.add(EntitiesWT.SNAIL);
         swan_food.add(EntityType.TADPOLE);

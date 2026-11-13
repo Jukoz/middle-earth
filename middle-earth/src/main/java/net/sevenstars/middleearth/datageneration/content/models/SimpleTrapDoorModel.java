@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +11,15 @@ public class SimpleTrapDoorModel {
 
     public static List<Trapdoor> trapdoors = new ArrayList<>() {
         {
-            add(new Trapdoor(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB, ModBlocks.BLACK_WATTLE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.DARK_WATTLE_AND_DARK_DAUB, ModBlocks.DARK_WATTLE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB, ModBlocks.GREEN_WATTLE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.RED_WATTLE_AND_WHITE_DAUB, ModBlocks.RED_WATTLE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.WATTLE_AND_WHITE_DAUB, ModBlocks.WATTLE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.AGED_WOOD_TRAPDOOR, ModBlocks.AGED_WOOD_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.BRONZE_BLOCK, ModBlocks.BRONZE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.CRUDE_BLOCK, ModBlocks.CRUDE_TRAPDOOR, true));
-            add(new Trapdoor(ModBlocks.STEEL_BLOCK, ModBlocks.TREATED_STEEL_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB, BlockRegistryME.BLACK_WATTLE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB, BlockRegistryME.DARK_WATTLE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB, BlockRegistryME.GREEN_WATTLE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB, BlockRegistryME.RED_WATTLE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.WATTLE_AND_WHITE_DAUB, BlockRegistryME.WATTLE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.AGED_WOOD_TRAPDOOR, BlockRegistryME.AGED_WOOD_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.BRONZE_BLOCK, BlockRegistryME.BRONZE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.CRUDE_BLOCK, BlockRegistryME.CRUDE_TRAPDOOR, true));
+            add(new Trapdoor(BlockRegistryME.STEEL_BLOCK, BlockRegistryME.TREATED_STEEL_TRAPDOOR, true));
         }
     };
 }

@@ -18,9 +18,9 @@ public class SpiderVariantRegistryHelper {
 
     public static SpiderVariant.SpiderAssetInfo createAssetInfos(String textureName){
         return new SpiderVariant.SpiderAssetInfo(
-            new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME + "larva")),
-            new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + ENTITY_NAME + "scuttler")),
-            new AssetInfo(MiddleEarth.of(TEXTURE_PATH + textureName + "_spawn_of_shelob")));
+            new AssetInfo(MiddleEarth.id(TEXTURE_PATH + textureName + ENTITY_NAME + "larva")),
+            new AssetInfo(MiddleEarth.id(TEXTURE_PATH + textureName + ENTITY_NAME + "scuttler")),
+            new AssetInfo(MiddleEarth.id(TEXTURE_PATH + textureName + "_spawn_of_shelob")));
     }
 
     public static SpawnConditionSelectors createSpawnConditions(Registerable<SpiderVariant> registry, TagKey<Biome> biomeTag, int priority) {

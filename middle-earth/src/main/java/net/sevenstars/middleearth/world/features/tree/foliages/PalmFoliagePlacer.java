@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.world.features.tree.foliages;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.sevenstars.middleearth.block.special.plants.ModLeavesBlock;
-import net.sevenstars.middleearth.world.gen.ModTreeGeneration;
+import net.sevenstars.middleearth.block.special.plants.CustomLeavesBlock;
+import net.sevenstars.middleearth.world.gen.TreeGenerationME;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -45,7 +45,7 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return ModTreeGeneration.PALM_FOLIAGE;
+        return TreeGenerationME.PALM_FOLIAGE;
     }
 
     @Override
@@ -100,6 +100,6 @@ public class PalmFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected boolean isInvalidForLeaves(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
-        return dx + dz >= ModLeavesBlock.MAX_DISTANCE;
+        return dx + dz >= CustomLeavesBlock.MAX_DISTANCE;
     }
 }

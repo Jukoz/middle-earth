@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.block.special.shapingAnvil.elvenTreatedAnvil;
 
 import com.mojang.serialization.MapCodec;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractShapingAnvilBlock;
 import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import net.minecraft.block.Block;
@@ -79,13 +79,13 @@ public class ElvenTreatedAnvilblock extends AbstractShapingAnvilBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ShapingAnvilBlockEntity(ModBlockEntities.TREATED_ANVIL, pos, state);
+        return new ShapingAnvilBlockEntity(BlockEntityRegistryME.TREATED_ANVIL, pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return ElvenTreatedAnvilblock.validateTicker(world, type, ModBlockEntities.TREATED_ANVIL);
+        return ElvenTreatedAnvilblock.validateTicker(world, type, BlockEntityRegistryME.TREATED_ANVIL);
     }
 
     @Nullable

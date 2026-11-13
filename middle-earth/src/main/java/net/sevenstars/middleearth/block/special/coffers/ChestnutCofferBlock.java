@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class ChestnutCofferBlock extends ChestBlock {
 
     public ChestnutCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.CHESTNUT_COFFER, settings);
+        super(() -> BlockEntityRegistryME.CHESTNUT_COFFER, settings);
     }
 
     @Override

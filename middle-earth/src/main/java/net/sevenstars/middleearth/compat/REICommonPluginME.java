@@ -25,8 +25,8 @@ public class REICommonPluginME implements REICommonPlugin {
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
         REICommonPlugin.super.registerDisplaySerializer(registry);
-        registry.register(MiddleEarth.of("artisan_table"), ArtisanTableDisplay.SERIALIZER);
-        registry.register(MiddleEarth.of("forge"), AlloyingDisplay.SERIALIZER);
+        registry.register(MiddleEarth.id("artisan_table"), ArtisanTableDisplay.SERIALIZER);
+        registry.register(MiddleEarth.id("forge"), AlloyingDisplay.SERIALIZER);
     }
 
     @Override

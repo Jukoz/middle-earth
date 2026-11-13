@@ -13,6 +13,9 @@
     "sources": "https://github.com/Jukoz/middle-earth",
     "issues": "https://github.com/Jukoz/middle-earth/issues"
   },
+  "mixins": [
+    "sevenstars-api.mixins.json"
+  ],
 
   "license": "ARR",
   "icon": "assets/sevenstars-api/icon.png",

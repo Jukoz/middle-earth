@@ -11,7 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 
 public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEntity, FireOfOrthancEntityRenderState> {
     private final BlockRenderManager blockRenderManager;
@@ -29,7 +29,7 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
 
 
     public void render(FireOfOrthancEntity fireOfOrthancEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        BlockState blockState = ModDecorativeBlocks.FIRE_OF_ORTHANC.getDefaultState();
+        BlockState blockState = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
         if (blockState.getRenderType() != BlockRenderType.MODEL) {
             return;
         }

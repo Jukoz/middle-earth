@@ -26,12 +26,12 @@ public class CommandUtils {
     }
 
     public static void simpleCommand(CommandDispatcher<ServerCommandSource> dispatcher, String baseCommand, LiteralArgumentBuilder<ServerCommandSource> executes, String player, LiteralArgumentBuilder<ServerCommandSource> executes2) {
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
+        dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
                 .then(literal(baseCommand)
                         .then(executes)));
 
-        dispatcher.register(literal(ModCommands.BASE_COMMAND)
+        dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
                 .requires(source -> source.hasPermissionLevel(2)) // Require OP
                 .then(literal(baseCommand)
                     .then(argument(player, EntityArgumentType.player())

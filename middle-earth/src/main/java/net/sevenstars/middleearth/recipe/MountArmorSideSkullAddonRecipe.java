@@ -79,6 +79,6 @@ public class MountArmorSideSkullAddonRecipe extends SpecialCraftingRecipe {
 
     @Override
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_MOUNT_ARMOR_SIDE_SKULL_ADDON;
+        return RecipeSerializerRegistryME.CUSTOM_MOUNT_ARMOR_SIDE_SKULL_ADDON;
     }
 }

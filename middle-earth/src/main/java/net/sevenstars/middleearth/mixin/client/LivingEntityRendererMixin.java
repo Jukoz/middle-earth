@@ -3,10 +3,9 @@ package net.sevenstars.middleearth.mixin.client;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
-import net.sevenstars.middleearth.statusEffects.ModStatusEffects;
+import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,8 +20,8 @@ public class LivingEntityRendererMixin {
         ItemStack offHandStack = livingEntity.getOffHandStack();
 
         boolean restrained = false;
-        if(livingEntity.hasStatusEffect(ModStatusEffects.RESTRAINED)) {
-            if(livingEntity.getStatusEffect(ModStatusEffects.RESTRAINED).getDuration() > 0) {
+        if(livingEntity.hasStatusEffect(StatusEffectRegistryME.RESTRAINED)) {
+            if(livingEntity.getStatusEffect(StatusEffectRegistryME.RESTRAINED).getDuration() > 0) {
                 restrained = true;
             }
         }

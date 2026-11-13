@@ -32,21 +32,21 @@ public class BlocksWT {
     }
 
     static void registerBlockItem(String name, Block block) {
-        var item =  Registry.register(Registries.ITEM, OfBeastsAndWildThings.of(name),
+        var item =  Registry.register(Registries.ITEM, OfBeastsAndWildThings.id(name),
                 new BlockItem(block, new Item.Settings().registryKey(keyOfItem(name))));
         Item.BLOCK_ITEMS.put(block, item);
         TranslationEntries.itemEntries.add(item);
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, OfBeastsAndWildThings.of(id));
+        return RegistryKey.of(RegistryKeys.BLOCK, OfBeastsAndWildThings.id(id));
     }
 
     public static RegistryKey<Item> keyOfItem(String id) {
-        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.of(id));
+        return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id(id));
     }
 
-    public static void registerModBlocks() {
-        OfBeastsAndWildThings.LOGGER.logDebugMsg("Registering ModBlocks for " + OfBeastsAndWildThings.MOD_ID);
+    public static void register() {
+        OfBeastsAndWildThings.logRegistryMsg("Blocks");
     }
 }

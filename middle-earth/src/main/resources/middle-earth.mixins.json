@@ -34,13 +34,15 @@
     "ShearItemMixin",
     "ShovelItemMixin",
     "SpawnHelperMixin",
+    "ToolComponentMixin",
     "ToolItemMixin",
     "TrunkPlacerTypeInvoker"
   ],
   "client": [
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
-    "client.BakedModelManagerMixin",
+    "client.AtmosphericFogModifierMixin",
+    "client.ClientWorldMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",

@@ -10,7 +10,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModNatureBlocks;
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 
 public class BerryHollyLeavesBlock extends TintedParticleLeavesBlock {
 
@@ -21,7 +21,7 @@ public class BerryHollyLeavesBlock extends TintedParticleLeavesBlock {
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (stack.isOf(Items.BONE_MEAL)) {
-            world.setBlockState(pos, ModNatureBlocks.BERRY_HOLLY_LEAVES.getDefaultState());
+            world.setBlockState(pos, NatureBlockRegistryME.BERRY_HOLLY_LEAVES.getDefaultState());
             return ActionResult.SUCCESS;
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

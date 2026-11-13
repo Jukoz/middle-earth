@@ -14,13 +14,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.network.packets.C2S.AnvilIndexPacket;
+import net.sevenstars.middleearth.network.packets.client2server.AnvilIndexPacket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler> {
-    private static final Identifier TEXTURE = MiddleEarth.ofPath( "textures", "gui", "shaping_anvil.png");
+    private static final Identifier TEXTURE = MiddleEarth.idFilePath( "textures", "gui", "shaping_anvil.png");
 
     private float scrollAmount;
     private boolean mouseClicked;
@@ -58,6 +58,13 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
 
     public void clearOutputs() {
         outputs.clear();
+    }
+
+    /** Clears the outputs of the anvil screen if one is open (see ShapingAnvilScreenHandler#clientInputChanged). */
+    public static void clearOpenOutputs() {
+        if (MinecraftClient.getInstance().currentScreen instanceof ShapingAnvilScreen screen) {
+            screen.clearOutputs();
+        }
     }
 
     private boolean shouldScroll() {

@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
@@ -70,7 +70,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.STRUCTURE_MANAGER, pos, state);
+        super(BlockEntityRegistryME.STRUCTURE_MANAGER, pos, state);
         // Default values
         this.enabled = false;
         this.toInitialize = false;

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.spawners;
 
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityData;
@@ -64,13 +64,13 @@ public class SpawnerNPCs implements SpecialSpawner {
 
                 int x = targetBlockPos.getX() + (int)(distance * Math.cos(randomAngle));
                 int z = targetBlockPos.getZ() + (int)(distance * Math.sin(randomAngle));
-                targetBlockPos = new BlockPos(x, ModDimensions.getDimensionHeight(x, z).y, z);
+                targetBlockPos = new BlockPos(x, DimensionRegistryME.getDimensionHeight(x, z).y, z);
 
                 if(world.getBiome(targetBlockPos).getKey().isEmpty()) continue;
                 RegistryKey<Biome> biomeRegistryKey = world.getBiome(targetBlockPos).getKey().get();
 
                 EntityData entityData = null;
-                List<EntitySpawningSettings> biomeSpawnSettings = ModEntitySpawning.getSpawnsAt(biomeRegistryKey);
+                List<EntitySpawningSettings> biomeSpawnSettings = EntitySpawningME.getSpawnsAt(biomeRegistryKey);
                 if(biomeSpawnSettings == null) continue;
                 ArrayList<EntitySpawningSettings> spawningSettings = new ArrayList<>(biomeSpawnSettings);
                 if(world.isDay()) {

@@ -44,14 +44,14 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.api.entity.ai.brain.MemoryModulesAPI;
-import net.sevenstars.api.entity.ai.brain.SchedulesAPI;
+import net.sevenstars.api.registries.brain.MemoryModulesAPI;
+import net.sevenstars.api.registries.brain.SchedulesAPI;
 import net.sevenstars.of_beasts_and_wild_things.OfBeastsAndWildThings;
 import net.sevenstars.of_beasts_and_wild_things.block.BlocksWT;
 import net.sevenstars.of_beasts_and_wild_things.block.custom.BirdNest;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.entity.ai.brain.MemoryModulesWT;
-import net.sevenstars.of_beasts_and_wild_things.sound.SoundsWT;
+import net.sevenstars.of_beasts_and_wild_things.sound.SoundEventWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -407,22 +407,22 @@ public class SwanEntity extends AnimalEntity {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundsWT.SWAN_IDLE;
+        return SoundEventWT.SWAN_IDLE;
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundsWT.SWAN_HURT;
+        return SoundEventWT.SWAN_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundsWT.SWAN_DEATH;
+        return SoundEventWT.SWAN_DEATH;
     }
     protected SoundEvent getSwimSound() {
         return SoundEvents.ENTITY_TURTLE_SWIM;
     }
 
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundsWT.SWAN_STEP);
+        this.playSound(SoundEventWT.SWAN_STEP);
     }
 
     @Override

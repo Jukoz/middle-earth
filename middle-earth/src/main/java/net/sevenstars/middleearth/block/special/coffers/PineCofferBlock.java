@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class PineCofferBlock extends ChestBlock {
 
     public PineCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.PINE_COFFER, settings);
+        super(() -> BlockEntityRegistryME.PINE_COFFER, settings);
     }
 
     @Override

@@ -92,6 +92,6 @@ public class HelmetAttachmentRecipe extends SpecialCraftingRecipe {
     }
 
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return ModRecipeSerializer.CUSTOM_ARMOR_HELMET_ATTACHMENT;
+        return RecipeSerializerRegistryME.CUSTOM_ARMOR_HELMET_ATTACHMENT;
     }
 }

@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
-import net.sevenstars.middleearth.block.registration.ModBlocks;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
@@ -16,153 +16,153 @@ public class SimpleBlockModel {
 
     public static List<Block> blocks = new ArrayList<>() {
         {
-            add(ModBlocks.COBBLY_DIRT);
+            add(BlockRegistryME.COBBLY_DIRT);
 
 
-            add(ModBlocks.SNOWY_DIRT);
+            add(BlockRegistryME.SNOWY_DIRT);
 
-            add(ModBlocks.MIRE);
+            add(BlockRegistryME.MIRE);
 
-            add(ModBlocks.DIRTY_ROOTS);
+            add(BlockRegistryME.DIRTY_ROOTS);
 
-            add(ModBlocks.DRY_DIRT);
+            add(BlockRegistryME.DRY_DIRT);
 
-            add(ModBlocks.CHALKSOIL);
-            add(ModBlocks.COARSE_CHALKSOIL);
+            add(BlockRegistryME.CHALKSOIL);
+            add(BlockRegistryME.COARSE_CHALKSOIL);
 
-            add(ModBlocks.LOAM);
-            add(ModBlocks.COARSE_LOAM);
+            add(BlockRegistryME.LOAM);
+            add(BlockRegistryME.COARSE_LOAM);
 
-            add(ModBlocks.PEAT);
-            add(ModBlocks.COARSE_PEAT);
+            add(BlockRegistryME.PEAT);
+            add(BlockRegistryME.COARSE_PEAT);
 
-            add(ModBlocks.SILT);
-            add(ModBlocks.COARSE_SILT);
+            add(BlockRegistryME.SILT);
+            add(BlockRegistryME.COARSE_SILT);
 
-            add(ModBlocks.FOUL_DIRT);
+            add(BlockRegistryME.FOUL_DIRT);
 
-            add(ModBlocks.ASHEN_DIRT);
+            add(BlockRegistryME.ASHEN_DIRT);
 
-            add(ModBlocks.COBBLY_ASHEN_DIRT);
+            add(BlockRegistryME.COBBLY_ASHEN_DIRT);
 
             //METALS
-            add(ModBlocks.RAW_MITHRIL_BLOCK);
-            add(ModBlocks.MITHRIL_BLOCK);
-            add(ModBlocks.RAW_TIN_BLOCK);
-            add(ModBlocks.TIN_BLOCK);
-            add(ModBlocks.RAW_LEAD_BLOCK);
-            add(ModBlocks.LEAD_BLOCK);
-            add(ModBlocks.RAW_SILVER_BLOCK);
-            add(ModBlocks.SILVER_BLOCK);
+            add(BlockRegistryME.RAW_MITHRIL_BLOCK);
+            add(BlockRegistryME.MITHRIL_BLOCK);
+            add(BlockRegistryME.RAW_TIN_BLOCK);
+            add(BlockRegistryME.TIN_BLOCK);
+            add(BlockRegistryME.RAW_LEAD_BLOCK);
+            add(BlockRegistryME.LEAD_BLOCK);
+            add(BlockRegistryME.RAW_SILVER_BLOCK);
+            add(BlockRegistryME.SILVER_BLOCK);
 
-            add(ModBlocks.BRONZE_BLOCK);
-            add(ModBlocks.CRUDE_BLOCK);
-            add(ModBlocks.STEEL_BLOCK);
-            add(ModBlocks.KHAZAD_STEEL_BLOCK);
-            add(ModBlocks.EDHEL_STEEL_BLOCK);
-            add(ModBlocks.BURZUM_STEEL_BLOCK);
+            add(BlockRegistryME.BRONZE_BLOCK);
+            add(BlockRegistryME.CRUDE_BLOCK);
+            add(BlockRegistryME.STEEL_BLOCK);
+            add(BlockRegistryME.KHAZAD_STEEL_BLOCK);
+            add(BlockRegistryME.EDHEL_STEEL_BLOCK);
+            add(BlockRegistryME.BURZUM_STEEL_BLOCK);
 
-            add(ModBlocks.ADAMANT_BLOCK);
-            add(ModBlocks.RUBY_BLOCK);
-            add(ModBlocks.SAPPHIRE_BLOCK);
+            add(BlockRegistryME.ADAMANT_BLOCK);
+            add(BlockRegistryME.RUBY_BLOCK);
+            add(BlockRegistryME.SAPPHIRE_BLOCK);
 
             //GEMS
-            add(ModBlocks.QUARTZ_BLOCK);
-            add(ModBlocks.BUDDING_QUARTZ);
-            add(ModBlocks.RED_AGATE_BLOCK);
-            add(ModBlocks.BUDDING_RED_AGATE);
-            add(ModBlocks.CITRINE_BLOCK);
-            add(ModBlocks.BUDDING_CITRINE);
-            add(ModBlocks.GLOWSTONE_BLOCK);
-            add(ModBlocks.BUDDING_GLOWSTONE);
+            add(BlockRegistryME.QUARTZ_BLOCK);
+            add(BlockRegistryME.BUDDING_QUARTZ);
+            add(BlockRegistryME.RED_AGATE_BLOCK);
+            add(BlockRegistryME.BUDDING_RED_AGATE);
+            add(BlockRegistryME.CITRINE_BLOCK);
+            add(BlockRegistryME.BUDDING_CITRINE);
+            add(BlockRegistryME.GLOWSTONE_BLOCK);
+            add(BlockRegistryME.BUDDING_GLOWSTONE);
 
-            add(ModBlocks.RIVER_SAND);
-            add(ModBlocks.ASH_BLOCK);
+            add(BlockRegistryME.RIVER_SAND);
+            add(BlockRegistryME.ASH_BLOCK);
 
-            add(ModBlocks.WATTLE_AND_BRICK);
-            add(ModBlocks.WATTLE_AND_BRICK_CROSS);
-            add(ModBlocks.WATTLE_AND_BRICK_RIGHT);
-            add(ModBlocks.WATTLE_AND_BRICK_LEFT);
-            add(ModBlocks.WATTLE_AND_BRICK_PILLAR);
-            add(ModBlocks.WATTLE_AND_BRICK_DIAMOND);
+            add(BlockRegistryME.WATTLE_AND_BRICK);
+            add(BlockRegistryME.WATTLE_AND_BRICK_CROSS);
+            add(BlockRegistryME.WATTLE_AND_BRICK_RIGHT);
+            add(BlockRegistryME.WATTLE_AND_BRICK_LEFT);
+            add(BlockRegistryME.WATTLE_AND_BRICK_PILLAR);
+            add(BlockRegistryME.WATTLE_AND_BRICK_DIAMOND);
 
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB);
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB_CROSS);
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB_RIGHT);
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB_LEFT);
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB_PILLAR);
-            add(ModBlocks.WATTLE_AND_WHITE_DAUB_DIAMOND);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB_CROSS);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB_LEFT);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(BlockRegistryME.WATTLE_AND_WHITE_DAUB_DIAMOND);
 
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB);
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_CROSS);
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_RIGHT);
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_LEFT);
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_PILLAR);
-            add(ModBlocks.BLACK_WATTLE_AND_WHITE_DAUB_DIAMOND);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(BlockRegistryME.BLACK_WATTLE_AND_WHITE_DAUB_DIAMOND);
 
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB);
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_CROSS);
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_RIGHT);
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_LEFT);
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_PILLAR);
-            add(ModBlocks.GREEN_WATTLE_AND_WHITE_DAUB_DIAMOND);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(BlockRegistryME.GREEN_WATTLE_AND_WHITE_DAUB_DIAMOND);
 
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB);
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_CROSS);
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_RIGHT);
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_LEFT);
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_PILLAR);
-            add(ModBlocks.RED_WATTLE_AND_WHITE_DAUB_DIAMOND);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB_CROSS);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB_RIGHT);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB_LEFT);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB_PILLAR);
+            add(BlockRegistryME.RED_WATTLE_AND_WHITE_DAUB_DIAMOND);
 
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB);
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_CROSS);
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_RIGHT);
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_LEFT);
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_PILLAR);
-            add(ModBlocks.DARK_WATTLE_AND_DARK_DAUB_DIAMOND);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB_CROSS);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB_RIGHT);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB_LEFT);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB_PILLAR);
+            add(BlockRegistryME.DARK_WATTLE_AND_DARK_DAUB_DIAMOND);
 
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB);
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_CROSS);
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_RIGHT);
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_LEFT);
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_PILLAR);
-            add(ModBlocks.WATTLE_AND_YELLOW_DAUB_DIAMOND);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB_CROSS);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB_RIGHT);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB_LEFT);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB_PILLAR);
+            add(BlockRegistryME.WATTLE_AND_YELLOW_DAUB_DIAMOND);
 
-            add(ModDecorativeBlocks.WOOD_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.AGED_WOOD_WINDOW);
-            add(ModDecorativeBlocks.SIMPLE_OAK_WINDOW);
-            add(ModDecorativeBlocks.WATTLE_AND_BRICK_WINDOW);
-            add(ModDecorativeBlocks.WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.DARK_WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.BLACK_WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.GREEN_WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.RED_WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.WHITE_WATTLE_FRAMED_WINDOW);
-            add(ModDecorativeBlocks.WHITE_DAUB_HOBBIT_WINDOW);
-            add(ModDecorativeBlocks.PLASTER_HOBBIT_WINDOW);
-            add(ModDecorativeBlocks.PLASTER_ROUND_WINDOW);
-            add(ModDecorativeBlocks.YELLOW_DAUB_HOBBIT_WINDOW);
-            add(ModDecorativeBlocks.MUD_BRICK_ROUND_WINDOW);
-            add(ModDecorativeBlocks.WHITE_DAUB_ROUND_WINDOW);
-            add(ModDecorativeBlocks.YELLOW_DAUB_ROUND_WINDOW);
+            add(DecorativeBlockRegistryME.WOOD_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.AGED_WOOD_WINDOW);
+            add(DecorativeBlockRegistryME.SIMPLE_OAK_WINDOW);
+            add(DecorativeBlockRegistryME.WATTLE_AND_BRICK_WINDOW);
+            add(DecorativeBlockRegistryME.WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.DARK_WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.BLACK_WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.GREEN_WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.RED_WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.WHITE_WATTLE_FRAMED_WINDOW);
+            add(DecorativeBlockRegistryME.WHITE_DAUB_HOBBIT_WINDOW);
+            add(DecorativeBlockRegistryME.PLASTER_HOBBIT_WINDOW);
+            add(DecorativeBlockRegistryME.PLASTER_ROUND_WINDOW);
+            add(DecorativeBlockRegistryME.YELLOW_DAUB_HOBBIT_WINDOW);
+            add(DecorativeBlockRegistryME.MUD_BRICK_ROUND_WINDOW);
+            add(DecorativeBlockRegistryME.WHITE_DAUB_ROUND_WINDOW);
+            add(DecorativeBlockRegistryME.YELLOW_DAUB_ROUND_WINDOW);
 
-            add(ModDecorativeBlocks.LEAD_GLASS);
-            add(ModDecorativeBlocks.BLUE_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.BLACK_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.BROWN_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.CYAN_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.GRAY_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.GREEN_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.LIGHT_BLUE_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.LIGHT_GRAY_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.LIME_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.MAGENTA_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.ORANGE_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.PINK_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.PURPLE_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.RED_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.WHITE_STAINED_LEAD_GLASS);
-            add(ModDecorativeBlocks.YELLOW_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.LEAD_GLASS);
+            add(DecorativeBlockRegistryME.BLUE_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.BLACK_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.BROWN_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.CYAN_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.GRAY_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.GREEN_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.LIGHT_BLUE_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.LIGHT_GRAY_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.LIME_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.MAGENTA_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.ORANGE_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.PINK_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.PURPLE_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.RED_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.WHITE_STAINED_LEAD_GLASS);
+            add(DecorativeBlockRegistryME.YELLOW_STAINED_LEAD_GLASS);
         }
     };
 

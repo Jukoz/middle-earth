@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.registries.content.npctypes.pools;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
@@ -254,8 +254,8 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(ToolItemsME.BURZUM_STEEL_AXE))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_CHAIN.asItem()))
-                                .add(WeightedItemData.create(ModDecorativeBlocks.CRUDE_BROAD_CHAIN.asItem()))
+                                .add(WeightedItemData.create(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem()))
+                                .add(WeightedItemData.create(DecorativeBlockRegistryME.CRUDE_BROAD_CHAIN.asItem()))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.WARG), NpcLoot.FROM_10_TO_16);

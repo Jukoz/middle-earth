@@ -23,7 +23,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
-import net.sevenstars.middleearth.particles.ModParticleTypes;
+import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class MistweedPlantBlock extends CustomPlantBlock implements Fertilizable {
@@ -51,7 +51,7 @@ public class MistweedPlantBlock extends CustomPlantBlock implements Fertilizable
             double d = (double)pos.getX() + random.nextDouble() * 16.0 - 8.0;
             double e = (double)pos.getY() + random.nextDouble() * 5.0;
             double f = (double)pos.getZ() + random.nextDouble() * 16.0 - 8.0;
-            world.addImportantParticleClient(ModParticleTypes.BIOME_FOG_PARTICLE, true, d, e, f, 0.0, 0.0, 0.0);
+            world.addImportantParticleClient(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, true, d, e, f, 0.0, 0.0, 0.0);
         }
         super.randomDisplayTick(state, world, pos, random);
     }

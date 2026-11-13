@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientImpl;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeBookCategory;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -41,7 +41,7 @@ public class ArtisanRecipe implements Recipe<MultipleStackRecipeInput> {
     }
 
     public ItemStack createIcon() {
-        return new ItemStack(ModDecorativeBlocks.ARTISAN_TABLE);
+        return new ItemStack(DecorativeBlockRegistryME.ARTISAN_TABLE);
     }
 
     @Override

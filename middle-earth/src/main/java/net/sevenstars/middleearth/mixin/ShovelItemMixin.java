@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.sevenstars.middleearth.block.registration.ModBlocks;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,26 +25,26 @@ public class ShovelItemMixin {
     private static void addModdedDirtBlocks(CallbackInfo ci) {
         Map<Block, BlockState> pathStates = PATH_STATES;
 
-        pathStates.put(ModBlocks.DRY_DIRT, Blocks.DIRT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.CHALKSOIL_GRASS_BLOCK, ModBlocks.CHALKSOIL_PATH.getDefaultState());
-        pathStates.put(ModBlocks.CHALKSOIL, ModBlocks.CHALKSOIL_PATH.getDefaultState());
-        pathStates.put(ModBlocks.GRASSY_CHALKSOIL, ModBlocks.CHALKSOIL_PATH.getDefaultState());
-        pathStates.put(ModBlocks.COARSE_CHALKSOIL, ModBlocks.CHALKSOIL_PATH.getDefaultState());
-        pathStates.put(ModBlocks.LOAM_GRASS_BLOCK, ModBlocks.LOAM_PATH.getDefaultState());
-        pathStates.put(ModBlocks.LOAM, ModBlocks.LOAM_PATH.getDefaultState());
-        pathStates.put(ModBlocks.GRASSY_LOAM, ModBlocks.LOAM_PATH.getDefaultState());
-        pathStates.put(ModBlocks.COARSE_LOAM, ModBlocks.LOAM_PATH.getDefaultState());
-        pathStates.put(ModBlocks.PEAT_GRASS_BLOCK, ModBlocks.PEAT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.PEAT, ModBlocks.PEAT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.GRASSY_PEAT, ModBlocks.PEAT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.COARSE_PEAT, ModBlocks.PEAT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.SILT_GRASS_BLOCK, ModBlocks.SILT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.SILT, ModBlocks.SILT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.GRASSY_SILT, ModBlocks.SILT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.COARSE_SILT, ModBlocks.SILT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.DIRTY_ROOTS, Blocks.DIRT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.GRASSY_DIRT, Blocks.DIRT_PATH.getDefaultState());
-        pathStates.put(ModBlocks.TURF, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.DRY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.CHALKSOIL_GRASS_BLOCK, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.LOAM_GRASS_BLOCK, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.PEAT_GRASS_BLOCK, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.SILT_GRASS_BLOCK, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.DIRTY_ROOTS, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.TURF, Blocks.DIRT_PATH.getDefaultState());
 
         PATH_STATES = pathStates;
     }

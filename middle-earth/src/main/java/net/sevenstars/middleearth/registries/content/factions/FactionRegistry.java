@@ -15,22 +15,22 @@ import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler
 public class FactionRegistry {
     private static final RegistryKey<Registry<Faction>> FACTION_KEY = DynamicRegistriesME.FACTION;
 
-    public final static RegistryKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("gondor"));
-    public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("rohan"));
-    public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("dale"));
-    public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("longbeards"));
-    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(LONGBEARDS.getValue().getPath(), "erebor"));
-    public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("lothlorien"));
-    public final static RegistryKey<Faction> WOODLAND_REALM = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("woodland_realm"));
-    public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("mordor"));
-    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("hobgoblin_tribes"));
-    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
-    public final static RegistryKey<Faction> GOBLIN_TOWN =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("goblin_town"));
-    public final static RegistryKey<Faction> MORIA =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("moria"));
-    public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("isengard"));
-    public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("shire"));
-    public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("brigand"));
-    public final static RegistryKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.of("wild_goblins"));
+    public final static RegistryKey<Faction> GONDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("gondor"));
+    public final static RegistryKey<Faction> ROHAN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("rohan"));
+    public final static RegistryKey<Faction> DALE = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("dale"));
+    public final static RegistryKey<Faction> LONGBEARDS = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("longbeards"));
+    public final static RegistryKey<Faction> LONGBEARDS_EREBOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.idAggregate(LONGBEARDS.getValue().getPath(), "erebor"));
+    public final static RegistryKey<Faction> LOTHLORIEN = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("lothlorien"));
+    public final static RegistryKey<Faction> WOODLAND_REALM = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("woodland_realm"));
+    public final static RegistryKey<Faction> MORDOR = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("mordor"));
+    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("hobgoblin_tribes"));
+    public final static RegistryKey<Faction> HOBGOBLIN_TRIBES_GUNDABAD =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.idAggregate(HOBGOBLIN_TRIBES.getValue().getPath(), "gundabad"));
+    public final static RegistryKey<Faction> GOBLIN_TOWN =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("goblin_town"));
+    public final static RegistryKey<Faction> MORIA =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("moria"));
+    public final static RegistryKey<Faction> ISENGARD = DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("isengard"));
+    public final static RegistryKey<Faction> SHIRE =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("shire"));
+    public final static RegistryKey<Faction> BRIGAND =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("brigand"));
+    public final static RegistryKey<Faction> WILD_GOBLINS =  DynamicRegistriesME.of(FACTION_KEY, MiddleEarth.id("wild_goblins"));
 
     public static void bootstrap(Registerable<Faction> context) {
         RegistryEntryLookup<Faction> registryEntryLookup = context.getRegistryLookup(FACTION_KEY);

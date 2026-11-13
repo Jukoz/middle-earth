@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class InscriptionTableblock extends HorizontalFacingBlock {
 
-    private static final Text TITLE = Text.translatable(MiddleEarth.of("inscription_table").toTranslationKey("container"));
+    private static final Text TITLE = Text.translatable(MiddleEarth.id("inscription_table").toTranslationKey("container"));
 
     public InscriptionTableblock(Settings settings) {
         super(settings);

@@ -10,7 +10,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.gui.ModScreenHandlers;
+import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 
 public class CrockpotScreenHandler extends ScreenHandler {
     final Inventory inventory;
@@ -24,7 +24,7 @@ public class CrockpotScreenHandler extends ScreenHandler {
 
     public CrockpotScreenHandler(int syncId, PlayerInventory playerInventory,
                                  Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, syncId);
+        super(ScreenHandlerRegistryME.CROCKPOT_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
         this.pos = BlockPos.ORIGIN;

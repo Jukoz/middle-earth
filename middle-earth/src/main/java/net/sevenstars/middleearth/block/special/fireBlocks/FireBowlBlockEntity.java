@@ -1,12 +1,12 @@
 package net.sevenstars.middleearth.block.special.fireBlocks;
 
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 
 public class FireBowlBlockEntity extends ToggleableFireBlockEntity {
 
     public FireBowlBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.FIRE_BOWL, pos, state);
+        super(BlockEntityRegistryME.FIRE_BOWL, pos, state);
     }
 }

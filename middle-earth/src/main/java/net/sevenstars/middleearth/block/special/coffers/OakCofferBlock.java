@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 
 public class OakCofferBlock extends ChestBlock {
 
     public OakCofferBlock(Settings settings) {
-        super(() -> ModBlockEntities.OAK_COFFER, settings);
+        super(() -> BlockEntityRegistryME.OAK_COFFER, settings);
     }
 
     @Override

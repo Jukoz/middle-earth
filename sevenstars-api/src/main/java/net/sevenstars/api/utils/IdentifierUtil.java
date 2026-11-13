@@ -10,7 +10,7 @@ public class IdentifierUtil {
         if(id.contains(":") && id.split(":").length == 2){
             return Identifier.of(id.split(":")[0], id.split(":")[1]);
         }
-        return Identifier.of(SevenStarsApi.MOD_ID, id + "_error");
+        return SevenStarsApi.id(id + "_error");
     }
 
     public static Identifier build(String key, String name) {
@@ -24,7 +24,9 @@ public class IdentifierUtil {
     public static Identifier buildAggregate(String key, String... names) {
         return build(key, createAggregateValue('.', names));
     }
-
+    public static boolean compareId(Identifier id1, Identifier id2) {
+        return id1.compareTo(id2) == 0;
+    }
     public static String createAggregateValue(char character, String... names){
         if(names.length == 0)
             return "not_enough_parameters";

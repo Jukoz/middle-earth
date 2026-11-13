@@ -40,8 +40,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.config.ModServerConfigs;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
@@ -146,7 +145,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.dataTracker.set(LEFT_HORN, view.getBoolean("HasLeftHorn", true));
         this.dataTracker.set(RIGHT_HORN, view.getBoolean("HasRightHorn", true));
         this.dataTracker.set(BRUSHED_BEARD, view.getBoolean("HasBrushedBeard", false));
-        this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+        this.dataTracker.set(MOUNTABLE, ServerConfigME.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
     protected static float getChildHealthBonus(IntUnaryOperator randomIntGetter) {
@@ -510,7 +509,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         this.setHair(this.random.nextBoolean());
 
         if(!this.getWorld().isClient()) {
-            this.dataTracker.set(MOUNTABLE, ModServerConfigs.ENABLE_MOUNT_BROADHOOF_GOAT);
+            this.dataTracker.set(MOUNTABLE, ServerConfigME.ENABLE_MOUNT_BROADHOOF_GOAT);
         }
 
         return super.initialize(world, difficulty, spawnReason, entityData);

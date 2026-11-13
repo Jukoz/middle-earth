@@ -2,8 +2,8 @@ package net.sevenstars.middleearth.world.features.boulder;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
-import net.sevenstars.middleearth.block.registration.StoneBlockSets;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -81,10 +81,10 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
     }
 
     static {
-        CANNOT_PLACE_ON_BLOCKS = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.WATER, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base(),
-                StoneBlockSets.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
-        CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSets.NURGON_SET.cobblestoneBlocks.base(),
-                StoneBlockSets.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.BARREL, Blocks.SPAWNER, ModDecorativeBlocks.STRUCTURE_MANAGER,
-                ModDecorativeBlocks.ORC_STRUCTURE_MANAGER, ModDecorativeBlocks.STRUCTURE_NEST, ModDecorativeBlocks.THIN_BARREL, ModDecorativeBlocks.SMALL_CRATE);
+        CANNOT_PLACE_ON_BLOCKS = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.WATER, StoneBlockSetRegistryME.NURGON_SET.cobblestoneBlocks.base(),
+                StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
+        CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSetRegistryME.NURGON_SET.cobblestoneBlocks.base(),
+                StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.BARREL, Blocks.SPAWNER, DecorativeBlockRegistryME.STRUCTURE_MANAGER,
+                DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, DecorativeBlockRegistryME.STRUCTURE_NEST, DecorativeBlockRegistryME.THIN_BARREL, DecorativeBlockRegistryME.SMALL_CRATE);
     }
 }

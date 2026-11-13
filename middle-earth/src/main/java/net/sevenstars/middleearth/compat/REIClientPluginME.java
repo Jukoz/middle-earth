@@ -8,7 +8,7 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableCategory;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
 import net.sevenstars.middleearth.compat.forge.AlloyingCategory;
@@ -25,8 +25,8 @@ public class REIClientPluginME implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new ArtisanTableCategory());
         registry.add(new AlloyingCategory());
-        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(ModDecorativeBlocks.ARTISAN_TABLE));
-        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(ModDecorativeBlocks.FORGE));
+        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE));
+        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.FORGE));
     }
 
     @Override

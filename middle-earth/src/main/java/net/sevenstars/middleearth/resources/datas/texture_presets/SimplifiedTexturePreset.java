@@ -16,11 +16,11 @@ public class SimplifiedTexturePreset {
     }
 
     public SimplifiedTexturePreset(NbtCompound source) {
-        source.getString("base").ifPresent(value -> this.base = MiddleEarth.fetchId(value));
-        source.getString("hair").ifPresent(value -> this.hair = MiddleEarth.fetchId(value));
-        source.getString("feet").ifPresent(value -> this.feet = MiddleEarth.fetchId(value));
-        source.getString("nose").ifPresent(value -> this.nose = MiddleEarth.fetchId(value));
-        source.getString("ear").ifPresent(value -> this.ear = MiddleEarth.fetchId(value));
+        source.getString("base").ifPresent(value -> this.base = MiddleEarth.ofId(value));
+        source.getString("hair").ifPresent(value -> this.hair = MiddleEarth.ofId(value));
+        source.getString("feet").ifPresent(value -> this.feet = MiddleEarth.ofId(value));
+        source.getString("nose").ifPresent(value -> this.nose = MiddleEarth.ofId(value));
+        source.getString("ear").ifPresent(value -> this.ear = MiddleEarth.ofId(value));
     }
 
 

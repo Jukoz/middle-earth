@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.mixin;
 
 import net.minecraft.server.world.ServerWorld;
-import net.sevenstars.middleearth.config.ModServerConfigs;
-import net.sevenstars.middleearth.world.dimension.ModDimensions;
+import net.sevenstars.middleearth.config.ServerConfigME;
+import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.RecipeInputInventory;
@@ -14,7 +14,6 @@ import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,7 +34,7 @@ public class CraftingMixin {
         if (world.isClient){
             return;
         }
-        if (!ModServerConfigs.ENABLE_GOLDEN_FOOD_RECIPES && ModDimensions.isInMiddleEarth(world)
+        if (!ServerConfigME.ENABLE_GOLDEN_FOOD_RECIPES && DimensionRegistryME.isInMiddleEarth(world)
                 && (itemStack.isOf(Items.GOLDEN_APPLE) || itemStack.isOf(Items.GOLDEN_CARROT))){
             itemStack = new ItemStack(Items.AIR);
         }

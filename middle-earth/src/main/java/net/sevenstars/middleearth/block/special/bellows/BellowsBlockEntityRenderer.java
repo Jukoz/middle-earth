@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.ModDecorativeBlocks;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -67,7 +67,7 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
         World world = entity.getWorld();
         BlockState blockState = world != null
                 ? entity.getCachedState()
-                : ModDecorativeBlocks.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
+                : DecorativeBlockRegistryME.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
 
         float animationProgress = getAnimationProgress(entity);
 

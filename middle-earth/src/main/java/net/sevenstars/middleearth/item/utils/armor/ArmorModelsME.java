@@ -40,7 +40,7 @@ import net.minecraft.util.StringIdentifiable;
 
 public class ArmorModelsME {
 
-    public enum ModHelmetModels{
+    public enum CustomHelmetModels {
         BAGGY_HAT(EquipmentItemsME.BAGGY_HAT, new BaggyHatModel(BaggyHatModel.getTexturedModelData().createModel())),
         CHAPERON(EquipmentItemsME.CHAPERON, new ChaperonModel(ChaperonModel.getTexturedModelData().createModel())),
         GLASSES(EquipmentItemsME.GLASSES, new GlassesWearableModel(GlassesWearableModel.getTexturedModelData().createModel())),
@@ -196,7 +196,7 @@ public class ArmorModelsME {
         private final Item item;
         private final HelmetAddonModel model;
 
-        ModHelmetModels(Item item, HelmetAddonModel model){
+        CustomHelmetModels(Item item, HelmetAddonModel model){
             this.item = item;
             this.model = model;
         }
@@ -210,7 +210,7 @@ public class ArmorModelsME {
         }
     }
 
-    public enum ModChestplateModels{
+    public enum CustomChestplateModels {
         GONDORIAN_PLATE_CHESTPLATE(EquipmentItemsME.GONDORIAN_PLATE_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
         GONDORIAN_KINGS_GUARD_CHESTPLATE(EquipmentItemsME.GONDORIAN_KINGS_GUARD_CHESTKPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
         GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_CHESTPLATE, new HaltChestplateModel(HaltChestplateModel.getTexturedModelData().createModel())),
@@ -255,7 +255,7 @@ public class ArmorModelsME {
         private final Item item;
         private final ChestplateAddonModel model;
 
-        ModChestplateModels(Item item, ChestplateAddonModel model){
+        CustomChestplateModels(Item item, ChestplateAddonModel model){
             this.item = item;
             this.model = model;
         }
@@ -269,7 +269,7 @@ public class ArmorModelsME {
         }
     }
 
-    public enum ModBackAttachmentPairedModels implements StringIdentifiable {
+    public enum CustomBackAttachmentPairedModels implements StringIdentifiable {
         CAPE(BackAttachmentsME.CAPE, BackAttachmentModelsME.MEDIUM_MODELS),
         SHOULDER_CAPE_LEFT(BackAttachmentsME.SHOULDER_CAPE_LEFT, BackAttachmentModelsME.WIDE_MODELS),
         SHOULDER_CAPE_RIGHT(BackAttachmentsME.SHOULDER_CAPE_RIGHT, BackAttachmentModelsME.WIDE_MODELS),
@@ -353,7 +353,7 @@ public class ArmorModelsME {
         private final BackAttachmentModelsME models;
 
 
-        ModBackAttachmentPairedModels(BackAttachmentsME backAttachment, BackAttachmentModelsME models){
+        CustomBackAttachmentPairedModels(BackAttachmentsME backAttachment, BackAttachmentModelsME models){
             this.backAttachment = backAttachment;
             this.models = models;
         }
@@ -369,7 +369,7 @@ public class ArmorModelsME {
     }
 
 
-    public enum ModHelmetAttachmentPairedModels implements StringIdentifiable {
+    public enum CustomHelmetAttachmentPairedModels implements StringIdentifiable {
         HOOD(HelmetAttachmentsME.HOOD, HelmetAttachmentModelsME.REGULAR_MODELS),
         TALL_HOOD(HelmetAttachmentsME.TALL_HOOD, HelmetAttachmentModelsME.TALL_MODELS),
 
@@ -390,7 +390,7 @@ public class ArmorModelsME {
         private final HelmetAttachmentsME helmetAttachment;
         private final HelmetAttachmentModelsME models;
 
-        ModHelmetAttachmentPairedModels(HelmetAttachmentsME helmetAttachment, HelmetAttachmentModelsME models){
+        CustomHelmetAttachmentPairedModels(HelmetAttachmentsME helmetAttachment, HelmetAttachmentModelsME models){
             this.helmetAttachment = helmetAttachment;
             this.models = models;
         }

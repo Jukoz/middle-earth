@@ -14,9 +14,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.ModBlockEntities;
+import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.shapingAnvil.AbstractShapingAnvilBlock;
-import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -73,13 +72,13 @@ public class StoneAnvilBlock extends AbstractShapingAnvilBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new StoneAnvilBlockEntity(ModBlockEntities.STONE_ANVIL, pos, state);
+        return new StoneAnvilBlockEntity(BlockEntityRegistryME.STONE_ANVIL, pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return StoneAnvilBlock.validateTicker(world, type, ModBlockEntities.STONE_ANVIL);
+        return StoneAnvilBlock.validateTicker(world, type, BlockEntityRegistryME.STONE_ANVIL);
     }
 
     @Nullable
