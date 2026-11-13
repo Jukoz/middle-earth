@@ -15,6 +15,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.ParticlesMode;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Util;
@@ -214,6 +215,10 @@ public final class HeldFlames {
 
     /** A placed torch's flame and smoke, a little at a time. */
     private static void flicker(ClientWorld world, Vec3d at, Kind kind) {
+        // Drawn straight into the particle manager (to tint and scale them), so the Particles option is honoured here.
+        if (MinecraftClient.getInstance().options.getParticles().getValue() == ParticlesMode.MINIMAL) {
+            return;
+        }
         boolean candle = kind.small();
         net.minecraft.client.particle.ParticleManager particles = MinecraftClient.getInstance().particleManager;
         if (RANDOM.nextInt(3) == 0) {

@@ -233,6 +233,7 @@ public final class BeamLights {
     /** Every player's off-hand light: the beam's spot and the glow at the holder, moved as they move. */
     private static void tickPlayers(ServerWorld world) {
         LampDazzle.tick(world);
+        boolean ambient = HeldLights.ambientLight(world.getServer());
         for (ServerPlayerEntity player : world.getPlayers()) {
             HeldLight light = HeldLights.held(player);
             BlockPos spot = null;
@@ -249,7 +250,7 @@ public final class BeamLights {
                 path = beamPath(world, eye, player.getRotationVec(1.0F), beam.range());
                 spotLevel = beam.spotLevel();
                 glowLevel = beam.glowLevel();
-            } else if (light instanceof HeldLight.Glow lantern) {
+            } else if (light instanceof HeldLight.Glow lantern && ambient) {
                 glowLevel = lantern.flame() ? flicker(world, player.getUuid(), lantern.level()) : lantern.level();
             }
             if (!(light instanceof HeldLight.Glow lantern) || !lantern.flame()) {

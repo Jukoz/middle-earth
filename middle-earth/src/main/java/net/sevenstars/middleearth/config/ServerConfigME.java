@@ -32,6 +32,8 @@ public class ServerConfigME {
     public static int SHARPNESS_MAX_LEVEL;
     /** Amount of levels that a power enchant can have in Middle-earth**/
     public static int POWER_MAX_LEVEL;
+    /** Should lanterns, candles and lit helmets carried by players light their surroundings? (Beam lamps always do.) **/
+    public static boolean ENABLE_HELD_AMBIENT_LIGHT;
     /** Global Mob Cap**/
     public static int GLOBAL_MOB_CAP;
 
@@ -57,6 +59,8 @@ public class ServerConfigME {
         configs.addKeyValuePair(new Pair<>("enableProceduralStructures", true), "boolean");
         configs.addDescription("Maximum amount of non-persistent entity per type in Middle-earth");
         configs.addKeyValuePair(new Pair<>("globalMobCap", true), "int");
+        configs.addDescription("Should lanterns, candles and lit helmets carried by players light their surroundings? Beam lamps always light. Particles are unaffected.");
+        configs.addKeyValuePair(new Pair<>("enableHeldAmbientLight", true), "boolean");
         configs.addLineJump();
 
         // PlayerFactionPayload configurations
@@ -98,6 +102,7 @@ public class ServerConfigME {
         ENABLE_RETURN_TO_OVERWORLD = CONFIG.getOrDefault("enableReturnToOverworld", true);
         ENABLE_PROCEDURAL_STRUCTURES = CONFIG.getOrDefault("enableProceduralStructures", true);
         GLOBAL_MOB_CAP = CONFIG.getOrDefault("globalMobCap", 50);
+        ENABLE_HELD_AMBIENT_LIGHT = CONFIG.getOrDefault("enableHeldAmbientLight", true);
 
         // PlayerFactionPayload configurations
         ENABLE_FACTION_RESET = CONFIG.getOrDefault("enableFactionReset", true);
