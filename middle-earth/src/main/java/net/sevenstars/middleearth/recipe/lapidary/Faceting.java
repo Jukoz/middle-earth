@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.recipe.CraftQuality;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.items.gems.CutGemItem;
 import net.sevenstars.middleearth.item.items.gems.GemCut;
@@ -160,7 +161,7 @@ public final class Faceting {
             : runScore;
         value = MathHelper.clamp(value, 0, 100);
         out.set(DataComponentTypesME.GEM_QUALITY, value);
-        out.set(DataComponentTypes.MAX_DAMAGE, GemQuality.of(value).charges(cut.charges()));
+        out.set(DataComponentTypes.MAX_DAMAGE, CraftQuality.of(value).charges(cut.charges()));
         return out;
     }
 }

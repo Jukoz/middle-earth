@@ -27,8 +27,11 @@ import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
+import net.sevenstars.middleearth.registries.content.rings.RingMetalRegistry;
+import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
@@ -153,6 +156,7 @@ public class ItemModelProvider extends FabricModelProvider {
         });
 
         registerGems(itemModelGenerator);
+        registerRing(itemModelGenerator);
 
         registerPalettedItem(ResourceItemsME.ROD, itemModelGenerator);
         registerPalettedItem(ResourceItemsME.LARGE_ROD, itemModelGenerator);
@@ -401,6 +405,40 @@ public class ItemModelProvider extends FabricModelProvider {
             itemModelGenerator.output.accept(item, ItemModels.select(new ComponentSelectProperty<>(DataComponentTypesME.GEM_TYPE),
                     ItemModels.basic(fallback), cases));
         });
+    }
+
+    /**
+     * The ring: its metal's palette (or the heated glow while hot), drawn with a gem setting once a gem is set, and
+     * the gem on top in its gem type's palette. The sprites are paletted permutations in the blocks atlas
+     * ({@code item/ring/ring_<metal>}, {@code item/ring/ring_set_<metal>}, {@code item/ring/gem_<gem>}).
+     */
+    private void registerRing(ItemModelGenerator itemModelGenerator) {
+        List<SelectItemModel.SwitchCase<RegistryKey<RingMetal>>> metals = new ArrayList<>();
+        for (RegistryKey<RingMetal> metal : RingMetalRegistry.ALL) {
+            String name = RingMetalRegistry.name(metal);
+            metals.add(ItemModels.switchCase(metal, ItemModels.condition(ItemModels.hasComponentProperty(DataComponentTypesME.GEM_TYPE),
+                    ItemModels.basic(uploadRingSprite("item/ring/ring_set_" + name, itemModelGenerator)),
+                    ItemModels.basic(uploadRingSprite("item/ring/ring_" + name, itemModelGenerator)))));
+        }
+        ItemModel.Unbaked ring = ItemModels.select(new ComponentSelectProperty<>(DataComponentTypesME.RING_METAL),
+                ItemModels.basic(MiddleEarth.id("item/ring/ring_gold")), metals);
+
+        List<SelectItemModel.SwitchCase<RegistryKey<GemType>>> gems = new ArrayList<>();
+        for (RegistryKey<GemType> gemType : GemTypeRegistry.ALL) {
+            gems.add(ItemModels.switchCase(gemType,
+                    ItemModels.basic(uploadRingSprite("item/ring/gem_" + GemTypeRegistry.name(gemType), itemModelGenerator))));
+        }
+        ItemModel.Unbaked gem = ItemModels.select(new ComponentSelectProperty<>(DataComponentTypesME.GEM_TYPE),
+                new net.minecraft.client.render.item.model.EmptyItemModel.Unbaked(), gems);
+
+        ItemModel.Unbaked heated = ItemModels.basic(uploadRingSprite("item/ring/ring_heated", itemModelGenerator));
+        itemModelGenerator.output.accept(ToolItemsME.RING,
+                ItemModels.condition(new HotComponentProperty(), heated, ItemModels.composite(ring, gem)));
+    }
+
+    private static Identifier uploadRingSprite(String sprite, ItemModelGenerator itemModelGenerator) {
+        Identifier id = MiddleEarth.id(sprite);
+        return Models.GENERATED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
     }
 
     public final void registerPalettedItem(Item item, ItemModelGenerator itemModelGenerator) {

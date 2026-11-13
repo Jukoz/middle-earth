@@ -115,7 +115,8 @@
         "middle-earth:item/cut_gem/marquis",
         "middle-earth:item/cut_gem/brilliant",
         "middle-earth:item/cut_gem/radiant",
-        "middle-earth:item/cut_gem/briolette"
+        "middle-earth:item/cut_gem/briolette",
+        "middle-earth:item/ring/gem"
       ],
       "palette_key": "middle-earth:gem_palettes/key",
       "permutations": {
@@ -127,6 +128,22 @@
         "opal": "middle-earth:gem_palettes/opal",
         "onyx": "middle-earth:gem_palettes/onyx",
         "moonstone": "middle-earth:gem_palettes/moonstone"
+      }
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "textures": [
+        "middle-earth:item/ring/ring",
+        "middle-earth:item/ring/ring_set"
+      ],
+      "palette_key": "middle-earth:ring_palettes/key",
+      "permutations": {
+        "copper": "middle-earth:ring_palettes/copper",
+        "iron": "middle-earth:ring_palettes/iron",
+        "silver": "middle-earth:ring_palettes/silver",
+        "gold": "middle-earth:ring_palettes/gold",
+        "mithril": "middle-earth:ring_palettes/mithril",
+        "heated": "middle-earth:ring_palettes/heated"
       }
     }
   ]

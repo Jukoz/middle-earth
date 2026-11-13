@@ -87,7 +87,7 @@ public class DataComponentTypesME {
 
     /**
      * A cut gem's hidden quality value, 0-100, from its faceting runs (see
-     * {@link net.sevenstars.middleearth.recipe.lapidary.GemQuality}); absent = never faceted (counts as 0).
+     * {@link net.sevenstars.middleearth.recipe.CraftQuality}); absent = never faceted (counts as 0).
      */
     public static final ComponentType<Integer> GEM_QUALITY = register("gem_quality", builder -> builder
             .codec(com.mojang.serialization.Codec.intRange(0, 100))
@@ -108,6 +108,16 @@ public class DataComponentTypesME {
     public static final ComponentType<Integer> EYEWEAR_LENSES = register("eyewear_lenses", builder -> builder
             .codec(com.mojang.serialization.Codec.intRange(1, 2))
             .packetCodec(net.minecraft.network.codec.PacketCodecs.VAR_INT));
+
+    /** Which metal a ring is made of (see RingMetalRegistry); picks the ring's palette. */
+    public static final ComponentType<RegistryKey<net.sevenstars.middleearth.resources.datas.rings.RingMetal>> RING_METAL = register("ring_metal", builder -> builder
+            .codec(RegistryKey.createCodec(DynamicRegistriesME.RING_METAL))
+            .packetCodec(RegistryKey.createPacketCodec(DynamicRegistriesME.RING_METAL)));
+
+    /** What a ring has been through so far: purity, shaping, inscribing, polarity, Fea and its gem. */
+    public static final ComponentType<RingForgingDataComponent> RING_FORGING = register("ring_forging", builder -> builder
+            .codec(RingForgingDataComponent.CODEC)
+            .packetCodec(RingForgingDataComponent.PACKET_CODEC));
 
     public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
             "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)

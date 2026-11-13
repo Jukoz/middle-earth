@@ -4,6 +4,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Unit;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
@@ -12,10 +13,18 @@ import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemMod
 import net.sevenstars.middleearth.datageneration.content.models.SimpleHandheldItemModel;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
+import net.sevenstars.middleearth.item.dataComponents.RingForgingDataComponent;
+import net.sevenstars.middleearth.item.dataComponents.TemperatureDataComponent;
+import net.sevenstars.middleearth.item.items.gems.GemCut;
+import net.sevenstars.middleearth.item.items.rings.RingItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.ToolMaterialsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
+import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingMetalRegistry;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
+import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +162,42 @@ public class ToolItemsME {
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
     public static final Item LONGBOTTOM_PIPE = registerItem2dGUI3dPerson("longbottom_pipe",
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
-    
+
+    // ---- Ring forging: one ring item for every metal, filled in as it is forged (see RingItem). ----
+    public static final Item RING = registerItem(new RingItem(new Item.Settings().registryKey(BlockRegistryME.keyOfItem("ring"))), "ring");
+
+    static {
+        // Example rings at different steps of their forging, until the forging stations make them.
+        ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.COPPER, 64, -40));
+        ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.IRON, 75, 0));
+        ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.SILVER, 83, 30));
+        ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.GOLD, 87, -60));
+        ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.MITHRIL, 95, 85));
+        ItemStack heated = ring(RingMetalRegistry.GOLD, 87, -60);
+        heated.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(100));
+        ItemGroupsME.TOOLS_CONTENTS.add(heated);
+        ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.COPPER, 64, -40, GemTypeRegistry.BERYL, GemCut.ROUND, 55));
+        ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.GOLD, 87, -60, GemTypeRegistry.RUBY, GemCut.BRIOLETTE, 81));
+        ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.MITHRIL, 95, 85, GemTypeRegistry.SAPPHIRE, GemCut.BRILLIANT, 94));
+    }
+
+    /** A freshly refined ring of the given metal, purity and polarity. */
+    public static ItemStack ring(RegistryKey<RingMetal> metal, int purity, int polarity) {
+        ItemStack stack = new ItemStack(RING);
+        stack.set(DataComponentTypesME.RING_METAL, metal);
+        stack.set(DataComponentTypesME.RING_FORGING, RingForgingDataComponent.refined(purity, polarity, 0));
+        return stack;
+    }
+
+    private static ItemStack gemRing(RegistryKey<RingMetal> metal, int purity, int polarity,
+                                     RegistryKey<GemType> gemType, GemCut cut, int gemQuality) {
+        ItemStack stack = ring(metal, purity, polarity);
+        stack.set(DataComponentTypesME.GEM_TYPE, gemType);
+        stack.apply(DataComponentTypesME.RING_FORGING, null,
+                forging -> forging.withGem(new RingForgingDataComponent.Gem(cut, gemQuality), 0, 0));
+        return stack;
+    }
+
     private static Item registerItemHandheld(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultStack());

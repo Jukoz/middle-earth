@@ -175,6 +175,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.BEAM_LAMP, net.sevenstars.middleearth.client.renderer.light.BeamLampRenderer::new);
         // What the player knows about a gem type, on raw and cut gem tooltips.
         net.sevenstars.middleearth.client.renderer.GemKnowledgeTooltip.register();
+        net.sevenstars.middleearth.client.renderer.RingTooltip.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
         net.sevenstars.middleearth.client.renderer.light.LampBeams.register();
         net.sevenstars.middleearth.client.renderer.light.HeldFlames.register();

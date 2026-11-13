@@ -115,11 +115,12 @@ public class GemTranslations {
         put("gui.middle-earth.lapidary.turn_left", "Turn gem left");
         put("gui.middle-earth.lapidary.mode.reading", "Refraction Reading");
         put("gui.middle-earth.lapidary.mode.faceting", "Faceting");
-        put("gem_quality.middle-earth.mundane", "Mundane");
-        put("gem_quality.middle-earth.fine", "Fine");
-        put("gem_quality.middle-earth.exceptional", "Exceptional");
-        put("gem_quality.middle-earth.masterwork", "Masterwork");
-        put("gem_quality.middle-earth.relic", "Relic");
+        put("craft_quality.middle-earth.mundane", "Mundane");
+        put("craft_quality.middle-earth.fine", "Fine");
+        put("craft_quality.middle-earth.exceptional", "Exceptional");
+        put("craft_quality.middle-earth.masterwork", "Masterwork");
+        put("craft_quality.middle-earth.relic", "Relic");
+        put("craft_quality.middle-earth.legendary", "Legendary");
         put("tooltip.middle-earth.cut_gem.quality", "Quality: %s");
         put("tooltip.middle-earth.cut_gem.quality_value", "Quality value: %s%%");
         put("gui.middle-earth.lapidary.faceting.place_gem", "Place a studied raw gem or a cut gem to facet it.");

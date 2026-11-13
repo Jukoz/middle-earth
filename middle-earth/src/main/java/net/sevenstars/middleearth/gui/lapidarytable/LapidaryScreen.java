@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.gui.lapidarytable.LapidaryScreenHandler;
 import net.sevenstars.middleearth.recipe.lapidary.RefractionReading;
 import net.sevenstars.middleearth.recipe.lapidary.StudyGrade;
 import net.sevenstars.middleearth.recipe.lapidary.Faceting;
-import net.sevenstars.middleearth.recipe.lapidary.GemQuality;
+import net.sevenstars.middleearth.recipe.CraftQuality;
 import net.sevenstars.middleearth.item.items.gems.GemCut;
 import net.sevenstars.middleearth.item.items.gems.CutGemItem;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
@@ -906,7 +906,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             line += 10;
             if (done > 0) {
                 int average = Math.round(handler.getScoreSum() / (float) done);
-                GemQuality quality = GemQuality.of(Math.min(average, handler.getBenchCap()));
+                CraftQuality quality = CraftQuality.of(Math.min(average, handler.getBenchCap()));
                 context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.faceting.score", average),
                     px, line, INK, false);
                 line += 10;
@@ -918,7 +918,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             return;
         }
         if (showResult && gem.contains(DataComponentTypesME.GEM_QUALITY)) {
-            GemQuality quality = GemQuality.of(Faceting.quality(gem));
+            CraftQuality quality = CraftQuality.of(Faceting.quality(gem));
             wrapped(context, Text.translatable("gui.middle-earth.lapidary.faceting.done",
                 Text.translatable(quality.translationKey())), px, line, qualityInk(quality));
             return;
@@ -955,7 +955,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             line += 12;
         }
         // The bench's limit: a label, then the best quality it allows.
-        GemQuality cap = GemQuality.of(handler.getBenchCap());
+        CraftQuality cap = CraftQuality.of(handler.getBenchCap());
         context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.faceting.cap"), px, line,
             INK_DIM, false);
         context.drawText(textRenderer, Text.translatable(cap.translationKey()), px, line + 10, qualityInk(cap), false);
@@ -1033,13 +1033,14 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     }
 
     /** Quality colours dark enough to read on parchment. */
-    private static int qualityInk(GemQuality quality) {
+    private static int qualityInk(CraftQuality quality) {
         return switch (quality) {
             case MUNDANE -> 0xFF5E5E5E;
             case FINE -> 0xFF2F7A2F;
             case EXCEPTIONAL -> 0xFF1F6F7A;
             case MASTERWORK -> 0xFF7A2F8A;
             case RELIC -> 0xFFA86E08;
+            case LEGENDARY -> 0xFFB8400F;
         };
     }
 

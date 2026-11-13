@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.recipe.lapidary;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.recipe.CraftQuality;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -16,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
  * Each tier's upgrades are learned from its own scroll (lost knowledge).
  */
 public enum LapidaryTools {
-    MASTERWORK("masterwork", GemQuality.MASTERWORK),
-    RELIC("relic", GemQuality.RELIC);
+    MASTERWORK("masterwork", CraftQuality.MASTERWORK),
+    RELIC("relic", CraftQuality.RELIC);
 
     /** The best quality value a bare table cuts to. */
     public static final int BARE_CAP = 71;
@@ -34,9 +35,9 @@ public enum LapidaryTools {
     }
 
     private final String name;
-    private final GemQuality limit;
+    private final CraftQuality limit;
 
-    LapidaryTools(String name, GemQuality limit) {
+    LapidaryTools(String name, CraftQuality limit) {
         this.name = name;
         this.limit = limit;
     }
@@ -46,7 +47,7 @@ public enum LapidaryTools {
     }
 
     /** The best quality a full set of this tier opens. */
-    public GemQuality limit() {
+    public CraftQuality limit() {
         return limit;
     }
 

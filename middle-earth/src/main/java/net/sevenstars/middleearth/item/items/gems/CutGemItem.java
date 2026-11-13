@@ -48,9 +48,9 @@ public class CutGemItem extends Item {
         tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cut_gem.tier", cut.tier()).formatted(Formatting.GRAY));
         Integer quality = stack.get(DataComponentTypesME.GEM_QUALITY);
         if (quality != null) {
-            net.sevenstars.middleearth.recipe.lapidary.GemQuality level = net.sevenstars.middleearth.recipe.lapidary.GemQuality.of(quality);
+            net.sevenstars.middleearth.recipe.CraftQuality level = net.sevenstars.middleearth.recipe.CraftQuality.of(quality);
             tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cut_gem.quality",
-                Text.translatable(level.translationKey()).formatted(level.formatting())).formatted(Formatting.GRAY));
+                Text.translatable(level.translationKey()).styled(style -> style.withColor(level.color()))).formatted(Formatting.GRAY));
         }
         int max = stack.getMaxDamage();
         tooltip.accept(Text.translatable("tooltip." + MiddleEarth.MOD_ID + ".cut_gem.charges", max - stack.getDamage(), max)
