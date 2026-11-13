@@ -134,8 +134,6 @@ public class SimpleItemModel {
             add(ResourceItemsME.PINECONE);
             add(ResourceItemsME.LIT_PINECONE);
 
-            add(DecorativeBlockRegistryME.CANDLESTICK.asItem());
-            add(DecorativeBlockRegistryME.CERAMIC_LAMP.asItem());
             add(DecorativeBlockRegistryME.SMALL_BRONZE_CHANDELIER.asItem());
             add(DecorativeBlockRegistryME.BRONZE_CHANDELIER.asItem());
             add(DecorativeBlockRegistryME.SMALL_CHANDELIER.asItem());
