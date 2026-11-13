@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -34,18 +35,25 @@ public class StructureManagerService {
 
     public static LivingEntity spawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
-        int chances = 5;
+        int chances = 12;
         BlockPos chosenBlockPos = null;
         for(BlockPos blockPos : BlockPos.iterateRandomly(random, chances, pos, spawnRadius)){
             blockPos = blockPos.withY(pos.getY());
-            if(world.getBlockState(blockPos).isAir() && world.getBlockState(blockPos.up()).isAir()){
+            // Air alone is also what the mouth of a well is made of
+            BlockPos below = blockPos.down();
+            if(world.getBlockState(blockPos).isAir() && world.getBlockState(blockPos.up()).isAir()
+                    && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)){
                 chosenBlockPos = blockPos;
                 break;
             }
         }
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
+        return spawnEntityAt(world, pool, chosenBlockPos);
+    }
 
+    public static LivingEntity spawnEntityAt(ServerWorld world, StructureSpawnNestPool pool, BlockPos chosenBlockPos){
+        BlockPos pos = chosenBlockPos;
         LivingEntity entity;
         if(pool.getEntityType() == EntitiesME.NPC){
 

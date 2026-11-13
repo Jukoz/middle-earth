@@ -10,7 +10,14 @@ import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.registry.Registry;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructureTemplate;
+import net.minecraft.structure.pool.SinglePoolElement;
+import net.minecraft.util.BlockMirror;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockBox;
@@ -46,6 +53,47 @@ public class NestSurvey {
     }
 
     public record Result(List<Bed> beds, Optional<BlockPos> store) {}
+
+    // The beds given to this nest when data was generated. Null for a nest no template knows, a player's own building for one
+    public static @Nullable Result fromData(ServerWorld world, BlockPos origin) {
+        Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
+        StructureStart start = world.getStructureAccessor().getStructureContaining(origin, entry -> true);
+        if(registry.isEmpty() || start == null)
+            return null;
+        for(StructurePiece piece : start.getChildren()) {
+            if(!(piece instanceof PoolStructurePiece placed) || !piece.getBoundingBox().contains(origin))
+                continue;
+            if(!(placed.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
+                continue;
+            StructureBedData data = registry.get().get(element.location.left().get());
+            if(data == null)
+                continue;
+            // Pieces overlap, the right one is the one that has a nest exactly here
+            for(StructureBedData.Nest nest : data.nests()) {
+                if(!placedAt(placed, nest.pos()).equals(origin))
+                    continue;
+                List<Bed> beds = new ArrayList<>();
+                for(BlockPos bed : nest.beds())
+                    beds.add(new Bed(placedAt(placed, bed), Optional.empty(), Optional.empty()));
+                return new Result(beds, nest.store().map(store -> placedAt(placed, store)));
+            }
+        }
+        return null;
+    }
+
+    private static BlockPos placedAt(PoolStructurePiece piece, BlockPos inTemplate) {
+        return StructureTemplate.transformAround(inTemplate, BlockMirror.NONE, piece.getRotation(), BlockPos.ORIGIN).add(piece.getPos());
+    }
+
+    // Null when the bed is gone, or its chunk is not loaded
+    public static @Nullable BlockPos standFor(ServerWorld world, BlockPos bed) {
+        if(!world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
+            return null;
+        BlockState state = world.getBlockState(bed);
+        if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD)
+            return null;
+        return standBeside(world, bed, state);
+    }
 
     // Null while the building is not loaded
     public static @Nullable Result survey(ServerWorld world, BlockPos origin) {

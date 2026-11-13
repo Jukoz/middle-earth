@@ -6,3 +6,4 @@ accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecr
 accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType
 accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;
 accessible field net/minecraft/entity/mob/MobEntity goalSelector Lnet/minecraft/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/structure/pool/SinglePoolElement location Lcom/mojang/datafixers/util/Either;

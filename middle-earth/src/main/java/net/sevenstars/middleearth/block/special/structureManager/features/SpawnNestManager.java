@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.entity.Entity;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -36,7 +37,8 @@ public class SpawnNestManager {
             Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
             Codec.BOOL.optionalFieldOf("surveyed", false).forGetter(manager -> manager.surveyed),
             Codec.list(NestSurvey.Bed.CODEC).optionalFieldOf("beds", List.of()).forGetter(manager -> manager.beds),
-            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store))
+            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store)),
+            Codec.BOOL.optionalFieldOf("paired", false).forGetter(manager -> manager.paired)
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
@@ -52,8 +54,11 @@ public class SpawnNestManager {
     private boolean surveyed = false;
     private List<NestSurvey.Bed> beds = new ArrayList<>();
     private @Nullable BlockPos store = null;
+    // True when the beds are this nest's alone, as the generated data has them. Beds found by looking around are shared with the other nests of the building
+    private boolean paired = false;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, boolean surveyed, List<NestSurvey.Bed> beds, Optional<BlockPos> store) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, boolean surveyed, List<NestSurvey.Bed> beds, Optional<BlockPos> store, boolean paired) {
+        this.paired = paired;
         this.surveyed = surveyed;
         this.beds = new ArrayList<>(beds);
         this.store = store.orElse(null);
@@ -102,7 +107,10 @@ public class SpawnNestManager {
     public boolean survey(ServerWorld world) {
         if(surveyed)
             return true;
-        NestSurvey.Result result = NestSurvey.survey(world, originPos);
+        NestSurvey.Result result = NestSurvey.fromData(world, originPos);
+        paired = result != null;
+        if(result == null)
+            result = NestSurvey.survey(world, originPos);
         if(result == null)
             return false;
         beds = new ArrayList<>(result.beds());
@@ -138,6 +146,19 @@ public class SpawnNestManager {
                 beds.set(i, bed.withOwner(owner));
                 return beds.get(i);
             }
+        }
+        return null;
+    }
+
+    // The floor beside the bed the next npc of this nest will be given
+    private @Nullable BlockPos freeBedside(ServerWorld world) {
+        for(int i = 0; i < beds.size(); i++) {
+            NestSurvey.Bed bed = beds.get(i);
+            if(bed.owner().isPresent())
+                continue;
+            if(bed.stand().isEmpty())
+                beds.set(i, new NestSurvey.Bed(bed.pos(), Optional.ofNullable(NestSurvey.standFor(world, bed.pos())), Optional.empty()));
+            return beds.get(i).stand().orElse(null);
         }
         return null;
     }
@@ -216,9 +237,13 @@ public class SpawnNestManager {
 
         if(data != null){
             StructureSpawnNestPool pool = data.getRandomPool();
-            int entityAmountToSpawn = pool.getEntityAmount();
+            boolean people = pool.getEntityType() == EntitiesME.NPC && survey(world);
+            // A nest with beds of its own houses one npc in each. Without, it keeps the amount of its pool
+            int entityAmountToSpawn = people && paired && !beds.isEmpty() ? beds.size() : pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
+                BlockPos bedside = people ? freeBedside(world) : null;
+                LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
+                        : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }

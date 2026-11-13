@@ -30,6 +30,8 @@ import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
+import net.sevenstars.middleearth.registries.content.structurebeds.StructureBedsRegistry;
+import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.id("race"));
@@ -37,6 +39,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("npc_type"));
     public static final Codec<RegistryEntry<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_TYPE);
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.id("structure_manager_data"));
+    public static final RegistryKey<Registry<StructureBedData>> STRUCTURE_BEDS = RegistryKey.ofRegistry(MiddleEarth.id("structure_beds"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.id("biome_event"));
     public static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT = RegistryKey.ofRegistry(MiddleEarth.id("structure_event"));
 
@@ -61,6 +64,8 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_MANAGER_DATA, StructureManagerData.CODEC);
+        // Only the server places npcs
+        DynamicRegistries.register(STRUCTURE_BEDS, StructureBedData.CODEC);
         DynamicRegistries.registerSynced(TEXTURE_PRESETS, TexturePresetDataPool.CODEC);
 
         DynamicRegistries.registerSynced(SKIN_PATTERN, CharacterTexturePattern.CODEC);
@@ -82,6 +87,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
+        registryBuilder.addRegistry(STRUCTURE_BEDS, StructureBedsRegistry::bootstrap);
         registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
 
         registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
@@ -95,6 +101,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(NpcProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
+        pack.addProvider(StructureBedsProvider::new);
         pack.addProvider(BiomeEventProvider::new);
         pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
