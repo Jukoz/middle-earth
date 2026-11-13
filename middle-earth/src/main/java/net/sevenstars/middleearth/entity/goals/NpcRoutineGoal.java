@@ -571,12 +571,23 @@ public class NpcRoutineGoal extends Goal {
                 if(!done)
                     return;
                 ringLeft--;
-                if(ringLeft <= 0)
+                // The watch walks its rounds until the shift is over. Going home after each one took it through the middle of the place
+                if(!onDuty(world)) {
                     startReturn(world);
-                else
+                } else {
+                    if(ringLeft <= 0)
+                        ringLeft = site.getRing().size();
+                    deadline = world.getTime() + ROUTINE_TIME_LIMIT;
                     nextWaypoint();
+                }
             }
         }
+    }
+
+    private boolean onDuty(ServerWorld world) {
+        NpcType type = npc.getNpcType();
+        RoutineData routine = type == null ? null : type.getRoutine();
+        return routine != null && routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
     }
 
     private void nextWaypoint() {

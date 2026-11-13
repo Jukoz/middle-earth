@@ -25,8 +25,14 @@ public class RoutineSite {
     // x and z pairs
     private static final int[] SAMPLES;
 
-    private static final int RING_POINTS = 8;
-    private static final int[] RING_ADJUSTMENTS = {0, 4, -4};
+    private static final int MINIMUM_RING_POINTS = 8;
+    private static final int MAXIMUM_RING_POINTS = 40;
+    // Short enough for one path from a point of the ring to the next
+    private static final int RING_SPACING = 14;
+    // How far outside the outermost buildings the watch walks
+    private static final int RING_MARGIN = 6;
+    // Outwards first, a point moved inwards ends up between the houses
+    private static final int[] RING_ADJUSTMENTS = {0, 4, 8, -4};
     private static final int[][] MEETING_OFFSETS = {{0, 0}, {4, 0}, {-4, 0}, {0, 4}, {0, -4}, {7, 7}, {-7, 7}, {7, -7}, {-7, -7}};
     private static final int MAXIMUM_SHORES = 8;
     private static final int SHORE_SPACING = 6;
@@ -59,6 +65,8 @@ public class RoutineSite {
     private final List<BlockPos> shoreWaters = new ArrayList<>();
     private final List<BlockPos> grounds = new ArrayList<>();
     private final List<BlockPos> ring = new ArrayList<>();
+    // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
+    private final List<double[]> ringPlan = new ArrayList<>();
     private @Nullable BlockPos meetingPoint = null;
     private @Nullable Identifier faction = null;
 
@@ -83,6 +91,8 @@ public class RoutineSite {
                     buildings.add(piece);
             }
         }
+        if(ringRadius > 0)
+            planRing(pieces);
         this.enclosed = referenceY != null && surfaceY - referenceY > ENCLOSED_DEPTH;
         this.ready = enclosed;
     }
@@ -155,7 +165,7 @@ public class RoutineSite {
         if(ready)
             return true;
 
-        int ringSteps = ringRadius > 0 ? RING_POINTS : 0;
+        int ringSteps = ringPlan.size();
         // Only settlements have a middle to meet in
         if(cursor == 0 && ringRadius > 0)
             scanMeetingPoint(world);
@@ -184,12 +194,76 @@ public class RoutineSite {
         }
     }
 
+    // The ring follows the outline of the settlement. A circle cuts through any place that is not round
+    private void planRing(@Nullable List<BlockBox> pieces) {
+        List<double[]> outline = pieces == null ? List.of() : outlineOf(pieces);
+        if(outline.size() < 3) {
+            int points = MathHelper.clamp(Math.round(MathHelper.TAU * ringRadius / RING_SPACING), MINIMUM_RING_POINTS, MAXIMUM_RING_POINTS);
+            for(int i = 0; i < points; i++) {
+                double angle = MathHelper.TAU * i / points;
+                ringPlan.add(new double[]{centerX + Math.cos(angle) * ringRadius, centerZ + Math.sin(angle) * ringRadius, Math.cos(angle), Math.sin(angle)});
+            }
+            return;
+        }
+        double perimeter = 0;
+        for(int i = 0; i < outline.size(); i++) {
+            double[] from = outline.get(i);
+            double[] to = outline.get((i + 1) % outline.size());
+            perimeter += Math.hypot(to[0] - from[0], to[1] - from[1]);
+        }
+        double spacing = Math.max(RING_SPACING, perimeter / MAXIMUM_RING_POINTS);
+        double untilNext = 0;
+        for(int i = 0; i < outline.size(); i++) {
+            double[] from = outline.get(i);
+            double[] to = outline.get((i + 1) % outline.size());
+            double length = Math.hypot(to[0] - from[0], to[1] - from[1]);
+            if(length == 0)
+                continue;
+            double alongX = (to[0] - from[0]) / length;
+            double alongZ = (to[1] - from[1]) / length;
+            // The outline runs counter clockwise, which puts the outside on this hand
+            double outX = alongZ;
+            double outZ = -alongX;
+            double walked = untilNext;
+            for(; walked < length; walked += spacing)
+                ringPlan.add(new double[]{from[0] + alongX * walked + outX * RING_MARGIN, from[1] + alongZ * walked + outZ * RING_MARGIN, outX, outZ});
+            untilNext = walked - length;
+        }
+    }
+
+    // The convex hull around every piece
+    private static List<double[]> outlineOf(List<BlockBox> pieces) {
+        List<double[]> corners = new ArrayList<>();
+        for(BlockBox piece : pieces) {
+            corners.add(new double[]{piece.getMinX(), piece.getMinZ()});
+            corners.add(new double[]{piece.getMaxX() + 1, piece.getMinZ()});
+            corners.add(new double[]{piece.getMinX(), piece.getMaxZ() + 1});
+            corners.add(new double[]{piece.getMaxX() + 1, piece.getMaxZ() + 1});
+        }
+        corners.sort((a, b) -> a[0] != b[0] ? Double.compare(a[0], b[0]) : Double.compare(a[1], b[1]));
+        List<double[]> hull = new ArrayList<>();
+        for(int pass = 0; pass < 2; pass++) {
+            int start = hull.size();
+            for(int i = 0; i < corners.size(); i++) {
+                double[] corner = corners.get(pass == 0 ? i : corners.size() - 1 - i);
+                while(hull.size() >= start + 2 && turn(hull.get(hull.size() - 2), hull.get(hull.size() - 1), corner) <= 0)
+                    hull.remove(hull.size() - 1);
+                hull.add(corner);
+            }
+            hull.remove(hull.size() - 1);
+        }
+        return hull;
+    }
+
+    private static double turn(double[] a, double[] b, double[] c) {
+        return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+    }
+
     private void scanRingPoint(ServerWorld world, int index) {
-        double angle = MathHelper.TAU * index / RING_POINTS;
+        double[] planned = ringPlan.get(index);
         for(int adjustment : RING_ADJUSTMENTS) {
-            int radius = ringRadius + adjustment;
-            int x = centerX + MathHelper.floor(Math.cos(angle) * radius);
-            int z = centerZ + MathHelper.floor(Math.sin(angle) * radius);
+            int x = MathHelper.floor(planned[0] + planned[2] * adjustment);
+            int z = MathHelper.floor(planned[1] + planned[3] * adjustment);
             if(classify(world, x, z) == LAND && !isBuilding(x, probeY, z)) {
                 ring.add(new BlockPos(x, probeY, z));
                 return;
