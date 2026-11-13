@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.utils.resources;
 
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.chunkgen.map.ImageUtils;
@@ -94,6 +96,8 @@ public class FileUtils {
         }
     }
 
+    /** Client only: reads the client's resources. */
+    @Environment(EnvType.CLIENT)
     public static boolean isLanguageFileExist(String languageCode) {
         MinecraftClient client = MinecraftClient.getInstance();
         ResourceManager resourceManager = client.getResourceManager();

@@ -411,7 +411,7 @@ public class BlockRegistryME {
     public static final Block QUARTZ_BLOCK = registerMiscBlock("quartz_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);
     public static final Block QUARTZ_CLUSTER = registerMiscBlock("quartz_cluster",
-            (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
+            (settings) -> new AmethystClusterBlock(7,10, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_QUARTZ_BUD = registerMiscBlock("large_quartz_bud",
             (settings) -> new AmethystClusterBlock(5,10, settings), AbstractBlock.Settings.copy(BlockRegistryME.QUARTZ_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_QUARTZ_BUD = registerMiscBlock("medium_quartz_bud",
@@ -424,7 +424,7 @@ public class BlockRegistryME {
     public static final Block RED_AGATE_BLOCK = registerMiscBlock("red_agate_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);
     public static final Block RED_AGATE_CLUSTER = registerMiscBlock("red_agate_cluster",
-            (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
+            (settings) -> new AmethystClusterBlock(7,10, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_RED_AGATE_BUD = registerMiscBlock("large_red_agate_bud",
             (settings) -> new AmethystClusterBlock(5,10, settings), AbstractBlock.Settings.copy(BlockRegistryME.RED_AGATE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_RED_AGATE_BUD = registerMiscBlock("medium_red_agate_bud",
@@ -437,7 +437,7 @@ public class BlockRegistryME {
     public static final Block CITRINE_BLOCK = registerMiscBlock("citrine_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK), true);
     public static final Block CITRINE_CLUSTER = registerMiscBlock("citrine_cluster",
-            (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
+            (settings) -> new AmethystClusterBlock(7,10, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER), false);
     public static final Block LARGE_CITRINE_BUD = registerMiscBlock("large_citrine_bud",
             (settings) -> new AmethystClusterBlock(5,10, settings), AbstractBlock.Settings.copy(BlockRegistryME.CITRINE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD), false);
     public static final Block MEDIUM_CITRINE_BUD = registerMiscBlock("medium_citrine_bud",
@@ -450,7 +450,7 @@ public class BlockRegistryME {
     public static final Block GLOWSTONE_BLOCK = registerMiscBlock("glowstone_block",
             AmethystBlock::new,AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance(state -> 12), true);
     public static final Block GLOWSTONE_CLUSTER = registerMiscBlock("glowstone_cluster",
-            (settings) -> new AmethystClusterBlock(7,3, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER).luminance(state -> 10), false);
+            (settings) -> new AmethystClusterBlock(7,10, settings), AbstractBlock.Settings.copy(Blocks.AMETHYST_CLUSTER).luminance(state -> 10), false);
     public static final Block LARGE_GLOWSTONE_BUD = registerMiscBlock("large_glowstone_bud",
             (settings) -> new AmethystClusterBlock(5,10, settings), AbstractBlock.Settings.copy(BlockRegistryME.GLOWSTONE_CLUSTER).sounds(BlockSoundGroup.LARGE_AMETHYST_BUD).luminance(state -> 9), false);
     public static final Block MEDIUM_GLOWSTONE_BUD = registerMiscBlock("medium_glowstone_bud",
