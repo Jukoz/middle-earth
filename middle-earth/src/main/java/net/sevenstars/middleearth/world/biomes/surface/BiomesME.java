@@ -6,7 +6,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
-import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatureRegistryME;
@@ -382,7 +381,7 @@ public class BiomesME {
         BiomeFeaturesME.addVeryRareDryGrass(vegetation);
         vegetation.add(VegetationPlacedFeatures.PALE_MOSS_PATCH);
 
-        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings, new BiomeParticleConfig(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, 0.003f), 0.5f, true);
+        registerBiome(context, biomeRegistryKey, spawnSettings, generationSettings);
     }
 
     public static void createBeleriandIslandBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
@@ -4472,73 +4471,7 @@ public class BiomesME {
                 .precipitation(precipitation)
                 .temperature(temperature)
                 .downfall(0.5F)
-                .effects((new BiomeEffects.Builder())
-                        .skyColor(biomeColorsDTO.skyColor)
-                        .fogColor(biomeColorsDTO.fogColor)
-                        .waterColor(biomeColorsDTO.waterColor)
-                        .waterFogColor(biomeColorsDTO.waterFogColor)
-                        .grassColor(biomeColorsDTO.grassColor)
-                        .foliageColor(biomeColorsDTO.foliageColor)
-                        .build())
-                .spawnSettings(spawnSettings.build())
-                .generationSettings(generationSettings.build())
-                .build();
-        context.register(biomeRegistryKey, biome);
-
-        surfaceStructures = new ArrayList<>();
-        vegetation = new ArrayList<>();
-        undergroundOres = new ArrayList<>();
-    }
-
-    public static void registerBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, BiomeParticleConfig particleConfig, float temperature, boolean precipitation, boolean... removeDefaultOres) {
-        if(removeDefaultOres.length == 0) {
-            undergroundOres.add(OrePlacedFeatures.ORE_DIRT);
-            undergroundOres.add(OrePlacedFeatures.ORE_GRAVEL);
-            undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_UPPER);
-            undergroundOres.add(OrePlacedFeatures.ORE_GRANITE_LOWER);
-            undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_UPPER);
-            undergroundOres.add(OrePlacedFeatures.ORE_DIORITE_LOWER);
-            undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_UPPER);
-            undergroundOres.add(OrePlacedFeatures.ORE_ANDESITE_LOWER);
-            undergroundOres.add(OrePlacedFeatures.ORE_TUFF);
-        }
-
-        undergroundOres.add(OrePlacedFeatures.ORE_COAL_UPPER);
-        vegetation.add(UndergroundPlacedFeatures.GLOW_LICHEN);
-
-        DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
-
-        surfaceStructures = surfaceStructures.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
-        vegetation = vegetation.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
-        for(int i = 0; i < vegetation.size() - 1; i++) {
-            if(vegetation.get(i).getValue().toString().equals(vegetation.get(i + 1).getValue().toString())) {
-                throw new IllegalStateException("Duplicate value in list for: " + vegetation.get(i).getValue().toString());
-            }
-        }
-        for (RegistryKey<PlacedFeature> feature: surfaceStructures) {
-            generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, feature);
-        }
-        for (RegistryKey<PlacedFeature> feature: vegetation) {
-            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, feature);
-        }
-        for (RegistryKey<PlacedFeature> feature: undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList()) {
-            generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
-        }
-
-        BiomeColorsDTO biomeColorsDTO = MapBiomeData.getBiome(biomeRegistryKey).getBiomeColors();
-
-        Biome biome = (new Biome.Builder())
-                .precipitation(precipitation)
-                .temperature(temperature)
-                .downfall(0.5F)
-                .effects((new BiomeEffects.Builder())
-                        .skyColor(biomeColorsDTO.skyColor)
-                        .fogColor(biomeColorsDTO.fogColor)
-                        .waterColor(biomeColorsDTO.waterColor)
-                        .waterFogColor(biomeColorsDTO.waterFogColor)
-                        .grassColor(biomeColorsDTO.grassColor)
-                        .foliageColor(biomeColorsDTO.foliageColor)
-                        .particleConfig(particleConfig)
+                .effects(biomeColorsDTO.createEffects()
                         .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())
