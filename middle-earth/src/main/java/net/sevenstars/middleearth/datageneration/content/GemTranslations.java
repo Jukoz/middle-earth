@@ -70,6 +70,10 @@ public class GemTranslations {
         put("advancement.middle-earth.lapidary.root.title", "Lapidary");
         put("advancement.middle-earth.lapidary.root.description", "Study raw gems at a Lapidary Table to learn their secrets");
         put("advancement.middle-earth.lapidary.grade_title", "%s: %s");
+        put("advancement.middle-earth.lapidary.grade.rough_notes", "Rough Notes");
+        put("advancement.middle-earth.lapidary.grade.careful", "Careful Notes");
+        put("advancement.middle-earth.lapidary.grade.thorough", "Thorough Notes");
+        put("advancement.middle-earth.lapidary.grade.masterful", "Masterful Notes");
         put("advancement.middle-earth.lapidary.mastered", "You have mastered the study of %s");
         put("gem_info.middle-earth.adamant.host", "Host rock: Magma");
         put("gem_info.middle-earth.adamant.depth", "Depth: Near the uttermost foundations of stone, where the rock runs hot.");
@@ -137,7 +141,11 @@ public class GemTranslations {
         put("gui.middle-earth.lapidary.help.2", "Drag the candle round its groove, or nudge it with Left / Right.");
         put("gui.middle-earth.lapidary.help.3", "Turn the gem: drag it, scroll, press A / D or use the arrows.");
         put("gui.middle-earth.lapidary.help.4", "Click a rune while the light is on it to lock it.");
-        put("item.middle-earth.gem_notes.name", "%s: %s");
+        put("item.middle-earth.gem_notes.any_gem", "Gem");
+        put("item.middle-earth.rough_notes.gem", "Rough %s Notes");
+        put("item.middle-earth.careful_notes.gem", "Careful %s Notes");
+        put("item.middle-earth.thorough_notes.gem", "Thorough %s Notes");
+        put("item.middle-earth.masterful_notes.gem", "Masterful %s Notes");
         put("tooltip.middle-earth.gem_notes.bind", "Bind into a Player Book at a crafting table");
         put("gui.middle-earth.lapidary.paper", "1 paper");
         put("gui.middle-earth.lapidary.take_notes", "Take the notes");
@@ -181,9 +189,9 @@ public class GemTranslations {
         put("screen.middle-earth.gem_studies.arts.khazad_grinding_wheel", "Medgon and obsidian bound in mithril.");
         put("screen.middle-earth.gem_studies.arts.mirdain_beam_lamp", "Candlelight gathered through adamant.");
         put("screen.middle-earth.gem_studies.arts.numenorean_pump", "A Standard Pump refitted in mithril, drawing from a basin of 10 water buckets.");
-        put("advancement.middle-earth.lapidary.tools.masterwork", "Lost Arts: Masterwork");
+        put("advancement.middle-earth.lapidary.tools.masterwork", "Bright as Starlight in a Sunless Hall");
         put("advancement.middle-earth.lapidary.tools.masterwork.description", "Read the Lost Master's Study of Gems");
-        put("advancement.middle-earth.lapidary.tools.relic", "Lost Arts: Relic");
+        put("advancement.middle-earth.lapidary.tools.relic", "Of the Gwaith-i-Mirdain");
         put("advancement.middle-earth.lapidary.tools.relic.description", "Read the Ancient Eregion Gemcraft Folio");
         // The focused lamps as blocks, and as off-hand lamps.
         put("block.middle-earth.citrine_bullseye_lamp", "Citrine Bullseye Lamp");

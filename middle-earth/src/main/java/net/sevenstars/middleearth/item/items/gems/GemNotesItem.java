@@ -21,7 +21,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 /**
- * Notes written up from a finished study at the Lapidary Table, e.g. "Careful Notes: Ruby". One item per grade;
+ * Notes written up from a finished study at the Lapidary Table, e.g. "Careful Ruby Notes". One item per grade;
  * the gem comes from the {@link DataComponentTypesME#GEM_TYPE} component. Bound into Middle-earth's Player Book at a
  * crafting table ({@link GemStudiesBookRecipe}), they add what that grade teaches to the book's Gem Studies.
  */
@@ -40,9 +40,10 @@ public class GemNotesItem extends Item {
     @Override
     public Text getName(ItemStack stack) {
         RegistryKey<GemType> gem = stack.get(DataComponentTypesME.GEM_TYPE);
-        Text notes = Text.translatable(getTranslationKey());
-        Text name = gem == null ? notes
-            : Text.translatable("item.middle-earth.gem_notes.name", notes, Text.translatable(GemTypeRegistry.translationKey(gem)));
+        // Named for their gem in each grade's own wording (e.g. "Careful %s Notes"); "Gem" if they name none.
+        Text gemName = gem == null ? Text.translatable("item.middle-earth.gem_notes.any_gem")
+            : Text.translatable(GemTypeRegistry.translationKey(gem));
+        Text name = Text.translatable(getTranslationKey() + ".gem", gemName);
         return name.copy().formatted(grade.formatting());
     }
 
