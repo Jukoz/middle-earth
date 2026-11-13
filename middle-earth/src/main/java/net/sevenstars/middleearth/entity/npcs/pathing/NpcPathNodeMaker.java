@@ -29,6 +29,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     @Override
     public int getSuccessors(PathNode[] successors, PathNode node) {
         int count = super.getSuccessors(successors, node);
+        count = removePits(successors, count, node);
         if(isLadderCell(node.x, node.y, node.z)) {
             if(isLadderCell(node.x, node.y + 1, node.z))
                 count = add(successors, count, node.x, node.y + 1, node.z);
@@ -43,6 +44,29 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
                 count = add(successors, count, x, node.y, z);
         }
         return count;
+    }
+
+    // A well or a hole one block wide is a drop the pathfinder takes gladly, and nobody walks out of it again
+    private int removePits(PathNode[] successors, int count, PathNode from) {
+        int kept = 0;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            boolean down = next.y < from.y || next.type == PathNodeType.WATER;
+            if(down && isPit(next.x, next.y, next.z))
+                continue;
+            successors[kept++] = next;
+        }
+        return kept;
+    }
+
+    private boolean isPit(int x, int y, int z) {
+        if(isLadderCell(x, y, z))
+            return false;
+        for(Direction side : Direction.Type.HORIZONTAL) {
+            if(isPassable(x + side.getOffsetX(), y, z + side.getOffsetZ()))
+                return false;
+        }
+        return true;
     }
 
     private int add(PathNode[] successors, int count, int x, int y, int z) {
