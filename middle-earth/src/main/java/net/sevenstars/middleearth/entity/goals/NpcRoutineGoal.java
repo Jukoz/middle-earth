@@ -31,7 +31,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
+import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
@@ -98,6 +100,8 @@ public class NpcRoutineGoal extends Goal {
     private static final int WATCH_TIME_VARIATION = 20 * 4;
     private static final int MEETING_TIME = 20 * 20;
     private static final int MEETING_TIME_VARIATION = 20 * 20;
+    private static final int TEA_TIME = 20 * 45;
+    private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
     private static final int DUSK = 12500;
     private static final int DAWN = 23500;
@@ -138,6 +142,7 @@ public class NpcRoutineGoal extends Goal {
     private boolean ownsRod = false;
     private boolean toBed = false;
     private @Nullable NpcEntity companion = null;
+    private @Nullable BlockPos meetSeat = null;
     private @Nullable BlockPos standOf = null;
     private @Nullable BlockPos storeStand = null;
 
@@ -166,7 +171,11 @@ public class NpcRoutineGoal extends Goal {
             return finishHunt(world);
         if(phase == Phase.SLEEPING)
             phase = Phase.NONE;
-        if(npc.getTarget() != null || npc.hasVehicle())
+        boolean seated = npc.getVehicle() instanceof SeatEntity;
+        // Saved at the table, and the meeting it sat down for is forgotten
+        if(seated && phase == Phase.NONE)
+            npc.stopRiding();
+        if(npc.getTarget() != null || (npc.hasVehicle() && !seated))
             return false;
         if(phase != Phase.NONE) {
             if(world.getTime() > deadline && phase != Phase.RETURNING)
@@ -303,7 +312,17 @@ public class NpcRoutineGoal extends Goal {
                     return false;
                 spot = site.getGrounds().get(index);
             }
-            case MEET -> spot = site.getMeetingPoint();
+            case MEET -> {
+                meetSeat = site.pickSeat(world, random);
+                if(meetSeat != null) {
+                    BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
+                    spot = beside != null ? beside : meetSeat;
+                } else if(site.getMeetingPoint() != null) {
+                    spot = site.getMeetingPoint();
+                } else {
+                    return false;
+                }
+            }
             case PATROL -> {
                 List<BlockPos> ring = site.getRing();
                 ringIndex = 0;
@@ -339,7 +358,7 @@ public class NpcRoutineGoal extends Goal {
         if(phase == Phase.SLEEPING)
             return npc.isSleeping() && npc.getTarget() == null;
         return (phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING)
-                && npc.getTarget() == null && !npc.hasVehicle();
+                && npc.getTarget() == null && (!npc.hasVehicle() || npc.getVehicle() instanceof SeatEntity);
     }
 
     @Override
@@ -353,6 +372,7 @@ public class NpcRoutineGoal extends Goal {
     @Override
     public void stop() {
         npc.getNavigation().stop();
+        standUp();
         // Hands are needed back when a fight interrupts
         npc.clearRoutineProp();
         if(npc.isSleeping())
@@ -514,6 +534,10 @@ public class NpcRoutineGoal extends Goal {
             case MEET -> {
                 phaseEnd = time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
                 companion = null;
+                // Somebody quicker may have taken the seat, the table is still the place to be
+                if(meetSeat != null && SeatBlock.seat(world, meetSeat, npc))
+                    phaseEnd = time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION);
+                meetSeat = null;
             }
             case PATROL -> {
                 phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
@@ -734,7 +758,14 @@ public class NpcRoutineGoal extends Goal {
             manager.assignBed(npc);
     }
 
+    private void standUp() {
+        meetSeat = null;
+        if(npc.getVehicle() instanceof SeatEntity)
+            npc.stopRiding();
+    }
+
     private void finish(ServerWorld world, int rest) {
+        standUp();
         toBed = false;
         phase = Phase.NONE;
         carried = null;

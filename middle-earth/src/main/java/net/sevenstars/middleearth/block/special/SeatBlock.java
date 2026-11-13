@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -37,6 +38,30 @@ public class SeatBlock extends Block {
     public SeatBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(OCCUPIED, false));
+    }
+
+    public static boolean isFree(World world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        return state.getBlock() instanceof SeatBlock && !state.get(OCCUPIED) && !world.getBlockState(pos.up()).isOpaque();
+    }
+
+    // Sits somebody down who cannot click the seat for himself
+    public static boolean seat(World world, BlockPos pos, Entity sitter) {
+        if(world.isClient || !isFree(world, pos) || sitter.hasVehicle())
+            return false;
+        BlockState state = world.getBlockState(pos);
+        float yaw = state.get(FACING).getOpposite().getPositiveHorizontalDegrees();
+        SeatEntity seat = new SeatEntity(EntitiesME.SEAT_ENTITY, world);
+        seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
+        seat.setNoGravity(true);
+        seat.setSilent(true);
+        seat.setInvisible(true);
+        seat.setInvulnerable(true);
+        if(!world.spawnEntity(seat))
+            return false;
+        sitter.startRiding(seat, true);
+        world.setBlockState(pos, state.with(OCCUPIED, true));
+        return true;
     }
 
     @Override

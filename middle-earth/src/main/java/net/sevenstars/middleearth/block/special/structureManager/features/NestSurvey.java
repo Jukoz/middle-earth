@@ -63,9 +63,7 @@ public class NestSurvey {
         for(StructurePiece piece : start.getChildren()) {
             if(!(piece instanceof PoolStructurePiece placed) || !piece.getBoundingBox().contains(origin))
                 continue;
-            if(!(placed.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
-                continue;
-            StructureBedData data = registry.get().get(element.location.left().get());
+            StructureBedData data = dataOf(registry.get(), placed);
             if(data == null)
                 continue;
             // Pieces overlap, the right one is the one that has a nest exactly here
@@ -81,7 +79,13 @@ public class NestSurvey {
         return null;
     }
 
-    private static BlockPos placedAt(PoolStructurePiece piece, BlockPos inTemplate) {
+    public static @Nullable StructureBedData dataOf(Registry<StructureBedData> registry, PoolStructurePiece piece) {
+        if(!(piece.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
+            return null;
+        return registry.get(element.location.left().get());
+    }
+
+    public static BlockPos placedAt(PoolStructurePiece piece, BlockPos inTemplate) {
         return StructureTemplate.transformAround(inTemplate, BlockMirror.NONE, piece.getRotation(), BlockPos.ORIGIN).add(piece.getPos());
     }
 

@@ -23,6 +23,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import net.minecraft.util.math.Direction;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,6 +37,9 @@ public class StructureBedsRegistry {
     private static final String NEST_BLOCK = MiddleEarth.MOD_ID + ":structure_nest";
     private static final String NEST_ID = "structure_nest.NestId";
     private static final List<String> STORES = List.of("minecraft:barrel", "minecraft:chest", "minecraft:campfire");
+    private static final List<String> SEATS = List.of("_chair", "_stool", "_bench");
+    // Tables to work at, not to sit at
+    private static final List<String> WORK_TABLES = List.of("crafting_table", "cartography_table", "smithing_table", "fletching_table", "enchanting_table", "artisan_table");
 
     public static void bootstrap(Registerable<StructureBedData> context) {
         Map<Identifier, Integer> bedRadii = bedRadii();
@@ -78,6 +84,8 @@ public class StructureBedsRegistry {
         List<Identifier> nestIds = new ArrayList<>();
         List<BlockPos> beds = new ArrayList<>();
         List<BlockPos> stores = new ArrayList<>();
+        List<BlockPos> seats = new ArrayList<>();
+        Set<BlockPos> tableBlocks = new HashSet<>();
         for(int i = 0; i < blocks.size(); i++) {
             NbtCompound block = blocks.getCompoundOrEmpty(i);
             NbtCompound state = palette.getCompoundOrEmpty(block.getInt("state", 0));
@@ -94,9 +102,14 @@ public class StructureBedsRegistry {
                 beds.add(pos);
             } else if(STORES.contains(name)) {
                 stores.add(pos);
+            } else if(SEATS.stream().anyMatch(name::endsWith)) {
+                seats.add(pos);
+            } else if(name.endsWith("_table") && WORK_TABLES.stream().noneMatch(name::endsWith)) {
+                tableBlocks.add(pos);
             }
         }
-        if(nestPositions.isEmpty())
+        List<List<BlockPos>> tables = tables(tableBlocks, seats);
+        if(nestPositions.isEmpty() && tables.isEmpty())
             return null;
 
         // Builders put a nest by each bed, so every nest takes the closest bed still free before any nest takes a second
@@ -148,6 +161,38 @@ public class StructureBedsRegistry {
             }
             nests.add(new StructureBedData.Nest(nest, nestIds.get(i), bedsOf.get(i), Optional.ofNullable(store)));
         }
-        return new StructureBedData(nests);
+        return new StructureBedData(nests, tables);
+    }
+
+    // Table blocks that touch are one table, and the seats beside it are its places. A table for one is no place to meet
+    private static List<List<BlockPos>> tables(Set<BlockPos> tableBlocks, List<BlockPos> seats) {
+        List<List<BlockPos>> tables = new ArrayList<>();
+        Set<BlockPos> seen = new HashSet<>();
+        Set<BlockPos> taken = new HashSet<>();
+        List<BlockPos> ordered = new ArrayList<>(tableBlocks);
+        ordered.sort(BlockPos::compareTo);
+        for(BlockPos first : ordered) {
+            if(!seen.add(first))
+                continue;
+            List<BlockPos> table = new ArrayList<>(List.of(first));
+            for(int i = 0; i < table.size(); i++) {
+                for(Direction side : Direction.Type.HORIZONTAL) {
+                    BlockPos next = table.get(i).offset(side);
+                    if(tableBlocks.contains(next) && seen.add(next))
+                        table.add(next);
+                }
+            }
+            List<BlockPos> places = new ArrayList<>();
+            for(BlockPos seat : seats) {
+                boolean beside = false;
+                for(Direction side : Direction.Type.HORIZONTAL)
+                    beside |= table.contains(seat.offset(side));
+                if(beside && taken.add(seat))
+                    places.add(seat);
+            }
+            if(places.size() >= 2)
+                tables.add(places);
+        }
+        return tables;
     }
 }

@@ -10,7 +10,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
+import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,6 +70,8 @@ public class RoutineSite {
     // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
     private @Nullable BlockPos meetingPoint = null;
+    // The seats around each table of the settlement, from the generated data of its templates
+    private List<List<BlockPos>> tables = List.of();
     private @Nullable Identifier faction = null;
 
     private final BlockPos.Mutable probe = new BlockPos.Mutable();
@@ -110,7 +114,7 @@ public class RoutineSite {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
             case PATROL -> ring.size() >= 3;
-            case MEET -> meetingPoint != null;
+            case MEET -> meetingPoint != null || !tables.isEmpty();
         };
     }
 
@@ -142,6 +146,39 @@ public class RoutineSite {
 
     public @Nullable BlockPos getMeetingPoint() {
         return meetingPoint;
+    }
+
+    void setTables(List<List<BlockPos>> tables) {
+        this.tables = tables;
+    }
+
+    // A free seat at a table where somebody already sits, or else at any table with room for two
+    public @Nullable BlockPos pickSeat(ServerWorld world, Random random) {
+        BlockPos alone = null;
+        int offset = tables.isEmpty() ? 0 : random.nextInt(tables.size());
+        for(int i = 0; i < tables.size(); i++) {
+            List<BlockPos> table = tables.get((i + offset) % tables.size());
+            BlockPos free = null;
+            int freeSeats = 0;
+            int loaded = 0;
+            for(BlockPos seat : table) {
+                if(!world.isChunkLoaded(seat.getX() >> 4, seat.getZ() >> 4))
+                    continue;
+                loaded++;
+                if(SeatBlock.isFree(world, seat)) {
+                    freeSeats++;
+                    if(free == null || random.nextBoolean())
+                        free = seat;
+                }
+            }
+            if(free == null)
+                continue;
+            if(freeSeats < loaded)
+                return free;
+            if(alone == null && freeSeats >= 2)
+                alone = free;
+        }
+        return alone;
     }
 
     public List<BlockPos> getRing() {

@@ -11,7 +11,13 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.registry.Registry;
+import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
+import java.util.Optional;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -224,8 +230,30 @@ public class RoutineSites {
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
         int radius = MathHelper.clamp(extent + RING_MARGIN, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), referenceY, radius, extent, pieces);
+        site.setTables(tablesOf(world, start));
         sites.sites.put(key, site);
         return site;
+    }
+
+    private static List<List<BlockPos>> tablesOf(ServerWorld world, StructureStart start) {
+        List<List<BlockPos>> tables = new ArrayList<>();
+        Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
+        if(registry.isEmpty())
+            return tables;
+        for(StructurePiece piece : start.getChildren()) {
+            if(!(piece instanceof PoolStructurePiece placed))
+                continue;
+            StructureBedData data = NestSurvey.dataOf(registry.get(), placed);
+            if(data == null)
+                continue;
+            for(List<BlockPos> table : data.tables()) {
+                List<BlockPos> seats = new ArrayList<>();
+                for(BlockPos seat : table)
+                    seats.add(NestSurvey.placedAt(placed, seat));
+                tables.add(seats);
+            }
+        }
+        return tables;
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
