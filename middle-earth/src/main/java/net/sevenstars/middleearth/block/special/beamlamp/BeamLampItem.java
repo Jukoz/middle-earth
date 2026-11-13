@@ -1,19 +1,13 @@
 package net.sevenstars.middleearth.block.special.beamlamp;
 
-import java.util.function.Consumer;
-
 import net.minecraft.block.Block;
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -53,14 +47,5 @@ public class BeamLampItem extends BlockItem {
             world.playSound(null, player.getBlockPos(), on ? SoundEvents.ITEM_FLINTANDSTEEL_USE : SoundEvents.BLOCK_CANDLE_EXTINGUISH,
                 SoundCategory.PLAYERS, 0.6F, 1.3F);
         }
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent,
-                              Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-        textConsumer.accept(Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit" : "tooltip.middle-earth.held_light.shaded")
-            .formatted(Formatting.GRAY));
-        textConsumer.accept(Text.translatable("tooltip.middle-earth.held_light.hint").formatted(Formatting.DARK_GRAY));
     }
 }

@@ -815,6 +815,7 @@ public class TranslationEntries {
             put(of(LangCategory.TOOLTIP, "held_light.lit"), "Lit");
             put(of(LangCategory.TOOLTIP, "held_light.shaded"), "Shaded");
             put(of(LangCategory.TOOLTIP, "held_light.hint"), "Carry in your off hand and use it to light or shade it");
+            put(of(LangCategory.TOOLTIP, "held_light.hold_shift"), "Hold Shift for details");
 
             put(of(LangCategory.WIDGET, "spawn_tooltip_title"), "Spawns");
             put(of(LangCategory.WIDGET, "marker.selected_title_container.before"), "[");
