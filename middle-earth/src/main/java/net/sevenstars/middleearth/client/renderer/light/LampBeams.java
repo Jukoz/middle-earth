@@ -3,6 +3,10 @@ package net.sevenstars.middleearth.client.renderer.light;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,11 +15,13 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.light.BeamLights;
 import net.sevenstars.middleearth.light.BeamLitBlock;
 import net.sevenstars.middleearth.light.HeldLight;
@@ -134,6 +141,12 @@ public final class LampBeams {
      */
     public static Beam held(PlayerEntity player, HeldLight.Beam light, float tickProgress) {
         Vec3d look = player.getRotationVec(tickProgress);
+        Vec3d from = lens(player, look, tickProgress);
+        return new Beam(from, BeamLights.beamEnd(player.getWorld(), from, look, light.range()), light.color());
+    }
+
+    /** Where a held lamp's lens is, its holder looking along {@code look} (see {@link #held}). */
+    private static Vec3d lens(PlayerEntity player, Vec3d look, float tickProgress) {
         double side = player.getMainArm() == Arm.RIGHT ? -1 : 1;
         // Square to the gaze, from the yaw alone, so it holds when looking straight up or down.
         float yaw = player.getYaw(tickProgress) * MathHelper.RADIANS_PER_DEGREE;
@@ -170,8 +183,7 @@ public final class LampBeams {
             from = shoulder.add(look.multiply(size * lensAhead)).add(up.multiply(size * lensUp))
                 .add(right.multiply(size * lensSide));
         }
-        Vec3d to = BeamLights.beamEnd(player.getWorld(), from, look, light.range());
-        return new Beam(from, to, light.color());
+        return from;
     }
 
     /** Your own lamp's lens in the world, from where it was last drawn in your hand; null if it has not been. */
@@ -213,8 +225,19 @@ public final class LampBeams {
         }
         float tickProgress = context.tickCounter().getTickProgress(true);
         Vec3d camera = context.camera().getPos();
+        MinecraftClient client = MinecraftClient.getInstance();
         for (AbstractClientPlayerEntity player : world.getPlayers()) {
-            if (HeldLights.held(player) instanceof HeldLight.Beam light) {
+            if (!(HeldLights.held(player) instanceof HeldLight.Beam light)) {
+                continue;
+            }
+            if (client.getCameraEntity() == player && client.options.getPerspective().isFirstPerson()) {
+                // Your own beam is only a faint glow ahead of the lamp, drawn over the world like your hand: it
+                // meets nothing, so nearby blocks never cut it short. Where the light lands shows where it falls.
+                Vec3d look = player.getRotationVec(tickProgress);
+                Vec3d from = lens(player, look, tickProgress);
+                draw(matrices.peek().getPositionMatrix(), consumers.getBuffer(OVERLAY_LAYER),
+                    from.subtract(camera), from.add(look.multiply(HELD_FADE)).subtract(camera), light.color(), HELD_FADE);
+            } else {
                 Beam beam = held(player, light, tickProgress);
                 draw(matrices.peek().getPositionMatrix(), consumers.getBuffer(layer()),
                     beam.from().subtract(camera), beam.to().subtract(camera), beam.color(), HELD_FADE);
@@ -229,6 +252,19 @@ public final class LampBeams {
     public static RenderLayer layer() {
         return RenderLayer.getDragonRays();
     }
+
+    /** The same as {@link #layer()}, but over everything, as your own hand is: for your own first-person beam. */
+    private static final RenderLayer OVERLAY_LAYER = RenderLayer.of(MiddleEarth.MOD_ID + "_held_beam", 1536, false, false,
+        RenderPipelines.register(RenderPipeline.builder(RenderPipelines.TRANSFORMS_PROJECTION_FOG_SNIPPET)
+            .withLocation(MiddleEarth.id("pipeline/held_beam"))
+            .withVertexShader("core/rendertype_lightning")
+            .withFragmentShader("core/rendertype_lightning")
+            .withDepthWrite(false)
+            .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
+            .withBlend(BlendFunction.LIGHTNING)
+            .withVertexFormat(VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.TRIANGLES)
+            .build()),
+        RenderLayer.MultiPhaseParameters.builder().build(false));
 
     /** How far a beam is seen: it fades to nothing well inside the reach of its light, so no end shows. */
     public static double fadeLength(int range) {
