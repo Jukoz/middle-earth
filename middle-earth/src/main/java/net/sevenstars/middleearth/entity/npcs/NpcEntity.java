@@ -121,6 +121,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final int MANAGER_CHECK_INTERVAL = 100;
     private static final int WAKE_RANGE = 16;
     private static final int HATCH_CHECK_INTERVAL = 4;
+    private static final int PARTY_RANGE = 64;
     private static final double HATCH_OPEN_DISTANCE = 3;
     private static final double HATCH_CLOSE_DISTANCE = 3.5;
     // In days
@@ -446,6 +447,21 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     public void setPartyLeader(@Nullable UUID partyLeader) {
         this.partyLeader = partyLeader;
+    }
+
+    // Nobody walks on behind a dead leader. The next in line takes the party and the way it was going
+    private void handOverParty(ServerWorld world) {
+        NpcEntity heir = null;
+        for(NpcEntity follower : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(PARTY_RANGE), other -> other.isAlive() && getUuid().equals(other.getPartyLeader()))) {
+            if(heir == null) {
+                heir = follower;
+                follower.setPartyLeader(null);
+                follower.setTravelHeading(travelHeading);
+                follower.setTravelDestination(travelDestination);
+            } else {
+                follower.setPartyLeader(heir.getUuid());
+            }
+        }
     }
 
     // In degrees
@@ -806,6 +822,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     public void onDeath(DamageSource source) {
+        if(getWorld() instanceof ServerWorld world && partyLeader == null && travelHeading != null)
+            handOverParty(world);
         if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity && vehicleEntity.getControllingPassenger() == this){
             vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
             vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
