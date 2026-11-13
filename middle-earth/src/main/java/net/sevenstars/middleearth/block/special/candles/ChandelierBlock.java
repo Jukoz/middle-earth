@@ -21,7 +21,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -78,17 +77,16 @@ public class ChandelierBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            ItemStack itemStack = player.getStackInHand(hand);
-            if(player.isInCreativeMode() && itemStack == ItemStack.EMPTY){
+            ItemStack itemStack = player.getMainHandStack();
+            if(player.isInCreativeMode() && itemStack.isEmpty()){
                 world.setBlockState(pos, state.cycle(VARIANT));
                 return ActionResult.SUCCESS;
             }
 
             if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
                 extinguish(null, state, world, pos);
-            } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+            } else if (!state.get(LIT) && (itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH))) {
                 setLit(world, state, pos, true);
             }
         }
@@ -100,7 +98,7 @@ public class ChandelierBlock extends Block {
             if(state.get(VARIANT) == 1) {
                 spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, -0.375), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(0.5, 12.5 * 0.0625, 1.375), random);
-                spawnCandleParticles(world, pos.toCenterPos().add(0.375, 12.5 * 0.0625, 0.5), random);
+                spawnCandleParticles(world, pos.toCenterPos().add(-0.375, 12.5 * 0.0625, 0.5), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(1.375, 12.5 * 0.0625, 0.5), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, -0.125), random);
                 spawnCandleParticles(world, pos.toCenterPos().add(-0.125, 12.5 * 0.0625, 1.125), random);

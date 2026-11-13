@@ -18,6 +18,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -63,7 +64,7 @@ public class EventRegistryME {
 
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
             if(entity instanceof PlayerEntity playerEntity) {
-                ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+                ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
                         .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.BEHEADING).orElseThrow();
                 boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
@@ -82,7 +83,7 @@ public class EventRegistryME {
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
-            ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+            ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.HEWING).orElseThrow();
             boolean hasEnchant = stack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
@@ -91,8 +92,7 @@ public class EventRegistryME {
 
             if (hasEnchant) {
                 if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
-                    assert toolComponent != null;
-                    if (toolComponent.isCorrectForDrops(blockState)){
+                    if (toolComponent != null && toolComponent.isCorrectForDrops(blockState)){
                         if (playerEntity.getFacing() == Direction.DOWN || playerEntity.getFacing() == Direction.UP){
                             if (level == 1){
                                 level1BreakVertical(world, playerEntity, blockPos, stack, hardness);
@@ -116,7 +116,7 @@ public class EventRegistryME {
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, playerEntity, blockPos, blockState, blockEntity) -> {
-            ItemStack stack = Objects.requireNonNull(playerEntity.getStackInHand(playerEntity.getActiveHand()));
+            ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
             ToolComponent toolComponent = stack.get(DataComponentTypes.TOOL);
             RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
                     .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.TREE_FELLER).orElseThrow();
@@ -124,10 +124,9 @@ public class EventRegistryME {
             int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, stack);
             float hardness = blockState.getBlock().getHardness();
 
-            if (hasEnchant) {
+            if (hasEnchant && blockState.isIn(BlockTags.LOGS)) {
                 if (!playerEntity.isCreative() && !playerEntity.isSneaking()) {
-                    assert toolComponent != null;
-                    if (toolComponent.isCorrectForDrops(blockState)){
+                    if (toolComponent != null && toolComponent.isCorrectForDrops(blockState)){
                         int[] blockCount = new int[]{16};
                         if(level == 2) blockCount[0] = 64;
                         else if(level == 3) blockCount[0] = 256;
@@ -235,6 +234,7 @@ public class EventRegistryME {
                             ? world.getBlockEntity(blockpos)
                             : null;
 
+                    player.incrementStat(Stats.MINED.getOrCreateStat(blockState.getBlock()));
                     Block.dropStacks(blockState, world, blockpos, blockEntity, player, stack);
                     world.breakBlock(blockpos, false, player);
                     stack.postMine(world, blockState, blockpos, player);

@@ -137,7 +137,7 @@ public class TranslationEntries {
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.tin_cauldron.title"), "Quenching the fire");
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.tin_cauldron.description"), "Craft a tin cauldron to cool down your smithing work");
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.treated_anvil.title"), "Forged in Fire");
-            put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.treated_anvil.description"), "Craft a basic anvil to being smithing");
+            put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.treated_anvil.description"), "Craft a basic anvil to begin smithing");
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.burzum_steel.title"), "Wicked Metalwork");
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.burzum_steel.description"), "Forge the mighty Búrzum-Steel");
             put(ofRaw(LangCategory.ADVANCEMENTS, "smithing.orcish_treated_anvil.title"), "Touched by Shadow");
@@ -202,7 +202,7 @@ public class TranslationEntries {
             put(of(LangCategory.BLOCK, "potted_cave_amanita"), "Potted Cave Amanita");
             put(of(LangCategory.BLOCK, "potted_deep_firecap"), "Potted Deep Firecap");
             put(of(LangCategory.BLOCK, "potted_ghostshroom"), "Potted Ghostshroom");
-            put(of(LangCategory.BLOCK, "potted_morsel"), "Potted Morsel");
+            put(of(LangCategory.BLOCK, "potted_morsel"), "Potted Morel");
             put(of(LangCategory.BLOCK, "potted_sky_firecap"), "Potted Sky Firecap");
             put(of(LangCategory.BLOCK, "potted_trumpet_shroom"), "Potted Trumpet Shroom");
             put(of(LangCategory.BLOCK, "potted_tubeshroom"), "Potted Tubeshroom");
@@ -269,7 +269,7 @@ public class TranslationEntries {
             put(of(LangCategory.BLOCK, "reinforced_spruce_door"), "Reinforced Spruce Door");
             put(of(LangCategory.BLOCK, "reinforced_black_pine_door"), "Reinforced Black Pine Door");
             put(of(LangCategory.BLOCK, "simple_larch_gate"), "Simple Larch Gate");
-            put(of(LangCategory.BLOCK, "rickety_simple_larch_door"), "Rickety Simple Larch Door");
+            put(of(LangCategory.BLOCK, "rickety_simple_larch_door"), "Rickety Simple Larch Gate");
             put(of(LangCategory.BLOCK, "spruce_stable_door"), "Spruce Stable Door");
 
             put(of(LangCategory.BLOCK, "large_sturdy_door"), "Large Sturdy Door");
@@ -313,7 +313,7 @@ public class TranslationEntries {
             put(of(LangCategory.ITEM, "oak_leaf.desc"), "Oak Leaf");
             put(of(LangCategory.ITEM, "antlers.desc"), "Lost Antlers");
             put(of(LangCategory.ITEM, "dragon_banner_pattern.desc"), "A great Dragon");
-            put(of(LangCategory.ITEM, "pipeweed_banner_pattern.desc"), "A delicacy from the shire");
+            put(of(LangCategory.ITEM, "pipeweed_banner_pattern.desc"), "A delicacy from the Shire");
             put(of(LangCategory.ITEM, "snail_banner_pattern.desc"), "The Slimy Overlord");
             put(of(LangCategory.ITEM, "spider_banner_pattern.desc"), "Spider of Mirkwood");
 
@@ -542,7 +542,7 @@ public class TranslationEntries {
             put(of(LangCategory.TOOLTIP, "helmet_of_helm_hammerhand_lore_1"), "sign of great power.");
 
             put(of(LangCategory.DESCRIPTION, "gondor.description_0"), "A last bastion for the Men of the West, the Kings of Gondor long stood watch over the neighbouring darkness. Though their line is broken, the stalwart Gondorians stand strong and fight to keep Mordor at bay.");
-            put(of(LangCategory.DESCRIPTION, "mordor.description_0"), "In the land of Mordor, where the shadows lie. An arid wasteland of ash and dust lay around Mount Doom. The Black Legions await the orders of The Dark Lord in Barad-dûr with it's watchful Great Eye. The Nazgûls are seeking the One Ring and ready for the upcoming war");
+            put(of(LangCategory.DESCRIPTION, "mordor.description_0"), "In the land of Mordor, where the shadows lie. An arid wasteland of ash and dust lay around Mount Doom. The Black Legions await the orders of The Dark Lord in Barad-dûr with its watchful Great Eye. The Nazgûl are seeking the One Ring and ready for the upcoming war");
             put(of(LangCategory.DESCRIPTION, "longbeards.erebor.description_0"), "Erebor, or the Lonely Mountain, is the Dwarven kingdom of Durin’s Folk. Reclaimed from Smaug by Thorin Oakenshield, it is now a prosperous center of wealth and craftsmanship, ruled by King Dáin Ironfoot. It forms a crucial alliance with the neighboring kingdom of Dale.");
             put(of(LangCategory.DESCRIPTION, "longbeards.description_0"), "The Longbeards, descended from Durin the Deathless, are the most noble of the Dwarven clans. Renowned for their mastery of stone and metal, their realms include Erebor and Khazad-dûm. They are most loyal to their kin and traditions.");
             put(of(LangCategory.DESCRIPTION, "dale.description_0"), "Dale is a flourishing kingdom of Men located near Erebor, rebuilt after its destruction by Smaug. Known for skilled archers and trade, it is ruled by Bard's descendants and maintains close ties with the Dwarves of Erebor.");
@@ -573,39 +573,39 @@ public class TranslationEntries {
             put(of(LangCategory.COMMAND, "get.faction.success"), "Your initial faction is %s");
             put(of(LangCategory.COMMAND, "get.faction.no_faction"), "You have no initial faction");
             put(of(LangCategory.COMMAND, "get.player.faction.success"), "%s initial faction is %s");
-            put(of(LangCategory.COMMAND, "get.player.faction.no_faction"), "%s have no initial faction");
+            put(of(LangCategory.COMMAND, "get.player.faction.no_faction"), "%s has no initial faction");
 
             put(of(LangCategory.COMMAND, "get.spawn.overworld.success"), "Your overworld spawn is [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "get.spawn.overworld.no_spawn"), "You have no overworld spawn assigned, default is at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "get.player.spawn.overworld.success"), "%s overworld spawn is [%s, %s, %s](xyz)");
-            put(of(LangCategory.COMMAND, "get.player.spawn.overworld.no_spawn"), "%s have no overworld spawn assigned, default is at [%s, %s, %s](xyz)");
+            put(of(LangCategory.COMMAND, "get.player.spawn.overworld.no_spawn"), "%s has no overworld spawn assigned, default is at [%s, %s, %s](xyz)");
 
             put(of(LangCategory.COMMAND, "get.spawn.middle_earth.success"), "Your Middle-earth spawn is <%s> at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "get.spawn.middle_earth.no_spawn"), "No Middle-earth spawn assigned");
             put(of(LangCategory.COMMAND, "get.player.spawn.middle_earth.success"), "%s Middle-earth spawn is <%s> at [%s, %s, %s](xyz)");
-            put(of(LangCategory.COMMAND, "get.player.spawn.middle_earth.no_spawn"), "%s have no Middle-earth spawn assigned");
+            put(of(LangCategory.COMMAND, "get.player.spawn.middle_earth.no_spawn"), "%s has no Middle-earth spawn assigned");
 
             put(of(LangCategory.COMMAND, "set.spawn.overworld.success"), "Your new Overworld return spawn is at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "set.player.spawn.overworld.success"), "%s new Overworld return spawn is at [%s, %s, %s](xyz)");
 
-            put(of(LangCategory.COMMAND, "set.spawn.middle_earth.success"), "Your Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)");
+            put(of(LangCategory.COMMAND, "set.spawn.middle_earth.success"), "Your Middle-earth spawn has been set to <%s> at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "set.spawn.middle_earth.no_faction"), "You cannot assign yourself a Middle-earth spawn without having joined an initial faction");
             put(of(LangCategory.COMMAND, "set.spawn.middle_earth.no_spawn_found"), "Couldn't find the spawn <%s>");
-            put(of(LangCategory.COMMAND, "set.player.spawn.middle_earth.success"), "%s Middle-earth spawn have been set to <%s> at [%s, %s, %s](xyz)");
+            put(of(LangCategory.COMMAND, "set.player.spawn.middle_earth.success"), "%s Middle-earth spawn has been set to <%s> at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "set.player.spawn.middle_earth.no_faction"), "You cannot assign a Middle-earth spawn to %s when they have not joined an initial faction");
 
             put(of(LangCategory.COMMAND, "reset.spawn.overworld.success"), "Your Overworld return spawn is reset to [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "reset.player.spawn.overworld.success"), "%s Overworld return spawn is reset to [%s, %s, %s](xyz)");
 
-            put(of(LangCategory.COMMAND, "reset.spawn.middle_earth.success"), "Your Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)");
+            put(of(LangCategory.COMMAND, "reset.spawn.middle_earth.success"), "Your Middle-earth spawn has been reset to <%s> at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "reset.spawn.middle_earth.no_faction"), "You cannot reset your Middle-earth spawn when you have not joined an initial faction");
-            put(of(LangCategory.COMMAND, "reset.player.spawn.middle_earth.success"), "%s Middle-earth spawn have been reset to <%s> at [%s, %s, %s](xyz)");
+            put(of(LangCategory.COMMAND, "reset.player.spawn.middle_earth.success"), "%s Middle-earth spawn has been reset to <%s> at [%s, %s, %s](xyz)");
             put(of(LangCategory.COMMAND, "reset.player.spawn.middle_earth.no_faction"), "You cannot reset the Middle-earth spawn of %s when they have not joined an initial faction");
 
             put(of(LangCategory.COMMAND, "teleport.spawn.middle_earth.success"), "You got teleported to your Middle-earth spawn <%s>");
             put(of(LangCategory.COMMAND, "teleport.spawn.middle_earth.no_spawn"), "You have no Middle-earth spawn assigned");
             put(of(LangCategory.COMMAND, "teleport.player.spawn.middle_earth.success"), "%s got teleported to their Middle-earth spawn <%s> at [%s, %s, %s](xyz)");
-            put(of(LangCategory.COMMAND, "teleport.player.spawn.middle_earth.no_spawn"), "%s have no Middle-earth spawn assigned");
+            put(of(LangCategory.COMMAND, "teleport.player.spawn.middle_earth.no_spawn"), "%s has no Middle-earth spawn assigned");
 
             put(of(LangCategory.COMMAND, "teleport.spawn.overworld.success"), "You got teleported to your Overworld return spawn");
             put(of(LangCategory.COMMAND, "teleport.spawn.overworld.error"), "There was an error while teleporting you to the Overworld return spawn");
@@ -655,7 +655,7 @@ public class TranslationEntries {
             put(of(LangCategory.EVENT, "join.faction.success"), "You have joined %s");
             put(of(LangCategory.EVENT, "leave.faction.success"), "You have left %s");
 
-            put(of(LangCategory.EXCEPTION, "no_faction.target"), "%s have no faction");
+            put(of(LangCategory.EXCEPTION, "no_faction.target"), "%s has no faction");
             put(of(LangCategory.EXCEPTION, "no_faction.source"), "You have no faction");
             put(of(LangCategory.EXCEPTION, "faction_identifier"), "%s is not a valid faction identifier");
             put(of(LangCategory.EXCEPTION, "spawn_identifier"), "%s is not a valid spawn identifier");

@@ -42,6 +42,9 @@ public class LanguageProvider extends FabricLanguageProvider {
         specialNames.put("Elvenkings Halls", "Elvenking's Halls");
         specialNames.put("Nurn", "Núrn");
         specialNames.put("Rhun", "Rhûn");
+        specialNames.put("Anorien", "Anórien");
+        specialNames.put("Udun", "Udûn");
+        specialNames.put("Morsel", "Morel");
         specialNames.put("Lorien", "Lórien");
         specialNames.put("Nazgul", "Nazgûl");
         specialNames.put("Capital", "Dale Capital");

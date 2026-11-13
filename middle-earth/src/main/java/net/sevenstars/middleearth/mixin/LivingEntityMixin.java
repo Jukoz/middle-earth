@@ -24,9 +24,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
-import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
+import net.sevenstars.middleearth.item.utils.TwoHandedItems;
 import net.sevenstars.middleearth.network.packets.server2client.PacketLivingEntityData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.jetbrains.annotations.NotNull;
@@ -41,8 +39,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    private static boolean stackTraceLock = false;
-
     @Shadow @Final protected EntityEquipment equipment;
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
@@ -63,13 +59,12 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "getAttackDistanceScalingFactor", at = @At("RETURN"), cancellable = true)
     public void getAttackDistanceScalingFactor(Entity entity, CallbackInfoReturnable<Double> cir) {
         if (entity != null) {
-            ItemStack chestplate = this.getEquippedStack(EquipmentSlot.CHEST);
-            if(!chestplate.isEmpty()) {
+            ItemStack leggings = this.getEquippedStack(EquipmentSlot.LEGS);
+            if(!leggings.isEmpty()) {
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getWorld().getRegistryManager()
                         .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.STEALTHY_TRAIL).orElseThrow();
-                boolean hasEnchant = chestplate.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
-                int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, chestplate);
-                if(hasEnchant) {
+                int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, leggings);
+                if(level > 0) {
                     double original = cir.getReturnValue();
                     double viewDistance = original + Math.max(-0.9f, -0.2f * level);
                     cir.setReturnValue(viewDistance);
@@ -80,34 +75,11 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
     public void getEquippedStack(EquipmentSlot slot, CallbackInfoReturnable<ItemStack> cir) {
-        if(stackTraceLock) return;
-        stackTraceLock = true;
-        boolean twoHanded = false;
-        ItemStack stackMainHand = this.getStackInHand(Hand.MAIN_HAND);
-        ItemStack stackOffHand = this.getStackInHand(Hand.OFF_HAND);
-
-        if(stackMainHand != null){
-            if ((stackMainHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackMainHand.getItem()).type.twoHanded))
-                    || (stackMainHand.getItem() instanceof CustomSiegeShieldItem)
-                    || (stackMainHand.getItem() instanceof CustomLongbowWeaponItem)) {
-                twoHanded = true;
-            }
+        if (slot != EquipmentSlot.OFFHAND) return;
+        if (TwoHandedItems.isTwoHanded(this.equipment.get(EquipmentSlot.MAINHAND))
+                || TwoHandedItems.isTwoHanded(this.equipment.get(EquipmentSlot.OFFHAND))) {
+            cir.setReturnValue(ItemStack.EMPTY);
         }
-        if(stackOffHand != null){
-            if ((stackOffHand.getItem() instanceof ReachWeaponItem && (((ReachWeaponItem) stackOffHand.getItem()).type.twoHanded))
-                    || (stackOffHand.getItem() instanceof CustomSiegeShieldItem)
-                    || (stackOffHand.getItem() instanceof CustomLongbowWeaponItem)) {
-                twoHanded = true;
-            }
-        }
-
-        if (slot == EquipmentSlot.OFFHAND) {
-            if (twoHanded) {
-                cir.setReturnValue(ItemStack.EMPTY);
-                cir.cancel();
-            }
-        }
-        stackTraceLock = false;
     }
 
     @ModifyVariable(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z",

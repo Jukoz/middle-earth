@@ -44,6 +44,7 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -57,39 +58,39 @@ import java.util.function.ToIntFunction;
 public class DecorativeBlockRegistryME {
 
     public static final Block SILVER_LANTERN = registerBlock("silver_lantern",
-            SilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            SilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
     public static final Block WALL_SILVER_LANTERN = registerBlock("silver_lantern_wall",
-            WallSilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallSilverLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block LEAD_LANTERN = registerBlock("lead_lantern",
-            LeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            LeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
     public static final Block WALL_LEAD_LANTERN = registerBlock("lead_lantern_wall",
-            WallLeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallLeadLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block CRUDE_LANTERN = registerBlock("crude_lantern",
-            CrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+            CrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN).nonOpaque());
     public static final Block WALL_CRUDE_LANTERN = registerBlock("crude_lantern_wall",
-            WallCrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallCrudeLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block ELVEN_LANTERN = registerBlock("elven_lantern",
-            ElvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            ElvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
     public static final Block WALL_ELVEN_LANTERN = registerBlock("elven_lantern_wall",
-            WallElvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallElvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block DWARVEN_LANTERN = registerBlock("dwarven_lantern",
-            DwarvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+            DwarvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN).nonOpaque());
     public static final Block WALL_DWARVEN_LANTERN = registerBlock("dwarven_lantern_wall",
-            WallDwarvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallDwarvenLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
     
     public static final Block CRYSTAL_LAMP = registerBlock("crystal_lamp",
-            CrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+            CrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN).nonOpaque());
     public static final Block WALL_CRYSTAL_LAMP = registerBlock("crystal_lamp_wall",
-            WallCrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallCrystalLampBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern",
-            ShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).nonOpaque());
+            ShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN).nonOpaque());
     public static final Block WALL_TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern_wall",
-            WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f));
+            WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
     public static final Block FORGE = registerBlock("forge",
             ForgeBlock::new, AbstractBlock.Settings.copy(Blocks.BRICKS).luminance(createLightLevelFromLitBlockState(15)).strength(1.65f).requiresTool());
@@ -758,11 +759,14 @@ public class DecorativeBlockRegistryME {
             LargeDoor10x4::new, AbstractBlock.Settings.copy(Blocks.IRON_DOOR).nonOpaque().pistonBehavior(PistonBehavior.BLOCK));
 
     public static final Block FANCY_BED = registerBlockWithItem("fancy_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
     public static final Block FUR_BED = registerBlockWithItem("fur_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
     public static final Block STRAW_BED = registerBlockWithItem("straw_bed",
-            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED));
+            (settings) -> new CustomBedBlock(DyeColor.BLACK, settings), AbstractBlock.Settings.copy(Blocks.BLACK_BED),
+            new Item.Settings().maxCount(1));
 
     public static final Block ARKENSTONE = registerBlock("arkenstone",
             ArkenstoneBlock::new, AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK).luminance((state -> 7)).nonOpaque().requiresTool());
@@ -780,8 +784,12 @@ public class DecorativeBlockRegistryME {
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
+        return registerBlockWithItem(name, factory, settings, new Item.Settings());
+    }
+
+    public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, Item.Settings itemSettings) {
         Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        BlockRegistryME.registerBlockItem(name, block);
+        BlockRegistryME.registerBlockItem(name, block, itemSettings);
         ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));

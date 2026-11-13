@@ -10,6 +10,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -24,6 +25,11 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class CustomLeavesBlock extends TintedParticleLeavesBlock {
     final protected boolean castShadow;
 
@@ -35,6 +41,49 @@ public class CustomLeavesBlock extends TintedParticleLeavesBlock {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         world.setBlockState(pos, updateDistanceFromLogs(state, world, pos), Block.NOTIFY_ALL);
+    }
+
+    // Tree generation only links leaves through their six faces, so fronds that touch diagonally start out
+    // marked as cut off. Check the 26 neighbours before letting such a leaf decay.
+    @Override
+    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (!state.get(PERSISTENT) && state.get(DISTANCE) == 7) {
+            int distance = findDistanceFromLogs(world, pos);
+            if (distance < 7) {
+                world.setBlockState(pos, state.with(DISTANCE, distance), Block.NOTIFY_ALL);
+                return;
+            }
+        }
+        super.randomTick(state, world, pos, random);
+    }
+
+    private static int findDistanceFromLogs(ServerWorld world, BlockPos start) {
+        Set<BlockPos> visited = new HashSet<>();
+        List<BlockPos> frontier = List.of(start);
+        visited.add(start);
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        for (int distance = 1; distance < 7 && !frontier.isEmpty(); distance++) {
+            List<BlockPos> next = new ArrayList<>();
+            for (BlockPos pos : frontier) {
+                for (int x = -1; x <= 1; x++) {
+                    for (int y = -1; y <= 1; y++) {
+                        for (int z = -1; z <= 1; z++) {
+                            mutable.set(pos, x, y, z);
+                            if (visited.contains(mutable)) continue;
+                            BlockState neighbor = world.getBlockState(mutable);
+                            if (neighbor.isIn(BlockTags.LOGS)) return distance;
+                            if (neighbor.getBlock() instanceof LeavesBlock) {
+                                BlockPos immutable = mutable.toImmutable();
+                                visited.add(immutable);
+                                next.add(immutable);
+                            }
+                        }
+                    }
+                }
+            }
+            frontier = next;
+        }
+        return 7;
     }
 
     @Override

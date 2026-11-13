@@ -86,16 +86,15 @@ public class CandleHolderBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
-            ItemStack itemStack = player.getStackInHand(hand);
-            if(player.isInCreativeMode() && itemStack == ItemStack.EMPTY){
+            ItemStack itemStack = player.getMainHandStack();
+            if(player.isInCreativeMode() && itemStack.isEmpty()){
                 world.setBlockState(pos, state.cycle(LIT));
                 return ActionResult.SUCCESS;
             }
             if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
                 extinguish(null, state, world, pos);
-            } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+            } else if (!state.get(LIT) && (itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH))) {
                 setLit(world, state, pos, true);
             }
         }

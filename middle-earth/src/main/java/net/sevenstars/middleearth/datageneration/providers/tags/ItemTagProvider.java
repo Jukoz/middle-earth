@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -91,8 +93,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
+        // Bows, crossbows and shields are registered as weapons too, but melee enchantments don't belong on them
+        Item[] meleeWeapons = WeaponEnchants.weapons.stream()
+                .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))
+                .toArray(Item[]::new);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(meleeWeapons);
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sharp_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "tools/ranged_weapon"))).add(Bows.bows.toArray(new Item[0]));
