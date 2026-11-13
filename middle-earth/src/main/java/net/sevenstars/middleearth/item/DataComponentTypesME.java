@@ -75,10 +75,6 @@ public class DataComponentTypesME {
         return builder.codec(MountArmorAddonComponent.CODEC).packetCodec(MountArmorAddonComponent.PACKET_CODEC);
     });
 
-    public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
-            "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
-    );
-
     /** Which gem type a gem item is made of (raw gems carry it by default, cut gems per stack). */
     public static final ComponentType<RegistryKey<GemType>> GEM_TYPE = register("gem_type", builder -> builder
             .codec(RegistryKey.createCodec(DynamicRegistriesME.GEM_TYPE))
@@ -108,15 +104,19 @@ public class DataComponentTypesME {
             .codec(com.mojang.serialization.Codec.STRING.listOf())
             .packetCodec(net.minecraft.network.codec.PacketCodecs.STRING.collect(net.minecraft.network.codec.PacketCodecs.toList())));
 
-    /** Whether a lamp or lantern carried in the off hand is lit (lanterns: lit unless set). */
-    public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
-            .codec(com.mojang.serialization.Codec.BOOL)
-            .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));
-
     /** The lenses fitted in Glasses or a Dwarven Monocle: 1 Refined, 2 Exquisite (see LapidaryEyewear). */
     public static final ComponentType<Integer> EYEWEAR_LENSES = register("eyewear_lenses", builder -> builder
             .codec(com.mojang.serialization.Codec.intRange(1, 2))
             .packetCodec(net.minecraft.network.codec.PacketCodecs.VAR_INT));
+
+    public static final ComponentType<BroadhoofGoatColor> GOAT_VARIANT = register(
+            "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
+    );
+
+    /** Whether a lamp or lantern carried in the off hand is lit (lanterns: lit unless set). */
+    public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
+            .codec(com.mojang.serialization.Codec.BOOL)
+            .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));

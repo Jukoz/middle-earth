@@ -21,10 +21,10 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
-import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
+import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.registries.content.heldlights.HeldLightRegistry;
 import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -54,12 +54,12 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<CharacterTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(MiddleEarth.id("eye_pattern"));
     public static final RegistryKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(MiddleEarth.id("hair_pattern"));
 
+    public static final RegistryKey<Registry<GemType>> GEM_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("gem_type"));
+
     public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("spider_variants"));
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
 
-    public static final RegistryKey<Registry<GemType>> GEM_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("gem_type"));
-
-    /** Lights carried in the off hand or worn: lanterns, torches, candles, the focused lamps, candle helmets. */
+    /** Lights carried in the off hand or worn: lanterns, torches, candles, candle helmets. */
     public static final RegistryKey<Registry<HeldLightData>> HELD_LIGHT = RegistryKey.ofRegistry(MiddleEarth.id("held_light"));
 
     public static void register() {
@@ -80,9 +80,9 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         DynamicRegistries.registerSynced(EYE_MATERIAL, CharacterTextureMaterial.CODEC);
         DynamicRegistries.registerSynced(HAIR_MATERIAL, CharacterTextureMaterial.CODEC);
 
+        DynamicRegistries.registerSynced(GEM_TYPE, GemType.CODEC);
         DynamicRegistries.registerSynced(SPIDER_VARIANTS, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
-        DynamicRegistries.registerSynced(GEM_TYPE, GemType.CODEC);
         DynamicRegistries.registerSynced(HELD_LIGHT, HeldLightData.CODEC);
     }
 
@@ -95,9 +95,9 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
         registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
 
+        registryBuilder.addRegistry(GEM_TYPE, GemTypeRegistry::bootstrap);
         registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
-        registryBuilder.addRegistry(GEM_TYPE, GemTypeRegistry::bootstrap);
         registryBuilder.addRegistry(HELD_LIGHT, HeldLightRegistry::bootstrap);
     }
 
@@ -109,9 +109,9 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(BiomeEventProvider::new);
+        pack.addProvider(GemTypesProvider::new);
         pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
-        pack.addProvider(GemTypesProvider::new);
         pack.addProvider(HeldLightsProvider::new);
     }
 }
