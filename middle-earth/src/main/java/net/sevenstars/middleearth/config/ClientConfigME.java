@@ -17,6 +17,8 @@ public class ClientConfigME {
     public static int LOD_NPC_ARMOR_DISTANCE;
     /**Distance of rendering NPCs features (long hair, ears, etc.)**/
     public static int LOD_NPC_FEATURES_DISTANCE;
+    /**In worlds you host (singleplayer, LAN): should carried lanterns, candles and lit helmets light their surroundings? A dedicated server uses its own setting.**/
+    public static boolean ENABLE_HELD_AMBIENT_LIGHT;
     /**Should glint be disabled in Middle-earth**/
     public static boolean DISABLE_GLINT;
 
@@ -50,6 +52,10 @@ public class ClientConfigME {
         configs.addComment("Glint config");
         configs.addDescription("Should glint be disabled in middle-earth");
         configs.addKeyValuePair(new Pair<>("disableGlint", true), "boolean");
+        configs.addLineJump();
+        configs.addComment("Held lights");
+        configs.addDescription("In worlds you host (singleplayer, LAN): should carried lanterns, candles and lit helmets light their surroundings? Beam lamps always light. The server config can still turn it off; on a dedicated server only its setting counts.");
+        configs.addKeyValuePair(new Pair<>("enableHeldAmbientLight", true), "boolean");
     }
 
     private static void assignClientConfigs() {
@@ -58,6 +64,7 @@ public class ClientConfigME {
         LOD_NPC_ARMOR_DISTANCE = CONFIG.getOrDefault("npcsArmorDistanceLOD", 48);
         LOD_NPC_FEATURES_DISTANCE = CONFIG.getOrDefault("npcsArmorDistanceLOD", 24);
         DISABLE_GLINT = CONFIG.getOrDefault("disableGlint", true);
+        ENABLE_HELD_AMBIENT_LIGHT = CONFIG.getOrDefault("enableHeldAmbientLight", true);
         MiddleEarth.LOGGER.logDebugMsg("All client configs (" + configs.getConfigsList().size() + ") have been set properly");
     }
 }

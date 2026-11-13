@@ -25,9 +25,12 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.config.ClientConfigME;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
@@ -174,6 +177,15 @@ public final class HeldLights {
 
     public static @Nullable HeldLight of(World world, ItemStack stack) {
         return of(world.isClient, stack);
+    }
+
+    /**
+     * Whether carried glows (lanterns, candles, lit helmets) light their surroundings on this server. The server
+     * config decides; in a world a player hosts (singleplayer, LAN) the host's client config can also turn it off.
+     * Beams always light. Only the light is switched; flames and particles still show.
+     */
+    public static boolean ambientLight(MinecraftServer server) {
+        return ServerConfigME.ENABLE_HELD_AMBIENT_LIGHT && (server.isDedicated() || ClientConfigME.ENABLE_HELD_AMBIENT_LIGHT);
     }
 
     /** Whether a toggled lamp is switched on (lanterns are, until shaded). */
