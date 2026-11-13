@@ -21,6 +21,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.minecraft.world.RaycastContext;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -63,6 +67,7 @@ public class NpcRoutineGoal extends Goal {
     private static final double BED_REACH = 6;
     private static final double BED_HEIGHT_REACH = 5;
     private static final double STORE_REACH = 3.5;
+    private static final double STORE_ARRIVAL_DISTANCE = 1.5;
 
     private static final int DIRECT_DISTANCE = 18;
     private static final int LEG_LENGTH = 14;
@@ -133,6 +138,8 @@ public class NpcRoutineGoal extends Goal {
     private boolean ownsRod = false;
     private boolean toBed = false;
     private @Nullable NpcEntity companion = null;
+    private @Nullable BlockPos standOf = null;
+    private @Nullable BlockPos storeStand = null;
 
     public NpcRoutineGoal(NpcEntity npc, double speed) {
         this.npc = npc;
@@ -389,7 +396,9 @@ public class NpcRoutineGoal extends Goal {
             finish(world, REST);
             return;
         }
-        if(target.isWithinDistance(npc.getPos(), ARRIVAL_DISTANCE)) {
+        // The usual distance reaches through a wall, and a store on its far side was filled from the street
+        boolean storing = phase == Phase.RETURNING && !toBed && carried != null && npc.getStore() != null;
+        if(target.isWithinDistance(npc.getPos(), storing ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)) {
             arrive(world);
             return;
         }
@@ -486,9 +495,10 @@ public class NpcRoutineGoal extends Goal {
                 return;
             }
             if(carried != null) {
-                npc.swingHand(Hand.MAIN_HAND);
                 BlockPos store = npc.getStore();
-                if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH))
+                if(store == null || canSee(world, store))
+                    npc.swingHand(Hand.MAIN_HAND);
+                if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store))
                     world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.4f, 1f);
             }
             finish(world, REST + random.nextInt(REST_VARIATION));
@@ -665,9 +675,24 @@ public class NpcRoutineGoal extends Goal {
             if(bed != null)
                 return npc.getBedStand() != null ? npc.getBedStand() : bed;
         } else if(carried != null && npc.getStore() != null) {
-            return npc.getStore();
+            return storeStand(world, npc.getStore());
         }
         return npc.getRoutineHome();
+    }
+
+    // The store itself is a block nobody can stand in, and the closest the pathfinder gets to it may be the wrong side of a wall
+    private BlockPos storeStand(ServerWorld world, BlockPos store) {
+        if(!store.equals(standOf)) {
+            standOf = store;
+            BlockPos inside = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
+            storeStand = world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4) ? NestSurvey.standNextTo(world, store, inside) : null;
+        }
+        return storeStand != null ? storeStand : store;
+    }
+
+    private boolean canSee(ServerWorld world, BlockPos block) {
+        BlockHitResult hit = world.raycast(new RaycastContext(npc.getEyePos(), Vec3d.ofCenter(block), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
+        return hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(block);
     }
 
     // Its own bed, unless that is gone or somebody is lying in it

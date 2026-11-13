@@ -141,6 +141,21 @@ public class NestSurvey {
         return (long) box.getBlockCountX() * box.getBlockCountY() * box.getBlockCountZ();
     }
 
+    // The floor next to a barrel or a chest, on the side closest to the given place. Null when it is walled in
+    public static @Nullable BlockPos standNextTo(ServerWorld world, BlockPos block, BlockPos closeTo) {
+        BlockPos best = null;
+        for(Direction side : Direction.Type.HORIZONTAL) {
+            BlockPos beside = block.offset(side);
+            for(BlockPos spot : new BlockPos[]{beside, beside.down()}) {
+                if(isStandable(world, spot) && (best == null || spot.getSquaredDistance(closeTo) < best.getSquaredDistance(closeTo))) {
+                    best = spot.toImmutable();
+                    break;
+                }
+            }
+        }
+        return best;
+    }
+
     // A bed is no place to walk to. The floor next to it is
     private static @Nullable BlockPos standBeside(ServerWorld world, BlockPos head, BlockState state) {
         BlockPos foot = head.offset(state.get(BedBlock.FACING).getOpposite());
