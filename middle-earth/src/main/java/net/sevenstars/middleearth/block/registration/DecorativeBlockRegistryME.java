@@ -791,9 +791,9 @@ public class DecorativeBlockRegistryME {
             settings -> new net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlock(net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.MIRDAIN, settings),
             AbstractBlock.Settings.create().luminance(state -> state.get(Properties.LIT) ? net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind.GLOW : 0)
                     .strength(1.0f).nonOpaque().sounds(net.minecraft.sound.BlockSoundGroup.LANTERN).pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
-    public static final Block BEAM_LIGHT = registerBlock("beam_light", net.sevenstars.middleearth.block.special.beamlamp.BeamLightBlock::new,
+    public static final Block BEAM_LIGHT = registerBlock("beam_light", net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock::new,
             AbstractBlock.Settings.create().replaceable().noCollision().dropsNothing().nonOpaque().noBlockBreakParticles()
-                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.beamlamp.BeamLightBlock.LEVEL))
+                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock.LEVEL))
                     .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {

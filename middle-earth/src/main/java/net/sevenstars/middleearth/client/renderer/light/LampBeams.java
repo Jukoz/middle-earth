@@ -26,22 +26,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlock;
-import net.sevenstars.middleearth.block.special.beamlamp.BeamLampItem;
-import net.sevenstars.middleearth.block.special.beamlamp.BeamLampKind;
-import net.sevenstars.middleearth.block.special.gems.GemOreBlock;
 import net.sevenstars.middleearth.light.BeamLights;
+import net.sevenstars.middleearth.light.BeamLitBlock;
 import net.sevenstars.middleearth.light.HeldLight;
 import net.sevenstars.middleearth.light.HeldLights;
 import net.sevenstars.middleearth.mixin.client.GameRendererFovInvoker;
+import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 /**
- * The visible side of the focused lamps, for every player: the soft beam from each lit lamp (held in someone's
- * off hand or set down) to where it lands, and hidden gem ores glinting where a beam sweeps over them.
+ * The visible side of beam lights, for every player: the soft beam from each lit one (held in someone's off hand
+ * or set down) to where it lands, and any {@link BeamLitBlock} (such as hidden gem ore) answering where a beam
+ * sweeps over it.
  */
 @Environment(EnvType.CLIENT)
 public final class LampBeams {
@@ -65,9 +64,6 @@ public final class LampBeams {
     private static final double FIRST_PERSON_AHEAD = 0.8;
     private static final double FIRST_PERSON_SIDE = 0.56;
     private static final double FIRST_PERSON_DOWN = -0.58;
-    /** The off-hand lamp as held in first person: raised 2 px, shown at 70% (its item model's display). */
-    private static final float HELD_RAISE = 2 / 16F;
-    private static final float HELD_SCALE = 0.7F;
     /**
      * A third-person holder at full size (all of it scales with them): the shoulder's height (standing, sneaking)
      * and how far out from the middle; along the raised arm to the fist; up from the arm to where the item hangs.
@@ -77,19 +73,18 @@ public final class LampBeams {
     private static final double SHOULDER_OUT = 0.33;
     private static final double ARM_TO_FIST = 0.625;
     private static final double ARM_TO_ITEM = 0.125;
-    /** The raised lamp as its lit item model shows it: hung 4 px below the fist, shown at 60%. */
+    /** The raised lamp as its lit item model shows it: hung 4 px below the fist. */
     private static final double RAISED_DROP = 4 / 16.0;
-    private static final double RAISED_SCALE = 0.6;
     /** How long a noted first-person lens stays good, in ms (it is noted every frame the hand is drawn). */
     private static final long FIRST_PERSON_FRESH_MS = 200;
     /** The beam's radius at the lens, and how much it widens per block it travels. */
     private static final float START_RADIUS = 0.09F;
     private static final float SPREAD = 0.1F;
     private static final int START_ALPHA = 26;
-    /** Gem ore checks per beam per tick: random points in the beam's cone. */
+    /** Beam-lit block checks per beam per tick: random points in the beam's cone. */
     private static final int GLEAM_SAMPLES = 6;
 
-    /** Placed lamps drawn recently (their renderer notes them), for the gem gleam. */
+    /** Placed beam lights drawn recently (their renderer notes them), for their beams and what they light. */
     private static final Long2ObjectOpenHashMap<Seen> LAMPS = new Long2ObjectOpenHashMap<>();
     private static final Random RANDOM = Random.create();
     /** Your own off-hand lamp's lens, in the hand's view space, as last drawn. */
@@ -109,20 +104,22 @@ public final class LampBeams {
     }
 
     /**
-     * Called as your own hand items are drawn: where a lit focused lamp's lens is, in the hand's view space.
+     * Called as your own hand items are drawn: where a lit beam light's lens is, in the hand's view space.
      * The matrix is the hand's, turned to the world's axes (the game undoes the camera's turn for the hand), so
      * the camera's turn is put back to get view space.
      */
     public static void noteFirstPerson(ItemStack stack, boolean leftHand, Matrix4f matrix) {
-        if (!(stack.getItem() instanceof BeamLampItem item) || !(item.getBlock() instanceof BeamLampBlock block)
-            || HeldLights.active(stack) == null) {
+        HeldLightData data = HeldLights.data(true, stack);
+        if (data == null || !(HeldLights.active(true, stack) instanceof HeldLight.Beam)) {
             return;
         }
-        BeamLampKind kind = block.kind();
-        // The lens on the model (1 px inside it), centred as an item is drawn, then shown as held.
-        float y = HELD_RAISE + HELD_SCALE * ((float) kind.lensHeight() / 16 - 0.5F);
-        float z = HELD_SCALE * (1 - (float) kind.lensOut()) / 16;
-        Vector3f lens = matrix.transformPosition(new Vector3f(0, y, z));
+        // The lens on the held model, centred as an item is drawn, then shown as its first-person display has it.
+        HeldLightData.Display display = data.display();
+        Vector3f at = data.lens();
+        float x = display.firstScale() * (at.x() / 16 - 0.5F);
+        float y = display.firstY() / 16 + display.firstScale() * (at.y() / 16 - 0.5F);
+        float z = display.firstScale() * (at.z() / 16 - 0.5F);
+        Vector3f lens = matrix.transformPosition(new Vector3f(x, y, z));
         Quaternionf toView = new Quaternionf(MinecraftClient.getInstance().gameRenderer.getCamera().getRotation()).conjugate();
         firstPersonLens.set(toView.transform(lens));
         firstPersonNoted = Util.getMeasuringTimeMs();
@@ -159,14 +156,19 @@ public final class LampBeams {
             Vec3d shoulder = player.getLerpedPos(tickProgress)
                 .add(0, size * (player.isInSneakingPose() ? SHOULDER_SNEAKING : SHOULDER), 0)
                 .add(bodyRight.multiply(side * size * SHOULDER_OUT));
-            // The lamp hangs upright from the raised fist by its handle; the lens is on its front, 1 px inside.
+            // The lamp hangs upright from the raised fist by its handle, its front (north, on the model) ahead.
             double lensUp = ARM_TO_ITEM - RAISED_DROP;
             double lensAhead = ARM_TO_FIST;
-            if (player.getOffHandStack().getItem() instanceof BeamLampItem item && item.getBlock() instanceof BeamLampBlock block) {
-                lensUp += RAISED_SCALE * (block.kind().lensHeight() / 16 - 0.5);
-                lensAhead += RAISED_SCALE * (block.kind().lensOut() - 1) / 16;
+            double lensSide = 0;
+            HeldLightData data = HeldLights.data(true, player.getOffHandStack());
+            if (data != null) {
+                double scale = data.display().thirdScale();
+                lensUp += scale * (data.lens().y() / 16 - 0.5);
+                lensAhead += scale * (0.5 - data.lens().z() / 16);
+                lensSide = scale * (data.lens().x() / 16 - 0.5);
             }
-            from = shoulder.add(look.multiply(size * lensAhead)).add(up.multiply(size * lensUp));
+            from = shoulder.add(look.multiply(size * lensAhead)).add(up.multiply(size * lensUp))
+                .add(right.multiply(size * lensSide));
         }
         Vec3d to = BeamLights.beamEnd(player.getWorld(), from, look, light.range());
         return new Beam(from, to, light.color());
@@ -306,7 +308,7 @@ public final class LampBeams {
         buffer.vertex(matrix, (float) at.x, (float) at.y, (float) at.z).color(r, g, b, a);
     }
 
-    /** Every tick: gem ores in any beam's cone may glint. */
+    /** Every tick: beam-lit blocks (gem ore) in any beam's cone may answer. */
     private static void tick(MinecraftClient client) {
         ClientWorld world = client.world;
         if (world == null || client.isPaused()) {
@@ -353,8 +355,8 @@ public final class LampBeams {
             }
             BlockPos pos = BlockPos.ofFloored(at);
             BlockState state = world.getBlockState(pos);
-            if (state.getBlock() instanceof GemOreBlock) {
-                GemOreBlock.gleam(world, pos, state, RANDOM);
+            if (state.getBlock() instanceof BeamLitBlock lit) {
+                lit.onBeamLit(world, pos, state, RANDOM);
             }
         }
     }

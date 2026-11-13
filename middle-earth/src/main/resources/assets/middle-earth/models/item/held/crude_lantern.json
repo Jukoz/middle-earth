@@ -2,8 +2,8 @@
   "parent": "middle-earth:block/crude_lantern",
   "display": {
     "thirdperson_righthand": {
-      "rotation": [16, 0, 0],
-      "translation": [-2.1, 1.7303, 0.4961],
+      "rotation": [16, 45, 0],
+      "translation": [3, 1.2303, 0.4961],
       "scale": [0.6, 0.6, 0.6]
     },
     "firstperson_righthand": {
@@ -12,8 +12,8 @@
       "scale": [0.6, 0.6, 0.6]
     },
     "thirdperson_lefthand": {
-      "rotation": [16, 0, 0],
-      "translation": [2.1, 1.7303, 0.4961],
+      "rotation": [16, -45, 0],
+      "translation": [-3, 1.2303, 0.4961],
       "scale": [0.6, 0.6, 0.6]
     },
     "firstperson_lefthand": {

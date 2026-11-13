@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.gems;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.sevenstars.middleearth.light.BeamLitBlock;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
 import com.mojang.serialization.MapCodec;
 
@@ -25,7 +26,7 @@ import net.minecraft.world.World;
  * Drops its raw gem (loot table, Fortune applies; Silk Touch also gives the raw gem) and 3-7 XP.
  * Needs an iron pickaxe or better (block tags).
  */
-public class GemOreBlock extends ExperienceDroppingBlock {
+public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock {
     public static final MapCodec<GemOreBlock> CODEC = createCodec(GemOreBlock::new);
     public static final EnumProperty<GemKind> GEM = EnumProperty.of("gem", GemKind.class);
     public static final EnumProperty<GemOreStone> STONE = EnumProperty.of("stone", GemOreStone.class);
@@ -76,8 +77,9 @@ public class GemOreBlock extends ExperienceDroppingBlock {
     }
 
     /** A lamp's beam falling on the gem (called on the client each tick it does): a few sparks more. */
+    @Override
     @Environment(EnvType.CLIENT)
-    public static void gleam(World world, BlockPos pos, BlockState state, Random random) {
+    public void onBeamLit(World world, BlockPos pos, BlockState state, Random random) {
         glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT * GLEAM_SHARE * DISPLAY_TICKS_PER_SECOND / 20);
     }
 

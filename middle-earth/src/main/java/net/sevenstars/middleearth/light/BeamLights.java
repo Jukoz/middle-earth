@@ -25,7 +25,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.special.beamlamp.BeamLightBlock;
+import net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock;
 import org.jetbrains.annotations.Nullable;
 
 /**

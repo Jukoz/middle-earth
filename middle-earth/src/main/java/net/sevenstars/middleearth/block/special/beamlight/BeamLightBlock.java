@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.beamlamp;
+package net.sevenstars.middleearth.block.special.beamlight;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;

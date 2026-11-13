@@ -71,7 +71,7 @@ public class BipedEntityModelMixin {
         if (access.isRestrained() || offHand == null || offHandRight != rightArm) {
             return;
         }
-        HeldLight light = HeldLights.active(offHand);
+        HeldLight light = HeldLights.active(true, offHand);
         if (light == null) {
             return;
         }

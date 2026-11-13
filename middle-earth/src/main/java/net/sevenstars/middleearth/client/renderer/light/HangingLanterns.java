@@ -11,8 +11,9 @@ import net.sevenstars.middleearth.light.HeldLights;
 import org.joml.Quaternionf;
 
 /**
- * A shaded lantern in the off hand is carried at the side, hanging from the fist by its handle: the arm hangs down
- * and the lantern hangs straight below the fist however the arm swings. (Lit, it is carried out along the gaze.)
+ * A shaded lantern or beam lamp in the off hand is carried at the side, hanging from the fist by its handle: the arm
+ * hangs down and the light hangs straight below the fist however the arm swings. (Lit, it is carried out along the
+ * gaze.)
  */
 @Environment(EnvType.CLIENT)
 public final class HangingLanterns {
@@ -24,10 +25,13 @@ public final class HangingLanterns {
     private HangingLanterns() {
     }
 
-    /** Whether this off hand stack is a lantern carried by its handle and shaded. */
+    /**
+     * Whether this off hand stack is a light carried by its handle along the gaze, and shaded: lanterns and beam
+     * lights alike.
+     */
     public static boolean hangs(ItemStack stack) {
-        return stack != null && HeldLights.of(stack) instanceof HeldLight.Glow glow && glow.toggled()
-            && glow.hold() == HeldLight.Hold.GAZE && !HeldLights.isOn(stack);
+        return stack != null && HeldLights.of(true, stack) instanceof HeldLight light && light.toggled()
+            && light.hold() == HeldLight.Hold.GAZE && !HeldLights.isOn(stack);
     }
 
     /**
