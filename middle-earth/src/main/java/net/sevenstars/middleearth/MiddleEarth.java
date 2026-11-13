@@ -127,6 +127,9 @@ public class MiddleEarth implements ModInitializer {
 		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
+		net.sevenstars.middleearth.light.HeldLights.registerDefaults();
+		net.sevenstars.middleearth.light.BeamLights.register();
+		net.sevenstars.middleearth.light.LanternToggling.register();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

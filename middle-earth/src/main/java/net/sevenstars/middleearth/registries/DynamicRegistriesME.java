@@ -23,6 +23,8 @@ import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.registries.content.heldlights.HeldLightRegistry;
+import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -53,6 +55,9 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("spider_variants"));
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
 
+    /** Lights carried in the off hand or worn: lanterns, torches, candles, candle helmets. */
+    public static final RegistryKey<Registry<HeldLightData>> HELD_LIGHT = RegistryKey.ofRegistry(MiddleEarth.id("held_light"));
+
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(RACE, Race.CODEC);
@@ -73,6 +78,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
 
         DynamicRegistries.registerSynced(SPIDER_VARIANTS, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
+        DynamicRegistries.registerSynced(HELD_LIGHT, HeldLightData.CODEC);
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
@@ -86,6 +92,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
 
         registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
+        registryBuilder.addRegistry(HELD_LIGHT, HeldLightRegistry::bootstrap);
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {
@@ -98,5 +105,6 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(BiomeEventProvider::new);
         pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
+        pack.addProvider(HeldLightsProvider::new);
     }
 }

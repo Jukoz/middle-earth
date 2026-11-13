@@ -773,6 +773,12 @@ public class DecorativeBlockRegistryME {
             ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN)
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
+    /** The light round someone carrying a lantern or the like ({@link net.sevenstars.middleearth.light.BeamLights}). */
+    public static final Block BEAM_LIGHT = registerBlock("beam_light", net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock::new,
+            AbstractBlock.Settings.create().replaceable().noCollision().dropsNothing().nonOpaque().noBlockBreakParticles()
+                    .luminance(state -> state.get(net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock.LEVEL))
+                    .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY));
+
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
