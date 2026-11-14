@@ -20,8 +20,8 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -41,7 +41,7 @@ public class SpawnNestManager {
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
             Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
             BlockPos.CODEC.optionalFieldOf("bed").forGetter(manager -> Optional.ofNullable(manager.bed)),
-            Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.bedRole),
+            Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.bedJob),
             BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store)),
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(manager -> manager.links),
             Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
@@ -60,20 +60,20 @@ public class SpawnNestManager {
     private BlockPos originPos;
     private int spawnRadius;
 
-    // The bed a nest of one person is for, with the role its tag gives that person and the place its things are put away. The
+    // The bed a nest of one person is for, with the job its tag gives that person and the place its things are put away. The
     // origin of such a nest is the bed
     private @Nullable BlockPos bed = null;
-    private Optional<Identifier> bedRole = Optional.empty();
+    private Optional<Identifier> bedJob = Optional.empty();
     private @Nullable BlockPos store = null;
     // The places the builder tied the bed to, when it was tied by hand. Empty leaves the person to find its own work
     private List<BlockPos> links = List.of();
     // Above 0 for a nest that spawns a set number of people: one for a tagged bed, or as many as a spawn_npc marker says
     private int capacity = 0;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedRole, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
         this.capacity = capacity;
         this.bed = bed.orElse(null);
-        this.bedRole = bedRole;
+        this.bedJob = bedJob;
         this.store = store.orElse(null);
         this.links = List.copyOf(links);
         this.id = dataId;
@@ -94,7 +94,7 @@ public class SpawnNestManager {
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, StructureFeatureData.Bed tagged) {
         this(spawnNestNodeData, tagged.pos(), BED_SPAWN_RADIUS, 1);
         this.bed = tagged.pos();
-        this.bedRole = tagged.tag().flatMap(BedTag::role);
+        this.bedJob = tagged.tag().flatMap(BedTag::job);
         this.store = tagged.store().orElse(null);
         this.links = tagged.manual() ? tagged.links() : List.of();
     }
@@ -139,8 +139,8 @@ public class SpawnNestManager {
         return bed;
     }
 
-    public Optional<Identifier> getBedRole() {
-        return bedRole;
+    public Optional<Identifier> getBedJob() {
+        return bedJob;
     }
 
     public void addEntity(LivingEntity entity){
@@ -234,10 +234,10 @@ public class SpawnNestManager {
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
-                    Optional<Identifier> role = bed != null ? bedRole : data.getRole();
-                    if(role.isEmpty() && (NpcRoles.isGuardType(BedTag.typeOf(id)) || mansPosts(world, structureManagerPos, npcEntity)))
-                        role = guardDuty(world, structureManagerPos);
-                    role.ifPresent(npcEntity::takeRole);
+                    Optional<Identifier> job = bed != null ? bedJob : data.getJob();
+                    if(job.isEmpty() && (NpcJobs.isGuardType(BedTag.typeOf(id)) || mansPosts(world, structureManagerPos, npcEntity)))
+                        job = guardDuty(world, structureManagerPos);
+                    job.ifPresent(npcEntity::takeJob);
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                     if(npcEntity.isPrisoner()) {
                         RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
@@ -260,19 +260,19 @@ public class SpawnNestManager {
     private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos) {
         RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
         if(site == null)
-            return Optional.of(NpcRoles.PATROL.getValue());
+            return Optional.of(NpcJobs.PATROL.getValue());
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;
         Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
         // Guards can spawn before their lord does, who is counted all the same
         boolean lordExpected = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager && manager.hasLordNest();
-        return Optional.of(NpcRoles.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
+        return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
     }
 
     // A fighter of any nest stands guard where the build has posts or lookouts marked, as in a watch tower. Elsewhere it keeps
     // the routine of its kind
     private boolean mansPosts(ServerWorld world, BlockPos structureManagerPos, NpcEntity npc) {
-        NpcType type = npc.getNpcType();
-        if(type == null || type.isCivilian())
+        NpcClass npcClass = npc.getNpcClass();
+        if(npcClass == null || npcClass.isCivilian())
             return false;
         RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
         return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty()

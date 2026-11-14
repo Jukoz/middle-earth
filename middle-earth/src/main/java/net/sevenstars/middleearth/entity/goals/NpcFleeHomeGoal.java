@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;

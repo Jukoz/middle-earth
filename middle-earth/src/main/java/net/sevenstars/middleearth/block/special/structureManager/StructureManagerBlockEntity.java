@@ -35,7 +35,7 @@ import net.sevenstars.middleearth.block.special.structureManager.features.Struct
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
@@ -215,8 +215,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureNestList == null)
             return false;
         for(SpawnNestManager nest : structureNestList.getManagers()) {
-            Optional<Identifier> role = nest.getBed() != null ? nest.getBedRole() : NpcRoles.forNest(nest.getId());
-            if(NpcRoles.isLord(role.orElse(null)))
+            Optional<Identifier> job = nest.getBed() != null ? nest.getBedJob() : NpcJobs.forNest(nest.getId());
+            if(NpcJobs.isLord(job.orElse(null)))
                 return true;
         }
         return false;

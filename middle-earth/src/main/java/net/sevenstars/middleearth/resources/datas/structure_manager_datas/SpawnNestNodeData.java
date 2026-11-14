@@ -8,8 +8,8 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import java.util.Random;
 
 /// NpcSpawnNest is a specific area where entities can spawn with the different parameters.
@@ -18,16 +18,16 @@ public class SpawnNestNodeData {
             Identifier.CODEC.fieldOf("id").forGetter(SpawnNestNodeData::getId),
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestNodeData::getRespawnTickDelay),
             Codec.list(StructureSpawnNestPool.CODEC).fieldOf("npc_pool").forGetter(SpawnNestNodeData::getNpcSpawnNestPool),
-            Identifier.CODEC.optionalFieldOf("role").forGetter(SpawnNestNodeData::getRole)
+            Identifier.CODEC.optionalFieldOf("role").forGetter(SpawnNestNodeData::getJob)
     ).apply(instance, SpawnNestNodeData::new));
 
     private final Identifier id;
     private final int respawnTickDelay;
-    private Optional<Identifier> role;
+    private Optional<Identifier> job;
     private final List<StructureSpawnNestPool> structureSpawnNestPools;
 
-    public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools, Optional<Identifier> role) {
-        this.role = role;
+    public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools, Optional<Identifier> job) {
+        this.job = job;
         this.id = id;
         this.respawnTickDelay = respawnTickDelay;
         this.structureSpawnNestPools = npcPools;
@@ -35,16 +35,16 @@ public class SpawnNestNodeData {
 
     public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools) {
         // A baker's nest houses a baker, unless told otherwise
-        this(id, respawnTickDelay, npcPools, NpcRoles.forNest(id));
+        this(id, respawnTickDelay, npcPools, NpcJobs.forNest(id));
     }
 
-    public SpawnNestNodeData withRole(RegistryKey<NpcRole> role) {
-        this.role = Optional.of(role.getValue());
+    public SpawnNestNodeData withJob(RegistryKey<NpcJob> job) {
+        this.job = Optional.of(job.getValue());
         return this;
     }
 
-    public Optional<Identifier> getRole() {
-        return role;
+    public Optional<Identifier> getJob() {
+        return job;
     }
 
     public Identifier getId() {

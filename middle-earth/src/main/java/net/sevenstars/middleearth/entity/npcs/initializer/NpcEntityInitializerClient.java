@@ -11,7 +11,7 @@ public class NpcEntityInitializerClient {
     }
 
     private static void initializeForClient(World clientWorld, NpcEntity npcEntity) {
-        if(NpcEntityInitializerUtil.characterIdentifierExist(clientWorld, npcEntity.getNpcTypeIdentifier())){
+        if(NpcEntityInitializerUtil.characterIdentifierExist(clientWorld, npcEntity.getNpcClassIdentifier())){
             NpcGenerator.generateCharacterTextures(clientWorld, npcEntity);
         }
     }

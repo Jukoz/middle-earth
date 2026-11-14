@@ -4,7 +4,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.GoblinTownNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.GoblinTownNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -27,22 +27,22 @@ public class GoblinTownFactionPool {
         GOBLIN_TOWN = new Faction(FactionRegistry.GOBLIN_TOWN, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            GoblinTownNpcTypePool.GOBLIN
+                            GoblinTownNpcClassPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            GoblinTownNpcTypePool.SCOUT
+                            GoblinTownNpcClassPool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            GoblinTownNpcTypePool.WARRIOR
+                            GoblinTownNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            GoblinTownNpcTypePool.RIDER
+                            GoblinTownNpcClassPool.RIDER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            GoblinTownNpcTypePool.VETERAN
+                            GoblinTownNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            GoblinTownNpcTypePool.VETERAN
+                            GoblinTownNpcClassPool.VETERAN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

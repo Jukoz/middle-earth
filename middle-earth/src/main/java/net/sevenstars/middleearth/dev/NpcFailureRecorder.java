@@ -82,8 +82,8 @@ public final class NpcFailureRecorder {
         out.addProperty("dayTime", world.getTimeOfDay() % 24000);
         out.addProperty("who", who);
         out.addProperty("uuid", npc.getUuidAsString());
-        out.addProperty("type", npc.getNpcType() == null ? "?" : npc.getNpcType().getId().toString());
-        out.addProperty("role", npc.getRoleId() == null ? null : npc.getRoleId().toString());
+        out.addProperty("type", npc.getNpcClass() == null ? "?" : npc.getNpcClass().getId().toString());
+        out.addProperty("role", npc.getJobId() == null ? null : npc.getJobId().toString());
         out.addProperty("task", task);
         out.addProperty("phase", phase);
         out.addProperty("why", why);

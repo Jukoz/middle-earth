@@ -66,7 +66,7 @@ public class NpcDebugRenderer {
                 int color = switch (routine.debugActivity()) {
                     case FISH -> FISH; case HUNT -> HUNT; case FORAGE -> FORAGE; case PATROL -> PATROL; case VISIT, TABLE -> MEET; case WORK, FARM, CHOP, MINE -> FORAGE; case POST, ESCORT, INSPECT, FOLLOW -> PATROL; case COURT -> MEET;
                 };
-                if(routine.debugActivity() == net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Activity.PATROL)
+                if(routine.debugActivity() == net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData.Activity.PATROL)
                     drawRing(matrices, lines, routine.debugRing(), routine.debugRingIndex());
                 if(routine.debugReturning()) {
                     BlockPos home = routine.debugToBed() && npc.getAssignedBed() != null ? npc.getAssignedBed()

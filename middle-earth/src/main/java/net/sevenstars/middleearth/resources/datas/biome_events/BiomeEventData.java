@@ -22,7 +22,7 @@ import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnEventDataUtil;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnCensus;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -88,9 +88,9 @@ public class BiomeEventData {
         // What the spawn check picked for this spot is what gets spawned, instead of rolling again and maybe coming up empty
         PendingSpawn pending = PENDING_SPAWNS.remove(entity.getBlockPos().asLong());
         if(pending != null && world.getTime() <= pending.expires() && wildSpawnEventDatas.contains(pending.data())) {
-            Identifier pendingId = pending.data().getNpcType(null);
-            NpcType pendingType = (pendingId != null) ? manager.getOrThrow(DynamicRegistriesME.NPC_TYPE).get(pendingId) : null;
-            return new ContextualizedBiomeData(pendingType, pending.data().getParty(), pending.data().getRole());
+            Identifier pendingId = pending.data().getNpcClass(null);
+            NpcClass pendingClass = (pendingId != null) ? manager.getOrThrow(DynamicRegistriesME.NPC_CLASS).get(pendingId) : null;
+            return new ContextualizedBiomeData(pendingClass, pending.data().getParty(), pending.data().getJob());
         }
 
         List<WildSpawnEventData> weightedData = new ArrayList<>();
@@ -108,11 +108,11 @@ public class BiomeEventData {
             return null;
 
         WildSpawnEventData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        Registry<NpcType> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_TYPE);
-        Identifier npcId = spawningData.getNpcType(null);
-        NpcType foundNpcType = (npcId != null) ? npcDataRegistry.get(npcId) : null;
+        Registry<NpcClass> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_CLASS);
+        Identifier npcId = spawningData.getNpcClass(null);
+        NpcClass foundNpcClass = (npcId != null) ? npcDataRegistry.get(npcId) : null;
 
-        return new ContextualizedBiomeData(foundNpcType, spawningData.getParty(), spawningData.getRole());
+        return new ContextualizedBiomeData(foundNpcClass, spawningData.getParty(), spawningData.getJob());
     }
 
     public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
@@ -158,7 +158,7 @@ public class BiomeEventData {
                 PENDING_SPAWNS.clear();
             PENDING_SPAWNS.put(pos.asLong(), new PendingSpawn(spawningData, world.getTime() + PENDING_SPAWN_LIFETIME));
         }
-        SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcType(null) : null, pos);
+        SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcClass(null) : null, pos);
         return true;
     }
 
@@ -170,7 +170,7 @@ public class BiomeEventData {
     }
 
 
-    public record ContextualizedBiomeData(NpcType npcType, @Nullable PartyData party, @Nullable Identifier role){
+    public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job){
 
     }
 }

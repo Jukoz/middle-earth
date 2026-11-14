@@ -23,9 +23,9 @@ import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKi
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 // While the builder's tool is held, draws what the blocks around are taken for: tagged beds with who is born in them and the
-// station or marker their role will use, free beds, stations, stores, seats, tables and structure markers
+// station or marker their job will use, free beds, stations, stores, seats, tables and structure markers
 public class BuildersToolRenderer {
     // Far enough to find the station a bed will be given, which is looked for within 48 blocks
     private static final int RANGE = 32;
@@ -209,12 +209,12 @@ public class BuildersToolRenderer {
         return null;
     }
 
-    // What the bed works at: the places it was tied to by hand, or else what its role will use, picked as an npc of that role picks
+    // What the bed works at: the places it was tied to by hand, or else what its job will use, picked as an npc of that job picks
     // it: the nearest of its kinds of station to the bed
     private static List<BlockPos> linksOf(Bed bed) {
         if(bed.tag().manual())
             return bed.tag().links().stream().map(offset -> bed.pos().add(offset)).toList();
-        BlockPos station = bed.tag().role().map(role -> NpcRoles.stationFor(role, bed.pos(), stations, markers)).orElse(null);
+        BlockPos station = bed.tag().job().map(job -> NpcJobs.stationFor(job, bed.pos(), stations, markers)).orElse(null);
         return station == null ? List.of() : List.of(station);
     }
 
@@ -226,9 +226,9 @@ public class BuildersToolRenderer {
         return linksOf(bed);
     }
 
-    // Not every role works at a place: a hunter goes out into the land
+    // Not every job works at a place: a hunter goes out into the land
     private static boolean needsStation(Bed bed) {
-        return bed.tag().role().filter(role -> !NpcRoles.stationKinds(role).isEmpty() || !NpcRoles.stationMarkers(role).isEmpty()).isPresent();
+        return bed.tag().job().filter(job -> !NpcJobs.stationKinds(job).isEmpty() || !NpcJobs.stationMarkers(job).isEmpty()).isPresent();
     }
 
     private static void drawLabels(MatrixStack matrices, VertexConsumerProvider consumers) {
@@ -257,9 +257,9 @@ public class BuildersToolRenderer {
     }
 
     private static String bedLabel(Bed bed) {
-        String role = bed.tag().role().map(Identifier::getPath).orElse("none");
+        String job = bed.tag().job().map(Identifier::getPath).orElse("none");
         boolean lost = needsStation(bed) && linksOf(bed).isEmpty();
-        return bed.tag().type() + " / " + role + (bed.tag().manual() ? " (manual)" : "") + (lost ? " (no station)" : "");
+        return bed.tag().type() + " / " + job + (bed.tag().manual() ? " (manual)" : "") + (lost ? " (no station)" : "");
     }
 
     // spawn_animal: horse x2

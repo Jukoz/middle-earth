@@ -23,7 +23,7 @@ public class NpcPartySpawner {
 
     public static void spawn(ServerWorld world, NpcEntity leader, PartyData party) {
         Random random = world.getRandom();
-        party.getLeaderRole().ifPresent(leader::takeRole);
+        party.getLeaderJob().ifPresent(leader::takeJob);
         leader.setTravelHeading(random.nextFloat() * 360f);
         if(!leader.keepsBounds())
             leader.setTravelDestination(RoutineSites.findDestination(world, leader));
@@ -32,11 +32,11 @@ public class NpcPartySpawner {
             int amount = member.minimumAmount() + random.nextInt(Math.max(1, member.maximumAmount() - member.minimumAmount() + 1));
             for(int i = 0; i < amount; i++) {
                 BlockPos pos = findSpawnPos(world, leader, random);
-                if(member.npcType().isPresent()) {
+                if(member.npcClass().isPresent()) {
                     NpcEntity follower = new NpcEntityBuilder(world, pos)
-                            .withNpcType(member.npcType().get())
+                            .withNpcClass(member.npcClass().get())
                             .build();
-                    member.role().ifPresent(follower::takeRole);
+                    member.job().ifPresent(follower::takeJob);
                     follower.setPartyLeader(leader.getUuid());
                     world.spawnEntity(follower);
                 } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {

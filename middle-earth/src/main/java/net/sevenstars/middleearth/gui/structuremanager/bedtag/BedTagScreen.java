@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget.Choice;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,7 +33,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final int LABEL_COLOR = 0xFFA0A0A0;
 
     private ChoiceListWidget typeList;
-    private ChoiceListWidget roleList;
+    private ChoiceListWidget jobList;
 
     public BedTagScreen(BedTagScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -52,10 +52,10 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             types.add(new Choice(type, readable(type)));
         typeList = newList(types, data.type(), left, top);
 
-        List<Choice> roles = new ArrayList<>();
-        roles.add(new Choice("", none()));
-        roles.addAll(roleChoices());
-        roleList = newList(roles, data.role(), left + LIST_WIDTH + GAP, top);
+        List<Choice> jobs = new ArrayList<>();
+        jobs.add(new Choice("", none()));
+        jobs.addAll(jobChoices());
+        jobList = newList(jobs, data.job(), left + LIST_WIDTH + GAP, top);
 
         int buttonTop = top + LIST_HEIGHT + GAP;
         addDrawableChild(ButtonWidget.builder(Text.translatable("ui.%s.bed_tag.save".formatted(MiddleEarth.MOD_ID)), button -> save(false))
@@ -68,7 +68,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
 
     private void save(boolean resetLinks) {
         String type = typeList.selectedValue();
-        handler.save(type, type.isEmpty() ? "" : roleList.selectedValue(), resetLinks);
+        handler.save(type, type.isEmpty() ? "" : jobList.selectedValue(), resetLinks);
         close();
     }
 
@@ -78,9 +78,9 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return addDrawableChild(list);
     }
 
-    private List<Choice> roleChoices() {
+    private List<Choice> jobChoices() {
         List<Choice> choices = new ArrayList<>();
-        Registry<NpcRole> registry = MinecraftClient.getInstance().getNetworkHandler().getRegistryManager().getOptional(DynamicRegistriesME.NPC_ROLE).orElse(null);
+        Registry<NpcJob> registry = MinecraftClient.getInstance().getNetworkHandler().getRegistryManager().getOptional(DynamicRegistriesME.NPC_JOB).orElse(null);
         if(registry == null)
             return choices;
         List<Identifier> ids = new ArrayList<>(registry.getIds());
@@ -118,7 +118,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{typeList, roleList}) {
+        for(ChoiceListWidget list : new ChoiceListWidget[]{typeList, jobList}) {
             if(list != null && list.isMouseOver(mouseX, mouseY))
                 return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         }
@@ -133,6 +133,6 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.type".formatted(MiddleEarth.MOD_ID)),
                 typeList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.role".formatted(MiddleEarth.MOD_ID)),
-                roleList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
+                jobList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
     }
 }

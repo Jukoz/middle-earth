@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +27,10 @@ public class NpcEntityInitializer {
     }
 
     private static void initializeForServer(ServerWorld serverWorld, NpcEntity npcEntity){
-        Identifier npcTypeId = npcEntity.getNpcTypeIdentifier();
+        Identifier npcClassId = npcEntity.getNpcClassIdentifier();
         PartyData party = null;
-        Identifier role = null;
-        if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, npcTypeId))
+        Identifier job = null;
+        if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, npcClassId))
         {
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
             try{
@@ -40,10 +40,10 @@ public class NpcEntityInitializer {
                     npcEntity.discard();
                     return;
                 }
-                NpcType npcType = contextualizedBiomeData.npcType();
-                npcTypeId = npcType.getId();
+                NpcClass npcClass = contextualizedBiomeData.npcClass();
+                npcClassId = npcClass.getId();
                 party = contextualizedBiomeData.party();
-                role = contextualizedBiomeData.role();
+                job = contextualizedBiomeData.job();
             } catch (Exception e){
                 MiddleEarth.LOGGER.logError("NpcEntity initializer failed : ", e);
                 npcEntity.discard();
@@ -51,11 +51,11 @@ public class NpcEntityInitializer {
             }
         }
 
-        npcEntity.prepareNpcIdentifier(npcTypeId);
+        npcEntity.prepareNpcIdentifier(npcClassId);
         npcEntity.prepare();
         NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
-        if(role != null)
-            npcEntity.takeRole(role);
+        if(job != null)
+            npcEntity.takeJob(job);
 
         if(party != null)
             NpcPartySpawner.spawn(serverWorld, npcEntity, party);
@@ -80,12 +80,12 @@ public class NpcEntityInitializer {
     }
 
     public static boolean shouldInitialize(ServerWorld serverWorld, NpcEntity npcEntity){
-        Identifier currentNpcDataId = npcEntity.getNpcTypeIdentifier();
+        Identifier currentNpcDataId = npcEntity.getNpcClassIdentifier();
         if(currentNpcDataId == null)
             return true;
 
         DynamicRegistryManager registryManager = serverWorld.getRegistryManager();
-        Optional<RegistryEntry.Reference<NpcType>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC_TYPE).get().getEntry(currentNpcDataId);
+        Optional<RegistryEntry.Reference<NpcClass>> optionalEntry = registryManager.getOptional(DynamicRegistriesME.NPC_CLASS).get().getEntry(currentNpcDataId);
 
 
         if(!npcEntity.hasTextureData())

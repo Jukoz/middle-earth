@@ -15,9 +15,9 @@ import net.sevenstars.middleearth.registries.content.structuremanagerdatas.Struc
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry.Template;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 
 import java.io.IOException;
@@ -180,15 +180,15 @@ public class StructureFeaturesReport {
                     warnings.noType.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that type in the nests of the structure"));
                 if(bed.store().isEmpty())
                     warnings.noStore.add(where);
-                if(tag.role().isPresent()) {
-                    List<StationKind> needed = NpcRoles.stationKinds(tag.role().get());
-                    List<MarkerKind> neededMarkers = NpcRoles.stationMarkers(tag.role().get());
+                if(tag.job().isPresent()) {
+                    List<StationKind> needed = NpcJobs.stationKinds(tag.job().get());
+                    List<MarkerKind> neededMarkers = NpcJobs.stationMarkers(tag.job().get());
                     if(!needed.isEmpty() && needed.stream().noneMatch(stations::contains))
-                        warnings.noStation.add(where + ", role `%s` needs one of %s".formatted(tag.role().get().getPath(), needed.stream().map(StationKind::asString).toList()));
+                        warnings.noStation.add(where + ", role `%s` needs one of %s".formatted(tag.job().get().getPath(), needed.stream().map(StationKind::asString).toList()));
                     else if(needed.isEmpty() && !neededMarkers.isEmpty() && neededMarkers.stream().noneMatch(markers::contains))
-                        warnings.noStation.add(where + ", role `%s` needs a marker of %s".formatted(tag.role().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
+                        warnings.noStation.add(where + ", role `%s` needs a marker of %s".formatted(tag.job().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
                 } else {
-                    if(NpcRoles.isGuardType(tag.type()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
+                    if(NpcJobs.isGuardType(tag.type()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
                         warnings.noGuardMarkers.add(where);
                 }
             }

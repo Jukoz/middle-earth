@@ -11,9 +11,9 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.registries.CharacterPatternsRegistryME;
 import net.sevenstars.middleearth.resources.datas.common.CharacterMaterialTypes;
 import net.sevenstars.middleearth.resources.datas.common.CharacterPatternTypes;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcUtil;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcUtil;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.MountData;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTexturePattern;
 import net.sevenstars.middleearth.resources.datas.texture_presets.ClothingSelection;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -24,19 +24,19 @@ public class NpcGenerator {
     public static void generateCharacterTextures(World world, NpcEntity npcEntity) {
         // Get npc data
         String currentStep = "Fetching datas";
-        Identifier currentNpcTypeId = npcEntity.getNpcTypeIdentifier();
+        Identifier currentNpcClassId = npcEntity.getNpcClassIdentifier();
 
         try{
             currentStep = "Aligning data with npc entity...";
-            npcEntity.prepareNpcIdentifier(currentNpcTypeId);
+            npcEntity.prepareNpcIdentifier(currentNpcClassId);
             npcEntity.prepare();
-            NpcType currentNpcType = npcEntity.getNpcType();
+            NpcClass currentNpcClass = npcEntity.getNpcClass();
 
             currentStep = "Applying attributes...";
-            currentNpcType.applyAttributes(npcEntity);
+            currentNpcClass.applyAttributes(npcEntity);
 
             currentStep = "Getting npc texture data...";
-            TexturePresetDataPool textureData = currentNpcType.getNpcTextureData(world);
+            TexturePresetDataPool textureData = currentNpcClass.getNpcTextureData(world);
 
             currentStep = "Creating texture identity...";
             TexturePresetDataPool.Identity identity = TexturePresetDataPool.Identity.create(textureData, npcEntity.getNpcCategory());
@@ -47,29 +47,29 @@ public class NpcGenerator {
             currentStep = "Generating skin...";
             entityTextureData = generateSkinTextureData(entityTextureData, identity);
             currentStep = "Generating eyes...";
-            entityTextureData = generateEyeTextureData(entityTextureData, identity, currentNpcType.getNpcTextureData(world).haveEmissiveEyes(identity));
+            entityTextureData = generateEyeTextureData(entityTextureData, identity, currentNpcClass.getNpcTextureData(world).haveEmissiveEyes(identity));
             currentStep = "Generating hair...";
             entityTextureData = generateHairTextureData(entityTextureData, identity, world.getRegistryManager());
             currentStep = "Generating clothing...";
             entityTextureData = generateClothingTextureData(entityTextureData, identity);
             npcEntity.saveNpcTextureData(entityTextureData);
 
-            NpcUtil.equipAll(npcEntity, currentNpcType.getGear());
+            NpcUtil.equipAll(npcEntity, currentNpcClass.getGear());
             npcEntity.updateAttackType();
             spawnMount(npcEntity);
 
         } catch (Exception exception){
-            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcTypeId, exception.getLocalizedMessage(), currentStep));
+            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcClassId, exception.getLocalizedMessage(), currentStep));
         }
     }
 
     private static void spawnMount(NpcEntity entity) {
         if(entity.getEntityWorld() instanceof ServerWorld serverWorld)
         {
-            NpcType type = entity.getNpcType();
-            if(type == null || !type.hasMount())
+            NpcClass npcClass = entity.getNpcClass();
+            if(npcClass == null || !npcClass.hasMount())
                 return;
-            MountData mountData = type.getMountData();
+            MountData mountData = npcClass.getMountData();
             mountData.createEntity(serverWorld, entity);
         }
     }

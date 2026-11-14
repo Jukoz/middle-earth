@@ -136,7 +136,7 @@ public class ItemGroupsME {
                 for (ItemStack item : SPAWN_EGGS_CONTENTS) {
                     entries.add(item);
                 };
-                displayContext.lookup().getOptional(DynamicRegistriesME.NPC_TYPE)
+                displayContext.lookup().getOptional(DynamicRegistriesME.NPC_CLASS)
                         .ifPresent(registryWrapper -> ItemGroupsUtil.addNpcEggs(
                                 entries,
                                 registryWrapper,

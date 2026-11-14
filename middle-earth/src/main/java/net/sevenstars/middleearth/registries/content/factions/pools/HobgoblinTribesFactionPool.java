@@ -5,7 +5,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.GundabadNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.GundabadNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
@@ -33,22 +33,22 @@ public class HobgoblinTribesFactionPool {
         GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            GundabadNpcTypePool.GOBLIN
+                            GundabadNpcClassPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            GundabadNpcTypePool.MILITIA
+                            GundabadNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            GundabadNpcTypePool.SCOUT
+                            GundabadNpcClassPool.SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            GundabadNpcTypePool.WARRIOR
+                            GundabadNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            GundabadNpcTypePool.VETERAN
+                            GundabadNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            GundabadNpcTypePool.LEADER
+                            GundabadNpcClassPool.LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

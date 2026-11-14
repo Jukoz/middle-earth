@@ -23,10 +23,10 @@ import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.utils.BlockTagsME;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

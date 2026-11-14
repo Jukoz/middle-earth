@@ -6,7 +6,7 @@ import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 
 import java.util.List;
 import java.util.Optional;

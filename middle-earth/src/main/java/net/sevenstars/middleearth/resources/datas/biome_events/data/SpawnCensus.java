@@ -26,7 +26,7 @@ public class SpawnCensus {
 
     private static final Map<World, SpawnCensus> WORLDS = new WeakHashMap<>();
 
-    private record Resident(EntityType<?> type, @Nullable Identifier npcType, double x, double y, double z, boolean surface) {}
+    private record Resident(EntityType<?> type, @Nullable Identifier npcClass, double x, double y, double z, boolean surface) {}
 
     private final Long2ObjectOpenHashMap<List<Resident>> cells = new Long2ObjectOpenHashMap<>();
     private boolean taken = false;
@@ -45,21 +45,21 @@ public class SpawnCensus {
         cells.clear();
         for(Entity entity : world.iterateEntities()) {
             if(entity instanceof LivingEntity living && living.isAlive())
-                add(living.getType(), living instanceof NpcEntity npc ? npc.getNpcTypeIdentifier() : null, living.getX(), living.getY(), living.getZ(), SpawnEventDataUtil.isSurface(world, living.getBlockPos()));
+                add(living.getType(), living instanceof NpcEntity npc ? npc.getNpcClassIdentifier() : null, living.getX(), living.getY(), living.getZ(), SpawnEventDataUtil.isSurface(world, living.getBlockPos()));
         }
     }
 
-    private void add(EntityType<?> type, @Nullable Identifier npcType, double x, double y, double z, boolean surface) {
+    private void add(EntityType<?> type, @Nullable Identifier npcClass, double x, double y, double z, boolean surface) {
         long cell = ChunkPos.toLong((int) Math.floor(x) >> CELL_SHIFT, (int) Math.floor(z) >> CELL_SHIFT);
-        cells.computeIfAbsent(cell, key -> new ArrayList<>()).add(new Resident(type, npcType, x, y, z, surface));
+        cells.computeIfAbsent(cell, key -> new ArrayList<>()).add(new Resident(type, npcClass, x, y, z, surface));
     }
 
     // Counts a spawn that was just let through, so that the next attempts of the same tick see it
-    public static void expect(ServerWorld world, EntityType<?> type, @Nullable Identifier npcType, BlockPos pos) {
-        of(world).add(type, npcType, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, SpawnEventDataUtil.isSurface(world, pos));
+    public static void expect(ServerWorld world, EntityType<?> type, @Nullable Identifier npcClass, BlockPos pos) {
+        of(world).add(type, npcClass, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, SpawnEventDataUtil.isSurface(world, pos));
     }
 
-    public static int count(ServerWorld world, Box box, EntityType<?> type, @Nullable Identifier npcType, boolean surfaceOnly, int stopAt) {
+    public static int count(ServerWorld world, Box box, EntityType<?> type, @Nullable Identifier npcClass, boolean surfaceOnly, int stopAt) {
         SpawnCensus census = of(world);
         int found = 0;
         int minimumX = (int) Math.floor(box.minX) >> CELL_SHIFT;
@@ -74,7 +74,7 @@ public class SpawnCensus {
                 for(Resident resident : residents) {
                     if(resident.type != type || (surfaceOnly && !resident.surface) || !box.contains(resident.x, resident.y, resident.z))
                         continue;
-                    if(npcType != null && !npcType.equals(resident.npcType))
+                    if(npcClass != null && !npcClass.equals(resident.npcClass))
                         continue;
                     found++;
                     if(found >= stopAt)

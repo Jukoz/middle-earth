@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.LorienNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.LorienNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -27,22 +27,22 @@ public class LothlorienFactionPool {
         LOTHLORIEN = new Faction(FactionRegistry.LOTHLORIEN, true, DispositionType.GOOD, FactionType.FACTION, null, null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            LorienNpcTypePool.SENTINEL
+                            LorienNpcClassPool.SENTINEL
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            LorienNpcTypePool.RANGER
+                            LorienNpcClassPool.RANGER
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            LorienNpcTypePool.WARRIOR
+                            LorienNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            LorienNpcTypePool.KNIGHT
+                            LorienNpcClassPool.KNIGHT
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            LorienNpcTypePool.GUARD
+                            LorienNpcClassPool.GUARD
                     ));
                     put(NpcRank.LEADER, List.of(
-                            LorienNpcTypePool.LORD
+                            LorienNpcClassPool.LORD
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

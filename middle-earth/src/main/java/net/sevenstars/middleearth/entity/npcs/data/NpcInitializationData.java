@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,44 +24,44 @@ public class NpcInitializationData {
     public static final Codec<NpcInitializationData> CODEC;
     public static final PacketCodec<RegistryByteBuf, NpcInitializationData> PACKET_CODEC;
 
-    private Identifier type;
+    private Identifier npcClassId;
     private Boolean isRandom;
 
     static {
         CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-                Codec.STRING.optionalFieldOf("Type").forGetter(NpcInitializationData::getOptionalType),
+                Codec.STRING.optionalFieldOf("Type").forGetter(NpcInitializationData::getOptionalNpcClass),
                 Codec.BOOL.optionalFieldOf("IsRandom").forGetter(NpcInitializationData::getOptionalRandom)
         ).apply(instance, NpcInitializationData::new));
 
         PACKET_CODEC = PacketCodec.tuple(
-                PacketCodecs.optional(PacketCodecs.STRING), NpcInitializationData::getOptionalType,
+                PacketCodecs.optional(PacketCodecs.STRING), NpcInitializationData::getOptionalNpcClass,
                 PacketCodecs.optional(PacketCodecs.BOOLEAN), NpcInitializationData::getOptionalRandom,
                 NpcInitializationData::new);
     }
 
 
-    public NpcInitializationData(Optional<String> type, Optional<Boolean> isRandom) {
-        this.type = type.map(MiddleEarth::ofId).orElse(null);
+    public NpcInitializationData(Optional<String> npcClassId, Optional<Boolean> isRandom) {
+        this.npcClassId = npcClassId.map(MiddleEarth::ofId).orElse(null);
         this.isRandom = isRandom == null || isRandom.isEmpty() || isRandom.get() == false ? null : isRandom.get();
     }
 
-    public NpcInitializationData(Identifier type, Boolean isRandom) {
-        this.type = type;
+    public NpcInitializationData(Identifier npcClassId, Boolean isRandom) {
+        this.npcClassId = npcClassId;
         this.isRandom = isRandom;
     }
 
     public NpcInitializationData() {
-        this.type = null;
+        this.npcClassId = null;
         this.isRandom = null;
     }
 
-    public NpcInitializationData withType(Identifier newType) {
-        return new NpcInitializationData(newType, this.isRandom);
+    public NpcInitializationData withNpcClass(Identifier newNpcClassId) {
+        return new NpcInitializationData(newNpcClassId, this.isRandom);
     }
 
 
-    private Optional<String> getOptionalType() {
-        return type != null ? Optional.of(type.toString()) : Optional.empty();
+    private Optional<String> getOptionalNpcClass() {
+        return npcClassId != null ? Optional.of(npcClassId.toString()) : Optional.empty();
     }
 
 
@@ -76,27 +76,27 @@ public class NpcInitializationData {
             return false;
 
         if(isRandom != null && isRandom){
-            Registry<NpcType> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TYPE);
-            List<RegistryKey<NpcType>> entryList =  registry.streamKeys().toList();
+            Registry<NpcClass> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
+            List<RegistryKey<NpcClass>> entryList =  registry.streamKeys().toList();
             Random random = new Random();
-            RegistryKey<NpcType> randomKey = entryList.get(random.nextInt(entryList.size()));
-            this.type = randomKey.getValue();
+            RegistryKey<NpcClass> randomKey = entryList.get(random.nextInt(entryList.size()));
+            this.npcClassId = randomKey.getValue();
             this.isRandom = false;
         }
 
-        if(type != null){
-            Registry<NpcType> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TYPE);
-            NpcType npcType = registry.get(type);
-            if(npcType == null)
+        if(npcClassId != null){
+            Registry<NpcClass> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
+            NpcClass npcClass = registry.get(npcClassId);
+            if(npcClass == null)
                 return false;
-            RegistryEntry<NpcType> entry = registry.getEntry(npcType);
-            this.type = null;
+            RegistryEntry<NpcClass> entry = registry.getEntry(npcClass);
+            this.npcClassId = null;
             EntityCategories category = null;
-            if(!npcType.hasCategory(world, category))
-                category = npcType.getNpcTextureData(world).getRandomCategory();
+            if(!npcClass.hasCategory(world, category))
+                category = npcClass.getNpcTextureData(world).getRandomCategory();
 
             entity.saveCategory(category);
-            entity.saveNpcType(entry);
+            entity.saveNpcClass(entry);
 
             return true;
         }

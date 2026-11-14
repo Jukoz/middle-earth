@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.ShireNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.ShireNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -27,22 +27,22 @@ public class ShireFactionPool {
         SHIRE = new Faction(FactionRegistry.SHIRE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        ShireNpcTypePool.PEASANT
+                        ShireNpcClassPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            ShireNpcTypePool.MILITIA
+                            ShireNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            ShireNpcTypePool.SHIRRIFF
+                            ShireNpcClassPool.SHIRRIFF
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            ShireNpcTypePool.SHIRRIFF
+                            ShireNpcClassPool.SHIRRIFF
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            ShireNpcTypePool.SHIRRIFF
+                            ShireNpcClassPool.SHIRRIFF
                     ));
                     put(NpcRank.LEADER, List.of(
-                            ShireNpcTypePool.SHIRRIFF
+                            ShireNpcClassPool.SHIRRIFF
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -68,9 +68,9 @@ public class LanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
-        // The role takes the place of the noun: Shire Baker, Rohan Herdsman
-        NpcRoles.all().forEach(role -> {
-            String path = role.getValue().getPath();
+        // The job takes the place of the noun: Shire Baker, Rohan Herdsman
+        NpcJobs.all().forEach(job -> {
+            String path = job.getValue().getPath();
             translationBuilder.add("npc_role." + MiddleEarth.MOD_ID + "." + path, "%s " + generateName(path));
         });
 
@@ -110,7 +110,7 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "faction", faction);
         });
 
-        TranslationEntries.npcTypeEntries.forEach(npcData -> {
+        TranslationEntries.npcClassEntries.forEach(npcData -> {
             createNpcDataTranslation(translationBuilder, "npc_type", npcData);
         });
 

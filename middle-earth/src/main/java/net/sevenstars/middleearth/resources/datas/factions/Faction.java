@@ -36,9 +36,9 @@ import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcTypeLookup;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClassLookup;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
 
@@ -147,7 +147,7 @@ public class Faction {
     }
 
     public Faction(RegistryKey<Faction> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
-                   List<Identifier> subFactions, HashMap<NpcRank, List<NpcType>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
+                   List<Identifier> subFactions, HashMap<NpcRank, List<NpcClass>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
                    List<String> joinCommand, List<String> leaveCommand,
                    List<InitialDiplomacy> initialDiplomacies)
     {
@@ -180,7 +180,7 @@ public class Faction {
             this.npcDatasByRank = new HashMap<>();
             for(NpcRank rank : npcDatas.keySet()){
                 List<Identifier> listOfIdentifiers = new ArrayList<>();
-                for(NpcType data : npcDatas.get(rank)){
+                for(NpcClass data : npcDatas.get(rank)){
                     listOfIdentifiers.add(data.getId());
                 }
                 this.npcDatasByRank.put(rank, listOfIdentifiers);
@@ -319,14 +319,14 @@ public class Faction {
         return id.toString();
     }
 
-    public NpcType getRandomGear(World world, NpcRank npcRank, Race race) {
+    public NpcClass getRandomGear(World world, NpcRank npcRank, Race race) {
         if(!this.npcDatasByRank.containsKey(npcRank))
             return null;
-        List<NpcType> npcTypeList = NpcTypeLookup.getAllNpcTypesFromRace(world, getNpcPoolFromRank(npcRank), race.getId());
-        if(npcTypeList.isEmpty())
+        List<NpcClass> npcClassList = NpcClassLookup.getAllNpcClassesFromRace(world, getNpcPoolFromRank(npcRank), race.getId());
+        if(npcClassList.isEmpty())
             return null;
         Random random = new Random();
-        return npcTypeList.get(random.nextInt(0, npcTypeList.size()));
+        return npcClassList.get(random.nextInt(0, npcClassList.size()));
     }
 
     public WeightedGearData getPreviewGear(World world, Race selectedRace){
@@ -340,12 +340,12 @@ public class Faction {
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
 
-        List<NpcType> npcTypeList = NpcTypeLookup.getAllNpcTypesFromRace(world, identifiersToUse, selectedRace.getId());
-        if(npcTypeList.isEmpty())
+        List<NpcClass> npcClassList = NpcClassLookup.getAllNpcClassesFromRace(world, identifiersToUse, selectedRace.getId());
+        if(npcClassList.isEmpty())
             return WeightedGearData.Create();
         Random random = new Random();
-        NpcType foundNpcType = npcTypeList.get(random.nextInt(0, npcTypeList.size()));
-        return foundNpcType.getGear();
+        NpcClass foundNpcClass = npcClassList.get(random.nextInt(0, npcClassList.size()));
+        return foundNpcClass.getGear();
     }
 
     private List<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
@@ -427,8 +427,8 @@ public class Faction {
 
         List<Identifier> allRaceIds = new ArrayList<>();
         for(NpcRank rank : this.npcDatasByRank.keySet()){
-            List<NpcType> datas = NpcTypeLookup.getAllNpcTypes(world, this.npcDatasByRank.get(rank));
-            for(NpcType data : datas){
+            List<NpcClass> datas = NpcClassLookup.getAllNpcClasses(world, this.npcDatasByRank.get(rank));
+            for(NpcClass data : datas){
                 if(data != null)
                     allRaceIds.add(data.getRace());
             }

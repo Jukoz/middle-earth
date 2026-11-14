@@ -68,12 +68,12 @@ import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.dev.NpcDebug;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
@@ -601,7 +601,7 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = null;
         carried = null;
         facing = null;
-        boolean sentry = NpcRoles.SENTRY.getValue().equals(npc.getRoleId());
+        boolean sentry = NpcJobs.SENTRY.getValue().equals(npc.getJobId());
         // What the build lacks, the duty falls back from
         if(picked == RoutineData.Activity.POST && sentry && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
             fallsBack(picked, "no lookout marked in this build, patrols instead");
@@ -917,8 +917,8 @@ public class NpcRoutineGoal extends Goal {
     public void stop() {
         if(phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING) {
             LivingEntity foe = npc.getTarget();
-            // Every npc is of the one entity kind, and is told apart by its own type
-            String foeName = foe == null ? "" : foe instanceof NpcEntity other && other.getNpcType() != null ? other.getNpcType().getId().getPath()
+            // Every npc is of the one entity kind, and is told apart by its own class
+            String foeName = foe == null ? "" : foe instanceof NpcEntity other && other.getNpcClass() != null ? other.getNpcClass().getId().getPath()
                     : Registries.ENTITY_TYPE.getId(foe.getType()).getPath();
             abandoned(foe != null ? "interrupted by a fight with " + foeName
                     : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
@@ -1178,8 +1178,8 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private String who() {
-        NpcType type = npc.getNpcType();
-        return (type == null ? "npc" : type.getId().getPath()) + (npc.getRoleId() == null ? "" : " [" + npc.getRoleId().getPath() + "]");
+        NpcClass npcClass = npc.getNpcClass();
+        return (npcClass == null ? "npc" : npcClass.getId().getPath()) + (npc.getJobId() == null ? "" : " [" + npc.getJobId().getPath() + "]");
     }
 
     private static String itemName(Item item) {
@@ -1690,7 +1690,7 @@ public class NpcRoutineGoal extends Goal {
         deadline = time + ROUTINE_TIME_LIMIT;
     }
 
-    // The lord of the place is the one of its people who holds the role, found once and known by its id after
+    // The lord of the place is the one of its people who holds the job, found once and known by its id after
     private @Nullable NpcEntity findLord(ServerWorld world) {
         if(lordId != null && world.getEntity(lordId) instanceof NpcEntity known && known.isAlive())
             return known;
@@ -1701,7 +1701,7 @@ public class NpcRoutineGoal extends Goal {
         int reach = (site == null ? 0 : site.getExtent()) + LORD_SEARCH_RANGE;
         NpcEntity nearest = null;
         for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(reach, 48, reach),
-                other -> other != npc && other.isAlive() && NpcRoles.isLord(other.getRoleId()) && Objects.equals(npc.getFactionIdentifier(), other.getFactionIdentifier()))) {
+                other -> other != npc && other.isAlive() && NpcJobs.isLord(other.getJobId()) && Objects.equals(npc.getFactionIdentifier(), other.getFactionIdentifier()))) {
             if(nearest == null || npc.squaredDistanceTo(other) < npc.squaredDistanceTo(nearest))
                 nearest = other;
         }
@@ -1817,8 +1817,8 @@ public class NpcRoutineGoal extends Goal {
 
     // The npc on its own mount, which it steers with the mount's own legs
     private boolean riding() {
-        NpcType type = npc.getNpcType();
-        return type != null && type.hasMount() && npc.getVehicle() instanceof MobEntity mount && mount.getFirstPassenger() == npc;
+        NpcClass npcClass = npc.getNpcClass();
+        return npcClass != null && npcClass.hasMount() && npc.getVehicle() instanceof MobEntity mount && mount.getFirstPassenger() == npc;
     }
 
     // What the one that does the walking is: the mount of a rider
@@ -1895,11 +1895,11 @@ public class NpcRoutineGoal extends Goal {
     // Where the place has a hunter of its own, the hunting is the hunter's, and the rest keep to their other work
     private boolean leftToHunters(ServerWorld world) {
         BlockPos managerPos = npc.getStructureManagerHostPos();
-        if(NpcRoles.HUNTER.getValue().equals(npc.getRoleId()) || managerPos == null || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)
+        if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)
                 || !(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager))
             return false;
         for(UUID resident : manager.residents()) {
-            if(world.getEntity(resident) instanceof NpcEntity other && other.isAlive() && NpcRoles.HUNTER.getValue().equals(other.getRoleId()))
+            if(world.getEntity(resident) instanceof NpcEntity other && other.isAlive() && NpcJobs.HUNTER.getValue().equals(other.getJobId()))
                 return true;
         }
         return false;
@@ -2250,7 +2250,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private boolean isCookWork() {
-        return NpcRoles.COOK.getValue().equals(npc.getRoleId());
+        return NpcJobs.COOK.getValue().equals(npc.getJobId());
     }
 
     // Raw is what a smoker would cook: meat and fish
@@ -2340,7 +2340,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private boolean isStableWork() {
-        return NpcRoles.STABLES_MASTER.getValue().equals(npc.getRoleId());
+        return NpcJobs.STABLES_MASTER.getValue().equals(npc.getJobId());
     }
 
     // The spawn_animal marker a stable master tends: one it is linked to, or else the nearest to home

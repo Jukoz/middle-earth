@@ -18,13 +18,13 @@ import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegist
 import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
@@ -34,16 +34,16 @@ import net.sevenstars.middleearth.registries.content.structurefeatures.Structure
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.resources.datas.forage.ForageTable;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.id("race"));
     public static final RegistryKey<Registry<Faction>> FACTION = RegistryKey.ofRegistry(MiddleEarth.id("faction"));
-    public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("npc_type"));
-    public static final Codec<RegistryEntry<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_TYPE);
+    public static final RegistryKey<Registry<NpcClass>> NPC_CLASS = RegistryKey.ofRegistry(MiddleEarth.id("npc_type"));
+    public static final Codec<RegistryEntry<NpcClass>> NPC_CLASS_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_CLASS);
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.id("structure_manager_data"));
-    public static final RegistryKey<Registry<NpcRole>> NPC_ROLE = RegistryKey.ofRegistry(MiddleEarth.id("npc_role"));
+    public static final RegistryKey<Registry<NpcJob>> NPC_JOB = RegistryKey.ofRegistry(MiddleEarth.id("npc_role"));
     public static final RegistryKey<Registry<ForageTable>> FORAGE = RegistryKey.ofRegistry(MiddleEarth.id("forage"));
     public static final RegistryKey<Registry<StructureFeatureData>> STRUCTURE_FEATURES = RegistryKey.ofRegistry(MiddleEarth.id("structure_features"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.id("biome_event"));
@@ -65,8 +65,8 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(RACE, Race.CODEC);
-        DynamicRegistries.registerSynced(NPC_TYPE, NpcType.CODEC);
-        DynamicRegistries.registerSynced(NPC_ROLE, NpcRole.CODEC);
+        DynamicRegistries.registerSynced(NPC_CLASS, NpcClass.CODEC);
+        DynamicRegistries.registerSynced(NPC_JOB, NpcJob.CODEC);
         DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
@@ -90,8 +90,8 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
         registryBuilder.addRegistry(RACE, RaceRegistry::bootstrap);
-        registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
-        registryBuilder.addRegistry(NPC_ROLE, NpcRoles::bootstrap);
+        registryBuilder.addRegistry(NPC_CLASS, NpcRegistry::bootstrap);
+        registryBuilder.addRegistry(NPC_JOB, NpcJobs::bootstrap);
         registryBuilder.addRegistry(FACTION, FactionRegistry::bootstrap);
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
@@ -109,7 +109,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(RaceProvider::new);
         pack.addProvider(TexturePresetsProvider::new);
         pack.addProvider(NpcProvider::new);
-        pack.addProvider(NpcRoleProvider::new);
+        pack.addProvider(NpcJobProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(StructureFeaturesProvider::new);

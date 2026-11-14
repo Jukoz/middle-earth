@@ -60,7 +60,7 @@ import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
@@ -70,7 +70,7 @@ import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
 import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.entity.npcs.relations.Relation;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
@@ -84,10 +84,10 @@ import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
+import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.LootData;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -112,7 +112,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         public static final String TRAVEL_HEADING = "TravelHeading";
         public static final String TRAVEL_DESTINATION = "TravelDestination";
         public static final String ROUTINE_HOME = "RoutineHome";
-        public static final String ROLE = "Role";
+        public static final String JOB = "Role";
         public static final String PRISON_CELL = "PrisonCell";
         public static final String ESCORTING = "Escorting";
         public static final String ASSIGNED_BED = "AssignedBed";
@@ -178,8 +178,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final double ARROW_AIR_DRAG = 0.99;
     private static final double MAX_ARROW_FLIGHT_TICKS = 200;
 
-    // The id of the npc's role, empty for none. Tracked so that the client can name the npc for it
-    private static final TrackedData<String> ROLE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
+    // The id of the npc's job, empty for none. Tracked so that the client can name the npc for it
+    private static final TrackedData<String> JOB = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -300,9 +300,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public void resetInitializationData() {
         this.dataTracker.set(NPC_INITIALIZATION_DATA, new NpcInitializationData());
     }
-    // [NpcTypeIdentifier]
-    public void prepareNpcIdentifier(Identifier npcTypeIdentifier){
-        NpcInitializationData newNpcInitializationData = this.retrieveNpcInitializationData().withType(npcTypeIdentifier);
+    // [NpcClassIdentifier]
+    public void prepareNpcIdentifier(Identifier npcClassIdentifier){
+        NpcInitializationData newNpcInitializationData = this.retrieveNpcInitializationData().withNpcClass(npcClassIdentifier);
         this.saveNpcInitializationData(newNpcInitializationData);
     }
     // [NpcData]
@@ -312,20 +312,20 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public NpcData retrieveNpcData() {
         return this.dataTracker.get(NPC_DATA);
     }
-    // [NpcType]
-    public NpcType getNpcType(){
-        return retrieveNpcData().getNpcType();
+    // [NpcClass]
+    public NpcClass getNpcClass(){
+        return retrieveNpcData().getNpcClass();
     }
-    public void saveNpcType(RegistryEntry<NpcType> npcType){
-        NpcData newNpcData = this.retrieveNpcData().withType(npcType);
+    public void saveNpcClass(RegistryEntry<NpcClass> npcClass){
+        NpcData newNpcData = this.retrieveNpcData().withNpcClass(npcClass);
         this.saveNpcData(newNpcData);
     }
     // [Loot Data]
     public LootData retrieveLootData(){
-        NpcType npcType = retrieveNpcData().getNpcType();
-        if(npcType == null)
+        NpcClass npcClass = retrieveNpcData().getNpcClass();
+        if(npcClass == null)
             return null;
-        return npcType.getLootData();
+        return npcClass.getLootData();
     }
     // [Category]
     public EntityCategories getNpcCategory() {
@@ -386,7 +386,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         builder.add(NPC_DATA, new NpcData());
         builder.add(NPC_TEXTURE_DATA, new NpcTextureData());
         builder.add(IS_FIGHTING, false);
-        builder.add(ROLE, "");
+        builder.add(JOB, "");
         builder.add(CROSSBOW_CHARGING, false);
         builder.add(USING_ITEM, 0);
     }
@@ -408,7 +408,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
         view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
         view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
-        view.putNullable(KeyStrings.ROLE, Identifier.CODEC, this.getRoleId());
+        view.putNullable(KeyStrings.JOB, Identifier.CODEC, this.getJobId());
         view.putNullable(KeyStrings.PRISON_CELL, PrisonCell.CODEC, this.prisonCell);
         view.putBoolean(KeyStrings.ESCORTING, this.escorting);
         view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
@@ -438,7 +438,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
         this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
         this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
-        this.setRole(view.read(KeyStrings.ROLE, Identifier.CODEC).orElse(null));
+        this.setJob(view.read(KeyStrings.JOB, Identifier.CODEC).orElse(null));
         this.prisonCell = view.read(KeyStrings.PRISON_CELL, PrisonCell.CODEC).orElse(null);
         this.escorting = view.getBoolean(KeyStrings.ESCORTING, false);
         this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
@@ -452,22 +452,22 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
         clearRoutineProp();
 
-        Identifier savedType = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
-        NpcRegistry.Folded folded = savedType == null ? null : NpcRegistry.FOLDED.get(savedType);
+        Identifier savedClass = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
+        NpcRegistry.Folded folded = savedClass == null ? null : NpcRegistry.FOLDED.get(savedClass);
         if(folded != null) {
-            // Its gear stays as it was saved, only the type it is and the role it has change
+            // Its gear stays as it was saved, only the class it is and the job it has change
             ReadView data = view.getOptionalReadView(KeyStrings.DATA).orElseThrow();
-            Registry<NpcType> types = getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TYPE);
-            NpcType base = types.get(folded.type().getValue());
-            foundNpcData = new NpcData(Optional.ofNullable(base).map(types::getEntry), data.read("Category", Codec.STRING),
+            Registry<NpcClass> classes = getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
+            NpcClass base = classes.get(folded.npcClass().getValue());
+            foundNpcData = new NpcData(Optional.ofNullable(base).map(classes::getEntry), data.read("Category", Codec.STRING),
                     data.read("SpawnReason", Codec.STRING), data.read("StructureManagerPos", BlockPos.CODEC));
-            if(getRoleId() == null)
-                setRole(folded.role().getValue());
+            if(getJobId() == null)
+                setJob(folded.job().getValue());
         }
 
         String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
         if(npcDataId != null){
-            foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.ofId(npcDataId));
+            foundNpcInitializationData = foundNpcInitializationData.withNpcClass(MiddleEarth.ofId(npcDataId));
             foundNpcData = new NpcData();
             foundNpcTextureData = new  NpcTextureData();
             isFighting = false;
@@ -490,9 +490,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     public @Nullable ItemStack getPickBlockStack() {
-        if(getNpcType() == null)
+        if(getNpcClass() == null)
             return ItemStack.EMPTY;
-        return NpcSpawnEggHelper.getSpawnEgg(getEntityWorld(), getNpcType().getId());
+        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcClass().getId());
     }
     public void updateAttackType() {
         if (this.getEntityWorld() != null && !this.getEntityWorld().isClient()) {
@@ -513,8 +513,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     //region [DATA TRANSFER]
-    public Identifier getNpcTypeIdentifier(){
-        return retrieveNpcData().getNpcTypeId();
+    public Identifier getNpcClassIdentifier(){
+        return retrieveNpcData().getNpcClassId();
     }
     public Identifier getFactionIdentifier(){
         Faction faction = getFaction();
@@ -813,18 +813,18 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         setVelocity(velocity.x, getJumpVelocity(), velocity.z);
     }
 
-    public void setRole(@Nullable Identifier role) {
-        this.dataTracker.set(ROLE, role == null ? "" : role.toString());
+    public void setJob(@Nullable Identifier job) {
+        this.dataTracker.set(JOB, job == null ? "" : job.toString());
     }
 
-    // Given once, after the gear of the type is on: a role named for its trade swaps what is in the hand for its tool
-    public void takeRole(Identifier role) {
-        setRole(role);
+    // Given once, after the gear of the class is on: a job named for its trade swaps what is in the hand for its tool
+    public void takeJob(Identifier job) {
+        setJob(job);
         if(isPrisoner()) {
             disarm();
             return;
         }
-        NpcRole taken = getRole();
+        NpcJob taken = getJob();
         if(taken == null || !taken.replacesName())
             return;
         Optional<Item> tool = taken.otherTool().isPresent() && getRandom().nextBoolean() ? taken.otherTool() : taken.tool();
@@ -838,7 +838,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public boolean isPrisoner() {
-        return NpcRoles.PRISONER.getValue().equals(getRoleId());
+        return NpcJobs.PRISONER.getValue().equals(getJobId());
     }
 
     public @Nullable PrisonCell getPrisonCell() {
@@ -903,7 +903,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             StructureManagerBlockEntity.triggerDeathSignal(managerPos, this);
         }
         prisonCell = null;
-        setRole(null);
+        setJob(null);
         rearm();
         saveNpcData(retrieveNpcData().withoutStructureManagerPos());
         routineHome = null;
@@ -920,25 +920,25 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         setTravelHeading(heading);
     }
 
-    public @Nullable Identifier getRoleId() {
-        String role = this.dataTracker.get(ROLE);
-        return role.isEmpty() ? null : Identifier.tryParse(role);
+    public @Nullable Identifier getJobId() {
+        String job = this.dataTracker.get(JOB);
+        return job.isEmpty() ? null : Identifier.tryParse(job);
     }
 
-    public @Nullable NpcRole getRole() {
-        Identifier id = getRoleId();
+    public @Nullable NpcJob getJob() {
+        Identifier id = getJobId();
         if(id == null)
             return null;
-        return getWorld().getRegistryManager().getOptional(DynamicRegistriesME.NPC_ROLE).map(roles -> roles.get(id)).orElse(null);
+        return getWorld().getRegistryManager().getOptional(DynamicRegistriesME.NPC_JOB).map(jobs -> jobs.get(id)).orElse(null);
     }
 
-    // What the npc does with its day: its role's say where it has one, its type's otherwise
+    // What the npc does with its day: its job's say where it has one, its class's otherwise
     public @Nullable RoutineData getRoutine() {
-        NpcRole role = getRole();
-        if(role != null && role.routine().isPresent())
-            return role.routine().get();
-        NpcType type = getNpcType();
-        return type == null ? null : type.getRoutine();
+        NpcJob job = getJob();
+        if(job != null && job.routine().isPresent())
+            return job.routine().get();
+        NpcClass npcClass = getNpcClass();
+        return npcClass == null ? null : npcClass.getRoutine();
     }
 
     public boolean keepsBounds() {
@@ -947,8 +947,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public boolean isElf() {
-        NpcType type = getNpcType();
-        return type != null && RaceRegistry.ELF.getValue().equals(type.getRace());
+        NpcClass npcClass = getNpcClass();
+        return npcClass != null && RaceRegistry.ELF.getValue().equals(npcClass.getRace());
     }
 
     public boolean isRestTime() {
@@ -1074,10 +1074,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         else if(routine && routineGoal != null) doing = routineGoal.debugLabel();
         else if(travel) doing = isEscorting() ? "escorting" : getPartyLeader() != null ? "following party leader" : getTravelDestination() != null || getTravelHeading() != null ? "travelling" : "wandering";
         else if(isRestTime()) doing = getAssignedBed() == null ? "night, no bed" : "resting at home";
-        NpcType type = getNpcType();
-        String who = type == null ? "npc" : type.getId().getPath();
-        if(getRoleId() != null)
-            who += " [" + getRoleId().getPath() + "]";
+        NpcClass npcClass = getNpcClass();
+        String who = npcClass == null ? "npc" : npcClass.getId().getPath();
+        if(getJobId() != null)
+            who += " [" + getJobId().getPath() + "]";
         String label = who + ": " + doing;
         if(getCustomName() == null || !getCustomName().getString().equals(label)) {
             super.setCustomName(Text.literal(label));
@@ -1144,7 +1144,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        // Gear comes from the npc type, not vanilla's random armour
+        // Gear comes from the npc class, not vanilla's random armour
     }
 
     @Override
@@ -1200,7 +1200,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
-        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcType().getId().withPrefixedPath("entities/"));
+        RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcClass().getId().withPrefixedPath("entities/"));
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
 
         if (lootTable != null) {
@@ -1306,14 +1306,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected Text getDefaultName() {
-        if(this.getNpcTypeIdentifier() == null) {
+        if(this.getNpcClassIdentifier() == null) {
             return Text.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
         }
-        NpcRole role = getRole();
+        NpcJob job = getJob();
         Identifier faction = getFactionIdentifier();
-        if(role != null && role.replacesName() && faction != null)
-            return Text.translatable(getRoleId().toTranslationKey("npc_role"), Text.translatable(faction.toTranslationKey("faction")));
-        return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));
+        if(job != null && job.replacesName() && faction != null)
+            return Text.translatable(getJobId().toTranslationKey("npc_role"), Text.translatable(faction.toTranslationKey("faction")));
+        return Text.translatable(this.getNpcClassIdentifier().toTranslationKey("npc_type"));
     }
 
     @Override

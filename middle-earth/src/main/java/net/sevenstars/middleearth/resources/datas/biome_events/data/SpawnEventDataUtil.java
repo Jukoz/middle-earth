@@ -22,13 +22,13 @@ import java.util.UUID;
 
 public class SpawnEventDataUtil {
     // # Comparators
-    static boolean compareId(NpcEntity entity, Identifier npcTypeToCompare) {
+    static boolean compareId(NpcEntity entity, Identifier npcClassToCompare) {
         if(entity == null)
             return false;
-        Identifier entityId = entity.getNpcTypeIdentifier();
-        if(entityId == null || npcTypeToCompare == null)
+        Identifier entityId = entity.getNpcClassIdentifier();
+        if(entityId == null || npcClassToCompare == null)
             return false;
-        return IdentifierUtil.compareId(entityId, npcTypeToCompare);
+        return IdentifierUtil.compareId(entityId, npcClassToCompare);
     }
 
     static boolean compareEntitiesByType(LivingEntity entity, Identifier entityType) {
@@ -46,22 +46,22 @@ public class SpawnEventDataUtil {
 
         Box searchBox = Box.of(pos.toCenterPos(), sameEntityDistance, sameEntityDistance, sameEntityDistance);
 
-        boolean hasNpcTypeLimit = targetEntityType == EntitiesME.NPC && data.getNpcType(null) != null;
-        int sameNpcTypeAmount = data.getSameNpcTypeLimitAmount().orElse(5);
-        int sameNpcTypeDistance = data.getSameNpcTypeLimitDistance().orElse(128);
-        boolean sameNpcTypeSurfaceOnly = data.getSameNpcTypeSurfaceOnly().orElse(false);
-        Box npcSearchBox = hasNpcTypeLimit ? Box.of(pos.toCenterPos(), sameNpcTypeDistance, sameNpcTypeDistance, sameNpcTypeDistance) : null;
+        boolean hasNpcClassLimit = targetEntityType == EntitiesME.NPC && data.getNpcClass(null) != null;
+        int sameNpcClassAmount = data.getSameNpcClassLimitAmount().orElse(5);
+        int sameNpcClassDistance = data.getSameNpcClassLimitDistance().orElse(128);
+        boolean sameNpcClassSurfaceOnly = data.getSameNpcClassSurfaceOnly().orElse(false);
+        Box npcSearchBox = hasNpcClassLimit ? Box.of(pos.toCenterPos(), sameNpcClassDistance, sameNpcClassDistance, sameNpcClassDistance) : null;
 
         // Client worlds never decide a spawn
         if(!(world instanceof ServerWorld serverWorld))
             return true;
         if(SpawnCensus.count(serverWorld, searchBox, targetEntityType, null, sameEntitySurfaceOnly, sameEntityAmount) >= sameEntityAmount)
             return false;
-        if(!hasNpcTypeLimit)
+        if(!hasNpcClassLimit)
             return true;
-        if(sameNpcTypeAmount <= 0)
+        if(sameNpcClassAmount <= 0)
             return false;
-        return SpawnCensus.count(serverWorld, npcSearchBox, targetEntityType, data.getNpcType(null), sameNpcTypeSurfaceOnly, sameNpcTypeAmount) < sameNpcTypeAmount;
+        return SpawnCensus.count(serverWorld, npcSearchBox, targetEntityType, data.getNpcClass(null), sameNpcClassSurfaceOnly, sameNpcClassAmount) < sameNpcClassAmount;
     }
 
     static boolean meetsStructureManagerClearance(WildSpawnEventData data, World world, BlockPos pos) {

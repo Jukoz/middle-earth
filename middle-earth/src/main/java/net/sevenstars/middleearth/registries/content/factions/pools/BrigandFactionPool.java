@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.BrigandNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.BrigandNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 
 import java.util.HashMap;
@@ -22,23 +22,23 @@ public class BrigandFactionPool {
         BRIGAND = new Faction(FactionRegistry.BRIGAND, false, DispositionType.NEUTRAL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            BrigandNpcTypePool.THUG
+                            BrigandNpcClassPool.THUG
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            BrigandNpcTypePool.THUG,
-                            BrigandNpcTypePool.THIEF
+                            BrigandNpcClassPool.THUG,
+                            BrigandNpcClassPool.THIEF
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            BrigandNpcTypePool.MERCENARY
+                            BrigandNpcClassPool.MERCENARY
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            BrigandNpcTypePool.CHIEFTAIN
+                            BrigandNpcClassPool.CHIEFTAIN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            BrigandNpcTypePool.CHIEFTAIN
+                            BrigandNpcClassPool.CHIEFTAIN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            BrigandNpcTypePool.CHIEFTAIN
+                            BrigandNpcClassPool.CHIEFTAIN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(

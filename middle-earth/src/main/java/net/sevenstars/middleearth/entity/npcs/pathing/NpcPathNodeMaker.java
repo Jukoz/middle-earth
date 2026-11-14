@@ -20,7 +20,7 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.sevenstars.middleearth.block.special.plants.ToughBerryBushBlock;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.registry.tag.BlockTags;
@@ -550,7 +550,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     }
 
     private boolean isLockedShut(BlockState state) {
-        boolean keyed = state.isIn(NpcDoor.KEYED) && !(entity instanceof NpcEntity npc && NpcRoles.holdsKeys(npc));
+        boolean keyed = state.isIn(NpcDoor.KEYED) && !(entity instanceof NpcEntity npc && NpcJobs.holdsKeys(npc));
         if(!state.isIn(NpcDoor.LOCKED) && !keyed)
             return false;
         if(state.getBlock() instanceof NpcDoor door)

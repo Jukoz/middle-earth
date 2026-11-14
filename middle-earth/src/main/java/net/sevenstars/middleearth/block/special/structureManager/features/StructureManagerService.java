@@ -59,7 +59,7 @@ public class StructureManagerService {
         if(pool.getEntityType() == EntitiesME.NPC){
 
             entity = new NpcEntityBuilder(world, chosenBlockPos)
-                    .withNpcType(pool.getNpcIdentifier().get())
+                    .withNpcClass(pool.getNpcIdentifier().get())
                     .build();
         } else {
             entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);

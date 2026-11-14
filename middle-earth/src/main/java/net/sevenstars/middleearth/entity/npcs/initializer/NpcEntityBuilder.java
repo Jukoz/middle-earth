@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcTypeLookup;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClassLookup;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityBuilder {
@@ -19,7 +19,7 @@ public class NpcEntityBuilder {
             this.entity.setPosition(pos.toCenterPos());
     }
 
-    public NpcEntityBuilder withNpcType(Identifier identifier) {
+    public NpcEntityBuilder withNpcClass(Identifier identifier) {
         this.entity.prepareNpcIdentifier(identifier);
         return this;
     }

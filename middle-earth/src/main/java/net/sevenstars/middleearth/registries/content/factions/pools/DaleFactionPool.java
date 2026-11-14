@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.DalishNpcTypePool;
+import net.sevenstars.middleearth.registries.content.npcclasses.pools.DalishNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -28,24 +28,24 @@ public class DaleFactionPool {
         DALE = new Faction(FactionRegistry.DALE, true, DispositionType.GOOD, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                        DalishNpcTypePool.PEASANT
+                        DalishNpcClassPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                        DalishNpcTypePool.MILITIA
+                        DalishNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                        DalishNpcTypePool.SOLDIER,
-                        DalishNpcTypePool.ARCHER
+                        DalishNpcClassPool.SOLDIER,
+                        DalishNpcClassPool.ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                        DalishNpcTypePool.KNIGHT,
-                        DalishNpcTypePool.ELITE_ARCHER
+                        DalishNpcClassPool.KNIGHT,
+                        DalishNpcClassPool.ELITE_ARCHER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                        DalishNpcTypePool.VETERAN
+                        DalishNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                        DalishNpcTypePool.SERGEANT
+                        DalishNpcClassPool.SERGEANT
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

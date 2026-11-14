@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
-import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 
 import java.util.Optional;
 
@@ -22,20 +22,20 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
     public static final PacketCodec<RegistryByteBuf, PacketBedTagUpdateRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.type,
-            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.role,
+            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.job,
             PacketCodecs.BOOLEAN, p -> p.resetLinks,
             PacketBedTagUpdateRequest::new
     );
 
     private final BlockPos pos;
     private final String type;
-    private final String role;
+    private final String job;
     private final boolean resetLinks;
 
-    public PacketBedTagUpdateRequest(BlockPos pos, String type, String role, boolean resetLinks) {
+    public PacketBedTagUpdateRequest(BlockPos pos, String type, String job, boolean resetLinks) {
         this.pos = pos;
         this.type = type;
-        this.role = role;
+        this.job = job;
         this.resetLinks = resetLinks;
     }
 
@@ -59,8 +59,8 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                 return;
             BedTag tag = null;
             if(!type.isEmpty()) {
-                Identifier id = role.isEmpty() ? null : Identifier.tryParse(role);
-                if(!BedTag.types().contains(type) || !role.isEmpty() && (id == null || NpcRoles.get(id) == null))
+                Identifier id = job.isEmpty() ? null : Identifier.tryParse(job);
+                if(!BedTag.types().contains(type) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
                     return;
                 BedTag before = holder.getBedTag();
                 tag = new BedTag(type, Optional.ofNullable(id));

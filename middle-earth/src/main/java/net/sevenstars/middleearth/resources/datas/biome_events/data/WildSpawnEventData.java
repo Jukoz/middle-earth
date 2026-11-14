@@ -14,10 +14,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +29,8 @@ public class WildSpawnEventData {
             .withWeight(2)
             // Can have at most 10 other npcs around 32 blocks
             .withSameEntity(10, 32)
-            // Can have at most 1 npcs of the same type around 64 blocks
-            .withSameNpcType(1, 64)
+            // Can have at most 1 npcs of the same class around 64 blocks
+            .withSameNpcClass(1, 64)
             // Cannot spawn if there's a structure manager block in a radius of 64 blocks
             .structureManagerRadiusAvoidance(64)
             // Set limits of light levels for spawns
@@ -46,11 +46,11 @@ public class WildSpawnEventData {
 
     public static class Fields {
         public static final String ENTITY_TYPE = "entity_type";
-        public static final String NPC_TYPE = "npc_type";
+        public static final String NPC_CLASS = "npc_type";
         public static final String WEIGHT = "weight";
 
         public static final String SAME_ENTITY_LIMITATION = "same_entity_limitation";
-        public static final String SAME_NPC_TYPE_LIMITATION = "same_npc_type_limitation";
+        public static final String SAME_NPC_CLASS_LIMITATION = "same_npc_type_limitation";
         public static final String STRUCTURE_MANAGER_AVOIDANCE_DISTANCE = "structure_manager_avoidance_distance";
 
         public static final String LIGHT_LEVEL_MAXIMUM = "light_level_maximum";
@@ -67,16 +67,16 @@ public class WildSpawnEventData {
         public static final String DISCARD_CHANCE = "discard_chance";
         public static final String BROADCAST = "broadcast";
         public static final String PARTY = "party";
-        public static final String ROLE = "role";
+        public static final String JOB = "role";
     }
 
     public static final Codec<WildSpawnEventData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf(Fields.ENTITY_TYPE).forGetter(WildSpawnEventData::getEntityType),
-            Identifier.CODEC.optionalFieldOf(Fields.NPC_TYPE).forGetter(WildSpawnEventData::getOptionalNpcType),
+            Identifier.CODEC.optionalFieldOf(Fields.NPC_CLASS).forGetter(WildSpawnEventData::getOptionalNpcClass),
             Codec.INT.optionalFieldOf(Fields.WEIGHT).forGetter(WildSpawnEventData::getOptionalWeight),
 
             EntityLimitationData.CODEC.optionalFieldOf(Fields.SAME_ENTITY_LIMITATION).forGetter(WildSpawnEventData::getSameEntityLimitation),
-            EntityLimitationData.CODEC.optionalFieldOf(Fields.SAME_NPC_TYPE_LIMITATION).forGetter(WildSpawnEventData::getSameNpcTypeLimitation),
+            EntityLimitationData.CODEC.optionalFieldOf(Fields.SAME_NPC_CLASS_LIMITATION).forGetter(WildSpawnEventData::getSameNpcClassLimitation),
             Codec.INT.optionalFieldOf(Fields.STRUCTURE_MANAGER_AVOIDANCE_DISTANCE).forGetter(WildSpawnEventData::getStructureManagerRadiusAvoidance),
 
             Codec.INT.optionalFieldOf(Fields.WORLD_HEIGHT_MAXIMUM).forGetter(WildSpawnEventData::getShouldSpawnBelow),
@@ -93,14 +93,14 @@ public class WildSpawnEventData {
 
             Codec.DOUBLE.optionalFieldOf(Fields.DISCARD_CHANCE).forGetter(WildSpawnEventData::getDiscardChances),
 
-            Extras.CODEC.forGetter(data -> new Extras(data.getBroadcast(), data.getOptionalParty(), data.getOptionalRole()))
+            Extras.CODEC.forGetter(data -> new Extras(data.getBroadcast(), data.getOptionalParty(), data.getOptionalJob()))
     ).apply(instance, WildSpawnEventData::new));
 
     private final Identifier entityType;
-    private Identifier npcType = null;
+    private Identifier npcClass = null;
     private Integer weight = null;
     private EntityLimitationData sameEntityLimitation = null;
-    private EntityLimitationData sameNpcTypeLimitation = null;
+    private EntityLimitationData sameNpcClassLimitation = null;
     private Integer structureManagerRadiusAvoidance = null;
     private Integer shouldSpawnBelow = null;
     private Integer shouldSpawnAbove = null;
@@ -113,15 +113,15 @@ public class WildSpawnEventData {
     private Double discardChance = null;
     private BroadcastData broadcastData = null;
     private PartyData partyData = null;
-    private Identifier role = null;
+    private Identifier job = null;
 
 
     private WildSpawnEventData(
             Identifier entityType, 
-            Optional<Identifier> npcType,
+            Optional<Identifier> npcClass,
             Optional<Integer> weight,
             Optional<EntityLimitationData> sameEntityLimitation,
-            Optional<EntityLimitationData> sameNpcTypeLimitation,
+            Optional<EntityLimitationData> sameNpcClassLimitation,
             Optional<Integer> structureManagerRadiusAvoidance,
             Optional<Integer> shouldSpawnBelow,
             Optional<Integer> shouldSpawnAbove,
@@ -134,10 +134,10 @@ public class WildSpawnEventData {
             Optional<Double> discardChance,
             Extras extras) {
         this.entityType = entityType;
-        this.npcType = npcType.orElse(null);
+        this.npcClass = npcClass.orElse(null);
         this.weight = weight.orElse(null);
         this.sameEntityLimitation = sameEntityLimitation.orElse(null);
-        this.sameNpcTypeLimitation = sameNpcTypeLimitation.orElse(null);
+        this.sameNpcClassLimitation = sameNpcClassLimitation.orElse(null);
         this.structureManagerRadiusAvoidance = structureManagerRadiusAvoidance.orElse(null);
         this.shouldSpawnBelow = shouldSpawnBelow.orElse(null);
         this.shouldSpawnAbove = shouldSpawnAbove.orElse(null);
@@ -150,16 +150,16 @@ public class WildSpawnEventData {
         this.discardChance = discardChance.orElse(null);
         this.broadcastData = extras.broadcast().orElse(null);
         this.partyData = extras.party().orElse(null);
-        this.role = extras.role().orElse(null);
+        this.job = extras.job().orElse(null);
     }
 
     public WildSpawnEventData(EntityType<?> entityType){
         this.entityType = Registries.ENTITY_TYPE.getId(entityType);
     }
 
-    public WildSpawnEventData(RegistryKey<NpcType> npcType){
+    public WildSpawnEventData(RegistryKey<NpcClass> npcClass){
         this.entityType = Registries.ENTITY_TYPE.getId(EntitiesME.NPC);
-        this.npcType = npcType.getValue();
+        this.npcClass = npcClass.getValue();
         this.sameEntityLimitation = new EntityLimitationData();
         this.sameEntityLimitation.withEntitySurfaceOnly();
         this.requireSky = true;
@@ -169,12 +169,12 @@ public class WildSpawnEventData {
         return entityType;
     }
 
-    public Identifier getNpcType(Identifier defaultNpcType) {
-        return npcType == null ? defaultNpcType : npcType;
+    public Identifier getNpcClass(Identifier defaultNpcClass) {
+        return npcClass == null ? defaultNpcClass : npcClass;
     }
 
-    private Optional<Identifier> getOptionalNpcType() {
-        return npcType == null ? Optional.empty() : Optional.of(npcType);
+    private Optional<Identifier> getOptionalNpcClass() {
+        return npcClass == null ? Optional.empty() : Optional.of(npcClass);
 
     }
 
@@ -194,8 +194,8 @@ public class WildSpawnEventData {
     public Optional<EntityLimitationData> getSameEntityLimitation() {
         return Optional.ofNullable(this.sameEntityLimitation);
     }
-    public Optional<EntityLimitationData> getSameNpcTypeLimitation() {
-        return Optional.ofNullable(this.sameNpcTypeLimitation);
+    public Optional<EntityLimitationData> getSameNpcClassLimitation() {
+        return Optional.ofNullable(this.sameNpcClassLimitation);
     }
 
     // #Region [Same Entity]
@@ -254,55 +254,55 @@ public class WildSpawnEventData {
     // #endregion
 
     // #Region [Same NPC]
-    public Optional<Integer> getSameNpcTypeLimitDistance() {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public Optional<Integer> getSameNpcClassLimitDistance() {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) return Optional.empty();
         return data.getEntityLimitDistance();
     }
-    public WildSpawnEventData withSameNpcTypeLimitDistance(int newDistance) {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public WildSpawnEventData withSameNpcClassLimitDistance(int newDistance) {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) data = new EntityLimitationData();
         data.withEntityLimitDistance(newDistance);
-        this.sameNpcTypeLimitation = data;
+        this.sameNpcClassLimitation = data;
         return this;
     }
-    public Optional<Integer> getSameNpcTypeLimitAmount() {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public Optional<Integer> getSameNpcClassLimitAmount() {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) return Optional.empty();
         return data.getEntityLimitAmount();
     }
-    public WildSpawnEventData withSameNpcTypeLimitAmount(int newLimitAmount) {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public WildSpawnEventData withSameNpcClassLimitAmount(int newLimitAmount) {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) data = new EntityLimitationData();
         data.withEntityLimitAmount(newLimitAmount);
-        this.sameNpcTypeLimitation = data;
+        this.sameNpcClassLimitation = data;
         return this;
     }
-    public WildSpawnEventData withSameNpcType(int maxAmount, int distance) {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public WildSpawnEventData withSameNpcClass(int maxAmount, int distance) {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) data = new EntityLimitationData();
         data.withEntityLimitAmount(maxAmount);
         data.withEntityLimitDistance(distance);
-        this.sameNpcTypeLimitation = data;
+        this.sameNpcClassLimitation = data;
         return this;
     }
-    public Optional<Boolean> getSameNpcTypeSurfaceOnly() {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public Optional<Boolean> getSameNpcClassSurfaceOnly() {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) return Optional.empty();
         return data.getEntitySurfaceOnly();
     }
-    public WildSpawnEventData withNpcTypeSurfaceOnly() {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public WildSpawnEventData withNpcClassSurfaceOnly() {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) data = new EntityLimitationData();
         data.withEntitySurfaceOnly();
-        this.sameNpcTypeLimitation = data;
+        this.sameNpcClassLimitation = data;
         return this;
     }
-    public WildSpawnEventData withoutNpcTypeSurfaceOnly() {
-        EntityLimitationData data = getSameNpcTypeLimitation().orElse(null);
+    public WildSpawnEventData withoutNpcClassSurfaceOnly() {
+        EntityLimitationData data = getSameNpcClassLimitation().orElse(null);
         if(data == null) data = new EntityLimitationData();
         data.withoutEntitySurfaceOnly();
-        this.sameNpcTypeLimitation = data;
+        this.sameNpcClassLimitation = data;
         return this;
     }
     // #endregion
@@ -452,17 +452,17 @@ public class WildSpawnEventData {
         return this;
     }
 
-    private Optional<Identifier> getOptionalRole() {
-        return Optional.ofNullable(role);
+    private Optional<Identifier> getOptionalJob() {
+        return Optional.ofNullable(job);
     }
 
-    public @Nullable Identifier getRole() {
-        return role;
+    public @Nullable Identifier getJob() {
+        return job;
     }
 
     // What the one spawned does, given once it is dressed: a peasant who fishes
-    public WildSpawnEventData withRole(RegistryKey<NpcRole> role) {
-        this.role = role.getValue();
+    public WildSpawnEventData withJob(RegistryKey<NpcJob> job) {
+        this.job = job.getValue();
         return this;
     }
 
@@ -473,11 +473,11 @@ public class WildSpawnEventData {
     }
 
     // Split off for the 16-field codec limit, still encoded at the top level
-    private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party, Optional<Identifier> role) {
+    private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party, Optional<Identifier> job) {
         private static final MapCodec<Extras> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(Extras::broadcast),
                 PartyData.CODEC.optionalFieldOf(Fields.PARTY).forGetter(Extras::party),
-                Identifier.CODEC.optionalFieldOf(Fields.ROLE).forGetter(Extras::role)
+                Identifier.CODEC.optionalFieldOf(Fields.JOB).forGetter(Extras::job)
         ).apply(instance, Extras::new));
     }
 }
