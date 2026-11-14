@@ -56,7 +56,6 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
@@ -68,9 +67,6 @@ import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
 import net.sevenstars.middleearth.entity.npcs.relations.Relation;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
-import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
-import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
-import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
@@ -325,14 +321,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
+        this.targetSelector.add(3, new NpcTargetEnemyGoal(this));
         this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
         this.targetSelector.add(4, new NpcModDoorGoal(this));
-        this.targetSelector.add(5, new TargetNPCDiplomacyGoal(this));
-        this.targetSelector.add(6, new ActiveTargetGoal<>(this, SnowTrollEntity.class, true));
-        this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
-        this.targetSelector.add(8, new ActiveTargetGoal<>(this, ShelobiteScuttlerEntity.class, true));
-        this.targetSelector.add(9, new ActiveTargetGoal<>(this, ShelobiteLarvaEntity.class, true));
     }
 
     @Override
