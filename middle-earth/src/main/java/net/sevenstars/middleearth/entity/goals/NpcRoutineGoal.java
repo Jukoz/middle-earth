@@ -60,6 +60,7 @@ import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
@@ -123,6 +124,9 @@ public class NpcRoutineGoal extends Goal {
     private static final double LEG_END_REACH = 2;
     // Stretches walked to their end that came no nearer, before the walk counts as stuck
     private static final int IDLE_LEGS = 3;
+    // Nodes of a planned way between the places walked to one stretch at a time, and how near one counts as come up to
+    private static final int WAYPOINT_SPACING = 16;
+    private static final double WAYPOINT_REACH = 2.5;
     // A door this near the place, once the nearest has been tried
     private static final int FAR_DOOR_REACH = 32;
     // A door this near a place is taken for its way in, and one this near the npc for the door it is already at
@@ -244,6 +248,10 @@ public class NpcRoutineGoal extends Goal {
     private boolean lastLegMoved = true;
     // Doors already tried as the way in on this walk
     private final Set<BlockPos> triedDoors = new HashSet<>();
+    // The whole way to the place of this walk, once planned
+    private boolean planned = false;
+    private @Nullable List<BlockPos> waypoints = null;
+    private int waypointIndex = 0;
     private @Nullable Path watchedPath = null;
     private int watchedNode = 0;
     private double watchedDistance = 0;
@@ -431,7 +439,8 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable RoutineData.Activity pickActivity(ServerWorld world, RoutineData routine, BlockPos home, long time) {
         // Those living deep underground keep to their halls: the hunting grounds and the round of the place are up on the
         // surface, further off down the halls and up the stairs than any walk is looked for
-        boolean underground = RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
+        // A wild npc has no house over its head, and any roof over its camp is the roof of a cave
+        boolean underground = npc.getStructureManagerHostPos() == null ? isUnderCover(world, home) : RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
                     && (!underground || !isOutdoors(activity))
@@ -761,6 +770,9 @@ public class NpcRoutineGoal extends Goal {
         idleLegs = 0;
         lastLegMoved = true;
         triedDoors.clear();
+        planned = false;
+        waypoints = null;
+        waypointIndex = 0;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -864,7 +876,9 @@ public class NpcRoutineGoal extends Goal {
         boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getPos(), LEG_END_REACH);
         // Nearer than ever before on this walk. Stretches that go back and forth between two places get no nearer, and
         // only a few of those are let pass
-        boolean improved = legs == 1 || distance < bestLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS;
+        // On a planned way, coming up to the next waypoint is getting along, though the way may first lead off
+        boolean atWaypoint = waypoints != null && waypoints.get(waypointIndex).isWithinDistance(mover().getPos(), WAYPOINT_REACH);
+        boolean improved = legs == 1 || distance < bestLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS || atWaypoint;
         if(improved) {
             bestLegDistance = distance;
             idleLegs = 0;
@@ -875,7 +889,23 @@ public class NpcRoutineGoal extends Goal {
             arrive(world);
             return;
         }
-        Vec3d destination = legs > MAXIMUM_LEGS ? null : nextLeg(world, target);
+        // A walk under cover that has gone wrong once gets its whole way planned, and walks it by stretches. With no way at all,
+        // there is no use trying on
+        if(failures > 0 && !planned && (isUnderCover(world, mover().getBlockPos()) || isUnderCover(world, target))
+                && mover().getNavigation() instanceof NpcNavigation navigation) {
+            planned = true;
+            Path whole = navigation.plan(target);
+            if(whole == null) {
+                giveUp(world, "no way at all to " + target.toShortString());
+                return;
+            }
+            waypoints = new ArrayList<>();
+            for(int i = WAYPOINT_SPACING; i < whole.getLength(); i += WAYPOINT_SPACING)
+                waypoints.add(whole.getNodePos(i));
+            waypoints.add(target);
+            failures = 0;
+        }
+        Vec3d destination = legs > MAXIMUM_LEGS ? null : waypoints != null ? nextWaypoint(target) : nextLeg(world, target);
         // The way to a bed or a station ends on the floor beside it, not a step off where a table may hide it
         // A bed up a stair round the back of the house is a long way round, longer than the usual search looks
         if(bedding)
@@ -1057,6 +1087,14 @@ public class NpcRoutineGoal extends Goal {
         if(best != null)
             triedDoors.add(best);
         return best;
+    }
+
+    // The next of the planned waypoints the npc has not yet come up to
+    private Vec3d nextWaypoint(BlockPos target) {
+        MobEntity mover = mover();
+        while(waypointIndex < waypoints.size() - 1 && waypoints.get(waypointIndex).isWithinDistance(mover.getPos(), WAYPOINT_REACH))
+            waypointIndex++;
+        return Vec3d.ofBottomCenter(waypoints.get(waypointIndex));
     }
 
     private static boolean isUnderCover(ServerWorld world, BlockPos pos) {
@@ -1390,6 +1428,9 @@ public class NpcRoutineGoal extends Goal {
         idleLegs = 0;
         lastLegMoved = true;
         triedDoors.clear();
+        planned = false;
+        waypoints = null;
+        waypointIndex = 0;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1469,6 +1510,9 @@ public class NpcRoutineGoal extends Goal {
             idleLegs = 0;
             lastLegMoved = true;
             triedDoors.clear();
+            planned = false;
+            waypoints = null;
+            waypointIndex = 0;
         }
         steppedOff = false;
         spot = stand;
@@ -1497,6 +1541,9 @@ public class NpcRoutineGoal extends Goal {
             idleLegs = 0;
             lastLegMoved = true;
             triedDoors.clear();
+            planned = false;
+            waypoints = null;
+            waypointIndex = 0;
             steppedOff = false;
             failures = 0;
             followCheck = FOLLOW_REPATH;
@@ -1573,6 +1620,9 @@ public class NpcRoutineGoal extends Goal {
         idleLegs = 0;
         lastLegMoved = true;
         triedDoors.clear();
+        planned = false;
+        waypoints = null;
+        waypointIndex = 0;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1631,6 +1681,9 @@ public class NpcRoutineGoal extends Goal {
             idleLegs = 0;
             lastLegMoved = true;
             triedDoors.clear();
+            planned = false;
+            waypoints = null;
+            waypointIndex = 0;
             steppedOff = false;
             failures = 0;
         }
@@ -1762,6 +1815,9 @@ public class NpcRoutineGoal extends Goal {
         idleLegs = 0;
         lastLegMoved = true;
         triedDoors.clear();
+        planned = false;
+        waypoints = null;
+        waypointIndex = 0;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;

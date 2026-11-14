@@ -23,11 +23,15 @@ public class NpcNavigation extends MobNavigation {
     private static final int SEARCH_NODES = 2048;
     private static final float PATH_LENGTH = 64;
     private static final float LONG_PATH_LENGTH = 96;
+    // For a whole way planned at once, through the halls of a stronghold and up its stairs
+    private static final float PLAN_LENGTH = 256;
+    private static final float PLAN_SEARCH = 16;
     // What the game passes for a search to one block
     private static final int FOLLOW_TARGET_RANGE = 8;
 
     // The game keeps its own to itself
     private float searchMultiplier = 1;
+    private boolean planning = false;
 
     public NpcNavigation(MobEntity mob, World world) {
         super(mob, world);
@@ -38,7 +42,7 @@ public class NpcNavigation extends MobNavigation {
     @Override
     protected @Nullable Path findPathToAny(Set<BlockPos> positions, int range, boolean useHeadPos, int distance, float followRange) {
         // A search given more nodes, as on the way to bed, may follow a longer way too
-        float length = searchMultiplier > 1 ? LONG_PATH_LENGTH : PATH_LENGTH;
+        float length = planning ? PLAN_LENGTH : searchMultiplier > 1 ? LONG_PATH_LENGTH : PATH_LENGTH;
         return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, length));
     }
 
@@ -49,6 +53,20 @@ public class NpcNavigation extends MobNavigation {
         if(isBoard(world.getBlockState(target)))
             return findPathTo(Set.of(target), FOLLOW_TARGET_RANGE, false, distance);
         return super.findPathTo(target, distance);
+    }
+
+    // The whole way to a place, looked for once with many more nodes and no limit to speak of on its length, to be walked a
+    // stretch at a time. Null when the search found no way that gets there
+    public @Nullable Path plan(BlockPos target) {
+        planning = true;
+        setRangeMultiplier(PLAN_SEARCH);
+        try {
+            Path path = findPathTo(target, 1);
+            return path != null && path.reachesTarget() ? path : null;
+        } finally {
+            resetRangeMultiplier();
+            planning = false;
+        }
     }
 
     @Override
