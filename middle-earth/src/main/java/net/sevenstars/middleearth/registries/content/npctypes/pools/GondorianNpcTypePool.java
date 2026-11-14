@@ -345,5 +345,6 @@ public class GondorianNpcTypePool {
         PEASANT.withRoutine(NpcRoutines.GATHERER_AND_FISHER);
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
+        ITHILIEN_RANGER.withRoutine(NpcRoutines.RANGER);
     }
 }

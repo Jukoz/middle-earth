@@ -11,6 +11,13 @@ public class NpcRoutines {
     // Orcs keep out of the sun
     public final static RoutineData NIGHT_WATCH = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1);
 
+    // Riders and bowmen who keep the watch and bring in game besides
+    public final static RoutineData HUNTING_WATCH = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.HUNT, 1);
+    // Orcs go raiding after dark
+    public final static RoutineData NIGHT_HUNTING_WATCH = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 2).add(Activity.HUNT, 1);
+    // Rangers live off the land they guard
+    public final static RoutineData RANGER = RoutineData.create(Period.DAY).add(Activity.HUNT, 3).add(Activity.FORAGE, 1);
+
     public final static RoutineData FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FISH, 1);
     public final static RoutineData GATHERER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 1);
     public final static RoutineData GATHERER_AND_FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 3).add(Activity.FISH, 2);

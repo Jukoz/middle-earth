@@ -339,6 +339,7 @@ public class MoriaNpcTypePool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
 
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

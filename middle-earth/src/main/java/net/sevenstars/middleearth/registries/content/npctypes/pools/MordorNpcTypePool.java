@@ -477,9 +477,9 @@ public class MordorNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
 
-        SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_WATCH);
-        DOL_GULDUR_SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        DOL_GULDUR_SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

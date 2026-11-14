@@ -310,6 +310,6 @@ public class DalishNpcTypePool {
         FISHERMAN.withRoutine(NpcRoutines.FISHER);
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
-        ARCHER.withRoutine(NpcRoutines.WATCH);
+        ARCHER.withRoutine(NpcRoutines.HUNTING_WATCH);
     }
 }

@@ -242,6 +242,7 @@ public class WildGoblinNpcTypePool {
         }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
 
         GATHERER.withRoutine(NpcRoutines.NIGHT_RAIDER);
-        SCOUT.withRoutine(NpcRoutines.NIGHT_WATCH);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

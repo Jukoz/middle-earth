@@ -309,7 +309,7 @@ public class IsengardNpcTypePool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
 
         SNAGA.withRoutine(NpcRoutines.WOODCUTTER);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         URUK_HAI_SCOUT.withRoutine(NpcRoutines.WATCH);
         URUK_HAI_SOLDIER.withRoutine(NpcRoutines.WATCH);
     }

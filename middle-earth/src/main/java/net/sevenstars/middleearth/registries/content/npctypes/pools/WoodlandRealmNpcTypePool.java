@@ -417,6 +417,7 @@ public class WoodlandRealmNpcTypePool {
         ARTISAN.withRoutine(NpcRoutines.GATHERER);
         HUNTER.withRoutine(NpcRoutines.ELVEN_HUNTER);
         SENTINEL.withRoutine(NpcRoutines.WATCH);
-        RANGER.withRoutine(NpcRoutines.WATCH);
+        RANGER.withRoutine(NpcRoutines.HUNTING_WATCH);
+        LANCER.withRoutine(NpcRoutines.HUNTING_WATCH);
     }
 }

@@ -257,6 +257,7 @@ public class RohirricNpcTypePool {
 
         PEASANT.withRoutine(NpcRoutines.GATHERER_AND_HUNTER);
         MILITIA.withRoutine(NpcRoutines.WATCH);
-        SOLDIER.withRoutine(NpcRoutines.WATCH);
+        SOLDIER.withRoutine(NpcRoutines.HUNTING_WATCH);
+        KNIGHT.withRoutine(NpcRoutines.HUNTING_WATCH);
     }
 }
