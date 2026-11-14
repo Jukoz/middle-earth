@@ -5,7 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
@@ -247,9 +249,14 @@ public class NestSurvey {
     private static boolean isStandable(ServerWorld world, BlockPos pos) {
         if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
             return false;
-        BlockPos below = pos.down();
-        return isRoomFor(world, pos, true) && isRoomFor(world, pos.up(), false)
-                && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP);
+        return isRoomFor(world, pos, true) && isRoomFor(world, pos.up(), false) && isFloor(world, pos.down());
+    }
+
+    // A stair the right way up is walked on like any floor: the only way to a bed let into the ground can be its step
+    private static boolean isFloor(ServerWorld world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        return state.isSideSolidFullSquare(world, pos, Direction.UP)
+                || state.getBlock() instanceof StairsBlock && state.get(StairsBlock.HALF) == BlockHalf.BOTTOM;
     }
 
     // Nothing in the way of a body: the block is empty, or holds an open trapdoor's board against one side. A carpet lies
