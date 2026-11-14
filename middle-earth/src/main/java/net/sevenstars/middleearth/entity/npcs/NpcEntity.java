@@ -136,6 +136,11 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final int ELF_SLEEP_INTERVAL = 4;
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
+    // In blocks, from the npc's feet to its target's. A race sets its own, and the weapon in hand adds to it
+    private static final double DEFAULT_REACH = 1.75;
+    private static final float MOUNTED_REACH_BONUS = 0.5f;
+    // Past touching, which is as close as two can stand
+    private static final float CONTACT_REACH = 0.25f;
 
     // The id of the npc's role, empty for none. Tracked so that the client can name the npc for it
     private static final TrackedData<String> ROLE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
@@ -303,7 +308,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public static DefaultAttributeContainer.Builder setAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.FOLLOW_RANGE, 32.0)
-                .add(EntityAttributes.ATTACK_DAMAGE, 1.0);
+                .add(EntityAttributes.ATTACK_DAMAGE, 1.0)
+                // Held weapons only add their reach to an attribute the npc has
+                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, DEFAULT_REACH);
     }
 
     protected void initGoals() {
@@ -1076,16 +1083,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     public boolean isInAttackRange(LivingEntity entity) {
-        float reach = 1.75f;
-        try{
-            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE));
-            reach = damageOpt.get().floatValue();
-        } catch (Exception ignored){}
-
-        if(this.getVehicle() != null || entity.getVehicle() != null) {
-            reach += 0.5f;
-        }
-
+        float reach = (float) this.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE);
+        if(this.getVehicle() != null || entity.getVehicle() != null)
+            reach += MOUNTED_REACH_BONUS;
+        reach = Math.max(reach, (this.getWidth() + entity.getWidth()) / 2 + CONTACT_REACH);
         return this.distanceTo(entity) <= reach;
     }
 
