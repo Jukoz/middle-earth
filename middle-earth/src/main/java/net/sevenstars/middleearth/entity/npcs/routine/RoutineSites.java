@@ -230,16 +230,18 @@ public class RoutineSites {
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
         int radius = MathHelper.clamp(extent + RING_MARGIN, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), referenceY, radius, extent, pieces);
-        site.setTables(tablesOf(world, start));
+        placesOf(world, start, site);
         sites.sites.put(key, site);
         return site;
     }
 
-    private static List<List<BlockPos>> tablesOf(ServerWorld world, StructureStart start) {
+    // What the generated data knows of the pieces this settlement is made of
+    private static void placesOf(ServerWorld world, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
+        List<StructureBedData.Station> stations = new ArrayList<>();
         Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
         if(registry.isEmpty())
-            return tables;
+            return;
         for(StructurePiece piece : start.getChildren()) {
             if(!(piece instanceof PoolStructurePiece placed))
                 continue;
@@ -252,8 +254,11 @@ public class RoutineSites {
                     seats.add(NestSurvey.placedAt(placed, seat));
                 tables.add(seats);
             }
+            for(StructureBedData.Station station : data.stations())
+                stations.add(new StructureBedData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
         }
-        return tables;
+        site.setTables(tables);
+        site.setStations(stations);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {

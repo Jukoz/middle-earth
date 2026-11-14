@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.util.math.Direction;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -86,6 +87,7 @@ public class StructureBedsRegistry {
         List<BlockPos> stores = new ArrayList<>();
         List<BlockPos> seats = new ArrayList<>();
         Set<BlockPos> tableBlocks = new HashSet<>();
+        List<StructureBedData.Station> stations = new ArrayList<>();
         for(int i = 0; i < blocks.size(); i++) {
             NbtCompound block = blocks.getCompoundOrEmpty(i);
             NbtCompound state = palette.getCompoundOrEmpty(block.getInt("state", 0));
@@ -102,6 +104,11 @@ public class StructureBedsRegistry {
                 beds.add(pos);
             } else if(STORES.contains(name)) {
                 stores.add(pos);
+                // The fire a household keeps its food by is also where its cooking is done
+                if(name.endsWith("campfire"))
+                    stations.add(new StructureBedData.Station(StationKind.HEARTH, pos));
+            } else if(StationKind.of(name.substring(name.indexOf(':') + 1)) != null) {
+                stations.add(new StructureBedData.Station(StationKind.of(name.substring(name.indexOf(':') + 1)), pos));
             } else if(SEATS.stream().anyMatch(name::endsWith)) {
                 seats.add(pos);
             } else if(name.endsWith("_table") && WORK_TABLES.stream().noneMatch(name::endsWith)) {
@@ -109,7 +116,7 @@ public class StructureBedsRegistry {
             }
         }
         List<List<BlockPos>> tables = tables(tableBlocks, seats);
-        if(nestPositions.isEmpty() && tables.isEmpty())
+        if(nestPositions.isEmpty() && tables.isEmpty() && stations.isEmpty())
             return null;
 
         // Builders put a nest by each bed, so every nest takes the closest bed still free before any nest takes a second
@@ -161,7 +168,7 @@ public class StructureBedsRegistry {
             }
             nests.add(new StructureBedData.Nest(nest, nestIds.get(i), bedsOf.get(i), Optional.ofNullable(store)));
         }
-        return new StructureBedData(nests, tables);
+        return new StructureBedData(nests, tables, stations);
     }
 
     // Table blocks that touch are one table, and the seats beside it are its places. A table for one is no place to meet

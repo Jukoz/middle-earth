@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Activity;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Period;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
@@ -29,15 +30,15 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> DROVER = register("drover", NpcRole.named(HERDING));
 
     // [TRADES]
-    public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer");
-    public static final RegistryKey<NpcRole> BAKER = registerForNest("baker", "baker");
-    public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith");
-    public static final RegistryKey<NpcRole> COOK = registerForNest("cook", "cook");
-    public static final RegistryKey<NpcRole> POTTER = registerForNest("potter", "potter");
-    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber");
-    public static final RegistryKey<NpcRole> BEEKEEPER = registerForNest("beekeeper", "beekeeper");
-    public static final RegistryKey<NpcRole> INNKEEPER = registerForNest("innkeeper", "innkeeper");
-    public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master");
+    public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer", NpcRole.named());
+    public static final RegistryKey<NpcRole> BAKER = registerForNest("baker", "baker", trade(StationKind.OVEN));
+    public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE));
+    public static final RegistryKey<NpcRole> COOK = registerForNest("cook", "cook", trade(StationKind.HEARTH, StationKind.OVEN));
+    public static final RegistryKey<NpcRole> POTTER = registerForNest("potter", "potter", trade(StationKind.HEARTH));
+    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", trade(StationKind.WOOD_PILE));
+    public static final RegistryKey<NpcRole> BEEKEEPER = registerForNest("beekeeper", "beekeeper", trade(StationKind.HIVE));
+    public static final RegistryKey<NpcRole> INNKEEPER = registerForNest("innkeeper", "innkeeper", trade(StationKind.HEARTH, StationKind.OVEN));
+    public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade(StationKind.HAY));
 
     public static void bootstrap(Registerable<NpcRole> context) {
         ROLES.forEach(context::register);
@@ -59,8 +60,13 @@ public class NpcRoles {
         return key;
     }
 
-    private static RegistryKey<NpcRole> registerForNest(String name, String nestName) {
-        RegistryKey<NpcRole> key = register(name, NpcRole.named());
+    // Most of the day at the trade, with time left to sit down
+    private static NpcRole trade(StationKind... stations) {
+        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TEA, 1).add(Activity.MEET, 1));
+    }
+
+    private static RegistryKey<NpcRole> registerForNest(String name, String nestName, NpcRole role) {
+        RegistryKey<NpcRole> key = register(name, role);
         NEST_ROLES.put(nestName, key);
         return key;
     }

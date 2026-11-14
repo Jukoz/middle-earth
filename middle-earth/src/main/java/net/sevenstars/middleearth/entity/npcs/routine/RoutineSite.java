@@ -13,6 +13,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,6 +77,7 @@ public class RoutineSite {
     private long gatheringUntil = 0;
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
+    private List<StructureBedData.Station> stations = List.of();
     private @Nullable Identifier faction = null;
 
     private final BlockPos.Mutable probe = new BlockPos.Mutable();
@@ -119,6 +122,7 @@ public class RoutineSite {
             case PATROL -> ring.size() >= 3;
             case MEET -> meetingPoint != null;
             case TEA -> !tables.isEmpty();
+            case WORK -> !stations.isEmpty();
         };
     }
 
@@ -159,6 +163,22 @@ public class RoutineSite {
 
     public boolean isGathering(long time) {
         return time < gatheringUntil;
+    }
+
+    void setStations(List<StructureBedData.Station> stations) {
+        this.stations = stations;
+    }
+
+    // The station of one of these kinds closest to the given place, which is the npc's home
+    public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
+        BlockPos best = null;
+        for(StructureBedData.Station station : stations) {
+            if(!kinds.contains(station.kind()) || !station.pos().isWithinDistance(near, range))
+                continue;
+            if(best == null || station.pos().getSquaredDistance(near) < best.getSquaredDistance(near))
+                best = station.pos();
+        }
+        return best;
     }
 
     void setTables(List<List<BlockPos>> tables) {

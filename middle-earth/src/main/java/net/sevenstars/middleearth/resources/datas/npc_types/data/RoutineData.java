@@ -21,6 +21,7 @@ public class RoutineData {
         public static final String FORAGE = "forage";
         public static final String TIMID = "timid";
         public static final String BOUNDS = "bounds";
+        public static final String STATIONS = "stations";
     }
 
     public enum Activity implements StringIdentifiable {
@@ -30,7 +31,9 @@ public class RoutineData {
         PATROL("patrol"),
         MEET("meet"),
         // Sitting down together at a table
-        TEA("tea");
+        TEA("tea"),
+        // At the forge, the oven or whatever else the npc's trade is plied at
+        WORK("work");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
         private final String name;
@@ -105,7 +108,8 @@ public class RoutineData {
             Codec.list(Entry.CODEC).fieldOf(Fields.ACTIVITIES).forGetter(RoutineData::getEntries),
             Codec.list(Registries.ITEM.getCodec()).optionalFieldOf(Fields.FORAGE, List.of()).forGetter(RoutineData::getForage),
             Codec.BOOL.optionalFieldOf(Fields.TIMID, false).forGetter(RoutineData::isTimid),
-            Codec.BOOL.optionalFieldOf(Fields.BOUNDS, false).forGetter(RoutineData::keepsBounds)
+            Codec.BOOL.optionalFieldOf(Fields.BOUNDS, false).forGetter(RoutineData::keepsBounds),
+            Codec.list(StationKind.CODEC).optionalFieldOf(Fields.STATIONS, List.of()).forGetter(RoutineData::getStations)
     ).apply(instance, RoutineData::new));
 
     private final Period period;
@@ -113,8 +117,10 @@ public class RoutineData {
     private final List<Item> forage;
     private boolean timid;
     private boolean bounds;
+    private final List<StationKind> stations;
 
-    private RoutineData(Period period, List<Entry> entries, List<Item> forage, boolean timid, boolean bounds) {
+    private RoutineData(Period period, List<Entry> entries, List<Item> forage, boolean timid, boolean bounds, List<StationKind> stations) {
+        this.stations = new ArrayList<>(stations);
         this.timid = timid;
         this.bounds = bounds;
         this.period = period;
@@ -123,7 +129,7 @@ public class RoutineData {
     }
 
     public static RoutineData create(Period period) {
-        return new RoutineData(period, List.of(), List.of(), false, false);
+        return new RoutineData(period, List.of(), List.of(), false, false, List.of());
     }
 
     // What is carried home from foraging, mushrooms and berries when left out
@@ -146,6 +152,16 @@ public class RoutineData {
 
     public boolean keepsBounds() {
         return bounds;
+    }
+
+    // Where the work of this routine is done
+    public RoutineData working(StationKind... kinds) {
+        this.stations.addAll(List.of(kinds));
+        return this;
+    }
+
+    public List<StationKind> getStations() {
+        return stations;
     }
 
     public boolean isTimid() {

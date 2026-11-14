@@ -21,6 +21,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.util.hit.HitResult;
@@ -39,6 +41,7 @@ import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
@@ -75,6 +78,9 @@ public class NpcRoutineGoal extends Goal {
     private static final int LEG_LENGTH = 14;
     // In degrees
     private static final float[] DETOURS = {0, 25, -25, 50, -50};
+    private static final float[] AROUND_LEFT = {90, 60, 120};
+    private static final float[] AROUND_RIGHT = {-90, -60, -120};
+    private static final int AROUND_LENGTH = 8;
     private static final int MAXIMUM_HEIGHT_CHANGE = 8;
     private static final int MAXIMUM_LEGS = 30;
     private static final int MAXIMUM_FAILURES = 3;
@@ -100,6 +106,10 @@ public class NpcRoutineGoal extends Goal {
     private static final int WATCH_TIME_VARIATION = 20 * 4;
     private static final int MEETING_TIME = 20 * 20;
     private static final int MEETING_TIME_VARIATION = 20 * 20;
+    private static final int WORK_TIME = 20 * 40;
+    private static final int WORK_TIME_VARIATION = 20 * 40;
+    // From home. Nobody crosses the whole town to somebody else's forge
+    private static final int WORK_RANGE = 48;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
@@ -144,6 +154,7 @@ public class NpcRoutineGoal extends Goal {
     private boolean toBed = false;
     private @Nullable NpcEntity companion = null;
     private @Nullable BlockPos meetSeat = null;
+    private @Nullable BlockPos workStation = null;
     private @Nullable BlockPos standOf = null;
     private @Nullable BlockPos storeStand = null;
 
@@ -247,7 +258,8 @@ public class NpcRoutineGoal extends Goal {
             if(site.isGathering(time) && npc.getRandom().nextInt(4) != 0)
                 picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
             if(picked == null)
-                picked = routine.pick(npc.getRandom(), site::supports);
+                picked = routine.pick(npc.getRandom(), activity -> site.supports(activity)
+                        && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         }
         else if(npc.isElf() && !npc.isRestTime())
             // Elves need little sleep, and keep company through the night
@@ -321,6 +333,15 @@ public class NpcRoutineGoal extends Goal {
                 spot = site.getGrounds().get(index);
             }
             case MEET -> spot = site.getMeetingPoint();
+            case WORK -> {
+                RoutineData routine = npc.getRoutine();
+                workStation = routine == null ? null : site.pickStation(routine.getStations(), home, WORK_RANGE);
+                BlockPos beside = workStation == null ? null : NestSurvey.standNextTo(world, workStation, npc.getBlockPos());
+                // A forge walled in on every side is for show
+                if(beside == null)
+                    return false;
+                spot = beside;
+            }
             case TEA -> {
                 meetSeat = site.pickSeat(world, random);
                 if(meetSeat == null)
@@ -425,7 +446,8 @@ public class NpcRoutineGoal extends Goal {
         // The usual distance reaches through a wall, and a store on its far side was filled from the street
         boolean storing = phase == Phase.RETURNING && !toBed && carried != null && npc.getStore() != null;
         boolean sitting = phase == Phase.GOING && meetSeat != null;
-        if(target.isWithinDistance(npc.getPos(), storing || sitting ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)) {
+        boolean working = phase == Phase.GOING && activity == RoutineData.Activity.WORK;
+        if(target.isWithinDistance(npc.getPos(), storing || sitting || working ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)) {
             arrive(world);
             return;
         }
@@ -470,14 +492,19 @@ public class NpcRoutineGoal extends Goal {
         double distanceX = target.getX() + 0.5 - npc.getX();
         double distanceZ = target.getZ() + 0.5 - npc.getZ();
         double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
-        if(distance <= DIRECT_DISTANCE)
+        boolean close = distance <= DIRECT_DISTANCE;
+        if(close && failures == 0)
             return Vec3d.ofBottomCenter(target);
 
+        // No path to a place close by means a wall in between, and a search aimed straight at the place gives up at the wall.
+        // The way in is around the building: first to one hand, and to the other if that leads nowhere
+        float[] detours = !close ? DETOURS : failures % 2 == 1 ? AROUND_LEFT : AROUND_RIGHT;
+        int length = close ? AROUND_LENGTH : LEG_LENGTH;
         float heading = (float) (MathHelper.atan2(distanceZ, distanceX) * MathHelper.DEGREES_PER_RADIAN);
-        for(float detour : DETOURS) {
+        for(float detour : detours) {
             float radians = (heading + detour) * MathHelper.RADIANS_PER_DEGREE;
-            int x = MathHelper.floor(npc.getX() + MathHelper.cos(radians) * LEG_LENGTH);
-            int z = MathHelper.floor(npc.getZ() + MathHelper.sin(radians) * LEG_LENGTH);
+            int x = MathHelper.floor(npc.getX() + MathHelper.cos(radians) * length);
+            int z = MathHelper.floor(npc.getZ() + MathHelper.sin(radians) * length);
             if(!world.isChunkLoaded(x >> 4, z >> 4))
                 continue;
             BlockPos ground = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
@@ -542,6 +569,10 @@ public class NpcRoutineGoal extends Goal {
                 phaseEnd = time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
                 companion = null;
             }
+            case WORK -> {
+                phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
+                lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
+            }
             case TEA -> {
                 // Somebody quicker may have taken the seat, the table is still the place to be
                 boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
@@ -572,6 +603,15 @@ public class NpcRoutineGoal extends Goal {
                     npc.swingHand(Hand.MAIN_HAND);
                     world.spawnParticles(ParticleTypes.SPLASH, lookTarget.x, lookTarget.y + 0.5, lookTarget.z, 6, 0.2, 0, 0.2, 0);
                     world.playSound(null, lookTarget.x, lookTarget.y, lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, 0.2f, 1f);
+                }
+            }
+            case WORK -> {
+                if(done) {
+                    finish(world, REST + random.nextInt(REST_VARIATION));
+                } else if(random.nextInt(4) == 0) {
+                    npc.swingHand(Hand.MAIN_HAND);
+                    if(workStation != null && random.nextInt(3) == 0)
+                        world.playSound(null, workStation, workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, 0.5f, 0.9f + random.nextFloat() * 0.2f);
                 }
             }
             case FORAGE -> {
@@ -773,6 +813,24 @@ public class NpcRoutineGoal extends Goal {
             return;
         if(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager)
             manager.assignBed(npc);
+    }
+
+    // The sound of the block itself being worked: hammer on iron at a forge, hay rustling in a stable
+    private static SoundEvent workSound(BlockState station) {
+        StationKind kind = StationKind.of(Registries.BLOCK.getId(station.getBlock()).getPath());
+        if(kind == null)
+            return station.getSoundGroup().getHitSound();
+        return switch (kind) {
+            case FORGE -> SoundEvents.BLOCK_ANVIL_USE;
+            case OVEN -> SoundEvents.BLOCK_SMOKER_SMOKE;
+            case HEARTH -> SoundEvents.BLOCK_CAMPFIRE_CRACKLE;
+            case LOOM -> SoundEvents.UI_LOOM_TAKE_RESULT;
+            case WOOD_PILE -> SoundEvents.ITEM_AXE_STRIP;
+            case HIVE -> SoundEvents.BLOCK_BEEHIVE_WORK;
+            case LECTERN -> SoundEvents.ITEM_BOOK_PAGE_TURN;
+            case GRINDSTONE -> SoundEvents.BLOCK_GRINDSTONE_USE;
+            case HAY, TARGET -> station.getSoundGroup().getHitSound();
+        };
     }
 
     private static boolean isSocial(RoutineData.Activity activity) {
