@@ -197,11 +197,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(BiomeAmbianceME.CLEAR, 4293787, 338483, 5533992, 3567922)));
         // FANUIDHOL
         addBiome(new BiomeData(BiomeKeyRegistryME.FANUIDHOL_BASE, BiomeDataConfigsME.fanuidhol, BiomeDataConfigsME.mistyMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7777673, 7316862)));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         addBiome(new BiomeData(BiomeKeyRegistryME.FANUIDHOL, BiomeDataConfigsME.fanuidhol, BiomeDataConfigsME.mistyMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7777673, 7316862)));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         addBiome(new BiomeData(BiomeKeyRegistryME.FANUIDHOL_PEAKS, BiomeDataConfigsME.fanuidholPeaks, BiomeDataConfigsME.mistyMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7777673, 7316862)));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         // FORODWAITH
         addBiome(new BiomeData(BiomeKeyRegistryME.FORODWAITH, BiomeDataConfigsME.forodwaith, BiomeDataConfigsME.frozenLayers,
                 new BiomeColorsDTO(BiomeAmbianceME.FROZEN.withFog(0.0f, 0.5f).withParticles(Particles.SNOW_HEAVY), 3823818, 66852, 3494723, 4478280), CaveType.FOROD));
