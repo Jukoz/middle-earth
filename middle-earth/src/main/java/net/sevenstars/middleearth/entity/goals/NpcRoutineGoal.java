@@ -105,6 +105,8 @@ public class NpcRoutineGoal extends Goal {
     private static final int DRIFT_DISTANCE = 48;
     private static final double BED_REACH = 6;
     private static final double BED_HEIGHT_REACH = 5;
+    // Just over the top of a bed, where it is seen across a footboard
+    private static final double BED_TOP = 0.6;
     // A table this near home is taken before one further off
     private static final int TABLE_RANGE = 40;
     // Times the nodes a path search may look at, on the way to bed
@@ -444,6 +446,7 @@ public class NpcRoutineGoal extends Goal {
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
                     && (!underground || !isOutdoors(activity))
+                    && (activity != RoutineData.Activity.VISIT || site.pickHousehold(world, home, npc.getRandom()) != null)
                     && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         // Elves need little sleep, and keep company through the night
         if(npc.isElf() && !npc.isRestTime())
@@ -1212,7 +1215,6 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         phase = Phase.WORKING;
-        strikes.remove(activity);
         switch (activity) {
             case FISH -> phaseEnd = time + FISHING_TIME + random.nextInt(FISHING_TIME_VARIATION);
             case FORAGE -> phaseEnd = time + FORAGING_TIME + random.nextInt(FORAGING_TIME_VARIATION);
@@ -1851,11 +1853,15 @@ public class NpcRoutineGoal extends Goal {
     }
 
     // A bed is two blocks, and the near half is as good as the other
+    // Its middle, or else the top of it: a trapdoor stood open at the foot of a bed hides the middle from the floor beside it
     private boolean canSeeBed(ServerWorld world, BlockPos bed) {
-        BlockHitResult hit = world.raycast(new RaycastContext(npc.getEyePos(), Vec3d.ofCenter(bed), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
-        if(hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(bed))
-            return true;
-        return world.getBlockState(hit.getBlockPos()).getBlock() instanceof BedBlock && hit.getBlockPos().getManhattanDistance(bed) == 1;
+        for(Vec3d aim : new Vec3d[]{Vec3d.ofCenter(bed), Vec3d.ofBottomCenter(bed).add(0, BED_TOP, 0)}) {
+            BlockHitResult hit = world.raycast(new RaycastContext(npc.getEyePos(), aim, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
+            if(hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(bed)
+                    || world.getBlockState(hit.getBlockPos()).getBlock() instanceof BedBlock && hit.getBlockPos().getManhattanDistance(bed) == 1)
+                return true;
+        }
+        return false;
     }
 
     // Aimed at the side of the block turned towards the npc. From eye height, a ray to the middle of a block a step away
@@ -1976,6 +1982,9 @@ public class NpcRoutineGoal extends Goal {
     private void finish(ServerWorld world, int rest) {
         // Against the tasks given up, the ones seen through to the end
         if(phase != Phase.NONE && !failed) {
+            // Only a task seen through clears what went wrong before. A hunter that found nothing again keeps away longer
+            if(phase != Phase.SLEEPING && !toBed && !homeward)
+                strikes.remove(activity);
             BlockPos pos = npc.getBlockPos();
             MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s finished %s at %d,%d,%d".formatted(who(), phase == Phase.SLEEPING ? "sleep" : toBed ? "bed" : homeward ? "home" : activity.asString(),
                     pos.getX(), pos.getY(), pos.getZ()));
