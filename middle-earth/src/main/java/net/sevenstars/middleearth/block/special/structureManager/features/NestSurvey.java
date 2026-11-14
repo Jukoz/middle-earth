@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.registry.Registry;
@@ -20,10 +21,14 @@ import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,6 +41,10 @@ public class NestSurvey {
     private static final int FALLBACK_DEPTH = 3;
     private static final int FALLBACK_HEIGHT = 8;
     private static final int MAXIMUM_BEDS = 16;
+    // A bed, a slab or a carpet is no wall, though a body cannot stand in it
+    private static final double LOW_ENOUGH_TO_PASS = 0.6;
+    // A carpet or a thin layer, stood on rather than in the way
+    private static final double UNDERFOOT = 0.2;
 
     public record Bed(BlockPos pos, Optional<BlockPos> stand, Optional<UUID> owner) {
         public static final Codec<Bed> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -167,6 +176,9 @@ public class NestSurvey {
                 BlockPos beside = half.offset(side);
                 if(beside.equals(head) || beside.equals(foot))
                     continue;
+                // The inner bed of a pair is got into across the other one
+                if(world.getBlockState(beside).getBlock() instanceof BedBlock)
+                    beside = beside.offset(side);
                 for(BlockPos spot : new BlockPos[]{beside, beside.down()}) {
                     if(isStandable(world, spot))
                         return spot;
@@ -180,8 +192,58 @@ public class NestSurvey {
         if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
             return false;
         BlockPos below = pos.down();
-        return world.getBlockState(pos).getCollisionShape(world, pos).isEmpty()
-                && world.getBlockState(pos.up()).getCollisionShape(world, pos.up()).isEmpty()
+        return isRoomFor(world, pos, true) && isRoomFor(world, pos.up(), false)
                 && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP);
+    }
+
+    // Nothing in the way of a body: the block is empty, or holds an open trapdoor's board against one side. A carpet lies
+    // under the feet
+    private static boolean isRoomFor(ServerWorld world, BlockPos pos, boolean feet) {
+        BlockState state = world.getBlockState(pos);
+        if(state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN))
+            return true;
+        VoxelShape shape = state.getCollisionShape(world, pos);
+        return shape.isEmpty() || feet && shape.getMax(Direction.Axis.Y) <= UNDERFOOT;
+    }
+
+    // The nearest spot around with a full block to stand on, nothing in the way of a body and no water: somewhere a path
+    // can start from again. Only a spot open space leads to from where it stands, never one through a wall or a shut door
+    public static @Nullable BlockPos freeFloorNear(ServerWorld world, BlockPos pos, int radius, int depth) {
+        Set<BlockPos> open = openAround(world, pos, radius, depth);
+        BlockPos best = null;
+        for(BlockPos spot : open) {
+            if(spot.equals(pos) || !open.contains(spot.up()))
+                continue;
+            BlockPos below = spot.down();
+            boolean standable = world.getBlockState(spot).getCollisionShape(world, spot).isEmpty()
+                    && world.getBlockState(spot.up()).getCollisionShape(world, spot.up()).isEmpty()
+                    && world.getFluidState(spot).isEmpty()
+                    && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP);
+            if(standable && (best == null || spot.getSquaredDistance(pos) < best.getSquaredDistance(pos)))
+                best = spot;
+        }
+        return best;
+    }
+
+    // The blocks around that can be got to from the two a body stands in without going through anything taller than a bed
+    private static Set<BlockPos> openAround(ServerWorld world, BlockPos pos, int radius, int depth) {
+        Set<BlockPos> seen = new HashSet<>(List.of(pos, pos.up()));
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>(seen);
+        while(!queue.isEmpty()) {
+            BlockPos cell = queue.poll();
+            for(Direction side : Direction.values()) {
+                BlockPos next = cell.offset(side);
+                if(Math.abs(next.getX() - pos.getX()) > radius || Math.abs(next.getZ() - pos.getZ()) > radius
+                        || next.getY() < pos.getY() - depth || next.getY() > pos.getY() + 2 || seen.contains(next)
+                        || !world.isChunkLoaded(next.getX() >> 4, next.getZ() >> 4))
+                    continue;
+                VoxelShape shape = world.getBlockState(next).getCollisionShape(world, next);
+                if(!shape.isEmpty() && shape.getMax(Direction.Axis.Y) > LOW_ENOUGH_TO_PASS)
+                    continue;
+                seen.add(next);
+                queue.add(next);
+            }
+        }
+        return seen;
     }
 }

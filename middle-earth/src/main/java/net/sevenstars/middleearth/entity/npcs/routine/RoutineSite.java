@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs.routine;
 
+import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.FluidState;
@@ -58,6 +60,10 @@ public class RoutineSite {
     // A site this far under the surface is a hall or a cave
     private static final int ENCLOSED_DEPTH = 16;
     private static final int BUILDING_HEIGHT = 4;
+    // Past the farthest spot, for the flood to find the way round to it
+    private static final int FLOOD_MARGIN = 8;
+    // As far down as a step off a bank or a wall is taken, which has to be walked back up some other way
+    private static final int FLOOD_DROP = 3;
 
     private static final int UNLOADED = 0;
     private static final int WATER = 1;
@@ -123,6 +129,11 @@ public class RoutineSite {
             planRing(pieces);
         this.enclosed = referenceY != null && surfaceY - referenceY > ENCLOSED_DEPTH;
         this.ready = enclosed;
+    }
+
+    // Far enough under the ground at that spot to be shut in, in a cave or a delving
+    static boolean isEnclosed(ServerWorld world, int x, int z, int y) {
+        return world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) - y > ENCLOSED_DEPTH;
     }
 
     public void touch(long time) {
@@ -262,6 +273,17 @@ public class RoutineSite {
         return fields;
     }
 
+    // The stations of these kinds within range, nearest first
+    public List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near, int range) {
+        List<BlockPos> found = new ArrayList<>();
+        for(StructureFeatureData.Station station : stations) {
+            if(kinds.contains(station.kind()) && station.pos().isWithinDistance(near, range))
+                found.add(station.pos());
+        }
+        found.sort((a, b) -> Double.compare(a.getSquaredDistance(near), b.getSquaredDistance(near)));
+        return found;
+    }
+
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
         for(StructureFeatureData.Station station : stations) {
@@ -278,11 +300,20 @@ public class RoutineSite {
     }
 
     // A free seat at a table where somebody already sits, or else at any table with room for two
-    public @Nullable BlockPos pickSeat(ServerWorld world, Random random) {
+    // A table within range of the given place if there is one with a free seat, any other otherwise. In a stronghold the
+    // far tables are a long way off down its halls
+    public @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range) {
+        BlockPos seat = pickSeat(world, random, near, range, true);
+        return seat != null ? seat : pickSeat(world, random, near, range, false);
+    }
+
+    private @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range, boolean nearOnly) {
         BlockPos alone = null;
         int offset = tables.isEmpty() ? 0 : random.nextInt(tables.size());
         for(int i = 0; i < tables.size(); i++) {
             List<BlockPos> table = tables.get((i + offset) % tables.size());
+            if(nearOnly && (table.isEmpty() || !table.getFirst().isWithinDistance(near, range)))
+                continue;
             BlockPos free = null;
             int freeSeats = 0;
             int loaded = 0;
@@ -371,6 +402,7 @@ public class RoutineSite {
         } else {
             int sample = (cursor - ringSteps) * 2;
             if(sample >= SAMPLES.length) {
+                keepReachable(world);
                 ready = true;
                 return true;
             }
@@ -557,6 +589,65 @@ public class RoutineSite {
         if(Math.abs(probeY - surfaceY) > MAXIMUM_HEIGHT_DIFFERENCE)
             return BLOCKED;
         return LAND;
+    }
+
+    // Spots of the ring, the grounds, the trees and the shores that nobody can walk to from the place, across a river or up a
+    // cliff, are left out. The ground is flooded out from the doors of the place a column at a time: a block up at most, a few
+    // down, never into water or onto a roof. With no doors known, every spot is kept
+    private void keepReachable(ServerWorld world) {
+        if(doors.isEmpty())
+            return;
+        int bound = 0;
+        for(List<BlockPos> spots : List.of(ring, grounds, trees, shoreStands)) {
+            for(BlockPos spot : spots)
+                bound = Math.max(bound, Math.max(Math.abs(spot.getX() - centerX), Math.abs(spot.getZ() - centerZ)) + FLOOD_MARGIN);
+        }
+        Long2IntOpenHashMap reached = new Long2IntOpenHashMap();
+        reached.defaultReturnValue(Integer.MIN_VALUE);
+        LongArrayFIFOQueue open = new LongArrayFIFOQueue();
+        for(BlockPos door : doors) {
+            for(int side = 0; side < 4; side++) {
+                int x = door.getX() + (side == 0 ? 1 : side == 1 ? -1 : 0);
+                int z = door.getZ() + (side == 2 ? 1 : side == 3 ? -1 : 0);
+                if(classify(world, x, z) == LAND && Math.abs(probeY - door.getY()) <= 1 && !isBuilding(x, probeY, z) && reached.putIfAbsent(column(x, z), probeY) == reached.defaultReturnValue())
+                    open.enqueue(column(x, z));
+            }
+        }
+        if(open.isEmpty())
+            return;
+        while(!open.isEmpty()) {
+            long at = open.dequeueLong();
+            int x = (int) (at >> 32);
+            int z = (int) at;
+            int height = reached.get(at);
+            for(int side = 0; side < 4; side++) {
+                int nextX = x + (side == 0 ? 1 : side == 1 ? -1 : 0);
+                int nextZ = z + (side == 2 ? 1 : side == 3 ? -1 : 0);
+                long next = column(nextX, nextZ);
+                if(Math.abs(nextX - centerX) > bound || Math.abs(nextZ - centerZ) > bound || reached.containsKey(next))
+                    continue;
+                if(classify(world, nextX, nextZ) != LAND || probeY - height > 1 || height - probeY > FLOOD_DROP || isBuilding(nextX, probeY, nextZ))
+                    continue;
+                reached.put(next, probeY);
+                open.enqueue(next);
+            }
+        }
+        ring.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
+        grounds.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
+        // A trunk stands in its own column, and is got to from beside it
+        trees.removeIf(tree -> !reached.containsKey(column(tree.getX() + 1, tree.getZ())) && !reached.containsKey(column(tree.getX() - 1, tree.getZ()))
+                && !reached.containsKey(column(tree.getX(), tree.getZ() + 1)) && !reached.containsKey(column(tree.getX(), tree.getZ() - 1)));
+        for(int i = shoreStands.size() - 1; i >= 0; i--) {
+            if(!reached.containsKey(column(shoreStands.get(i).getX(), shoreStands.get(i).getZ()))) {
+                shoreStands.remove(i);
+                shoreWaters.remove(i);
+            }
+        }
+        patrolRoute = null;
+    }
+
+    private static long column(int x, int z) {
+        return ((long) x << 32) | (z & 0xFFFFFFFFL);
     }
 
     // The heightmap puts such a spot on a roof, the yard around the house stays free

@@ -58,6 +58,7 @@ public class RoutineSites {
     // Stand in for the height in the keys of sites that are not tied to a block
     private static final int STRUCTURE_KEY_Y = 2047;
     private static final int WILD_KEY_Y = 2046;
+    private static final int UNDERGROUND_KEY_Y = 2045;
 
     private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
 
@@ -190,7 +191,7 @@ public class RoutineSites {
 
         StructureStart start = factionId == null ? null : findFactionStructure(world, home, factionId);
         if(start != null) {
-            RoutineSite site = forStructure(world, sites, start, null);
+            RoutineSite site = forStructure(world, sites, start, home.getY());
             if(site != null)
                 site.lastUsed = world.getTime();
             return site;
@@ -198,18 +199,20 @@ public class RoutineSites {
 
         int cellX = Math.floorDiv(home.getX(), WILD_CELL_SIZE);
         int cellZ = Math.floorDiv(home.getZ(), WILD_CELL_SIZE);
-        long wildKey = BlockPos.asLong(cellX, WILD_KEY_Y, cellZ);
+        int centerX = cellX * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
+        int centerZ = cellZ * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
+        if(!world.isChunkLoaded(centerX >> 4, centerZ >> 4))
+            return null;
+        // Those living in a cave below share none of the ground up top
+        boolean underground = RoutineSite.isEnclosed(world, centerX, centerZ, home.getY());
+        long wildKey = BlockPos.asLong(cellX, underground ? UNDERGROUND_KEY_Y : WILD_KEY_Y, cellZ);
         RoutineSite site = sites.sites.get(wildKey);
         if(site != null) {
             site.lastUsed = world.getTime();
             return site;
         }
 
-        int centerX = cellX * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
-        int centerZ = cellZ * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
-        if(!world.isChunkLoaded(centerX >> 4, centerZ >> 4))
-            return null;
-        site = create(world, sites, centerX, centerZ, null, 0, 0, null);
+        site = create(world, sites, centerX, centerZ, home.getY(), 0, 0, null);
         sites.sites.put(wildKey, site);
         site.lastUsed = world.getTime();
         return site;

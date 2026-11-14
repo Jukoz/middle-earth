@@ -3,10 +3,12 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
@@ -38,6 +40,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvent;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
@@ -70,9 +73,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -98,10 +104,21 @@ public class NpcRoutineGoal extends Goal {
     private static final int DRIFT_DISTANCE = 48;
     private static final double BED_REACH = 6;
     private static final double BED_HEIGHT_REACH = 5;
+    // A table this near home is taken before one further off
+    private static final int TABLE_RANGE = 40;
+    // Times the nodes a path search may look at, on the way to bed
+    private static final float BED_SEARCH = 4;
     private static final double STORE_REACH = 3.5;
     private static final double STORE_ARRIVAL_DISTANCE = 1.5;
+    // Just inside the side of a block, so that a ray aimed there ends in the block
+    private static final double FACE_INSET = 0.49;
 
     private static final int DIRECT_DISTANCE = 18;
+    // Blocks over the feet, past which a place is indoors or underground
+    private static final int COVER_HEIGHT = 2;
+    // A door this near a place is taken for its way in, and one this near the npc for the door it is already at
+    private static final int DOOR_REACH = 16;
+    private static final double AT_DOOR = 2.5;
     private static final int LEG_LENGTH = 14;
     // In degrees
     private static final float[] DETOURS = {0, 25, -25, 50, -50};
@@ -114,7 +131,16 @@ public class NpcRoutineGoal extends Goal {
     private static final int MINIMUM_PROGRESS = 2;
     // Looks at the world in a row, two seconds of them, without the npc getting any further along its path
     private static final int WATCH_THINKS = 8;
-    private static final int MAXIMUM_BACK_OFF = 5;
+    // A task that went wrong is put by this long, longer for each time in a row it went wrong, up to three times as long
+    private static final int HOLD = 20 * 120;
+    private static final int MAXIMUM_STRIKES = 3;
+    // Another task is tried this many times when the one picked cannot be begun
+    private static final int PICK_ATTEMPTS = 3;
+    // A station there was no standing at, or no seeing from where the npc stood, is passed over this long
+    private static final int STATION_HOLD = 20 * 300;
+    // How far an npc stranded where no path starts looks for a floor to step to
+    private static final int STEP_OFF_RADIUS = 3;
+    private static final int STEP_OFF_DEPTH = 3;
 
     // In ticks
     private static final int ROUTINE_TIME_LIMIT = 20 * 60 * 5;
@@ -207,7 +233,18 @@ public class NpcRoutineGoal extends Goal {
     private double watchedDistance = 0;
     private int watchedThinks = 0;
     // Grows each time a routine has to be abandoned, so that an npc with no way out stops trying
-    private int backOff = 0;
+    private final Map<RoutineData.Activity, Long> heldUntil = new EnumMap<>(RoutineData.Activity.class);
+    private final Map<RoutineData.Activity, Integer> strikes = new EnumMap<>(RoutineData.Activity.class);
+    private final Map<BlockPos, Long> unusableStations = new HashMap<>();
+    private final Set<String> notedFallbacks = new HashSet<>();
+    // The way home and the way to bed are held back the same way once they fail
+    private long homeHeldUntil = 0;
+    private int homeStrikes = 0;
+    private long bedHeldUntil = 0;
+    private int bedStrikes = 0;
+    private boolean steppedOff = false;
+    // Set once the task under way has been given up, so that it is not counted as finished as well
+    private boolean failed = false;
     private int ringIndex = 0;
     private int ringStep = 1;
     private int ringLeft = 0;
@@ -269,7 +306,9 @@ public class NpcRoutineGoal extends Goal {
             return false;
         if(phase != Phase.NONE) {
             if(world.getTime() > deadline && phase != Phase.RETURNING) {
-                abandoned("ran out of time");
+                // At work when the time is up is the work done, a long shift at a post among it
+                if(phase != Phase.WORKING)
+                    abandoned("ran out of time");
                 startReturn(world);
             }
             return true;
@@ -286,10 +325,12 @@ public class NpcRoutineGoal extends Goal {
         if(npc.getPartyLeader() != null || npc.getTravelHeading() != null)
             return false;
         long time = world.getTime();
-        // Wandering takes settled npcs out of their village for good, seen or not
-        if(drifted(world)) {
+        // Wandering takes settled npcs out of their village for good, seen or not. One that could not get home rests first,
+        // as after any other walk given up, or it tries again and again from the same spot
+        if(time >= restUntil && time >= homeHeldUntil && drifted(world)) {
             carried = null;
             homeward = true;
+            failed = false;
             startReturn(world);
             return true;
         }
@@ -318,9 +359,14 @@ public class NpcRoutineGoal extends Goal {
                 restUntil = time + NOTHING_TO_DO_REST;
                 return false;
             }
+            if(time < bedHeldUntil) {
+                restUntil = bedHeldUntil;
+                return false;
+            }
             carried = null;
             toBed = true;
             homeward = true;
+            failed = false;
             startReturn(world);
             return true;
         }
@@ -342,30 +388,49 @@ public class NpcRoutineGoal extends Goal {
 
         BlockPos home = npc.getRoutineHome();
         askHousehold(world);
-        RoutineData.Activity picked = null;
-        if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift())) {
-            picked = routine.pick(npc.getRandom(), activity -> site.supports(activity) && (!riding() || mounted(activity))
-                        && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
-        }
-        else if(npc.isElf() && !npc.isRestTime())
-            // Elves need little sleep, and keep company through the night
-            picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
+        RoutineData.Activity picked = pickActivity(world, routine, home, time);
         if(picked == RoutineData.Activity.ESCORT) {
             findWard(world);
             return false;
         }
-        if(picked != null && begin(world, picked, home))
-            return true;
+        // A task that cannot be begun is put by, and another one tried, before the npc settles for doing nothing
+        for(int attempt = 0; attempt < PICK_ATTEMPTS && picked != null && picked != RoutineData.Activity.ESCORT; attempt++) {
+            if(begin(world, picked, home))
+                return true;
+            picked = pickActivity(world, routine, home, time);
+        }
 
         restUntil = time + NOTHING_TO_DO_REST;
         // Off duty, a settled npc that drifted away goes home
-        if(npc.getStructureManagerHostPos() != null && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
+        if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
             carried = null;
             homeward = true;
+            failed = false;
             startReturn(world);
             return true;
         }
         return false;
+    }
+
+    private @Nullable RoutineData.Activity pickActivity(ServerWorld world, RoutineData routine, BlockPos home, long time) {
+        if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
+            return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
+                    && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
+        // Elves need little sleep, and keep company through the night
+        if(npc.isElf() && !npc.isRestTime())
+            return routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity) && !isHeld(activity, time));
+        return null;
+    }
+
+    private boolean isHeld(RoutineData.Activity activity, long time) {
+        return heldUntil.getOrDefault(activity, 0L) > time;
+    }
+
+    // Each failure in a row holds the task longer, so that the npc spends the time on its other tasks
+    private void hold(RoutineData.Activity activity, long time) {
+        int count = Math.min(strikes.getOrDefault(activity, 0) + 1, MAXIMUM_STRIKES);
+        strikes.put(activity, count);
+        heldUntil.put(activity, time + (long) HOLD * count);
     }
 
     private boolean drifted(ServerWorld world) {
@@ -415,15 +480,15 @@ public class NpcRoutineGoal extends Goal {
         boolean sentry = NpcRoles.SENTRY.getValue().equals(npc.getRoleId());
         // What the build lacks, the duty falls back from
         if(picked == RoutineData.Activity.POST && sentry && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
-            abandoned(picked, "no lookout marked in this build, patrols instead");
+            fallsBack(picked, "no lookout marked in this build, patrols instead");
             picked = RoutineData.Activity.PATROL;
         }
         if(picked == RoutineData.Activity.FOLLOW && findLord(world) == null) {
-            abandoned(picked, "no lord to follow in this place, patrols instead");
+            fallsBack(picked, "no lord to follow in this place, patrols instead");
             picked = RoutineData.Activity.PATROL;
         }
         if(picked == RoutineData.Activity.COURT && site.getMarkers(MarkerKind.LORD_SEAT).isEmpty()) {
-            abandoned(picked, "no lord seat marked in this build, sits at a table instead");
+            fallsBack(picked, "no lord seat marked in this build, sits at a table instead");
             picked = RoutineData.Activity.TABLE;
         }
         switch (picked) {
@@ -451,15 +516,32 @@ public class NpcRoutineGoal extends Goal {
             }
             case WORK -> {
                 RoutineData routine = npc.getRoutine();
-                workStation = routine == null ? null : site.pickStation(routine.getStations(), home, WORK_RANGE);
-                BlockPos beside = workStation == null ? null : NestSurvey.standNextTo(world, workStation, npc.getBlockPos());
-                // A forge walled in on every side is for show
+                long time = world.getTime();
+                unusableStations.values().removeIf(until -> until <= time);
+                workStation = null;
+                BlockPos beside = null;
+                List<BlockPos> stations = routine == null ? List.of() : site.stationsNear(routine.getStations(), home, WORK_RANGE);
+                boolean held = false;
+                for(BlockPos station : stations) {
+                    if(unusableStations.containsKey(station)) {
+                        held = true;
+                        continue;
+                    }
+                    beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
+                    // A forge walled in on every side is for show
+                    if(beside != null) {
+                        workStation = station;
+                        break;
+                    }
+                    unusableStations.put(station, time + STATION_HOLD);
+                }
                 if(beside == null)
-                    return cannotStart(picked, workStation == null ? "no station of its trade nearby" : "no room to stand at its station " + workStation.toShortString());
+                    return cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
+                            : "no room to stand at any station of its trade");
                 spot = beside;
             }
             case TABLE -> {
-                meetSeat = site.pickSeat(world, random);
+                meetSeat = site.pickSeat(world, random, home, TABLE_RANGE);
                 if(meetSeat == null)
                     return cannotStart(picked, "no free seat at any table");
                 BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
@@ -509,7 +591,7 @@ public class NpcRoutineGoal extends Goal {
                     boolean marked = false;
                     for(MarkerKind kind : kinds)
                         marked |= !site.getMarkers(kind).isEmpty();
-                    abandoned(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
+                    fallsBack(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
                 }
             }
             case PATROL -> {
@@ -592,6 +674,7 @@ public class NpcRoutineGoal extends Goal {
                 && (picked == RoutineData.Activity.FORAGE || picked == RoutineData.Activity.HUNT || picked == RoutineData.Activity.FISH || picked == RoutineData.Activity.CHOP));
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
         phase = Phase.GOING;
+        failed = false;
         deadline = world.getTime() + ROUTINE_TIME_LIMIT;
         return true;
     }
@@ -607,6 +690,9 @@ public class NpcRoutineGoal extends Goal {
                 BlockPos candidate = trees.get((start + i) % trees.size());
                 if(!candidate.isWithinDistance(home, range) || recentTrees.contains(candidate)
                         || !world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) || !world.getBlockState(candidate).isIn(BlockTags.LOGS))
+                    continue;
+                // A bush is a log in leaves on every side, with no room to stand and swing at it
+                if(NestSurvey.standNextTo(world, candidate, home) == null)
                     continue;
                 recentTrees.addLast(candidate);
                 if(recentTrees.size() > RECENT_TREES)
@@ -641,6 +727,7 @@ public class NpcRoutineGoal extends Goal {
     @Override
     public void start() {
         legs = 0;
+        steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
         showProp();
@@ -681,7 +768,8 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         if(time > deadline && phase != Phase.RETURNING) {
-            abandoned("ran out of time");
+            if(phase != Phase.WORKING)
+                abandoned("ran out of time");
             startReturn(world);
             return;
         }
@@ -711,7 +799,7 @@ public class NpcRoutineGoal extends Goal {
         BlockPos bed = phase == Phase.RETURNING && toBed ? freeBed(world) : null;
         boolean bedding = bed != null;
         if(target.isWithinDistance(mover().getPos(), storing || sitting || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)
-                && (!bedding || canSeeBed(world, bed))) {
+                && (!bedding || canSeeBed(world, bed)) && (!working || workStation == null || canSee(world, workStation))) {
             arrive(world);
             return;
         }
@@ -736,12 +824,28 @@ public class NpcRoutineGoal extends Goal {
         double distance = target.getSquaredDistance(mover().getPos());
         boolean stalled = legs > 1 && distance > lastLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS;
         lastLegDistance = distance;
-        if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE) {
+        if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || isInReach(bed) && canSeeBed(world, bed))) {
             arrive(world);
             return;
         }
         Vec3d destination = legs > MAXIMUM_LEGS ? null : nextLeg(world, target);
-        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, speed);
+        // The way to a bed or a station ends on the floor beside it, not a step off where a table may hide it
+        // A bed up a stair round the back of the house is a long way round, longer than the usual search looks
+        if(bedding)
+            mover().getNavigation().setRangeMultiplier(BED_SEARCH);
+        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working ? 0 : 1, speed);
+        mover().getNavigation().resetRangeMultiplier();
+        // On roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
+        // nearest floor once a walk, rather than give up every walk from there
+        if(!moving && !steppedOff && !riding() && !npc.isClimbing() && !isOnFloor(world)) {
+            BlockPos floor = NestSurvey.freeFloorNear(world, npc.getBlockPos(), STEP_OFF_RADIUS, STEP_OFF_DEPTH);
+            steppedOff = true;
+            if(floor != null) {
+                did(activity.asString(), "stepped off a spot no path starts from, to " + floor.toShortString());
+                npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
+                return;
+            }
+        }
         if(moving && !stalled) {
             failures = 0;
             return;
@@ -771,6 +875,13 @@ public class NpcRoutineGoal extends Goal {
         return further;
     }
 
+    // Standing on the ground, or on a low thing lying in its block such as a slab or a carpet
+    private boolean isOnFloor(ServerWorld world) {
+        BlockPos feet = npc.getBlockPos();
+        VoxelShape inside = world.getBlockState(feet).getCollisionShape(world, feet);
+        return npc.isOnGround() && (inside.isEmpty() || inside.getMax(Direction.Axis.Y) <= 0.5) && !(world.getBlockState(feet).getBlock() instanceof StairsBlock);
+    }
+
     // The block the walk was held up at, from the path it was following
     private String heldUpAt(ServerWorld world) {
         net.minecraft.entity.ai.pathing.Path path = npc.getNavigation().getCurrentPath();
@@ -791,9 +902,28 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void abandoned(String what, String why) {
+        failed = true;
         BlockPos pos = npc.getBlockPos();
-        MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s gave up %s (%s) at %d,%d,%d: %s".formatted(who(), what,
-                phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), why));
+        MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s gave up %s (%s) at %d,%d,%d: %s%s".formatted(who(), what,
+                phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), why, what.equals("bed") ? bedDistance() : ""));
+    }
+
+    // What the build lacks, so that the npc does something else in its place. Not a task given up, and noted once
+    private void fallsBack(RoutineData.Activity what, String why) {
+        if(!notedFallbacks.add(what.asString() + ": " + why))
+            return;
+        BlockPos pos = npc.getBlockPos();
+        MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s falls back from %s at %d,%d,%d: %s".formatted(who(), what.asString(), pos.getX(), pos.getY(), pos.getZ(), why));
+    }
+
+    // How far off the bed was when the npc gave up on it, across the floor and up or down
+    private String bedDistance() {
+        BlockPos bed = npc.getAssignedBed();
+        if(bed == null)
+            return " (no bed assigned)";
+        double across = Math.hypot(bed.getX() + 0.5 - npc.getX(), bed.getZ() + 0.5 - npc.getZ());
+        int rise = bed.getY() - npc.getBlockY();
+        return " (bed %.1f blocks away, %s)".formatted(across, rise == 0 ? "same floor" : rise > 0 ? rise + " up" : -rise + " down");
     }
 
     // Every task done is in the log too, to count what the npcs get done
@@ -825,16 +955,21 @@ public class NpcRoutineGoal extends Goal {
     private void deliver(ServerWorld world, BlockPos store) {
         if(carried == null)
             return;
+        // A camp keeps its things by the fire, and what is brought there goes on it
+        if(world.getBlockState(store).getBlock() instanceof CampfireBlock) {
+            world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + 0.8, store.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0.02);
+            did("deliver", "put " + itemName(carried) + " on the fire at " + store.toShortString());
+            return;
+        }
         Inventory inventory = inventoryAt(world, store);
         if(inventory == null) {
             abandoned("its store " + store.toShortString() + " cannot hold anything");
             return;
         }
         ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(carried), null);
-        if(left.isEmpty())
-            did("deliver", "stored " + itemName(carried) + " in the store at " + store.toShortString());
-        else
-            abandoned("its store is full");
+        // A full store is the work done all the same
+        did("deliver", left.isEmpty() ? "stored " + itemName(carried) + " in the store at " + store.toShortString()
+                : "found the store at " + store.toShortString() + " full, " + itemName(carried) + " stays out");
     }
 
     // A double chest is one inventory
@@ -848,7 +983,25 @@ public class NpcRoutineGoal extends Goal {
 
     private boolean cannotStart(RoutineData.Activity what, String why) {
         abandoned(what, "could not start, " + why);
+        hold(what, npc.getWorld().getTime());
         return false;
+    }
+
+    private @Nullable BlockPos doorTowards(BlockPos target, MobEntity mover) {
+        if(site == null)
+            return null;
+        BlockPos best = null;
+        for(BlockPos door : site.getDoors()) {
+            if(!door.isWithinDistance(target, DOOR_REACH) || door.isWithinDistance(mover.getPos(), AT_DOOR))
+                continue;
+            if(best == null || door.getSquaredDistance(target) < best.getSquaredDistance(target))
+                best = door;
+        }
+        return best;
+    }
+
+    private static boolean isUnderCover(ServerWorld world, BlockPos pos) {
+        return world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4) && world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) > pos.getY() + COVER_HEIGHT;
     }
 
     // Long walks are cut into short stretches, a path over the whole way would cost too much
@@ -859,6 +1012,15 @@ public class NpcRoutineGoal extends Goal {
         double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
         boolean close = distance <= DIRECT_DISTANCE;
         if(close && failures == 0)
+            return Vec3d.ofBottomCenter(target);
+        // No way found straight to a place indoors: the way in is by the door nearest it, and from there it is a short walk.
+        // A search from far off gives out on the way round to the far side of a house
+        BlockPos door = failures % 2 == 1 ? doorTowards(target, mover) : null;
+        if(door != null)
+            return Vec3d.ofBottomCenter(door);
+        // Under a roof or underground, the stretches over open ground below are no way at all: each search goes straight for
+        // the place, and the walk gets as near as it found
+        if(isUnderCover(world, mover.getBlockPos()) || isUnderCover(world, target))
             return Vec3d.ofBottomCenter(target);
 
         // No path to a place close by means a wall in between, and a search aimed straight at the place gives up at the wall.
@@ -888,24 +1050,29 @@ public class NpcRoutineGoal extends Goal {
             nextStop(world.getTime());
             return;
         }
+        if(phase == Phase.RETURNING && toBed) {
+            // Stopped short, but near enough to lie down after all
+            BlockPos bed = freeBed(world);
+            if(bed == null || !isInReach(bed) || !canSeeBed(world, bed))
+                abandoned("could not reach its bed, " + why);
+            goToBed(world);
+            return;
+        }
         boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && (laps > 0 || ringLeft < site.getPatrolRoute().size());
-        abandoned((phase != Phase.RETURNING && walkedSome ? "skipped a stretch of its round, " : toBed ? "could not reach its bed, " : "") + why);
+        abandoned((phase != Phase.RETURNING && walkedSome ? "skipped a stretch of its round, " : "") + why);
         if(phase != Phase.RETURNING && walkedSome) {
             // A blocked stretch of the round is skipped
             ringLeft--;
             nextWaypoint();
             return;
         }
-        if(phase == Phase.RETURNING && toBed) {
-            goToBed(world);
-        } else if(phase == Phase.RETURNING) {
+        if(phase == Phase.RETURNING) {
+            homeStrikes = Math.min(homeStrikes + 1, MAXIMUM_STRIKES);
+            homeHeldUntil = world.getTime() + (long) HOLD * homeStrikes;
             // A bed behind a wall cannot be stood on, the doorstep is home enough
-            BlockPos home = npc.getRoutineHome();
-            if(home == null || !home.isWithinDistance(npc.getBlockPos(), HOME_DISTANCE))
-                backOff = Math.min(backOff + 1, MAXIMUM_BACK_OFF);
             finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
         } else {
-            backOff = Math.min(backOff + 1, MAXIMUM_BACK_OFF);
+            hold(activity, world.getTime());
             startReturn(world);
         }
     }
@@ -915,6 +1082,7 @@ public class NpcRoutineGoal extends Goal {
         long time = world.getTime();
         stopMoving();
         if(phase == Phase.RETURNING) {
+            homeStrikes = 0;
             if(toBed) {
                 goToBed(world);
                 return;
@@ -936,6 +1104,7 @@ public class NpcRoutineGoal extends Goal {
         // Nothing is worked on the far side of a wall
         if(activity == RoutineData.Activity.WORK && workStation != null && !canSee(world, workStation)) {
             abandoned("its station " + workStation.toShortString() + " is behind a wall");
+            unusableStations.put(workStation, time + STATION_HOLD);
             finish(world, REST + random.nextInt(REST_VARIATION));
             return;
         }
@@ -946,7 +1115,7 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         phase = Phase.WORKING;
-        backOff = 0;
+        strikes.remove(activity);
         switch (activity) {
             case FISH -> phaseEnd = time + FISHING_TIME + random.nextInt(FISHING_TIME_VARIATION);
             case FORAGE -> phaseEnd = time + FORAGING_TIME + random.nextInt(FORAGING_TIME_VARIATION);
@@ -1155,6 +1324,7 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = null;
         phase = Phase.GOING;
         legs = 0;
+        steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
         deadline = time + ROUTINE_TIME_LIMIT;
@@ -1228,6 +1398,8 @@ public class NpcRoutineGoal extends Goal {
         }
         if(!stand.isWithinDistance(spot, 3))
             legs = 0;
+            steppedOff = false;
+        steppedOff = false;
         spot = stand;
         return true;
     }
@@ -1249,6 +1421,8 @@ public class NpcRoutineGoal extends Goal {
             spot = stand;
             phase = Phase.GOING;
             legs = 0;
+            steppedOff = false;
+        steppedOff = false;
             failures = 0;
             followCheck = FOLLOW_REPATH;
             return;
@@ -1313,6 +1487,7 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = null;
         phase = Phase.GOING;
         legs = 0;
+        steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
         // Dusk and dawn come in the middle of a round
@@ -1365,6 +1540,8 @@ public class NpcRoutineGoal extends Goal {
             spot = fieldCell.up();
             phase = Phase.GOING;
             legs = 0;
+            steppedOff = false;
+        steppedOff = false;
             failures = 0;
         }
     }
@@ -1490,6 +1667,7 @@ public class NpcRoutineGoal extends Goal {
         phase = Phase.RETURNING;
         lookTarget = null;
         legs = 0;
+        steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
         deadline = world.getTime() + ROUTINE_TIME_LIMIT;
@@ -1526,9 +1704,26 @@ public class NpcRoutineGoal extends Goal {
         return world.getBlockState(hit.getBlockPos()).getBlock() instanceof BedBlock && hit.getBlockPos().getManhattanDistance(bed) == 1;
     }
 
+    // Aimed at the side of the block turned towards the npc. From eye height, a ray to the middle of a block a step away
+    // crosses the block over it, and a forge under a stone hood was never seen
     private boolean canSee(ServerWorld world, BlockPos block) {
-        BlockHitResult hit = world.raycast(new RaycastContext(npc.getEyePos(), Vec3d.ofCenter(block), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
-        return hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(block);
+        Vec3d eye = npc.getEyePos();
+        Vec3d middle = Vec3d.ofCenter(block);
+        // Every side turned towards the npc is tried: from a corner, one of them is behind the next block
+        List<Direction> sides = new ArrayList<>(3);
+        if(Math.abs(eye.x - middle.x) > 0.5)
+            sides.add(eye.x > middle.x ? Direction.EAST : Direction.WEST);
+        if(Math.abs(eye.z - middle.z) > 0.5)
+            sides.add(eye.z > middle.z ? Direction.SOUTH : Direction.NORTH);
+        if(Math.abs(eye.y - middle.y) > 0.5)
+            sides.add(eye.y > middle.y ? Direction.UP : Direction.DOWN);
+        for(Direction side : sides) {
+            Vec3d aim = middle.add(side.getOffsetX() * FACE_INSET, side.getOffsetY() * FACE_INSET, side.getOffsetZ() * FACE_INSET);
+            BlockHitResult hit = world.raycast(new RaycastContext(eye, aim, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
+            if(hit.getType() == HitResult.Type.MISS || hit.getBlockPos().equals(block))
+                return true;
+        }
+        return sides.isEmpty();
     }
 
     // Its own bed, unless that is gone or somebody is lying in it
@@ -1541,17 +1736,25 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void goToBed(ServerWorld world) {
-        toBed = false;
         lookTarget = null;
         npc.getNavigation().stop();
         npc.clearRoutineProp();
         BlockPos bed = freeBed(world);
         if(bed != null && isInReach(bed) && canSeeBed(world, bed)) {
+            toBed = false;
             npc.lieDown(bed);
             phase = Phase.SLEEPING;
+            bedStrikes = 0;
+            failed = false;
         } else {
-            abandoned("bed", bed == null ? "its bed is gone or somebody lies in it" : !isInReach(bed) ? "could not get near its bed " + bed.toShortString()
-                    : "its bed " + bed.toShortString() + " is behind a wall");
+            // A walk to it that was given up is already in the log
+            if(!failed)
+                abandoned("bed", bed == null ? "its bed is gone or somebody lies in it" : !isInReach(bed) ? "could not get near its bed " + bed.toShortString()
+                        : "its bed " + bed.toShortString() + " is behind a wall");
+            // Left set until the failure is logged, which records the way to the bed rather than home
+            toBed = false;
+            bedStrikes = Math.min(bedStrikes + 1, MAXIMUM_STRIKES);
+            bedHeldUntil = world.getTime() + (long) HOLD * bedStrikes;
             finish(world, NOTHING_TO_DO_REST);
         }
     }
@@ -1617,6 +1820,13 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void finish(ServerWorld world, int rest) {
+        // Against the tasks given up, the ones seen through to the end
+        if(phase != Phase.NONE && !failed) {
+            BlockPos pos = npc.getBlockPos();
+            MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s finished %s at %d,%d,%d".formatted(who(), phase == Phase.SLEEPING ? "sleep" : toBed ? "bed" : homeward ? "home" : activity.asString(),
+                    pos.getX(), pos.getY(), pos.getZ()));
+        }
+        failed = false;
         standUp();
         if(site != null)
             site.release(npc.getUuid());
@@ -1625,7 +1835,7 @@ public class NpcRoutineGoal extends Goal {
         npc.setOnOuting(false);
         carried = null;
         lookTarget = null;
-        restUntil = world.getTime() + (long) rest * (1 + backOff * 2);
+        restUntil = world.getTime() + rest;
         npc.clearRoutineProp();
         if(npc.isSleeping())
             npc.wakeUp();

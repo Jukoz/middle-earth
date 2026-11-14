@@ -11,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.utils.SpawnUtil;
@@ -231,18 +232,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         rescues++;
         rescuedAt = pos;
         npc.getNavigation().stop();
-        BlockPos best = null;
-        for(BlockPos spot : BlockPos.iterate(pos.add(-RESCUE_RADIUS, -RESCUE_DEPTH, -RESCUE_RADIUS), pos.add(RESCUE_RADIUS, 1, RESCUE_RADIUS))) {
-            if(spot.equals(pos) || !world.isChunkLoaded(spot.getX() >> 4, spot.getZ() >> 4))
-                continue;
-            BlockPos below = spot.down();
-            boolean standable = world.getBlockState(spot).getCollisionShape(world, spot).isEmpty()
-                    && world.getBlockState(spot.up()).getCollisionShape(world, spot.up()).isEmpty()
-                    && world.getFluidState(spot).isEmpty()
-                    && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP);
-            if(standable && (best == null || spot.getSquaredDistance(pos) < best.getSquaredDistance(pos)))
-                best = spot.toImmutable();
-        }
+        BlockPos best = NestSurvey.freeFloorNear(world, pos, RESCUE_RADIUS, RESCUE_DEPTH);
         if(best != null)
             npc.refreshPositionAndAngles(best.getX() + 0.5, best.getY(), best.getZ() + 0.5, npc.getYaw(), npc.getPitch());
     }
