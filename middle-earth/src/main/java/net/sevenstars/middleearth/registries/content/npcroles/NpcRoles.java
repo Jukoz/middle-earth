@@ -6,6 +6,8 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -65,8 +67,21 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade(StationKind.HAY));
 
     // [WARRIORS]
-    // Keeps its own name: a Gondor Soldier on guard is still that
-    public static final RegistryKey<NpcRole> GUARD = registerForNest("guard", "guard", new NpcRole(Optional.of(NpcRoutines.GUARD), false, Optional.empty()));
+    // Keeps its own name: a Gondor Soldier on guard is still that. Only for those saved with it, nests hand out the duties below
+    public static final RegistryKey<NpcRole> GUARD = register("guard", new NpcRole(Optional.of(NpcRoutines.GUARD), false, Optional.empty()));
+    public static final RegistryKey<NpcRole> LORD = registerForNests(List.of("lord", "captain", "chief", "chieftain", "marshal"), "lord",
+            new NpcRole(Optional.of(RoutineData.create(Period.DAY).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.TABLE, 1).add(Activity.VISIT, 1)), false, Optional.empty()));
+    // For the orcs and goblins, whose lords keep the night
+    public static final RegistryKey<NpcRole> NIGHT_LORD = register("night_lord",
+            new NpcRole(Optional.of(RoutineData.create(Period.NIGHT).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.TABLE, 1).add(Activity.VISIT, 1)), false, Optional.empty()));
+    // The duties of a guard nest, chosen when the guard is spawned
+    public static final RegistryKey<NpcRole> GATE_GUARD = register("gate_guard", duty(RoutineData.create(Period.SHIFTS).add(Activity.POST, 1)));
+    public static final RegistryKey<NpcRole> BODYGUARD = register("bodyguard", duty(RoutineData.create(Period.SHIFTS).add(Activity.FOLLOW, 1)));
+    public static final RegistryKey<NpcRole> SENTRY = register("sentry", duty(RoutineData.create(Period.SHIFTS).add(Activity.POST, 1)));
+    public static final RegistryKey<NpcRole> PATROL = register("patrol", duty(RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.ESCORT, 1)));
+
+    private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
+    private static final int BODYGUARDS = 2;
 
     public static void bootstrap(Registerable<NpcRole> context) {
         ROLES.forEach(context::register);
@@ -82,6 +97,41 @@ public class NpcRoles {
                 return role.getValue();
         }
         return null;
+    }
+
+    public static boolean isLord(@Nullable Identifier role) {
+        return LORD.getValue().equals(role) || NIGHT_LORD.getValue().equals(role);
+    }
+
+    public static boolean isGuardNest(Identifier nestId) {
+        String path = nestId.getPath();
+        return GUARD_NESTS.contains(path.substring(path.lastIndexOf('.') + 1));
+    }
+
+    // The first duty of the place that has nobody on it: a post at each entrance, bodyguards for the lord, a sentry at each
+    // lookout, and the rounds for the rest. Counted over everybody living in the place, whatever nest they came from
+    public static Identifier guardDuty(RoutineSite site, Iterable<? extends NpcEntity> residents, boolean lordExpected) {
+        int gates = 0;
+        int bodyguards = 0;
+        int sentries = 0;
+        boolean lord = false;
+        for(NpcEntity resident : residents) {
+            Identifier role = resident.getRoleId();
+            if(role == null || !resident.isAlive())
+                continue;
+            if(role.equals(GATE_GUARD.getValue())) gates++;
+            else if(role.equals(BODYGUARD.getValue())) bodyguards++;
+            else if(role.equals(SENTRY.getValue())) sentries++;
+            else if(isLord(role)) lord = true;
+        }
+        int entrances = site.getMarkers(MarkerKind.ENTRANCE).size() + site.getMarkers(MarkerKind.GUARD_POST).size();
+        if(gates < entrances)
+            return GATE_GUARD.getValue();
+        if((lord || lordExpected) && bodyguards < BODYGUARDS)
+            return BODYGUARD.getValue();
+        if(sentries < site.getMarkers(MarkerKind.LOOKOUT).size())
+            return SENTRY.getValue();
+        return PATROL.getValue();
     }
 
     public static Optional<Identifier> forNest(Identifier nestId) {
@@ -128,6 +178,17 @@ public class NpcRoles {
     // Most of the day at the trade, with time left to sit down
     private static NpcRole trade(StationKind... stations) {
         return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
+    }
+
+    // Keeps the name of the type, as a Gondor Knight on duty is still a knight
+    private static NpcRole duty(RoutineData routine) {
+        return new NpcRole(Optional.of(routine), false, Optional.empty());
+    }
+
+    private static RegistryKey<NpcRole> registerForNests(List<String> nestNames, String name, NpcRole role) {
+        RegistryKey<NpcRole> key = register(name, role);
+        nestNames.forEach(nestName -> NEST_ROLES.put(nestName, key));
+        return key;
     }
 
     private static RegistryKey<NpcRole> registerForNest(String name, String nestName, NpcRole role) {

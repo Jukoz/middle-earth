@@ -13,6 +13,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -46,6 +47,8 @@ public class SpawnNestManager {
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
+    // Around the structure, to count those who live there
+    private static final int GUARD_COUNT_MARGIN = 48;
 
     private Identifier id;
     private ArrayList<UUID> entities;
@@ -274,7 +277,8 @@ public class SpawnNestManager {
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
-                    Optional<Identifier> role = data.getRole().isPresent() ? data.getRole() : householdRole(world, structureManagerPos, npcEntity);
+                    Optional<Identifier> role = data.getRole().isPresent() ? data.getRole()
+                            : NpcRoles.isGuardNest(id) ? guardDuty(world, structureManagerPos) : householdRole(world, structureManagerPos, npcEntity);
                     role.ifPresent(npcEntity::takeRole);
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }
@@ -286,6 +290,18 @@ public class SpawnNestManager {
             world.markDirty(structureManagerPos);
         }
         this.respawnEventTriggerTick = -1;
+    }
+
+    // Which duty of the place is next to be filled, counted over everyone living in it
+    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos) {
+        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+        if(site == null)
+            return Optional.of(NpcRoles.PATROL.getValue());
+        int reach = site.getExtent() + GUARD_COUNT_MARGIN;
+        Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
+        // Guards can spawn before their lord does, who is counted all the same
+        boolean lordExpected = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager && manager.hasLordNest();
+        return Optional.of(NpcRoles.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
     }
 
     // A civilian whose nest gives it no role takes up what the household has the means for, unless somebody living here has already

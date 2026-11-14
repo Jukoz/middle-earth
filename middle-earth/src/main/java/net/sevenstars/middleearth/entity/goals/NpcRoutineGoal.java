@@ -20,6 +20,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -36,6 +37,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvent;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
@@ -55,6 +57,7 @@ import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -66,10 +69,13 @@ import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 // Sends an npc out to fish, hunt, forage or patrol, then back home with what it got
 public class NpcRoutineGoal extends Goal {
@@ -140,6 +146,23 @@ public class NpcRoutineGoal extends Goal {
     private static final int MEETING_TIME_VARIATION = 20 * 20;
     private static final int POST_TIME = 20 * 60;
     private static final int POST_TIME_VARIATION = 20 * 60;
+    private static final int COURT_TIME = 20 * 120;
+    private static final int COURT_TIME_VARIATION = 20 * 60;
+    private static final int INSPECT_TIME = 20 * 6;
+    private static final int INSPECT_TIME_VARIATION = 20 * 6;
+    private static final int INSPECT_RING_STOPS = 4;
+    // From the marker of the lord's seat to the seat that is its own
+    private static final int LORD_SEAT_REACH = 3;
+    private static final double FOLLOW_NEAR = 3.5;
+    private static final double FOLLOW_FAR = 5.5;
+    // Where a bodyguard stands while the lord sits, from the lord
+    private static final int FOLLOW_POST_RANGE = 8;
+    // Looks, of half a second, between two corrections of where a bodyguard walks to
+    private static final int FOLLOW_REPATH = 6;
+    private static final int LORD_SEARCH_RANGE = 32;
+    private static final int LORD_SEARCH_DELAY = 20 * 5;
+    // A rider's round lies this far outside the one on foot
+    private static final int RIDER_MARGIN = 18;
     private static final int ESCORT_RANGE = 24;
     private static final int WORK_TIME = 20 * 40;
     private static final int WORK_TIME_VARIATION = 20 * 40;
@@ -206,6 +229,12 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable BlockPos tree = null;
     private @Nullable BlockPos rockFace = null;
     private final ArrayDeque<BlockPos> recentTrees = new ArrayDeque<>();
+    // Which way the marker of the post, the seat or the stop being visited faces
+    private @Nullable Direction facing = null;
+    private final ArrayDeque<StructureFeatureData.Marker> stops = new ArrayDeque<>();
+    private @Nullable UUID lordId = null;
+    private long lordSearchAt = 0;
+    private int followCheck = 0;
 
     public NpcRoutineGoal(NpcEntity npc, double speed) {
         this.npc = npc;
@@ -236,7 +265,7 @@ public class NpcRoutineGoal extends Goal {
         // Saved at the table, and the meeting it sat down for is forgotten
         if(seated && phase == Phase.NONE)
             standUp();
-        if(npc.getTarget() != null || (npc.hasVehicle() && !seated))
+        if(npc.getTarget() != null || (npc.hasVehicle() && !seated && !riding()))
             return false;
         if(phase != Phase.NONE) {
             if(world.getTime() > deadline && phase != Phase.RETURNING) {
@@ -276,7 +305,8 @@ public class NpcRoutineGoal extends Goal {
         if(time < restUntil)
             return false;
         // Bed time comes whether anyone is watching or not
-        BlockPos restingHome = npc.getStructureManagerHostPos() == null ? null : npc.getRoutineHome();
+        // A rider keeps to its mount through the night, and has no bed to lie down in
+        BlockPos restingHome = npc.getStructureManagerHostPos() == null || riding() ? null : npc.getRoutineHome();
         if(restingHome != null && npc.isRestTime()) {
             if(!RoutineSites.takeStart(world)) {
                 delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
@@ -314,7 +344,7 @@ public class NpcRoutineGoal extends Goal {
         askHousehold(world);
         RoutineData.Activity picked = null;
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift())) {
-            picked = routine.pick(npc.getRandom(), activity -> site.supports(activity)
+            picked = routine.pick(npc.getRandom(), activity -> site.supports(activity) && (!riding() || mounted(activity))
                         && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         }
         else if(npc.isElf() && !npc.isRestTime())
@@ -381,6 +411,21 @@ public class NpcRoutineGoal extends Goal {
         Random random = npc.getRandom();
         lookTarget = null;
         carried = null;
+        facing = null;
+        boolean sentry = NpcRoles.SENTRY.getValue().equals(npc.getRoleId());
+        // What the build lacks, the duty falls back from
+        if(picked == RoutineData.Activity.POST && sentry && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
+            abandoned(picked, "no lookout marked in this build, patrols instead");
+            picked = RoutineData.Activity.PATROL;
+        }
+        if(picked == RoutineData.Activity.FOLLOW && findLord(world) == null) {
+            abandoned(picked, "no lord to follow in this place, patrols instead");
+            picked = RoutineData.Activity.PATROL;
+        }
+        if(picked == RoutineData.Activity.COURT && site.getMarkers(MarkerKind.LORD_SEAT).isEmpty()) {
+            abandoned(picked, "no lord seat marked in this build, sits at a table instead");
+            picked = RoutineData.Activity.TABLE;
+        }
         switch (picked) {
             case FISH -> {
                 int index = pickNear(site.getShoreStands(), home, SPOT_RANGE + site.getExtent(), random);
@@ -453,18 +498,91 @@ public class NpcRoutineGoal extends Goal {
                 spot = nearest.pos();
                 lookTarget = Vec3d.ofCenter(rockFace);
             }
-            case POST -> spot = home;
+            case POST -> {
+                spot = home;
+                MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
+                StructureFeatureData.Marker post = site.claimPost(world, npc.getUuid(), home, kinds);
+                if(post != null) {
+                    spot = post.pos();
+                    facing = post.facing();
+                } else {
+                    boolean marked = false;
+                    for(MarkerKind kind : kinds)
+                        marked |= !site.getMarkers(kind).isEmpty();
+                    abandoned(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
+                }
+            }
             case PATROL -> {
-                List<BlockPos> ring = site.getRing();
+                List<BlockPos> route = site.getPatrolRoute();
+                if(route.size() < 2)
+                    return cannotStart(picked, "no round to walk in this build");
                 ringIndex = 0;
-                for(int i = 1; i < ring.size(); i++) {
-                    if(ring.get(i).getSquaredDistance(npc.getBlockPos()) < ring.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
+                for(int i = 1; i < route.size(); i++) {
+                    if(route.get(i).getSquaredDistance(npc.getBlockPos()) < route.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
                         ringIndex = i;
                 }
                 laps = 0;
                 ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
-                ringLeft = ring.size();
-                spot = ring.get(ringIndex);
+                ringLeft = route.size();
+                spot = routePoint(world, route.get(ringIndex));
+            }
+            case COURT -> {
+                StructureFeatureData.Marker seatMarker = null;
+                for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.LORD_SEAT)) {
+                    if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
+                        seatMarker = marker;
+                }
+                // The marker stands beside the seat
+                BlockPos seat = null;
+                for(BlockPos candidate : site.getSeats()) {
+                    if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) && SeatBlock.isFree(world, candidate)
+                            && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
+                        seat = candidate;
+                }
+                facing = seatMarker.facing();
+                if(seat != null) {
+                    meetSeat = seat;
+                    BlockPos beside = NestSurvey.standNextTo(world, seat, npc.getBlockPos());
+                    spot = beside != null ? beside : seat;
+                } else {
+                    spot = seatMarker.pos();
+                }
+            }
+            case INSPECT -> {
+                stops.clear();
+                List<StructureFeatureData.Marker> posts = new ArrayList<>(site.getMarkers(MarkerKind.GUARD_POST));
+                posts.addAll(site.getMarkers(MarkerKind.ENTRANCE));
+                if(posts.isEmpty()) {
+                    // Nothing marked, so a walk around the place will do
+                    List<BlockPos> ring = site.getRing();
+                    if(ring.size() < 3)
+                        return cannotStart(picked, "no post marked and no round to walk in this build");
+                    int step = Math.max(1, ring.size() / INSPECT_RING_STOPS);
+                    int first = random.nextInt(ring.size());
+                    for(int i = 0; i < Math.min(INSPECT_RING_STOPS, ring.size()); i++)
+                        stops.add(new StructureFeatureData.Marker(MarkerKind.PATROL_POINT, ring.get((first + i * step) % ring.size()), null));
+                } else {
+                    BlockPos at = npc.getBlockPos();
+                    while(!posts.isEmpty()) {
+                        StructureFeatureData.Marker nearest = posts.getFirst();
+                        for(StructureFeatureData.Marker post : posts) {
+                            if(post.pos().getSquaredDistance(at) < nearest.pos().getSquaredDistance(at))
+                                nearest = post;
+                        }
+                        posts.remove(nearest);
+                        stops.add(nearest);
+                        at = nearest.pos();
+                    }
+                }
+                StructureFeatureData.Marker first = stops.poll();
+                spot = first.pos();
+                facing = first.facing();
+            }
+            case FOLLOW -> {
+                NpcEntity lord = findLord(world);
+                BlockPos stand = lord == null ? null : followSpot(world, lord);
+                spot = stand != null ? stand : npc.getBlockPos();
+                followCheck = FOLLOW_REPATH;
             }
         }
         activity = picked;
@@ -517,7 +635,7 @@ public class NpcRoutineGoal extends Goal {
         if(phase == Phase.SLEEPING)
             return npc.isSleeping() && npc.getTarget() == null;
         return (phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING)
-                && npc.getTarget() == null && (!npc.hasVehicle() || npc.getVehicle() instanceof SeatEntity);
+                && npc.getTarget() == null && (!npc.hasVehicle() || npc.getVehicle() instanceof SeatEntity || riding());
     }
 
     @Override
@@ -533,9 +651,9 @@ public class NpcRoutineGoal extends Goal {
         if(phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING) {
             LivingEntity foe = npc.getTarget();
             abandoned(foe != null ? "interrupted by a fight with " + foe.getType().getName().getString()
-                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
+                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
         }
-        npc.getNavigation().stop();
+        stopMoving();
         standUp();
         // Hands are needed back when a fight interrupts
         npc.clearRoutineProp();
@@ -569,7 +687,10 @@ public class NpcRoutineGoal extends Goal {
         }
 
         switch (phase) {
-            case GOING -> travel(world, spot);
+            case GOING -> {
+                if(activity != RoutineData.Activity.FOLLOW || following(world))
+                    travel(world, spot);
+            }
             case RETURNING -> travel(world, returnTarget(world));
             case WORKING -> work(world, time);
             default -> {}
@@ -589,7 +710,7 @@ public class NpcRoutineGoal extends Goal {
         // Close enough to a bed is where the bed can be seen from, not a step from it through the wall
         BlockPos bed = phase == Phase.RETURNING && toBed ? freeBed(world) : null;
         boolean bedding = bed != null;
-        if(target.isWithinDistance(npc.getPos(), storing || sitting || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)
+        if(target.isWithinDistance(mover().getPos(), storing || sitting || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)
                 && (!bedding || canSeeBed(world, bed))) {
             arrive(world);
             return;
@@ -600,19 +721,19 @@ public class NpcRoutineGoal extends Goal {
         } else if(++watchedThinks >= WATCH_THINKS) {
             watchedThinks = 0;
             String heldUp = heldUpAt(world);
-            npc.getNavigation().stop();
+            mover().getNavigation().stop();
             failures++;
             if(failures >= MAXIMUM_FAILURES) {
                 giveUp(world, "stuck on the way to " + target.toShortString() + heldUp);
                 return;
             }
         }
-        if(!npc.getNavigation().isIdle() || !RoutineSites.takePath(world))
+        if(!mover().getNavigation().isIdle() || !RoutineSites.takePath(world))
             return;
 
         legs++;
         // A stretch that ended no closer was a path that led nowhere
-        double distance = target.getSquaredDistance(npc.getPos());
+        double distance = target.getSquaredDistance(mover().getPos());
         boolean stalled = legs > 1 && distance > lastLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS;
         lastLegDistance = distance;
         if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE) {
@@ -620,7 +741,7 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         Vec3d destination = legs > MAXIMUM_LEGS ? null : nextLeg(world, target);
-        boolean moving = destination != null && npc.getNavigation().startMovingTo(destination.x, destination.y, destination.z, speed);
+        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, speed);
         if(moving && !stalled) {
             failures = 0;
             return;
@@ -633,15 +754,16 @@ public class NpcRoutineGoal extends Goal {
     // Further along its path than at the last look, by however little: past another node of it, or nearer the next one.
     // Wading through water or climbing a ladder is slow and still counts. Without a path the stretches see to it
     private boolean isGettingAlong() {
-        Path path = npc.getNavigation().getCurrentPath();
+        MobEntity mover = mover();
+        Path path = mover.getNavigation().getCurrentPath();
         if(path == null || path.isFinished()) {
             watchedPath = null;
             return true;
         }
         int node = path.getCurrentNodeIndex();
-        Vec3d next = path.getNodePosition(npc);
+        Vec3d next = path.getNodePosition(mover);
         // Across the ground only, as bobbing in the water goes up and down without getting anywhere
-        double distance = Math.hypot(next.x - npc.getX(), next.z - npc.getZ());
+        double distance = Math.hypot(next.x - mover.getX(), next.z - mover.getZ());
         boolean further = path != watchedPath || node > watchedNode || distance < watchedDistance;
         watchedPath = path;
         watchedNode = node;
@@ -731,8 +853,9 @@ public class NpcRoutineGoal extends Goal {
 
     // Long walks are cut into short stretches, a path over the whole way would cost too much
     private @Nullable Vec3d nextLeg(ServerWorld world, BlockPos target) {
-        double distanceX = target.getX() + 0.5 - npc.getX();
-        double distanceZ = target.getZ() + 0.5 - npc.getZ();
+        MobEntity mover = mover();
+        double distanceX = target.getX() + 0.5 - mover.getX();
+        double distanceZ = target.getZ() + 0.5 - mover.getZ();
         double distance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
         boolean close = distance <= DIRECT_DISTANCE;
         if(close && failures == 0)
@@ -745,12 +868,12 @@ public class NpcRoutineGoal extends Goal {
         float heading = (float) (MathHelper.atan2(distanceZ, distanceX) * MathHelper.DEGREES_PER_RADIAN);
         for(float detour : detours) {
             float radians = (heading + detour) * MathHelper.RADIANS_PER_DEGREE;
-            int x = MathHelper.floor(npc.getX() + MathHelper.cos(radians) * length);
-            int z = MathHelper.floor(npc.getZ() + MathHelper.sin(radians) * length);
+            int x = MathHelper.floor(mover.getX() + MathHelper.cos(radians) * length);
+            int z = MathHelper.floor(mover.getZ() + MathHelper.sin(radians) * length);
             if(!world.isChunkLoaded(x >> 4, z >> 4))
                 continue;
             BlockPos ground = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-            if(Math.abs(ground.getY() - npc.getY()) > MAXIMUM_HEIGHT_CHANGE || (site != null && site.isBuilding(x, ground.getY(), z)))
+            if(Math.abs(ground.getY() - mover.getY()) > MAXIMUM_HEIGHT_CHANGE || (site != null && site.isBuilding(x, ground.getY(), z)))
                 continue;
             if(world.getFluidState(ground.down()).isEmpty() && SpawnUtil.canSpawn(ground, world, SpawnReason.EVENT))
                 return Vec3d.ofBottomCenter(ground);
@@ -760,7 +883,12 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void giveUp(ServerWorld world, String why) {
-        boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && (laps > 0 || ringLeft < site.getRing().size());
+        if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && !stops.isEmpty()) {
+            abandoned("skipped a post, " + why);
+            nextStop(world.getTime());
+            return;
+        }
+        boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && (laps > 0 || ringLeft < site.getPatrolRoute().size());
         abandoned((phase != Phase.RETURNING && walkedSome ? "skipped a stretch of its round, " : toBed ? "could not reach its bed, " : "") + why);
         if(phase != Phase.RETURNING && walkedSome) {
             // A blocked stretch of the round is skipped
@@ -785,7 +913,7 @@ public class NpcRoutineGoal extends Goal {
     private void arrive(ServerWorld world) {
         Random random = npc.getRandom();
         long time = world.getTime();
-        npc.getNavigation().stop();
+        stopMoving();
         if(phase == Phase.RETURNING) {
             if(toBed) {
                 goToBed(world);
@@ -841,13 +969,29 @@ public class NpcRoutineGoal extends Goal {
             }
             case POST -> {
                 phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
-                double awayX = npc.getX() - site.getCenterX();
-                double awayZ = npc.getZ() - site.getCenterZ();
-                lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+                // A marked post says where to look, the rest watch the land outside
+                lookTarget = facingTarget();
+                if(lookTarget == null) {
+                    double awayX = npc.getX() - site.getCenterX();
+                    double awayZ = npc.getZ() - site.getCenterZ();
+                    lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+                }
             }
+            case COURT -> {
+                boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
+                phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
+                did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
+                companion = null;
+                meetSeat = null;
+            }
+            case INSPECT -> {
+                phaseEnd = time + INSPECT_TIME + random.nextInt(INSPECT_TIME_VARIATION);
+                lookTarget = facingTarget();
+            }
+            case FOLLOW -> phaseEnd = time;
             case PATROL -> {
                 phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
-                // Watches the land outside
+                // Watches the land outside, the place for a rider being further out than the ring
                 double awayX = npc.getX() - site.getCenterX();
                 double awayZ = npc.getZ() - site.getCenterZ();
                 lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
@@ -942,13 +1086,13 @@ public class NpcRoutineGoal extends Goal {
                 }
             }
             case FARM -> farm(world, done);
-            case VISIT, TABLE -> {
+            case VISIT, TABLE, COURT -> {
                 if(done) {
                     finish(world, REST + random.nextInt(REST_VARIATION));
                 } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
                     // Turns to whoever else is standing around
                     companion = RoutineSites.takePreySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, 2, COMPANION_RANGE)) : null;
-                    lookTarget = null;
+                    lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
                 } else {
                     lookTarget = companion.getEyePos();
                     // Talking with the hands
@@ -967,6 +1111,16 @@ public class NpcRoutineGoal extends Goal {
                 else
                     finish(world, REST + random.nextInt(REST_VARIATION));
             }
+            case INSPECT -> {
+                if(!done)
+                    return;
+                did("inspect", "looked over the post at " + spot.toShortString());
+                if(stops.isEmpty() || !onDuty(world))
+                    startReturn(world);
+                else
+                    nextStop(time);
+            }
+            case FOLLOW -> follow(world, time);
             case PATROL -> {
                 if(!done)
                     return;
@@ -979,7 +1133,7 @@ public class NpcRoutineGoal extends Goal {
                     startReturn(world);
                 } else {
                     if(ringLeft <= 0) {
-                        ringLeft = site.getRing().size();
+                        ringLeft = site.getPatrolRoute().size();
                         laps++;
                     }
                     deadline = world.getTime() + ROUTINE_TIME_LIMIT;
@@ -994,10 +1148,168 @@ public class NpcRoutineGoal extends Goal {
         return routine != null && routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
     }
 
+    private void nextStop(long time) {
+        StructureFeatureData.Marker next = stops.poll();
+        spot = next.pos();
+        facing = next.facing();
+        lookTarget = null;
+        phase = Phase.GOING;
+        legs = 0;
+        failures = 0;
+        thinkCooldown = 0;
+        deadline = time + ROUTINE_TIME_LIMIT;
+    }
+
+    // The lord of the place is the one of its people who holds the role, found once and known by its id after
+    private @Nullable NpcEntity findLord(ServerWorld world) {
+        if(lordId != null && world.getEntity(lordId) instanceof NpcEntity known && known.isAlive())
+            return known;
+        lordId = null;
+        if(world.getTime() < lordSearchAt)
+            return null;
+        lordSearchAt = world.getTime() + LORD_SEARCH_DELAY;
+        int reach = (site == null ? 0 : site.getExtent()) + LORD_SEARCH_RANGE;
+        NpcEntity nearest = null;
+        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(reach, 48, reach),
+                other -> other != npc && other.isAlive() && NpcRoles.isLord(other.getRoleId()) && Objects.equals(npc.getFactionIdentifier(), other.getFactionIdentifier()))) {
+            if(nearest == null || npc.squaredDistanceTo(other) < npc.squaredDistanceTo(nearest))
+                nearest = other;
+        }
+        if(nearest != null)
+            lordId = nearest.getUuid();
+        return nearest;
+    }
+
+    // Where a bodyguard should be: at a post while the lord sits at court, otherwise a few blocks off the lord. Null when it is there
+    private @Nullable BlockPos followSpot(ServerWorld world, NpcEntity lord) {
+        facing = null;
+        if(lord.getVehicle() instanceof SeatEntity && site != null) {
+            StructureFeatureData.Marker post = null;
+            for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.GUARD_POST)) {
+                if(marker.pos().isWithinDistance(lord.getBlockPos(), FOLLOW_POST_RANGE)
+                        && (post == null || marker.pos().getSquaredDistance(lord.getBlockPos()) < post.pos().getSquaredDistance(lord.getBlockPos())))
+                    post = marker;
+            }
+            if(post != null) {
+                facing = post.facing();
+                return npc.getBlockPos().isWithinDistance(post.pos(), ARRIVAL_DISTANCE) ? null : post.pos();
+            }
+        }
+        if(npc.squaredDistanceTo(lord) <= FOLLOW_FAR * FOLLOW_FAR)
+            return null;
+        Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
+        away = away.lengthSquared() < 0.01 ? new Vec3d(1, 0, 0) : away.normalize();
+        BlockPos lordAt = lord.getBlockPos();
+        for(int dy : new int[]{0, -1, 1}) {
+            BlockPos candidate = BlockPos.ofFloored(lord.getX() + away.x * FOLLOW_NEAR, lordAt.getY() + dy, lord.getZ() + away.z * FOLLOW_NEAR);
+            if(world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) && world.getBlockState(candidate).getCollisionShape(world, candidate).isEmpty()
+                    && world.getBlockState(candidate.up()).getCollisionShape(world, candidate.up()).isEmpty() && world.getBlockState(candidate.down()).isSolidBlock(world, candidate.down()))
+                return candidate;
+        }
+        BlockPos beside = NestSurvey.standNextTo(world, lordAt, npc.getBlockPos());
+        return beside != null ? beside : lordAt;
+    }
+
+    // While walking after the lord, which has moved on since the walk began. False once there is nowhere left to walk to
+    private boolean following(ServerWorld world) {
+        if(--followCheck > 0)
+            return true;
+        followCheck = FOLLOW_REPATH;
+        NpcEntity lord = findLord(world);
+        if(lord == null) {
+            abandoned("lost its lord");
+            finish(world, REST);
+            return false;
+        }
+        BlockPos stand = followSpot(world, lord);
+        if(stand == null) {
+            arrive(world);
+            return false;
+        }
+        if(!stand.isWithinDistance(spot, 3))
+            legs = 0;
+        spot = stand;
+        return true;
+    }
+
+    private void follow(ServerWorld world, long time) {
+        deadline = time + ROUTINE_TIME_LIMIT;
+        if(!onDuty(world) || !isWatched(world)) {
+            startReturn(world);
+            return;
+        }
+        NpcEntity lord = findLord(world);
+        if(lord == null) {
+            abandoned("lost its lord");
+            finish(world, REST);
+            return;
+        }
+        BlockPos stand = followSpot(world, lord);
+        if(stand != null) {
+            spot = stand;
+            phase = Phase.GOING;
+            legs = 0;
+            failures = 0;
+            followCheck = FOLLOW_REPATH;
+            return;
+        }
+        // Looks the way the post does, and otherwise outwards from the lord
+        lookTarget = facingTarget();
+        if(lookTarget == null) {
+            Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
+            lookTarget = away.lengthSquared() < 0.01 ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
+        }
+        showProp();
+    }
+
+    private @Nullable Vec3d facingTarget() {
+        return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * 5, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * 5);
+    }
+
+    // The npc on its own mount, which it steers with the mount's own legs
+    private boolean riding() {
+        NpcType type = npc.getNpcType();
+        return type != null && type.hasMount() && npc.getVehicle() instanceof MobEntity mount && mount.getFirstPassenger() == npc;
+    }
+
+    // What the one that does the walking is: the mount of a rider
+    private MobEntity mover() {
+        return riding() && npc.getVehicle() instanceof MobEntity mount ? mount : npc;
+    }
+
+    private void stopMoving() {
+        npc.getNavigation().stop();
+        if(npc.getVehicle() instanceof MobEntity mount)
+            mount.getNavigation().stop();
+    }
+
+    // Riders keep to the watch: the other work is done on foot
+    private static boolean mounted(RoutineData.Activity activity) {
+        return activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.INSPECT;
+    }
+
+    // Riders go round further out, where a horse has the room to go
+    private BlockPos routePoint(ServerWorld world, BlockPos point) {
+        if(!riding() || site.getPatrolRoute() != site.getRing())
+            return point;
+        double outX = point.getX() - site.getCenterX();
+        double outZ = point.getZ() - site.getCenterZ();
+        double length = Math.hypot(outX, outZ);
+        if(length < 1)
+            return point;
+        int x = MathHelper.floor(point.getX() + outX / length * RIDER_MARGIN);
+        int z = MathHelper.floor(point.getZ() + outZ / length * RIDER_MARGIN);
+        if(!world.isChunkLoaded(x >> 4, z >> 4))
+            return point;
+        BlockPos ground = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
+        boolean open = Math.abs(ground.getY() - point.getY()) <= MAXIMUM_HEIGHT_CHANGE && world.getFluidState(ground.down()).isEmpty() && !site.isBuilding(x, ground.getY(), z);
+        return open ? ground : point;
+    }
+
     private void nextWaypoint() {
-        List<BlockPos> ring = site.getRing();
+        List<BlockPos> ring = site.getPatrolRoute();
         ringIndex = Math.floorMod(ringIndex + ringStep, ring.size());
-        spot = ring.get(ringIndex);
+        spot = npc.getWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
         lookTarget = null;
         phase = Phase.GOING;
         legs = 0;
@@ -1173,6 +1485,8 @@ public class NpcRoutineGoal extends Goal {
 
     private void startReturn(ServerWorld world) {
         standUp();
+        if(site != null)
+            site.release(npc.getUuid());
         phase = Phase.RETURNING;
         lookTarget = null;
         legs = 0;
@@ -1304,6 +1618,8 @@ public class NpcRoutineGoal extends Goal {
 
     private void finish(ServerWorld world, int rest) {
         standUp();
+        if(site != null)
+            site.release(npc.getUuid());
         toBed = false;
         phase = Phase.NONE;
         npc.setOnOuting(false);
@@ -1324,7 +1640,7 @@ public class NpcRoutineGoal extends Goal {
         Item prop = null;
         if(phase == Phase.RETURNING)
             prop = carried;
-        else if((activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST) && phase != Phase.NONE && isDark())
+        else if((activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.FOLLOW || activity == RoutineData.Activity.INSPECT) && phase != Phase.NONE && isDark())
             prop = Items.TORCH;
         else if(activity == RoutineData.Activity.FISH && phase != Phase.NONE && !ownsRod)
             prop = Items.FISHING_ROD;

@@ -348,6 +348,9 @@ public class GundabadNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
+        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
+        LEADER.withRoutine(NpcRoutines.NIGHT_LEADER);
         GOBLIN.asCivilian();
     }
 }

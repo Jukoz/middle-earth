@@ -271,7 +271,7 @@ public class StructureManagerDataPools {
                 )),
                 new SpawnNestNodeData(createIdentifier("mordor_camp_nests.chieftain"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_WARRIOR).SetFixAmount(1)
-                ))
+                )).withRole(NpcRoles.NIGHT_LORD)
         ));
 
         MORIA_HALL_NESTS = new StructureManagerData(Identifier.of(MiddleEarth.MOD_ID, "moria_hall_pool"), List.of(

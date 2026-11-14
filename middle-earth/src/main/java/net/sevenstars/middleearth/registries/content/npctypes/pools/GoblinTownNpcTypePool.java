@@ -267,6 +267,9 @@ public class GoblinTownNpcTypePool {
 
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        GOBLIN.withRoutine(NpcRoutines.NIGHT_WORKER);
+        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
+        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
         GOBLIN.asCivilian();
     }
 }

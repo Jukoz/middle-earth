@@ -13,6 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
@@ -20,7 +21,10 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 // The places around one structure, or one patch of wilderness, shared by every npc living there
 public class RoutineSite {
@@ -90,6 +94,9 @@ public class RoutineSite {
     private List<BlockPos> ladders = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
     private @Nullable Identifier faction = null;
+    // Who stands at which marker, so that two guards never take the same post
+    private final Map<BlockPos, UUID> claims = new HashMap<>();
+    private @Nullable List<BlockPos> patrolRoute = null;
 
     private final BlockPos.Mutable probe = new BlockPos.Mutable();
     private int probeY;
@@ -130,14 +137,16 @@ public class RoutineSite {
         return switch (activity) {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
-            case PATROL -> ring.size() >= 3;
+            case PATROL -> getPatrolRoute().size() >= 3 || !getMarkers(MarkerKind.PATROL_POINT).isEmpty() && getPatrolRoute().size() >= 2;
+            case COURT -> !getMarkers(MarkerKind.LORD_SEAT).isEmpty() || !tables.isEmpty();
+            case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= 3;
             case VISIT -> households.size() >= 2;
             case TABLE -> !tables.isEmpty();
             case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD);
             case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
             case CHOP -> !trees.isEmpty();
             case MINE -> markers.stream().anyMatch(marker -> marker.kind() == MarkerKind.MINE_FACE);
-            case POST, ESCORT -> true;
+            case POST, ESCORT, FOLLOW -> true;
         };
     }
 
@@ -218,6 +227,7 @@ public class RoutineSite {
 
     void setMarkers(List<StructureFeatureData.Marker> markers) {
         this.markers = markers;
+        this.patrolRoute = null;
     }
 
     public List<BlockPos> getSeats() {
@@ -298,6 +308,44 @@ public class RoutineSite {
 
     public List<BlockPos> getRing() {
         return ring;
+    }
+
+    // The patrol points the builders marked, walked round in order of their bearing from the middle, or else the outline ring
+    public List<BlockPos> getPatrolRoute() {
+        if(patrolRoute == null) {
+            List<BlockPos> points = new ArrayList<>();
+            for(StructureFeatureData.Marker marker : getMarkers(MarkerKind.PATROL_POINT))
+                points.add(marker.pos());
+            if(points.size() < 2) {
+                patrolRoute = ring;
+            } else {
+                points.sort((a, b) -> Double.compare(Math.atan2(a.getZ() - centerZ, a.getX() - centerX), Math.atan2(b.getZ() - centerZ, b.getX() - centerX)));
+                patrolRoute = points;
+            }
+        }
+        return patrolRoute;
+    }
+
+    // The nearest free marker of these kinds to the place given, taken for the npc. One it holds already is its own
+    public @Nullable StructureFeatureData.Marker claimPost(ServerWorld world, UUID npc, BlockPos near, MarkerKind... kinds) {
+        StructureFeatureData.Marker best = null;
+        for(MarkerKind kind : kinds) {
+            for(StructureFeatureData.Marker marker : getMarkers(kind)) {
+                UUID holder = claims.get(marker.pos());
+                boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
+                if(free && (best == null || marker.pos().getSquaredDistance(near) < best.pos().getSquaredDistance(near)))
+                    best = marker;
+            }
+        }
+        if(best != null) {
+            claims.values().removeIf(npc::equals);
+            claims.put(best.pos(), npc);
+        }
+        return best;
+    }
+
+    public void release(UUID npc) {
+        claims.values().removeIf(npc::equals);
     }
 
     public int getExtent() {

@@ -284,6 +284,10 @@ public class DalishNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
         ARCHER.withRoutine(NpcRoutines.HUNTING_WATCH);
+        KNIGHT.withRoutine(NpcRoutines.ELITE);
+        ELITE_ARCHER.withRoutine(NpcRoutines.ARCHER);
+        VETERAN.withRoutine(NpcRoutines.SOLDIER);
+        SERGEANT.withRoutine(NpcRoutines.LEADER);
         PEASANT.asCivilian();
     }
 }

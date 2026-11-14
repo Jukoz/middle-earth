@@ -337,6 +337,10 @@ public class MoriaNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        GOBLIN.withRoutine(NpcRoutines.NIGHT_WORKER);
+        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
+        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
+        CHIEF.withRoutine(NpcRoutines.NIGHT_LEADER);
         GOBLIN.asCivilian();
     }
 }

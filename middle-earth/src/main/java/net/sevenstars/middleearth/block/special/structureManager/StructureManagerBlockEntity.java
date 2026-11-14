@@ -30,6 +30,7 @@ import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenDat
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
@@ -182,6 +183,17 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     public boolean ownsBed(BlockPos pos) {
         return ownsBed(pos, null);
+    }
+
+    // A lord lives here, or will once its nest has spawned it
+    public boolean hasLordNest() {
+        if(structureNestList == null)
+            return false;
+        for(SpawnNestManager nest : structureNestList.getManagers()) {
+            if(NpcRoles.isLord(NpcRoles.forNest(nest.getId()).orElse(null)))
+                return true;
+        }
+        return false;
     }
 
     // Everyone given a bed in one of the nests of this manager

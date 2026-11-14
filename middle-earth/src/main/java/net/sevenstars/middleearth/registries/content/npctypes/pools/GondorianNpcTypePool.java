@@ -344,6 +344,12 @@ public class GondorianNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
         ITHILIEN_RANGER.withRoutine(NpcRoutines.RANGER);
+        KNIGHT.withRoutine(NpcRoutines.ELITE);
+        VETERAN.withRoutine(NpcRoutines.SOLDIER);
+        CITADEL_GUARD.withRoutine(NpcRoutines.ELITE);
+        FOUNTAIN_GUARD.withRoutine(NpcRoutines.ELITE);
+        KING_GUARD.withRoutine(NpcRoutines.ELITE);
+        LEADER.withRoutine(NpcRoutines.LEADER);
         PEASANT.asCivilian();
     }
 }

@@ -240,6 +240,8 @@ public class WildGoblinNpcTypePool {
         GATHERER.withRoutine(NpcRoutines.NIGHT_RAIDER);
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
+        BRUTE.withRoutine(NpcRoutines.BRUTE);
         GATHERER.asCivilian();
     }
 }

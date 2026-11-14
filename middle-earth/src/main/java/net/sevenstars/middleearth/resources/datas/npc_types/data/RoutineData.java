@@ -44,7 +44,13 @@ public class RoutineData {
         // Working at a tree, which is not felled
         CHOP("chop"),
         // Working the rock at a face the builders marked
-        MINE("mine");
+        MINE("mine"),
+        // A lord sitting at its seat, to be seen by those who come to it
+        COURT("court"),
+        // A lord going round the posts of its guards
+        INSPECT("inspect"),
+        // A bodyguard staying by its lord
+        FOLLOW("follow");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
         private final String name;

@@ -415,6 +415,11 @@ public class WoodlandRealmNpcTypePool {
         SENTINEL.withRoutine(NpcRoutines.WATCH);
         RANGER.withRoutine(NpcRoutines.HUNTING_WATCH);
         LANCER.withRoutine(NpcRoutines.HUNTING_WATCH);
+        WARRIOR.withRoutine(NpcRoutines.SOLDIER);
+        NIGHTSHADE.withRoutine(NpcRoutines.ELITE);
+        ELVEN_KINGS_GUARD.withRoutine(NpcRoutines.ELITE);
+        COMMANDER.withRoutine(NpcRoutines.LEADER);
+        WARDEN_OF_THE_GLADE.withRoutine(NpcRoutines.ELITE);
         ARTISAN.asCivilian();
     }
 }

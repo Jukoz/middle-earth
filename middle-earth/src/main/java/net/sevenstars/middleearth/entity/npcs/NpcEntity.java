@@ -1264,6 +1264,17 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private void shootAt(LivingEntity target, float pullProgress, float powerModifier) {
+        shootAt(target, pullProgress, powerModifier, 0f);
+    }
+
+    /**
+     * Fires an arrow that hits the target's body centre exactly, leading it for its current movement and
+     * compensating for the arrow's real drag and gravity.
+     *
+     * @param inaccuracy vanilla projectile divergence added on top of the perfect aim; 0 is a perfect shot,
+     *                   vanilla skeletons use 2 (hard) to 10 (easy).
+     */
+    private void shootAt(LivingEntity target, float pullProgress, float powerModifier, float inaccuracy) {
         if (!isReadyToShoot())
             return;
 
@@ -1272,29 +1283,19 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(projectileStack.isEmpty()) projectileStack = new ItemStack(Items.ARROW, 1);
 
         PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
-
-        double distanceX = target.getX() - this.getX();
-        double distanceZ = target.getZ() - this.getZ();
-        double horizontalDistance = Math.sqrt(distanceX * distanceX + distanceZ * distanceZ);
-
-        double distanceY = target.getBodyY(0.3F) - projectile.getY();
-
-        float scale = this.getScale();
-        float velocity = 1.6F * powerModifier;
-
-        // Reduce the vanilla arc compensation for larger entities and faster arrows.
-        double arcCompensation = horizontalDistance * (0.2F / (scale * powerModifier));
+        float speed = 1.6F * powerModifier;
+        Vec3d aim = solveArrowAim(projectile.getPos(), target, speed, projectile.getFinalGravity());
 
         if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             ProjectileEntity.spawnWithVelocity(
                     projectile,
                     serverWorld,
                     projectileStack,
-                    distanceX,
-                    distanceY + arcCompensation,
-                    distanceZ,
-                    velocity,
-                    (float) (14 - serverWorld.getDifficulty().getId() * 4)
+                    aim.x,
+                    aim.y,
+                    aim.z,
+                    speed,
+                    Math.max(0f, inaccuracy)
             );
         }
 
@@ -1305,6 +1306,56 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         );
 
         stopAiming();
+    }
+
+    private static final double ARROW_AIR_DRAG = 0.99;
+    private static final double MAX_ARROW_FLIGHT_TICKS = 200;
+
+    /**
+     * Returns the launch direction that lands an arrow fired from {@code origin} at {@code speed} on the
+     * target's body centre, using the arrow's exact per-tick physics (move, then velocity *= 0.99, then
+     * velocity.y -= gravity) and leading the target by its current per-tick movement.
+     * Picks the flattest arc that reaches; out of range, it falls back to the furthest-reaching shot.
+     */
+    private static Vec3d solveArrowAim(Vec3d origin, LivingEntity target, double speed, double gravity) {
+        Vec3d targetStart = new Vec3d(target.getX(), target.getBodyY(0.5), target.getZ());
+        Vec3d targetMovement = target.getMovement();
+
+        double bestTicks = -1;
+        double previousTicks = 0;
+        double closestTicks = 1;
+        double closestSpeedGap = Double.MAX_VALUE;
+        for (double ticks = 0.5; ticks <= MAX_ARROW_FLIGHT_TICKS; ticks += 0.5) {
+            double speedGap = requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks).length() - speed;
+            if (speedGap <= 0) {
+                // The needed speed falls with flight time before it rises again, so the first crossing is the flat shot.
+                double low = previousTicks, high = ticks;
+                for (int i = 0; i < 30; i++) {
+                    double mid = (low + high) / 2;
+                    if (requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, mid).length() <= speed) high = mid;
+                    else low = mid;
+                }
+                bestTicks = high;
+                break;
+            }
+            if (speedGap < closestSpeedGap) {
+                closestSpeedGap = speedGap;
+                closestTicks = ticks;
+            }
+            previousTicks = ticks;
+        }
+
+        double ticks = bestTicks > 0 ? bestTicks : closestTicks;
+        return requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks);
+    }
+
+    /** Launch velocity that puts the arrow on the target's predicted position after exactly {@code ticks} ticks. */
+    private static Vec3d requiredLaunchVelocity(Vec3d origin, Vec3d targetStart, Vec3d targetMovement, double gravity, double ticks) {
+        // After n ticks: offset = v0 * k(n) - gravity / (1 - drag) * (n - k(n)) on y, where k(n) = (1 - drag^n) / (1 - drag).
+        double travel = (1 - Math.pow(ARROW_AIR_DRAG, ticks)) / (1 - ARROW_AIR_DRAG);
+        double fall = gravity / (1 - ARROW_AIR_DRAG) * (ticks - travel);
+        Vec3d offset = targetStart.add(targetMovement.multiply(ticks)).subtract(origin);
+        return new Vec3d(offset.x / travel, (offset.y + fall) / travel, offset.z / travel);
     }
 
     @Override

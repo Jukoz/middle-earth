@@ -477,6 +477,11 @@ public class MordorNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         DOL_GULDUR_SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
+        BLACK_NUMENOREAN.withRoutine(NpcRoutines.NIGHT_ELITE);
+        SNAGA.withRoutine(NpcRoutines.NIGHT_WORKER);
+        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
+        CAPTAIN.withRoutine(NpcRoutines.NIGHT_LEADER);
+        DOL_GULDUR_WARRIOR.withRoutine(NpcRoutines.NIGHT_SOLDIER);
         SNAGA.asCivilian();
     }
 }

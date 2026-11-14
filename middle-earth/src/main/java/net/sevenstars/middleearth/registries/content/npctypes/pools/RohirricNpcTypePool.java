@@ -256,6 +256,9 @@ public class RohirricNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.HUNTING_WATCH);
         KNIGHT.withRoutine(NpcRoutines.HUNTING_WATCH);
+        ROYAL_GUARD.withRoutine(NpcRoutines.ELITE);
+        EORLING_MARSHAL.withRoutine(NpcRoutines.LEADER);
+        HORSE_LORD.withRoutine(NpcRoutines.LEADER);
         PEASANT.asCivilian();
     }
 }

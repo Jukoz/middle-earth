@@ -248,5 +248,6 @@ public class BrigandNpcTypePool {
         THUG.withRoutine(NpcRoutines.WATCH);
         THIEF.withRoutine(NpcRoutines.OUTLAW);
         MERCENARY.withRoutine(NpcRoutines.OUTLAW);
+        CHIEFTAIN.withRoutine(NpcRoutines.LEADER);
     }
 }

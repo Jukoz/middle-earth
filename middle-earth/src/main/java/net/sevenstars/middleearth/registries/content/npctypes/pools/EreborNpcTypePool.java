@@ -314,6 +314,11 @@ public class EreborNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
         GATEWARDEN.withRoutine(NpcRoutines.WATCH);
+        PEASANT.withRoutine(NpcRoutines.GATHERER);
+        ARCHER.withRoutine(NpcRoutines.ARCHER);
+        ELITE.withRoutine(NpcRoutines.ELITE);
+        VETERAN.withRoutine(NpcRoutines.SOLDIER);
+        LEADER.withRoutine(NpcRoutines.LEADER);
         PEASANT.asCivilian();
     }
 }

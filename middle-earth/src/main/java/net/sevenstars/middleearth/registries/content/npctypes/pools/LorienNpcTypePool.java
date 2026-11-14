@@ -257,6 +257,11 @@ public class LorienNpcTypePool {
         SENTINEL.withRoutine(NpcRoutines.WATCH);
         RANGER.withRoutine(NpcRoutines.WATCH);
         WARRIOR.withRoutine(NpcRoutines.WATCH);
+        KNIGHT.withRoutine(NpcRoutines.ELITE);
+        GUARD.withRoutine(NpcRoutines.ELITE);
+        EGLADIL_SENTINEL.withRoutine(NpcRoutines.ELITE);
+        EGLADIL_COMMANDER.withRoutine(NpcRoutines.LEADER);
+        LORD.withRoutine(NpcRoutines.LEADER);
         CIVILIAN.asCivilian();
     }
 }
