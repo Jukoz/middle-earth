@@ -14,7 +14,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
-import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,7 +76,12 @@ public class RoutineSite {
     private List<BlockPos> households = List.of();
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
-    private List<StructureBedData.Station> stations = List.of();
+    private List<StructureFeatureData.Station> stations = List.of();
+    // Every seat, doors and ladders of the settlement, and the markers its builders put down
+    private List<BlockPos> seats = List.of();
+    private List<BlockPos> doors = List.of();
+    private List<BlockPos> ladders = List.of();
+    private List<StructureFeatureData.Marker> markers = List.of();
     private @Nullable Identifier faction = null;
 
     private final BlockPos.Mutable probe = new BlockPos.Mutable();
@@ -181,14 +187,52 @@ public class RoutineSite {
         return best;
     }
 
-    void setStations(List<StructureBedData.Station> stations) {
+    void setStations(List<StructureFeatureData.Station> stations) {
         this.stations = stations;
+    }
+
+    void setSeats(List<BlockPos> seats) {
+        this.seats = seats;
+    }
+
+    void setDoors(List<BlockPos> doors) {
+        this.doors = doors;
+    }
+
+    void setLadders(List<BlockPos> ladders) {
+        this.ladders = ladders;
+    }
+
+    void setMarkers(List<StructureFeatureData.Marker> markers) {
+        this.markers = markers;
+    }
+
+    public List<BlockPos> getSeats() {
+        return seats;
+    }
+
+    public List<BlockPos> getDoors() {
+        return doors;
+    }
+
+    public List<BlockPos> getLadders() {
+        return ladders;
+    }
+
+    // Where they are and which way they face
+    public List<StructureFeatureData.Marker> getMarkers(MarkerKind kind) {
+        List<StructureFeatureData.Marker> found = new ArrayList<>();
+        for(StructureFeatureData.Marker marker : markers) {
+            if(marker.kind() == kind)
+                found.add(marker);
+        }
+        return found;
     }
 
     // The station of one of these kinds closest to the given place, which is the npc's home
     public List<BlockPos> getFields(BlockPos near, int range) {
         List<BlockPos> fields = new ArrayList<>();
-        for(StructureBedData.Station station : stations) {
+        for(StructureFeatureData.Station station : stations) {
             if(station.kind() == StationKind.FIELD && station.pos().isWithinDistance(near, range))
                 fields.add(station.pos());
         }
@@ -197,7 +241,7 @@ public class RoutineSite {
 
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
-        for(StructureBedData.Station station : stations) {
+        for(StructureFeatureData.Station station : stations) {
             if(!kinds.contains(station.kind()) || !station.pos().isWithinDistance(near, range))
                 continue;
             if(best == null || station.pos().getSquaredDistance(near) < best.getSquaredDistance(near))

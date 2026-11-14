@@ -89,6 +89,8 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item STRUCTURE_NEST = registerItem("structure_nest",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_NEST, settings), new Item.Settings());
+    public static final Item STRUCTURE_MARKER = registerItem("structure_marker",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MARKER, settings), new Item.Settings());
 
     public static final Item BANDIT_TRIAL_SPAWNER = registerItem("brigand_trial_spawner",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.BRIGAND_TRIAL_SPAWNER, settings), new Item.Settings());

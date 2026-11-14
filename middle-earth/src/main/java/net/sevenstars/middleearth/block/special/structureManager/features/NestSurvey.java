@@ -2,12 +2,8 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.BedBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CampfireBlock;
-import net.minecraft.block.ChestBlock;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.registry.Registry;
@@ -17,7 +13,8 @@ import net.minecraft.structure.StructureTemplate;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.util.BlockMirror;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
+import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockBox;
@@ -59,18 +56,18 @@ public class NestSurvey {
         // Asking for the structure of an unloaded place would load it
         if(!world.isChunkLoaded(origin.getX() >> 4, origin.getZ() >> 4))
             return null;
-        Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
+        Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
         StructureStart start = world.getStructureAccessor().getStructureContaining(origin, entry -> true);
         if(registry.isEmpty() || start == null)
             return null;
         for(StructurePiece piece : start.getChildren()) {
             if(!(piece instanceof PoolStructurePiece placed) || !piece.getBoundingBox().contains(origin))
                 continue;
-            StructureBedData data = dataOf(registry.get(), placed);
+            StructureFeatureData data = dataOf(registry.get(), placed);
             if(data == null)
                 continue;
             // Pieces overlap, the right one is the one that has a nest exactly here
-            for(StructureBedData.Nest nest : data.nests()) {
+            for(StructureFeatureData.Nest nest : data.nests()) {
                 if(!placedAt(placed, nest.pos()).equals(origin))
                     continue;
                 List<Bed> beds = new ArrayList<>();
@@ -82,7 +79,7 @@ public class NestSurvey {
         return null;
     }
 
-    public static @Nullable StructureBedData dataOf(Registry<StructureBedData> registry, PoolStructurePiece piece) {
+    public static @Nullable StructureFeatureData dataOf(Registry<StructureFeatureData> registry, PoolStructurePiece piece) {
         if(!(piece.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
             return null;
         return registry.get(element.location.left().get());
@@ -113,11 +110,10 @@ public class NestSurvey {
             if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
                 return null;
             BlockState state = world.getBlockState(pos);
-            Block block = state.getBlock();
-            if(block instanceof BedBlock) {
+            if(state.isIn(BuildFeatures.BED.getTag())) {
                 if(state.get(BedBlock.PART) == BedPart.HEAD && beds.size() < MAXIMUM_BEDS)
                     beds.add(new Bed(pos.toImmutable(), Optional.ofNullable(standBeside(world, pos, state)), Optional.empty()));
-            } else if(block instanceof BarrelBlock || block instanceof ChestBlock || block instanceof CampfireBlock) {
+            } else if(state.isIn(BuildFeatures.STORE.getTag())) {
                 if(store == null || pos.getSquaredDistance(origin) < store.getSquaredDistance(origin))
                     store = pos.toImmutable();
             }

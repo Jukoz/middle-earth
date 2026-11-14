@@ -56,6 +56,14 @@ public class NpcRoles {
         return ROLES.keySet();
     }
 
+    public static @Nullable NpcRole get(Identifier id) {
+        for(Map.Entry<RegistryKey<NpcRole>, NpcRole> role : ROLES.entrySet()) {
+            if(role.getKey().getValue().equals(id))
+                return role.getValue();
+        }
+        return null;
+    }
+
     public static Optional<Identifier> forNest(Identifier nestId) {
         String path = nestId.getPath();
         @Nullable RegistryKey<NpcRole> role = NEST_ROLES.get(path.substring(path.lastIndexOf('.') + 1));

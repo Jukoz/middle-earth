@@ -16,6 +16,7 @@ import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEn
 import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -41,6 +42,8 @@ public class BlockEntityRegistryME {
             DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER);
     public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
             DecorativeBlockRegistryME.STRUCTURE_NEST);
+    public static BlockEntityType<StructureMarkerBlockEntity> STRUCTURE_MARKER = register("structure_marker", StructureMarkerBlockEntity::new,
+            DecorativeBlockRegistryME.STRUCTURE_MARKER);
 
     public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = register("larch_coffer", LarchCofferBlockEntity::new, DecorativeBlockRegistryME.LARCH_COFFER);
     public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = register("pine_coffer", PineCofferBlockEntity::new, DecorativeBlockRegistryME.PINE_COFFER);

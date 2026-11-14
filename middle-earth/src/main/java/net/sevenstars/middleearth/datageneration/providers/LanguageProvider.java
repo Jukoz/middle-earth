@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 
 import java.util.Arrays;
@@ -123,6 +124,10 @@ public class LanguageProvider extends FabricLanguageProvider {
                 createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
             }
         });
+
+        for(MarkerKind kind : MarkerKind.values()) {
+            createTranslation(translationBuilder, "structure_marker", kind.asString());
+        }
 
         TranslationEntries.spawnEntries.forEach(faction -> {
             createTranslation(translationBuilder, "spawn", faction);

@@ -245,6 +245,7 @@ public class TranslationEntries {
             put(of(LangCategory.BLOCK, "inscription_table"), "Inscription Table");
 
             put(of(LangCategory.BLOCK, "structure_manager"), "Structure Manager");
+            put(of(LangCategory.BLOCK, "structure_marker"), "Structure Marker");
 
             put(of(LangCategory.BLOCK, "larch_coffer"), "Larch Coffer");
             put(of(LangCategory.BLOCK, "pine_coffer"), "Pine Coffer");
@@ -341,6 +342,7 @@ public class TranslationEntries {
 
             put(of(LangCategory.SCREEN, "forge"), "Forge");
             put(of(LangCategory.SCREEN, "structure_manager"), "Structure Manager");
+            put(of(LangCategory.SCREEN, "structure_marker"), "Structure Marker");
             put(of(LangCategory.CONTAINER, "artisan_table"), "Artisan Table");
             put(of(LangCategory.CONTAINER, "inscription_table"), "Inscription Table");
             put(of(LangCategory.CONTAINER, "small_crate"), "Small Crate");
@@ -690,6 +692,7 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "map_screen.map_title_text"), "Middle-earth Map");
 
             put(of(LangCategory.UI, "structure_manager.label_selected_id"), "Selected : %s");
+            put(of(LangCategory.UI, "structure_marker.kind"), "Marker : %s");
             put(of(LangCategory.UI, "structure_manager.label_runtime_id"), "Runtime : %s");
             put(of(LangCategory.UI, "structure_manager.label_enable_status"), "Enabled : %s");
             put(of(LangCategory.UI, "structure_manager.button_kill_all"), "Kill All");

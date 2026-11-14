@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
+import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 
 import java.util.concurrent.CompletableFuture;
@@ -58,6 +59,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
+
+        // What counts as what in a building, by the definitions the structure data is read with
+        for(BuildFeatures feature : BuildFeatures.values()) {
+            var members = valueLookupBuilder(feature.getTag());
+            for(Block block : Registries.BLOCK) {
+                if(feature.test(block))
+                    members.add(block);
+            }
+        }
 
         var leaves = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("leaves")));
 

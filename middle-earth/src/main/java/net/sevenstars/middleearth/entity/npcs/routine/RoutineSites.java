@@ -16,7 +16,7 @@ import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import java.util.Optional;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Identifier;
@@ -240,33 +240,49 @@ public class RoutineSites {
     // What the generated data knows of the pieces this settlement is made of
     private static void placesOf(ServerWorld world, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
-        List<StructureBedData.Station> stations = new ArrayList<>();
+        List<StructureFeatureData.Station> stations = new ArrayList<>();
         List<BlockPos> households = new ArrayList<>();
-        Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
+        List<BlockPos> seats = new ArrayList<>();
+        List<BlockPos> doors = new ArrayList<>();
+        List<BlockPos> ladders = new ArrayList<>();
+        List<StructureFeatureData.Marker> markers = new ArrayList<>();
+        Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
         if(registry.isEmpty())
             return;
         for(StructurePiece piece : start.getChildren()) {
             if(!(piece instanceof PoolStructurePiece placed))
                 continue;
-            StructureBedData data = NestSurvey.dataOf(registry.get(), placed);
+            StructureFeatureData data = NestSurvey.dataOf(registry.get(), placed);
             if(data == null)
                 continue;
             for(List<BlockPos> table : data.tables()) {
-                List<BlockPos> seats = new ArrayList<>();
+                List<BlockPos> places = new ArrayList<>();
                 for(BlockPos seat : table)
-                    seats.add(NestSurvey.placedAt(placed, seat));
-                tables.add(seats);
+                    places.add(NestSurvey.placedAt(placed, seat));
+                tables.add(places);
             }
-            for(StructureBedData.Nest nest : data.nests()) {
+            for(StructureFeatureData.Nest nest : data.nests()) {
                 if(!nest.beds().isEmpty())
                     households.add(NestSurvey.placedAt(placed, nest.pos()));
             }
-            for(StructureBedData.Station station : data.stations())
-                stations.add(new StructureBedData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
+            for(StructureFeatureData.Station station : data.stations())
+                stations.add(new StructureFeatureData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
+            for(BlockPos seat : data.seats())
+                seats.add(NestSurvey.placedAt(placed, seat));
+            for(BlockPos door : data.doors())
+                doors.add(NestSurvey.placedAt(placed, door));
+            for(BlockPos ladder : data.ladders())
+                ladders.add(NestSurvey.placedAt(placed, ladder));
+            for(StructureFeatureData.Marker marker : data.markers())
+                markers.add(new StructureFeatureData.Marker(marker.kind(), NestSurvey.placedAt(placed, marker.pos()), placed.getRotation().rotate(marker.facing())));
         }
         site.setTables(tables);
         site.setStations(stations);
         site.setHouseholds(households);
+        site.setSeats(seats);
+        site.setDoors(doors);
+        site.setLadders(ladders);
+        site.setMarkers(markers);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
