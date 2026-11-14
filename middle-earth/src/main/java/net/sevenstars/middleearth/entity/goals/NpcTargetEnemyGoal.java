@@ -17,6 +17,7 @@ public class NpcTargetEnemyGoal extends ActiveTargetGoal<LivingEntity> {
 
     @Override
     public boolean canStart() {
-        return npc.getWorld().getDifficulty() != Difficulty.PEACEFUL && super.canStart();
+        // The timid only ever go after their game, and run from the rest
+        return npc.getWorld().getDifficulty() != Difficulty.PEACEFUL && !npc.isTimid() && super.canStart();
     }
 }

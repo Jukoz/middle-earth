@@ -693,6 +693,9 @@ public class TranslationEntries {
 
             put(of(LangCategory.UI, "structure_manager.label_selected_id"), "Selected : %s");
             put(of(LangCategory.UI, "structure_marker.kind"), "Marker : %s");
+            put(of(LangCategory.UI, "structure_marker.value"), "Value (a nest for spawn_npc, an entity type for spawn_animal)");
+            put(of(LangCategory.UI, "structure_marker.count"), "Count");
+            put(of(LangCategory.UI, "structure_marker.respawns"), "Respawns : %s");
             put(of(LangCategory.UI, "structure_manager.label_runtime_id"), "Runtime : %s");
             put(of(LangCategory.UI, "structure_manager.label_enable_status"), "Enabled : %s");
             put(of(LangCategory.UI, "structure_manager.button_kill_all"), "Kill All");

@@ -18,15 +18,24 @@ public class PacketStructureMarkerUpdateBlockEntityRequest extends ClientToServe
     public static final PacketCodec<RegistryByteBuf, PacketStructureMarkerUpdateBlockEntityRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.indexed(index -> MarkerKind.values()[index], MarkerKind::ordinal), p -> p.kind,
+            PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH), p -> p.value,
+            PacketCodecs.VAR_INT, p -> p.count,
+            PacketCodecs.BOOLEAN, p -> p.respawns,
             PacketStructureMarkerUpdateBlockEntityRequest::new
     );
 
     private final BlockPos pos;
     private final MarkerKind kind;
+    private final String value;
+    private final int count;
+    private final boolean respawns;
 
-    public PacketStructureMarkerUpdateBlockEntityRequest(BlockPos pos, MarkerKind kind) {
+    public PacketStructureMarkerUpdateBlockEntityRequest(BlockPos pos, MarkerKind kind, String value, int count, boolean respawns) {
         this.pos = pos;
         this.kind = kind;
+        this.value = value;
+        this.count = count;
+        this.respawns = respawns;
     }
 
     @Override
@@ -46,7 +55,7 @@ public class PacketStructureMarkerUpdateBlockEntityRequest extends ClientToServe
             if(!player.isCreative() || !player.isCreativeLevelTwoOp() || !player.getBlockPos().isWithinDistance(pos, 8))
                 return;
             if(player.getWorld().getBlockEntity(pos) instanceof StructureMarkerBlockEntity marker)
-                marker.setKind(kind);
+                marker.update(kind, value, count, respawns);
         });
     }
 }

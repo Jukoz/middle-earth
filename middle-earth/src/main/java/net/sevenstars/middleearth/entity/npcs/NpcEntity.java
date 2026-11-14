@@ -65,6 +65,10 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
+import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.entity.npcs.relations.Relation;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
@@ -89,13 +93,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public class NpcEntity extends PathAwareEntity implements EquipmentHolder, CrossbowUser {
+public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public static class KeyStrings {
         public static final String DATA = "NpcData";
         public static final String INITIALIZATION_DATA = "InitializationData";
@@ -106,6 +111,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String TRAVEL_DESTINATION = "TravelDestination";
         public static final String ROUTINE_HOME = "RoutineHome";
         public static final String ROLE = "Role";
+        public static final String PRISON_CELL = "PrisonCell";
         public static final String ESCORTING = "Escorting";
         public static final String ASSIGNED_BED = "AssignedBed";
         public static final String BED_STAND = "BedStand";
@@ -131,10 +137,17 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     // In blocks
     private static final int WAKE_RANGE = 16;
     private static final int PARTY_RANGE = 64;
+    // In ticks, a second
+    private static final int PRISON_CHECK_INTERVAL = 20;
+    private static final List<EquipmentSlot> PRISONER_SLOTS = List.of(EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND,
+            EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
     private static final double HATCH_OPEN_DISTANCE = 3;
     private static final double HATCH_CLOSE_DISTANCE = 3.5;
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
+    private static final int GUARDS_TO_FLEE = 3;
+    // Common folk come to help a neighbour close by, not across the village
+    private static final int HELP_RANGE = 16;
     private static final float BOW_ATTACK_RANGE = 16.0F;
     private static final float CROSSBOW_ATTACK_RANGE = 11.0F;
     // In blocks, from the npc's feet to its target's. A race sets its own, and the weapon in hand adds to it
@@ -167,11 +180,18 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private @Nullable Float travelHeading = null;
     private @Nullable BlockPos travelDestination = null;
     private @Nullable BlockPos routineHome = null;
+    // Where a prisoner is held. Out of it, the prisoner is free
+    private @Nullable PrisonCell prisonCell = null;
     // Given out by the structure manager of its nest
     private boolean householdKnown = false;
     private boolean onOuting = false;
+    private @Nullable UUID threatFaced = null;
+    private boolean fleesThreat = false;
     // Out tending the fields, the one errand that crosses them
     private boolean farming = false;
+    // Where a visitor to its household asked it to sit, and until when the visitor is there
+    private @Nullable BlockPos invitedTo = null;
+    private long invitedUntil = 0;
     private @Nullable UUID escort = null;
     // Saved, or an escort loaded in the middle of an outing would follow its ward about for good
     private boolean escorting = false;
@@ -195,8 +215,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private boolean managerPresent = true;
     private int managerCheckAge = 0;
 
-    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
-    private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
+    private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
+    private final NpcCrossBowAttackGoal<NpcEntity> crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
         @Override
         public void stop() {
@@ -327,11 +347,18 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(3, new NpcFleeHomeGoal(this, 1.15));
+        this.goalSelector.add(4, new NpcPrisonerGoal(this, 0.6));
         this.goalSelector.add(5, new NpcRoutineGoal(this, 0.8));
         this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.targetSelector.add(1, new RevengeGoal(this));
+        // Common folk strike back unless they have run for the guards
+        this.targetSelector.add(1, new RevengeGoal(this) {
+            @Override
+            public boolean canStart() {
+                return (!isTimid() || getAttacker() == null || !fleesFrom(getAttacker())) && super.canStart();
+            }
+        });
         this.targetSelector.add(3, new NpcTargetEnemyGoal(this));
         this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
         this.targetSelector.add(4, new NpcModDoorGoal(this));
@@ -367,6 +394,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
         view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
         view.putNullable(KeyStrings.ROLE, Identifier.CODEC, this.getRoleId());
+        view.putNullable(KeyStrings.PRISON_CELL, PrisonCell.CODEC, this.prisonCell);
         view.putBoolean(KeyStrings.ESCORTING, this.escorting);
         view.putBoolean(KeyStrings.HOUSEHOLD_KNOWN, this.householdKnown);
         view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
@@ -394,6 +422,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
         this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
         this.setRole(view.read(KeyStrings.ROLE, Identifier.CODEC).orElse(null));
+        this.prisonCell = view.read(KeyStrings.PRISON_CELL, PrisonCell.CODEC).orElse(null);
         this.escorting = view.getBoolean(KeyStrings.ESCORTING, false);
         this.householdKnown = view.getBoolean(KeyStrings.HOUSEHOLD_KNOWN, false);
         this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
@@ -622,9 +651,47 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     // Sends the fighters after whatever frightened this npc: those within earshot, and wherever they are, those with a bed in its structure
-    public void callGuards(@Nullable LivingEntity threat) {
-        if(threat == null || !(getWorld() instanceof ServerWorld world))
-            return;
+    public boolean isTimid() {
+        RoutineData routine = getRoutine();
+        return routine != null && routine.isTimid();
+    }
+
+    // A timid npc meets a threat one way and keeps to it, or it would run, turn and run again. It runs to call the guards
+    // where there are enough of them to come, and otherwise stands and fights with the other common folk about
+    public boolean fleesFrom(LivingEntity threat) {
+        if(!threat.getUuid().equals(threatFaced)) {
+            threatFaced = threat.getUuid();
+            fleesThreat = getWorld() instanceof ServerWorld world && countGuards(world) >= GUARDS_TO_FLEE;
+            if(!fleesThreat && getWorld() instanceof ServerWorld world)
+                callCommonFolk(world, threat);
+        }
+        return fleesThreat;
+    }
+
+    private int countGuards(ServerWorld world) {
+        int count = 0;
+        for(NpcEntity other : neighbours(world)) {
+            if(!other.isTimid() && NpcRelations.of(other, this).isFriendly())
+                count++;
+        }
+        return count;
+    }
+
+    private void callCommonFolk(ServerWorld world, LivingEntity threat) {
+        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(HELP_RANGE, ALARM_HEIGHT_RANGE, HELP_RANGE),
+                other -> other != this && other.isAlive() && other.isTimid() && other.getTarget() == null)) {
+            if(!NpcRelations.of(other, this).isFriendly() || !other.canTarget(threat))
+                continue;
+            other.threatFaced = threat.getUuid();
+            other.fleesThreat = false;
+            if(other.isSleeping())
+                other.wakeUp();
+            other.setTarget(threat);
+        }
+    }
+
+    // Those about who could come: the npcs near by, and everybody living in the same place
+    private Set<NpcEntity> neighbours(ServerWorld world) {
         Set<NpcEntity> guards = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
         BlockPos structureManagerPos = getStructureManagerHostPos();
         // Reading a block entity in an unloaded chunk would load that chunk
@@ -635,7 +702,13 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
                     guards.add(resident);
             }
         }
-        for(NpcEntity guard : guards) {
+        return guards;
+    }
+
+    public void callGuards(@Nullable LivingEntity threat) {
+        if(threat == null || !(getWorld() instanceof ServerWorld world))
+            return;
+        for(NpcEntity guard : neighbours(world)) {
             RoutineData guardRoutine = guard.getRoutine();
             boolean fights = guardRoutine == null || !guardRoutine.isTimid();
             // Allies and friends come to help, and whoever answers takes up the grudge against the threat
@@ -663,6 +736,21 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.onOuting = onOuting;
         if(!onOuting)
             this.escort = null;
+    }
+
+    public void invite(BlockPos seat, long until) {
+        this.invitedTo = seat;
+        this.invitedUntil = until;
+    }
+
+    public boolean hasInvitation(long time) {
+        return invitedTo != null && time < invitedUntil;
+    }
+
+    public @Nullable BlockPos takeInvitation(long time) {
+        BlockPos seat = hasInvitation(time) ? invitedTo : null;
+        invitedTo = null;
+        return seat;
     }
 
     public boolean isFarming() {
@@ -712,11 +800,74 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     // Given once, after the gear of the type is on: a role named for its trade swaps what is in the hand for its tool
     public void takeRole(Identifier role) {
         setRole(role);
+        if(isPrisoner()) {
+            for(EquipmentSlot slot : PRISONER_SLOTS)
+                equipStack(slot, ItemStack.EMPTY);
+            updateAttackType();
+            return;
+        }
         NpcRole taken = getRole();
         if(taken == null || !taken.replacesName())
             return;
         equipStack(EquipmentSlot.MAINHAND, taken.tool().map(Item::getDefaultStack).orElse(ItemStack.EMPTY));
         updateAttackType();
+    }
+
+    public boolean isPrisoner() {
+        return NpcRoles.PRISONER.getValue().equals(getRoleId());
+    }
+
+    public @Nullable PrisonCell getPrisonCell() {
+        return prisonCell;
+    }
+
+    public void setPrisonCell(@Nullable PrisonCell prisonCell) {
+        this.prisonCell = prisonCell;
+    }
+
+    // A prisoner that has a cell stays in it
+    public boolean isConfined() {
+        return prisonCell != null && isPrisoner();
+    }
+
+    private void tickPrison(ServerWorld world) {
+        if(!isPrisoner()) {
+            prisonCell = null;
+            return;
+        }
+        if(!prisonCell.contains(getBlockPos()))
+            free(world);
+    }
+
+    // Out of its cell, the prisoner belongs to nobody but its own people, and runs from the place that held it
+    private void free(ServerWorld world) {
+        PrisonCell cell = prisonCell;
+        BlockPos managerPos = getStructureManagerHostPos();
+        double centerX = cell.centerX();
+        double centerZ = cell.centerZ();
+        if(managerPos != null && world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)) {
+            RoutineSite site = RoutineSites.forManager(world, managerPos);
+            if(site != null) {
+                centerX = site.getCenterX() + 0.5;
+                centerZ = site.getCenterZ() + 0.5;
+            }
+            StructureManagerBlockEntity.triggerDeathSignal(managerPos, this);
+        }
+        prisonCell = null;
+        setRole(null);
+        saveNpcData(retrieveNpcData().withoutStructureManagerPos());
+        routineHome = null;
+        householdKnown = false;
+        assignedBed = null;
+        bedStand = null;
+        store = null;
+        getNavigation().stop();
+        double awayX = getX() - centerX;
+        double awayZ = getZ() - centerZ;
+        float heading = awayX == 0 && awayZ == 0 ? random.nextFloat() * 360f
+                : (float) (MathHelper.atan2(-awayX, awayZ) * MathHelper.DEGREES_PER_RADIAN);
+        setTravelDestination(null);
+        setTravelHeading(heading);
     }
 
     public @Nullable Identifier getRoleId() {
@@ -834,6 +985,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(age % HATCH_CHECK_INTERVAL == 0)
             tickHatch(world);
         climbOutOfWater();
+        if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
+            tickPrison(world);
         // A target set from outside the targeting goals is never dropped by them, and a dead one blocks everything else
         LivingEntity target = getTarget();
         if(target != null && !target.isAlive())

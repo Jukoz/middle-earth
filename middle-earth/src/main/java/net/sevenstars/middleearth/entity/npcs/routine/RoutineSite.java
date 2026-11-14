@@ -116,6 +116,7 @@ public class RoutineSite {
     private List<BlockPos> doors = List.of();
     private List<BlockPos> ladders = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
+    private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
     // Who stands at which marker, so that two guards never take the same post
     private final Map<BlockPos, UUID> claims = new HashMap<>();
@@ -131,6 +132,7 @@ public class RoutineSite {
     private final List<Integer> missedRing = new ArrayList<>();
     private final List<Integer> missedSamples = new ArrayList<>();
     private boolean patrolArc = false;
+    private final Map<BlockPos, Long> hivesEmptied = new HashMap<>();
     private List<BlockPos> game = List.of();
     private long gameSeenAt = Long.MIN_VALUE;
     long lastUsed;
@@ -178,7 +180,7 @@ public class RoutineSite {
             case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= 3;
             case VISIT -> households.size() >= 2;
             case TABLE -> !tables.isEmpty();
-            case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD);
+            case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD) || !getMarkers(MarkerKind.STABLE).isEmpty();
             case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
             case CHOP -> !trees.isEmpty();
             case MINE -> markers.stream().anyMatch(marker -> marker.kind() == MarkerKind.MINE_FACE);
@@ -192,6 +194,15 @@ public class RoutineSite {
 
     public BlockPos getShoreWater(int index) {
         return shoreWaters.get(index);
+    }
+
+    // When the honey was last taken from a hive. One not seen before is reckoned from the honey already in it
+    public long hiveEmptiedAt(BlockPos hive, long time, long filledFor) {
+        return hivesEmptied.computeIfAbsent(hive, pos -> time - filledFor);
+    }
+
+    public void emptyHive(BlockPos hive, long time) {
+        hivesEmptied.put(hive, time);
     }
 
     public List<BlockPos> getGrounds() {
@@ -249,10 +260,15 @@ public class RoutineSite {
 
     // A free seat in the house that is being called on
     public @Nullable BlockPos pickSeatNear(ServerWorld world, BlockPos place, int range) {
+        return pickSeatNear(world, place, range, null);
+    }
+
+    // Another than the one given, for the host to sit with its visitor
+    public @Nullable BlockPos pickSeatNear(ServerWorld world, BlockPos place, int range, @Nullable BlockPos besides) {
         BlockPos best = null;
         for(List<BlockPos> table : tables) {
             for(BlockPos seat : table) {
-                if(!seat.isWithinDistance(place, range) || !world.isChunkLoaded(seat.getX() >> 4, seat.getZ() >> 4) || !SeatBlock.isFree(world, seat))
+                if(seat.equals(besides) || !seat.isWithinDistance(place, range) || !world.isChunkLoaded(seat.getX() >> 4, seat.getZ() >> 4) || !SeatBlock.isFree(world, seat))
                     continue;
                 if(best == null || seat.getSquaredDistance(place) < best.getSquaredDistance(place))
                     best = seat;
@@ -280,6 +296,7 @@ public class RoutineSite {
     void setMarkers(List<StructureFeatureData.Marker> markers) {
         this.markers = markers;
         this.patrolRoute = null;
+        this.cells = null;
     }
 
     public List<BlockPos> getSeats() {
@@ -302,6 +319,16 @@ public class RoutineSite {
                 found.add(marker);
         }
         return found;
+    }
+
+    public @Nullable PrisonCell findCell(BlockPos pos) {
+        if(cells == null)
+            cells = PrisonCell.cells(getMarkers(MarkerKind.CELL_CORNER).stream().map(StructureFeatureData.Marker::pos).toList());
+        for(PrisonCell cell : cells) {
+            if(cell.contains(pos))
+                return cell;
+        }
+        return null;
     }
 
     // The station of one of these kinds closest to the given place, which is the npc's home

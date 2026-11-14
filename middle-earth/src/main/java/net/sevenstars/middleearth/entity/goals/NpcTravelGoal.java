@@ -77,6 +77,8 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
     @Override
     public boolean canStart() {
+        if(npc.isConfined())
+            return false;
         if(npc.hasVehicle())
             return super.canStart();
 

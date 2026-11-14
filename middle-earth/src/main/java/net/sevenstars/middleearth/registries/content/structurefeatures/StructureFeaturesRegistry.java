@@ -44,6 +44,9 @@ public class StructureFeaturesRegistry {
     private static final String NEST_ID = "structure_nest.NestId";
     private static final String MARKER_BLOCK = MiddleEarth.MOD_ID + ":structure_marker";
     private static final String MARKER_ID = "structure_marker.MarkerId";
+    private static final String MARKER_VALUE = "structure_marker.Value";
+    private static final String MARKER_COUNT = "structure_marker.Count";
+    private static final String MARKER_RESPAWNS = "structure_marker.Respawns";
 
     // What the scan found in one template, besides the data itself
     public record Template(Identifier id, StructureFeatureData data, int beds, int stores, Set<Identifier> pools, Set<String> unresolved) {
@@ -132,9 +135,11 @@ public class StructureFeaturesRegistry {
                 continue;
             }
             if(name.equals(MARKER_BLOCK)) {
-                MarkerKind kind = markerKind(block.getCompoundOrEmpty("nbt").getString(MARKER_ID, ""));
+                NbtCompound markerData = block.getCompoundOrEmpty("nbt");
+                MarkerKind kind = markerKind(markerData.getString(MARKER_ID, ""));
                 if(kind != null)
-                    markers.add(new StructureFeatureData.Marker(kind, pos, facingOf(properties)));
+                    markers.add(new StructureFeatureData.Marker(kind, pos, facingOf(properties), markerData.getString(MARKER_VALUE, ""),
+                            markerData.getInt(MARKER_COUNT, 1), markerData.getBoolean(MARKER_RESPAWNS, false)));
                 continue;
             }
             if(name.equals("minecraft:jigsaw")) {

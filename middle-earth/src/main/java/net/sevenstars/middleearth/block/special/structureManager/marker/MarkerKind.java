@@ -10,7 +10,11 @@ public enum MarkerKind implements StringIdentifiable {
     LOOKOUT("lookout"),
     LORD_SEAT("lord_seat"),
     PATROL_POINT("patrol_point"),
-    MINE_FACE("mine_face");
+    MINE_FACE("mine_face"),
+    STABLE("stable"),
+    SPAWN_NPC("spawn_npc"),
+    SPAWN_ANIMAL("spawn_animal"),
+    CELL_CORNER("cell_corner");
 
     public static final Codec<MarkerKind> CODEC = StringIdentifiable.createCodec(MarkerKind::values);
     private final String name;

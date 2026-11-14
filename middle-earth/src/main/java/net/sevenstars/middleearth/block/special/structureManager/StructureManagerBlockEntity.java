@@ -1,15 +1,18 @@
 package net.sevenstars.middleearth.block.special.structureManager;
 
+import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -21,7 +24,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
+import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
@@ -34,18 +42,25 @@ import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_manager";
+    // In ticks, a second
+    private static final int MARKER_CHECK_INTERVAL = 20;
+    // Nobody is placed at random around a marker, but on it
+    private static final int MARKER_SPAWN_RADIUS = 0;
 
     private enum SyncedData {
         ENABLED("%s.Enabled".formatted(ID)),
         TO_INITIALIZE("%s.ToInitialize".formatted(ID)),
         SPAWN_NEST_LIST("%s.Nests".formatted(ID)),
+        MARKER_ANIMALS("%s.MarkerAnimals".formatted(ID)),
         IDENTIFIER("%s.Identifier".formatted(ID));
 
         public final String name;
@@ -60,6 +75,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Nullable
     protected Identifier structureManagerIdentifier;
     private StructureNestList structureNestList;
+    private List<MarkerAnimals> markerAnimals = new ArrayList<>();
     private boolean wellnessChecked;
 
     boolean firstTick = true;
@@ -128,6 +144,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             view.put(SyncedData.IDENTIFIER.name, Identifier.CODEC, this.structureManagerIdentifier);
         if(structureNestList != null)
             view.put(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC, this.structureNestList);
+        view.put(SyncedData.MARKER_ANIMALS.name, Codec.list(MarkerAnimals.CODEC), this.markerAnimals);
     }
 
     @Override
@@ -144,8 +161,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(ofThisWorld) {
             view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC)
                     .ifPresent(x -> structureNestList = x);
+            markerAnimals = new ArrayList<>(view.read(SyncedData.MARKER_ANIMALS.name, Codec.list(MarkerAnimals.CODEC)).orElse(List.of()));
         } else if(structureManagerIdentifier != null) {
             structureNestList = null;
+            markerAnimals = new ArrayList<>();
             enabled = false;
             toInitialize = true;
         }
@@ -319,6 +338,38 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
         if(haveToDoWellnessCheck && !wellnessChecked)
             wellnessChecked = true;
+        if(managerData != null && gameTick % MARKER_CHECK_INTERVAL == 0)
+            tickMarkers(serverWorld);
+    }
+
+    // What the builders marked to be spawned: people join the nests of the place, animals have their own count
+    private void tickMarkers(ServerWorld serverWorld) {
+        RoutineSite site = RoutineSites.forManager(serverWorld, pos);
+        if(site == null)
+            return;
+        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.SPAWN_NPC)) {
+            Identifier nestId = Identifier.tryParse(marker.value());
+            SpawnNestNodeData data = nestId == null ? null : managerData.findSpawnNest(nestId);
+            if(data == null || structureNestList.getManagers().stream().anyMatch(nest -> nest.isMarked() && nest.getOriginPos().equals(marker.pos())))
+                continue;
+            structureNestList.addNest(new SpawnNestManager(data, marker.pos(), MARKER_SPAWN_RADIUS, marker.count()));
+            markDirty();
+        }
+        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.SPAWN_ANIMAL)) {
+            Identifier typeId = Identifier.tryParse(marker.value());
+            EntityType<?> type = typeId == null ? null : Registries.ENTITY_TYPE.getOptionalValue(typeId).orElse(null);
+            if(type == null)
+                continue;
+            MarkerAnimals animals = markerAnimals.stream().filter(found -> found.getPos().equals(marker.pos())).findFirst().orElse(null);
+            if(animals == null) {
+                animals = new MarkerAnimals(marker.pos(), List.of(), -1);
+                markerAnimals.add(animals);
+                animals.spawn(serverWorld, type, marker.count());
+                markDirty();
+            } else if(marker.respawns() && animals.topUp(serverWorld, type, marker.count())) {
+                markDirty();
+            }
+        }
     }
 
     private void tryToInitializeManager(World world){

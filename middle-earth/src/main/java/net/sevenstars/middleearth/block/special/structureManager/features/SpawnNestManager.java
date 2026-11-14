@@ -44,7 +44,8 @@ public class SpawnNestManager {
             Codec.BOOL.optionalFieldOf("surveyed", false).forGetter(manager -> manager.surveyed),
             Codec.list(NestSurvey.Bed.CODEC).optionalFieldOf("beds", List.of()).forGetter(manager -> manager.beds),
             BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store)),
-            Codec.BOOL.optionalFieldOf("paired", false).forGetter(manager -> manager.paired)
+            Codec.BOOL.optionalFieldOf("paired", false).forGetter(manager -> manager.paired),
+            Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
     ).apply(instance, SpawnNestManager::new));
 
     private static final String ID = "spawn_nest_data";
@@ -64,8 +65,11 @@ public class SpawnNestManager {
     private @Nullable BlockPos store = null;
     // True when the beds are this nest's alone, as the generated data has them. Beds found by looking around are shared with the other nests of the building
     private boolean paired = false;
+    // Above 0 for a nest a spawn_npc marker made: that many people stand at the marker, with or without beds
+    private int capacity = 0;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, boolean surveyed, List<NestSurvey.Bed> beds, Optional<BlockPos> store, boolean paired) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, boolean surveyed, List<NestSurvey.Bed> beds, Optional<BlockPos> store, boolean paired, int capacity) {
+        this.capacity = capacity;
         this.paired = paired;
         this.surveyed = surveyed;
         this.beds = new ArrayList<>(beds);
@@ -77,6 +81,11 @@ public class SpawnNestManager {
         this.respawnTickDelay = dataRespawnTickDelay;
         this.originPos = position;
         this.spawnRadius = spawnRadius;
+    }
+
+    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius, int capacity) {
+        this(spawnNestNodeData, position, spawnRadius);
+        this.capacity = capacity;
     }
 
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius) {
@@ -109,6 +118,10 @@ public class SpawnNestManager {
     }
     public int getSpawnRadius() {
         return this.spawnRadius;
+    }
+
+    public boolean isMarked() {
+        return capacity > 0;
     }
 
     // True once the building has been looked through, which needs it loaded
@@ -268,12 +281,13 @@ public class SpawnNestManager {
 
         if(data != null){
             StructureSpawnNestPool pool = data.getRandomPool();
-            boolean people = pool.getEntityType() == EntitiesME.NPC && survey(world);
+            boolean marked = isMarked();
+            boolean people = pool.getEntityType() == EntitiesME.NPC && !marked && survey(world);
             Predicate<BlockPos> takenElsewhere = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager
                     ? bed -> manager.isBedTakenElsewhere(bed, this) : bed -> false;
             // People are spawned from beds: a nest houses whom it has a free bed for, and nobody without one. Beasts need none
-            int entityAmountToSpawn = pool.getEntityAmount();
-            if(pool.getEntityType() == EntitiesME.NPC) {
+            int entityAmountToSpawn = marked ? capacity : pool.getEntityAmount();
+            if(pool.getEntityType() == EntitiesME.NPC && !marked) {
                 // The building is not loaded far enough to know its beds, which is asked again on the next tick
                 if(!people)
                     return;
@@ -294,10 +308,16 @@ public class SpawnNestManager {
                             : householdRole(world, structureManagerPos, npcEntity);
                     role.ifPresent(npcEntity::takeRole);
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
+                    if(npcEntity.isPrisoner()) {
+                        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+                        npcEntity.setPrisonCell(site == null ? null : site.findCell(npcEntity.getBlockPos()));
+                    }
+                    if(marked)
+                        npcEntity.setHousehold(null, null, null);
                 }
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
-                if(entityToAdd instanceof NpcEntity npcEntity && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)
+                if(!marked && entityToAdd instanceof NpcEntity npcEntity && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)
                     manager.assignBed(npcEntity);
             }
             world.markDirty(structureManagerPos);

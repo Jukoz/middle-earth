@@ -285,7 +285,8 @@ public class RoutineSites {
             for(BlockPos ladder : data.ladders())
                 ladders.add(NestSurvey.placedAt(placed, ladder));
             for(StructureFeatureData.Marker marker : data.markers())
-                markers.add(new StructureFeatureData.Marker(marker.kind(), NestSurvey.placedAt(placed, marker.pos()), placed.getRotation().rotate(marker.facing())));
+                markers.add(new StructureFeatureData.Marker(marker.kind(), NestSurvey.placedAt(placed, marker.pos()), placed.getRotation().rotate(marker.facing()),
+                        marker.value(), marker.count(), marker.respawns()));
         }
         site.setTables(tables);
         site.setStations(stations);

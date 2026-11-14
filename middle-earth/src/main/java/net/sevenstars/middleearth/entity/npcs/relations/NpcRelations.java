@@ -21,6 +21,8 @@ public class NpcRelations {
     public static Relation of(NpcEntity npc, Entity other) {
         if(other == npc)
             return Relation.ALLY;
+        if(involvesPrisoner(npc, other))
+            return Relation.NEUTRAL;
         if(npc.hasGrudgeAgainst(other) || other == npc.getHuntTarget())
             return Relation.ENEMY;
         return standing(npc, other);
@@ -30,6 +32,8 @@ public class NpcRelations {
     public static Relation standing(NpcEntity npc, Entity other) {
         if(other == npc)
             return Relation.ALLY;
+        if(involvesPrisoner(npc, other))
+            return Relation.NEUTRAL;
         // A mount is on the side of whoever rides it
         Entity rider = other.getControllingPassenger();
         if(rider != null && rider != other)
@@ -39,6 +43,11 @@ public class NpcRelations {
         if(other instanceof PlayerEntity player)
             return ofPlayer(npc, player);
         return ofCreature(npc, other);
+    }
+
+    // Prisoners are hostile to no one and no one is hostile to them
+    private static boolean involvesPrisoner(NpcEntity npc, Entity other) {
+        return npc.isPrisoner() || other instanceof NpcEntity otherNpc && otherNpc.isPrisoner();
     }
 
     private static Relation ofPlayer(NpcEntity npc, PlayerEntity player) {

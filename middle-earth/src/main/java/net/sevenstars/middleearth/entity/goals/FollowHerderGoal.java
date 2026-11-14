@@ -50,6 +50,18 @@ public class FollowHerderGoal extends Goal {
         });
     }
 
+    // Who drives the animal, null for one that runs wild
+    public static UUID herderOf(Entity animal) {
+        for(String tag : animal.getCommandTags()) {
+            if(tag.startsWith(TAG_PREFIX)) {
+                try {
+                    return UUID.fromString(tag.substring(TAG_PREFIX.length()));
+                } catch (IllegalArgumentException ignored) {}
+            }
+        }
+        return null;
+    }
+
     // The goal itself is added when the animal enters the world
     public static void assign(MobEntity animal, UUID herder) {
         animal.addCommandTag(TAG_PREFIX + herder);

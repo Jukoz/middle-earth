@@ -41,6 +41,8 @@ public class NpcFleeHomeGoal extends Goal {
             return false;
         if(npc.squaredDistanceTo(danger) > THREAT_RANGE * THREAT_RANGE || isHome())
             return false;
+        if(!npc.fleesFrom(danger))
+            return false;
         threat = danger;
         return true;
     }

@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
@@ -210,7 +212,17 @@ public class NpcRoutineGoal extends Goal {
     private static final int WORK_TIME_VARIATION = 20 * 40;
     // From home. Nobody crosses the whole town to somebody else's forge
     private static final int WORK_RANGE = 48;
+    private static final int STABLE_RANGE = 12;
     private static final int VISIT_SEAT_RANGE = 10;
+    // How long a household asked to have a visitor over keeps it in mind
+    private static final int INVITATION_TIME = 20 * 60;
+    private static final int HOST_RANGE = 24;
+    private static final int VISIT_TRIES = 4;
+    // A hive fills over a day, and its honey is taken once it has stood full for another
+    private static final long DAY = 24000;
+    private static final int FULL_HONEY = 5;
+    private static final double HORSE_REACH = 4;
+    private static final int HORSE_HEIGHT = 8;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
@@ -222,8 +234,6 @@ public class NpcRoutineGoal extends Goal {
 
     private static final int PREY_RANGE = 24;
     private static final int PREY_HEIGHT_RANGE = 6;
-    // Leaves the last animal of a herd alone
-    private static final int MINIMUM_HERD = 2;
     private static final int BYSTANDER_DISTANCE = 5;
     private static final List<Item> DEFAULT_FORAGE = List.of(Items.BROWN_MUSHROOM, Items.SWEET_BERRIES, Items.APPLE);
 
@@ -253,6 +263,10 @@ public class NpcRoutineGoal extends Goal {
     private final Set<BlockPos> triedDoors = new HashSet<>();
     // The whole way to the place of this walk, once planned
     private @Nullable Vec3d satFrom = null;
+    // Where what is carried back goes, when not the household's store: a woodcutter's logs go on the wood pile
+    private @Nullable BlockPos dropOff = null;
+    // The seat at its own table a visitor asked it to, while it comes home for the visit
+    private @Nullable BlockPos hostingAt = null;
     private boolean planned = false;
     private @Nullable List<BlockPos> waypoints = null;
     private int waypointIndex = 0;
@@ -282,6 +296,8 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable NpcEntity companion = null;
     private @Nullable BlockPos meetSeat = null;
     private @Nullable BlockPos workStation = null;
+    // The horse a stable master is seeing to
+    private @Nullable AbstractHorseEntity workHorse = null;
     private @Nullable BlockPos fieldCell = null;
     private long farmingEnd = 0;
     // Plots seen to be behind a fence or a wall from where they were to be worked, passed over for the rest of the day
@@ -316,6 +332,8 @@ public class NpcRoutineGoal extends Goal {
             phase = Phase.SLEEPING;
             return true;
         }
+        if(npc.isConfined())
+            return false;
         if(--delay > 0)
             return false;
         delay = WAITING_DELAY;
@@ -371,7 +389,7 @@ public class NpcRoutineGoal extends Goal {
         // Keeps a village from setting out all at once when its chunks load
         if(restUntil == 0)
             restUntil = time + npc.getRandom().nextInt(REST + REST_VARIATION);
-        if(time < restUntil)
+        if(time < restUntil && !npc.hasInvitation(time))
             return false;
         // Bed time comes whether anyone is watching or not
         // A rider keeps to its mount through the night, and has no bed to lie down in
@@ -416,6 +434,11 @@ public class NpcRoutineGoal extends Goal {
 
         BlockPos home = npc.getRoutineHome();
         askHousehold(world);
+        // Somebody is calling on its household, and it comes home to sit with them
+        hostingAt = npc.takeInvitation(time);
+        if(hostingAt != null && !npc.isRestTime() && begin(world, RoutineData.Activity.VISIT, home))
+            return true;
+        hostingAt = null;
         RoutineData.Activity picked = pickActivity(world, routine, home, time);
         if(picked == RoutineData.Activity.ESCORT) {
             findWard(world);
@@ -448,10 +471,10 @@ public class NpcRoutineGoal extends Goal {
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
                     && (!underground || !isOutdoors(activity))
-                    && (activity != RoutineData.Activity.VISIT || site.pickHousehold(world, home, npc.getRandom()) != null)
+                    && (activity != RoutineData.Activity.VISIT || householdToVisit(world, home) != null)
                     && (activity != RoutineData.Activity.HUNT || huntingGround(world, home, time) >= 0)
                     && (activity != RoutineData.Activity.FARM || fieldsNeedWork(world, home))
-                    && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
+                    && (activity != RoutineData.Activity.WORK || hasWork(world, routine, home, time)));
         // Elves need little sleep, and keep company through the night
         if(npc.isElf() && !npc.isRestTime())
             return routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity) && !isHeld(activity, time));
@@ -557,11 +580,24 @@ public class NpcRoutineGoal extends Goal {
                 spot = site.getGrounds().get(index);
             }
             case VISIT -> {
-                BlockPos household = site.pickHousehold(world, home, random);
+                if(hostingAt != null) {
+                    meetSeat = world.getBlockState(hostingAt).getBlock() instanceof SeatBlock && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
+                    BlockPos beside = meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
+                    spot = meetSeat != null ? seatStand(world, meetSeat) : beside != null ? beside : hostingAt;
+                    did("visit", "comes home to have a visitor over at " + spot.toShortString());
+                    hostingAt = null;
+                    break;
+                }
+                BlockPos household = householdToVisit(world, home);
                 if(household == null)
                     return cannotStart(picked, "no other household to call on");
+                // A visit is to somebody: the household is asked over to its own table
+                List<NpcEntity> hosts = hostsAt(world, household);
                 // To the table if there is room at it, or else just in at the door
                 meetSeat = site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
+                BlockPos hostSeat = meetSeat == null ? null : site.pickSeatNear(world, household, VISIT_SEAT_RANGE, meetSeat);
+                for(NpcEntity host : hosts)
+                    host.invite(hostSeat != null ? hostSeat : household, world.getTime() + INVITATION_TIME);
                 if(meetSeat != null) {
                     spot = seatStand(world, meetSeat);
                 } else {
@@ -574,6 +610,16 @@ public class NpcRoutineGoal extends Goal {
                 long time = world.getTime();
                 unusableStations.values().removeIf(until -> until <= time);
                 workStation = null;
+                workHorse = null;
+                // A stable master's work is the horses by the stable
+                if(isStableWork()) {
+                    workHorse = findHorse(world, home);
+                    if(workHorse == null)
+                        return cannotStart(picked, "no horse to see to");
+                    BlockPos byHorse = NestSurvey.standNextTo(world, workHorse.getBlockPos(), npc.getBlockPos());
+                    spot = byHorse != null ? byHorse : workHorse.getBlockPos();
+                    break;
+                }
                 BlockPos beside = null;
                 List<BlockPos> stations = routine == null ? List.of() : site.stationsNear(routine.getStations(), home, WORK_RANGE);
                 boolean held = false;
@@ -582,6 +628,8 @@ public class NpcRoutineGoal extends Goal {
                         held = true;
                         continue;
                     }
+                    if(isHive(world, station) && !hiveReady(world, station, time))
+                        continue;
                     beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
                     // A forge walled in on every side is for show
                     if(beside != null) {
@@ -857,13 +905,13 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         // The usual distance reaches through a wall, and a store on its far side was filled from the street
-        boolean storing = phase == Phase.RETURNING && !toBed && carried != null && npc.getStore() != null;
+        boolean storing = phase == Phase.RETURNING && !toBed && carried != null && dropOff() != null;
         boolean sitting = phase == Phase.GOING && meetSeat != null;
         boolean working = phase == Phase.GOING && activity == RoutineData.Activity.WORK;
         // Close enough to a bed is where the bed can be seen from, not a step from it through the wall
         BlockPos bed = phase == Phase.RETURNING && toBed ? freeBed(world) : null;
         boolean bedding = bed != null;
-        BlockPos store = npc.getStore();
+        BlockPos store = dropOff();
         boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
         // A seat boxed in by others and a table is only got to from a corner, a little further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
@@ -1220,7 +1268,7 @@ public class NpcRoutineGoal extends Goal {
                 return;
             }
             if(carried != null) {
-                BlockPos store = npc.getStore();
+                BlockPos store = dropOff();
                 if(store == null || canSee(world, store))
                     npc.swingHand(Hand.MAIN_HAND);
                 if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store)) {
@@ -1259,6 +1307,11 @@ public class NpcRoutineGoal extends Goal {
             case WORK -> {
                 phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
                 lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
+                if(workHorse != null && (!workHorse.isAlive() || workHorse.squaredDistanceTo(npc) > HORSE_REACH * HORSE_REACH)) {
+                    abandoned("the horse it came to see to wandered off");
+                    finish(world, REST);
+                    return;
+                }
             }
             case VISIT, TABLE -> {
                 // Somebody quicker may have taken the seat, the table is still the place to be
@@ -1324,6 +1377,9 @@ public class NpcRoutineGoal extends Goal {
                         abandoned("the tree was gone");
                     else
                         did("carries " + itemName(carried) + " from the tree at " + tree.toShortString());
+                    // Stacked on the wood pile of the place, where there is one
+                    BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
+                    dropOff = carried == null ? null : site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
                     startReturn(world);
                 } else if(tree != null && random.nextInt(3) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
@@ -1349,8 +1405,28 @@ public class NpcRoutineGoal extends Goal {
                 }
             }
             case WORK -> {
-                if(done) {
+                if(done && workStation != null && isHive(world, workStation)) {
+                    BlockState hive = world.getBlockState(workStation);
+                    world.setBlockState(workStation, hive.with(BeehiveBlock.HONEY_LEVEL, 0));
+                    site.emptyHive(workStation, time);
+                    world.playSound(null, workStation, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.BLOCKS, 1f, 1f);
+                    carried = Items.HONEYCOMB;
+                    did("work", "took the honey from the hive at " + workStation.toShortString());
+                    startReturn(world);
+                } else if(done) {
+                    if(workHorse != null)
+                        did("work", "groomed the horse at " + workHorse.getBlockPos().toShortString());
                     finish(world, REST + random.nextInt(REST_VARIATION));
+                } else if(workHorse != null) {
+                    // Brushed and fed where it stands
+                    workHorse.getNavigation().stop();
+                    lookTarget = workHorse.getEyePos();
+                    if(random.nextInt(3) == 0)
+                        npc.swingHand(Hand.MAIN_HAND);
+                    if(random.nextInt(6) == 0)
+                        world.playSound(null, workHorse.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, 0.6f, 1f);
+                    if(random.nextInt(12) == 0)
+                        world.spawnParticles(ParticleTypes.HEART, workHorse.getX(), workHorse.getEyeY() + 0.3, workHorse.getZ(), 1, 0.2, 0.1, 0.2, 0);
                 } else if(random.nextInt(4) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
                     if(workStation != null && random.nextInt(3) == 0)
@@ -1676,13 +1752,13 @@ public class NpcRoutineGoal extends Goal {
     // Of the open grounds within reach of home, the one with the most game about it lately. Game is rare in many lands,
     // and a hunter does not go out where none has been seen. -1 when no ground has a herd near it
     private int huntingGround(ServerWorld world, BlockPos home, long time) {
-        List<BlockPos> game = site.getGame(world, time, NpcRoutineGoal::isPrey);
-        if(game.size() < MINIMUM_HERD)
+        List<BlockPos> game = site.getGame(world, time, animal -> isPrey(animal) && FollowHerderGoal.herderOf(animal) == null);
+        if(game.isEmpty())
             return -1;
         List<BlockPos> grounds = site.getGrounds();
         int reach = SPOT_RANGE + site.getExtent();
         int best = -1;
-        int most = MINIMUM_HERD - 1;
+        int most = 0;
         for(int i = 0; i < grounds.size(); i++) {
             BlockPos ground = grounds.get(i);
             if(!ground.isWithinDistance(home, reach))
@@ -1701,8 +1777,9 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private @Nullable LivingEntity findPrey(ServerWorld world) {
-        List<AnimalEntity> herd = world.getEntitiesByClass(AnimalEntity.class, npc.getBoundingBox().expand(PREY_RANGE, PREY_HEIGHT_RANGE, PREY_RANGE), NpcRoutineGoal::isPrey);
-        if(herd.size() < MINIMUM_HERD)
+        List<AnimalEntity> herd = world.getEntitiesByClass(AnimalEntity.class, npc.getBoundingBox().expand(PREY_RANGE, PREY_HEIGHT_RANGE, PREY_RANGE),
+                animal -> isPrey(animal) && !isKeptByFriend(world, animal));
+        if(herd.isEmpty())
             return null;
         AnimalEntity nearest = herd.getFirst();
         for(AnimalEntity animal : herd) {
@@ -1843,6 +1920,16 @@ public class NpcRoutineGoal extends Goal {
         return seed;
     }
 
+    // A beast driven by a herder of a friendly people is theirs. Whether the herder is friend or foe is only known while it
+    // is about, and until then the beast is let be
+    private boolean isKeptByFriend(ServerWorld world, AnimalEntity animal) {
+        UUID herder = FollowHerderGoal.herderOf(animal);
+        if(herder == null)
+            return false;
+        return !(world.getEntity(herder) instanceof NpcEntity keeper) || keeper.getFactionIdentifier() == null
+                || !npc.isHostileToFaction(keeper.getFactionIdentifier());
+    }
+
     private static boolean isPrey(AnimalEntity animal) {
         if(!animal.isAlive() || animal.isBaby() || animal.hasPassengers() || animal.hasVehicle() || animal.isLeashed())
             return false;
@@ -1901,8 +1988,8 @@ public class NpcRoutineGoal extends Goal {
             BlockPos bed = freeBed(world);
             if(bed != null)
                 return npc.getBedStand() != null ? npc.getBedStand() : bed;
-        } else if(carried != null && npc.getStore() != null) {
-            return storeStand(world, npc.getStore());
+        } else if(carried != null && dropOff() != null) {
+            return storeStand(world, dropOff());
         }
         return npc.getRoutineHome();
     }
@@ -1914,6 +2001,77 @@ public class NpcRoutineGoal extends Goal {
         if(beside == null)
             beside = NestSurvey.standInSight(world, seat, npc.getBlockPos(), STORE_STAND_RADIUS);
         return beside != null ? beside : seat;
+    }
+
+    // Of a few households tried, one with somebody in it to call on. Nobody goes to an empty house
+    private @Nullable BlockPos householdToVisit(ServerWorld world, BlockPos home) {
+        for(int attempt = 0; attempt < VISIT_TRIES; attempt++) {
+            BlockPos household = site.pickHousehold(world, home, npc.getRandom());
+            if(household == null)
+                return null;
+            if(!hostsAt(world, household).isEmpty())
+                return household;
+        }
+        return null;
+    }
+
+    private List<NpcEntity> hostsAt(ServerWorld world, BlockPos household) {
+        return world.getEntitiesByClass(NpcEntity.class, new Box(household).expand(HOST_RANGE),
+                other -> other != npc && household.equals(other.getRoutineHome()) && !other.isSleeping());
+    }
+
+    private @Nullable BlockPos dropOff() {
+        return dropOff != null ? dropOff : npc.getStore();
+    }
+
+    private static boolean isHive(ServerWorld world, BlockPos pos) {
+        return world.getBlockState(pos).contains(BeehiveBlock.HONEY_LEVEL);
+    }
+
+    // Fills the hive as the day goes since its honey was last taken, which is due once it has stood full for a whole day
+    private boolean hiveReady(ServerWorld world, BlockPos hive, long time) {
+        BlockState state = world.getBlockState(hive);
+        long since = time - site.hiveEmptiedAt(hive, time, state.get(BeehiveBlock.HONEY_LEVEL) * DAY / FULL_HONEY);
+        int level = (int) Math.min(FULL_HONEY, since * FULL_HONEY / DAY);
+        if(state.get(BeehiveBlock.HONEY_LEVEL) != level)
+            world.setBlockState(hive, state.with(BeehiveBlock.HONEY_LEVEL, level));
+        return since >= 2 * DAY;
+    }
+
+    private boolean isStableWork() {
+        return NpcRoles.STABLES_MASTER.getValue().equals(npc.getRoleId());
+    }
+
+    // The nearest horse by the stable closest to home that nobody is riding
+    private @Nullable AbstractHorseEntity findHorse(ServerWorld world, BlockPos home) {
+        BlockPos stable = null;
+        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.STABLE)) {
+            if(stable == null || marker.pos().getSquaredDistance(home) < stable.getSquaredDistance(home))
+                stable = marker.pos();
+        }
+        if(stable == null)
+            return null;
+        List<AbstractHorseEntity> horses = world.getEntitiesByClass(AbstractHorseEntity.class, new Box(stable).expand(STABLE_RANGE, HORSE_HEIGHT, STABLE_RANGE),
+                horse -> horse.isAlive() && !horse.hasPassengers() && !horse.isLeashed());
+        AbstractHorseEntity nearest = null;
+        for(AbstractHorseEntity horse : horses) {
+            if(nearest == null || horse.squaredDistanceTo(Vec3d.ofCenter(stable)) < nearest.squaredDistanceTo(Vec3d.ofCenter(stable)))
+                nearest = horse;
+        }
+        return nearest;
+    }
+
+    // A station of its trade to work at, a hive only once its honey is due, and for a stable master a horse
+    private boolean hasWork(ServerWorld world, RoutineData routine, BlockPos home, long time) {
+        if(isStableWork())
+            return findHorse(world, home) != null;
+        for(BlockPos station : site.stationsNear(routine.getStations(), home, WORK_RANGE)) {
+            if(!world.isChunkLoaded(station.getX() >> 4, station.getZ() >> 4))
+                continue;
+            if(!isHive(world, station) || hiveReady(world, station, time))
+                return true;
+        }
+        return false;
     }
 
     // The store itself is a block nobody can stand in, and the closest the pathfinder gets to it may be the wrong side of a wall
@@ -2100,6 +2258,8 @@ public class NpcRoutineGoal extends Goal {
             site.release(npc.getUuid());
         toBed = false;
         phase = Phase.NONE;
+        dropOff = null;
+        workHorse = null;
         npc.setOnOuting(false);
         npc.setFarming(false);
         carried = null;

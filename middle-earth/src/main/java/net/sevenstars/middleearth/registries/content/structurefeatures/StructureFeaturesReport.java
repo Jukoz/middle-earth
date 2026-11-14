@@ -5,9 +5,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
+import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry.Template;
@@ -38,6 +44,8 @@ public class StructureFeaturesReport {
     private static final String DATA = "data/" + MiddleEarth.MOD_ID + "/worldgen/";
     private static final List<String> GUARDS = List.of("guard", "orthanc_guard");
     private static final List<String> LORDS = List.of("lord", "captain", "chief", "chieftain", "marshal");
+
+    private static Set<Identifier> peopleNests = null;
 
     private final Map<Identifier, Template> templates = new LinkedHashMap<>();
     private final Map<String, Set<Identifier>> structures = new TreeMap<>();
@@ -126,13 +134,15 @@ public class StructureFeaturesReport {
         }
     }
 
-    private record Warnings(List<String> noBeds, List<String> noStore, List<String> noStation, List<String> noFields, List<String> noGuardMarkers, List<String> noLordSeat) {
+    private record Warnings(List<String> noBeds, List<String> noStore, List<String> noStation, List<String> noFields, List<String> noGuardMarkers, List<String> noLordSeat,
+                            List<String> noStable, List<String> badSpawns, List<String> badCells) {
         Warnings() {
-            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
 
         int total() {
-            return noBeds.size() + noStore.size() + noStation.size() + noFields.size() + noGuardMarkers.size() + noLordSeat.size();
+            return noBeds.size() + noStore.size() + noStation.size() + noFields.size() + noGuardMarkers.size() + noLordSeat.size()
+                    + noStable.size() + badSpawns.size() + badCells.size();
         }
     }
 
@@ -170,9 +180,48 @@ public class StructureFeaturesReport {
                     warnings.noGuardMarkers.add(where);
                 if(LORDS.contains(last) && !markers.contains(MarkerKind.LORD_SEAT))
                     warnings.noLordSeat.add(where);
+                if(NpcRoles.STABLES_MASTER.getValue().equals(NpcRoles.forNest(nest.id()).orElse(null)) && !markers.contains(MarkerKind.STABLE))
+                    warnings.noStable.add(where);
+            }
+            List<BlockPos> corners = new ArrayList<>();
+            for(StructureFeatureData.Marker marker : template.data().markers()) {
+                String where = "`%s` at %s, %s".formatted(id.getPath(), at(marker.pos()), marker.kind().asString());
+                if(marker.kind() == MarkerKind.SPAWN_NPC) {
+                    Identifier nest = Identifier.tryParse(marker.value());
+                    if(marker.value().isEmpty())
+                        warnings.badSpawns.add(where + " has no value");
+                    else if(nest == null || !peopleNests().contains(nest))
+                        warnings.badSpawns.add(where + " has the unknown nest `%s`".formatted(marker.value()));
+                } else if(marker.kind() == MarkerKind.SPAWN_ANIMAL) {
+                    Identifier type = Identifier.tryParse(marker.value());
+                    if(marker.value().isEmpty())
+                        warnings.badSpawns.add(where + " has no value");
+                    else if(type == null || !Registries.ENTITY_TYPE.containsId(type))
+                        warnings.badSpawns.add(where + " has the unknown entity type `%s`".formatted(marker.value()));
+                } else if(marker.kind() == MarkerKind.CELL_CORNER) {
+                    corners.add(marker.pos());
+                }
+            }
+            for(List<BlockPos> cell : PrisonCell.group(corners)) {
+                if(cell.size() != PrisonCell.CORNERS)
+                    warnings.badCells.add("`%s` at %s, %d cell_corner markers together".formatted(id.getPath(), at(cell.get(0)), cell.size()));
             }
         }
         return warnings;
+    }
+
+    // Only the nests of npcs can be spawned by a marker
+    private static Set<Identifier> peopleNests() {
+        if(peopleNests == null) {
+            peopleNests = new TreeSet<>();
+            for(StructureManagerData manager : StructureManagerDataPools.all()) {
+                for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
+                    if(nest.getNpcSpawnNestPool().stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC))
+                        peopleNests.add(nest.getId());
+                }
+            }
+        }
+        return peopleNests;
     }
 
     private static String at(BlockPos pos) {
@@ -214,6 +263,9 @@ public class StructureFeaturesReport {
             section(out, "Farmers in a structure without fields", found.noFields);
             section(out, "Guards in a structure without an entrance or guard_post marker", found.noGuardMarkers);
             section(out, "Lords in a structure without a lord_seat marker", found.noLordSeat);
+            section(out, "Stable masters in a structure without a stable marker", found.noStable);
+            section(out, "Spawn markers with no value or an unknown one", found.badSpawns);
+            section(out, "Cell corners that do not make up groups of four", found.badCells);
             if(found.total() == 0)
                 out.append("Nothing to add.\n");
         }

@@ -25,12 +25,20 @@ public record StructureFeatureData(List<Nest> nests, List<List<BlockPos>> tables
         ).apply(instance, Station::new));
     }
 
-    public record Marker(MarkerKind kind, BlockPos pos, Direction facing) {
+    // The value says what to spawn, a nest or an entity type, and the count how many. Animals come back over time only where it respawns
+    public record Marker(MarkerKind kind, BlockPos pos, Direction facing, String value, int count, boolean respawns) {
         public static final Codec<Marker> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 MarkerKind.CODEC.fieldOf("kind").forGetter(Marker::kind),
                 BlockPos.CODEC.fieldOf("pos").forGetter(Marker::pos),
-                Direction.CODEC.optionalFieldOf("facing", Direction.NORTH).forGetter(Marker::facing)
+                Direction.CODEC.optionalFieldOf("facing", Direction.NORTH).forGetter(Marker::facing),
+                Codec.STRING.optionalFieldOf("value", "").forGetter(Marker::value),
+                Codec.INT.optionalFieldOf("count", 1).forGetter(Marker::count),
+                Codec.BOOL.optionalFieldOf("respawns", false).forGetter(Marker::respawns)
         ).apply(instance, Marker::new));
+
+        public Marker(MarkerKind kind, BlockPos pos, Direction facing) {
+            this(kind, pos, facing, "", 1, false);
+        }
     }
 
     public record Nest(BlockPos pos, Identifier id, List<BlockPos> beds, Optional<BlockPos> store) {

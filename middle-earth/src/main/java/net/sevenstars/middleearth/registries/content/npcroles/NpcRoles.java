@@ -45,17 +45,18 @@ public class NpcRoles {
 
     // [TRADES]
     public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FARM, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_HOE));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FARM, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_HOE));
     public static final RegistryKey<NpcRole> BAKER = registerForNest("baker", "baker", trade(StationKind.OVEN));
     public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE).holding(ToolItemsME.SMITHING_HAMMER));
     public static final RegistryKey<NpcRole> COOK = registerForNest("cook", "cook", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcRole> POTTER = registerForNest("potter", "potter", trade(StationKind.HEARTH));
-    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", NpcRole.named(RoutineData.create(Period.DAY).timid().working(StationKind.WOOD_PILE)
-            .add(Activity.CHOP, 3).add(Activity.WORK, 2).add(Activity.TABLE, 1)).holding(Items.IRON_AXE));
+    // Fells nothing and sits at no log pile: the logs it cuts from the trees go on the wood pile
+    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", NpcRole.named(RoutineData.create(Period.DAY).timid()
+            .add(Activity.CHOP, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_AXE));
     public static final RegistryKey<NpcRole> FISHER = registerForNest("fisher", "fisher",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FISH, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.FISHING_ROD));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FISH, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.FISHING_ROD));
     public static final RegistryKey<NpcRole> MINER = registerForNest("miner", "miner",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_PICKAXE));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_PICKAXE));
     // Orcs and goblins who live in a place that has no trade for them. They work by shifts, like the guard
     public static final RegistryKey<NpcRole> LABOURER = registerForNest("labourer", "labourer",
             NpcRole.named(RoutineData.create(Period.SHIFTS).working(StationKind.FORGE, StationKind.HEARTH, StationKind.WOOD_PILE)
@@ -64,7 +65,7 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> TRAVELLER = register("traveller", NpcRole.named());
     public static final RegistryKey<NpcRole> BEEKEEPER = registerForNest("beekeeper", "beekeeper", trade(StationKind.HIVE));
     public static final RegistryKey<NpcRole> INNKEEPER = registerForNest("innkeeper", "innkeeper", trade(StationKind.HEARTH, StationKind.OVEN));
-    public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade(StationKind.HAY));
+    public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade());
 
     // [WARRIORS]
     // Keeps its own name: a Gondor Soldier on guard is still that. Only for those saved with it, nests hand out the duties below
@@ -162,7 +163,7 @@ public class NpcRoles {
             offered.add(BAKER);
         if(site.pickStation(List.of(StationKind.HIVE), nest, HOUSEHOLD_RANGE) != null)
             offered.add(BEEKEEPER);
-        if(site.pickStation(List.of(StationKind.HAY), nest, HOUSEHOLD_RANGE) != null)
+        if(site.getMarkers(MarkerKind.STABLE).stream().anyMatch(stable -> stable.pos().isWithinDistance(nest, HOUSEHOLD_RANGE)))
             offered.add(STABLES_MASTER);
         // The shores are only known once the place has been looked over
         if(site.isReady() && site.getShoreStands().stream().anyMatch(stand -> stand.isWithinDistance(nest, HOUSEHOLD_SHORE_RANGE)))
@@ -183,9 +184,9 @@ public class NpcRoles {
         return key;
     }
 
-    // Most of the day at the trade, with time left to sit down
+    // Most of the day at the trade, with time left to sit down and to go after game
     private static NpcRole trade(StationKind... stations) {
-        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
+        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1));
     }
 
     // Keeps the name of the type, as a Gondor Knight on duty is still a knight
