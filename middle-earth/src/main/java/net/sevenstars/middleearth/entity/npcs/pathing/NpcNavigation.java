@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.npcs.pathing;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.entity.ai.pathing.MobNavigation;
+import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.tag.BlockTags;
@@ -11,14 +12,25 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 public class NpcNavigation extends MobNavigation {
     // Nodes a search may look at. The game's 16 per block of follow range runs out on the way round a long building, and
     // the search then ends on the near side of the wall
     private static final int SEARCH_NODES = 2048;
+    private static final float PATH_LENGTH = 64;
 
     public NpcNavigation(MobEntity mob, World world) {
         super(mob, world);
+    }
+
+    // The search follows no path longer than this, the follow range by default. At 32 blocks the way round a house to its
+    // door, or up the stair at the back to a loft, was longer than any path looked at
+    @Override
+    protected @Nullable Path findPathToAny(Set<BlockPos> positions, int range, boolean useHeadPos, int distance, float followRange) {
+        return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, PATH_LENGTH));
     }
 
     @Override
