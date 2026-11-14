@@ -17,6 +17,8 @@ import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathContext;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.sevenstars.middleearth.block.special.NpcDoor;
+import net.sevenstars.middleearth.block.special.fireBlocks.AbstractToggleableFireBlock;
+import net.sevenstars.middleearth.block.special.plants.ToughBerryBushBlock;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.utils.BlockTagsME;
@@ -83,6 +85,12 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         }
         if(state.getBlock() instanceof ScaffoldingBlock)
             return PathNodeType.BLOCKED;
+        // The braziers, bonfires and fire bowls of the mod burn whoever walks into them, as a campfire does, and a thorny
+        // berry bush pricks
+        if(state.getBlock() instanceof AbstractToggleableFireBlock && state.get(AbstractToggleableFireBlock.LIT))
+            return PathNodeType.DAMAGE_FIRE;
+        if(state.getBlock() instanceof ToughBerryBushBlock)
+            return PathNodeType.DAMAGE_OTHER;
         // The game takes any trapdoor for something to stand on at its own height. An open one is a board at the side of an
         // empty block, a floor only where there is one below it, and nothing at all to stand on top of
         BlockState below = context.getBlockState(new BlockPos(x, y - 1, z));

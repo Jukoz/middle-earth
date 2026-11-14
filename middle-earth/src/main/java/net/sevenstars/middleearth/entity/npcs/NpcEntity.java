@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.state.property.Properties;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcMoveControl;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
@@ -238,6 +239,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.updateAttackType();
         this.navigation.setCanOpenDoors(true);
         this.moveControl = new NpcMoveControl(this);
+        // The game only makes a walk through fire costly. Nobody walks into a fire, a lit campfire or a brazier
+        setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1);
+        setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, -1);
     }
 
     // A tall elf grew wider than the room beside a ladder or an open shutter, and caught on every board in its hall
