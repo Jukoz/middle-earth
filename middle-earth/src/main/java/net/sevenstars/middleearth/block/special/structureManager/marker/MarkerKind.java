@@ -11,7 +11,6 @@ public enum MarkerKind implements StringIdentifiable {
     LORD_SEAT("lord_seat"),
     PATROL_POINT("patrol_point"),
     MINE_FACE("mine_face"),
-    STABLE("stable"),
     SPAWN_NPC("spawn_npc"),
     SPAWN_ANIMAL("spawn_animal"),
     CELL_CORNER("cell_corner");

@@ -113,6 +113,8 @@ public class MiddleEarthClient implements ClientModInitializer {
     public void onInitializeClient() {
         if(net.sevenstars.middleearth.dev.NpcDebug.ENABLED)
             net.sevenstars.middleearth.dev.NpcDebugRenderer.register();
+        net.sevenstars.middleearth.client.renderer.BuildersToolRenderer.register();
+        net.sevenstars.middleearth.client.renderer.BuildersToolSelection.register();
         AtlasesME.registerAtlas();
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
@@ -163,6 +165,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MARKER_SCREEN_HANDLER, StructureMarkerScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.BED_TAG_SCREEN_HANDLER, net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen::new);
 
         BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);

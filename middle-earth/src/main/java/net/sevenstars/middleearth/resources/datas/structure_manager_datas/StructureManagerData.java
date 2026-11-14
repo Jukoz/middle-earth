@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 
 import java.util.List;
 
@@ -47,6 +48,15 @@ public class StructureManagerData {
     public @Nullable SpawnNestNodeData findSpawnNest(Identifier id) {
         for(SpawnNestNodeData nest : spawnNestNodeData) {
             if(nest.getId().equals(id))
+                return nest;
+        }
+        return null;
+    }
+
+    // The nest of people a bed of this type is born by. Nests of other beasts and the nests of other managers share their last word
+    public @Nullable SpawnNestNodeData findPeopleNest(String type) {
+        for(SpawnNestNodeData nest : spawnNestNodeData) {
+            if(nest.isPeople() && BedTag.typeOf(nest.getId()).equals(type))
                 return nest;
         }
         return null;

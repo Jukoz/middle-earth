@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.dev;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexRendering;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,9 +14,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.client.renderer.DebugDraw;
 import net.sevenstars.middleearth.entity.goals.NpcRoutineGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -38,9 +37,8 @@ public class NpcDebugRenderer {
         NpcFailureRecorder.registerCommand();
         WorldRenderEvents.AFTER_ENTITIES.register(context -> {
             try {
-                render(context.matrixStack() == null ? new MatrixStack() : context.matrixStack(),
-                        context.consumers().getBuffer(RenderLayer.getLines()), context.camera().getPos(),
-                        context.tickCounter().getTickProgress(false));
+                float tickProgress = context.tickCounter().getTickProgress(false);
+                DebugDraw.lines(context, (matrices, lines, camera) -> render(matrices, lines, camera, tickProgress));
             } catch (RuntimeException ignored) {
                 // The server world is read from the render thread, a torn read only costs one frame
             }
@@ -55,8 +53,6 @@ public class NpcDebugRenderer {
         ServerWorld world = server.getWorld(client.world.getRegistryKey());
         if(world == null)
             return;
-        matrices.push();
-        matrices.translate(-camera.x, -camera.y, -camera.z);
         for(Entity seen : client.world.getEntities()) {
             if(!(seen instanceof NpcEntity) || seen.squaredDistanceTo(camera) > RANGE * RANGE)
                 continue;
@@ -76,31 +72,30 @@ public class NpcDebugRenderer {
                     BlockPos home = routine.debugToBed() && npc.getAssignedBed() != null ? npc.getAssignedBed()
                             : routine.debugCarried() != null && npc.getStore() != null ? npc.getStore() : npc.getRoutineHome();
                     if(home != null) {
-                        line(matrices, lines, chest, Vec3d.ofCenter(home), HOME);
-                        box(matrices, lines, home, HOME);
+                        DebugDraw.line(matrices, lines, chest, Vec3d.ofCenter(home), HOME);
+                        DebugDraw.box(matrices, lines, home, HOME);
                     }
                 } else {
-                    line(matrices, lines, chest, Vec3d.ofCenter(routine.debugSpot()), color);
-                    box(matrices, lines, routine.debugSpot(), color);
+                    DebugDraw.line(matrices, lines, chest, Vec3d.ofCenter(routine.debugSpot()), color);
+                    DebugDraw.box(matrices, lines, routine.debugSpot(), color);
                 }
                 if(routine.debugLookTarget() != null)
-                    line(matrices, lines, seen.getLerpedPos(tickProgress).add(0, seen.getStandingEyeHeight(), 0), routine.debugLookTarget(), LOOK);
+                    DebugDraw.line(matrices, lines, seen.getLerpedPos(tickProgress).add(0, seen.getStandingEyeHeight(), 0), routine.debugLookTarget(), LOOK);
                 if(routine.debugCompanion() != null)
-                    line(matrices, lines, chest, routine.debugCompanion().getPos().add(0, 0.8, 0), MEET);
+                    DebugDraw.line(matrices, lines, chest, routine.debugCompanion().getPos().add(0, 0.8, 0), MEET);
             }
             LivingEntity prey = npc.getHuntTarget() != null ? npc.getHuntTarget() : npc.getTarget();
             if(prey != null)
-                line(matrices, lines, chest, prey.getPos().add(0, prey.getHeight() * 0.5, 0), HUNT);
+                DebugDraw.line(matrices, lines, chest, prey.getPos().add(0, prey.getHeight() * 0.5, 0), HUNT);
             if(npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof LivingEntity leader)
-                line(matrices, lines, chest, leader.getPos().add(0, leader.getHeight() * 0.6, 0), LEADER);
+                DebugDraw.line(matrices, lines, chest, leader.getPos().add(0, leader.getHeight() * 0.6, 0), LEADER);
             if(npc.getTravelDestination() != null) {
                 Vec3d toward = Vec3d.ofCenter(npc.getTravelDestination()).subtract(chest);
-                line(matrices, lines, chest, chest.add(toward.length() > 24 ? toward.normalize().multiply(24) : toward), LEADER);
+                DebugDraw.line(matrices, lines, chest, chest.add(toward.length() > 24 ? toward.normalize().multiply(24) : toward), LEADER);
             }
             if(npc.isSleeping() && npc.getAssignedBed() != null)
-                box(matrices, lines, npc.getAssignedBed(), HOME);
+                DebugDraw.box(matrices, lines, npc.getAssignedBed(), HOME);
         }
-        matrices.pop();
     }
 
     private static void drawPath(MatrixStack matrices, VertexConsumer lines, NpcEntity npc, Vec3d feet) {
@@ -111,7 +106,7 @@ public class NpcDebugRenderer {
         for(int i = path.getCurrentNodeIndex(); i < path.getLength(); i++) {
             PathNode node = path.getNode(i);
             Vec3d to = new Vec3d(node.x + 0.5, node.y + 0.15, node.z + 0.5);
-            line(matrices, lines, from, to, PATH);
+            DebugDraw.line(matrices, lines, from, to, PATH);
             from = to;
         }
         Box end = Box.of(from, 0.4, 0.4, 0.4);
@@ -122,18 +117,9 @@ public class NpcDebugRenderer {
         for(int i = 0; i < ring.size(); i++) {
             Vec3d from = Vec3d.ofBottomCenter(ring.get(i)).add(0, 0.3, 0);
             Vec3d to = Vec3d.ofBottomCenter(ring.get((i + 1) % ring.size())).add(0, 0.3, 0);
-            line(matrices, lines, from, to, PATROL);
+            DebugDraw.line(matrices, lines, from, to, PATROL);
             if(i == current)
-                box(matrices, lines, ring.get(i), 0xFFFFFFFF);
+                DebugDraw.box(matrices, lines, ring.get(i), 0xFFFFFFFF);
         }
-    }
-
-    private static void line(MatrixStack matrices, VertexConsumer lines, Vec3d from, Vec3d to, int color) {
-        VertexRendering.drawVector(matrices, lines, new Vector3f((float) from.x, (float) from.y, (float) from.z), to.subtract(from), color);
-    }
-
-    private static void box(MatrixStack matrices, VertexConsumer lines, BlockPos pos, int color) {
-        VertexRendering.drawBox(matrices, lines, new Box(pos).expand(0.02),
-                (color >> 16 & 255) / 255f, (color >> 8 & 255) / 255f, (color & 255) / 255f, 1f);
     }
 }

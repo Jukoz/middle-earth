@@ -17,6 +17,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
@@ -50,6 +52,9 @@ public class ScreenHandlerRegistryME {
     public static final ScreenHandlerType<StructureMarkerScreenHandler> STRUCTURE_MARKER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureMarkerScreenHandler::new, StructureMarkerScreenData.PACKET_CODEC);
 
+    public static final ScreenHandlerType<BedTagScreenHandler> BED_TAG_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(BedTagScreenHandler::new, BedTagScreenData.PACKET_CODEC);
+
     public static void registerAllScreenHandlers() {
         register("wood_pile", WOOD_PILE_SCREEN_HANDLER);
         register("forge_alloying", FORGE_ALLOYING_SCREEN_HANDLER);
@@ -59,6 +64,7 @@ public class ScreenHandlerRegistryME {
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
         register("structure_marker", STRUCTURE_MARKER_SCREEN_HANDLER);
+        register("bed_tag", BED_TAG_SCREEN_HANDLER);
         register("crockpot",CROCKPOT_SCREEN_HANDLER );
     }
 

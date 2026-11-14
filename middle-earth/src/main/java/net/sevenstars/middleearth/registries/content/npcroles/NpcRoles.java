@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npcroles;
 
 import net.minecraft.item.Items;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
@@ -11,8 +12,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
@@ -21,16 +21,13 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Per
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class NpcRoles {
-    private static final int HOUSEHOLD_RANGE = 16;
-    private static final int HOUSEHOLD_SHORE_RANGE = 24;
+    private static final int BED_STATION_RANGE = 48;
     private static final Map<RegistryKey<NpcRole>, NpcRole> ROLES = new LinkedHashMap<>();
     // The last word of a nest's name says who lives there
     private static final Map<String, RegistryKey<NpcRole>> NEST_ROLES = new LinkedHashMap<>();
@@ -45,18 +42,22 @@ public class NpcRoles {
 
     // [TRADES]
     public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FARM, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_HOE));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FARM, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_HOE));
     public static final RegistryKey<NpcRole> BAKER = registerForNest("baker", "baker", trade(StationKind.OVEN));
     public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE).holding(ToolItemsME.SMITHING_HAMMER));
     public static final RegistryKey<NpcRole> COOK = registerForNest("cook", "cook", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcRole> POTTER = registerForNest("potter", "potter", trade(StationKind.HEARTH));
     // Fells nothing and sits at no log pile: the logs it cuts from the trees go on the wood pile
     public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", NpcRole.named(RoutineData.create(Period.DAY).timid()
-            .add(Activity.CHOP, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_AXE));
+            .add(Activity.CHOP, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_AXE));
     public static final RegistryKey<NpcRole> FISHER = registerForNest("fisher", "fisher",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FISH, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.FISHING_ROD));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FISH, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.FISHING_ROD));
+    // Bow or crossbow and a knife for close quarters, and no armour: a hunter is no warrior, and does not run from a fight
+    public static final RegistryKey<NpcRole> HUNTER = registerForNest("hunter", "hunter",
+            NpcRole.named(RoutineData.create(Period.DAY).add(Activity.HUNT, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1))
+                    .holding(Items.BOW).orHolding(Items.CROSSBOW).withSidearm(WeaponItemsME.IRON_DAGGER).withoutArmour());
     public static final RegistryKey<NpcRole> MINER = registerForNest("miner", "miner",
-            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1)).holding(Items.IRON_PICKAXE));
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_PICKAXE));
     // Orcs and goblins who live in a place that has no trade for them. They work by shifts, like the guard
     public static final RegistryKey<NpcRole> LABOURER = registerForNest("labourer", "labourer",
             NpcRole.named(RoutineData.create(Period.SHIFTS).working(StationKind.FORGE, StationKind.HEARTH, StationKind.WOOD_PILE)
@@ -84,7 +85,7 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> PRISONER = registerForNests(List.of("prisoner", "prisoner_nest", "prisoner_cell", "small_prisoner_cell", "large_prisoner_cell"),
             "prisoner", duty(RoutineData.create(Period.DAY)));
 
-    private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
+    private static final List<String> GUARD_TYPES = List.of("guard", "orthanc_guard");
     private static final int BODYGUARDS = 2;
 
     public static void bootstrap(Registerable<NpcRole> context) {
@@ -112,9 +113,8 @@ public class NpcRoles {
         return npc.getStructureManagerHostPos() != null && !PRISONER.getValue().equals(npc.getRoleId());
     }
 
-    public static boolean isGuardNest(Identifier nestId) {
-        String path = nestId.getPath();
-        return GUARD_NESTS.contains(path.substring(path.lastIndexOf('.') + 1));
+    public static boolean isGuardType(String type) {
+        return GUARD_TYPES.contains(type);
     }
 
     // The first duty of the place that has nobody on it: a post at each entrance, bodyguards for the lord, a sentry at each
@@ -149,33 +149,49 @@ public class NpcRoles {
         return Optional.ofNullable(role).map(RegistryKey::getValue);
     }
 
-    // What a household has the means for, which is the work of whoever lives in it. One of a trade to a household, and the
-    // orcs and goblins that find nothing to do are labourers, of whom a place has as many as it likes
-    public static Optional<Identifier> forHousehold(RoutineSite site, BlockPos nest, NpcType type, Predicate<Identifier> taken) {
-        List<RegistryKey<NpcRole>> offered = new ArrayList<>();
-        if(site.pickStation(List.of(StationKind.FIELD), nest, HOUSEHOLD_RANGE) != null)
-            offered.add(FARMER);
-        if(site.pickStation(List.of(StationKind.WOOD_PILE), nest, HOUSEHOLD_RANGE) != null)
-            offered.add(WOODCUTTER);
-        if(site.pickStation(List.of(StationKind.FORGE, StationKind.GRINDSTONE), nest, HOUSEHOLD_RANGE) != null)
-            offered.add(SMITH);
-        if(site.pickStation(List.of(StationKind.OVEN), nest, HOUSEHOLD_RANGE) != null)
-            offered.add(BAKER);
-        if(site.pickStation(List.of(StationKind.HIVE), nest, HOUSEHOLD_RANGE) != null)
-            offered.add(BEEKEEPER);
-        if(site.getMarkers(MarkerKind.STABLE).stream().anyMatch(stable -> stable.pos().isWithinDistance(nest, HOUSEHOLD_RANGE)))
-            offered.add(STABLES_MASTER);
-        // The shores are only known once the place has been looked over
-        if(site.isReady() && site.getShoreStands().stream().anyMatch(stand -> stand.isWithinDistance(nest, HOUSEHOLD_SHORE_RANGE)))
-            offered.add(FISHER);
-        for(RegistryKey<NpcRole> role : offered) {
-            if(!taken.test(role.getValue()))
-                return Optional.of(role.getValue());
+    // The kinds of station a role works at. A farmer's is its fields, a woodcutter's the pile its logs go on
+    public static List<StationKind> stationKinds(Identifier role) {
+        if(FARMER.getValue().equals(role))
+            return List.of(StationKind.FIELD);
+        if(WOODCUTTER.getValue().equals(role))
+            return List.of(StationKind.WOOD_PILE);
+        NpcRole found = get(role);
+        return found == null || found.routine().isEmpty() ? List.of() : found.routine().get().getStations();
+    }
+
+    // The markers that stand for a role's workplace, for the roles that have no block
+    public static List<MarkerKind> stationMarkers(Identifier role) {
+        if(STABLES_MASTER.getValue().equals(role))
+            return List.of(MarkerKind.SPAWN_ANIMAL);
+        if(MINER.getValue().equals(role))
+            return List.of(MarkerKind.MINE_FACE);
+        if(GATE_GUARD.getValue().equals(role))
+            return List.of(MarkerKind.GUARD_POST, MarkerKind.ENTRANCE);
+        if(SENTRY.getValue().equals(role))
+            return List.of(MarkerKind.LOOKOUT);
+        if(isLord(role))
+            return List.of(MarkerKind.LORD_SEAT);
+        return List.of();
+    }
+
+    // What a bed tagged with this role works at: the nearest station of its kinds, or else the nearest of its markers
+    public static @Nullable BlockPos stationFor(Identifier role, BlockPos bed, List<StructureFeatureData.Station> stations, List<StructureFeatureData.Marker> markers) {
+        List<StationKind> kinds = stationKinds(role);
+        List<MarkerKind> markerKinds = stationMarkers(role);
+        BlockPos best = null;
+        for(StructureFeatureData.Station station : stations) {
+            if(kinds.contains(station.kind()) && station.pos().isWithinDistance(bed, BED_STATION_RANGE)
+                    && (best == null || station.pos().getSquaredDistance(bed) < best.getSquaredDistance(bed)))
+                best = station.pos();
         }
-        Identifier race = type.getRace();
-        boolean orcish = race.equals(RaceRegistry.ORC.getValue()) || race.equals(RaceRegistry.URUK.getValue())
-                || race.equals(RaceRegistry.GOBLIN.getValue()) || race.equals(RaceRegistry.SNAGA.getValue());
-        return orcish ? Optional.of(LABOURER.getValue()) : Optional.empty();
+        if(best != null || markerKinds.isEmpty())
+            return best;
+        for(StructureFeatureData.Marker marker : markers) {
+            if(markerKinds.contains(marker.kind()) && marker.pos().isWithinDistance(bed, BED_STATION_RANGE)
+                    && (best == null || marker.pos().getSquaredDistance(bed) < best.getSquaredDistance(bed)))
+                best = marker.pos();
+        }
+        return best;
     }
 
     private static RegistryKey<NpcRole> register(String name, NpcRole role) {
@@ -184,9 +200,9 @@ public class NpcRoles {
         return key;
     }
 
-    // Most of the day at the trade, with time left to sit down and to go after game
+    // Most of the day at the trade, with time left to sit down
     private static NpcRole trade(StationKind... stations) {
-        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1).add(Activity.HUNT, 1));
+        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
     }
 
     // Keeps the name of the type, as a Gondor Knight on duty is still a knight

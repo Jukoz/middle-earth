@@ -25,18 +25,15 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureNestList;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -83,6 +80,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     private StructureManagerData managerData;
     private boolean worldWasSet = false;
     private boolean registered = false;
+    @Nullable
+    private Boolean inGeneratedStructure;
 
     @Override
     public void markRemoved() {
@@ -200,59 +199,41 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return null;
     }
 
+    // A tagged bed this manager has a spawn slot for
     public boolean ownsBed(BlockPos pos) {
-        return ownsBed(pos, null);
-    }
-
-    // A lord lives here, or will once its nest has spawned it
-    public boolean hasLordNest() {
         if(structureNestList == null)
             return false;
-        for(SpawnNestManager nest : structureNestList.getManagers()) {
-            if(NpcRoles.isLord(NpcRoles.forNest(nest.getId()).orElse(null)))
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            if(pos.equals(nest.getBed()))
                 return true;
         }
         return false;
     }
 
-    // Everyone given a bed in one of the nests of this manager
-    public Set<UUID> bedOwners() {
-        Set<UUID> owners = new HashSet<>();
-        if(structureNestList == null)
-            return owners;
-        for(SpawnNestManager nest : structureNestList.getManagers()){
-            for(NestSurvey.Bed bed : nest.getBeds())
-                bed.owner().ifPresent(owners::add);
-        }
-        return owners;
-    }
-
-    public boolean isBedTakenElsewhere(BlockPos pos, SpawnNestManager nest) {
-        return ownsBed(pos, nest) || StructureManagerService.isBedTaken(world, pos, this);
-    }
-
-    private boolean ownsBed(BlockPos pos, @Nullable SpawnNestManager except) {
+    // A lord lives here, or will once the bed of one has spawned it
+    public boolean hasLordNest() {
         if(structureNestList == null)
             return false;
-        for(SpawnNestManager nest : structureNestList.getManagers()){
-            if(nest == except)
-                continue;
-            for(NestSurvey.Bed taken : nest.getBeds()){
-                if(taken.owner().isPresent() && taken.pos().equals(pos))
-                    return true;
-            }
+        for(SpawnNestManager nest : structureNestList.getManagers()) {
+            Optional<Identifier> role = nest.getBed() != null ? nest.getBedRole() : NpcRoles.forNest(nest.getId());
+            if(NpcRoles.isLord(role.orElse(null)))
+                return true;
         }
         return false;
     }
 
-    // Gives the npc a bed of its own in the building of its nest, and tells it where things are put away
-    public void assignBed(NpcEntity npc) {
-        SpawnNestManager nest = findNest(npc.getUuid());
-        if(nest == null || !(world instanceof ServerWorld serverWorld) || !nest.survey(serverWorld))
-            return;
-        NestSurvey.Bed bed = nest.claimBed(npc.getUuid(), pos -> isBedTakenElsewhere(pos, nest));
-        npc.setHousehold(bed == null ? null : bed.pos(), bed == null ? null : bed.stand().orElse(null), nest.getStore());
-        markDirty();
+    // Everyone living in the place, whom its nests spawned
+    public Set<UUID> residents() {
+        Set<UUID> residents = new HashSet<>();
+        if(structureNestList == null)
+            return residents;
+        for(SpawnNestManager nest : structureNestList.getManagers())
+            residents.addAll(nest.getEntityUuids());
+        return residents;
+    }
+
+    public boolean canBear(String type) {
+        return managerData != null && managerData.findPeopleNest(type) != null;
     }
 
     public @Nullable BlockPos findNestOrigin(UUID entity) {
@@ -282,10 +263,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         SpawnNestNodeData data = managerData.findSpawnNest(nestId);
         if(data == null || structureNestList == null)
             return false;
-        SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
-        if(world instanceof ServerWorld serverWorld)
-            manager.survey(serverWorld);
-        this.structureNestList.addNest(manager);
+        // The people of a place are born in its tagged beds, so a nest of them is only taken away
+        if(data.isPeople())
+            return true;
+        this.structureNestList.addNest(new SpawnNestManager(data, nestPos, spawnRadius));
         markDirty();
         return true;
     }
@@ -300,7 +281,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        if(!world.isClient() && worldWasSet){
+        if(!(world instanceof ServerWorld checkedWorld))
+            return;
+        if(inGeneratedStructure == null)
+            inGeneratedStructure = GeneratedStructures.contains(checkedWorld, blockPos);
+        if(!inGeneratedStructure)
+            return;
+
+        if(!world.isClient && worldWasSet){
             tryToInitializeManager(world);
             this.worldWasSet = false;
         }
@@ -342,7 +330,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             tickMarkers(serverWorld);
     }
 
-    // What the builders marked to be spawned: people join the nests of the place, animals have their own count
+    // What the builders marked to be spawned: people join the nests of the place, animals have their own count. Each tagged bed of
+    // the place that this manager is the nearest to with a nest for its type is a nest of its own, of one person
     private void tickMarkers(ServerWorld serverWorld) {
         RoutineSite site = RoutineSites.forManager(serverWorld, pos);
         if(site == null)
@@ -353,6 +342,15 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             if(data == null || structureNestList.getManagers().stream().anyMatch(nest -> nest.isMarked() && nest.getOriginPos().equals(marker.pos())))
                 continue;
             structureNestList.addNest(new SpawnNestManager(data, marker.pos(), MARKER_SPAWN_RADIUS, marker.count()));
+            markDirty();
+        }
+        for(StructureFeatureData.Bed bed : site.getBeds()) {
+            if(bed.tag().isEmpty() || ownsBed(bed.pos()))
+                continue;
+            SpawnNestNodeData data = managerData.findPeopleNest(bed.tag().get().type());
+            if(data == null || !StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().type(), site, this))
+                continue;
+            structureNestList.addNest(new SpawnNestManager(data, bed));
             markDirty();
         }
         for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.SPAWN_ANIMAL)) {
@@ -408,23 +406,5 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     private void updateListeners() {
         this.markDirty();
         this.world.updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
-    }
-
-    public void fetchBeds(){
-        // TODO : Fetch all beds surrounding the nodes, making sure there's no duplicate
-        StructureManagerData managerData = getWorld().getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().get(structureManagerIdentifier);
-        for(SpawnNestManager data : structureNestList.getManagers()) {
-            SpawnNestNodeData nodeData = managerData.getNpcSpawnNest(data.getId());
-            if(nodeData == null)
-                continue;
-
-            int bedRadius = nodeData.getBedRadius();
-            BlockPos origin = data.getOriginPos();
-        }
-    }
-
-    public void redistributeBeds(){
-        // TODO : Redistribute beds to the nest nodes
-        // TODO : Makes sure the beds are still distributed to the correct npcs
     }
 }

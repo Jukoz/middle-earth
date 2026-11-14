@@ -1,0 +1,90 @@
+package net.sevenstars.middleearth.network.packets.client2server;
+
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.sevenstars.api.network.contexts.ServerPacketContext;
+import net.sevenstars.api.network.packets.ClientToServerPacket;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Ties a bed to a block, or unties it. The links the bed has before it is first tied by hand are those it finds by itself, which
+// only the client that drew them knows
+public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequest> {
+    public static final Id<PacketBedLinkRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "bed_link_request"));
+
+    private static final int REACH = 64;
+    private static final int MAXIMUM_LINKS = 32;
+
+    public static final PacketCodec<RegistryByteBuf, PacketBedLinkRequest> CODEC = PacketCodec.tuple(
+            BlockPos.PACKET_CODEC, p -> p.bed,
+            BlockPos.PACKET_CODEC, p -> p.target,
+            BlockPos.PACKET_CODEC.collect(PacketCodecs.toList(MAXIMUM_LINKS)), p -> p.automatic,
+            PacketBedLinkRequest::new
+    );
+
+    private final BlockPos bed;
+    private final BlockPos target;
+    private final List<BlockPos> automatic;
+
+    public PacketBedLinkRequest(BlockPos bed, BlockPos target, List<BlockPos> automatic) {
+        this.bed = bed;
+        this.target = target;
+        this.automatic = automatic;
+    }
+
+    @Override
+    public Id<PacketBedLinkRequest> getId() {
+        return ID;
+    }
+
+    @Override
+    public PacketCodec<RegistryByteBuf, PacketBedLinkRequest> streamCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public void process(ServerPacketContext context) {
+        ServerPlayerEntity player = context.player();
+        player.getServer().execute(() -> {
+            if(!player.isCreative() || !player.isCreativeLevelTwoOp() || bed.equals(target))
+                return;
+            BlockPos at = player.getBlockPos();
+            if(!at.isWithinDistance(bed, REACH) || !at.isWithinDistance(target, REACH))
+                return;
+            BlockState state = player.getWorld().getBlockState(bed);
+            if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD)
+                return;
+            if(!(player.getWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null)
+                return;
+            BedTag tag = holder.getBedTag();
+            List<BlockPos> links = new ArrayList<>();
+            if(tag.manual()) {
+                links.addAll(tag.links());
+            } else {
+                for(BlockPos link : automatic) {
+                    if(link.isWithinDistance(bed, REACH) && !link.equals(bed))
+                        links.add(link.subtract(bed));
+                }
+            }
+            BlockPos offset = target.subtract(bed);
+            boolean unlinked = links.remove(offset);
+            if(!unlinked)
+                links.add(offset);
+            holder.setBedTag(tag.withLinks(links, true));
+            Text block = player.getWorld().getBlockState(target).getBlock().getName();
+            player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, unlinked ? "unlinked" : "linked"), block), true);
+        });
+    }
+}

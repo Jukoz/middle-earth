@@ -5,25 +5,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
-import net.sevenstars.middleearth.network.packets.client2server.PacketStructureMarkerUpdateBlockEntityRequest;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureMarkerEditRequest;
 
 public class StructureMarkerScreenHandler extends ScreenHandler {
     private final StructureMarkerScreenData data;
-    private MarkerKind kind;
-    private String value;
-    private int count;
-    private boolean respawns;
 
     public StructureMarkerScreenHandler(int syncId, PlayerInventory playerInventory, StructureMarkerScreenData data) {
         super(ScreenHandlerRegistryME.STRUCTURE_MARKER_SCREEN_HANDLER, syncId);
         this.data = data;
-        this.kind = data.kind();
-        this.value = data.value();
-        this.count = data.count();
-        this.respawns = data.respawns();
     }
 
     @Override
@@ -36,43 +28,15 @@ public class StructureMarkerScreenHandler extends ScreenHandler {
         return player.getBlockPos().isWithinDistance(data.pos(), 8);
     }
 
-    public MarkerKind getKind() {
-        return kind;
+    public StructureMarkerScreenData getData() {
+        return data;
     }
 
-    public String getValue() {
-        return value;
+    public void save(MarkerKind kind, String value, int count, boolean respawns, Direction facing) {
+        ClientPlayNetworking.send(new PacketStructureMarkerEditRequest(data.pos(), data.isNew(), false, kind, value, count, respawns, facing));
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public boolean getRespawns() {
-        return respawns;
-    }
-
-    public void selectNext() {
-        kind = kind.next();
-        send();
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-        send();
-    }
-
-    public void setCount(int count) {
-        this.count = Math.clamp(count, 1, StructureMarkerBlockEntity.MAXIMUM_COUNT);
-        send();
-    }
-
-    public void toggleRespawns() {
-        respawns = !respawns;
-        send();
-    }
-
-    private void send() {
-        ClientPlayNetworking.send(new PacketStructureMarkerUpdateBlockEntityRequest(data.pos(), kind, value, count, respawns));
+    public void remove() {
+        ClientPlayNetworking.send(new PacketStructureMarkerEditRequest(data.pos(), false, true, data.kind(), "", 1, false, data.facing()));
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
+import net.sevenstars.middleearth.block.special.structureManager.GeneratedStructures;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
@@ -49,6 +51,8 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
 
     protected int fails = 0;
     boolean initialized = false;
+    @Nullable
+    private Boolean inGeneratedStructure;
 
     public StructureNestBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistryME.STRUCTURE_NEST, pos, state);
@@ -135,7 +139,12 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void tickEvent(World world, BlockState blockState) {
-        if(world.isClient())
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        if(inGeneratedStructure == null)
+            inGeneratedStructure = GeneratedStructures.contains(serverWorld, pos);
+        if(!inGeneratedStructure)
             return;
 
         if(!blockState.get(StructureNestBlock.ENABLED)) {

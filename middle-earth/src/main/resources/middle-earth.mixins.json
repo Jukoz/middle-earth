@@ -6,7 +6,9 @@
   "mixins": [
     "AbstractHorseEntityMixin",
     "AnvilScreenHandlerMixin",
+    "BedBlockOutlineMixin",
     "BannerPatternRegisterMixin",
+    "BedBlockEntityMixin",
     "BeehiveBlockMixin",
     "BlockEntityTypeMixin",
     "BlockMixin",

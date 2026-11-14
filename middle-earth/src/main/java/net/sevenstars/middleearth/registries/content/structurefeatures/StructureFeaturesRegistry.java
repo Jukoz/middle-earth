@@ -6,27 +6,24 @@ import net.minecraft.block.CampfireBlock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtSizeTracker;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
 import net.sevenstars.middleearth.block.special.NpcDoor;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -34,15 +31,14 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-// Reads every structure template of the mod when data is generated, and pairs its beds with its nests
+// Reads every structure template of the mod when data is generated, for its beds and tags, stations, seats, doors and markers
 public class StructureFeaturesRegistry {
     private static final String TEMPLATES = "data/" + MiddleEarth.MOD_ID + "/structure";
-    private static final String NEST_BLOCK = MiddleEarth.MOD_ID + ":structure_nest";
-    private static final String NEST_ID = "structure_nest.NestId";
+    private static final String MANAGER_BLOCK = MiddleEarth.MOD_ID + ":structure_manager";
+    private static final String MANAGER_ID = "structure_manager.Identifier";
     private static final String MARKER_BLOCK = MiddleEarth.MOD_ID + ":structure_marker";
     private static final String MARKER_ID = "structure_marker.MarkerId";
     private static final String MARKER_VALUE = "structure_marker.Value";
@@ -50,10 +46,12 @@ public class StructureFeaturesRegistry {
     private static final String MARKER_RESPAWNS = "structure_marker.Respawns";
 
     // What the scan found in one template, besides the data itself
-    public record Template(Identifier id, StructureFeatureData data, int beds, int stores, Set<Identifier> pools, Set<String> unresolved) {
+    // Managers are those the template has blocks for, which say which structure manager data its beds are born by
+    public record Template(Identifier id, StructureFeatureData data, int beds, int stores, Set<Identifier> pools, Set<String> unresolved,
+                           Set<Identifier> managers) {
         // Nothing in it worth a file
         public boolean isEmpty() {
-            return data.nests().isEmpty() && data.tables().isEmpty() && data.stations().isEmpty() && data.seats().isEmpty()
+            return data.beds().isEmpty() && data.tables().isEmpty() && data.stations().isEmpty() && data.seats().isEmpty()
                     && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty();
         }
     }
@@ -72,7 +70,6 @@ public class StructureFeaturesRegistry {
         if(scanned != null)
             return scanned;
         List<Template> templates = new ArrayList<>();
-        Map<Identifier, Integer> bedRadii = bedRadii();
         for(Path root : FabricLoader.getInstance().getModContainer(MiddleEarth.MOD_ID).orElseThrow().getRootPaths()) {
             Path folder = root.resolve(TEMPLATES);
             if(!Files.isDirectory(folder))
@@ -80,7 +77,7 @@ public class StructureFeaturesRegistry {
             try(Stream<Path> files = Files.walk(folder)) {
                 for(Path file : files.filter(path -> path.toString().endsWith(".nbt")).sorted().toList()) {
                     String path = folder.relativize(file).toString().replace('\\', '/');
-                    templates.add(read(MiddleEarth.id(path.substring(0, path.length() - ".nbt".length())), file, bedRadii));
+                    templates.add(read(MiddleEarth.id(path.substring(0, path.length() - ".nbt".length())), file));
                 }
             } catch (IOException e) {
                 throw new IllegalStateException("Could not read the structure templates", e);
@@ -90,27 +87,14 @@ public class StructureFeaturesRegistry {
         return scanned;
     }
 
-    // Only nests of npcs take beds. Bees and horses have nests as well
-    private static Map<Identifier, Integer> bedRadii() {
-        Map<Identifier, Integer> radii = new HashMap<>();
-        for(StructureManagerData manager : StructureManagerDataPools.all()) {
-            for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
-                boolean people = nest.getNpcSpawnNestPool().stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC);
-                if(people)
-                    radii.put(nest.getId(), nest.getBedRadius());
-            }
-        }
-        return radii;
-    }
-
-    private static Template read(Identifier templateId, Path file, Map<Identifier, Integer> bedRadii) throws IOException {
+    private static Template read(Identifier templateId, Path file) throws IOException {
         NbtCompound root = NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes());
         NbtList palette = root.contains("palette") ? root.getListOrEmpty("palette") : root.getListOrEmpty("palettes").getListOrEmpty(0);
         NbtList blocks = root.getListOrEmpty("blocks");
 
-        List<BlockPos> nestPositions = new ArrayList<>();
-        List<Identifier> nestIds = new ArrayList<>();
+        Set<Identifier> managerIds = new TreeSet<>();
         List<BlockPos> beds = new ArrayList<>();
+        List<Optional<BedTag>> bedTags = new ArrayList<>();
         List<BlockPos> stores = new ArrayList<>();
         List<BlockPos> fires = new ArrayList<>();
         List<BlockPos> seats = new ArrayList<>();
@@ -128,12 +112,10 @@ public class StructureFeaturesRegistry {
             NbtCompound properties = state.getCompoundOrEmpty("Properties");
             NbtList at = block.getListOrEmpty("pos");
             BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
-            if(name.equals(NEST_BLOCK)) {
-                Identifier id = Identifier.tryParse(block.getCompoundOrEmpty("nbt").getString(NEST_ID, ""));
-                if(id != null && bedRadii.containsKey(id)) {
-                    nestPositions.add(pos);
-                    nestIds.add(id);
-                }
+            if(name.equals(MANAGER_BLOCK)) {
+                Identifier id = Identifier.tryParse(block.getCompoundOrEmpty("nbt").getString(MANAGER_ID, ""));
+                if(id != null)
+                    managerIds.add(id);
                 continue;
             }
             if(name.equals(MARKER_BLOCK)) {
@@ -156,8 +138,10 @@ public class StructureFeaturesRegistry {
                 continue;
             }
             if(BuildFeatures.BED.test(resolved)) {
-                if(properties.getString("part", "").equals("head"))
+                if(properties.getString("part", "").equals("head")) {
                     beds.add(pos);
+                    bedTags.add(tagOf(block.getCompoundOrEmpty("nbt").getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
+                }
             }
             if(BuildFeatures.STORE.test(resolved)) {
                 stores.add(pos);
@@ -178,61 +162,28 @@ public class StructureFeaturesRegistry {
         }
         List<List<BlockPos>> tables = tables(tableBlocks, seats);
 
-        // Builders put a nest by each bed, so every nest takes the closest bed still free before any nest takes a second
-        List<List<BlockPos>> bedsOf = new ArrayList<>();
-        for(int i = 0; i < nestPositions.size(); i++)
-            bedsOf.add(new ArrayList<>());
-        List<BlockPos> left = new ArrayList<>(beds);
-        while(true) {
-            int bestNest = -1;
-            BlockPos bestBed = null;
-            for(int i = 0; i < nestPositions.size(); i++) {
-                if(!bedsOf.get(i).isEmpty())
-                    continue;
-                int radius = bedRadii.get(nestIds.get(i));
-                for(BlockPos bed : left) {
-                    double distance = nestPositions.get(i).getSquaredDistance(bed);
-                    if(distance <= radius * radius && (bestBed == null || distance < nestPositions.get(bestNest).getSquaredDistance(bestBed))) {
-                        bestNest = i;
-                        bestBed = bed;
-                    }
-                }
-            }
-            if(bestBed == null)
-                break;
-            bedsOf.get(bestNest).add(bestBed);
-            left.remove(bestBed);
-        }
-        // Beds left over are spare room in the nearest household
-        for(BlockPos bed : left) {
-            int best = -1;
-            for(int i = 0; i < nestPositions.size(); i++) {
-                int radius = bedRadii.get(nestIds.get(i));
-                double distance = nestPositions.get(i).getSquaredDistance(bed);
-                if(distance <= radius * radius && (best < 0 || distance < nestPositions.get(best).getSquaredDistance(bed)))
-                    best = i;
-            }
-            if(best >= 0)
-                bedsOf.get(best).add(bed);
-        }
-
-        List<StructureFeatureData.Nest> nests = new ArrayList<>();
-        for(int i = 0; i < nestPositions.size(); i++) {
-            BlockPos nest = nestPositions.get(i);
-            bedsOf.get(i).sort((a, b) -> Double.compare(a.getSquaredDistance(nest), b.getSquaredDistance(nest)));
-            // A barrel or a chest where the building has one: what is brought home to a fire goes on it, harvest and all.
-            // Only a camp with nothing else keeps its things by the fire
+        List<StructureFeatureData.Bed> bedData = new ArrayList<>();
+        // A barrel or a chest where the building has one: what is brought home to a fire goes on it, harvest and all.
+        // Only a camp with nothing else keeps its things by the fire
+        boolean anyBox = stores.size() > fires.size();
+        for(int i = 0; i < beds.size(); i++) {
+            BlockPos bed = beds.get(i);
             BlockPos store = null;
-            boolean anyBox = stores.size() > fires.size();
             for(BlockPos candidate : stores) {
                 if(anyBox && fires.contains(candidate))
                     continue;
-                if(store == null || candidate.getSquaredDistance(nest) < store.getSquaredDistance(nest))
+                if(store == null || candidate.getSquaredDistance(bed) < store.getSquaredDistance(bed))
                     store = candidate;
             }
-            nests.add(new StructureFeatureData.Nest(nest, nestIds.get(i), bedsOf.get(i), Optional.ofNullable(store)));
+            Optional<BedTag> tag = bedTags.get(i);
+            List<BlockPos> links = tag.map(found -> found.links().stream().map(bed::add).toList()).orElse(List.of());
+            bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false)));
         }
-        return new Template(templateId, new StructureFeatureData(nests, tables, stations, seats, doors, ladders, markers), beds.size(), stores.size(), pools, unresolved);
+        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers), beds.size(), stores.size(), pools, unresolved, managerIds);
+    }
+
+    private static Optional<BedTag> tagOf(NbtCompound tag) {
+        return BedTag.CODEC.parse(NbtOps.INSTANCE, tag).result().filter(found -> !found.type().isEmpty());
     }
 
     private static @Nullable MarkerKind markerKind(String name) {

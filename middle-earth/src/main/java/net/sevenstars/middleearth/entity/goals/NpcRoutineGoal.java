@@ -3,6 +3,8 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.world.World;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.block.BeehiveBlock;
@@ -41,6 +43,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -215,6 +218,8 @@ public class NpcRoutineGoal extends Goal {
     // From home. Nobody crosses the whole town to somebody else's forge
     private static final int WORK_RANGE = 48;
     private static final int STABLE_RANGE = 12;
+    // Plots this close to a field a farmer's bed is linked to are its own
+    private static final int LINKED_FIELD_RANGE = 8;
     private static final int VISIT_SEAT_RANGE = 10;
     // How long a household asked to have a visitor over keeps it in mind
     private static final int INVITATION_TIME = 20 * 60;
@@ -225,6 +230,7 @@ public class NpcRoutineGoal extends Goal {
     private static final int FULL_HONEY = 5;
     private static final double HORSE_REACH = 4;
     private static final int HORSE_HEIGHT = 8;
+    private static final int PLANKS_PER_LOG = 4;
     // Past the edge of the buildings, so that the animals of the yards and the green are left alone
     private static final int SETTLEMENT_MARGIN = 12;
     private static final int PEN_REACH = 8;
@@ -301,8 +307,15 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable NpcEntity companion = null;
     private @Nullable BlockPos meetSeat = null;
     private @Nullable BlockPos workStation = null;
-    // The horse a stable master is seeing to
-    private @Nullable AbstractHorseEntity workHorse = null;
+    // The animal a stable master is seeing to
+    private @Nullable AnimalEntity workAnimal = null;
+    // A cook first fetches something raw from a store, then cooks it at the station and takes it back
+    private @Nullable BlockPos fetchFrom = null;
+    private @Nullable BlockPos cookStand = null;
+    // An oven burns planks, split from the logs the woodcutters bring in. A hearth is a fire already
+    private int planks = 0;
+    private @Nullable BlockPos fuelFrom = null;
+    private @Nullable Item logInHand = null;
     private @Nullable BlockPos fieldCell = null;
     private long farmingEnd = 0;
     // Plots seen to be behind a fence or a wall from where they were to be worked, passed over for the rest of the day
@@ -437,7 +450,6 @@ public class NpcRoutineGoal extends Goal {
                 delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
                 return false;
             }
-            askHousehold(world);
             // Without a bed, staying around the house is all the rest there is
             if(freeBed(world) == null && restingHome.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
                 restUntil = time + NOTHING_TO_DO_REST;
@@ -473,7 +485,6 @@ public class NpcRoutineGoal extends Goal {
         }
 
         BlockPos home = npc.getRoutineHome();
-        askHousehold(world);
         // Somebody is calling on its household, and it comes home to sit with them
         hostingAt = npc.takeInvitation(time);
         if(hostingAt != null && !npc.isRestTime() && begin(world, RoutineData.Activity.VISIT, home))
@@ -513,7 +524,7 @@ public class NpcRoutineGoal extends Goal {
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
                     && (!underground || !isOutdoors(activity))
                     && (activity != RoutineData.Activity.VISIT || householdToVisit(world, home) != null)
-                    && (activity != RoutineData.Activity.HUNT || huntingGround(world, home, time) >= 0)
+                    && (activity != RoutineData.Activity.HUNT || huntingGround(world, home, time) >= 0 && !leftToHunters(world))
                     && (activity != RoutineData.Activity.FARM || fieldsNeedWork(world, home))
                     && (activity != RoutineData.Activity.WORK || hasWork(world, routine, home, time)));
         // Elves need little sleep, and keep company through the night
@@ -655,18 +666,18 @@ public class NpcRoutineGoal extends Goal {
                 long time = world.getTime();
                 unusableStations.values().removeIf(until -> until <= time);
                 workStation = null;
-                workHorse = null;
-                // A stable master's work is the horses by the stable
+                workAnimal = null;
+                // A stable master's work is the animals of its spawn_animal marker
                 if(isStableWork()) {
-                    workHorse = findHorse(world, home);
-                    if(workHorse == null)
-                        return cannotStart(picked, "no horse to see to");
-                    BlockPos byHorse = NestSurvey.standNextTo(world, workHorse.getBlockPos(), npc.getBlockPos());
-                    spot = byHorse != null ? byHorse : workHorse.getBlockPos();
+                    workAnimal = findAnimal(world, home);
+                    if(workAnimal == null)
+                        return cannotStart(picked, "no animal to see to");
+                    BlockPos byHorse = NestSurvey.standNextTo(world, workAnimal.getBlockPos(), npc.getBlockPos());
+                    spot = byHorse != null ? byHorse : workAnimal.getBlockPos();
                     break;
                 }
                 BlockPos beside = null;
-                List<BlockPos> stations = routine == null ? List.of() : site.stationsNear(routine.getStations(), home, WORK_RANGE);
+                List<BlockPos> stations = routine == null ? List.of() : stationsToWork(routine, home);
                 boolean held = false;
                 for(BlockPos station : stations) {
                     if(unusableStations.containsKey(station)) {
@@ -674,6 +685,8 @@ public class NpcRoutineGoal extends Goal {
                         continue;
                     }
                     if(isHive(world, station) && !hiveReady(world, station, time))
+                        continue;
+                    if(isCookWork() && isOven(world, station) && planks == 0 && woodSource(world, home) == null)
                         continue;
                     beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
                     // A forge walled in on every side is for show
@@ -687,6 +700,18 @@ public class NpcRoutineGoal extends Goal {
                     return cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
                             : "no room to stand at any station of its trade");
                 spot = beside;
+                if(isCookWork()) {
+                    BlockPos pantry = storeWithRawFood(world, home);
+                    if(pantry == null)
+                        return cannotStart(picked, "nothing raw in any store to cook");
+                    fetchFrom = pantry;
+                    cookStand = beside;
+                    fuelFrom = isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
+                    BlockPos byStore = NestSurvey.standNextTo(world, pantry, npc.getBlockPos());
+                    if(byStore == null)
+                        byStore = NestSurvey.standInSight(world, pantry, npc.getBlockPos(), STORE_STAND_RADIUS);
+                    spot = byStore != null ? byStore : pantry;
+                }
             }
             case TABLE -> {
                 meetSeat = site.pickSeat(world, random, home, TABLE_RANGE);
@@ -960,7 +985,7 @@ public class NpcRoutineGoal extends Goal {
         boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
         // A seat boxed in by others and a table is only got to from a corner, a little further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
-        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || workStation == null || canSee(world, workStation))
+        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || (fetchFrom != null ? canSee(world, fetchFrom) : workStation == null || canSee(world, workStation)))
                 && atStore && (!sitting || canSee(world, meetSeat))) {
             arrive(world);
             return;
@@ -1354,6 +1379,33 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
 
+        // The cook has fetched what it is to cook, and goes on to its station with it
+        if(activity == RoutineData.Activity.WORK && fetchFrom != null) {
+            Item raw = takeRawFood(world, fetchFrom);
+            if(raw == null) {
+                abandoned("what there was to cook in the store at " + fetchFrom.toShortString() + " is gone");
+                finish(world, REST);
+                return;
+            }
+            carried = raw;
+            did("work", "took " + itemName(raw) + " from the store at " + fetchFrom.toShortString() + " to cook");
+            dropOff = fetchFrom;
+            fetchFrom = null;
+            spot = fuelFrom != null ? standAt(world, fuelFrom) : cookStand;
+            newWalk(world);
+            showProp();
+            return;
+        }
+        // And a log for the oven, from the wood pile
+        if(activity == RoutineData.Activity.WORK && fuelFrom != null) {
+            logInHand = takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
+            if(logInHand != null)
+                did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
+            fuelFrom = null;
+            spot = cookStand;
+            newWalk(world);
+            return;
+        }
         // Nothing is worked on the far side of a wall
         if(activity == RoutineData.Activity.WORK && workStation != null && !canSee(world, workStation)) {
             abandoned("its station " + workStation.toShortString() + " is behind a wall");
@@ -1380,7 +1432,18 @@ public class NpcRoutineGoal extends Goal {
             case WORK -> {
                 phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
                 lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
-                if(workHorse != null && (!workHorse.isAlive() || workHorse.squaredDistanceTo(npc) > HORSE_REACH * HORSE_REACH)) {
+                if(logInHand != null) {
+                    planks += PLANKS_PER_LOG;
+                    world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.8f, 1f);
+                    did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
+                    logInHand = null;
+                }
+                if(isCookWork() && workStation != null && isOven(world, workStation) && planks == 0) {
+                    abandoned("has no wood for the oven at " + workStation.toShortString());
+                    finish(world, REST);
+                    return;
+                }
+                if(workAnimal != null && (!workAnimal.isAlive() || workAnimal.squaredDistanceTo(npc) > HORSE_REACH * HORSE_REACH)) {
                     abandoned("the horse it came to see to wandered off");
                     finish(world, REST);
                     return;
@@ -1486,20 +1549,27 @@ public class NpcRoutineGoal extends Goal {
                     carried = Items.HONEYCOMB;
                     did("work", "took the honey from the hive at " + workStation.toShortString());
                     startReturn(world);
+                } else if(done && isCookWork() && carried != null) {
+                    Item raw = carried;
+                    carried = cookedOf(world, raw);
+                    if(workStation != null && isOven(world, workStation))
+                        planks--;
+                    did("work", "cooked " + itemName(raw) + " into " + itemName(carried) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
+                    startReturn(world);
                 } else if(done) {
-                    if(workHorse != null)
-                        did("work", "groomed the horse at " + workHorse.getBlockPos().toShortString());
+                    if(workAnimal != null)
+                        did("work", "tended the animal at " + workAnimal.getBlockPos().toShortString());
                     finish(world, REST + random.nextInt(REST_VARIATION));
-                } else if(workHorse != null) {
+                } else if(workAnimal != null) {
                     // Brushed and fed where it stands
-                    workHorse.getNavigation().stop();
-                    lookTarget = workHorse.getEyePos();
+                    workAnimal.getNavigation().stop();
+                    lookTarget = workAnimal.getEyePos();
                     if(random.nextInt(3) == 0)
                         npc.swingHand(Hand.MAIN_HAND);
                     if(random.nextInt(6) == 0)
-                        world.playSound(null, workHorse.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, 0.6f, 1f);
+                        world.playSound(null, workAnimal.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, 0.6f, 1f);
                     if(random.nextInt(12) == 0)
-                        world.spawnParticles(ParticleTypes.HEART, workHorse.getX(), workHorse.getEyeY() + 0.3, workHorse.getZ(), 1, 0.2, 0.1, 0.2, 0);
+                        world.spawnParticles(ParticleTypes.HEART, workAnimal.getX(), workAnimal.getEyeY() + 0.3, workAnimal.getZ(), 1, 0.2, 0.1, 0.2, 0);
                 } else if(random.nextInt(4) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
                     if(workStation != null && random.nextInt(3) == 0)
@@ -1822,6 +1892,19 @@ public class NpcRoutineGoal extends Goal {
         return found.isEmpty() ? DEFAULT_FORAGE : found;
     }
 
+    // Where the place has a hunter of its own, the hunting is the hunter's, and the rest keep to their other work
+    private boolean leftToHunters(ServerWorld world) {
+        BlockPos managerPos = npc.getStructureManagerHostPos();
+        if(NpcRoles.HUNTER.getValue().equals(npc.getRoleId()) || managerPos == null || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)
+                || !(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager))
+            return false;
+        for(UUID resident : manager.residents()) {
+            if(world.getEntity(resident) instanceof NpcEntity other && other.isAlive() && NpcRoles.HUNTER.getValue().equals(other.getRoleId()))
+                return true;
+        }
+        return false;
+    }
+
     // Of the open grounds within reach of home, the one with the most game about it lately. Game is rare in many lands,
     // and a hunter does not go out where none has been seen. -1 when no ground has a herd near it
     private int huntingGround(ServerWorld world, BlockPos home, long time) {
@@ -1912,13 +1995,26 @@ public class NpcRoutineGoal extends Goal {
     // The plots of the place's fields are known from its buildings. The nearest one that needs anything done
     private @Nullable BlockPos nextFieldCell(ServerWorld world, BlockPos home, BlockPos from) {
         BlockPos best = null;
+        boolean bestLinked = false;
         for(BlockPos cell : site.getFields(home, WORK_RANGE)) {
             if(hiddenPlots.contains(cell) || !world.isChunkLoaded(cell.getX() >> 4, cell.getZ() >> 4) || !needsWork(world, cell))
                 continue;
-            if(best == null || cell.getSquaredDistance(from) < best.getSquaredDistance(from))
+            boolean linked = isByLinkedField(cell);
+            if(best == null || linked && !bestLinked || linked == bestLinked && cell.getSquaredDistance(from) < best.getSquaredDistance(from)) {
                 best = cell;
+                bestLinked = linked;
+            }
         }
         return best;
+    }
+
+    // Plots near a field the bed was linked to come first
+    private boolean isByLinkedField(BlockPos cell) {
+        for(BlockPos link : npc.getLinks()) {
+            if(link.isWithinDistance(cell, LINKED_FIELD_RANGE))
+                return true;
+        }
+        return false;
     }
 
     // While the crops are growing, the fields need nobody
@@ -2075,6 +2171,12 @@ public class NpcRoutineGoal extends Goal {
         if(site != null)
             site.release(npc.getUuid());
         phase = Phase.RETURNING;
+        newWalk(world);
+        showProp();
+    }
+
+    // Each walk is judged by itself: its stretches, the doors tried, the way planned
+    private void newWalk(ServerWorld world) {
         lookTarget = null;
         legs = 0;
         lastLegEnd = null;
@@ -2089,7 +2191,6 @@ public class NpcRoutineGoal extends Goal {
         failures = 0;
         thinkCooldown = 0;
         deadline = world.getTime() + ROUTINE_TIME_LIMIT;
-        showProp();
     }
 
     // What is brought back goes to the barrel or the fire, and a tired npc to its bed
@@ -2148,33 +2249,163 @@ public class NpcRoutineGoal extends Goal {
         return since >= 2 * DAY;
     }
 
+    private boolean isCookWork() {
+        return NpcRoles.COOK.getValue().equals(npc.getRoleId());
+    }
+
+    // Raw is what a smoker would cook: meat and fish
+    private static boolean isRawFood(ServerWorld world, ItemStack stack) {
+        return !stack.isEmpty() && world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, new SingleStackRecipeInput(stack), world).isPresent();
+    }
+
+    private static Item cookedOf(ServerWorld world, Item raw) {
+        SingleStackRecipeInput input = new SingleStackRecipeInput(new ItemStack(raw));
+        return world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, input, world)
+                .map(entry -> entry.value().craft(input, world.getRegistryManager()).getItem()).orElse(raw);
+    }
+
+    // The nearest store of the place with something in it to cook
+    private @Nullable BlockPos storeWithRawFood(ServerWorld world, BlockPos home) {
+        BlockPos best = null;
+        for(BlockPos store : site.getStores()) {
+            if(!store.isWithinDistance(home, WORK_RANGE) || !world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4))
+                continue;
+            if(best != null && store.getSquaredDistance(home) >= best.getSquaredDistance(home))
+                continue;
+            Inventory inventory = inventoryAt(world, store);
+            if(inventory == null)
+                continue;
+            for(int slot = 0; slot < inventory.size(); slot++) {
+                if(isRawFood(world, inventory.getStack(slot))) {
+                    best = store;
+                    break;
+                }
+            }
+        }
+        return best;
+    }
+
+    private static @Nullable Item takeRawFood(ServerWorld world, BlockPos store) {
+        return takeFrom(world, store, stack -> isRawFood(world, stack));
+    }
+
+    private static boolean isOven(ServerWorld world, @Nullable BlockPos station) {
+        return station != null && StationKind.of(Registries.BLOCK.getId(world.getBlockState(station).getBlock()).getPath()) == StationKind.OVEN;
+    }
+
+    // The nearest wood pile or store of the place with a log in it
+    private @Nullable BlockPos woodSource(ServerWorld world, BlockPos home) {
+        List<BlockPos> places = new ArrayList<>(site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE));
+        places.addAll(site.getStores());
+        BlockPos best = null;
+        for(BlockPos place : places) {
+            if(!place.isWithinDistance(home, WORK_RANGE) || !world.isChunkLoaded(place.getX() >> 4, place.getZ() >> 4)
+                    || best != null && place.getSquaredDistance(home) >= best.getSquaredDistance(home))
+                continue;
+            Inventory inventory = inventoryAt(world, place);
+            if(inventory == null)
+                continue;
+            for(int slot = 0; slot < inventory.size(); slot++) {
+                if(inventory.getStack(slot).isIn(ItemTags.LOGS)) {
+                    best = place;
+                    break;
+                }
+            }
+        }
+        return best;
+    }
+
+    private BlockPos standAt(ServerWorld world, BlockPos block) {
+        BlockPos stand = NestSurvey.standNextTo(world, block, npc.getBlockPos());
+        if(stand == null)
+            stand = NestSurvey.standInSight(world, block, npc.getBlockPos(), STORE_STAND_RADIUS);
+        return stand != null ? stand : block;
+    }
+
+    // One of the first thing in the inventory that will do, taken out of it
+    private static @Nullable Item takeFrom(ServerWorld world, BlockPos place, java.util.function.Predicate<ItemStack> wanted) {
+        Inventory inventory = inventoryAt(world, place);
+        if(inventory == null)
+            return null;
+        for(int slot = 0; slot < inventory.size(); slot++) {
+            ItemStack stack = inventory.getStack(slot);
+            if(wanted.test(stack)) {
+                Item taken = stack.getItem();
+                inventory.removeStack(slot, 1);
+                inventory.markDirty();
+                return taken;
+            }
+        }
+        return null;
+    }
+
     private boolean isStableWork() {
         return NpcRoles.STABLES_MASTER.getValue().equals(npc.getRoleId());
     }
 
-    // The nearest horse by the stable closest to home that nobody is riding
-    private @Nullable AbstractHorseEntity findHorse(ServerWorld world, BlockPos home) {
-        BlockPos stable = null;
-        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.STABLE)) {
-            if(stable == null || marker.pos().getSquaredDistance(home) < stable.getSquaredDistance(home))
-                stable = marker.pos();
+    // The spawn_animal marker a stable master tends: one it is linked to, or else the nearest to home
+    private @Nullable StructureFeatureData.Marker animalMarker(BlockPos home) {
+        List<StructureFeatureData.Marker> markers = site.getMarkers(MarkerKind.SPAWN_ANIMAL);
+        for(BlockPos link : npc.getLinks()) {
+            for(StructureFeatureData.Marker marker : markers) {
+                if(marker.pos().equals(link))
+                    return marker;
+            }
         }
-        if(stable == null)
-            return null;
-        List<AbstractHorseEntity> horses = world.getEntitiesByClass(AbstractHorseEntity.class, new Box(stable).expand(STABLE_RANGE, HORSE_HEIGHT, STABLE_RANGE),
-                horse -> horse.isAlive() && !horse.hasPassengers() && !horse.isLeashed());
-        AbstractHorseEntity nearest = null;
-        for(AbstractHorseEntity horse : horses) {
-            if(nearest == null || horse.squaredDistanceTo(Vec3d.ofCenter(stable)) < nearest.squaredDistanceTo(Vec3d.ofCenter(stable)))
-                nearest = horse;
+        StructureFeatureData.Marker nearest = null;
+        for(StructureFeatureData.Marker marker : markers) {
+            if(nearest == null || marker.pos().getSquaredDistance(home) < nearest.pos().getSquaredDistance(home))
+                nearest = marker;
         }
         return nearest;
     }
 
-    // A station of its trade to work at, a hive only once its honey is due, and for a stable master a horse
+    // The nearest animal of the marker's kind by it that nobody is riding. A marker of any horse stands for all of them
+    private @Nullable AnimalEntity findAnimal(ServerWorld world, BlockPos home) {
+        StructureFeatureData.Marker marker = animalMarker(home);
+        Identifier typeId = marker == null ? null : Identifier.tryParse(marker.value());
+        EntityType<?> type = typeId == null ? null : Registries.ENTITY_TYPE.getOptionalValue(typeId).orElse(null);
+        if(type == null)
+            return null;
+        boolean horseLike = isHorseLike(type);
+        Vec3d centre = Vec3d.ofCenter(marker.pos());
+        List<AnimalEntity> animals = world.getEntitiesByClass(AnimalEntity.class, new Box(marker.pos()).expand(STABLE_RANGE, HORSE_HEIGHT, STABLE_RANGE),
+                animal -> animal.isAlive() && !animal.hasPassengers() && !animal.isLeashed() && (animal.getType() == type || horseLike && animal instanceof AbstractHorseEntity));
+        AnimalEntity nearest = null;
+        for(AnimalEntity animal : animals) {
+            if(nearest == null || animal.squaredDistanceTo(centre) < nearest.squaredDistanceTo(centre))
+                nearest = animal;
+        }
+        return nearest;
+    }
+
+    private static boolean isHorseLike(EntityType<?> type) {
+        return type == EntityType.HORSE || type == EntityType.DONKEY || type == EntityType.MULE || type == EntityType.SKELETON_HORSE
+                || type == EntityType.ZOMBIE_HORSE || Registries.ENTITY_TYPE.getId(type).getPath().contains("horse");
+    }
+
+    // The links of the bed that are stations of the trade, to be gone to before any other, and then the stations near home
+    private List<BlockPos> stationsToWork(RoutineData routine, BlockPos home) {
+        List<BlockPos> stations = new ArrayList<>();
+        for(BlockPos link : npc.getLinks()) {
+            StationKind kind = site.stationKindAt(link);
+            if(kind != null && routine.getStations().contains(kind))
+                stations.add(link);
+        }
+        for(BlockPos station : site.stationsNear(routine.getStations(), home, WORK_RANGE)) {
+            if(!stations.contains(station))
+                stations.add(station);
+        }
+        return stations;
+    }
+
+    // A station of its trade to work at, a hive only once its honey is due, and for a stable master an animal
     private boolean hasWork(ServerWorld world, RoutineData routine, BlockPos home, long time) {
+        if(isCookWork() && (storeWithRawFood(world, home) == null
+                || planks == 0 && site.stationsNear(List.of(StationKind.HEARTH), home, WORK_RANGE).isEmpty() && woodSource(world, home) == null))
+            return false;
         if(isStableWork())
-            return findHorse(world, home) != null;
+            return findAnimal(world, home) != null;
         for(BlockPos station : site.stationsNear(routine.getStations(), home, WORK_RANGE)) {
             if(!world.isChunkLoaded(station.getX() >> 4, station.getZ() >> 4))
                 continue;
@@ -2247,7 +2478,7 @@ public class NpcRoutineGoal extends Goal {
                 fallsBack("bed", "no floor beside its bed at " + bed.toShortString() + ", rests at home instead");
                 return null;
             }
-            npc.setHousehold(bed, stand, npc.getStore());
+            npc.setHousehold(bed, stand, npc.getStore(), npc.getLinks());
         }
         return bed;
     }
@@ -2281,15 +2512,6 @@ public class NpcRoutineGoal extends Goal {
         double distanceX = bed.getX() + 0.5 - npc.getX();
         double distanceZ = bed.getZ() + 0.5 - npc.getZ();
         return distanceX * distanceX + distanceZ * distanceZ <= BED_REACH * BED_REACH && Math.abs(bed.getY() - npc.getY()) <= BED_HEIGHT_REACH;
-    }
-
-    // Npcs that were alive before nests kept beds ask for theirs once
-    private void askHousehold(ServerWorld world) {
-        BlockPos managerPos = npc.getStructureManagerHostPos();
-        if(npc.isHouseholdKnown() || managerPos == null || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
-            return;
-        if(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager)
-            manager.assignBed(npc);
     }
 
     // The sound of the block itself being worked: hammer on iron at a forge, hay rustling in a stable
@@ -2369,7 +2591,11 @@ public class NpcRoutineGoal extends Goal {
         toBed = false;
         phase = Phase.NONE;
         dropOff = null;
-        workHorse = null;
+        fetchFrom = null;
+        cookStand = null;
+        fuelFrom = null;
+        logInHand = null;
+        workAnimal = null;
         npc.setOnOuting(false);
         npc.setFarming(false);
         carried = null;

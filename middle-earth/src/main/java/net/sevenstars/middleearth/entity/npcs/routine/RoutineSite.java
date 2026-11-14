@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.routine;
 
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
+import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FarmlandBlock;
@@ -106,8 +107,10 @@ public class RoutineSite {
     private final List<BlockPos> ring = new ArrayList<>();
     // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
-    // The nests people live at, each the middle of a household
+    private List<StructureFeatureData.Bed> beds = List.of();
+    // The beds somebody is born in, each the middle of a household
     private List<BlockPos> households = List.of();
+    private List<BlockPos> stores = List.of();
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureFeatureData.Station> stations = List.of();
@@ -181,7 +184,7 @@ public class RoutineSite {
             case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= 3;
             case VISIT -> households.size() >= 2;
             case TABLE -> !tables.isEmpty();
-            case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD) || !getMarkers(MarkerKind.STABLE).isEmpty();
+            case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD) || !getMarkers(MarkerKind.SPAWN_ANIMAL).isEmpty();
             case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
             case CHOP -> !trees.isEmpty();
             case MINE -> markers.stream().anyMatch(marker -> marker.kind() == MarkerKind.MINE_FACE);
@@ -237,6 +240,24 @@ public class RoutineSite {
 
     public int getSurfaceY() {
         return surfaceY;
+    }
+
+    // The barrels and chests the households keep their things in
+    public List<BlockPos> getStores() {
+        return stores;
+    }
+
+    void setStores(List<BlockPos> stores) {
+        this.stores = stores;
+    }
+
+    // Every bed of the place, those somebody is born in and those that are free
+    public List<StructureFeatureData.Bed> getBeds() {
+        return beds;
+    }
+
+    void setBeds(List<StructureFeatureData.Bed> beds) {
+        this.beds = beds;
     }
 
     void setHouseholds(List<BlockPos> households) {
@@ -353,6 +374,14 @@ public class RoutineSite {
         return found;
     }
 
+    public @Nullable StationKind stationKindAt(BlockPos pos) {
+        for(StructureFeatureData.Station station : stations) {
+            if(station.pos().equals(pos))
+                return station.kind();
+        }
+        return null;
+    }
+
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
         for(StructureFeatureData.Station station : stations) {
@@ -459,6 +488,26 @@ public class RoutineSite {
             claims.put(best.pos(), npc);
         }
         return best;
+    }
+
+    // The nearest bed nobody is born in, empty and with floor to get into it from, taken for the traveller. One it holds already is its own
+    public @Nullable BlockPos claimFreeBed(ServerWorld world, UUID npc, BlockPos near) {
+        List<StructureFeatureData.Bed> candidates = new ArrayList<>(beds);
+        candidates.sort((a, b) -> Double.compare(a.pos().getSquaredDistance(near), b.pos().getSquaredDistance(near)));
+        for(StructureFeatureData.Bed bed : candidates) {
+            BlockPos pos = bed.pos();
+            if(bed.tag().isPresent() || !world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
+                continue;
+            BlockState state = world.getBlockState(pos);
+            UUID holder = claims.get(pos);
+            boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
+            if(!free || !(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED) || NestSurvey.standFor(world, pos) == null)
+                continue;
+            claims.values().removeIf(npc::equals);
+            claims.put(pos, npc);
+            return pos;
+        }
+        return null;
     }
 
     public void release(UUID npc) {

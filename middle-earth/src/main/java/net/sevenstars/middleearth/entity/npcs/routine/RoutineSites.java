@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs.routine;
 
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -170,6 +169,22 @@ public class RoutineSites {
         return best == null ? null : new BlockPos(best.getCenterX(), best.getSurfaceY(), best.getCenterZ());
     }
 
+    // The settlements known around a place, with their free beds. Only places somebody has lately been near are known
+    public static List<RoutineSite> near(ServerWorld world, BlockPos pos, int range) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        List<RoutineSite> found = new ArrayList<>();
+        if(sites == null)
+            return found;
+        for(RoutineSite site : sites.sites.values()) {
+            int reach = range + site.getExtent();
+            long distanceX = site.getCenterX() - pos.getX();
+            long distanceZ = site.getCenterZ() - pos.getZ();
+            if(!site.getBeds().isEmpty() && distanceX * distanceX + distanceZ * distanceZ <= (long) reach * reach)
+                found.add(site);
+        }
+        return found;
+    }
+
     // Null while the place is not loaded
     public static @Nullable RoutineSite forManager(ServerWorld world, BlockPos managerPos) {
         if(!world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
@@ -252,7 +267,9 @@ public class RoutineSites {
     private static void placesOf(ServerWorld world, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
         List<StructureFeatureData.Station> stations = new ArrayList<>();
+        List<StructureFeatureData.Bed> beds = new ArrayList<>();
         List<BlockPos> households = new ArrayList<>();
+        List<BlockPos> stores = new ArrayList<>();
         List<BlockPos> seats = new ArrayList<>();
         List<BlockPos> doors = new ArrayList<>();
         List<BlockPos> ladders = new ArrayList<>();
@@ -272,9 +289,13 @@ public class RoutineSites {
                     places.add(NestSurvey.placedAt(placed, seat));
                 tables.add(places);
             }
-            for(StructureFeatureData.Nest nest : data.nests()) {
-                if(!nest.beds().isEmpty())
-                    households.add(NestSurvey.placedAt(placed, nest.pos()));
+            for(StructureFeatureData.Bed bed : data.beds()) {
+                BlockPos at = NestSurvey.placedAt(placed, bed.pos());
+                beds.add(new StructureFeatureData.Bed(at, bed.tag(), bed.store().map(store -> NestSurvey.placedAt(placed, store)),
+                        bed.links().stream().map(link -> NestSurvey.placedAt(placed, link)).toList(), bed.manual()));
+                if(bed.tag().isPresent())
+                    households.add(at);
+                bed.store().ifPresent(store -> stores.add(NestSurvey.placedAt(placed, store)));
             }
             for(StructureFeatureData.Station station : data.stations())
                 stations.add(new StructureFeatureData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
@@ -290,7 +311,9 @@ public class RoutineSites {
         }
         site.setTables(tables);
         site.setStations(stations);
+        site.setBeds(beds);
         site.setHouseholds(households);
+        site.setStores(stores.stream().distinct().toList());
         site.setSeats(seats);
         site.setDoors(doors);
         site.setLadders(ladders);

@@ -24,7 +24,9 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureMarkerUpdateBlockEntityRequest.ID, PacketStructureMarkerUpdateBlockEntityRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureMarkerEditRequest.ID, PacketStructureMarkerEditRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketBedTagUpdateRequest.ID, PacketBedTagUpdateRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketBedLinkRequest.ID, PacketBedLinkRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
@@ -48,7 +50,9 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerRespawnEntities.ID, wrapServerHandler(connection, PacketStructureManagerRespawnEntities::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerShowAllEntities.ID, wrapServerHandler(connection, PacketStructureManagerShowAllEntities::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureNestUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureNestUpdateBlockEntityRequest::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureMarkerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureMarkerUpdateBlockEntityRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureMarkerEditRequest.ID, wrapServerHandler(connection, PacketStructureMarkerEditRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketBedTagUpdateRequest.ID, wrapServerHandler(connection, PacketBedTagUpdateRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketBedLinkRequest.ID, wrapServerHandler(connection, PacketBedLinkRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));

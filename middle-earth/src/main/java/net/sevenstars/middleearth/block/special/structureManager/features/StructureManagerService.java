@@ -13,6 +13,8 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -24,7 +26,6 @@ import java.util.Set;
 
 public class StructureManagerService {
     private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
-    private static final int NEIGHBOUR_RANGE = 48;
 
     public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
         if(world == null)
@@ -95,18 +96,24 @@ public class StructureManagerService {
             STRUCTURE_MANAGERS.remove(world.getRegistryKey());
     }
 
-    // Buildings stand close together, and two managers can both have found the same bed
-    public static boolean isBedTaken(World world, BlockPos bed, StructureManagerBlockEntity asking) {
+    // A structure can have several managers, and a bed is born by the nearest of them that has a nest for its type
+    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, String type, RoutineSite site, StructureManagerBlockEntity asking) {
         Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
         if (managers == null)
             return false;
         for (BlockPos managerPos : managers) {
-            if (managerPos.getSquaredDistance(bed) > NEIGHBOUR_RANGE * NEIGHBOUR_RANGE || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
+            if (managerPos.equals(asking.getPos()) || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
                 continue;
-            if (world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager && manager != asking && manager.ownsBed(bed))
-                return true;
+            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(type) || RoutineSites.forManager(world, managerPos) != site)
+                continue;
+            if (manager.ownsBed(bed))
+                return false;
+            double distance = managerPos.getSquaredDistance(bed);
+            double own = asking.getPos().getSquaredDistance(bed);
+            if (distance < own || distance == own && managerPos.compareTo(asking.getPos()) < 0)
+                return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean isClose(World world, BlockPos pos, int radius) {

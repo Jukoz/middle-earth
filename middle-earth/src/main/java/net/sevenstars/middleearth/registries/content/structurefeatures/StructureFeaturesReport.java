@@ -9,7 +9,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
@@ -17,7 +17,6 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry.Template;
-import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 
@@ -32,6 +31,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,8 +42,6 @@ import java.util.stream.Stream;
 // The to-do list of the builders: what each structure lacks for the people in it to live their days, written when data is generated
 public class StructureFeaturesReport {
     private static final String DATA = "data/" + MiddleEarth.MOD_ID + "/worldgen/";
-    private static final List<String> GUARDS = List.of("guard", "orthanc_guard");
-    private static final List<String> LORDS = List.of("lord", "captain", "chief", "chieftain", "marshal");
 
     private static Set<Identifier> peopleNests = null;
 
@@ -134,15 +132,14 @@ public class StructureFeaturesReport {
         }
     }
 
-    private record Warnings(List<String> noBeds, List<String> noStore, List<String> noStation, List<String> noFields, List<String> noGuardMarkers, List<String> noLordSeat,
-                            List<String> noStable, List<String> badSpawns, List<String> badCells) {
+    private record Warnings(List<String> noType, List<String> noStore, List<String> noStation, List<String> noGuardMarkers,
+                            List<String> badSpawns, List<String> badCells, List<String> badLinks) {
         Warnings() {
-            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
 
         int total() {
-            return noBeds.size() + noStore.size() + noStation.size() + noFields.size() + noGuardMarkers.size() + noLordSeat.size()
-                    + noStable.size() + badSpawns.size() + badCells.size();
+            return noType.size() + noStore.size() + noStation.size() + noGuardMarkers.size() + badSpawns.size() + badCells.size() + badLinks.size();
         }
     }
 
@@ -157,31 +154,43 @@ public class StructureFeaturesReport {
             template.data().markers().forEach(marker -> markers.add(marker.kind()));
         }
         Warnings warnings = new Warnings();
+        Set<String> types = typesOf(structure);
+        Set<Identifier> managers = new TreeSet<>();
+        for(Identifier id : structure) {
+            if(templates.containsKey(id))
+                managers.addAll(templates.get(id).managers());
+        }
         for(Identifier id : structure) {
             Template template = templates.get(id);
             if(template == null)
                 continue;
-            for(StructureFeatureData.Nest nest : template.data().nests()) {
-                String where = "`%s` at %s, nest `%s`".formatted(id.getPath(), at(nest.pos()), nest.id().getPath());
-                String last = nest.id().getPath().substring(nest.id().getPath().lastIndexOf('.') + 1);
-                if(nest.beds().isEmpty())
-                    warnings.noBeds.add(where);
-                if(nest.store().isEmpty())
-                    warnings.noStore.add(where);
-                NpcRole role = NpcRoles.forNest(nest.id()).map(NpcRoles::get).orElse(null);
-                if(role != null && role.routine().isPresent()) {
-                    List<StationKind> needed = role.routine().get().getStations();
-                    if(!needed.isEmpty() && needed.stream().noneMatch(stations::contains))
-                        warnings.noStation.add(where + " needs one of " + needed.stream().map(StationKind::asString).toList());
+            Set<BlockPos> known = recognised(template.data());
+            for(StructureFeatureData.Bed bed : template.data().beds()) {
+                if(bed.tag().isEmpty())
+                    continue;
+                BedTag tag = bed.tag().get();
+                String where = "`%s` at %s, bed tagged `%s`".formatted(id.getPath(), at(bed.pos()), tag.type());
+                if(bed.manual()) {
+                    for(BlockPos link : bed.links()) {
+                        if(!known.contains(link))
+                            warnings.badLinks.add(where + " is linked by hand to %s, which is no station, marker, store or seat".formatted(at(link)));
+                    }
                 }
-                if(last.equals("farmer") && !stations.contains(StationKind.FIELD))
-                    warnings.noFields.add(where);
-                if(GUARDS.contains(last) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
-                    warnings.noGuardMarkers.add(where);
-                if(LORDS.contains(last) && !markers.contains(MarkerKind.LORD_SEAT))
-                    warnings.noLordSeat.add(where);
-                if(NpcRoles.STABLES_MASTER.getValue().equals(NpcRoles.forNest(nest.id()).orElse(null)) && !markers.contains(MarkerKind.STABLE))
-                    warnings.noStable.add(where);
+                if(!types.contains(tag.type()))
+                    warnings.noType.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that type in the nests of the structure"));
+                if(bed.store().isEmpty())
+                    warnings.noStore.add(where);
+                if(tag.role().isPresent()) {
+                    List<StationKind> needed = NpcRoles.stationKinds(tag.role().get());
+                    List<MarkerKind> neededMarkers = NpcRoles.stationMarkers(tag.role().get());
+                    if(!needed.isEmpty() && needed.stream().noneMatch(stations::contains))
+                        warnings.noStation.add(where + ", role `%s` needs one of %s".formatted(tag.role().get().getPath(), needed.stream().map(StationKind::asString).toList()));
+                    else if(needed.isEmpty() && !neededMarkers.isEmpty() && neededMarkers.stream().noneMatch(markers::contains))
+                        warnings.noStation.add(where + ", role `%s` needs a marker of %s".formatted(tag.role().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
+                } else {
+                    if(NpcRoles.isGuardType(tag.type()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
+                        warnings.noGuardMarkers.add(where);
+                }
             }
             List<BlockPos> corners = new ArrayList<>();
             for(StructureFeatureData.Marker marker : template.data().markers()) {
@@ -210,13 +219,45 @@ public class StructureFeaturesReport {
         return warnings;
     }
 
+    // Every place a link can sensibly point at
+    private static Set<BlockPos> recognised(StructureFeatureData data) {
+        Set<BlockPos> known = new HashSet<>();
+        data.stations().forEach(station -> known.add(station.pos()));
+        data.markers().forEach(marker -> known.add(marker.pos()));
+        data.beds().forEach(bed -> bed.store().ifPresent(known::add));
+        known.addAll(data.seats());
+        known.addAll(data.doors());
+        known.addAll(data.ladders());
+        return known;
+    }
+
+    // The kinds of person the nests of the managers the structure's templates name have
+    private Set<String> typesOf(Set<Identifier> structure) {
+        Set<Identifier> managerIds = new TreeSet<>();
+        for(Identifier id : structure) {
+            Template template = templates.get(id);
+            if(template != null)
+                managerIds.addAll(template.managers());
+        }
+        Set<String> types = new TreeSet<>();
+        for(StructureManagerData manager : StructureManagerDataPools.all()) {
+            if(!managerIds.contains(manager.getId()))
+                continue;
+            for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
+                if(peopleNests().contains(nest.getId()))
+                    types.add(BedTag.typeOf(nest.getId()));
+            }
+        }
+        return types;
+    }
+
     // Only the nests of npcs can be spawned by a marker
     private static Set<Identifier> peopleNests() {
         if(peopleNests == null) {
             peopleNests = new TreeSet<>();
             for(StructureManagerData manager : StructureManagerDataPools.all()) {
                 for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
-                    if(nest.getNpcSpawnNestPool().stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC))
+                    if(nest.isPeople())
                         peopleNests.add(nest.getId());
                 }
             }
@@ -238,7 +279,7 @@ public class StructureFeaturesReport {
         structures.forEach((name, reached) -> warnings.put(name, warningsOf(reached)));
 
         out.append("## Overview\n\n");
-        out.append("| structure | templates | nests | beds | stores | seats | tables | fields | doors | markers | warnings |\n");
+        out.append("| structure | templates | tagged beds | beds | stores | seats | tables | fields | doors | markers | warnings |\n");
         out.append("|---|---|---|---|---|---|---|---|---|---|---|\n");
         structures.forEach((name, reached) -> {
             int[] sum = totals(reached);
@@ -249,7 +290,7 @@ public class StructureFeaturesReport {
             Warnings found = warnings.get(structure.getKey());
             out.append("\n## ").append(structure.getKey()).append("\n\n");
             int[] sum = totals(structure.getValue());
-            out.append("%d templates with features, %d nests, %d beds, %d stores, %d seats, %d tables, %d fields, %d doors, %d markers".formatted(sum[0], sum[1], sum[2], sum[3], sum[4], sum[5], sum[6], sum[7], sum[8]));
+            out.append("%d templates with features, %d tagged beds, %d beds, %d stores, %d seats, %d tables, %d fields, %d doors, %d markers".formatted(sum[0], sum[1], sum[2], sum[3], sum[4], sum[5], sum[6], sum[7], sum[8]));
             Map<MarkerKind, Integer> byKind = new EnumMap<>(MarkerKind.class);
             for(Identifier id : structure.getValue()) {
                 if(templates.containsKey(id))
@@ -257,15 +298,13 @@ public class StructureFeaturesReport {
             }
             out.append(byKind.isEmpty() ? "" : " (" + byKind.entrySet().stream().map(entry -> entry.getKey().asString() + " " + entry.getValue()).toList() + ")");
             out.append("\n\n");
-            section(out, "Nests without a bed", found.noBeds);
-            section(out, "Nests without a store", found.noStore);
-            section(out, "Nests whose role has none of its stations in the structure", found.noStation);
-            section(out, "Farmers in a structure without fields", found.noFields);
+            section(out, "Tagged beds whose type has no nest pool in the structure", found.noType);
+            section(out, "Tagged beds without a store", found.noStore);
+            section(out, "Tagged beds whose role has none of its stations or markers in the structure", found.noStation);
             section(out, "Guards in a structure without an entrance or guard_post marker", found.noGuardMarkers);
-            section(out, "Lords in a structure without a lord_seat marker", found.noLordSeat);
-            section(out, "Stable masters in a structure without a stable marker", found.noStable);
             section(out, "Spawn markers with no value or an unknown one", found.badSpawns);
             section(out, "Cell corners that do not make up groups of four", found.badCells);
+            section(out, "Beds linked by hand to something that is not recognised", found.badLinks);
             if(found.total() == 0)
                 out.append("Nothing to add.\n");
         }
@@ -275,7 +314,7 @@ public class StructureFeaturesReport {
         List<String> loose = new ArrayList<>();
         for(Template template : templates.values()) {
             if(!placed.contains(template.id()) && !template.isEmpty())
-                loose.add("`%s` (%d nests)".formatted(template.id().getPath(), template.data().nests().size()));
+                loose.add("`%s` (%d beds)".formatted(template.id().getPath(), template.data().beds().size()));
         }
         out.append("\n## Templates no structure reaches\n\n");
         out.append(loose.isEmpty() ? "None.\n" : String.join("\n", loose.stream().map(line -> "- " + line).toList()) + "\n");
@@ -295,7 +334,7 @@ public class StructureFeaturesReport {
         out.append('\n');
     }
 
-    // Templates with something in them, nests, beds, stores, seats, tables, fields, doors, markers
+    // Templates with something in them, tagged beds, beds, stores, seats, tables, fields, doors, markers
     private int[] totals(Set<Identifier> structure) {
         int[] sum = new int[9];
         for(Identifier id : structure) {
@@ -304,7 +343,7 @@ public class StructureFeaturesReport {
                 continue;
             StructureFeatureData data = template.data();
             sum[0]++;
-            sum[1] += data.nests().size();
+            sum[1] += (int) data.beds().stream().filter(bed -> bed.tag().isPresent()).count();
             sum[2] += template.beds();
             sum[3] += template.stores();
             sum[4] += data.seats().size();
@@ -317,15 +356,14 @@ public class StructureFeaturesReport {
     }
 
     private String summary() {
-        int nests = 0, noBeds = 0, noStore = 0, beds = 0, stores = 0, seats = 0, doors = 0, fields = 0, markers = 0, files = 0, warned = 0;
+        int tagged = 0, noStore = 0, beds = 0, stores = 0, seats = 0, doors = 0, fields = 0, markers = 0, files = 0, warned = 0;
         for(Template template : templates.values()) {
             if(!template.isEmpty())
                 files++;
             StructureFeatureData data = template.data();
-            nests += data.nests().size();
-            for(StructureFeatureData.Nest nest : data.nests()) {
-                noBeds += nest.beds().isEmpty() ? 1 : 0;
-                noStore += nest.store().isEmpty() ? 1 : 0;
+            for(StructureFeatureData.Bed bed : data.beds()) {
+                tagged += bed.tag().isPresent() ? 1 : 0;
+                noStore += bed.tag().isPresent() && bed.store().isEmpty() ? 1 : 0;
             }
             beds += template.beds();
             stores += template.stores();
@@ -336,7 +374,7 @@ public class StructureFeaturesReport {
         }
         for(Set<Identifier> structure : structures.values())
             warned += warningsOf(structure).total();
-        return "Structure features: %d templates with features, %d nests (%d without beds, %d without a store), %d beds, %d stores, %d seats, %d doors, %d field blocks, %d markers, %d warnings in %d structures"
-                .formatted(files, nests, noBeds, noStore, beds, stores, seats, doors, fields, markers, warned, structures.size());
+        return "Structure features: %d templates with features, %d tagged beds (%d without a store), %d beds, %d stores, %d seats, %d doors, %d field blocks, %d markers, %d warnings in %d structures"
+                .formatted(files, tagged, noStore, beds, stores, seats, doors, fields, markers, warned, structures.size());
     }
 }

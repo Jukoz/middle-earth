@@ -118,8 +118,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         public static final String ASSIGNED_BED = "AssignedBed";
         public static final String BED_STAND = "BedStand";
         public static final String STORE = "Store";
-        public static final String HOUSEHOLD_KNOWN = "HouseholdKnown";
+        public static final String LINKS = "Links";
         public static final String ROUTINE_STOWED_ITEM = "RoutineStowedItem";
+        public static final String CONFISCATED_MAIN = "ConfiscatedMainHand";
+        public static final String CONFISCATED_OFF = "ConfiscatedOffHand";
         public static final String ROUTINE_STOWED_MAIN_HAND = "RoutineStowedMainHand";
     }
     private static final TrackedData<NpcData> NPC_DATA;
@@ -149,6 +151,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
     private static final int GUARDS_TO_FLEE = 3;
+    private static final EquipmentSlot[] ARMOUR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+    private static final int WEAPON_CHECK_INTERVAL = 10;
     // Common folk come to help a neighbour close by, not across the village
     private static final int HELP_RANGE = 16;
     private static final float BOW_ATTACK_RANGE = 16.0F;
@@ -186,9 +190,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Where a prisoner is held. Out of it, the prisoner is free
     private @Nullable PrisonCell prisonCell = null;
     // Given out by the structure manager of its nest
-    private boolean householdKnown = false;
     private boolean onOuting = false;
     private @Nullable UUID threatFaced = null;
+    private ItemStack confiscatedMain = ItemStack.EMPTY;
+    private ItemStack confiscatedOff = ItemStack.EMPTY;
     private boolean fleesThreat = false;
     // Out tending the fields, the one errand that crosses them
     private boolean farming = false;
@@ -203,6 +208,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private @Nullable BlockPos openedHatch = null;
     private @Nullable BlockPos bedStand = null;
     private @Nullable BlockPos store = null;
+    // The places its bed was tied to by the builder, for the work to go to first
+    private List<BlockPos> links = List.of();
     // What the hand held before a routine put something else in it
     private @Nullable ItemStack routineStowedItem = null;
     private boolean routineStowedMainHand = false;
@@ -356,6 +363,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.goalSelector.add(4, new NpcPrisonerGoal(this, 0.6));
         this.routineGoal = new NpcRoutineGoal(this, 0.8);
         this.goalSelector.add(5, this.routineGoal);
+        this.goalSelector.add(5, new NpcWandererBedGoal(this, 0.8));
         this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -403,11 +411,13 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         view.putNullable(KeyStrings.ROLE, Identifier.CODEC, this.getRoleId());
         view.putNullable(KeyStrings.PRISON_CELL, PrisonCell.CODEC, this.prisonCell);
         view.putBoolean(KeyStrings.ESCORTING, this.escorting);
-        view.putBoolean(KeyStrings.HOUSEHOLD_KNOWN, this.householdKnown);
         view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
         view.putNullable(KeyStrings.BED_STAND, BlockPos.CODEC, this.bedStand);
         view.putNullable(KeyStrings.STORE, BlockPos.CODEC, this.store);
+        view.put(KeyStrings.LINKS, BlockPos.CODEC.listOf(), this.links);
         view.putNullable(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC, this.routineStowedItem);
+        view.put(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC, this.confiscatedMain);
+        view.put(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC, this.confiscatedOff);
         view.putBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, this.routineStowedMainHand);
     }
 
@@ -431,12 +441,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.setRole(view.read(KeyStrings.ROLE, Identifier.CODEC).orElse(null));
         this.prisonCell = view.read(KeyStrings.PRISON_CELL, PrisonCell.CODEC).orElse(null);
         this.escorting = view.getBoolean(KeyStrings.ESCORTING, false);
-        this.householdKnown = view.getBoolean(KeyStrings.HOUSEHOLD_KNOWN, false);
         this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
         this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
         this.store = view.read(KeyStrings.STORE, BlockPos.CODEC).orElse(null);
+        this.links = view.read(KeyStrings.LINKS, BlockPos.CODEC.listOf()).orElse(List.of());
         // The routine itself is not saved, so its prop is put away again
         this.routineStowedItem = view.read(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC).orElse(null);
+        this.confiscatedMain = view.read(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        this.confiscatedOff = view.read(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
         clearRoutineProp();
 
@@ -486,6 +498,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if (this.getEntityWorld() != null && !this.getEntityWorld().isClient()) {
             this.goalSelector.remove(this.meleeAttackGoal);
             this.goalSelector.remove(this.bowAttackGoal);
+            this.goalSelector.remove(this.crossBowAttackGoal);
             ItemStack itemStack = this.getMainHandStack();
             if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
                 boolean hard = this.getWorld().getDifficulty() == Difficulty.HARD;
@@ -604,15 +617,15 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    public void setHousehold(@Nullable BlockPos bed, @Nullable BlockPos bedStand, @Nullable BlockPos store) {
-        this.householdKnown = true;
+    public void setHousehold(@Nullable BlockPos bed, @Nullable BlockPos bedStand, @Nullable BlockPos store, List<BlockPos> links) {
         this.assignedBed = bed;
         this.bedStand = bedStand;
         this.store = store;
+        this.links = links;
     }
 
-    public boolean isHouseholdKnown() {
-        return householdKnown;
+    public List<BlockPos> getLinks() {
+        return links;
     }
 
     public @Nullable BlockPos getAssignedBed() {
@@ -704,7 +717,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         // Reading a block entity in an unloaded chunk would load that chunk
         if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)
                 && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager) {
-            for(UUID owner : manager.bedOwners()) {
+            for(UUID owner : manager.residents()) {
                 if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
                     guards.add(resident);
             }
@@ -808,15 +821,19 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public void takeRole(Identifier role) {
         setRole(role);
         if(isPrisoner()) {
-            for(EquipmentSlot slot : PRISONER_SLOTS)
-                equipStack(slot, ItemStack.EMPTY);
-            updateAttackType();
+            disarm();
             return;
         }
         NpcRole taken = getRole();
         if(taken == null || !taken.replacesName())
             return;
-        equipStack(EquipmentSlot.MAINHAND, taken.tool().map(Item::getDefaultStack).orElse(ItemStack.EMPTY));
+        Optional<Item> tool = taken.otherTool().isPresent() && getRandom().nextBoolean() ? taken.otherTool() : taken.tool();
+        equipStack(EquipmentSlot.MAINHAND, tool.map(Item::getDefaultStack).orElse(ItemStack.EMPTY));
+        taken.sidearm().ifPresent(weapon -> equipStack(EquipmentSlot.OFFHAND, weapon.getDefaultStack()));
+        if(taken.unarmoured()) {
+            for(EquipmentSlot slot : ARMOUR_SLOTS)
+                equipStack(slot, ItemStack.EMPTY);
+        }
         updateAttackType();
     }
 
@@ -835,6 +852,31 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // A prisoner that has a cell stays in it
     public boolean isConfined() {
         return prisonCell != null && isPrisoner();
+    }
+
+    // A prisoner holds no weapon while it is held: what is in its hands is kept from it, and given back when it gets free
+    private void disarm() {
+        ItemStack main = getMainHandStack();
+        ItemStack off = getOffHandStack();
+        if(main.isEmpty() && off.isEmpty())
+            return;
+        if(!main.isEmpty() && confiscatedMain.isEmpty())
+            confiscatedMain = main.copy();
+        if(!off.isEmpty() && confiscatedOff.isEmpty())
+            confiscatedOff = off.copy();
+        equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+        updateAttackType();
+    }
+
+    private void rearm() {
+        if(!confiscatedMain.isEmpty())
+            equipStack(EquipmentSlot.MAINHAND, confiscatedMain);
+        if(!confiscatedOff.isEmpty())
+            equipStack(EquipmentSlot.OFFHAND, confiscatedOff);
+        confiscatedMain = ItemStack.EMPTY;
+        confiscatedOff = ItemStack.EMPTY;
+        updateAttackType();
     }
 
     private void tickPrison(ServerWorld world) {
@@ -862,12 +904,13 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
         prisonCell = null;
         setRole(null);
+        rearm();
         saveNpcData(retrieveNpcData().withoutStructureManagerPos());
         routineHome = null;
-        householdKnown = false;
         assignedBed = null;
         bedStand = null;
         store = null;
+        links = List.of();
         getNavigation().stop();
         double awayX = getX() - centerX;
         double awayZ = getZ() - centerZ;
@@ -992,6 +1035,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(age % HATCH_CHECK_INTERVAL == 0)
             tickHatch(world);
         climbOutOfWater();
+        if(age % PRISON_CHECK_INTERVAL == 0 && isPrisoner())
+            disarm();
         if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
             tickPrison(world);
         // A target set from outside the targeting goals is never dropped by them, and a dead one blocks everything else
@@ -999,6 +1044,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(target != null && !target.isAlive())
             setTarget(null);
         super.mobTick(world);
+        if(age % WEAPON_CHECK_INTERVAL == 0)
+            WeaponSwitch.tick(this);
         if(NpcDebug.ENABLED && age % DEBUG_LABEL_INTERVAL == 0)
             debugLabel();
 

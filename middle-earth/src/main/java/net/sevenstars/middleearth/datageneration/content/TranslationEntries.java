@@ -343,6 +343,7 @@ public class TranslationEntries {
             put(of(LangCategory.SCREEN, "forge"), "Forge");
             put(of(LangCategory.SCREEN, "structure_manager"), "Structure Manager");
             put(of(LangCategory.SCREEN, "structure_marker"), "Structure Marker");
+            put(of(LangCategory.SCREEN, "bed_tag"), "Bed Tag");
             put(of(LangCategory.CONTAINER, "artisan_table"), "Artisan Table");
             put(of(LangCategory.CONTAINER, "inscription_table"), "Inscription Table");
             put(of(LangCategory.CONTAINER, "small_crate"), "Small Crate");
@@ -692,10 +693,22 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "map_screen.map_title_text"), "Middle-earth Map");
 
             put(of(LangCategory.UI, "structure_manager.label_selected_id"), "Selected : %s");
-            put(of(LangCategory.UI, "structure_marker.kind"), "Marker : %s");
-            put(of(LangCategory.UI, "structure_marker.value"), "Value (a nest for spawn_npc, an entity type for spawn_animal)");
-            put(of(LangCategory.UI, "structure_marker.count"), "Count");
+            put(of(LangCategory.UI, "structure_marker.kind_label"), "Kind");
+            put(of(LangCategory.UI, "structure_marker.value_label"), "Value");
             put(of(LangCategory.UI, "structure_marker.respawns"), "Respawns : %s");
+            put(of(LangCategory.UI, "structure_marker.facing"), "Facing : %s");
+            put(of(LangCategory.UI, "structure_marker.save"), "Save");
+            put(of(LangCategory.UI, "structure_marker.remove"), "Remove");
+            put(of(LangCategory.UI, "structure_marker.no_room"), "No room for a marker there");
+            put(of(LangCategory.UI, "bed_tag.title"), "Who is born in this bed");
+            put(of(LangCategory.UI, "bed_tag.type"), "Type");
+            put(of(LangCategory.UI, "bed_tag.role"), "Role");
+            put(of(LangCategory.UI, "bed_tag.save"), "Save");
+            put(of(LangCategory.UI, "bed_tag.none"), "None");
+            put(of(LangCategory.UI, "bed_tag.reset_links"), "Reset links");
+            put(of(LangCategory.UI, "bed_link.linked"), "Linked to %s");
+            put(of(LangCategory.UI, "bed_link.unlinked"), "Unlinked %s");
+            put(of(LangCategory.UI, "bed_link.untagged"), "Tag the bed first");
             put(of(LangCategory.UI, "structure_manager.label_runtime_id"), "Runtime : %s");
             put(of(LangCategory.UI, "structure_manager.label_enable_status"), "Enabled : %s");
             put(of(LangCategory.UI, "structure_manager.button_kill_all"), "Kill All");
