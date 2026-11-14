@@ -35,6 +35,7 @@ import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
+import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
@@ -639,7 +640,7 @@ public class NpcRoutineGoal extends Goal {
             }
             case FORAGE -> {
                 if(done) {
-                    List<Item> forage = forage();
+                    List<Item> forage = forage(world);
                     carried = forage.get(random.nextInt(forage.size()));
                     startReturn(world);
                 } else if(random.nextInt(3) == 0) {
@@ -726,9 +727,13 @@ public class NpcRoutineGoal extends Goal {
         showProp();
     }
 
-    private List<Item> forage() {
+    // What its routine sends the npc out for, where that is something particular. Otherwise whatever grows in the land it is in
+    private List<Item> forage(ServerWorld world) {
         RoutineData routine = npc.getRoutine();
-        return routine == null || routine.getForage().isEmpty() ? DEFAULT_FORAGE : routine.getForage();
+        if(routine != null && !routine.getForage().isEmpty())
+            return routine.getForage();
+        List<Item> found = ForageTables.itemsAt(world, spot);
+        return found.isEmpty() ? DEFAULT_FORAGE : found;
     }
 
     private @Nullable LivingEntity findPrey(ServerWorld world) {
