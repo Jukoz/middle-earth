@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class PartyData {
     public static class Fields {
         public static final String MEMBERS = "members";
+        public static final String LEADER_ROLE = "leader_role";
         public static final String NPC_TYPE = "npc_type";
         public static final String ENTITY_TYPE = "entity_type";
         public static final String MINIMUM_AMOUNT = "minimum_amount";
@@ -22,17 +24,30 @@ public class PartyData {
     }
 
     public static final Codec<PartyData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.list(Member.CODEC).fieldOf(Fields.MEMBERS).forGetter(PartyData::getMembers)
+            Codec.list(Member.CODEC).fieldOf(Fields.MEMBERS).forGetter(PartyData::getMembers),
+            Identifier.CODEC.optionalFieldOf(Fields.LEADER_ROLE).forGetter(PartyData::getLeaderRole)
     ).apply(instance, PartyData::new));
 
     private final List<Member> members;
+    private Optional<Identifier> leaderRole;
 
-    private PartyData(List<Member> members) {
+    private PartyData(List<Member> members, Optional<Identifier> leaderRole) {
         this.members = new ArrayList<>(members);
+        this.leaderRole = leaderRole;
     }
 
     public static PartyData create() {
-        return new PartyData(List.of());
+        return new PartyData(List.of(), Optional.empty());
+    }
+
+    // What the one who leads the party is: the swineherd of the pigs behind him
+    public PartyData ledBy(RegistryKey<NpcRole> role) {
+        this.leaderRole = Optional.of(role.getValue());
+        return this;
+    }
+
+    public Optional<Identifier> getLeaderRole() {
+        return leaderRole;
     }
 
     public PartyData add(RegistryKey<NpcType> npcType, int minimumAmount, int maximumAmount) {

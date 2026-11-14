@@ -32,6 +32,8 @@ import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextu
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.registries.content.structurebeds.StructureBedsRegistry;
 import net.sevenstars.middleearth.resources.datas.structure_beds.StructureBedData;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.id("race"));
@@ -39,6 +41,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<NpcType>> NPC_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("npc_type"));
     public static final Codec<RegistryEntry<NpcType>> NPC_TYPE_CODEC = RegistryFixedCodec.of(DynamicRegistriesME.NPC_TYPE);
     public static final RegistryKey<Registry<StructureManagerData>> STRUCTURE_MANAGER_DATA  = RegistryKey.ofRegistry(MiddleEarth.id("structure_manager_data"));
+    public static final RegistryKey<Registry<NpcRole>> NPC_ROLE = RegistryKey.ofRegistry(MiddleEarth.id("npc_role"));
     public static final RegistryKey<Registry<StructureBedData>> STRUCTURE_BEDS = RegistryKey.ofRegistry(MiddleEarth.id("structure_beds"));
     public static final RegistryKey<Registry<BiomeEventData>> BIOME_EVENT = RegistryKey.ofRegistry(MiddleEarth.id("biome_event"));
     public static final RegistryKey<Registry<BiomeEventData>> STRUCTURE_EVENT = RegistryKey.ofRegistry(MiddleEarth.id("structure_event"));
@@ -60,6 +63,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
         DynamicRegistries.registerSynced(RACE, Race.CODEC);
         DynamicRegistries.registerSynced(NPC_TYPE, NpcType.CODEC);
+        DynamicRegistries.registerSynced(NPC_ROLE, NpcRole.CODEC);
         DynamicRegistries.registerSynced(FACTION, Faction.CODEC);
         DynamicRegistries.registerSynced(BIOME_EVENT, BiomeEventData.CODEC);
         DynamicRegistries.registerSynced(STRUCTURE_EVENT, BiomeEventData.CODEC);
@@ -83,6 +87,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
         registryBuilder.addRegistry(RACE, RaceRegistry::bootstrap);
         registryBuilder.addRegistry(NPC_TYPE, NpcRegistry::bootstrap);
+        registryBuilder.addRegistry(NPC_ROLE, NpcRoles::bootstrap);
         registryBuilder.addRegistry(FACTION, FactionRegistry::bootstrap);
         registryBuilder.addRegistry(BIOME_EVENT, BiomeEventRegistry::bootstrap);
         registryBuilder.addRegistry(STRUCTURE_EVENT, BiomeEventRegistry::bootstrapStructureEvents);
@@ -99,6 +104,7 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(RaceProvider::new);
         pack.addProvider(TexturePresetsProvider::new);
         pack.addProvider(NpcProvider::new);
+        pack.addProvider(NpcRoleProvider::new);
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(StructureBedsProvider::new);

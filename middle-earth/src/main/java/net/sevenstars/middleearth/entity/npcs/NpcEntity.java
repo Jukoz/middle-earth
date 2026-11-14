@@ -60,6 +60,8 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
@@ -104,6 +106,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String TRAVEL_HEADING = "TravelHeading";
         public static final String TRAVEL_DESTINATION = "TravelDestination";
         public static final String ROUTINE_HOME = "RoutineHome";
+        public static final String ROLE = "Role";
         public static final String ASSIGNED_BED = "AssignedBed";
         public static final String BED_STAND = "BedStand";
         public static final String STORE = "Store";
@@ -129,6 +132,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
 
+    // The id of the npc's role, empty for none. Tracked so that the client can name the npc for it
+    private static final TrackedData<String> ROLE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -315,6 +320,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         builder.add(NPC_DATA, new NpcData());
         builder.add(NPC_TEXTURE_DATA, new NpcTextureData());
         builder.add(IS_FIGHTING, false);
+        builder.add(ROLE, "");
         builder.add(CROSSBOW_CHARGING, false);
         builder.add(USING_ITEM, 0);
     }
@@ -336,6 +342,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
         view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
         view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
+        view.putNullable(KeyStrings.ROLE, Identifier.CODEC, this.getRoleId());
         view.putBoolean(KeyStrings.HOUSEHOLD_KNOWN, this.householdKnown);
         view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
         view.putNullable(KeyStrings.BED_STAND, BlockPos.CODEC, this.bedStand);
@@ -361,6 +368,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
         this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
         this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
+        this.setRole(view.read(KeyStrings.ROLE, Identifier.CODEC).orElse(null));
         this.householdKnown = view.getBoolean(KeyStrings.HOUSEHOLD_KNOWN, false);
         this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
         this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
@@ -597,7 +605,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             return;
         for(NpcEntity guard : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive())) {
             NpcType type = guard.getNpcType();
-            boolean fights = type == null || type.getRoutine() == null || !type.getRoutine().isTimid();
+            RoutineData guardRoutine = guard.getRoutine();
+            boolean fights = guardRoutine == null || !guardRoutine.isTimid();
             if(fights && guard.getTarget() == null && !isHostileToward(guard) && guard.canTarget(threat)) {
                 if(guard.isSleeping())
                     guard.wakeUp();
@@ -610,9 +619,34 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return (getUuid().hashCode() & 1) != 0;
     }
 
-    public boolean keepsBounds() {
+    public void setRole(@Nullable Identifier role) {
+        this.dataTracker.set(ROLE, role == null ? "" : role.toString());
+    }
+
+    public @Nullable Identifier getRoleId() {
+        String role = this.dataTracker.get(ROLE);
+        return role.isEmpty() ? null : Identifier.tryParse(role);
+    }
+
+    public @Nullable NpcRole getRole() {
+        Identifier id = getRoleId();
+        if(id == null)
+            return null;
+        return getWorld().getRegistryManager().getOptional(DynamicRegistriesME.NPC_ROLE).map(roles -> roles.get(id)).orElse(null);
+    }
+
+    // What the npc does with its day: its role's say where it has one, its type's otherwise
+    public @Nullable RoutineData getRoutine() {
+        NpcRole role = getRole();
+        if(role != null && role.routine().isPresent())
+            return role.routine().get();
         NpcType type = getNpcType();
-        return type != null && type.getRoutine() != null && type.getRoutine().keepsBounds();
+        return type == null ? null : type.getRoutine();
+    }
+
+    public boolean keepsBounds() {
+        RoutineData routine = getRoutine();
+        return routine != null && routine.keepsBounds();
     }
 
     public boolean isElf() {
@@ -621,8 +655,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     public boolean isRestTime() {
-        NpcType type = getNpcType();
-        RoutineData routine = type == null ? null : type.getRoutine();
+        RoutineData routine = getRoutine();
         if(routine == null || !routine.getPeriod().isResting(getWorld().getTimeOfDay(), isNightShift()))
             return false;
         // Elves rest in waking dreams, and lie down only now and then, each on its own night
@@ -1022,6 +1055,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(this.getNpcTypeIdentifier() == null) {
             return Text.translatable("npc_type."+ MiddleEarth.MOD_ID +".npc");
         }
+        NpcRole role = getRole();
+        Identifier faction = getFactionIdentifier();
+        if(role != null && role.replacesName() && faction != null)
+            return Text.translatable(getRoleId().toTranslationKey("npc_role"), Text.translatable(faction.toTranslationKey("faction")));
         return Text.translatable(this.getNpcTypeIdentifier().toTranslationKey("npc_type"));
     }
 

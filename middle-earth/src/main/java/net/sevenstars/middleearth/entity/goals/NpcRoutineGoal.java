@@ -194,8 +194,7 @@ public class NpcRoutineGoal extends Goal {
             startReturn(world);
             return true;
         }
-        NpcType type = npc.getNpcType();
-        RoutineData routine = type == null ? null : type.getRoutine();
+        RoutineData routine = npc.getRoutine();
         if(routine == null)
             return false;
         // Where a wild npc first stands is its camp, before wandering takes it elsewhere
@@ -636,8 +635,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private boolean onDuty(ServerWorld world) {
-        NpcType type = npc.getNpcType();
-        RoutineData routine = type == null ? null : type.getRoutine();
+        RoutineData routine = npc.getRoutine();
         return routine != null && routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
     }
 
@@ -655,8 +653,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private List<Item> forage() {
-        NpcType type = npc.getNpcType();
-        RoutineData routine = type == null ? null : type.getRoutine();
+        RoutineData routine = npc.getRoutine();
         return routine == null || routine.getForage().isEmpty() ? DEFAULT_FORAGE : routine.getForage();
     }
 

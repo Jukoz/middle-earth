@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
@@ -64,6 +65,12 @@ public class LanguageProvider extends FabricLanguageProvider {
                 path += "_spawn_egg";
 
             translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
+        });
+
+        // The role takes the place of the noun: Shire Baker, Rohan Herdsman
+        NpcRoles.all().forEach(role -> {
+            String path = role.getValue().getPath();
+            translationBuilder.add("npc_role." + MiddleEarth.MOD_ID + "." + path, "%s " + generateName(path));
         });
 
         TranslationEntries.itemEntries.forEach(item -> {
