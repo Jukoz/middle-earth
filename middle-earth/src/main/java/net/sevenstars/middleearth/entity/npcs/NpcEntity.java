@@ -1298,8 +1298,19 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         //return false;
     }
 
+    private float arrowInaccuracy = 0f;
+
+    /** Spread added to every arrow this npc fires, in vanilla divergence units; 0 is a perfect shot. */
+    public float getArrowInaccuracy() {
+        return arrowInaccuracy;
+    }
+
+    public void setArrowInaccuracy(float arrowInaccuracy) {
+        this.arrowInaccuracy = Math.max(0f, arrowInaccuracy);
+    }
+
     private void shootAt(LivingEntity target, float pullProgress, float powerModifier) {
-        shootAt(target, pullProgress, powerModifier, 0f);
+        shootAt(target, pullProgress, powerModifier, getArrowInaccuracy());
     }
 
     /**
@@ -1309,7 +1320,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
      * @param inaccuracy vanilla projectile divergence added on top of the perfect aim; 0 is a perfect shot,
      *                   vanilla skeletons use 2 (hard) to 10 (easy).
      */
-    private void shootAt(LivingEntity target, float pullProgress, float powerModifier, float inaccuracy) {
+    public void shootAt(LivingEntity target, float pullProgress, float powerModifier, float inaccuracy) {
         if (!isReadyToShoot())
             return;
 
