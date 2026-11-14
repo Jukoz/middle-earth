@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GearItemData {
-    private final static String NO_HOOD_KEY = "no_hood";
-    private final static String NO_CAPE_KEY = "no_cape";
     private Item item;
     private Integer color = null;
     private List<Integer> colors = null;

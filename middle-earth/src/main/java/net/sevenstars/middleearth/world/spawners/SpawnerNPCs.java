@@ -18,9 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.spawner.SpecialSpawner;
 
@@ -110,10 +108,6 @@ public class SpawnerNPCs implements SpecialSpawner {
             }
         }
         return; // TODO : Was 1
-    }
-
-    public static int getHighestYAtXZ(World world, int x, int z) {
-        return world.getChunk(new BlockPos(x, 0, z)).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, x, z);
     }
 
     private static boolean canSpawnAt(BlockView world, BlockPos pos, EntityType type, BlockState blockState) {

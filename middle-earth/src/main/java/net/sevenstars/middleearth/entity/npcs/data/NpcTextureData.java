@@ -249,10 +249,6 @@ public class NpcTextureData {
                 NpcTextureData::new);
     }
 
-    public boolean needToBeRefreshed() {
-        return get(NpcRenderedPart.BODY) == null;
-    }
-
     public Identifier getSimplifiedSkin() {
         return this.simplifiedSkin;
     }
