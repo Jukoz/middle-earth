@@ -447,6 +447,8 @@ public class NpcRoutineGoal extends Goal {
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
                     && (!underground || !isOutdoors(activity))
                     && (activity != RoutineData.Activity.VISIT || site.pickHousehold(world, home, npc.getRandom()) != null)
+                    && (activity != RoutineData.Activity.HUNT || huntingGround(world, home, time) >= 0)
+                    && (activity != RoutineData.Activity.FARM || fieldsNeedWork(world, home))
                     && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         // Elves need little sleep, and keep company through the night
         if(npc.isElf() && !npc.isRestTime())
@@ -540,7 +542,13 @@ public class NpcRoutineGoal extends Goal {
                 spot = site.getShoreStands().get(index);
                 lookTarget = Vec3d.ofCenter(site.getShoreWater(index));
             }
-            case HUNT, FORAGE -> {
+            case HUNT -> {
+                int index = huntingGround(world, home, world.getTime());
+                if(index < 0)
+                    return cannotStart(picked, "no game seen about the place");
+                spot = site.getGrounds().get(index);
+            }
+            case FORAGE -> {
                 int index = pickNear(site.getGrounds(), home, SPOT_RANGE + site.getExtent(), random);
                 if(index < 0)
                     return cannotStart(picked, "no open ground within reach of home");
@@ -786,7 +794,8 @@ public class NpcRoutineGoal extends Goal {
     public void stop() {
         if(phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING) {
             LivingEntity foe = npc.getTarget();
-            abandoned(foe != null ? "interrupted by a fight with " + foe.getType().getName().getString()
+            // By the id of its kind: every npc's kind is named just Npc
+            abandoned(foe != null ? "interrupted by a fight with " + Registries.ENTITY_TYPE.getId(foe.getType()).getPath()
                     : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
         }
         stopMoving();
@@ -1641,6 +1650,33 @@ public class NpcRoutineGoal extends Goal {
         return found.isEmpty() ? DEFAULT_FORAGE : found;
     }
 
+    // Of the open grounds within reach of home, the one with the most game about it lately. Game is rare in many lands,
+    // and a hunter does not go out where none has been seen. -1 when no ground has a herd near it
+    private int huntingGround(ServerWorld world, BlockPos home, long time) {
+        List<BlockPos> game = site.getGame(world, time, NpcRoutineGoal::isPrey);
+        if(game.size() < MINIMUM_HERD)
+            return -1;
+        List<BlockPos> grounds = site.getGrounds();
+        int reach = SPOT_RANGE + site.getExtent();
+        int best = -1;
+        int most = MINIMUM_HERD - 1;
+        for(int i = 0; i < grounds.size(); i++) {
+            BlockPos ground = grounds.get(i);
+            if(!ground.isWithinDistance(home, reach))
+                continue;
+            int near = 0;
+            for(BlockPos animal : game) {
+                if(animal.isWithinDistance(ground, PREY_RANGE + HUNT_ROAM))
+                    near++;
+            }
+            if(near > most) {
+                most = near;
+                best = i;
+            }
+        }
+        return best;
+    }
+
     private @Nullable LivingEntity findPrey(ServerWorld world) {
         List<AnimalEntity> herd = world.getEntitiesByClass(AnimalEntity.class, npc.getBoundingBox().expand(PREY_RANGE, PREY_HEIGHT_RANGE, PREY_RANGE), NpcRoutineGoal::isPrey);
         if(herd.size() < MINIMUM_HERD)
@@ -1710,6 +1746,15 @@ public class NpcRoutineGoal extends Goal {
                 best = cell;
         }
         return best;
+    }
+
+    // While the crops are growing, the fields need nobody
+    private boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
+        for(BlockPos cell : site.getFields(home, WORK_RANGE)) {
+            if(world.isChunkLoaded(cell.getX() >> 4, cell.getZ() >> 4) && needsWork(world, cell))
+                return true;
+        }
+        return false;
     }
 
     private static boolean needsWork(ServerWorld world, BlockPos cell) {

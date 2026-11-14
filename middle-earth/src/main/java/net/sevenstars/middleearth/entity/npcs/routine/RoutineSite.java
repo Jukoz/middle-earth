@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
@@ -11,6 +13,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
@@ -28,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 // The places around one structure, or one patch of wilderness, shared by every npc living there
 public class RoutineSite {
@@ -71,6 +75,10 @@ public class RoutineSite {
     private static final int FLOOD_MARGIN = 8;
     // As far down as a step off a bank or a wall is taken, which has to be walked back up some other way
     private static final int FLOOD_DROP = 3;
+    private static final int GAME_INTERVAL = 20 * 60 * 2;
+    // Past the farthest open ground, as far as a hunter roams from it
+    private static final int GAME_MARGIN = 34;
+    private static final int GAME_HEIGHT = 24;
 
     private static final int UNLOADED = 0;
     private static final int WATER = 1;
@@ -121,6 +129,8 @@ public class RoutineSite {
     private final List<Integer> missedRing = new ArrayList<>();
     private final List<Integer> missedSamples = new ArrayList<>();
     private boolean patrolArc = false;
+    private List<BlockPos> game = List.of();
+    private long gameSeenAt = Long.MIN_VALUE;
     long lastUsed;
 
     // ringRadius 0 leaves the site without a patrol ring
@@ -184,6 +194,17 @@ public class RoutineSite {
 
     public List<BlockPos> getGrounds() {
         return grounds;
+    }
+
+    // Where game was last seen around the place. It wanders, so it is looked for again now and then
+    public List<BlockPos> getGame(ServerWorld world, long time, Predicate<AnimalEntity> prey) {
+        if(time - gameSeenAt < GAME_INTERVAL)
+            return game;
+        gameSeenAt = time;
+        int range = (int) (RADII[RADII.length - 1] * sampleScale) + GAME_MARGIN;
+        Box around = new Box(centerX - range, surfaceY - GAME_HEIGHT, centerZ - range, centerX + range, surfaceY + GAME_HEIGHT, centerZ + range);
+        game = world.getEntitiesByClass(AnimalEntity.class, around, prey).stream().map(Entity::getBlockPos).toList();
+        return game;
     }
 
     public List<BlockPos> getTrees() {
