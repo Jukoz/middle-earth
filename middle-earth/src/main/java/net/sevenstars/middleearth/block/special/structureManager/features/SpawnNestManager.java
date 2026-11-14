@@ -151,14 +151,16 @@ public class SpawnNestManager {
     }
 
     // The floor beside the bed the next npc of this nest will be given
-    // Beds still there. One broken since the place was built houses nobody
-    private int standingBeds(ServerWorld world) {
-        int standing = 0;
+    // Beds nobody has, still standing. One broken since the place was built houses nobody
+    private int freeBeds(ServerWorld world, Predicate<BlockPos> takenElsewhere) {
+        int free = 0;
         for(NestSurvey.Bed bed : beds) {
+            if(bed.owner().isPresent() || takenElsewhere.test(bed.pos()))
+                continue;
             if(!world.isChunkLoaded(bed.pos().getX() >> 4, bed.pos().getZ() >> 4) || world.getBlockState(bed.pos()).getBlock() instanceof BedBlock)
-                standing++;
+                free++;
         }
-        return standing;
+        return free;
     }
 
     private @Nullable BlockPos freeBedside(ServerWorld world, Predicate<BlockPos> takenElsewhere) {
@@ -250,9 +252,19 @@ public class SpawnNestManager {
             boolean people = pool.getEntityType() == EntitiesME.NPC && survey(world);
             Predicate<BlockPos> takenElsewhere = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager
                     ? bed -> manager.isBedTakenElsewhere(bed, this) : bed -> false;
-            // A nest with beds of its own houses one npc in each, up to what its pool allows. Without, it keeps the amount of its pool
-            int housed = people && paired ? standingBeds(world) : 0;
-            int entityAmountToSpawn = housed > 0 ? Math.min(housed, pool.getAmountCap().orElse(housed)) : pool.getEntityAmount();
+            // People are spawned from beds: a nest houses whom it has a free bed for, and nobody without one. Beasts need none
+            int entityAmountToSpawn = pool.getEntityAmount();
+            if(pool.getEntityType() == EntitiesME.NPC) {
+                // The building is not loaded far enough to know its beds, which is asked again on the next tick
+                if(!people)
+                    return;
+                entityAmountToSpawn = Math.min(entityAmountToSpawn, freeBeds(world, takenElsewhere));
+            }
+            if(entityAmountToSpawn == 0) {
+                // Looked at again after the usual wait, by when a bed may have been put in
+                this.respawnEventTriggerTick = world.getTime();
+                return;
+            }
             for(int i = 0; i < entityAmountToSpawn; i ++){
                 BlockPos bedside = people ? freeBedside(world, takenElsewhere) : null;
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
