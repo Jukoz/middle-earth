@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.fluid.FluidState;
@@ -20,6 +21,7 @@ import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
@@ -563,7 +565,7 @@ public class RoutineSite {
                 missedRing.add(index);
                 return;
             }
-            if(kind == LAND && !isBuilding(x, probeY, z)) {
+            if(kind == LAND && !isBuilding(x, probeY, z) && !isField(world)) {
                 int at = 0;
                 while(at < ringPlanIndex.size() && ringPlanIndex.get(at) < index)
                     at++;
@@ -587,7 +589,7 @@ public class RoutineSite {
             int distanceZ = z - centerZ;
             int minimumRadius = Math.max(GROUND_MINIMUM_RADIUS, extent);
             boolean farEnough = distanceX * distanceX + distanceZ * distanceZ >= minimumRadius * minimumRadius;
-            if(farEnough && grounds.size() < MAXIMUM_GROUNDS && !isBuilding(x, probeY, z) && isSpaced(grounds, x, z, GROUND_SPACING))
+            if(farEnough && grounds.size() < MAXIMUM_GROUNDS && !isBuilding(x, probeY, z) && !isField(world) && isSpaced(grounds, x, z, GROUND_SPACING))
                 grounds.add(new BlockPos(x, probeY, z));
         } else if(kind == WATER && shoreStands.size() < MAXIMUM_SHORES) {
             scanShore(world, x, z, probeY);
@@ -757,6 +759,13 @@ public class RoutineSite {
 
     private static long column(int x, int z) {
         return ((long) x << 32) | (z & 0xFFFFFFFFL);
+    }
+
+    // Crops are no obstacle to the heightmap, so a point of the round or a patch to forage can fall in a field. The fields
+    // are for those who work them. Asks of the ground classify last looked at
+    private boolean isField(ServerWorld world) {
+        BlockState ground = world.getBlockState(probe);
+        return ground.getBlock() instanceof FarmlandBlock || ground.isIn(BlockTagsME.FARMLANDS);
     }
 
     // The heightmap puts such a spot on a roof, the yard around the house stays free

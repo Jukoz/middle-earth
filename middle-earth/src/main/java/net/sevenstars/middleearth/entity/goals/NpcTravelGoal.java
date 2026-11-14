@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
@@ -14,6 +16,7 @@ import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -169,8 +172,18 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private @Nullable Vec3d nearHome(@Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
-            return target;
-        return NoPenaltyTargeting.findTo(npc, 10, 7, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
+            return inField(target) ? null : target;
+        Vec3d back = NoPenaltyTargeting.findTo(npc, 10, 7, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
+        return inField(back) ? null : back;
+    }
+
+    // Nobody strolls about the crops
+    private boolean inField(@Nullable Vec3d target) {
+        if(target == null || npc.isFarming())
+            return false;
+        BlockPos floor = BlockPos.ofFloored(target).down();
+        BlockState ground = npc.getWorld().getBlockState(floor);
+        return ground.getBlock() instanceof FarmlandBlock || ground.isIn(BlockTagsME.FARMLANDS);
     }
 
     private float towardsDestination(float heading) {
