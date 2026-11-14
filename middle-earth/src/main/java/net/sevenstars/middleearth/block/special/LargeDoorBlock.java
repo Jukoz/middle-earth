@@ -5,6 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.block.EntityShapeContext;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -35,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
-public class LargeDoorBlock extends Block {
+public class LargeDoorBlock extends Block implements NpcDoor {
 
     //TODO CLEAN CLASS
 
@@ -79,7 +82,7 @@ public class LargeDoorBlock extends Block {
     }
 
     //Get the origin of the door based on the state and pos
-    private BlockPos getOrigin(BlockPos pos, BlockState state){
+    public BlockPos getOrigin(BlockPos pos, BlockState state){
         BlockPos blockPos;
         int part = state.get(getPart());
 
@@ -226,7 +229,7 @@ public class LargeDoorBlock extends Block {
     }
 
     //Check space for door opening/closing
-    private boolean canToggle(BlockPos origin, BlockState state, World world) {
+    private boolean canToggle(BlockPos origin, BlockState state, BlockView world) {
         BlockPos blockPos = origin;
         BlockPos blockPos1 = blockPos;
         for (int j = 0; j < doorWidth; j++){
@@ -253,6 +256,28 @@ public class LargeDoorBlock extends Block {
 
     //Door opening
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if(!toggle(state, world, pos, player))
+            player.sendMessage(Text.translatable("alert.%s.large_door.blocked".formatted(MiddleEarth.MOD_ID)), true);
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public boolean setOpen(World world, BlockPos pos, BlockState state, boolean open, @Nullable Entity opener) {
+        return state.get(OPEN) == open || toggle(state, world, pos, opener);
+    }
+
+    @Override
+    public boolean canMove(BlockView world, BlockPos pos, BlockState state) {
+        return canToggle(getOrigin(pos, state), state, world);
+    }
+
+    @Override
+    public BlockPos getAnchor(BlockPos pos, BlockState state) {
+        return getOrigin(pos, state);
+    }
+
+    // False when something stands where the door would swing to
+    public boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity player) {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 
@@ -302,11 +327,17 @@ public class LargeDoorBlock extends Block {
             }
             this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
             world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-        } else {
-            player.sendMessage(Text.translatable("alert.%s.large_door.blocked".formatted(MiddleEarth.MOD_ID)), true);
+            return true;
         }
+        return false;
+    }
 
-        return ActionResult.SUCCESS;
+    // The open leaf leaves less room than an npc is wide, as with ordinary doors
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        if(state.get(OPEN) && context instanceof EntityShapeContext entityContext && entityContext.getEntity() instanceof NpcEntity)
+            return VoxelShapes.empty();
+        return super.getCollisionShape(state, world, pos, context);
     }
 
     private void playOpenCloseSound(@Nullable Entity entity, World world, BlockPos pos, boolean open) {

@@ -9,6 +9,7 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
+import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
@@ -45,6 +46,15 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         var climbable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("climbable")));
         var impermeable = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of("impermeable")));
+
+        // Gates and prison doors are not for whoever walks by
+        valueLookupBuilder(NpcDoor.LOCKED)
+                .add(BlockRegistryME.TREATED_STEEL_DOOR)
+                .add(DecorativeBlockRegistryME.GREAT_GONDORIAN_GATE)
+                .add(DecorativeBlockRegistryME.GREAT_DWARVEN_GATE)
+                .add(DecorativeBlockRegistryME.GREAT_ELVEN_GATE)
+                .add(DecorativeBlockRegistryME.GREAT_ORCISH_GATE)
+                .add(DecorativeBlockRegistryME.HIDDEN_DWARVEN_DOOR);
 
         var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));

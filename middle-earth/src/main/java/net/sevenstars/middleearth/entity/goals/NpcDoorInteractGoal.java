@@ -4,7 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.goal.DoorInteractGoal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.Box;
-import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 // Opens a door on the way and shuts it afterwards, but never on somebody else who is still going through
@@ -70,8 +70,8 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
 
     @Override
     protected void setDoorOpen(boolean open) {
-        BlockState blockState = this.mob.getEntityWorld().getBlockState(this.doorPos);
-        if(blockState.isOf(BlockRegistryME.TREATED_STEEL_DOOR))
+        BlockState blockState = this.mob.getWorld().getBlockState(this.doorPos);
+        if(blockState.isIn(NpcDoor.LOCKED))
             return;
         super.setDoorOpen(open);
     }
