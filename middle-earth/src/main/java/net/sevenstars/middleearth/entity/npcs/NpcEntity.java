@@ -119,6 +119,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
     private static final TrackedData<Boolean> IS_FIGHTING;
 
+    // Of a body whatever its scale, a little less than the room a board leaves in its block
+    private static final float MAXIMUM_WIDTH = 0.8f;
     // In ticks
     private static final int MANAGER_CHECK_INTERVAL = 100;
     private static final int HATCH_CHECK_INTERVAL = 4;
@@ -212,6 +214,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.updateAttackType();
         this.navigation.setCanOpenDoors(true);
         this.moveControl = new NpcMoveControl(this);
+    }
+
+    // A tall elf grew wider than the room beside a ladder or an open shutter, and caught on every board in its hall
+    @Override
+    protected EntityDimensions getBaseDimensions(EntityPose pose) {
+        EntityDimensions base = super.getBaseDimensions(pose);
+        float width = base.width() * getScale();
+        return width > MAXIMUM_WIDTH ? base.scaled(MAXIMUM_WIDTH / width, 1) : base;
     }
 
     @Nullable
