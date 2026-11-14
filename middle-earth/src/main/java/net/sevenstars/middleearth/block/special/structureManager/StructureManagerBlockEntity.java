@@ -274,8 +274,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
         if(entity.getEntityWorld().isClient())
             return;
-        StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getEntityWorld().getBlockEntity(pos);
-        if(blockEntity != null && !blockEntity.isRemoved()){
+        if(entity.getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity && !blockEntity.isRemoved() && blockEntity.structureNestList != null){
             blockEntity.structureNestList.computeDeath(entity);
             blockEntity.world.markDirty(pos);
         }

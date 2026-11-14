@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
@@ -221,6 +222,12 @@ public class SpawnNestManager {
         }
     }
 
+    private boolean housesPeople(@Nullable StructureManagerData structureManagerData) {
+        SpawnNestNodeData data = structureManagerData == null ? null : structureManagerData.findSpawnNest(id);
+        return data != null && !data.getNpcSpawnNestPool().isEmpty()
+                && data.getNpcSpawnNestPool().stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC);
+    }
+
     private void beginRespawnSequence(World world) {
         this.respawnEventTriggerTick = world.getTime();
     }
@@ -236,6 +243,11 @@ public class SpawnNestManager {
     }
 
     public void doWellnessCheck(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+        // A person not found may only be out where the ground is not loaded, and dropped here its bed went to somebody new
+        // while it still slept there. Their deaths and removals are told to the nest instead (NpcEntity.onDeath,
+        // LivingEntityMixin.onRemove)
+        if(housesPeople(structureManagerData))
+            return;
         if(entities != null && !entities.isEmpty()){
             List<UUID> toRemove = new ArrayList<>();
             for (UUID uuid : entities){ // Wellness check
@@ -278,7 +290,8 @@ public class SpawnNestManager {
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
                     Optional<Identifier> role = data.getRole().isPresent() ? data.getRole()
-                            : NpcRoles.isGuardNest(id) ? guardDuty(world, structureManagerPos) : householdRole(world, structureManagerPos, npcEntity);
+                            : NpcRoles.isGuardNest(id) || mansPosts(world, structureManagerPos, npcEntity) ? guardDuty(world, structureManagerPos)
+                            : householdRole(world, structureManagerPos, npcEntity);
                     role.ifPresent(npcEntity::takeRole);
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }
@@ -302,6 +315,17 @@ public class SpawnNestManager {
         // Guards can spawn before their lord does, who is counted all the same
         boolean lordExpected = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager && manager.hasLordNest();
         return Optional.of(NpcRoles.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
+    }
+
+    // A fighter of any nest stands guard where the build has posts or lookouts marked, as in a watch tower. Elsewhere it keeps
+    // the routine of its kind
+    private boolean mansPosts(ServerWorld world, BlockPos structureManagerPos, NpcEntity npc) {
+        NpcType type = npc.getNpcType();
+        if(type == null || type.isCivilian())
+            return false;
+        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+        return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty()
+                || !site.getMarkers(MarkerKind.LOOKOUT).isEmpty());
     }
 
     // A civilian whose nest gives it no role takes up what the household has the means for, unless somebody living here has already

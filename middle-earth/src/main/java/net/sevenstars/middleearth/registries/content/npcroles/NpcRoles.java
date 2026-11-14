@@ -79,6 +79,9 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> BODYGUARD = register("bodyguard", duty(RoutineData.create(Period.SHIFTS).add(Activity.FOLLOW, 1)));
     public static final RegistryKey<NpcRole> SENTRY = register("sentry", duty(RoutineData.create(Period.SHIFTS).add(Activity.POST, 1)));
     public static final RegistryKey<NpcRole> PATROL = register("patrol", duty(RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.ESCORT, 1)));
+    // Locked in a cell, with no work and nowhere to go but the bed. A thief in a cell is still a thief
+    public static final RegistryKey<NpcRole> PRISONER = registerForNests(List.of("prisoner", "prisoner_nest", "prisoner_cell", "small_prisoner_cell", "large_prisoner_cell"),
+            "prisoner", duty(RoutineData.create(Period.DAY)));
 
     private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
     private static final int BODYGUARDS = 2;
@@ -101,6 +104,11 @@ public class NpcRoles {
 
     public static boolean isLord(@Nullable Identifier role) {
         return LORD.getValue().equals(role) || NIGHT_LORD.getValue().equals(role);
+    }
+
+    // Those who live in a place go through its steel doors. Prisoners, and npcs only passing through, do not
+    public static boolean holdsKeys(NpcEntity npc) {
+        return npc.getStructureManagerHostPos() != null && !PRISONER.getValue().equals(npc.getRoleId());
     }
 
     public static boolean isGuardNest(Identifier nestId) {
