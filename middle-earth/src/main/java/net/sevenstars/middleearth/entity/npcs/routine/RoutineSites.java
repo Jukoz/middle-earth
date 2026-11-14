@@ -59,6 +59,8 @@ public class RoutineSites {
     private static final int STRUCTURE_KEY_Y = 2047;
     private static final int WILD_KEY_Y = 2046;
     private static final int UNDERGROUND_KEY_Y = 2045;
+    // Ticks between looks at the parts of places that were not loaded when they were looked over
+    private static final int RETRY_INTERVAL = 20 * 30;
 
     private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
 
@@ -102,6 +104,12 @@ public class RoutineSites {
         }
 
         long time = world.getTime();
+        if(time % RETRY_INTERVAL == 0) {
+            for(RoutineSite site : sites.sites.values()) {
+                if(site.hasMissed())
+                    site.retryMissed(world);
+            }
+        }
         if(time % CLEANUP_INTERVAL == 0)
             sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().lastUsed > UNUSED_LIFETIME);
     }

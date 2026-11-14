@@ -15,6 +15,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.StationKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
@@ -41,6 +42,10 @@ public class RoutineSite {
     // Short enough for one path from a point of the ring to the next
     private static final int OWN_HOUSEHOLD = 8;
     private static final int RING_SPACING = 14;
+    // Up or down this far is still the same floor
+    private static final int FLOOR_HEIGHT = 3;
+    // A gap this wide between two points of the ring is no stretch of the round
+    private static final double ARC_GAP = RING_SPACING * 2.5;
     // How far outside the outermost buildings the watch walks
     private static final int RING_MARGIN = 6;
     // Outwards first, a point moved inwards ends up between the houses
@@ -108,6 +113,12 @@ public class RoutineSite {
     private int probeY;
     private int cursor = 0;
     private boolean ready;
+    // Where each ring point was planned, so that one found later goes in its place
+    private final List<Integer> ringPlanIndex = new ArrayList<>();
+    // Ring points and samples that fell on ground not loaded at the time, looked at again once it is
+    private final List<Integer> missedRing = new ArrayList<>();
+    private final List<Integer> missedSamples = new ArrayList<>();
+    private boolean patrolArc = false;
     long lastUsed;
 
     // ringRadius 0 leaves the site without a patrol ring
@@ -132,7 +143,7 @@ public class RoutineSite {
     }
 
     // Far enough under the ground at that spot to be shut in, in a cave or a delving
-    static boolean isEnclosed(ServerWorld world, int x, int z, int y) {
+    public static boolean isEnclosed(ServerWorld world, int x, int z, int y) {
         return world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) - y > ENCLOSED_DEPTH;
     }
 
@@ -300,19 +311,19 @@ public class RoutineSite {
     }
 
     // A free seat at a table where somebody already sits, or else at any table with room for two
-    // A table within range of the given place if there is one with a free seat, any other otherwise. In a stronghold the
-    // far tables are a long way off down its halls
+    // A table on the same floor within range of the given place, or else one twice as far on any floor. In a stronghold a
+    // table two floors up is a long way round by its stairs, and the far tables are further still down its halls
     public @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range) {
         BlockPos seat = pickSeat(world, random, near, range, true);
-        return seat != null ? seat : pickSeat(world, random, near, range, false);
+        return seat != null ? seat : pickSeat(world, random, near, range * 2, false);
     }
 
-    private @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range, boolean nearOnly) {
+    private @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range, boolean sameFloor) {
         BlockPos alone = null;
         int offset = tables.isEmpty() ? 0 : random.nextInt(tables.size());
         for(int i = 0; i < tables.size(); i++) {
             List<BlockPos> table = tables.get((i + offset) % tables.size());
-            if(nearOnly && (table.isEmpty() || !table.getFirst().isWithinDistance(near, range)))
+            if(table.isEmpty() || !table.getFirst().isWithinDistance(near, range) || sameFloor && Math.abs(table.getFirst().getY() - near.getY()) > FLOOR_HEIGHT)
                 continue;
             BlockPos free = null;
             int freeSeats = 0;
@@ -349,6 +360,23 @@ public class RoutineSite {
                 points.add(marker.pos());
             if(points.size() < 2) {
                 patrolRoute = ring;
+                patrolArc = false;
+                int widest = -1;
+                double widestGap = ARC_GAP * ARC_GAP;
+                for(int i = 0; i < ring.size(); i++) {
+                    double gap = ring.get(i).getSquaredDistance(ring.get((i + 1) % ring.size()));
+                    if(gap > widestGap) {
+                        widestGap = gap;
+                        widest = i;
+                    }
+                }
+                if(widest >= 0 && ring.size() >= 2) {
+                    List<BlockPos> arc = new ArrayList<>(ring.size());
+                    for(int i = 1; i <= ring.size(); i++)
+                        arc.add(ring.get((widest + i) % ring.size()));
+                    patrolRoute = arc;
+                    patrolArc = true;
+                }
             } else {
                 points.sort((a, b) -> Double.compare(Math.atan2(a.getZ() - centerZ, a.getX() - centerX), Math.atan2(b.getZ() - centerZ, b.getX() - centerX)));
                 patrolRoute = points;
@@ -406,7 +434,12 @@ public class RoutineSite {
                 ready = true;
                 return true;
             }
-            scanSample(world, centerX + Math.round(SAMPLES[sample] * sampleScale), centerZ + Math.round(SAMPLES[sample + 1] * sampleScale));
+            int x = centerX + Math.round(SAMPLES[sample] * sampleScale);
+            int z = centerZ + Math.round(SAMPLES[sample + 1] * sampleScale);
+            if(world.isChunkLoaded(x >> 4, z >> 4))
+                scanSample(world, x, z);
+            else
+                missedSamples.add(sample);
         }
         cursor++;
         return false;
@@ -497,8 +530,17 @@ public class RoutineSite {
         for(int adjustment : RING_ADJUSTMENTS) {
             int x = MathHelper.floor(planned[0] + planned[2] * adjustment);
             int z = MathHelper.floor(planned[1] + planned[3] * adjustment);
-            if(classify(world, x, z) == LAND && !isBuilding(x, probeY, z)) {
-                ring.add(new BlockPos(x, probeY, z));
+            int kind = classify(world, x, z);
+            if(kind == UNLOADED) {
+                missedRing.add(index);
+                return;
+            }
+            if(kind == LAND && !isBuilding(x, probeY, z)) {
+                int at = 0;
+                while(at < ringPlanIndex.size() && ringPlanIndex.get(at) < index)
+                    at++;
+                ring.add(at, new BlockPos(x, probeY, z));
+                ringPlanIndex.add(at, index);
                 return;
             }
         }
@@ -544,7 +586,11 @@ public class RoutineSite {
         BlockState ground = world.getBlockState(at);
         if(!ground.isSolidBlock(world, at) || !world.getFluidState(at.up()).isEmpty() || !isSpaced(trees, x, z, TREE_SPACING))
             return;
-        trees.add(new BlockPos(x, base, z));
+        // A bush is a log in leaves on every side, with no room to stand and swing at it
+        BlockPos foot = new BlockPos(x, base, z);
+        if(NestSurvey.standNextTo(world, foot, foot) == null)
+            return;
+        trees.add(foot);
     }
 
     private void scanShore(ServerWorld world, int waterX, int waterZ, int waterY) {
@@ -591,6 +637,36 @@ public class RoutineSite {
         return LAND;
     }
 
+    public boolean hasMissed() {
+        return ready && (!missedRing.isEmpty() || !missedSamples.isEmpty());
+    }
+
+    // A place first looked over while part of it was not loaded is filled in once that part is
+    void retryMissed(ServerWorld world) {
+        List<Integer> ringLeft = new ArrayList<>(missedRing);
+        List<Integer> samplesLeft = new ArrayList<>(missedSamples);
+        missedRing.clear();
+        missedSamples.clear();
+        for(int index : ringLeft)
+            scanRingPoint(world, index);
+        for(int sample : samplesLeft) {
+            int x = centerX + Math.round(SAMPLES[sample] * sampleScale);
+            int z = centerZ + Math.round(SAMPLES[sample + 1] * sampleScale);
+            if(world.isChunkLoaded(x >> 4, z >> 4))
+                scanSample(world, x, z);
+            else
+                missedSamples.add(sample);
+        }
+        if(missedRing.size() < ringLeft.size() || missedSamples.size() < samplesLeft.size())
+            keepReachable(world);
+    }
+
+    // A round with a long gap in it, where the place runs along a lake or a cliff, is walked there and back
+    public boolean isPatrolArc() {
+        getPatrolRoute();
+        return patrolArc;
+    }
+
     // Spots of the ring, the grounds, the trees and the shores that nobody can walk to from the place, across a river or up a
     // cliff, are left out. The ground is flooded out from the doors of the place a column at a time: a block up at most, a few
     // down, never into water or onto a roof. With no doors known, every spot is kept
@@ -632,7 +708,12 @@ public class RoutineSite {
                 open.enqueue(next);
             }
         }
-        ring.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
+        for(int i = ring.size() - 1; i >= 0; i--) {
+            if(!reached.containsKey(column(ring.get(i).getX(), ring.get(i).getZ()))) {
+                ring.remove(i);
+                ringPlanIndex.remove(i);
+            }
+        }
         grounds.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
         // A trunk stands in its own column, and is got to from beside it
         trees.removeIf(tree -> !reached.containsKey(column(tree.getX() + 1, tree.getZ())) && !reached.containsKey(column(tree.getX() - 1, tree.getZ()))
