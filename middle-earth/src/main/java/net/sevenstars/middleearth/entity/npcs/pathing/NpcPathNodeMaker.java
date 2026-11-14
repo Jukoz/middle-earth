@@ -10,6 +10,7 @@ import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
@@ -18,6 +19,7 @@ import net.minecraft.entity.ai.pathing.PathNode;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.property.Properties;
@@ -31,6 +33,8 @@ import net.minecraft.world.Heightmap;
 public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Makes a walk on the flat win over a climb of the same length
     private static final float CLIMB_PENALTY = 1f;
+    // A step on farmland, for anyone not out farming: a way round a field of a dozen rows is the shorter for it
+    private static final float FIELD_PENALTY = 8f;
     // Places looked at below a step down before the land there is taken to be open, outdoors and under a roof. A canopy of
     // leaves is a couple of hundred, a cave beside a hall a few hundred to well over a thousand
     private static final int TRAP_SEARCH = 256;
@@ -115,6 +119,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         count = removeFeetUnderLintels(successors, count);
         count = removeHeadBumps(successors, count, node);
         count = removeLadderTops(successors, count);
+        keepOffFields(successors, count);
         if(isLadderCell(node.x, node.y, node.z)) {
             if(isLadderCell(node.x, node.y + 1, node.z))
                 count = add(successors, count, node.x, node.y + 1, node.z);
@@ -130,6 +135,18 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
                 count = add(successors, count, x, node.y, z);
         }
         return count;
+    }
+
+    // Fields are walked by those working them, and everybody else goes round
+    private void keepOffFields(PathNode[] successors, int count) {
+        if(!(entity instanceof NpcEntity npc) || npc.isFarming())
+            return;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            BlockState floor = context.getBlockState(probe.set(next.x, next.y - 1, next.z));
+            if(floor.getBlock() instanceof FarmlandBlock || floor.isIn(BlockTagsME.FARMLANDS))
+                next.penalty = Math.max(next.penalty, FIELD_PENALTY);
+        }
     }
 
     // No step down is taken without a way back up. From where the step lands, everywhere that can be walked to is looked

@@ -170,6 +170,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     // Given out by the structure manager of its nest
     private boolean householdKnown = false;
     private boolean onOuting = false;
+    // Out tending the fields, the one errand that crosses them
+    private boolean farming = false;
     private @Nullable UUID escort = null;
     // Saved, or an escort loaded in the middle of an outing would follow its ward about for good
     private boolean escorting = false;
@@ -661,6 +663,14 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.onOuting = onOuting;
         if(!onOuting)
             this.escort = null;
+    }
+
+    public boolean isFarming() {
+        return farming;
+    }
+
+    public void setFarming(boolean farming) {
+        this.farming = farming;
     }
 
     public @Nullable UUID getEscort() {
