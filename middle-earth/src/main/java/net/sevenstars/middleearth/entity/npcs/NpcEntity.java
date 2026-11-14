@@ -19,7 +19,6 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -57,8 +56,6 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -68,8 +65,9 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
+import net.sevenstars.middleearth.entity.npcs.relations.Relation;
 import net.sevenstars.middleearth.entity.npcs.renderer.NpcRenderedPart;
-import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaEntity;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerEntity;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobEntity;
@@ -91,10 +89,11 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -141,6 +140,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final float MOUNTED_REACH_BONUS = 0.5f;
     // Past touching, which is as close as two can stand
     private static final float CONTACT_REACH = 0.25f;
+    // In ticks, from the last blow. Vanilla forgets an attacker after 5 seconds, which ends a fight with someone neutral halfway
+    private static final int GRUDGE_TICKS = 20 * 60;
 
     // The id of the npc's role, empty for none. Tracked so that the client can name the npc for it
     private static final TrackedData<String> ROLE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
@@ -172,6 +173,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private int huntEndAge = 0;
     private @Nullable Identifier cachedFactionId = null;
     private @Nullable Faction cachedFaction = null;
+    // Who wronged this npc, until when in world ticks. Kept by the npc alone, and not saved
+    private final Map<UUID, Long> grudges = new HashMap<>();
     private boolean passingDoor = false;
     private boolean dataInitialized = false;
     private boolean managerPresent = true;
@@ -316,7 +319,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(3, new NpcFleeHomeGoal(this, 1.15));
-        this.goalSelector.add(5, new NpcRoutineGoal(this, 0.8));
+        this.tempRoutineGoal = new NpcRoutineGoal(this, 0.8);
+        this.goalSelector.add(5, this.tempRoutineGoal);
         this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -649,7 +653,11 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         for(NpcEntity guard : guards) {
             RoutineData guardRoutine = guard.getRoutine();
             boolean fights = guardRoutine == null || !guardRoutine.isTimid();
-            if(fights && guard.getTarget() == null && !isHostileToward(guard) && guard.canTarget(threat)) {
+            // Allies and friends come to help, and whoever answers takes up the grudge against the threat
+            if(!fights || guard.getTarget() != null || !NpcRelations.of(guard, this).isFriendly())
+                continue;
+            guard.bearGrudge(threat);
+            if(guard.canTarget(threat)) {
                 if(guard.isSleeping())
                     guard.wakeUp();
                 guard.setTarget(threat);
@@ -819,7 +827,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             return true;
         }
         // A hunter's stray arrow
-        if(source.getAttacker() instanceof NpcEntity hunter && hunter != this && hunter.huntTarget != null && !isHostileToward(hunter))
+        if(source.getAttacker() instanceof NpcEntity hunter && hunter != this && hunter.huntTarget != null && NpcRelations.of(this, hunter) != Relation.ENEMY)
             return true;
         return super.isInvulnerableTo(world, source);
     }
@@ -848,9 +856,43 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         NpcBrain.updateActivities(this);
         profiler.pop();*/
         super.mobTick(world);
+        if(age % 5 == 0)
+            tempDebugLabel();
 
         if(hasVehicle()){
             rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);
+        }
+    }
+
+    // TEMP-DEBUG, not to be committed
+    public @Nullable NpcRoutineGoal tempRoutineGoal;
+
+    private void tempDebugLabel() {
+        String doing = "idle";
+        LivingEntity target = getTarget();
+        boolean flee = false, routine = false, travel = false;
+        for(PrioritizedGoal goal : goalSelector.getGoals()) {
+            if(!goal.isRunning())
+                continue;
+            if(goal.getGoal() instanceof NpcFleeHomeGoal) flee = true;
+            if(goal.getGoal() instanceof NpcRoutineGoal) routine = true;
+            if(goal.getGoal() instanceof NpcTravelGoal) travel = true;
+        }
+        if(isSleeping()) doing = "sleeping";
+        else if(flee) doing = "fleeing home";
+        else if(huntTarget != null) doing = "hunting " + huntTarget.getType().getName().getString();
+        else if(target != null) doing = "fighting " + target.getType().getName().getString();
+        else if(routine && tempRoutineGoal != null) doing = tempRoutineGoal.tempDebugLabel();
+        else if(travel) doing = isEscorting() ? "escorting" : getPartyLeader() != null ? "following party leader" : getTravelDestination() != null || getTravelHeading() != null ? "travelling" : "wandering";
+        else if(isRestTime()) doing = getAssignedBed() == null ? "night, no bed" : "resting at home";
+        NpcType type = getNpcType();
+        String who = type == null ? "npc" : type.getId().getPath();
+        if(getRoleId() != null)
+            who += " [" + getRoleId().getPath() + "]";
+        String label = who + ": " + doing;
+        if(getCustomName() == null || !getCustomName().getString().equals(label)) {
+            super.setCustomName(Text.literal(label));
+            setCustomNameVisible(true);
         }
     }
 
@@ -1062,7 +1104,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         super.setCustomName(name);
     }
 
-    protected Faction getFaction(){
+    public @Nullable Faction getFaction(){
         NpcData data = retrieveNpcData();
         if(data == null)
             return null;
@@ -1169,15 +1211,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     public static boolean shouldTarget(NpcEntity npcEntity, LivingEntity target){
-        // TODO : datadriven
-        if(target instanceof SnailEntity || target instanceof HostileEntity || target instanceof SnowTrollEntity || target instanceof Pouncer)
-            return true;
-        if(target == npcEntity.huntTarget)
-            return true;
-        if(!npcEntity.isInSameTeam(target)){
-            return true;
-        }
-        return false;
+        return NpcRelations.of(npcEntity, target) == Relation.ENEMY;
     }
 
     public int getTickAttackSpeedCooldown(){
@@ -1391,55 +1425,30 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     protected boolean isInSameTeam(Entity other) {
-        if(other instanceof NpcEntity npc){
-            return !isHostileToward(npc);
-        }
-        else if(other instanceof PlayerEntity player){
-            return !isHostileTowardPlayer(player);
-        }
-        return !isHostileToward(other);
+        return NpcRelations.of(this, other).isFriendly();
     }
 
-    private boolean isHostileTowardPlayer(PlayerEntity player) {
-        if(player.getEntityWorld().isClient() || !player.canTakeDamage())
-            return false;
-        PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
-        if(playerData == null || playerData.getFaction() == null)
-            return true;
-        Faction ownFaction = getFaction();
-        if(ownFaction == null)
-            return true;
-        if(ownFaction.isHostileToward(playerData.getFaction()))
-            return true;
-        return false;
+    // Personal: kept by the npc that was wronged, and by those it called to its help. A friendly npc's blow is a stray one
+    public void bearGrudge(LivingEntity offender) {
+        if(offender == this || getWorld().isClient)
+            return;
+        if(!(offender instanceof PlayerEntity) && NpcRelations.standing(this, offender).isFriendly())
+            return;
+        long now = getWorld().getTime();
+        grudges.values().removeIf(until -> until < now);
+        grudges.put(offender.getUuid(), now + GRUDGE_TICKS);
     }
 
-    private boolean isHostileToward(Entity other) {
-        if(other instanceof SnailEntity || other instanceof HostileEntity || other instanceof TrollEntity || other instanceof Pouncer)
-            return true;
-        // A wild cave troll attacks every NPC
-        if(other instanceof CaveTrollEntity caveTroll && !caveTroll.isTame())
-            return true;
-
-        if(!other.hasPassengers())
-            return false;
-
-        if(other.getControllingPassenger() instanceof NpcEntity npc && isHostileToward(npc)) {
-            return true;
-        }
-        return false;
+    public boolean hasGrudgeAgainst(Entity other) {
+        Long until = grudges.get(other.getUuid());
+        return until != null && until >= getWorld().getTime();
     }
 
-    private boolean isHostileToward(NpcEntity npc) {
-        Faction ownFaction = getFaction();
-        if(ownFaction == null)
-            return true;
-        Identifier otherNpcFaction = npc.getFactionIdentifier();
-        if(otherNpcFaction == null)
-            return true;
-        if(ownFaction.isHostileToward(otherNpcFaction))
-            return true;
-        return false;
+    @Override
+    public void setAttacker(@Nullable LivingEntity attacker) {
+        super.setAttacker(attacker);
+        if(attacker != null)
+            bearGrudge(attacker);
     }
 
     public static boolean canSpawn(EntityType<NpcEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

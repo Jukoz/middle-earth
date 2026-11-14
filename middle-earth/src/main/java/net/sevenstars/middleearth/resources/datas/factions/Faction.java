@@ -27,7 +27,9 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
+import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -489,6 +491,15 @@ public class Faction {
 
         Random random = new Random();
         return allNpcIds.get(random.nextInt(allNpcIds.size()));
+    }
+
+    // How this faction stands with another, null for one it says nothing of
+    public @Nullable AffinityLevel affinityToward(Identifier faction) {
+        for(InitialDiplomacy diplomacy : initialDiplomacies){
+            if(diplomacy.getFactionId().equals(faction))
+                return diplomacy.getAffinity();
+        }
+        return null;
     }
 
     public boolean isHostileToward(Identifier playerFaction) {
