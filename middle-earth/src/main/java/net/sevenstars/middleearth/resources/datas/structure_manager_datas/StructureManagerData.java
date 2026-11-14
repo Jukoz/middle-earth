@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
+import org.jetbrains.annotations.Nullable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
@@ -40,6 +41,15 @@ public class StructureManagerData {
         if(this.spawnNestNodeData.isEmpty())
             return List.of();
         return spawnNestNodeData;
+    }
+
+    // Unlike getNpcSpawnNest, null for a nest this manager does not have
+    public @Nullable SpawnNestNodeData findSpawnNest(Identifier id) {
+        for(SpawnNestNodeData nest : spawnNestNodeData) {
+            if(nest.getId().equals(id))
+                return nest;
+        }
+        return null;
     }
 
     public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {

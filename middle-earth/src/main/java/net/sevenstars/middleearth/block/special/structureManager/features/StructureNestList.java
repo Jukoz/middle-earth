@@ -8,6 +8,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,13 @@ public class StructureNestList {
                 Codec.list(SpawnNestManager.CODEC).fieldOf("Managers").forGetter(StructureNestList::content)
         ).apply(instance, StructureNestList::new));
         PACKET_CODEC = PacketCodecs.codec(CODEC);
+    }
+
+    // Nests that a manager keeps from before its data was what it is, or that came with a template of another one
+    public int removeUnknown(StructureManagerData data) {
+        int before = managers.size();
+        managers = new ArrayList<>(managers.stream().filter(nest -> data.findSpawnNest(nest.getId()) != null).toList());
+        return before - managers.size();
     }
 
     public void addNest(SpawnNestManager spawnNestManager) {

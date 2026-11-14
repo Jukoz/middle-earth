@@ -134,8 +134,18 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         this.toInitialize = view.getBoolean(SyncedData.TO_INITIALIZE.name, false);
         view.read(SyncedData.IDENTIFIER.name, Identifier.CODEC)
                 .ifPresent(x -> structureManagerIdentifier = x);
-        view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC)
-                .ifPresent(x -> structureNestList = x);
+        // Saved in a chunk, the block entity has its position in its data. Without one it comes from a structure template, a copy
+        // or a command, and what it remembers of the nests it spawned is of the world it was built in: its positions, its npcs.
+        // It starts over from its own data, which the nest blocks of the template are subscribed to again
+        boolean ofThisWorld = view.getOptionalInt("x").isPresent() || (world != null && world.isClient);
+        if(ofThisWorld) {
+            view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC)
+                    .ifPresent(x -> structureNestList = x);
+        } else if(structureManagerIdentifier != null) {
+            structureNestList = null;
+            enabled = false;
+            toInitialize = true;
+        }
     }
     // endregion
 
@@ -224,11 +234,14 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!enabled || managerId == null || structureManagerIdentifier == null || managerData == null || managerId.compareTo(this.structureManagerIdentifier) != 0)
             return false;
 
-        SpawnNestNodeData data = managerData.getNpcSpawnNest(nestId);
+        SpawnNestNodeData data = managerData.findSpawnNest(nestId);
+        if(data == null || structureNestList == null)
+            return false;
         SpawnNestManager manager = new SpawnNestManager(data, nestPos, spawnRadius);
         if(world instanceof ServerWorld serverWorld)
             manager.survey(serverWorld);
         this.structureNestList.addNest(manager);
+        markDirty();
         return true;
     }
 
@@ -266,6 +279,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             wellnessChecked = false;
 
         boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
+        if(managerData == null) {
+            managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
+            if(managerData != null && structureNestList.removeUnknown(managerData) > 0)
+                markDirty();
+        }
         for(SpawnNestManager data : structureNestList.getManagers()){
             if(managerData == null)
                 managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
@@ -287,8 +305,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
 
         this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
-        if(structureNestList == null)
-            this.structureNestList = new StructureNestList();
+        this.structureNestList = new StructureNestList();
         if(managerData == null) {
             return;
         };

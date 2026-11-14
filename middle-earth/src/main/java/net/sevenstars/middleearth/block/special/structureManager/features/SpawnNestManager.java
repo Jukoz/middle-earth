@@ -245,7 +245,7 @@ public class SpawnNestManager {
     private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
         if(structureManagerData == null)
             return;
-        SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
+        SpawnNestNodeData data = structureManagerData.findSpawnNest(id);
 
         if(data != null){
             StructureSpawnNestPool pool = data.getRandomPool();
