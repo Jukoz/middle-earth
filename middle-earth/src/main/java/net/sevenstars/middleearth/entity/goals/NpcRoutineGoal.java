@@ -110,12 +110,16 @@ public class NpcRoutineGoal extends Goal {
     private static final float BED_SEARCH = 4;
     private static final double STORE_REACH = 3.5;
     private static final double STORE_ARRIVAL_DISTANCE = 1.5;
+    // How far from a store with no floor beside it a floor that sees it is looked for
+    private static final int STORE_STAND_RADIUS = 2;
     // Just inside the side of a block, so that a ray aimed there ends in the block
     private static final double FACE_INSET = 0.49;
 
     private static final int DIRECT_DISTANCE = 18;
     // Blocks over the feet, past which a place is indoors or underground
     private static final int COVER_HEIGHT = 2;
+    // Near enough to the end of a stretch to have walked it
+    private static final double LEG_END_REACH = 2;
     // A door this near a place is taken for its way in, and one this near the npc for the door it is already at
     private static final int DOOR_REACH = 16;
     private static final double AT_DOOR = 2.5;
@@ -228,6 +232,8 @@ public class NpcRoutineGoal extends Goal {
     private int legs = 0;
     private int failures = 0;
     private double lastLegDistance = 0;
+    // Where the path of the last stretch was to end, when it led all the way there
+    private @Nullable BlockPos lastLegEnd = null;
     private @Nullable Path watchedPath = null;
     private int watchedNode = 0;
     private double watchedDistance = 0;
@@ -413,13 +419,26 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private @Nullable RoutineData.Activity pickActivity(ServerWorld world, RoutineData routine, BlockPos home, long time) {
+        // Those living deep underground keep to their halls: the hunting grounds and the round of the place are up on the
+        // surface, further off down the halls and up the stairs than any walk is looked for
+        boolean underground = RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
             return routine.pick(npc.getRandom(), activity -> site.supports(activity) && !isHeld(activity, time) && (!riding() || mounted(activity))
+                    && (!underground || !isOutdoors(activity))
                     && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         // Elves need little sleep, and keep company through the night
         if(npc.isElf() && !npc.isRestTime())
             return routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity) && !isHeld(activity, time));
         return null;
+    }
+
+    // Done out on the ground around the place. Posts are inspected where they are marked, wherever that is
+    private boolean isOutdoors(RoutineData.Activity activity) {
+        return switch (activity) {
+            case HUNT, FORAGE, FISH, CHOP, PATROL -> true;
+            case INSPECT -> site.getMarkers(MarkerKind.GUARD_POST).isEmpty() && site.getMarkers(MarkerKind.ENTRANCE).isEmpty();
+            default -> false;
+        };
     }
 
     private boolean isHeld(RoutineData.Activity activity, long time) {
@@ -727,6 +746,7 @@ public class NpcRoutineGoal extends Goal {
     @Override
     public void start() {
         legs = 0;
+        lastLegEnd = null;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -820,11 +840,15 @@ public class NpcRoutineGoal extends Goal {
             return;
 
         legs++;
-        // A stretch that ended no closer was a path that led nowhere
+        // A stretch that ended no closer was a path that led nowhere, unless it was walked to its end: the way to a loft can
+        // lead off from it first
         double distance = target.getSquaredDistance(mover().getPos());
-        boolean stalled = legs > 1 && distance > lastLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS;
+        boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getPos(), LEG_END_REACH);
+        boolean stalled = legs > 1 && distance > lastLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS && !walkedLeg;
         lastLegDistance = distance;
-        if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || isInReach(bed) && canSeeBed(world, bed))) {
+        BlockPos store = npc.getStore();
+        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
+        if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || isInReach(bed) && canSeeBed(world, bed)) && atStore) {
             arrive(world);
             return;
         }
@@ -835,6 +859,8 @@ public class NpcRoutineGoal extends Goal {
             mover().getNavigation().setRangeMultiplier(BED_SEARCH);
         boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working ? 0 : 1, speed);
         mover().getNavigation().resetRangeMultiplier();
+        Path leg = mover().getNavigation().getCurrentPath();
+        lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
         // On roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
         // nearest floor once a walk, rather than give up every walk from there
         if(!moving && !steppedOff && !riding() && !npc.isClimbing() && !isOnFloor(world)) {
@@ -1241,6 +1267,8 @@ public class NpcRoutineGoal extends Goal {
                 // Nothing is brought home but what was hunted down
                 if(done) {
                     abandoned("found no game");
+                    // The game may come back, but not at once
+                    hold(RoutineData.Activity.HUNT, time);
                     startReturn(world);
                 } else if(random.nextInt(3) == 0 && RoutineSites.takePreySearch(world)) {
                     LivingEntity prey = findPrey(world);
@@ -1324,6 +1352,7 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = null;
         phase = Phase.GOING;
         legs = 0;
+        lastLegEnd = null;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1398,6 +1427,7 @@ public class NpcRoutineGoal extends Goal {
         }
         if(!stand.isWithinDistance(spot, 3))
             legs = 0;
+            lastLegEnd = null;
             steppedOff = false;
         steppedOff = false;
         spot = stand;
@@ -1421,6 +1451,7 @@ public class NpcRoutineGoal extends Goal {
             spot = stand;
             phase = Phase.GOING;
             legs = 0;
+            lastLegEnd = null;
             steppedOff = false;
         steppedOff = false;
             failures = 0;
@@ -1482,11 +1513,18 @@ public class NpcRoutineGoal extends Goal {
 
     private void nextWaypoint() {
         List<BlockPos> ring = site.getPatrolRoute();
-        ringIndex = Math.floorMod(ringIndex + ringStep, ring.size());
+        int next = ringIndex + ringStep;
+        // The ends of a round broken by a lake or a cliff are turned back from
+        if(site.isPatrolArc() && (next < 0 || next >= ring.size())) {
+            ringStep = -ringStep;
+            next = ringIndex + ringStep;
+        }
+        ringIndex = Math.floorMod(next, ring.size());
         spot = npc.getWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
         lookTarget = null;
         phase = Phase.GOING;
         legs = 0;
+        lastLegEnd = null;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1540,6 +1578,7 @@ public class NpcRoutineGoal extends Goal {
             spot = fieldCell.up();
             phase = Phase.GOING;
             legs = 0;
+            lastLegEnd = null;
             steppedOff = false;
         steppedOff = false;
             failures = 0;
@@ -1667,6 +1706,7 @@ public class NpcRoutineGoal extends Goal {
         phase = Phase.RETURNING;
         lookTarget = null;
         legs = 0;
+        lastLegEnd = null;
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1692,6 +1732,9 @@ public class NpcRoutineGoal extends Goal {
             standOf = store;
             BlockPos inside = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
             storeStand = world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4) ? NestSurvey.standNextTo(world, store, inside) : null;
+            // A barrel on a table or in a corner is reached across it, from a floor that sees it
+            if(storeStand == null && world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4))
+                storeStand = NestSurvey.standInSight(world, store, inside, STORE_STAND_RADIUS);
         }
         return storeStand != null ? storeStand : store;
     }

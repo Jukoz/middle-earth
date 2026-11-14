@@ -4,7 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.registry.Registry;
@@ -45,6 +50,7 @@ public class NestSurvey {
     private static final double LOW_ENOUGH_TO_PASS = 0.6;
     // A carpet or a thin layer, stood on rather than in the way
     private static final double UNDERFOOT = 0.2;
+    private static final double EYE_HEIGHT = 1.6;
 
     public record Bed(BlockPos pos, Optional<BlockPos> stand, Optional<UUID> owner) {
         public static final Codec<Bed> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -164,6 +170,23 @@ public class NestSurvey {
                     break;
                 }
             }
+        }
+        return best;
+    }
+
+    // The nearest floor a few blocks off from which the block can be seen, for a block with none beside it
+    public static @Nullable BlockPos standInSight(ServerWorld world, BlockPos block, BlockPos closeTo, int radius) {
+        BlockPos best = null;
+        Vec3d middle = Vec3d.ofCenter(block);
+        for(BlockPos spot : BlockPos.iterate(block.add(-radius, -1, -radius), block.add(radius, 1, radius))) {
+            if(spot.getX() == block.getX() && spot.getZ() == block.getZ() || !isStandable(world, spot))
+                continue;
+            Vec3d eye = new Vec3d(spot.getX() + 0.5, spot.getY() + EYE_HEIGHT, spot.getZ() + 0.5);
+            BlockHitResult hit = world.raycast(new RaycastContext(eye, middle, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, ShapeContext.absent()));
+            if(hit.getType() != HitResult.Type.MISS && !hit.getBlockPos().equals(block))
+                continue;
+            if(best == null || spot.getSquaredDistance(closeTo) < best.getSquaredDistance(closeTo))
+                best = spot.toImmutable();
         }
         return best;
     }
