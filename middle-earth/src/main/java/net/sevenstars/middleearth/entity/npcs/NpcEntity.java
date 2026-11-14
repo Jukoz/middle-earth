@@ -121,7 +121,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     // In ticks
     private static final int MANAGER_CHECK_INTERVAL = 100;
     private static final int HATCH_CHECK_INTERVAL = 4;
-    private static final int DEBUG_LABEL_INTERVAL = 5;
     private static final int BOW_ATTACK_INTERVAL = 20;
     private static final int BOW_ATTACK_INTERVAL_HARD = 30;
     // In days
@@ -314,8 +313,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(3, new NpcFleeHomeGoal(this, 1.15));
-        this.tempRoutineGoal = new NpcRoutineGoal(this, 0.8);
-        this.goalSelector.add(5, this.tempRoutineGoal);
+        this.goalSelector.add(5, new NpcRoutineGoal(this, 0.8));
         this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -819,43 +817,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(target != null && !target.isAlive())
             setTarget(null);
         super.mobTick(world);
-        if(age % DEBUG_LABEL_INTERVAL == 0)
-            tempDebugLabel();
 
         if(hasVehicle()){
             rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);
-        }
-    }
-
-    // TEMP-DEBUG, not to be committed
-    public @Nullable NpcRoutineGoal tempRoutineGoal;
-
-    private void tempDebugLabel() {
-        String doing = "idle";
-        LivingEntity target = getTarget();
-        boolean flee = false, routine = false, travel = false;
-        for(PrioritizedGoal goal : goalSelector.getGoals()) {
-            if(!goal.isRunning())
-                continue;
-            if(goal.getGoal() instanceof NpcFleeHomeGoal) flee = true;
-            if(goal.getGoal() instanceof NpcRoutineGoal) routine = true;
-            if(goal.getGoal() instanceof NpcTravelGoal) travel = true;
-        }
-        if(isSleeping()) doing = "sleeping";
-        else if(flee) doing = "fleeing home";
-        else if(huntTarget != null) doing = "hunting " + huntTarget.getType().getName().getString();
-        else if(target != null) doing = "fighting " + target.getType().getName().getString();
-        else if(routine && tempRoutineGoal != null) doing = tempRoutineGoal.tempDebugLabel();
-        else if(travel) doing = isEscorting() ? "escorting" : getPartyLeader() != null ? "following party leader" : getTravelDestination() != null || getTravelHeading() != null ? "travelling" : "wandering";
-        else if(isRestTime()) doing = getAssignedBed() == null ? "night, no bed" : "resting at home";
-        NpcType type = getNpcType();
-        String who = type == null ? "npc" : type.getId().getPath();
-        if(getRoleId() != null)
-            who += " [" + getRoleId().getPath() + "]";
-        String label = who + ": " + doing;
-        if(getCustomName() == null || !getCustomName().getString().equals(label)) {
-            super.setCustomName(Text.literal(label));
-            setCustomNameVisible(true);
         }
     }
 
