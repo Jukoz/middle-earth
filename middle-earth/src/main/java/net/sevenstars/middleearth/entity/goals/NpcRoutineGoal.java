@@ -110,6 +110,7 @@ public class NpcRoutineGoal extends Goal {
     private static final float BED_SEARCH = 4;
     private static final double STORE_REACH = 3.5;
     private static final double STORE_ARRIVAL_DISTANCE = 1.5;
+    private static final double SEAT_ARRIVAL_DISTANCE = 2;
     // How far from a store with no floor beside it a floor that sees it is looked for
     private static final int STORE_STAND_RADIUS = 2;
     // Just inside the side of a block, so that a ray aimed there ends in the block
@@ -831,8 +832,12 @@ public class NpcRoutineGoal extends Goal {
         // Close enough to a bed is where the bed can be seen from, not a step from it through the wall
         BlockPos bed = phase == Phase.RETURNING && toBed ? freeBed(world) : null;
         boolean bedding = bed != null;
-        if(target.isWithinDistance(mover().getPos(), storing || sitting || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)
-                && (!bedding || canSeeBed(world, bed)) && (!working || workStation == null || canSee(world, workStation))) {
+        BlockPos store = npc.getStore();
+        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
+        // A seat boxed in by others and a table is only got to from a corner, a little further off
+        double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
+        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || workStation == null || canSee(world, workStation))
+                && atStore && (!sitting || canSee(world, meetSeat))) {
             arrive(world);
             return;
         }
@@ -866,8 +871,6 @@ public class NpcRoutineGoal extends Goal {
         }
         boolean stalled = legs > 1 && !improved && lastLegMoved && (!walkedLeg || ++idleLegs > IDLE_LEGS);
         lastLegDistance = distance;
-        BlockPos store = npc.getStore();
-        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
         if(stalled && phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || isInReach(bed) && canSeeBed(world, bed)) && atStore) {
             arrive(world);
             return;
@@ -877,7 +880,7 @@ public class NpcRoutineGoal extends Goal {
         // A bed up a stair round the back of the house is a long way round, longer than the usual search looks
         if(bedding)
             mover().getNavigation().setRangeMultiplier(BED_SEARCH);
-        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working ? 0 : 1, speed);
+        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working || storing ? 0 : 1, speed);
         mover().getNavigation().resetRangeMultiplier();
         Path leg = mover().getNavigation().getCurrentPath();
         lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
@@ -899,7 +902,7 @@ public class NpcRoutineGoal extends Goal {
         }
         failures++;
         if(legs > MAXIMUM_LEGS || failures >= MAXIMUM_FAILURES)
-            giveUp(world, (legs > MAXIMUM_LEGS ? "too far, " + legs + " stretches without arriving at " : "no path to ") + target.toShortString());
+            giveUp(world, (legs > MAXIMUM_LEGS ? "too far, " + legs + " stretches without arriving at " : moving ? "got no nearer to " : "no path to ") + target.toShortString());
     }
 
     // Further along its path than at the last look, by however little: past another node of it, or nearer the next one.
@@ -925,6 +928,10 @@ public class NpcRoutineGoal extends Goal {
     // Standing on the ground, or on a low thing lying in its block such as a slab or a carpet
     private boolean isOnFloor(ServerWorld world) {
         BlockPos feet = npc.getBlockPos();
+        // The top of a fence or a wall is higher than its block, and no path starts up there
+        VoxelShape under = world.getBlockState(feet.down()).getCollisionShape(world, feet.down());
+        if(!under.isEmpty() && under.getMax(Direction.Axis.Y) > 1)
+            return false;
         VoxelShape inside = world.getBlockState(feet).getCollisionShape(world, feet);
         return npc.isOnGround() && (inside.isEmpty() || inside.getMax(Direction.Axis.Y) <= 0.5) && !(world.getBlockState(feet).getBlock() instanceof StairsBlock);
     }
@@ -1455,14 +1462,14 @@ public class NpcRoutineGoal extends Goal {
             arrive(world);
             return false;
         }
-        if(!stand.isWithinDistance(spot, 3))
+        if(!stand.isWithinDistance(spot, 3)) {
             legs = 0;
             lastLegEnd = null;
             bestLegDistance = Double.MAX_VALUE;
             idleLegs = 0;
             lastLegMoved = true;
             triedDoors.clear();
-            steppedOff = false;
+        }
         steppedOff = false;
         spot = stand;
         return true;
@@ -1491,7 +1498,6 @@ public class NpcRoutineGoal extends Goal {
             lastLegMoved = true;
             triedDoors.clear();
             steppedOff = false;
-        steppedOff = false;
             failures = 0;
             followCheck = FOLLOW_REPATH;
             return;
@@ -1626,7 +1632,6 @@ public class NpcRoutineGoal extends Goal {
             lastLegMoved = true;
             triedDoors.clear();
             steppedOff = false;
-        steppedOff = false;
             failures = 0;
         }
     }
