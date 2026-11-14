@@ -110,6 +110,7 @@ public class NpcRoutineGoal extends Goal {
     private static final int WORK_TIME_VARIATION = 20 * 40;
     // From home. Nobody crosses the whole town to somebody else's forge
     private static final int WORK_RANGE = 48;
+    private static final int VISIT_SEAT_RANGE = 10;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
@@ -186,7 +187,7 @@ public class NpcRoutineGoal extends Goal {
         boolean seated = npc.getVehicle() instanceof SeatEntity;
         // Saved at the table, and the meeting it sat down for is forgotten
         if(seated && phase == Phase.NONE)
-            npc.stopRiding();
+            standUp();
         if(npc.getTarget() != null || (npc.hasVehicle() && !seated))
             return false;
         if(phase != Phase.NONE) {
@@ -254,21 +255,14 @@ public class NpcRoutineGoal extends Goal {
         askHousehold(world);
         RoutineData.Activity picked = null;
         if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift())) {
-            // People meet each other, not an empty square: once one sets out, most of those free to follow do
-            if(site.isGathering(time) && npc.getRandom().nextInt(4) != 0)
-                picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
-            if(picked == null)
-                picked = routine.pick(npc.getRandom(), activity -> site.supports(activity)
+            picked = routine.pick(npc.getRandom(), activity -> site.supports(activity)
                         && (activity != RoutineData.Activity.WORK || site.pickStation(routine.getStations(), home, WORK_RANGE) != null));
         }
         else if(npc.isElf() && !npc.isRestTime())
             // Elves need little sleep, and keep company through the night
-            picked = routine.pick(npc.getRandom(), activity -> activity == RoutineData.Activity.MEET && site.supports(activity));
-        if(picked != null && begin(world, picked, home)) {
-            if(isSocial(picked))
-                site.callGathering(time);
+            picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
+        if(picked != null && begin(world, picked, home))
             return true;
-        }
 
         restUntil = time + NOTHING_TO_DO_REST;
         // Off duty, a settled npc that drifted away goes home
@@ -332,7 +326,15 @@ public class NpcRoutineGoal extends Goal {
                     return false;
                 spot = site.getGrounds().get(index);
             }
-            case MEET -> spot = site.getMeetingPoint();
+            case VISIT -> {
+                BlockPos household = site.pickHousehold(home, random);
+                if(household == null)
+                    return false;
+                // To the table if there is room at it, or else just in at the door
+                meetSeat = site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
+                BlockPos beside = NestSurvey.standNextTo(world, meetSeat != null ? meetSeat : household, npc.getBlockPos());
+                spot = beside != null ? beside : household;
+            }
             case WORK -> {
                 RoutineData routine = npc.getRoutine();
                 workStation = routine == null ? null : site.pickStation(routine.getStations(), home, WORK_RANGE);
@@ -342,7 +344,7 @@ public class NpcRoutineGoal extends Goal {
                     return false;
                 spot = beside;
             }
-            case TEA -> {
+            case TABLE -> {
                 meetSeat = site.pickSeat(world, random);
                 if(meetSeat == null)
                     return false;
@@ -565,15 +567,12 @@ public class NpcRoutineGoal extends Goal {
             case FISH -> phaseEnd = time + FISHING_TIME + random.nextInt(FISHING_TIME_VARIATION);
             case FORAGE -> phaseEnd = time + FORAGING_TIME + random.nextInt(FORAGING_TIME_VARIATION);
             case HUNT -> phaseEnd = time + STALKING_TIME + random.nextInt(STALKING_TIME_VARIATION);
-            case MEET -> {
-                phaseEnd = time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
-                companion = null;
-            }
+
             case WORK -> {
                 phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
                 lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
             }
-            case TEA -> {
+            case VISIT, TABLE -> {
                 // Somebody quicker may have taken the seat, the table is still the place to be
                 boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
                 phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
@@ -640,7 +639,7 @@ public class NpcRoutineGoal extends Goal {
                     }
                 }
             }
-            case MEET, TEA -> {
+            case VISIT, TABLE -> {
                 if(done) {
                     finish(world, REST + random.nextInt(REST_VARIATION));
                 } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
@@ -834,13 +833,20 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private static boolean isSocial(RoutineData.Activity activity) {
-        return activity == RoutineData.Activity.MEET || activity == RoutineData.Activity.TEA;
+        return activity == RoutineData.Activity.VISIT || activity == RoutineData.Activity.TABLE;
     }
 
     private void standUp() {
         meetSeat = null;
-        if(npc.getVehicle() instanceof SeatEntity)
-            npc.stopRiding();
+        if(!(npc.getVehicle() instanceof SeatEntity seat))
+            return;
+        BlockPos seatPos = seat.getBlockPos();
+        npc.stopRiding();
+        // Getting up leaves the npc standing on the seat, and there is no path off a piece of furniture.
+        // It is put on the floor it sat down from
+        BlockPos floor = npc.getWorld() instanceof ServerWorld world ? NestSurvey.standNextTo(world, seatPos, npc.getBlockPos()) : null;
+        if(floor != null)
+            npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
     }
 
     private void finish(ServerWorld world, int rest) {

@@ -32,14 +32,12 @@ public class RoutineSite {
     private static final int MINIMUM_RING_POINTS = 8;
     private static final int MAXIMUM_RING_POINTS = 40;
     // Short enough for one path from a point of the ring to the next
-    // In ticks
-    private static final int GATHERING_TIME = 20 * 60;
+    private static final int OWN_HOUSEHOLD = 8;
     private static final int RING_SPACING = 14;
     // How far outside the outermost buildings the watch walks
     private static final int RING_MARGIN = 6;
     // Outwards first, a point moved inwards ends up between the houses
     private static final int[] RING_ADJUSTMENTS = {0, 4, 8, -4};
-    private static final int[][] MEETING_OFFSETS = {{0, 0}, {4, 0}, {-4, 0}, {0, 4}, {0, -4}, {7, 7}, {-7, 7}, {7, -7}, {-7, -7}};
     private static final int MAXIMUM_SHORES = 8;
     private static final int SHORE_SPACING = 6;
     private static final int MAXIMUM_GROUNDS = 12;
@@ -73,8 +71,8 @@ public class RoutineSite {
     private final List<BlockPos> ring = new ArrayList<>();
     // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
-    private @Nullable BlockPos meetingPoint = null;
-    private long gatheringUntil = 0;
+    // The nests people live at, each the middle of a household
+    private List<BlockPos> households = List.of();
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureBedData.Station> stations = List.of();
@@ -120,8 +118,8 @@ public class RoutineSite {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
             case PATROL -> ring.size() >= 3;
-            case MEET -> meetingPoint != null;
-            case TEA -> !tables.isEmpty();
+            case VISIT -> households.size() >= 2;
+            case TABLE -> !tables.isEmpty();
             case WORK -> !stations.isEmpty();
         };
     }
@@ -152,17 +150,33 @@ public class RoutineSite {
         return surfaceY;
     }
 
-    public @Nullable BlockPos getMeetingPoint() {
-        return meetingPoint;
+    void setHouseholds(List<BlockPos> households) {
+        this.households = households;
     }
 
-    // Somebody is out to meet people, and the others of the place are more likely to come as well
-    public void callGathering(long time) {
-        gatheringUntil = time + GATHERING_TIME;
+    // Somebody else's home, not the one next to the npc's own bed
+    public @Nullable BlockPos pickHousehold(BlockPos home, Random random) {
+        int offset = households.isEmpty() ? 0 : random.nextInt(households.size());
+        for(int i = 0; i < households.size(); i++) {
+            BlockPos household = households.get((i + offset) % households.size());
+            if(!household.isWithinDistance(home, OWN_HOUSEHOLD))
+                return household;
+        }
+        return null;
     }
 
-    public boolean isGathering(long time) {
-        return time < gatheringUntil;
+    // A free seat in the house that is being called on
+    public @Nullable BlockPos pickSeatNear(ServerWorld world, BlockPos place, int range) {
+        BlockPos best = null;
+        for(List<BlockPos> table : tables) {
+            for(BlockPos seat : table) {
+                if(!seat.isWithinDistance(place, range) || !world.isChunkLoaded(seat.getX() >> 4, seat.getZ() >> 4) || !SeatBlock.isFree(world, seat))
+                    continue;
+                if(best == null || seat.getSquaredDistance(place) < best.getSquaredDistance(place))
+                    best = seat;
+            }
+        }
+        return best;
     }
 
     void setStations(List<StructureBedData.Station> stations) {
@@ -236,9 +250,6 @@ public class RoutineSite {
             return true;
 
         int ringSteps = ringPlan.size();
-        // Only settlements have a middle to meet in
-        if(cursor == 0 && ringRadius > 0)
-            scanMeetingPoint(world);
         if(cursor < ringSteps) {
             scanRingPoint(world, cursor);
         } else {
@@ -251,17 +262,6 @@ public class RoutineSite {
         }
         cursor++;
         return false;
-    }
-
-    private void scanMeetingPoint(ServerWorld world) {
-        for(int[] offset : MEETING_OFFSETS) {
-            int x = centerX + offset[0];
-            int z = centerZ + offset[1];
-            if(classify(world, x, z) == LAND && !isBuilding(x, probeY, z)) {
-                meetingPoint = new BlockPos(x, probeY, z);
-                return;
-            }
-        }
     }
 
     // The ring follows the outline of the settlement. A circle cuts through any place that is not round

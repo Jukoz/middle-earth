@@ -21,8 +21,8 @@ public class NpcRoles {
     // The last word of a nest's name says who lives there
     private static final Map<String, RegistryKey<NpcRole>> NEST_ROLES = new LinkedHashMap<>();
 
-    // Stands about the square with the beasts once they are brought in
-    private static final RoutineData HERDING = RoutineData.create(Period.DAY).timid().add(Activity.MEET, 1);
+    // Stays by the beasts once they are brought in, and leaves the life of the place to those who live there
+    private static final RoutineData HERDING = RoutineData.create(Period.DAY).timid();
 
     // [HERDERS]
     public static final RegistryKey<NpcRole> SWINEHERD = register("swineherd", NpcRole.named(HERDING));
@@ -62,7 +62,7 @@ public class NpcRoles {
 
     // Most of the day at the trade, with time left to sit down
     private static NpcRole trade(StationKind... stations) {
-        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TEA, 1).add(Activity.MEET, 1));
+        return NpcRole.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
     }
 
     private static RegistryKey<NpcRole> registerForNest(String name, String nestName, NpcRole role) {

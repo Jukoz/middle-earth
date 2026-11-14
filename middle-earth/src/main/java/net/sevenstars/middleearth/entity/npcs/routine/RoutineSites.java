@@ -239,6 +239,7 @@ public class RoutineSites {
     private static void placesOf(ServerWorld world, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
         List<StructureBedData.Station> stations = new ArrayList<>();
+        List<BlockPos> households = new ArrayList<>();
         Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
         if(registry.isEmpty())
             return;
@@ -254,11 +255,16 @@ public class RoutineSites {
                     seats.add(NestSurvey.placedAt(placed, seat));
                 tables.add(seats);
             }
+            for(StructureBedData.Nest nest : data.nests()) {
+                if(!nest.beds().isEmpty())
+                    households.add(NestSurvey.placedAt(placed, nest.pos()));
+            }
             for(StructureBedData.Station station : data.stations())
                 stations.add(new StructureBedData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
         }
         site.setTables(tables);
         site.setStations(stations);
+        site.setHouseholds(households);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {

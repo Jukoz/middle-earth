@@ -29,9 +29,10 @@ public class RoutineData {
         HUNT("hunt"),
         FORAGE("forage"),
         PATROL("patrol"),
-        MEET("meet"),
-        // Sitting down together at a table
-        TEA("tea"),
+        // Calling on another household of the place
+        VISIT("visit"),
+        // Sitting down at a table, with whoever else is there
+        TABLE("table"),
         // At the forge, the oven or whatever else the npc's trade is plied at
         WORK("work");
 

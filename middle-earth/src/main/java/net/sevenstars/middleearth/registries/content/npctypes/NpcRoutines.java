@@ -11,11 +11,11 @@ public class NpcRoutines {
     // Orcs keep out of the sun
     public final static RoutineData NIGHT_WATCH = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1);
 
-    public final static RoutineData FISHER = RoutineData.create(Period.DAY).timid().add(Activity.MEET, 2).add(Activity.FISH, 1);
-    public final static RoutineData GATHERER = RoutineData.create(Period.DAY).timid().add(Activity.MEET, 2).add(Activity.FORAGE, 1);
-    public final static RoutineData GATHERER_AND_FISHER = RoutineData.create(Period.DAY).timid().add(Activity.MEET, 2).add(Activity.FORAGE, 3).add(Activity.FISH, 2);
-    public final static RoutineData GATHERER_AND_HUNTER = RoutineData.create(Period.DAY).timid().add(Activity.MEET, 2).add(Activity.FORAGE, 3).add(Activity.HUNT, 1);
-    public final static RoutineData HOBBIT = RoutineData.create(Period.DAY).timid().add(Activity.TEA, 2).add(Activity.MEET, 1).add(Activity.FORAGE, 4).add(Activity.FISH, 1)
+    public final static RoutineData FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FISH, 1);
+    public final static RoutineData GATHERER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 1);
+    public final static RoutineData GATHERER_AND_FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 3).add(Activity.FISH, 2);
+    public final static RoutineData GATHERER_AND_HUNTER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 3).add(Activity.HUNT, 1);
+    public final static RoutineData HOBBIT = RoutineData.create(Period.DAY).timid().add(Activity.TABLE, 2).add(Activity.VISIT, 2).add(Activity.FORAGE, 4).add(Activity.FISH, 1)
             .foraging(Items.BROWN_MUSHROOM, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, Items.APPLE);
     // Bounders beat the bounds of the Shire, and are not found sitting in its villages
     public final static RoutineData BOUNDS_WATCH = RoutineData.create(Period.SHIFTS).keepingBounds();
