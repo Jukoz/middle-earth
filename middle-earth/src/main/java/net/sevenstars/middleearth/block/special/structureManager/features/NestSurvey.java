@@ -56,6 +56,9 @@ public class NestSurvey {
 
     // The beds given to this nest when data was generated. Null for a nest no template knows, a player's own building for one
     public static @Nullable Result fromData(ServerWorld world, BlockPos origin) {
+        // Asking for the structure of an unloaded place would load it
+        if(!world.isChunkLoaded(origin.getX() >> 4, origin.getZ() >> 4))
+            return null;
         Optional<Registry<StructureBedData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_BEDS);
         StructureStart start = world.getStructureAccessor().getStructureContaining(origin, entry -> true);
         if(registry.isEmpty() || start == null)

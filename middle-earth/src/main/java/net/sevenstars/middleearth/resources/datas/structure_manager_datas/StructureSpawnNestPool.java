@@ -81,6 +81,11 @@ public class StructureSpawnNestPool {
     public EntityType<?> getEntityType() {
         return entityType;
     }
+    // The most this pool spawns at once, where it has a range. A fixed amount says nothing about how many a house holds
+    public Optional<Integer> getAmountCap() {
+        return maxAmount;
+    }
+
     public int getEntityAmount(){
         if(maxAmount.isPresent()){
             Random random = new Random();

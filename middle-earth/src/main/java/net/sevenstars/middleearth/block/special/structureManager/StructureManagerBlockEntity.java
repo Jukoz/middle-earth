@@ -172,6 +172,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return ownsBed(pos, null);
     }
 
+    public boolean isBedTakenElsewhere(BlockPos pos, SpawnNestManager nest) {
+        return ownsBed(pos, nest) || StructureManagerService.isBedTaken(world, pos, this);
+    }
+
     private boolean ownsBed(BlockPos pos, @Nullable SpawnNestManager except) {
         if(structureNestList == null)
             return false;
@@ -191,7 +195,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         SpawnNestManager nest = findNest(npc.getUuid());
         if(nest == null || !(world instanceof ServerWorld serverWorld) || !nest.survey(serverWorld))
             return;
-        NestSurvey.Bed bed = nest.claimBed(npc.getUuid(), pos -> ownsBed(pos, nest) || StructureManagerService.isBedTaken(world, pos, this));
+        NestSurvey.Bed bed = nest.claimBed(npc.getUuid(), pos -> isBedTakenElsewhere(pos, nest));
         npc.setHousehold(bed == null ? null : bed.pos(), bed == null ? null : bed.stand().orElse(null), nest.getStore());
         markDirty();
     }

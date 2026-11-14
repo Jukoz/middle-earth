@@ -151,10 +151,20 @@ public class SpawnNestManager {
     }
 
     // The floor beside the bed the next npc of this nest will be given
-    private @Nullable BlockPos freeBedside(ServerWorld world) {
+    // Beds still there. One broken since the place was built houses nobody
+    private int standingBeds(ServerWorld world) {
+        int standing = 0;
+        for(NestSurvey.Bed bed : beds) {
+            if(!world.isChunkLoaded(bed.pos().getX() >> 4, bed.pos().getZ() >> 4) || world.getBlockState(bed.pos()).getBlock() instanceof BedBlock)
+                standing++;
+        }
+        return standing;
+    }
+
+    private @Nullable BlockPos freeBedside(ServerWorld world, Predicate<BlockPos> takenElsewhere) {
         for(int i = 0; i < beds.size(); i++) {
             NestSurvey.Bed bed = beds.get(i);
-            if(bed.owner().isPresent())
+            if(bed.owner().isPresent() || takenElsewhere.test(bed.pos()))
                 continue;
             if(bed.stand().isEmpty())
                 beds.set(i, new NestSurvey.Bed(bed.pos(), Optional.ofNullable(NestSurvey.standFor(world, bed.pos())), Optional.empty()));
@@ -238,10 +248,13 @@ public class SpawnNestManager {
         if(data != null){
             StructureSpawnNestPool pool = data.getRandomPool();
             boolean people = pool.getEntityType() == EntitiesME.NPC && survey(world);
-            // A nest with beds of its own houses one npc in each. Without, it keeps the amount of its pool
-            int entityAmountToSpawn = people && paired && !beds.isEmpty() ? beds.size() : pool.getEntityAmount();
+            Predicate<BlockPos> takenElsewhere = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager
+                    ? bed -> manager.isBedTakenElsewhere(bed, this) : bed -> false;
+            // A nest with beds of its own houses one npc in each, up to what its pool allows. Without, it keeps the amount of its pool
+            int housed = people && paired ? standingBeds(world) : 0;
+            int entityAmountToSpawn = housed > 0 ? Math.min(housed, pool.getAmountCap().orElse(housed)) : pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                BlockPos bedside = people ? freeBedside(world) : null;
+                BlockPos bedside = people ? freeBedside(world, takenElsewhere) : null;
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
