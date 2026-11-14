@@ -21,6 +21,10 @@ public class NpcNavigation extends MobNavigation {
     // the search then ends on the near side of the wall
     private static final int SEARCH_NODES = 2048;
     private static final float PATH_LENGTH = 64;
+    private static final float LONG_PATH_LENGTH = 96;
+
+    // The game keeps its own to itself
+    private float searchMultiplier = 1;
 
     public NpcNavigation(MobEntity mob, World world) {
         super(mob, world);
@@ -30,13 +34,27 @@ public class NpcNavigation extends MobNavigation {
     // door, or up the stair at the back to a loft, was longer than any path looked at
     @Override
     protected @Nullable Path findPathToAny(Set<BlockPos> positions, int range, boolean useHeadPos, int distance, float followRange) {
-        return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, PATH_LENGTH));
+        // A search given more nodes, as on the way to bed, may follow a longer way too
+        float length = searchMultiplier > 1 ? LONG_PATH_LENGTH : PATH_LENGTH;
+        return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, length));
+    }
+
+    @Override
+    public void setRangeMultiplier(float rangeMultiplier) {
+        super.setRangeMultiplier(rangeMultiplier);
+        searchMultiplier = rangeMultiplier;
+    }
+
+    @Override
+    public void resetRangeMultiplier() {
+        super.resetRangeMultiplier();
+        searchMultiplier = 1;
     }
 
     @Override
     protected PathNodeNavigator createPathNodeNavigator(int range) {
         this.nodeMaker = new NpcPathNodeMaker();
-        return new PathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
+        return new NpcPathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
     }
 
     // A ladder is a board along one side of its block, as an open trapdoor is. Steered to the middle of the block, an npc a
