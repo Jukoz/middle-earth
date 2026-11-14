@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapdoorBlock;
@@ -123,6 +124,7 @@ public class NestSurvey {
         BlockBox box = buildingOf(world, origin);
         List<Bed> beds = new ArrayList<>();
         BlockPos store = null;
+        boolean storeIsFire = false;
         for(BlockPos pos : BlockPos.iterate(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())) {
             if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
                 return null;
@@ -131,8 +133,12 @@ public class NestSurvey {
                 if(state.get(BedBlock.PART) == BedPart.HEAD && beds.size() < MAXIMUM_BEDS)
                     beds.add(new Bed(pos.toImmutable(), Optional.ofNullable(standBeside(world, pos, state)), Optional.empty()));
             } else if(state.isIn(BuildFeatures.STORE.getTag())) {
-                if(store == null || pos.getSquaredDistance(origin) < store.getSquaredDistance(origin))
+                // A fire only where there is nothing else to keep things in, or the harvest is burned
+                boolean fire = state.getBlock() instanceof CampfireBlock;
+                if(store == null || storeIsFire && !fire || fire == storeIsFire && pos.getSquaredDistance(origin) < store.getSquaredDistance(origin)) {
                     store = pos.toImmutable();
+                    storeIsFire = fire;
+                }
             }
         }
         // Nearest first, so that the household fills the beds around its own nest

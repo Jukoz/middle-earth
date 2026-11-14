@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.structurefeatures;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtList;
@@ -111,6 +112,7 @@ public class StructureFeaturesRegistry {
         List<Identifier> nestIds = new ArrayList<>();
         List<BlockPos> beds = new ArrayList<>();
         List<BlockPos> stores = new ArrayList<>();
+        List<BlockPos> fires = new ArrayList<>();
         List<BlockPos> seats = new ArrayList<>();
         List<BlockPos> doors = new ArrayList<>();
         List<BlockPos> ladders = new ArrayList<>();
@@ -157,8 +159,11 @@ public class StructureFeaturesRegistry {
                 if(properties.getString("part", "").equals("head"))
                     beds.add(pos);
             }
-            if(BuildFeatures.STORE.test(resolved))
+            if(BuildFeatures.STORE.test(resolved)) {
                 stores.add(pos);
+                if(resolved instanceof CampfireBlock)
+                    fires.add(pos);
+            }
             if(BuildFeatures.SEAT.test(resolved))
                 seats.add(pos);
             if(BuildFeatures.TABLE.test(resolved))
@@ -215,8 +220,13 @@ public class StructureFeaturesRegistry {
         for(int i = 0; i < nestPositions.size(); i++) {
             BlockPos nest = nestPositions.get(i);
             bedsOf.get(i).sort((a, b) -> Double.compare(a.getSquaredDistance(nest), b.getSquaredDistance(nest)));
+            // A barrel or a chest where the building has one: what is brought home to a fire goes on it, harvest and all.
+            // Only a camp with nothing else keeps its things by the fire
             BlockPos store = null;
+            boolean anyBox = stores.size() > fires.size();
             for(BlockPos candidate : stores) {
+                if(anyBox && fires.contains(candidate))
+                    continue;
                 if(store == null || candidate.getSquaredDistance(nest) < store.getSquaredDistance(nest))
                     store = candidate;
             }
