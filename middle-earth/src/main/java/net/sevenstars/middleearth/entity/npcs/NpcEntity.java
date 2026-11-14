@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.state.property.Properties;
+import net.sevenstars.middleearth.entity.npcs.pathing.NpcMoveControl;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcPathNodeMaker;
 import net.minecraft.component.DataComponentTypes;
@@ -210,6 +211,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         super(entityType, world);
         this.updateAttackType();
         this.navigation.setCanOpenDoors(true);
+        this.moveControl = new NpcMoveControl(this);
     }
 
     @Nullable
