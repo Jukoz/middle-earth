@@ -44,6 +44,11 @@ public class RoutineSite {
     private static final int MAXIMUM_GROUNDS = 12;
     private static final int GROUND_SPACING = 10;
     private static final int GROUND_MINIMUM_RADIUS = 20;
+    private static final int MAXIMUM_TREES = 24;
+    private static final int TREE_SPACING = 3;
+    // Around each sample, which on its own would hit a trunk now and then
+    private static final int TREE_SEARCH = 2;
+    private static final int MAXIMUM_TRUNK_HEIGHT = 24;
     private static final int MAXIMUM_HEIGHT_DIFFERENCE = 14;
     private static final int MAXIMUM_SHORE_STEP = 2;
     // A site this far under the surface is a hall or a cave
@@ -69,6 +74,8 @@ public class RoutineSite {
     private final List<BlockPos> shoreStands = new ArrayList<>();
     private final List<BlockPos> shoreWaters = new ArrayList<>();
     private final List<BlockPos> grounds = new ArrayList<>();
+    // The foot of each trunk that carries a crown, the trees to work at
+    private final List<BlockPos> trees = new ArrayList<>();
     private final List<BlockPos> ring = new ArrayList<>();
     // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
@@ -128,6 +135,8 @@ public class RoutineSite {
             case TABLE -> !tables.isEmpty();
             case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD);
             case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
+            case CHOP -> !trees.isEmpty();
+            case MINE -> markers.stream().anyMatch(marker -> marker.kind() == MarkerKind.MINE_FACE);
             case POST, ESCORT -> true;
         };
     }
@@ -142,6 +151,10 @@ public class RoutineSite {
 
     public List<BlockPos> getGrounds() {
         return grounds;
+    }
+
+    public List<BlockPos> getTrees() {
+        return trees;
     }
 
     public @Nullable Identifier getFaction() {
@@ -412,6 +425,12 @@ public class RoutineSite {
     }
 
     private void scanSample(ServerWorld world, int x, int z) {
+        if(trees.size() < MAXIMUM_TREES) {
+            for(int offsetX = -TREE_SEARCH; offsetX <= TREE_SEARCH; offsetX++) {
+                for(int offsetZ = -TREE_SEARCH; offsetZ <= TREE_SEARCH; offsetZ++)
+                    scanTree(world, x + offsetX, z + offsetZ);
+            }
+        }
         int kind = classify(world, x, z);
         if(kind == LAND) {
             int distanceX = x - centerX;
@@ -423,6 +442,29 @@ public class RoutineSite {
         } else if(kind == WATER && shoreStands.size() < MAXIMUM_SHORES) {
             scanShore(world, x, z, probeY);
         }
+    }
+
+    // A log column with leaves on top of it is a tree. Logs of a building or a fence post carry none
+    private void scanTree(ServerWorld world, int x, int z) {
+        if(trees.size() >= MAXIMUM_TREES || !world.isChunkLoaded(x >> 4, z >> 4))
+            return;
+        int top = world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) - 1;
+        BlockPos.Mutable at = new BlockPos.Mutable(x, top, z);
+        if(!world.getBlockState(at).isIn(BlockTags.LOGS) || isBuilding(x, top, z) || Math.hypot(x - centerX, z - centerZ) > RADII[RADII.length - 1] * sampleScale)
+            return;
+        boolean crowned = world.getBlockState(at.set(x, top + 1, z)).isIn(BlockTags.LEAVES);
+        for(int side = 0; side < 4 && !crowned; side++)
+            crowned = world.getBlockState(at.set(x + (side == 0 ? 1 : side == 1 ? -1 : 0), top, z + (side == 2 ? 1 : side == 3 ? -1 : 0))).isIn(BlockTags.LEAVES);
+        if(!crowned)
+            return;
+        int base = top;
+        while(top - base < MAXIMUM_TRUNK_HEIGHT && world.getBlockState(at.set(x, base - 1, z)).isIn(BlockTags.LOGS))
+            base--;
+        at.set(x, base - 1, z);
+        BlockState ground = world.getBlockState(at);
+        if(!ground.isSolidBlock(world, at) || !world.getFluidState(at.up()).isEmpty() || !isSpaced(trees, x, z, TREE_SPACING))
+            return;
+        trees.add(new BlockPos(x, base, z));
     }
 
     private void scanShore(ServerWorld world, int waterX, int waterZ, int waterY) {

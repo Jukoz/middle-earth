@@ -65,7 +65,6 @@ public class LorienNpcTypePool {
                                 .add(WeightedItemData.create(FoodItemsME.LEMBAS))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_DAGGER))
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
-                                .add(WeightedItemData.create(DecorativeItemsME.WATERING_CAN))
                                 .add(WeightedItemData.create().withWeight(3)))
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
@@ -258,5 +257,6 @@ public class LorienNpcTypePool {
         SENTINEL.withRoutine(NpcRoutines.WATCH);
         RANGER.withRoutine(NpcRoutines.WATCH);
         WARRIOR.withRoutine(NpcRoutines.WATCH);
+        CIVILIAN.asCivilian();
     }
 }

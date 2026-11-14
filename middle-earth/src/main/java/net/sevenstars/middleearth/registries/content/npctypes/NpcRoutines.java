@@ -35,6 +35,6 @@ public class NpcRoutines {
 
     public final static RoutineData NIGHT_RAIDER = RoutineData.create(Period.NIGHT).add(Activity.HUNT, 2).add(Activity.FORAGE, 1)
             .foraging(Items.BONE, Items.ROTTEN_FLESH, Items.BROWN_MUSHROOM);
-    public final static RoutineData WOODCUTTER = RoutineData.create(Period.ALWAYS).add(Activity.FORAGE, 1)
-            .foraging(Items.OAK_LOG, Items.OAK_LOG, Items.STICK);
+    // Orcs that belong to no household cut timber at night
+    public final static RoutineData NIGHT_FELLER = RoutineData.create(Period.NIGHT).add(Activity.CHOP, 2).add(Activity.FORAGE, 1);
 }

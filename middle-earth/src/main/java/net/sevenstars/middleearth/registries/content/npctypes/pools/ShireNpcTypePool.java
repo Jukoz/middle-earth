@@ -130,5 +130,6 @@ public class ShireNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.DAY_WATCH);
         BOUNDER.withRoutine(NpcRoutines.BOUNDS_WATCH);
         SHIRRIFF.withRoutine(NpcRoutines.DAY_WATCH);
+        PEASANT.asCivilian();
     }
 }

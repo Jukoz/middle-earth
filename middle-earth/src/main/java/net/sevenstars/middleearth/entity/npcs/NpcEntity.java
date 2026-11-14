@@ -35,6 +35,7 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -83,6 +84,7 @@ import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
@@ -92,8 +94,10 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public class NpcEntity extends PathAwareEntity implements EquipmentHolder, CrossbowUser {
@@ -387,6 +391,19 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
         clearRoutineProp();
 
+        Identifier savedType = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
+        NpcRegistry.Folded folded = savedType == null ? null : NpcRegistry.FOLDED.get(savedType);
+        if(folded != null) {
+            // Its gear stays as it was saved, only the type it is and the role it has change
+            ReadView data = view.getOptionalReadView(KeyStrings.DATA).orElseThrow();
+            Registry<NpcType> types = getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_TYPE);
+            NpcType base = types.get(folded.type().getValue());
+            foundNpcData = new NpcData(Optional.ofNullable(base).map(types::getEntry), data.read("Category", Codec.STRING),
+                    data.read("SpawnReason", Codec.STRING), data.read("StructureManagerPos", BlockPos.CODEC));
+            if(getRoleId() == null)
+                setRole(folded.role().getValue());
+        }
+
         String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
         if(npcDataId != null){
             foundNpcInitializationData = foundNpcInitializationData.withType(MiddleEarth.ofId(npcDataId));
@@ -608,12 +625,21 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return routineStowedMainHand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
     }
 
-    // Sends the fighters around after whatever frightened this npc
+    // Sends the fighters after whatever frightened this npc: those within earshot, and wherever they are, those with a bed in its structure
     public void callGuards(@Nullable LivingEntity threat) {
         if(threat == null || !(getWorld() instanceof ServerWorld world))
             return;
-        for(NpcEntity guard : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive())) {
-            NpcType type = guard.getNpcType();
+        Set<NpcEntity> guards = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
+        BlockPos structureManagerPos = getStructureManagerHostPos();
+        // Reading a block entity in an unloaded chunk would load that chunk
+        if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)
+                && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager) {
+            for(UUID owner : manager.bedOwners()) {
+                if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
+                    guards.add(resident);
+            }
+        }
+        for(NpcEntity guard : guards) {
             RoutineData guardRoutine = guard.getRoutine();
             boolean fights = guardRoutine == null || !guardRoutine.isTimid();
             if(fights && guard.getTarget() == null && !isHostileToward(guard) && guard.canTarget(threat)) {
@@ -660,9 +686,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         escorting = false;
     }
 
-    // The game lifts a swimmer up a bank only with room over its head, which a tall npc in a ditch or a flooded room never
-    // has, and it stays in the water pressed against the bank. One that bumps into the bank its path climbs onto is lifted
-    // as by a jump
+    // TODO: Verify this patch works and doesn't look goofy
     private void climbOutOfWater() {
         if(!isTouchingWater() || !horizontalCollision || getVelocity().y > CLIMBING_OUT)
             return;

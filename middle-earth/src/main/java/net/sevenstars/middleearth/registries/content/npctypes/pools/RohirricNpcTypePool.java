@@ -66,9 +66,6 @@ public class RohirricNpcTypePool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.WORK_SHOES)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.STONE_AXE))
-                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
-                                .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
@@ -259,5 +256,6 @@ public class RohirricNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.HUNTING_WATCH);
         KNIGHT.withRoutine(NpcRoutines.HUNTING_WATCH);
+        PEASANT.asCivilian();
     }
 }

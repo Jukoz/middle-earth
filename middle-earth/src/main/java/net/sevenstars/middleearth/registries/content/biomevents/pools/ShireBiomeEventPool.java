@@ -28,7 +28,7 @@ public class ShireBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(2).withSameNpcType(3, 256).lightShouldBeAtLeast(8).withParty(PartyData.create().ledBy(NpcRoles.SWINEHERD).addAnimals(EntityType.PIG, 2, 3)),
             new WildSpawnEventData(NpcRegistry.SHIRE_BOUNDER).withWeight(5).withSameNpcType(2, 256).withParty(PartyData.create().add(NpcRegistry.SHIRE_BOUNDER, 1, 1)),
             new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(1).withSameNpcType(1, 256).withParty(PartyData.create().add(NpcRegistry.SHIRE_MILITIA, 1, 2)),
-            new WildSpawnEventData(NpcRegistry.EREBOR_TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8).withParty(PartyData.create().add(NpcRegistry.EREBOR_TRAVELLER, 1, 2))
+            new WildSpawnEventData(NpcRegistry.EREBOR_PEASANT).withRole(NpcRoles.TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8).withParty(PartyData.create().add(NpcRegistry.EREBOR_PEASANT, NpcRoles.TRAVELLER, 1, 2))
         ));
     }
 }

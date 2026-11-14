@@ -29,6 +29,7 @@ public class NpcEntityInitializer {
     private static void initializeForServer(ServerWorld serverWorld, NpcEntity npcEntity){
         Identifier npcTypeId = npcEntity.getNpcTypeIdentifier();
         PartyData party = null;
+        Identifier role = null;
         if(!NpcEntityInitializerUtil.characterIdentifierExist(serverWorld, npcTypeId))
         {
             BiomeEventData.ContextualizedBiomeData contextualizedBiomeData = null;
@@ -42,6 +43,7 @@ public class NpcEntityInitializer {
                 NpcType npcType = contextualizedBiomeData.npcType();
                 npcTypeId = npcType.getId();
                 party = contextualizedBiomeData.party();
+                role = contextualizedBiomeData.role();
             } catch (Exception e){
                 MiddleEarth.LOGGER.logError("NpcEntity initializer failed : ", e);
                 npcEntity.discard();
@@ -53,6 +55,8 @@ public class NpcEntityInitializer {
         npcEntity.prepare();
         NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
         npcEntity.updateTargetGoals();
+        if(role != null)
+            npcEntity.takeRole(role);
 
         if(party != null)
             NpcPartySpawner.spawn(serverWorld, npcEntity, party);

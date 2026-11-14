@@ -15,6 +15,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
+import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
+import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.HashMap;
@@ -65,6 +67,7 @@ public class WildSpawnEventData {
         public static final String DISCARD_CHANCE = "discard_chance";
         public static final String BROADCAST = "broadcast";
         public static final String PARTY = "party";
+        public static final String ROLE = "role";
     }
 
     public static final Codec<WildSpawnEventData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -90,7 +93,7 @@ public class WildSpawnEventData {
 
             Codec.DOUBLE.optionalFieldOf(Fields.DISCARD_CHANCE).forGetter(WildSpawnEventData::getDiscardChances),
 
-            Extras.CODEC.forGetter(data -> new Extras(data.getBroadcast(), data.getOptionalParty()))
+            Extras.CODEC.forGetter(data -> new Extras(data.getBroadcast(), data.getOptionalParty(), data.getOptionalRole()))
     ).apply(instance, WildSpawnEventData::new));
 
     private final Identifier entityType;
@@ -110,6 +113,7 @@ public class WildSpawnEventData {
     private Double discardChance = null;
     private BroadcastData broadcastData = null;
     private PartyData partyData = null;
+    private Identifier role = null;
 
 
     private WildSpawnEventData(
@@ -146,6 +150,7 @@ public class WildSpawnEventData {
         this.discardChance = discardChance.orElse(null);
         this.broadcastData = extras.broadcast().orElse(null);
         this.partyData = extras.party().orElse(null);
+        this.role = extras.role().orElse(null);
     }
 
     public WildSpawnEventData(EntityType<?> entityType){
@@ -447,6 +452,20 @@ public class WildSpawnEventData {
         return this;
     }
 
+    private Optional<Identifier> getOptionalRole() {
+        return Optional.ofNullable(role);
+    }
+
+    public @Nullable Identifier getRole() {
+        return role;
+    }
+
+    // What the one spawned does, given once it is dressed: a peasant who fishes
+    public WildSpawnEventData withRole(RegistryKey<NpcRole> role) {
+        this.role = role.getValue();
+        return this;
+    }
+
     public void broadcastMessage(ServerWorld world, BlockPos pos){
         if(broadcastData == null)
             return;
@@ -454,10 +473,11 @@ public class WildSpawnEventData {
     }
 
     // Split off for the 16-field codec limit, still encoded at the top level
-    private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party) {
+    private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party, Optional<Identifier> role) {
         private static final MapCodec<Extras> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(Extras::broadcast),
-                PartyData.CODEC.optionalFieldOf(Fields.PARTY).forGetter(Extras::party)
+                PartyData.CODEC.optionalFieldOf(Fields.PARTY).forGetter(Extras::party),
+                Identifier.CODEC.optionalFieldOf(Fields.ROLE).forGetter(Extras::role)
         ).apply(instance, Extras::new));
     }
 }

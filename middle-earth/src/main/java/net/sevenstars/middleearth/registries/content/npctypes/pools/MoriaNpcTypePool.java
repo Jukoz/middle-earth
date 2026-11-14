@@ -86,11 +86,7 @@ public class MoriaNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.BONE_SHANK).withWeight(2))
 
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_AXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
@@ -341,5 +337,6 @@ public class MoriaNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        GOBLIN.asCivilian();
     }
 }

@@ -10,16 +10,19 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.registries.content.npctypes.pools.*;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NpcRegistry {
     private static final RegistryKey<Registry<NpcType>> NPC_TYPE_KEY = DynamicRegistriesME.NPC_TYPE;
@@ -47,7 +50,6 @@ public class NpcRegistry {
 
     // [DALE]
     public final static RegistryKey<NpcType> DALE_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "peasant"));
-    public final static RegistryKey<NpcType> DALE_FISHERMAN = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "fisherman"));
     public final static RegistryKey<NpcType> DALE_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "militia"));
     public final static RegistryKey<NpcType> DALE_SOLDIER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "soldier"));
     public final static RegistryKey<NpcType> DALE_ARCHER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.DALE, "archer"));
@@ -86,8 +88,6 @@ public class NpcRegistry {
     // [LONGBEARDS]
     // [EREBOR]
     public final static RegistryKey<NpcType> EREBOR_PEASANT = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "peasant"));
-    public final static RegistryKey<NpcType> EREBOR_MINER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"));
-    public final static RegistryKey<NpcType> EREBOR_TRAVELLER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "traveller"));
     public final static RegistryKey<NpcType> EREBOR_MILITIA = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "militia"));
     public final static RegistryKey<NpcType> EREBOR_SOLDIER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "soldier"));
     public final static RegistryKey<NpcType> EREBOR_ARCHER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.LONGBEARDS_EREBOR, "archer"));
@@ -165,8 +165,13 @@ public class NpcRegistry {
     public final static RegistryKey<NpcType> ISENGARD_URUK_HAI_BERSERKER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.ISENGARD, "berserker"));
     public final static RegistryKey<NpcType> ISENGARD_URUK_HAI_LEADER = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.ISENGARD, "leader"));
     public final static RegistryKey<NpcType> ISENGARD_ORTHANC_GUARD = DynamicRegistriesME.of(NPC_TYPE_KEY, createID(FactionRegistry.ISENGARD, "orthanc_guard"));
-
-
+    // Types that were folded into a base type with a role. An npc saved as one of them comes back as that
+    public record Folded(RegistryKey<NpcType> type, RegistryKey<NpcRole> role) {}
+    public final static Map<Identifier, Folded> FOLDED = Map.of(
+            createID(FactionRegistry.DALE, "fisherman"), new Folded(DALE_PEASANT, NpcRoles.FISHER),
+            createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"), new Folded(EREBOR_PEASANT, NpcRoles.MINER),
+            createID(FactionRegistry.LONGBEARDS_EREBOR, "traveller"), new Folded(EREBOR_PEASANT, NpcRoles.TRAVELLER)
+    );
 
     public static void bootstrap(Registerable<NpcType> context) {
         RegistryEntryLookup<NpcType> registryEntryLookup = context.getRegistryLookup(NPC_TYPE_KEY);

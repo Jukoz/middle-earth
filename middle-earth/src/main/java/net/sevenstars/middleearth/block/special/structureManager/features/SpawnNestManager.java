@@ -17,6 +17,10 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
+import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -270,7 +274,8 @@ public class SpawnNestManager {
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity){
-                    data.getRole().ifPresent(npcEntity::takeRole);
+                    Optional<Identifier> role = data.getRole().isPresent() ? data.getRole() : householdRole(world, structureManagerPos, npcEntity);
+                    role.ifPresent(npcEntity::takeRole);
                     npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
                 }
                 if(entityToAdd != null)
@@ -281,6 +286,18 @@ public class SpawnNestManager {
             world.markDirty(structureManagerPos);
         }
         this.respawnEventTriggerTick = -1;
+    }
+
+    // A civilian whose nest gives it no role takes up what the household has the means for, unless somebody living here has already
+    private Optional<Identifier> householdRole(ServerWorld world, BlockPos structureManagerPos, NpcEntity npc) {
+        NpcType type = npc.getNpcType();
+        if(type == null || !type.isCivilian())
+            return Optional.empty();
+        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+        if(site == null)
+            return Optional.empty();
+        return NpcRoles.forHousehold(site, originPos, type, role -> entities.stream()
+                .anyMatch(uuid -> world.getEntity(uuid) instanceof NpcEntity resident && resident.isAlive() && role.equals(resident.getRoleId())));
     }
 
     public boolean computeDeath(LivingEntity entity) {

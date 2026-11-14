@@ -22,12 +22,12 @@ public class DaleBiomeEventPool {
             new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.DALE_MILITIA, 1, 2)),
             new WildSpawnEventData(NpcRegistry.DALE_ELITE_ARCHER).withWeight(2).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.DALE_ARCHER, 1, 2)),
             new WildSpawnEventData(NpcRegistry.DALE_KNIGHT).withWeight(1).withSameNpcType(0, 256),
-            new WildSpawnEventData(NpcRegistry.EREBOR_TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8),
+            new WildSpawnEventData(NpcRegistry.EREBOR_PEASANT).withRole(NpcRoles.TRAVELLER).withWeight(1).withSameNpcType(1, 512).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.DALE_SERGEANT).withWeight(0).withSameNpcType(0, 512)
         ));
 
         LAKE = new BiomeEventData(false, List.of(
-            new WildSpawnEventData(NpcRegistry.DALE_FISHERMAN).withWeight(10).withSameNpcType(4, 256).lightShouldBeAtLeast(8),
+            new WildSpawnEventData(NpcRegistry.DALE_PEASANT).withRole(NpcRoles.FISHER).withWeight(10).withSameNpcType(4, 256).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.DALE_PEASANT).withWeight(4).withSameNpcType(2, 256).lightShouldBeAtLeast(8),
             new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(2).withSameNpcType(3, 256).withParty(PartyData.create().add(NpcRegistry.DALE_MILITIA, 1, 2)),
             new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(1).withSameNpcType(2, 256).withParty(PartyData.create().add(NpcRegistry.DALE_MILITIA, 1, 2))

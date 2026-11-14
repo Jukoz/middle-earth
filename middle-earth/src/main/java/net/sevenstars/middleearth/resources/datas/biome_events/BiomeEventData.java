@@ -90,7 +90,7 @@ public class BiomeEventData {
         if(pending != null && world.getTime() <= pending.expires() && wildSpawnEventDatas.contains(pending.data())) {
             Identifier pendingId = pending.data().getNpcType(null);
             NpcType pendingType = (pendingId != null) ? manager.getOrThrow(DynamicRegistriesME.NPC_TYPE).get(pendingId) : null;
-            return new ContextualizedBiomeData(pendingType, pending.data().getParty());
+            return new ContextualizedBiomeData(pendingType, pending.data().getParty(), pending.data().getRole());
         }
 
         List<WildSpawnEventData> weightedData = new ArrayList<>();
@@ -112,7 +112,7 @@ public class BiomeEventData {
         Identifier npcId = spawningData.getNpcType(null);
         NpcType foundNpcType = (npcId != null) ? npcDataRegistry.get(npcId) : null;
 
-        return new ContextualizedBiomeData(foundNpcType, spawningData.getParty());
+        return new ContextualizedBiomeData(foundNpcType, spawningData.getParty(), spawningData.getRole());
     }
 
     public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
@@ -170,7 +170,7 @@ public class BiomeEventData {
     }
 
 
-    public record ContextualizedBiomeData(NpcType npcType, @Nullable PartyData party){
+    public record ContextualizedBiomeData(NpcType npcType, @Nullable PartyData party, @Nullable Identifier role){
 
     }
 }

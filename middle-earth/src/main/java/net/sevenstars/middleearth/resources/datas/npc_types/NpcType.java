@@ -45,7 +45,8 @@ public class NpcType {
             NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData),
             MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData),
             LootData.CODEC.optionalFieldOf("loot").forGetter(NpcType::getOptionalLootData),
-            RoutineData.CODEC.optionalFieldOf("routine").forGetter(NpcType::getOptionalRoutine)
+            RoutineData.CODEC.optionalFieldOf("routine").forGetter(NpcType::getOptionalRoutine),
+            Codec.BOOL.optionalFieldOf("civilian", false).forGetter(NpcType::isCivilian)
     ).apply(instance, NpcType::new));
 
     private final Identifier id;
@@ -58,8 +59,9 @@ public class NpcType {
     private final MountData mountData;
     private final LootData lootData;
     private @Nullable RoutineData routine = null;
+    private boolean civilian = false;
 
-    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine) {
+    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine, boolean civilian) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -84,6 +86,7 @@ public class NpcType {
         this.mountData = mount.orElse(null);
         this.lootData = lootData.orElse(null);
         this.routine = routine.orElse(null);
+        this.civilian = civilian;
     }
     public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, LootData lootData) {
         this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null, lootData);
@@ -134,6 +137,15 @@ public class NpcType {
     }
     public NpcType withRoutine(RoutineData routine) {
         this.routine = routine;
+        return this;
+    }
+
+    // Does a trade of its own once its household gives it one, and carries no tool until then
+    public boolean isCivilian() {
+        return civilian;
+    }
+    public NpcType asCivilian() {
+        this.civilian = true;
         return this;
     }
 

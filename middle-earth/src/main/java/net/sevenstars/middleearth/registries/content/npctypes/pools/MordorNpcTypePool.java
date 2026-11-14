@@ -111,13 +111,9 @@ public class MordorNpcTypePool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_AXE).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_AXE))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
@@ -481,5 +477,6 @@ public class MordorNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         DOL_GULDUR_SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
+        SNAGA.asCivilian();
     }
 }

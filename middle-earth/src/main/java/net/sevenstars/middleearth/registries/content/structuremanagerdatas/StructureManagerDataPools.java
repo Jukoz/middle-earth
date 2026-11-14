@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.registries.content.structuremanagerdatas;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -127,11 +128,10 @@ public class StructureManagerDataPools {
                     new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_MILITIA).SetRangeAmount(1,3)
             )),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.worker"), RESPAWN_TICKS, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_MINER).SetRangeAmount(1,2),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_PEASANT).SetRangeAmount(1,2)
-            )),
+                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_PEASANT).SetRangeAmount(1,3)
+            )).withRole(NpcRoles.MINER),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.smith"), RESPAWN_TICKS, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_MINER).SetFixAmount(1)
+                    new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_PEASANT).SetFixAmount(1)
             )),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.prisoner"), RESPAWN_TICKS, List.of(
                     new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_SNAGA).SetFixAmount(1),

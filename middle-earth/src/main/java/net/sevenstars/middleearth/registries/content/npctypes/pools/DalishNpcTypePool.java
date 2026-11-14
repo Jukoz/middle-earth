@@ -27,7 +27,6 @@ public class DalishNpcTypePool {
     private final static RegistryKey<Faction> FACTION = FactionRegistry.DALE;
 
     public final static NpcType PEASANT;
-    public final static NpcType FISHERMAN;
 
     public final static NpcType MILITIA;
     public final static NpcType SOLDIER;
@@ -40,7 +39,6 @@ public class DalishNpcTypePool {
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {
         return List.of(
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_PEASANT, PEASANT),
-            new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_FISHERMAN, FISHERMAN),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_MILITIA, MILITIA),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_SOLDIER, SOLDIER),
             new NpcRegistry.RegisterableNpcData(NpcRegistry.DALE_ARCHER, ARCHER),
@@ -62,10 +60,6 @@ public class DalishNpcTypePool {
                         )
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.DALISH_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.FISHING_ROD))
-                                .add(WeightedItemData.create(Items.IRON_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
-                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
                                 .add(WeightedItemData.create().withWeight(4))
                         )
                         .withWeight(10),
@@ -79,9 +73,7 @@ public class DalishNpcTypePool {
                         .add(EquipmentSlot.CHEST, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.CLOAK).withColor(4536623)))
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.DALISH_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.FISHING_ROD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_DAGGER).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
@@ -140,24 +132,6 @@ public class DalishNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BLUE_BRACED_SHIELD))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
-
-        FISHERMAN = new NpcType(NpcRegistry.DALE_FISHERMAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
-                WeightedGearData.create()
-                        .add(EquipmentSlot.HEAD, GearSlotPool.create()
-                                .add(WeightedItemData.create(EquipmentItemsME.STRAW_HAT).withWeight(3))
-                                .add(WeightedItemData.create(EquipmentItemsME.BAGGY_HAT).withWeight(2))
-                                .add(WeightedItemData.create(EquipmentItemsME.TAN_FUR_HOOD).withHood(HelmetAttachmentsME.TAN_FUR_HOOD, true))
-                                .add(WeightedItemData.create(EquipmentItemsME.GRAY_FUR_HOOD).withHood(HelmetAttachmentsME.GRAY_FUR_HOOD, true))
-                                .add(WeightedItemData.create().withWeight(3))
-                        )
-                        .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.DALISH_BOOTS)))
-                        .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(Items.FISHING_ROD)))
-                        .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(Items.AIR).withWeight(5))
-                                .add(WeightedItemData.create(Items.SALMON))
-                                .add(WeightedItemData.create(Items.COD))
-                        )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
 
         ARCHER = new NpcType(NpcRegistry.DALE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -307,9 +281,9 @@ public class DalishNpcTypePool {
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
 
         PEASANT.withRoutine(NpcRoutines.GATHERER_AND_FISHER);
-        FISHERMAN.withRoutine(NpcRoutines.FISHER);
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
         ARCHER.withRoutine(NpcRoutines.HUNTING_WATCH);
+        PEASANT.asCivilian();
     }
 }

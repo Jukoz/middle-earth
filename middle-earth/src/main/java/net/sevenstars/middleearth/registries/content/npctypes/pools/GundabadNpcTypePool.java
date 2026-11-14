@@ -82,12 +82,8 @@ public class GundabadNpcTypePool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ORCISH_SANDALS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(3))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_AXE).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
@@ -177,12 +173,8 @@ public class GundabadNpcTypePool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GUNDABAD_LACED_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(4))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_AXE).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
@@ -356,5 +348,6 @@ public class GundabadNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        GOBLIN.asCivilian();
     }
 }

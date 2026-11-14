@@ -83,8 +83,6 @@ public class GoblinTownNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.BONE_CLEAVER).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.BONE_SHANK).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.BONE_AXE).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))
@@ -269,5 +267,6 @@ public class GoblinTownNpcTypePool {
 
         SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        GOBLIN.asCivilian();
     }
 }

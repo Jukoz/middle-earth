@@ -36,6 +36,7 @@ public class NpcPartySpawner {
                     NpcEntity follower = new NpcEntityBuilder(world, pos)
                             .withNpcType(member.npcType().get())
                             .build();
+                    member.role().ifPresent(follower::takeRole);
                     follower.setPartyLeader(leader.getUuid());
                     world.spawnEntity(follower);
                 } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {

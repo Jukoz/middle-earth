@@ -76,8 +76,6 @@ public class GondorianNpcTypePool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_DAGGER))
-                                .add(WeightedItemData.create(Items.IRON_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
@@ -346,5 +344,6 @@ public class GondorianNpcTypePool {
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
         ITHILIEN_RANGER.withRoutine(NpcRoutines.RANGER);
+        PEASANT.asCivilian();
     }
 }

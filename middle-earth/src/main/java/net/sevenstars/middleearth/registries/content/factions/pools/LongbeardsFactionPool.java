@@ -32,8 +32,7 @@ public class LongbeardsFactionPool {
         EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            EreborNpcTypePool.PEASANT,
-                            EreborNpcTypePool.MINER
+                            EreborNpcTypePool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
                             EreborNpcTypePool.MILITIA

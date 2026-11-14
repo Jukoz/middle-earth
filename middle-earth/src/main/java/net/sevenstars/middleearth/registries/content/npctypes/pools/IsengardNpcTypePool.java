@@ -106,12 +106,8 @@ public class IsengardNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODEN_SPEAR).withWeight(6))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_AXE).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE).withWeight(2))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_PICKAXE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_HOE))
-                                .add(WeightedItemData.create(ToolItemsME.CRUDE_SHOVEL))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_FALCHION))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
@@ -308,9 +304,10 @@ public class IsengardNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
 
-        SNAGA.withRoutine(NpcRoutines.WOODCUTTER);
+        SNAGA.withRoutine(NpcRoutines.NIGHT_FELLER);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         URUK_HAI_SCOUT.withRoutine(NpcRoutines.SCOUT);
         URUK_HAI_SOLDIER.withRoutine(NpcRoutines.WATCH);
+        SNAGA.asCivilian();
     }
 }

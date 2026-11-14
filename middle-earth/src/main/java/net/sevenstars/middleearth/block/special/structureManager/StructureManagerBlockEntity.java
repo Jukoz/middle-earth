@@ -33,7 +33,9 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public class StructureManagerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
@@ -180,6 +182,18 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     public boolean ownsBed(BlockPos pos) {
         return ownsBed(pos, null);
+    }
+
+    // Everyone given a bed in one of the nests of this manager
+    public Set<UUID> bedOwners() {
+        Set<UUID> owners = new HashSet<>();
+        if(structureNestList == null)
+            return owners;
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            for(NestSurvey.Bed bed : nest.getBeds())
+                bed.owner().ifPresent(owners::add);
+        }
+        return owners;
     }
 
     public boolean isBedTakenElsewhere(BlockPos pos, SpawnNestManager nest) {
