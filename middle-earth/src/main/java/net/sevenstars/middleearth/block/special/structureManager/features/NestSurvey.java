@@ -194,6 +194,7 @@ public class NestSurvey {
     // A bed is no place to walk to. The floor next to it is
     private static @Nullable BlockPos standBeside(ServerWorld world, BlockPos head, BlockState state) {
         BlockPos foot = head.offset(state.get(BedBlock.FACING).getOpposite());
+        BlockPos behindBoard = null;
         for(BlockPos half : new BlockPos[]{foot, head}) {
             for(Direction side : Direction.Type.HORIZONTAL) {
                 BlockPos beside = half.offset(side);
@@ -203,12 +204,44 @@ public class NestSurvey {
                 if(world.getBlockState(beside).getBlock() instanceof BedBlock)
                     beside = beside.offset(side);
                 for(BlockPos spot : new BlockPos[]{beside, beside.down()}) {
-                    if(isStandable(world, spot))
+                    if(!isStandable(world, spot))
+                        continue;
+                    // An open trapdoor between the floor and the bed is its footboard, and the floor behind one is often shut in
+                    if(!isBoardTowards(world, spot, side.getOpposite()))
                         return spot;
+                    if(behindBoard == null)
+                        behindBoard = spot;
+                    break;
                 }
             }
         }
+        if(behindBoard != null)
+            return behindBoard;
+        // An upper bunk has its floor two blocks down, a bed let into the ground has it a block up
+        for(BlockPos half : new BlockPos[]{foot, head}) {
+            for(Direction side : Direction.Type.HORIZONTAL) {
+                BlockPos beside = half.offset(side);
+                if(beside.equals(head) || beside.equals(foot))
+                    continue;
+                if(isStandable(world, beside.down(2)))
+                    return beside.down(2);
+                if(isStandable(world, beside.up()))
+                    return beside.up();
+            }
+        }
         return null;
+    }
+
+    // An open trapdoor in the block with its board on the given side
+    private static boolean isBoardTowards(ServerWorld world, BlockPos pos, Direction side) {
+        BlockState state = world.getBlockState(pos);
+        if(!(state.getBlock() instanceof TrapdoorBlock) || !state.get(TrapdoorBlock.OPEN))
+            return false;
+        VoxelShape shape = state.getCollisionShape(world, pos);
+        if(shape.isEmpty())
+            return false;
+        Direction.Axis axis = side.getAxis();
+        return side.getDirection() == Direction.AxisDirection.POSITIVE ? shape.getMin(axis) >= 0.5 : shape.getMax(axis) <= 0.5;
     }
 
     private static boolean isStandable(ServerWorld world, BlockPos pos) {
