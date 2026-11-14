@@ -134,7 +134,8 @@ public class RoutineSite {
     private boolean patrolArc = false;
     private final Map<BlockPos, Long> hivesEmptied = new HashMap<>();
     private List<BlockPos> game = List.of();
-    private long gameSeenAt = Long.MIN_VALUE;
+    // Looked for at once the first time, without the gap from the smallest long overflowing
+    private long gameSeenAt = -GAME_INTERVAL;
     long lastUsed;
 
     // ringRadius 0 leaves the site without a patrol ring

@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.world.World;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.CampfireBlock;
@@ -224,6 +225,9 @@ public class NpcRoutineGoal extends Goal {
     private static final int FULL_HONEY = 5;
     private static final double HORSE_REACH = 4;
     private static final int HORSE_HEIGHT = 8;
+    // Past the edge of the buildings, so that the animals of the yards and the green are left alone
+    private static final int SETTLEMENT_MARGIN = 12;
+    private static final int PEN_REACH = 8;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
@@ -1999,12 +2003,41 @@ public class NpcRoutineGoal extends Goal {
                 || !npc.isHostileToFaction(keeper.getFactionIdentifier());
     }
 
-    private static boolean isPrey(AnimalEntity animal) {
+    private boolean isPrey(AnimalEntity animal) {
         if(!animal.isAlive() || animal.isBaby() || animal.hasPassengers() || animal.hasVehicle() || animal.isLeashed())
             return false;
         if(animal instanceof TameableEntity tameable && tameable.isTamed())
             return false;
-        return animal.getType().isIn(EntityTypeTagsME.GAME);
+        if(animal.getType().isIn(EntityTypeTagsME.GAME))
+            return true;
+        return animal.getType().isIn(EntityTypeTagsME.WILD_LIVESTOCK) && isLoose(animal);
+    }
+
+    // A beast of the farm counts as wild out beyond the place, and not where it is fenced in
+    private boolean isLoose(AnimalEntity animal) {
+        if(site != null && Math.hypot(animal.getX() - site.getCenterX(), animal.getZ() - site.getCenterZ()) < site.getExtent() + SETTLEMENT_MARGIN)
+            return false;
+        return !isPenned(animal);
+    }
+
+    // Fenced on every side within a few blocks
+    private static boolean isPenned(AnimalEntity animal) {
+        World world = animal.getWorld();
+        BlockPos at = animal.getBlockPos();
+        for(Direction side : Direction.Type.HORIZONTAL) {
+            boolean fenced = false;
+            for(int step = 1; step <= PEN_REACH && !fenced; step++) {
+                BlockPos pos = at.offset(side, step);
+                for(BlockPos check : new BlockPos[]{pos, pos.up()}) {
+                    BlockState state = world.getBlockState(check);
+                    if(state.isIn(BlockTags.FENCES) || state.isIn(BlockTags.FENCE_GATES) || state.isIn(BlockTags.WALLS))
+                        fenced = true;
+                }
+            }
+            if(!fenced)
+                return false;
+        }
+        return true;
     }
 
     // The fighting goals do the chase, the npc itself ends it
@@ -2022,6 +2055,14 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private static Item meatOf(EntityType<?> type) {
+        if(type == EntityType.COW)
+            return Items.BEEF;
+        if(type == EntityType.PIG)
+            return Items.PORKCHOP;
+        if(type == EntityType.SHEEP)
+            return Items.MUTTON;
+        if(type == EntityType.CHICKEN)
+            return Items.CHICKEN;
         if(type == EntitiesWT.DEER)
             return ItemsWT.RAW_VENISON;
         if(type == EntitiesWT.PHEASANT)
