@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs.pathing;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.entity.mob.MobEntity;
@@ -12,6 +13,10 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 
 public class NpcNavigation extends MobNavigation {
+    // Nodes a search may look at. The game's 16 per block of follow range runs out on the way round a long building, and
+    // the search then ends on the near side of the wall
+    private static final int SEARCH_NODES = 2048;
+
     public NpcNavigation(MobEntity mob, World world) {
         super(mob, world);
     }
@@ -19,27 +24,33 @@ public class NpcNavigation extends MobNavigation {
     @Override
     protected PathNodeNavigator createPathNodeNavigator(int range) {
         this.nodeMaker = new NpcPathNodeMaker();
-        return new PathNodeNavigator(this.nodeMaker, range);
+        return new PathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
     }
 
-    // A ladder is a board along one side of its block. Steered to the middle of the block, an npc a little wider than the
-    // room beside the board walks into the end of it, and stays there. It is aimed at the middle of the free room instead
+    // A ladder is a board along one side of its block, as an open trapdoor is. Steered to the middle of the block, an npc a
+    // little wider than the room beside the board walks into the end of it, and stays there. It is aimed at the middle of the
+    // free room instead
     @Override
     public void tick() {
         super.tick();
         if(isIdle() || currentPath == null || currentPath.isFinished())
             return;
         BlockPos node = currentPath.getCurrentNodePos();
-        BlockState state = world.getBlockState(node);
-        if(!state.isIn(BlockTags.CLIMBABLE))
+        // The board of a shutter can hang at head height only
+        BlockPos board = isBoard(world.getBlockState(node)) ? node : isBoard(world.getBlockState(node.up())) ? node.up() : null;
+        if(board == null)
             return;
-        VoxelShape shape = state.getCollisionShape(world, node);
+        VoxelShape shape = world.getBlockState(board).getCollisionShape(world, board);
         if(shape.isEmpty())
             return;
         Vec3d target = currentPath.getNodePosition(entity);
         double x = node.getX() + freeMiddle(shape.getMin(Direction.Axis.X), shape.getMax(Direction.Axis.X));
         double z = node.getZ() + freeMiddle(shape.getMin(Direction.Axis.Z), shape.getMax(Direction.Axis.Z));
         entity.getMoveControl().moveTo(x, adjustTargetY(target), z, speed);
+    }
+
+    private static boolean isBoard(BlockState state) {
+        return state.isIn(BlockTags.CLIMBABLE) || state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
     }
 
     // Along one axis, the middle of what a shape against one side of the block leaves free

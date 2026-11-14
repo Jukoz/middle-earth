@@ -15,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 // the way by NpcModDoorGoal, with nothing else to change. Doors they are to leave alone go in the LOCKED tag
 public interface NpcDoor {
     TagKey<Block> LOCKED = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("npc_locked_doors"));
+    // Doors of cells and corridors that those living in the place open, and prisoners and passers-by find shut
+    TagKey<Block> KEYED = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("npc_keyed_doors"));
 
     boolean isOpen(BlockState state);
 

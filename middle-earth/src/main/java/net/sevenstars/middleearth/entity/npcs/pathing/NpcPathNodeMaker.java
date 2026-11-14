@@ -14,6 +14,8 @@ import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathContext;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.sevenstars.middleearth.block.special.NpcDoor;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.property.Properties;
@@ -36,6 +38,8 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     private static final double SQUEEZE_MARGIN = 0.05;
     // Highest the feet go in one step up, the game's own limit, a little under the height of a jump
     private static final double MAXIMUM_RISE = 1.125;
+    // How far across its block a board has to lie to be on the far side of it
+    private static final double FAR_HALF = 0.5;
     private static final byte TRAP = 1;
     private static final byte OPEN = 2;
 
@@ -66,6 +70,9 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         // A door they are to leave alone is a wall while it is shut, whichever kind of door the game takes it for
         if(isLockedShut(state))
             return PathNodeType.BLOCKED;
+        // The game takes a shut gate for a fence for good. One across a way on the level is opened on the way, as a door is
+        if(state.getBlock() instanceof FenceGateBlock && !state.get(FenceGateBlock.OPEN) && isGateAcrossLevelWay(context, x, y, z, state))
+            return PathNodeType.DOOR_WOOD_CLOSED;
         // Also asked outside a search, when this class has no context of its own
         if(isObstacle(context, state))
             return PathNodeType.BLOCKED;
@@ -79,17 +86,19 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         count = removeObstacleTops(successors, count);
         count = removeSideStepsAtLadders(successors, count, node);
         count = removeTooHighSteps(successors, count, node);
+        count = removeStepsThroughBoards(successors, count, node);
         if(isLadderCell(node.x, node.y, node.z)) {
             if(isLadderCell(node.x, node.y + 1, node.z))
                 count = add(successors, count, node.x, node.y + 1, node.z);
             if(isClimbable(node.x, node.y - 1, node.z) && isPassable(node.x, node.y - 1, node.z))
                 count = add(successors, count, node.x, node.y - 1, node.z);
         }
-        // The top of a shaft has no floor, so walking into it has to be offered too
+        // The top of a shaft has no floor, so walking into it has to be offered too, by the same way in as any other step
         for(Direction side : Direction.Type.HORIZONTAL) {
             int x = node.x + side.getOffsetX();
             int z = node.z + side.getOffsetZ();
-            if(isLadderCell(x, node.y, z))
+            if(isLadderCell(x, node.y, z) && !isPastBoard(x, node.y, z, side.getOffsetX(), side.getOffsetZ(), true)
+                    && !isPastBoard(node.x, node.y, node.z, side.getOffsetX(), side.getOffsetZ(), false))
                 count = add(successors, count, x, node.y, z);
         }
         return count;
@@ -165,7 +174,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         BlockState state = context.getBlockState(probe.set(x, y, z));
         if(isLockedShut(state))
             return false;
-        if(isHatch(state) || state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.WOODEN_DOORS))
+        if(isHatch(state) || isOpenBoard(state) || state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.WOODEN_DOORS))
             return true;
         if(state.getBlock() instanceof NpcDoor door && door.opensForNpcs(state))
             return true;
@@ -218,7 +227,66 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     private static boolean isLeftToTheGame(BlockState state) {
         return state.isAir() || !state.getFluidState().isEmpty() || state.getBlock() instanceof StairsBlock || state.getBlock() instanceof SlabBlock
                 || state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.DOORS) || isHatch(state) || state.isIn(BlockTags.FENCES)
-                || state.isIn(BlockTags.WALLS) || state.getBlock() instanceof NpcDoor;
+                || state.isIn(BlockTags.WALLS) || state.getBlock() instanceof NpcDoor || isOpenBoard(state);
+    }
+
+    // A trapdoor standing open is a board against one side of its block, of stone as much as of wood. Shutters at the sides
+    // of a doorway leave the way through clear
+    private static boolean isOpenBoard(BlockState state) {
+        return state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
+    }
+
+    // Along such a board is a way, through it is not
+    private int removeStepsThroughBoards(PathNode[] successors, int count, PathNode from) {
+        int kept = 0;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            int stepX = Integer.signum(next.x - from.x);
+            int stepZ = Integer.signum(next.z - from.z);
+            if(crossesBoard(from, next, stepX, stepZ))
+                continue;
+            successors[kept++] = next;
+        }
+        return kept;
+    }
+
+    private boolean crossesBoard(PathNode from, PathNode next, int stepX, int stepZ) {
+        for(int up = 0; up < 2; up++) {
+            if(boardTowards(from.x, from.y + up, from.z, stepX, stepZ) || boardTowards(next.x, next.y + up, next.z, -stepX, -stepZ))
+                return true;
+        }
+        return false;
+    }
+
+    // An open trapdoor in the block with its board on the side a step goes out by
+    private boolean boardTowards(int x, int y, int z, int stepX, int stepZ) {
+        BlockState state = context.getBlockState(probe.set(x, y, z));
+        if(!isOpenBoard(state))
+            return false;
+        VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
+        if(shape.isEmpty())
+            return false;
+        return stepX > 0 && shape.getMin(Direction.Axis.X) >= FAR_HALF || stepX < 0 && shape.getMax(Direction.Axis.X) <= FAR_HALF
+                || stepZ > 0 && shape.getMin(Direction.Axis.Z) >= FAR_HALF || stepZ < 0 && shape.getMax(Direction.Axis.Z) <= FAR_HALF;
+    }
+
+    // Room to walk on either side of the gate, on floors of one height. A gate set along the edge of a stair or a drop is a
+    // railing, and stays one
+    private static boolean isGateAcrossLevelWay(PathContext context, int x, int y, int z, BlockState gate) {
+        Direction facing = gate.get(FenceGateBlock.FACING);
+        double[] floors = new double[2];
+        for(int side = 0; side < 2; side++) {
+            int sign = side == 0 ? 1 : -1;
+            BlockPos.Mutable at = new BlockPos.Mutable(x + facing.getOffsetX() * sign, y, z + facing.getOffsetZ() * sign);
+            if(!context.getBlockState(at).getCollisionShape(context.getWorld(), at).isEmpty())
+                return false;
+            at.move(Direction.DOWN);
+            VoxelShape below = context.getBlockState(at).getCollisionShape(context.getWorld(), at);
+            if(below.isEmpty())
+                return false;
+            floors[side] = below.getMax(Direction.Axis.Y);
+        }
+        return Math.abs(floors[0] - floors[1]) < LOW_STEP;
     }
 
     // What the npc walks up without a jump, from its own attribute: anything higher it jumps onto
@@ -245,23 +313,37 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             PathNode next = successors[i];
             int stepX = next.x - from.x;
             int stepZ = next.z - from.z;
-            if(next.y == from.y && (isPastBoard(next.x, next.y, next.z, stepX, stepZ) || isPastBoard(from.x, from.y, from.z, stepX, stepZ)))
+            if(next.y == from.y && (isPastBoard(next.x, next.y, next.z, stepX, stepZ, true) || isPastBoard(from.x, from.y, from.z, stepX, stepZ, false)))
                 continue;
             successors[kept++] = next;
         }
         return kept;
     }
 
-    private boolean isPastBoard(int x, int y, int z, int stepX, int stepZ) {
+    // Into the block (entering) or out of it. Straight through the board is no way at all, which also keeps paths out of the
+    // ladders set round the top of a tower as a railing. The side of the board is read from its shape, as ladders of the mod
+    // do not all say which way they face
+    private boolean isPastBoard(int x, int y, int z, int stepX, int stepZ, boolean entering) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        if(entity == null || !state.isIn(BlockTags.CLIMBABLE) || !state.contains(Properties.HORIZONTAL_FACING))
-            return false;
-        Direction facing = state.get(Properties.HORIZONTAL_FACING);
-        boolean front = facing.getAxis() == Direction.Axis.X ? stepZ == 0 : stepX == 0;
-        if(front)
+        if(entity == null || !state.isIn(BlockTags.CLIMBABLE))
             return false;
         VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
-        double board = shape.isEmpty() ? 0 : shape.getMax(facing.getAxis()) - shape.getMin(facing.getAxis());
+        if(shape.isEmpty())
+            return false;
+        // The side of the block the board stands against, -1 or 1 along its axis, 0 along the other
+        int boardX = shape.getMax(Direction.Axis.X) <= FAR_HALF ? -1 : shape.getMin(Direction.Axis.X) >= FAR_HALF ? 1 : 0;
+        int boardZ = shape.getMax(Direction.Axis.Z) <= FAR_HALF ? -1 : shape.getMin(Direction.Axis.Z) >= FAR_HALF ? 1 : 0;
+        if(boardX == 0 && boardZ == 0)
+            return false;
+        // In from the board's side or out by it
+        int through = entering ? -1 : 1;
+        if(boardX != 0 && stepX == through * boardX || boardZ != 0 && stepZ == through * boardZ)
+            return true;
+        // Along the board, past its end, a body wider than the room beside it catches
+        boolean along = boardX != 0 ? stepZ != 0 : stepX != 0;
+        if(!along)
+            return false;
+        double board = boardX != 0 ? shape.getMax(Direction.Axis.X) - shape.getMin(Direction.Axis.X) : shape.getMax(Direction.Axis.Z) - shape.getMin(Direction.Axis.Z);
         return entity.getWidth() > 1 - board - SQUEEZE_MARGIN;
     }
 
@@ -279,13 +361,15 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return kept;
     }
 
-    // Where the feet are when standing at a node: on whatever lies low in its block, or else on the block below
+    // Where the feet are when standing at a node: on whatever lies low in its block, or else on the block below. With
+    // nothing solid below, a swimmer or somebody on a ladder, they are taken to be in the node's own block: counted from a
+    // block lower, the step out of the water onto the bank looked like two blocks, and only ways on through the water were left
     private double feetAt(int x, int y, int z) {
         VoxelShape inside = context.getBlockState(probe.set(x, y, z)).getCollisionShape(context.getWorld(), probe);
         if(!inside.isEmpty() && inside.getMax(Direction.Axis.Y) < 1)
             return y + inside.getMax(Direction.Axis.Y);
         VoxelShape below = context.getBlockState(probe.set(x, y - 1, z)).getCollisionShape(context.getWorld(), probe);
-        return below.isEmpty() ? y - 1 : y - 1 + below.getMax(Direction.Axis.Y);
+        return below.isEmpty() ? y : y - 1 + below.getMax(Direction.Axis.Y);
     }
 
     private int add(PathNode[] successors, int count, int x, int y, int z) {
@@ -321,8 +405,9 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return state.getCollisionShape(context.getWorld(), probe).isEmpty();
     }
 
-    private static boolean isLockedShut(BlockState state) {
-        if(!state.isIn(NpcDoor.LOCKED))
+    private boolean isLockedShut(BlockState state) {
+        boolean keyed = state.isIn(NpcDoor.KEYED) && !(entity instanceof NpcEntity npc && NpcRoles.holdsKeys(npc));
+        if(!state.isIn(NpcDoor.LOCKED) && !keyed)
             return false;
         if(state.getBlock() instanceof NpcDoor door)
             return !door.isOpen(state);
