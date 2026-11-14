@@ -1,26 +1,26 @@
 package net.sevenstars.api.registries.brain;
 
 import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Schedule;
-import net.minecraft.entity.ai.brain.ScheduleBuilder;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.world.attribute.EnvironmentAttribute;
+import net.minecraft.world.attribute.EnvironmentAttributeTypes;
 import net.sevenstars.api.SevenStarsApi;
 
 public class SchedulesAPI {
-    public static final Schedule DEFAULT_SLEEP = register("default_sleep")
-            .withActivity(10, Activity.IDLE)
-            .withActivity(12000, Activity.REST)
-            .build();
+    public static final EnvironmentAttribute<Activity> DEFAULT_SLEEP = register("default_sleep", Activity.IDLE);
+    public static final EnvironmentAttribute<Activity> DEFAULT_BABY  = register("default_baby", ActivitiesAPI.BABY_IDLE);
+    public static final EnvironmentAttribute<Activity> EMPTY = register("empty", Activity.IDLE);
 
-    public static final Schedule DEFAULT_BABY = register("default_baby")
-            .withActivity(10, ActivitiesAPI.BABY_IDLE)
-            .withActivity(12000, ActivitiesAPI.BABY_REST)
-            .build();
-
-    protected static ScheduleBuilder register(String id) {
-        Schedule schedule = Registry.register(Registries.SCHEDULE, id, new Schedule());
-        return new ScheduleBuilder(schedule);
+    private static EnvironmentAttribute<Activity> register(String id, Activity defaultValue) {
+        return Registry.register(
+                Registries.ENVIRONMENTAL_ATTRIBUTE,
+                SevenStarsApi.id(id),
+                EnvironmentAttribute.builder(EnvironmentAttributeTypes.ACTIVITY)
+                        .defaultValue(defaultValue)
+                        .global()
+                        .build()
+        );
     }
 
     public static void register() {

@@ -1,5 +1,6 @@
 package net.sevenstars.of_beasts_and_wild_things.item;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
@@ -18,17 +19,18 @@ public class EggItemsWT {
 
     // Animals
     public static final Item DEER_SPAWN_EGG = registerItem("deer_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesWT.DEER, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesWT.DEER)), new Item.Settings());
     public static final Item SWAN_SPAWN_EGG = registerItem("swan_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesWT.SWAN, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesWT.SWAN)), new Item.Settings());
     public static final Item PHEASANT_SPAWN_EGG = registerItem("pheasant_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesWT.PHEASANT, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesWT.PHEASANT)), new Item.Settings());
     public static final Item SNAIL_SPAWN_EGG = registerItem("snail_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesWT.SNAIL, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesWT.SNAIL)), new Item.Settings());
 
     public static RegistryKey<Item> keyOfItem(String idPath) {
         return RegistryKey.of(RegistryKeys.ITEM, OfBeastsAndWildThings.id(idPath));
     }
+
     private static Item registerItem(String idPath, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = factory.apply(settings.registryKey(keyOfItem(idPath)));
         ItemGroupsWT.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());

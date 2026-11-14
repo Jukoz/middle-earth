@@ -81,7 +81,7 @@ public class MoveTowardsBlockTask {
     }
 
     private static Vec3d findTargetPos(LivingEntity entity, Block block, Block lowPrioBlock) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int y = entity.getBlockY();
         BlockPos pos;
         BlockPos lowPrioPos = null;
@@ -118,7 +118,7 @@ public class MoveTowardsBlockTask {
     }
 
     private static Vec3d findTargetPosFromTag(LivingEntity entity, TagKey<Block> blockTag, TagKey<Block> lowPrioBlockTag) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int y = entity.getBlockY();;
         BlockPos pos;
         BlockPos lowPrioPos = null;
@@ -155,7 +155,7 @@ public class MoveTowardsBlockTask {
     }
 
     private static BlockPos scanYLevel(LivingEntity entity, int y, Block block, Block lowPrioBlock) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int x = entity.getBlockX();
         int z = entity.getBlockZ();
 
@@ -212,7 +212,7 @@ public class MoveTowardsBlockTask {
     }
 
     private static BlockPos scanYLevelFromTag(LivingEntity entity, int y, TagKey<Block> blockTag, TagKey<Block> lowPrioBlockTag) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int x = entity.getBlockX();
         int z = entity.getBlockZ();
 

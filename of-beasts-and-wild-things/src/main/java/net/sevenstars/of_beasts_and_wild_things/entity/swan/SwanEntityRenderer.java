@@ -3,8 +3,10 @@ package net.sevenstars.of_beasts_and_wild_things.entity.swan;
 import com.google.common.collect.Maps;
 import net.minecraft.client.model.BabyModelPair;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -40,9 +42,10 @@ public class SwanEntityRenderer  extends MobEntityRenderer<SwanEntity, SwanEntit
     }
 
     @Override
-    public void render(SwanEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        this.model = babyModelPair.get(state.baby);
-        super.render(state, matrixStack, vertexConsumerProvider, i);
+    public void render(SwanEntityRenderState livingEntityRenderState, MatrixStack matrixStack,
+                       OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
+        this.model = babyModelPair.get(livingEntityRenderState.baby);
+        super.render(livingEntityRenderState, matrixStack, orderedRenderCommandQueue, cameraRenderState);
     }
 
     @Override

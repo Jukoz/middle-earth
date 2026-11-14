@@ -106,7 +106,7 @@ public class PheasantEntity extends AnimalEntity {
     public void tickMovement() {
         super.tickMovement();
 
-        if(this.getWorld().isClient()) {
+        if(this.getEntityWorld().isClient()) {
             setupAnimationStates();
         }
 

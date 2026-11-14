@@ -12,7 +12,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.rule.GameRules;
 import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 
 public class EatCropTask extends MultiTickTask<SnailEntity> {
@@ -24,7 +24,7 @@ public class EatCropTask extends MultiTickTask<SnailEntity> {
     }
 
     protected boolean shouldRun(ServerWorld serverWorld, SnailEntity snailEntity) {
-        return serverWorld.getBlockState(snailEntity.getBlockPos().up()).isIn(BlockTags.CROPS) && serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING);
+        return serverWorld.getBlockState(snailEntity.getBlockPos().up()).isIn(BlockTags.CROPS) && serverWorld.getGameRules().getValue(GameRules.DO_MOB_GRIEFING);
     }
 
     @Override

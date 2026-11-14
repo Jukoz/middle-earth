@@ -67,7 +67,7 @@ public class BirdNest extends Block {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient){
+        if (!world.isClient()){
             angerSwans(world, pos, player);
         }
         return super.onBreak(world, pos, state, player);

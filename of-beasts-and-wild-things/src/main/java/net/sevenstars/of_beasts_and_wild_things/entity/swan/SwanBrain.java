@@ -20,6 +20,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.World;
 import net.sevenstars.api.registries.brain.ActivitiesAPI;
 import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.api.registries.brain.SchedulesAPI;
@@ -56,7 +57,12 @@ public class SwanBrain {
 
         brain.setSchedule(SchedulesAPI.DEFAULT_SLEEP);
 
-        brain.refreshActivities(swanEntity.getWorld().getTimeOfDay(), swanEntity.getWorld().getTime());
+        World world = swanEntity.getEntityWorld();
+        brain.refreshActivities(
+                world.getEnvironmentAttributes(),
+                world.getTime(),
+                swanEntity.getEntityPos()
+        );
         return brain;
     }
 
@@ -151,7 +157,13 @@ public class SwanBrain {
         else {
             swan.getBrain().resetPossibleActivities(ImmutableList.of());
         }
-        swan.getBrain().refreshActivities(swan.getWorld().getTimeOfDay(), swan.getWorld().getTime());
+
+        World world = swan.getEntityWorld();
+        swan.getBrain().refreshActivities(
+                world.getEnvironmentAttributes(),
+                world.getTime(),
+                swan.getEntityPos()
+        );
     }
 
     private static boolean shouldForgetTarget(ServerWorld world, LivingEntity target, SwanEntity swan) {

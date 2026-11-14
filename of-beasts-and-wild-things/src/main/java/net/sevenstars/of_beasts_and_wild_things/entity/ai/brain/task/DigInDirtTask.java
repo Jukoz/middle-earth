@@ -15,7 +15,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.rule.GameRules;
 import net.sevenstars.of_beasts_and_wild_things.entity.pheasant.PheasantEntity;
 
 public class DigInDirtTask extends MultiTickTask<PheasantEntity> {
@@ -70,7 +70,7 @@ public class DigInDirtTask extends MultiTickTask<PheasantEntity> {
         }
 
         // Change Dirt
-        if(world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+        if(world.getGameRules().getValue(GameRules.DO_MOB_GRIEFING)) {
             if(world.getBlockState(entity.getBlockPos().down()).isOf(Blocks.ROOTED_DIRT)) {
                 world.setBlockState(entity.getBlockPos().down(), Blocks.DIRT.getDefaultState(), Block.NOTIFY_LISTENERS);
             }

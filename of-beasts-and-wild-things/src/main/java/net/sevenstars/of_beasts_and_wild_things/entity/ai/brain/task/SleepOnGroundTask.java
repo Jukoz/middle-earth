@@ -30,7 +30,7 @@ public class SleepOnGroundTask extends MultiTickTask<LivingEntity> {
             if (world.getRegistryKey() != globalPos.dimension()) {
                 return false;
             } else {
-                return globalPos.pos().isWithinDistance(entity.getPos(), 4.0) && !entity.isTouchingWater();
+                return globalPos.pos().isWithinDistance(entity.getEntityPos(), 4.0) && !entity.isTouchingWater();
             }
         }
     }
@@ -42,7 +42,8 @@ public class SleepOnGroundTask extends MultiTickTask<LivingEntity> {
             return false;
         } else {
             BlockPos blockPos = ((GlobalPos)optional.get()).pos();
-            return (entity.getBrain().hasActivity(Activity.REST) || entity.getBrain().hasActivity(ActivitiesAPI.BABY_REST)) && blockPos.isWithinDistance(entity.getPos(), 4.0) && !entity.isTouchingWater();
+            return (entity.getBrain().hasActivity(Activity.REST) || entity.getBrain().hasActivity(ActivitiesAPI.BABY_REST))
+                    && blockPos.isWithinDistance(entity.getEntityPos(), 4.0) && !entity.isTouchingWater();
         }
     }
 

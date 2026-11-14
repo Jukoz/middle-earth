@@ -73,7 +73,7 @@ public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask
     @Nullable
     private Vec3d findTarget(E entity, ServerWorld world) {
         List<? extends Entity> fleeEntities = new ArrayList<>();
-        Vec3d direction = entity.getPos();
+        Vec3d direction = entity.getEntityPos();
 
         for(Class<? extends Entity> mob : entities) {
             if(!(fleeEntities = world.getEntitiesByClass(mob, entity.getBoundingBox().expand(distance), EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR)).isEmpty()) {
@@ -81,7 +81,7 @@ public class FleeFromEntityTask<E extends PathAwareEntity> extends MultiTickTask
             }
         }
         if(!fleeEntities.isEmpty()) {
-            return FuzzyTargeting.findFrom(entity, distance, 4, fleeEntities.getFirst().getPos());
+            return FuzzyTargeting.findFrom(entity, distance, 4, fleeEntities.getFirst().getEntityPos());
         }
 
         return FuzzyTargeting.findTo(entity, 7, 4, direction);

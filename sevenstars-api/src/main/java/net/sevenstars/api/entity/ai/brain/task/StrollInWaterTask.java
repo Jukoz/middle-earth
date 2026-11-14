@@ -29,8 +29,8 @@ public class StrollInWaterTask {
 
                                 for (BlockPos destinationPos : BlockPos.iterateOutwards(entityPos, range, range, range)) {
                                     if (destinationPos.getX() != entityPos.getX() || destinationPos.getZ() != entityPos.getZ()) {
-                                        BlockState aboveBlock = entity.getWorld().getBlockState(destinationPos.up());
-                                        BlockState waterBlock = entity.getWorld().getBlockState(destinationPos);
+                                        BlockState aboveBlock = entity.getEntityWorld().getBlockState(destinationPos.up());
+                                        BlockState waterBlock = entity.getEntityWorld().getBlockState(destinationPos);
                                         if (waterBlock.isOf(Blocks.WATER)) {
                                             if (aboveBlock.isAir() && entity.getRandom().nextDouble() < 0.1) {
                                                 blockPos = destinationPos.toImmutable();

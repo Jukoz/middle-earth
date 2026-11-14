@@ -7,7 +7,6 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -116,7 +115,7 @@ public class SwanEntity extends AnimalEntity {
         Optional<GlobalPos> optional = this.getBrain().getOptionalRegisteredMemory(MemoryModuleType.HOME);
 
         if(optional.isPresent()) {
-            if(!this.getWorld().getBlockState(optional.get().pos()).isOf(BlocksWT.BIRD_NEST)) {
+            if(!this.getEntityWorld().getBlockState(optional.get().pos()).isOf(BlocksWT.BIRD_NEST)) {
                 this.getBrain().forget(MemoryModuleType.HOME);
             }
         }
@@ -141,9 +140,9 @@ public class SwanEntity extends AnimalEntity {
 
                 if(rand < 0.15) {
                     BlockPos pos = optional.get().pos();
-                    BlockState homeBlock = this.getWorld().getBlockState(optional.get().pos());
+                    BlockState homeBlock = this.getEntityWorld().getBlockState(optional.get().pos());
                     if(homeBlock.isOf(BlocksWT.BIRD_NEST) && homeBlock.get(BirdNest.NEST_LEVEL) < 2) {
-                        this.getWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
+                        this.getEntityWorld().setBlockState(pos, homeBlock.with(BirdNest.NEST_LEVEL, homeBlock.get(BirdNest.NEST_LEVEL) + 1));
                     }
                 }
                 this.getBrain().remember(MemoryModulesWT.EGG_COOLDOWN, EGG_COOLDOWN);
@@ -164,7 +163,7 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public void tickMovement() {
-        if(!this.getWorld().isClient) {
+        if(!this.getEntityWorld().isClient()) {
             this.wingFlap();
 
             this.setAttacking(this.getTarget() != null);
@@ -173,7 +172,7 @@ public class SwanEntity extends AnimalEntity {
                 this.getBrain().setSchedule(SchedulesAPI.DEFAULT_BABY);
             }
             else if(this.isAttacking() && !this.isFighting()) {
-                this.getBrain().setSchedule(Schedule.EMPTY);
+                this.getBrain().setSchedule(SchedulesAPI.EMPTY);
                 this.setIntimidating(getTarget() instanceof PlayerEntity);
                 this.setFighting(true);
             }
@@ -187,7 +186,7 @@ public class SwanEntity extends AnimalEntity {
             }
 
         }
-        if(this.getWorld().isClient()) {
+        if(this.getEntityWorld().isClient()) {
             setupAnimationStates();
         }
 
@@ -250,7 +249,7 @@ public class SwanEntity extends AnimalEntity {
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         return super.tryAttack(world, target);
     }
 
@@ -375,7 +374,8 @@ public class SwanEntity extends AnimalEntity {
     private void updateFloating() {
         if (this.isTouchingWater()) {
             ShapeContext shapeContext = ShapeContext.of(this);
-            if (!shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true) || this.getWorld().getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
+            if (!shapeContext.isAbove(FluidBlock.COLLISION_SHAPE, this.getBlockPos(), true)
+                    || this.getEntityWorld().getFluidState(this.getBlockPos().up()).isIn(FluidTags.WATER)) {
                 this.setVelocity(this.getVelocity().getX(),0.1F,this.getVelocity().getZ());
             } else {
                 this.setOnGround(true);

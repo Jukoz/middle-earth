@@ -34,7 +34,7 @@ public class SwanEggEntity extends ThrownItemEntity {
             double d = 0.08;
 
             for (int i = 0; i < 8; i++) {
-                this.getWorld()
+                this.getEntityWorld()
                         .addParticleClient(
                                 new ItemStackParticleEffect(ParticleTypes.ITEM, this.getStack()),
                                 this.getX(),
@@ -58,7 +58,7 @@ public class SwanEggEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.getWorld().isClient) {
+        if (!this.getEntityWorld().isClient()) {
             if (this.random.nextInt(8) == 0) {
                 int i = 1;
                 if (this.random.nextInt(32) == 0) {
@@ -66,7 +66,7 @@ public class SwanEggEntity extends ThrownItemEntity {
                 }
 
                 for (int j = 0; j < i; j++) {
-                    SwanEntity swanEntity = EntitiesWT.SWAN.create(this.getWorld(), SpawnReason.TRIGGERED);
+                    SwanEntity swanEntity = EntitiesWT.SWAN.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
                     if (swanEntity != null) {
                         swanEntity.setBreedingAge(-24000);
                         swanEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
@@ -74,12 +74,12 @@ public class SwanEggEntity extends ThrownItemEntity {
                             break;
                         }
 
-                        this.getWorld().spawnEntity(swanEntity);
+                        this.getEntityWorld().spawnEntity(swanEntity);
                     }
                 }
             }
 
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             this.discard();
         }
     }

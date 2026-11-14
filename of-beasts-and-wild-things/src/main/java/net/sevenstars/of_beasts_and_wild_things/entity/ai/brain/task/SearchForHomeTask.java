@@ -56,7 +56,7 @@ public class SearchForHomeTask {
 
 
     private static BlockPos findTargetPos(LivingEntity entity, Block block) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int y = entity.getBlockY();
         BlockPos pos;
         BlockPos lowPrioPos = null;
@@ -82,7 +82,7 @@ public class SearchForHomeTask {
     }
 
     private static BlockPos scanYLevel(LivingEntity entity, int y, Block block) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int x = entity.getBlockX();
         int z = entity.getBlockZ();
 
@@ -124,7 +124,7 @@ public class SearchForHomeTask {
     }
 
     private static BlockPos findTargetPosFromTag(LivingEntity entity, TagKey<Block> blockTag) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int y = entity.getBlockY();
         BlockPos pos;
 
@@ -151,7 +151,7 @@ public class SearchForHomeTask {
     }
 
     private static BlockPos scanYLevelFromTag(LivingEntity entity, int y, TagKey<Block> blockTag) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         int x = entity.getBlockX();
         int z = entity.getBlockZ();
 
