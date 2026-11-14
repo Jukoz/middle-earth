@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs;
 
+import net.sevenstars.middleearth.dev.NpcDebug;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -130,6 +131,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // In ticks
     private static final int MANAGER_CHECK_INTERVAL = 100;
     private static final int HATCH_CHECK_INTERVAL = 4;
+    private static final int DEBUG_LABEL_INTERVAL = 5;
     private static final int BOW_ATTACK_INTERVAL = 20;
     private static final int BOW_ATTACK_INTERVAL_HARD = 30;
     // In days
@@ -348,7 +350,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(3, new NpcFleeHomeGoal(this, 1.15));
         this.goalSelector.add(4, new NpcPrisonerGoal(this, 0.6));
-        this.goalSelector.add(5, new NpcRoutineGoal(this, 0.8));
+        this.routineGoal = new NpcRoutineGoal(this, 0.8);
+        this.goalSelector.add(5, this.routineGoal);
         this.goalSelector.add(6, new NpcTravelGoal(this, 0.8));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -992,9 +995,42 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(target != null && !target.isAlive())
             setTarget(null);
         super.mobTick(world);
+        if(NpcDebug.ENABLED && age % DEBUG_LABEL_INTERVAL == 0)
+            debugLabel();
 
         if(hasVehicle()){
             rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);
+        }
+    }
+
+    public @Nullable NpcRoutineGoal routineGoal;
+
+    private void debugLabel() {
+        String doing = "idle";
+        LivingEntity target = getTarget();
+        boolean flee = false, routine = false, travel = false;
+        for(PrioritizedGoal goal : goalSelector.getGoals()) {
+            if(!goal.isRunning())
+                continue;
+            if(goal.getGoal() instanceof NpcFleeHomeGoal) flee = true;
+            if(goal.getGoal() instanceof NpcRoutineGoal) routine = true;
+            if(goal.getGoal() instanceof NpcTravelGoal) travel = true;
+        }
+        if(isSleeping()) doing = "sleeping";
+        else if(flee) doing = "fleeing home";
+        else if(huntTarget != null) doing = "hunting " + huntTarget.getType().getName().getString();
+        else if(target != null) doing = "fighting " + target.getType().getName().getString();
+        else if(routine && routineGoal != null) doing = routineGoal.debugLabel();
+        else if(travel) doing = isEscorting() ? "escorting" : getPartyLeader() != null ? "following party leader" : getTravelDestination() != null || getTravelHeading() != null ? "travelling" : "wandering";
+        else if(isRestTime()) doing = getAssignedBed() == null ? "night, no bed" : "resting at home";
+        NpcType type = getNpcType();
+        String who = type == null ? "npc" : type.getId().getPath();
+        if(getRoleId() != null)
+            who += " [" + getRoleId().getPath() + "]";
+        String label = who + ": " + doing;
+        if(getCustomName() == null || !getCustomName().getString().equals(label)) {
+            super.setCustomName(Text.literal(label));
+            setCustomNameVisible(true);
         }
     }
 

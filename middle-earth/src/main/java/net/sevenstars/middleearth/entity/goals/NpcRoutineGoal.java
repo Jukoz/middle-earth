@@ -61,6 +61,7 @@ import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
+import net.sevenstars.middleearth.dev.NpcDebug;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
 import net.sevenstars.middleearth.registries.content.npcroles.NpcRoles;
@@ -97,7 +98,7 @@ public class NpcRoutineGoal extends Goal {
     // Goal ticks between two looks at the world, 10 a second
     private static final int THINK_INTERVAL = 5;
 
-    private static final int PLAYER_RANGE = 48;
+    private static final int PLAYER_RANGE = Integer.getInteger("me.routineRange", 48);
     private static final int SPOT_RANGE = 64;
     private static final int WILD_HOME_RANGE = 64;
     // A settled npc further from home than this walks back before anything else
@@ -317,6 +318,37 @@ public class NpcRoutineGoal extends Goal {
     private long lordSearchAt = 0;
     private int followCheck = 0;
 
+    public String debugLabel() {
+        debugLogRing();
+        String what = switch (activity) {
+            case FISH -> "fishing"; case HUNT -> "hunting"; case FORAGE -> "foraging"; case PATROL -> "patrol"; case VISIT -> npc.getVehicle() instanceof SeatEntity ? "visiting, seated" : "visiting"; case WORK -> "at work"; case POST -> "on guard"; case ESCORT -> "escort"; case TABLE -> npc.getVehicle() instanceof SeatEntity ? "sitting at a table" : "table"; case FARM -> fieldCell == null ? "farming" : "farming at " + fieldCell.toShortString(); case CHOP -> "chopping"; case MINE -> "mining"; case COURT -> npc.getVehicle() instanceof SeatEntity ? "holding court, seated" : "holding court"; case INSPECT -> "inspecting the posts"; case FOLLOW -> "following its lord";
+        };
+        String load = carried == null ? "" : " [carrying " + carried.getName().getString() + "]";
+        return switch (phase) {
+            case GOING -> what + " (walking there)";
+            case WORKING -> what + (activity == RoutineData.Activity.PATROL ? " (on watch)" : activity == RoutineData.Activity.HUNT ? " (stalking)" : "") + load;
+            case HUNTING -> "hunting (chasing prey)";
+            case RETURNING -> (toBed ? "going to bed" : homeward ? "going home" : what + " (heading home)") + load;
+            case SLEEPING -> "sleeping";
+            case NONE -> "idle";
+        };
+    }
+    public boolean debugActive() { return phase != Phase.NONE && phase != Phase.SLEEPING; }
+    public boolean debugReturning() { return phase == Phase.RETURNING; }
+    public boolean debugToBed() { return toBed; }
+    public RoutineData.Activity debugActivity() { return activity; }
+    public BlockPos debugSpot() { return spot; }
+    public @Nullable Vec3d debugLookTarget() { return lookTarget; }
+    public @Nullable NpcEntity debugCompanion() { return companion; }
+    public @Nullable Item debugCarried() { return carried; }
+    public List<BlockPos> debugRing() { return site == null ? List.of() : site.getRing(); }
+    public int debugRingIndex() { return ringIndex; }
+    private static final java.util.Set<RoutineSite> DEBUG_LOGGED = new java.util.HashSet<>();
+    public void debugLogRing() {
+        if(NpcDebug.ENABLED && site != null && activity == RoutineData.Activity.PATROL && phase != Phase.NONE && DEBUG_LOGGED.add(site))
+            System.out.println("RINGDEBUG center " + site.getCenterX() + "," + site.getCenterZ() + " extent " + site.getExtent() + " ring " + site.getRing().stream().map(p -> p.getX() + "," + p.getZ()).toList());
+    }
+
     public NpcRoutineGoal(NpcEntity npc, double speed) {
         this.npc = npc;
         this.speed = speed;
@@ -381,6 +413,7 @@ public class NpcRoutineGoal extends Goal {
             return true;
         }
         RoutineData routine = npc.getRoutine();
+        if(routine == null) debugWhyNot(world, "no routine");
         if(routine == null)
             return false;
         // Where a wild npc first stands is its camp, before wandering takes it elsewhere
@@ -389,6 +422,7 @@ public class NpcRoutineGoal extends Goal {
         // Keeps a village from setting out all at once when its chunks load
         if(restUntil == 0)
             restUntil = time + npc.getRandom().nextInt(REST + REST_VARIATION);
+        if(time < restUntil) debugWhyNot(world, "resting for " + (restUntil - time));
         if(time < restUntil && !npc.hasInvitation(time))
             return false;
         // Bed time comes whether anyone is watching or not
@@ -416,6 +450,7 @@ public class NpcRoutineGoal extends Goal {
             startReturn(world);
             return true;
         }
+        if(!isWatched(world)) debugWhyNot(world, "no player within " + PLAYER_RANGE);
         if(!isWatched(world))
             return false;
         if(!RoutineSites.takeStart(world)) {
@@ -427,6 +462,7 @@ public class NpcRoutineGoal extends Goal {
             return false;
         site.touch(time);
         site.claim(npc.getFactionIdentifier());
+        if(!site.isReady()) debugWhyNot(world, "site not ready");
         if(!site.isReady()) {
             delay = WAITING_DELAY * 2;
             return false;
@@ -444,6 +480,7 @@ public class NpcRoutineGoal extends Goal {
             findWard(world);
             return false;
         }
+        if(picked == null) debugWhyNot(world, "nothing picked, on duty " + routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()));
         // A task that cannot be begun is put by, and another one tried, before the npc settles for doing nothing
         for(int attempt = 0; attempt < PICK_ATTEMPTS && picked != null && picked != RoutineData.Activity.ESCORT; attempt++) {
             if(begin(world, picked, home))
@@ -518,6 +555,9 @@ public class NpcRoutineGoal extends Goal {
 
     // Routines are only run where a player is near to see them
     private boolean isWatched(ServerWorld world) {
+        // isPlayerInRange leaves out spectators, and the test harness watches as one
+        if(NpcDebug.ENABLED && world.getPlayers().stream().anyMatch(player -> player.squaredDistanceTo(npc) < PLAYER_RANGE * PLAYER_RANGE))
+            return true;
         return world.isPlayerInRange(npc.getX(), npc.getY(), npc.getZ(), PLAYER_RANGE);
     }
 
@@ -526,6 +566,7 @@ public class NpcRoutineGoal extends Goal {
         if(managerPos != null) {
             if(site == null)
                 site = RoutineSites.forManager(world, managerPos);
+            if(site == null) debugWhyNot(world, "no site for its manager at " + managerPos.toShortString());
             return site != null;
         }
 
@@ -925,6 +966,7 @@ public class NpcRoutineGoal extends Goal {
             watchedThinks = 0;
         } else if(++watchedThinks >= WATCH_THINKS) {
             watchedThinks = 0;
+            debugWhy("STALL", world, target, null);
             String heldUp = heldUpAt(world);
             mover().getNavigation().stop();
             failures++;
@@ -991,6 +1033,7 @@ public class NpcRoutineGoal extends Goal {
         lastLegMoved = moving;
         if(!moving && stepOff(world))
             return;
+        if(!moving || stalled) debugWhy(moving ? "NOPROGRESS" : "NOPATH", world, target, destination);
         if(moving && !stalled) {
             failures = 0;
             return;
@@ -1069,6 +1112,8 @@ public class NpcRoutineGoal extends Goal {
         BlockPos pos = npc.getBlockPos();
         MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s gave up %s (%s) at %d,%d,%d: %s%s".formatted(who(), what,
                 phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), why, what.equals("bed") ? bedDistance() : ""));
+        if(NpcDebug.ENABLED)
+            net.sevenstars.middleearth.dev.NpcFailureRecorder.record(npc, who(), what, phase.name().toLowerCase(), why, phase == Phase.RETURNING ? (toBed && npc.getBedStand() != null ? npc.getBedStand() : toBed ? npc.getAssignedBed() : carried != null && npc.getStore() != null ? npc.getStore() : npc.getRoutineHome()) : spot, npc.getAssignedBed(), npc.getRoutineHome(), npc.getNavigation().getCurrentPath());
     }
 
     // What the build lacks, so that the npc does something else in its place. Not a task given up, and noted once
@@ -1224,7 +1269,31 @@ public class NpcRoutineGoal extends Goal {
         return Vec3d.ofBottomCenter(target);
     }
 
+    private void debugWhy(String what, ServerWorld world, @Nullable BlockPos target, @Nullable Vec3d destination) {
+        if(!NpcDebug.ENABLED)
+            return;
+        net.minecraft.entity.ai.pathing.Path path = npc.getNavigation().getCurrentPath();
+        String route = "none";
+        if(path != null) {
+            net.minecraft.entity.ai.pathing.PathNode end = path.getEnd();
+            net.minecraft.entity.ai.pathing.PathNode next = path.isFinished() ? null : path.getCurrentNode();
+            route = "len " + path.getLength() + " at " + path.getCurrentNodeIndex() + " reaches " + path.reachesTarget() + " end " + (end == null ? null : end.x + "," + end.y + "," + end.z)
+                    + " next " + (next == null ? null : next.x + "," + next.y + "," + next.z + " " + world.getBlockState(new BlockPos(next.x, next.y, next.z)).getBlock().getName().getString());
+        }
+        System.out.println("ROUTEDIAG " + what + " " + (npc.getCustomName() == null ? "" : npc.getCustomName().getString()) + " phase " + phase + " toBed " + toBed
+                + " at " + String.format("%.1f,%.1f,%.1f", npc.getX(), npc.getY(), npc.getZ()) + " target " + (target == null ? null : target.toShortString())
+                + " leg " + (destination == null ? null : String.format("%.0f,%.0f,%.0f", destination.x, destination.y, destination.z)) + " legs " + legs + " failures " + failures + " path " + route);
+    }
+
+    private long debugNoteAt = 0;
+    private void debugWhyNot(ServerWorld world, String why) {
+        if(!NpcDebug.ENABLED || world.getTime() < debugNoteAt) return;
+        debugNoteAt = world.getTime() + 600;
+        System.out.println("WHYNOT " + (npc.getCustomName() == null ? "" : npc.getCustomName().getString()) + ": " + why);
+    }
+
     private void giveUp(ServerWorld world, String why) {
+        debugWhy("GIVEUP", world, null, null);
         if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && !stops.isEmpty()) {
             abandoned("skipped a post, " + why);
             nextStop(world.getTime());
