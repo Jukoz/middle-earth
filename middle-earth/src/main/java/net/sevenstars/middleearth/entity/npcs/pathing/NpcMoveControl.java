@@ -35,7 +35,8 @@ public class NpcMoveControl extends MoveControl {
             float yaw = (float) (MathHelper.atan2(towardsZ, towardsX) * MathHelper.DEGREES_PER_RADIAN) - 90;
             entity.setYaw(wrapDegrees(entity.getYaw(), yaw, TURN));
         }
-        if(entity.isClimbing() && up < -LEVEL) {
+        // A ladder laid on the floor is climbable all the same, and is only walked over
+        if(entity.isClimbing() && up < -LEVEL && !entity.isOnGround()) {
             entity.setForwardSpeed(0);
             return;
         }

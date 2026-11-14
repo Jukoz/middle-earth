@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ScaffoldingBlock;
+import net.minecraft.block.enums.BlockFace;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.util.shape.VoxelShape;
@@ -23,14 +24,17 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.Heightmap;
 
 // Land pathfinding knows nothing of ladders: a mob only ever gets onto one by accident. This adds the way up and down them
 public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Makes a walk on the flat win over a climb of the same length
     private static final float CLIMB_PENALTY = 1f;
-    // Places looked at below a step down before the land there is taken to be open. A cave beside a hall is a few hundred,
-    // and npcs that stepped down into one never came out
-    private static final int TRAP_SEARCH = 400;
+    // Places looked at below a step down before the land there is taken to be open, outdoors and under a roof. A canopy of
+    // leaves is a couple of hundred, a cave beside a hall a few hundred to well over a thousand
+    private static final int TRAP_SEARCH = 256;
+    private static final int TRAP_SEARCH_COVERED = 1500;
+    private static final int ROOF_HEIGHT = 2;
     private static final int MAXIMUM_DROP = 3;
     // Of a block, for a mob with no step height of its own: the attribute's default
     private static final double DEFAULT_STEP = 0.6;
@@ -120,49 +124,54 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         int kept = 0;
         for(int i = 0; i < count; i++) {
             PathNode next = successors[i];
-            if(next.y < from.y && isTrap(next.x, next.y, next.z, from.y))
+            if(next.y < from.y && isTrap(next.x, next.y, next.z, from))
                 continue;
             successors[kept++] = next;
         }
         return kept;
     }
 
-    private boolean isTrap(int startX, int startY, int startZ, int wayOut) {
+    private boolean isTrap(int startX, int startY, int startZ, PathNode from) {
         // The same landing is asked about from every node around it
-        long key = BlockPos.asLong(startX, startY, startZ) ^ (wayOut * 0x9E3779B97F4A7C15L);
+        long key = BlockPos.asLong(startX, startY, startZ) * 31 + BlockPos.asLong(from.x, from.y, from.z);
         byte known = traps.get(key);
         if(known != 0)
             return known == TRAP;
-        boolean trap = searchTrap(startX, startY, startZ, wayOut);
+        boolean trap = searchTrap(startX, startY, startZ, from);
         traps.put(key, trap ? TRAP : OPEN);
         return trap;
     }
 
-    private boolean searchTrap(int startX, int startY, int startZ, int wayOut) {
+    // A way out is one back up beside the step it came down. Getting as high somewhere else is no way out, as of a cave that
+    // rises at its far end. Under a roof a large space below is a cave or a lower hall, outdoors it is open country
+    private boolean searchTrap(int startX, int startY, int startZ, PathNode from) {
         seen.clear();
         open.clear();
         visit(startX, startY, startZ);
+        boolean covered = isUnderRoof(startX, startY, startZ);
+        int limit = covered ? TRAP_SEARCH_COVERED : TRAP_SEARCH;
         while(!open.isEmpty()) {
-            // This much room is open country below a ledge, and no trap
-            if(seen.size() > TRAP_SEARCH)
-                return false;
+            if(seen.size() > limit)
+                return covered;
             long cell = open.dequeueLong();
             int x = BlockPos.unpackLongX(cell);
             int y = BlockPos.unpackLongY(cell);
             int z = BlockPos.unpackLongZ(cell);
-            if(y >= wayOut || isLadderCell(x, y, z))
+            if(y >= from.y && Math.abs(x - from.x) <= 1 && Math.abs(z - from.z) <= 1)
                 return false;
-            // Swimming up
-            if(isWater(x, y + 1, z))
+            // Swimming up, and climbing
+            if(isWater(x, y + 1, z) || isLadderCell(x, y + 1, z))
                 visit(x, y + 1, z);
             for(Direction side : Direction.Type.HORIZONTAL) {
                 int nextX = x + side.getOffsetX();
                 int nextZ = z + side.getOffsetZ();
                 if(isWalkedThrough(nextX, y, nextZ) && isWalkedThrough(nextX, y + 1, nextZ)) {
-                    // Along the floor, or down to it where it falls away
+                    // Along the floor, or down to it where it falls away. Off an edge with no floor within a drop is no way
                     int floor = y;
                     while(floor > y - MAXIMUM_DROP && isWalkedThrough(nextX, floor - 1, nextZ) && !isWater(nextX, floor, nextZ))
                         floor--;
+                    if(isWalkedThrough(nextX, floor - 1, nextZ) && !isWater(nextX, floor, nextZ))
+                        continue;
                     visit(nextX, floor, nextZ);
                 } else if(isWalkedThrough(x, y + 2, z) && isWalkedThrough(nextX, y + 1, nextZ) && isWalkedThrough(nextX, y + 2, nextZ)) {
                     // One block up is a step
@@ -171,6 +180,10 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             }
         }
         return true;
+    }
+
+    private boolean isUnderRoof(int x, int y, int z) {
+        return entity != null && entity.getWorld().getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) > y + ROOF_HEIGHT;
     }
 
     private void visit(int x, int y, int z) {
@@ -430,9 +443,11 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     }
 
     // Scaffolding is climbed, but only crouching is the way down, and a mob never crouches: its top is a floor
+    // Nor is a ladder laid flat on the floor a way up, only something to walk over
     private boolean isClimbable(int x, int y, int z) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        return state.isIn(BlockTags.CLIMBABLE) && !(state.getBlock() instanceof ScaffoldingBlock);
+        return state.isIn(BlockTags.CLIMBABLE) && !(state.getBlock() instanceof ScaffoldingBlock)
+                && !(state.contains(Properties.BLOCK_FACE) && state.get(Properties.BLOCK_FACE) == BlockFace.FLOOR);
     }
 
     private boolean isPassable(int x, int y, int z) {
