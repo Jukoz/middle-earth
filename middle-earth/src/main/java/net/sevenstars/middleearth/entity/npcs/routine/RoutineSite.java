@@ -44,6 +44,8 @@ public class RoutineSite {
     private static final int RING_SPACING = 14;
     // Up or down this far is still the same floor
     private static final int FLOOR_HEIGHT = 3;
+    // A household further up or down than this is not called on
+    private static final int VISIT_HEIGHT = 16;
     // A gap this wide between two points of the ring is no stretch of the round
     private static final double ARC_GAP = RING_SPACING * 2.5;
     // How far outside the outermost buildings the watch walks
@@ -207,12 +209,17 @@ public class RoutineSite {
     }
 
     // Somebody else's home, not the one next to the npc's own bed
-    public @Nullable BlockPos pickHousehold(BlockPos home, Random random) {
+    // Another household to call on, among those down in the halls for one living there and up in the open for one living
+    // there: the way between is up the stairs of the whole place
+    public @Nullable BlockPos pickHousehold(ServerWorld world, BlockPos home, Random random) {
+        boolean underground = isEnclosed(world, home.getX(), home.getZ(), home.getY());
         int offset = households.isEmpty() ? 0 : random.nextInt(households.size());
         for(int i = 0; i < households.size(); i++) {
             BlockPos household = households.get((i + offset) % households.size());
-            if(!household.isWithinDistance(home, OWN_HOUSEHOLD))
-                return household;
+            if(household.isWithinDistance(home, OWN_HOUSEHOLD) || Math.abs(household.getY() - home.getY()) > VISIT_HEIGHT
+                    || isEnclosed(world, household.getX(), household.getZ(), household.getY()) != underground)
+                continue;
+            return household;
         }
         return null;
     }

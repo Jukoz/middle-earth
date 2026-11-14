@@ -120,6 +120,10 @@ public class NpcRoutineGoal extends Goal {
     private static final int COVER_HEIGHT = 2;
     // Near enough to the end of a stretch to have walked it
     private static final double LEG_END_REACH = 2;
+    // Stretches walked to their end that came no nearer, before the walk counts as stuck
+    private static final int IDLE_LEGS = 3;
+    // A door this near the place, once the nearest has been tried
+    private static final int FAR_DOOR_REACH = 32;
     // A door this near a place is taken for its way in, and one this near the npc for the door it is already at
     private static final int DOOR_REACH = 16;
     private static final double AT_DOOR = 2.5;
@@ -234,6 +238,11 @@ public class NpcRoutineGoal extends Goal {
     private double lastLegDistance = 0;
     // Where the path of the last stretch was to end, when it led all the way there
     private @Nullable BlockPos lastLegEnd = null;
+    private double bestLegDistance = Double.MAX_VALUE;
+    private int idleLegs = 0;
+    private boolean lastLegMoved = true;
+    // Doors already tried as the way in on this walk
+    private final Set<BlockPos> triedDoors = new HashSet<>();
     private @Nullable Path watchedPath = null;
     private int watchedNode = 0;
     private double watchedDistance = 0;
@@ -525,7 +534,7 @@ public class NpcRoutineGoal extends Goal {
                 spot = site.getGrounds().get(index);
             }
             case VISIT -> {
-                BlockPos household = site.pickHousehold(home, random);
+                BlockPos household = site.pickHousehold(world, home, random);
                 if(household == null)
                     return cannotStart(picked, "no other household to call on");
                 // To the table if there is room at it, or else just in at the door
@@ -747,6 +756,10 @@ public class NpcRoutineGoal extends Goal {
     public void start() {
         legs = 0;
         lastLegEnd = null;
+        bestLegDistance = Double.MAX_VALUE;
+        idleLegs = 0;
+        lastLegMoved = true;
+        triedDoors.clear();
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -844,7 +857,14 @@ public class NpcRoutineGoal extends Goal {
         // lead off from it first
         double distance = target.getSquaredDistance(mover().getPos());
         boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getPos(), LEG_END_REACH);
-        boolean stalled = legs > 1 && distance > lastLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS && !walkedLeg;
+        // Nearer than ever before on this walk. Stretches that go back and forth between two places get no nearer, and
+        // only a few of those are let pass
+        boolean improved = legs == 1 || distance < bestLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS;
+        if(improved) {
+            bestLegDistance = distance;
+            idleLegs = 0;
+        }
+        boolean stalled = legs > 1 && !improved && lastLegMoved && (!walkedLeg || ++idleLegs > IDLE_LEGS);
         lastLegDistance = distance;
         BlockPos store = npc.getStore();
         boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
@@ -861,6 +881,7 @@ public class NpcRoutineGoal extends Goal {
         mover().getNavigation().resetRangeMultiplier();
         Path leg = mover().getNavigation().getCurrentPath();
         lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
+        lastLegMoved = moving;
         // On roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
         // nearest floor once a walk, rather than give up every walk from there
         if(!moving && !steppedOff && !riding() && !npc.isClimbing() && !isOnFloor(world)) {
@@ -1013,16 +1034,21 @@ public class NpcRoutineGoal extends Goal {
         return false;
     }
 
+    // The door nearest the place not tried yet on this walk. Once one has been, those further off are looked at as well: the
+    // nearest door to a room upstairs may be inside the house, and the way into the house round the far side
     private @Nullable BlockPos doorTowards(BlockPos target, MobEntity mover) {
         if(site == null)
             return null;
+        int reach = triedDoors.isEmpty() ? DOOR_REACH : FAR_DOOR_REACH;
         BlockPos best = null;
         for(BlockPos door : site.getDoors()) {
-            if(!door.isWithinDistance(target, DOOR_REACH) || door.isWithinDistance(mover.getPos(), AT_DOOR))
+            if(triedDoors.contains(door) || !door.isWithinDistance(target, reach) || door.isWithinDistance(mover.getPos(), AT_DOOR))
                 continue;
             if(best == null || door.getSquaredDistance(target) < best.getSquaredDistance(target))
                 best = door;
         }
+        if(best != null)
+            triedDoors.add(best);
         return best;
     }
 
@@ -1041,7 +1067,7 @@ public class NpcRoutineGoal extends Goal {
             return Vec3d.ofBottomCenter(target);
         // No way found straight to a place indoors: the way in is by the door nearest it, and from there it is a short walk.
         // A search from far off gives out on the way round to the far side of a house
-        BlockPos door = failures % 2 == 1 ? doorTowards(target, mover) : null;
+        BlockPos door = failures > 0 ? doorTowards(target, mover) : null;
         if(door != null)
             return Vec3d.ofBottomCenter(door);
         // Under a roof or underground, the stretches over open ground below are no way at all: each search goes straight for
@@ -1353,6 +1379,10 @@ public class NpcRoutineGoal extends Goal {
         phase = Phase.GOING;
         legs = 0;
         lastLegEnd = null;
+        bestLegDistance = Double.MAX_VALUE;
+        idleLegs = 0;
+        lastLegMoved = true;
+        triedDoors.clear();
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1428,6 +1458,10 @@ public class NpcRoutineGoal extends Goal {
         if(!stand.isWithinDistance(spot, 3))
             legs = 0;
             lastLegEnd = null;
+            bestLegDistance = Double.MAX_VALUE;
+            idleLegs = 0;
+            lastLegMoved = true;
+            triedDoors.clear();
             steppedOff = false;
         steppedOff = false;
         spot = stand;
@@ -1452,6 +1486,10 @@ public class NpcRoutineGoal extends Goal {
             phase = Phase.GOING;
             legs = 0;
             lastLegEnd = null;
+            bestLegDistance = Double.MAX_VALUE;
+            idleLegs = 0;
+            lastLegMoved = true;
+            triedDoors.clear();
             steppedOff = false;
         steppedOff = false;
             failures = 0;
@@ -1525,6 +1563,10 @@ public class NpcRoutineGoal extends Goal {
         phase = Phase.GOING;
         legs = 0;
         lastLegEnd = null;
+        bestLegDistance = Double.MAX_VALUE;
+        idleLegs = 0;
+        lastLegMoved = true;
+        triedDoors.clear();
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;
@@ -1579,6 +1621,10 @@ public class NpcRoutineGoal extends Goal {
             phase = Phase.GOING;
             legs = 0;
             lastLegEnd = null;
+            bestLegDistance = Double.MAX_VALUE;
+            idleLegs = 0;
+            lastLegMoved = true;
+            triedDoors.clear();
             steppedOff = false;
         steppedOff = false;
             failures = 0;
@@ -1707,6 +1753,10 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = null;
         legs = 0;
         lastLegEnd = null;
+        bestLegDistance = Double.MAX_VALUE;
+        idleLegs = 0;
+        lastLegMoved = true;
+        triedDoors.clear();
         steppedOff = false;
         failures = 0;
         thinkCooldown = 0;

@@ -235,7 +235,8 @@ public class NestSurvey {
         Set<BlockPos> open = openAround(world, pos, radius, depth);
         BlockPos best = null;
         for(BlockPos spot : open) {
-            if(spot.equals(pos) || !open.contains(spot.up()))
+            // Not down a hole, and not onto a ledge with no floor beside it to walk on from
+            if(spot.equals(pos) || !open.contains(spot.up()) || spot.getY() < pos.getY() - 1 || !hasFloorBeside(world, spot))
                 continue;
             BlockPos below = spot.down();
             boolean standable = world.getBlockState(spot).getCollisionShape(world, spot).isEmpty()
@@ -246,6 +247,14 @@ public class NestSurvey {
                 best = spot;
         }
         return best;
+    }
+
+    private static boolean hasFloorBeside(ServerWorld world, BlockPos spot) {
+        for(Direction side : Direction.Type.HORIZONTAL) {
+            if(isStandable(world, spot.offset(side)))
+                return true;
+        }
+        return false;
     }
 
     // The blocks around that can be got to from the two a body stands in without going through anything taller than a bed
