@@ -27,8 +27,8 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Places looked at below a step down before the land there is taken to be open
     private static final int TRAP_SEARCH = 48;
     private static final int MAXIMUM_DROP = 3;
-    // Of a block. Beds and bottom slabs are stepped on, a chair back or a table top is not
-    private static final double MAXIMUM_STEP = 0.75;
+    // Of a block, for a mob with no step height of its own: the attribute's default
+    private static final double DEFAULT_STEP = 0.6;
     // A carpet or a layer of snow
     private static final double LOW_STEP = 0.2;
     private static final byte TRAP = 1;
@@ -171,30 +171,54 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return context.getBlockState(probe.set(x, y, z)).getFluidState().isIn(FluidTags.WATER);
     }
 
-    // The game takes every block that is not a full cube for open floor, and walks its mobs into tables, half walls and
-    // the lining of a well. Whatever has a shape of its own too tall to step on is in the way, whichever block it is
+    // The game takes every block that is not a full cube for open floor, and walks its mobs straight into rocks, stools
+    // and the lining of a well, where they stand pressed against it. At the height of the feet, solid ground taller than
+    // the npc can step is in the way, and the path goes on top of it instead, which the npc jumps up to. Furniture and
+    // other odd shapes are in the way at any height, to be walked around
     private boolean isObstacle(PathContext context, BlockState state) {
-        if(state.isAir() || !state.getFluidState().isEmpty() || state.getBlock() instanceof StairsBlock || state.getBlock() instanceof SlabBlock)
-            return false;
-        // These the game knows how to deal with, or this class does
-        if(state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.DOORS) || state.isIn(BlockTags.TRAPDOORS) || state.isIn(BlockTags.FENCE_GATES)
-                || state.isIn(BlockTags.FENCES) || state.isIn(BlockTags.WALLS) || state.getBlock() instanceof NpcDoor)
+        if(isLeftToTheGame(state))
             return false;
         VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
-        if(shape.isEmpty() || Block.isShapeFullCube(shape) || shape.getMax(Direction.Axis.Y) <= MAXIMUM_STEP)
+        if(shape.isEmpty() || Block.isShapeFullCube(shape))
             return false;
-        // A path or a tilled field is a block a little short of full, and ground like any other
-        boolean ground = shape.getMin(Direction.Axis.Y) == 0 && shape.getMin(Direction.Axis.X) == 0 && shape.getMax(Direction.Axis.X) == 1
-                && shape.getMin(Direction.Axis.Z) == 0 && shape.getMax(Direction.Axis.Z) == 1 && shape.getBoundingBoxes().size() == 1;
-        return !ground;
+        double top = shape.getMax(Direction.Axis.Y);
+        if(top <= LOW_STEP)
+            return false;
+        return !isGround(shape) || top > stepHeight();
     }
 
-    // Nor is the top of a table a way to walk
+    // Nor is the top of a table or a stool a way to walk, where a rock or a path is
+    private boolean cannotStandOn(PathContext context, BlockState state) {
+        if(isLeftToTheGame(state))
+            return false;
+        VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
+        return !shape.isEmpty() && !Block.isShapeFullCube(shape) && shape.getMax(Direction.Axis.Y) > LOW_STEP && !isGround(shape);
+    }
+
+    // Solid all the way across, as a path, a tilled field, a slab or a rock is: something to stand on
+    private static boolean isGround(VoxelShape shape) {
+        return shape.getBoundingBoxes().size() == 1 && shape.getMin(Direction.Axis.X) == 0 && shape.getMax(Direction.Axis.X) == 1
+                && shape.getMin(Direction.Axis.Z) == 0 && shape.getMax(Direction.Axis.Z) == 1;
+    }
+
+    // These the game knows how to deal with, or this class does. A trapdoor nobody can open by hand is not among them,
+    // and is judged by its shape like any other block
+    private static boolean isLeftToTheGame(BlockState state) {
+        return state.isAir() || !state.getFluidState().isEmpty() || state.getBlock() instanceof StairsBlock || state.getBlock() instanceof SlabBlock
+                || state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.DOORS) || isHatch(state) || state.isIn(BlockTags.FENCES)
+                || state.isIn(BlockTags.WALLS) || state.getBlock() instanceof NpcDoor;
+    }
+
+    // What the npc walks up without a jump, from its own attribute: anything higher it jumps onto
+    private double stepHeight() {
+        return entity == null ? DEFAULT_STEP : entity.getStepHeight();
+    }
+
     private int removeObstacleTops(PathNode[] successors, int count) {
         int kept = 0;
         for(int i = 0; i < count; i++) {
             PathNode next = successors[i];
-            if(isObstacle(context, context.getBlockState(probe.set(next.x, next.y - 1, next.z))))
+            if(cannotStandOn(context, context.getBlockState(probe.set(next.x, next.y - 1, next.z))))
                 continue;
             successors[kept++] = next;
         }
