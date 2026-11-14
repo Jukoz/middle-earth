@@ -310,7 +310,7 @@ public class IsengardNpcTypePool {
 
         SNAGA.withRoutine(NpcRoutines.WOODCUTTER);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        URUK_HAI_SCOUT.withRoutine(NpcRoutines.WATCH);
+        URUK_HAI_SCOUT.withRoutine(NpcRoutines.SCOUT);
         URUK_HAI_SOLDIER.withRoutine(NpcRoutines.WATCH);
     }
 }

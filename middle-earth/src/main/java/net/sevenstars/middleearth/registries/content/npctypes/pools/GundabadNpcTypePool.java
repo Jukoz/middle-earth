@@ -354,7 +354,7 @@ public class GundabadNpcTypePool {
 
         GOBLIN.withRoutine(NpcRoutines.NIGHT_RAIDER);
         MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

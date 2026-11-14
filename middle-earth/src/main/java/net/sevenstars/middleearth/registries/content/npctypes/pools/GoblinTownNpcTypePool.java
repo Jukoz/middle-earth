@@ -267,7 +267,7 @@ public class GoblinTownNpcTypePool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
 
-        SCOUT.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
+        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
         WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

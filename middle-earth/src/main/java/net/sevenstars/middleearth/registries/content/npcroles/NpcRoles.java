@@ -1,9 +1,11 @@
 package net.sevenstars.middleearth.registries.content.npcroles;
 
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
@@ -31,19 +33,20 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> DROVER = register("drover", NpcRole.named(HERDING));
 
     // [TRADES]
-    public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer", NpcRole.named());
+    public static final RegistryKey<NpcRole> FARMER = registerForNest("farmer", "farmer",
+            NpcRole.named(RoutineData.create(Period.DAY).timid().add(Activity.FARM, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_HOE));
     public static final RegistryKey<NpcRole> BAKER = registerForNest("baker", "baker", trade(StationKind.OVEN));
-    public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE));
+    public static final RegistryKey<NpcRole> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE).holding(ToolItemsME.SMITHING_HAMMER));
     public static final RegistryKey<NpcRole> COOK = registerForNest("cook", "cook", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcRole> POTTER = registerForNest("potter", "potter", trade(StationKind.HEARTH));
-    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", trade(StationKind.WOOD_PILE));
+    public static final RegistryKey<NpcRole> WOODCUTTER = registerForNest("woodcutter", "lumber", trade(StationKind.WOOD_PILE).holding(Items.IRON_AXE));
     public static final RegistryKey<NpcRole> BEEKEEPER = registerForNest("beekeeper", "beekeeper", trade(StationKind.HIVE));
     public static final RegistryKey<NpcRole> INNKEEPER = registerForNest("innkeeper", "innkeeper", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade(StationKind.HAY));
 
     // [WARRIORS]
     // Keeps its own name: a Gondor Soldier on guard is still that
-    public static final RegistryKey<NpcRole> GUARD = registerForNest("guard", "guard", new NpcRole(Optional.of(NpcRoutines.GUARD), false));
+    public static final RegistryKey<NpcRole> GUARD = registerForNest("guard", "guard", new NpcRole(Optional.of(NpcRoutines.GUARD), false, Optional.empty()));
 
     public static void bootstrap(Registerable<NpcRole> context) {
         ROLES.forEach(context::register);

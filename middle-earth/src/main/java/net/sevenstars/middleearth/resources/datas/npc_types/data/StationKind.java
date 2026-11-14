@@ -16,7 +16,9 @@ public enum StationKind implements StringIdentifiable {
     LECTERN("lectern", "lectern"),
     HAY("hay", "hay_block"),
     GRINDSTONE("grindstone", "grindstone"),
-    TARGET("target", "target");
+    TARGET("target", "target"),
+    // A plot of the fields, worked where it lies rather than at a bench
+    FIELD("field", "farmland");
 
     public static final Codec<StationKind> CODEC = StringIdentifiable.createCodec(StationKind::values);
     private final String name;

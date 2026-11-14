@@ -35,6 +35,8 @@ public class RoutineData {
         TABLE("table"),
         // At the forge, the oven or whatever else the npc's trade is plied at
         WORK("work"),
+        // Tilling the place's fields, sowing them and bringing in what is ripe
+        FARM("farm"),
         // Standing guard at the door the npc lives by
         POST("post"),
         // Going out with one of the place's own who has work beyond its walls

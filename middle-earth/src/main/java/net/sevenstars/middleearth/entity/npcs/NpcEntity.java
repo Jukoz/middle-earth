@@ -142,6 +142,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private @Nullable Float travelHeading = null;
     private @Nullable BlockPos travelDestination = null;
     private @Nullable BlockPos routineHome = null;
+    // Upward speed of an npc already on its way out of the water, which is not lifted again
+    private static final double CLIMBING_OUT = 0.1;
     // Given out by the structure manager of its nest
     private boolean householdKnown = false;
     private boolean onOuting = false;
@@ -658,8 +660,31 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         escorting = false;
     }
 
+    // The game lifts a swimmer up a bank only with room over its head, which a tall npc in a ditch or a flooded room never
+    // has, and it stays in the water pressed against the bank. One that bumps into the bank its path climbs onto is lifted
+    // as by a jump
+    private void climbOutOfWater() {
+        if(!isTouchingWater() || !horizontalCollision || getVelocity().y > CLIMBING_OUT)
+            return;
+        Path path = getNavigation().getCurrentPath();
+        if(path == null || path.isFinished() || path.getCurrentNode().y <= getBlockY())
+            return;
+        Vec3d velocity = getVelocity();
+        setVelocity(velocity.x, getJumpVelocity(), velocity.z);
+    }
+
     public void setRole(@Nullable Identifier role) {
         this.dataTracker.set(ROLE, role == null ? "" : role.toString());
+    }
+
+    // Given once, after the gear of the type is on: a role named for its trade swaps what is in the hand for its tool
+    public void takeRole(Identifier role) {
+        setRole(role);
+        NpcRole taken = getRole();
+        if(taken == null || !taken.replacesName())
+            return;
+        equipStack(EquipmentSlot.MAINHAND, taken.tool().map(Item::getDefaultStack).orElse(ItemStack.EMPTY));
+        updateAttackType();
     }
 
     public @Nullable Identifier getRoleId() {
@@ -775,6 +800,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             tickHunt();
         if(age % HATCH_CHECK_INTERVAL == 0)
             tickHatch(world);
+        climbOutOfWater();
         // A target set from outside the targeting goals is never dropped by them, and a dead one blocks everything else
         LivingEntity target = getTarget();
         if(target != null && !target.isAlive())

@@ -23,7 +23,7 @@ public class NpcPartySpawner {
 
     public static void spawn(ServerWorld world, NpcEntity leader, PartyData party) {
         Random random = world.getRandom();
-        party.getLeaderRole().ifPresent(leader::setRole);
+        party.getLeaderRole().ifPresent(leader::takeRole);
         leader.setTravelHeading(random.nextFloat() * 360f);
         if(!leader.keepsBounds())
             leader.setTravelDestination(RoutineSites.findDestination(world, leader));

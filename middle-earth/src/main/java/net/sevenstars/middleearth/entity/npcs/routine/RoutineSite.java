@@ -120,7 +120,8 @@ public class RoutineSite {
             case PATROL -> ring.size() >= 3;
             case VISIT -> households.size() >= 2;
             case TABLE -> !tables.isEmpty();
-            case WORK -> !stations.isEmpty();
+            case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD);
+            case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
             case POST, ESCORT -> true;
         };
     }
@@ -185,6 +186,15 @@ public class RoutineSite {
     }
 
     // The station of one of these kinds closest to the given place, which is the npc's home
+    public List<BlockPos> getFields(BlockPos near, int range) {
+        List<BlockPos> fields = new ArrayList<>();
+        for(StructureBedData.Station station : stations) {
+            if(station.kind() == StationKind.FIELD && station.pos().isWithinDistance(near, range))
+                fields.add(station.pos());
+        }
+        return fields;
+    }
+
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
         for(StructureBedData.Station station : stations) {
