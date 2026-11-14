@@ -40,6 +40,9 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final int WANDER_RANGE = 20;
     private static final int ARRIVAL_DISTANCE = 24;
     private static final int DESTINATION_CHECK_CHANCE = 10;
+    // Two stretches and a bit: far enough to turn before the edge is reached
+    private static final int LOOK_AHEAD = 32;
+    private static final int TURN_VARIATION = 45;
 
     private static final double SLOT_REACHED = 2.5;
     private static final double FOLLOW_GAP = 2.5;
@@ -112,6 +115,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         if(heading == null)
             return super.getWanderTarget();
         heading = towardsDestination(heading);
+        heading = awayFromStillWorld(heading);
 
         int length = STRETCH_LENGTH + npc.getRandom().nextBetween(-STRETCH_VARIATION, STRETCH_VARIATION);
         for(float detour : DETOURS) {
@@ -188,6 +192,21 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         float towards = (float) (MathHelper.atan2(-distanceX, distanceZ) * MathHelper.DEGREES_PER_RADIAN);
         npc.setTravelHeading(towards);
         return towards;
+    }
+
+    // Past the edge of the world that is running nobody sees the journey, and the npc stands frozen where it crossed. One
+    // heading that way turns round and gives up where it was going, for a place it can reach
+    private float awayFromStillWorld(float heading) {
+        if(!(npc.getWorld() instanceof ServerWorld world))
+            return heading;
+        Vec3d ahead = npc.getPos().add(direction(heading).multiply(LOOK_AHEAD));
+        if(world.shouldTickEntityAt(BlockPos.ofFloored(ahead)))
+            return heading;
+        float turned = heading + 180f + npc.getRandom().nextBetween(-TURN_VARIATION, TURN_VARIATION);
+        npc.setTravelDestination(null);
+        npc.setTravelHeading(turned);
+        failures = 0;
+        return turned;
     }
 
     // Furniture is a trap: an npc that ends up on a stool or a table finds no path off it, and would stand there for good

@@ -151,7 +151,9 @@ public class RoutineSites {
                 continue;
             boolean wanted = raiding ? leader.isHostileToFaction(faction) : faction.equals(own);
             double distance = leader.squaredDistanceTo(site.getCenterX(), leader.getY(), site.getCenterZ());
-            if(wanted && distance > DESTINATION_MINIMUM * DESTINATION_MINIMUM && distance < bestDistance) {
+            // A place out where the world stands still is never reached, and the journey would end frozen at the edge
+            if(wanted && distance > DESTINATION_MINIMUM * DESTINATION_MINIMUM && distance < bestDistance
+                    && world.shouldTickEntityAt(new BlockPos(site.getCenterX(), site.getSurfaceY(), site.getCenterZ()))) {
                 best = site;
                 bestDistance = distance;
             }
