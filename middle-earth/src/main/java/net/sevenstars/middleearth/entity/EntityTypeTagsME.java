@@ -9,6 +9,10 @@ import net.sevenstars.middleearth.MiddleEarth;
 public class EntityTypeTagsME {
     public static TagKey<EntityType<?>> UNGOLIENI = of("ungolieni");
     public static TagKey<EntityType<?>> GAME = of("game");
+    // Attacked on sight by every npc, unless its faction says otherwise. Vanilla monsters are already, in code
+    public static TagKey<EntityType<?>> NPC_ENEMIES = of("npc_enemies");
+    // The beasts that serve the Shadow, which its armies count as their own
+    public static TagKey<EntityType<?>> SHADOW_BEASTS = of("shadow_beasts");
 
     private static TagKey<EntityType<?>> of(String id) {
         return TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(MiddleEarth.MOD_ID, id));

@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
@@ -60,7 +61,8 @@ public class Faction {
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands),
-            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList)
+            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList),
+            FactionCreatures.CODEC.optionalFieldOf("creatures").forGetter(faction -> faction.creatures.isEmpty() ? Optional.empty() : Optional.of(faction.creatures))
     ).apply(instance, Faction::new));
 
     public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
@@ -80,6 +82,7 @@ public class Faction {
     private final List<InitialDiplomacy> initialDiplomacies;
 
     private List<Identifier> subFactions = null;
+    private FactionCreatures creatures = FactionCreatures.NONE;
     private List<String> joinCommands;
     private List<String> leaveCommands;
     private List<Race> races = null;
@@ -88,8 +91,10 @@ public class Faction {
 
     public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
                    Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
-                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
+                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt,
+                   Optional<FactionCreatures> creatures) {
         this.id = MiddleEarth.ofId(id);
+        this.creatures = creatures.orElse(FactionCreatures.NONE);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
 
@@ -491,6 +496,15 @@ public class Faction {
 
         Random random = new Random();
         return allNpcIds.get(random.nextInt(allNpcIds.size()));
+    }
+
+    public FactionCreatures getCreatures() {
+        return creatures;
+    }
+
+    public Faction withCreatures(FactionCreatures creatures) {
+        this.creatures = creatures;
+        return this;
     }
 
     // How this faction stands with another, null for one it says nothing of

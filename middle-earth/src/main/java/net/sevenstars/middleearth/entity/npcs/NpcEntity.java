@@ -1430,11 +1430,12 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return NpcRelations.of(this, other).isFriendly();
     }
 
-    // Personal: kept by the npc that was wronged, and by those it called to its help. A friendly npc's blow is a stray one
+    // Personal: kept by the npc that was wronged, and by those it called to its help. A friendly npc's blow is a stray one,
+    // but a friendly beast that turns on the npc is fought like anyone else
     public void bearGrudge(LivingEntity offender) {
         if(offender == this || getWorld().isClient)
             return;
-        if(!(offender instanceof PlayerEntity) && NpcRelations.standing(this, offender).isFriendly())
+        if(offender instanceof NpcEntity && NpcRelations.standing(this, offender).isFriendly())
             return;
         long now = getWorld().getTime();
         grudges.values().removeIf(until -> until < now);

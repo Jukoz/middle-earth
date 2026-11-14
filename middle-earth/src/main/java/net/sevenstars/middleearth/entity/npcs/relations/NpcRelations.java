@@ -1,18 +1,18 @@
 package net.sevenstars.middleearth.entity.npcs.relations;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.of_beasts_and_wild_things.entity.snail.SnailEntity;
 import org.jetbrains.annotations.Nullable;
 
 // The one place that says who an npc counts as an enemy, a friend or neither
@@ -38,7 +38,7 @@ public class NpcRelations {
             return ofFaction(npc.getFaction(), otherNpc.getFactionIdentifier());
         if(other instanceof PlayerEntity player)
             return ofPlayer(npc, player);
-        return ofCreature(other);
+        return ofCreature(npc, other);
     }
 
     private static Relation ofPlayer(NpcEntity npc, PlayerEntity player) {
@@ -62,9 +62,19 @@ public class NpcRelations {
         return affinity == null ? Relation.NEUTRAL : Relation.of(affinity);
     }
 
-    private static Relation ofCreature(Entity other) {
-        // TODO : datadriven, per faction
-        if(other instanceof SnailEntity || other instanceof HostileEntity || other instanceof TrollEntity || other instanceof Pouncer)
+    // The faction's own word first, then what every npc thinks
+    private static Relation ofCreature(NpcEntity npc, Entity other) {
+        EntityType<?> type = other.getType();
+        Faction faction = npc.getFaction();
+        if(faction != null) {
+            FactionCreatures creatures = faction.getCreatures();
+            if(creatures.isFriendly(type))
+                return Relation.FRIEND;
+            if(creatures.isHostile(type))
+                return Relation.ENEMY;
+        }
+        // Every monster can't be listed in a tag, so those are known by their class
+        if(type.isIn(EntityTypeTagsME.NPC_ENEMIES) || other instanceof HostileEntity)
             return Relation.ENEMY;
         return Relation.NEUTRAL;
     }

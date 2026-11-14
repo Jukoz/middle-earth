@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -74,7 +75,7 @@ public class IsengardFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        );
+        ).withCreatures(new FactionCreatures(List.of(), List.of("#middle-earth:shadow_beasts")));
     }
 
 }
