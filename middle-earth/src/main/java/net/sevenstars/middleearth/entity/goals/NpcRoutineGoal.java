@@ -106,6 +106,9 @@ public class NpcRoutineGoal extends Goal {
     private static final int WATCH_TIME_VARIATION = 20 * 4;
     private static final int MEETING_TIME = 20 * 20;
     private static final int MEETING_TIME_VARIATION = 20 * 20;
+    private static final int POST_TIME = 20 * 60;
+    private static final int POST_TIME_VARIATION = 20 * 60;
+    private static final int ESCORT_RANGE = 24;
     private static final int WORK_TIME = 20 * 40;
     private static final int WORK_TIME_VARIATION = 20 * 40;
     // From home. Nobody crosses the whole town to somebody else's forge
@@ -197,6 +200,13 @@ public class NpcRoutineGoal extends Goal {
         }
 
         delay = IDLE_DELAY + npc.getRandom().nextInt(IDLE_DELAY_VARIATION);
+        // An escort stays with its ward until that one is home again, or lost
+        if(npc.isEscorting()) {
+            boolean stillOut = npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof NpcEntity ward && ward.isAlive() && ward.isOnOuting();
+            if(stillOut)
+                return false;
+            npc.endEscort();
+        }
         if(npc.getPartyLeader() != null || npc.getTravelHeading() != null)
             return false;
         long time = world.getTime();
@@ -261,6 +271,10 @@ public class NpcRoutineGoal extends Goal {
         else if(npc.isElf() && !npc.isRestTime())
             // Elves need little sleep, and keep company through the night
             picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
+        if(picked == RoutineData.Activity.ESCORT) {
+            findWard(world);
+            return false;
+        }
         if(picked != null && begin(world, picked, home))
             return true;
 
@@ -351,6 +365,7 @@ public class NpcRoutineGoal extends Goal {
                 BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
                 spot = beside != null ? beside : meetSeat;
             }
+            case POST -> spot = home;
             case PATROL -> {
                 List<BlockPos> ring = site.getRing();
                 ringIndex = 0;
@@ -365,6 +380,9 @@ public class NpcRoutineGoal extends Goal {
             }
         }
         activity = picked;
+        // Only those with a home behind walls are worth seeing out and back
+        npc.setOnOuting(npc.getStructureManagerHostPos() != null
+                && (picked == RoutineData.Activity.FORAGE || picked == RoutineData.Activity.HUNT || picked == RoutineData.Activity.FISH));
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
         phase = Phase.GOING;
         deadline = world.getTime() + ROUTINE_TIME_LIMIT;
@@ -579,6 +597,12 @@ public class NpcRoutineGoal extends Goal {
                 companion = null;
                 meetSeat = null;
             }
+            case POST -> {
+                phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
+                double awayX = npc.getX() - site.getCenterX();
+                double awayZ = npc.getZ() - site.getCenterZ();
+                lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+            }
             case PATROL -> {
                 phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
                 // Watches the land outside
@@ -652,6 +676,17 @@ public class NpcRoutineGoal extends Goal {
                     if(random.nextInt(10) == 0)
                         npc.swingHand(Hand.MAIN_HAND);
                 }
+            }
+            case POST -> {
+                if(!done) {
+                    showProp();
+                    return;
+                }
+                // The guard is not relieved while its shift lasts and there is somebody to see it stand there
+                if(onDuty(world) && world.isPlayerInRange(npc.getX(), npc.getY(), npc.getZ(), PLAYER_RANGE))
+                    phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
+                else
+                    finish(world, REST + random.nextInt(REST_VARIATION));
             }
             case PATROL -> {
                 if(!done)
@@ -836,6 +871,15 @@ public class NpcRoutineGoal extends Goal {
         return activity == RoutineData.Activity.VISIT || activity == RoutineData.Activity.TABLE;
     }
 
+    // The nearest of the place's own who is setting out and has nobody with it yet
+    private void findWard(ServerWorld world) {
+        if(!RoutineSites.takePreySearch(world))
+            return;
+        NpcEntity ward = world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(ESCORT_RANGE, 8, ESCORT_RANGE));
+        if(ward != null && ward.isOnOuting() && ward.getEscort() == null && java.util.Objects.equals(npc.getFactionIdentifier(), ward.getFactionIdentifier()))
+            npc.escort(ward);
+    }
+
     private void standUp() {
         meetSeat = null;
         if(!(npc.getVehicle() instanceof SeatEntity seat))
@@ -853,6 +897,7 @@ public class NpcRoutineGoal extends Goal {
         standUp();
         toBed = false;
         phase = Phase.NONE;
+        npc.setOnOuting(false);
         carried = null;
         lookTarget = null;
         restUntil = world.getTime() + (long) rest * (1 + backOff * 2);
@@ -870,7 +915,7 @@ public class NpcRoutineGoal extends Goal {
         Item prop = null;
         if(phase == Phase.RETURNING)
             prop = carried;
-        else if(activity == RoutineData.Activity.PATROL && phase != Phase.NONE && isDark())
+        else if((activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST) && phase != Phase.NONE && isDark())
             prop = Items.TORCH;
         else if(activity == RoutineData.Activity.FISH && phase != Phase.NONE && !ownsRod)
             prop = Items.FISHING_ROD;

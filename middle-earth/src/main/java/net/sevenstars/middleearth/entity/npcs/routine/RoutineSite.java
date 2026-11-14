@@ -121,6 +121,7 @@ public class RoutineSite {
             case VISIT -> households.size() >= 2;
             case TABLE -> !tables.isEmpty();
             case WORK -> !stations.isEmpty();
+            case POST, ESCORT -> true;
         };
     }
 

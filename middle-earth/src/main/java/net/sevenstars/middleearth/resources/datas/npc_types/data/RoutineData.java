@@ -34,7 +34,11 @@ public class RoutineData {
         // Sitting down at a table, with whoever else is there
         TABLE("table"),
         // At the forge, the oven or whatever else the npc's trade is plied at
-        WORK("work");
+        WORK("work"),
+        // Standing guard at the door the npc lives by
+        POST("post"),
+        // Going out with one of the place's own who has work beyond its walls
+        ESCORT("escort");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
         private final String name;

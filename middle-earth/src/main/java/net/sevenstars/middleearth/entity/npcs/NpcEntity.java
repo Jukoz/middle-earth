@@ -107,6 +107,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String TRAVEL_DESTINATION = "TravelDestination";
         public static final String ROUTINE_HOME = "RoutineHome";
         public static final String ROLE = "Role";
+        public static final String ESCORTING = "Escorting";
         public static final String ASSIGNED_BED = "AssignedBed";
         public static final String BED_STAND = "BedStand";
         public static final String STORE = "Store";
@@ -143,6 +144,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private @Nullable BlockPos routineHome = null;
     // Given out by the structure manager of its nest
     private boolean householdKnown = false;
+    private boolean onOuting = false;
+    private @Nullable UUID escort = null;
+    // Saved, or an escort loaded in the middle of an outing would follow its ward about for good
+    private boolean escorting = false;
     private @Nullable BlockPos assignedBed = null;
     private @Nullable Vec3d sleptFrom = null;
     private @Nullable BlockPos openedHatch = null;
@@ -343,6 +348,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
         view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
         view.putNullable(KeyStrings.ROLE, Identifier.CODEC, this.getRoleId());
+        view.putBoolean(KeyStrings.ESCORTING, this.escorting);
         view.putBoolean(KeyStrings.HOUSEHOLD_KNOWN, this.householdKnown);
         view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
         view.putNullable(KeyStrings.BED_STAND, BlockPos.CODEC, this.bedStand);
@@ -369,6 +375,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
         this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
         this.setRole(view.read(KeyStrings.ROLE, Identifier.CODEC).orElse(null));
+        this.escorting = view.getBoolean(KeyStrings.ESCORTING, false);
         this.householdKnown = view.getBoolean(KeyStrings.HOUSEHOLD_KNOWN, false);
         this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
         this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
@@ -617,6 +624,38 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     public boolean isNightShift() {
         return (getUuid().hashCode() & 1) != 0;
+    }
+
+    // Out beyond the walls on a routine, which is when an escort comes along
+    public boolean isOnOuting() {
+        return onOuting;
+    }
+
+    public void setOnOuting(boolean onOuting) {
+        this.onOuting = onOuting;
+        if(!onOuting)
+            this.escort = null;
+    }
+
+    public @Nullable UUID getEscort() {
+        return escort;
+    }
+
+    // Follows its ward as a party member follows its leader, for as long as the outing lasts
+    public void escort(NpcEntity ward) {
+        ward.escort = getUuid();
+        this.escorting = true;
+        setPartyLeader(ward.getUuid());
+    }
+
+    public boolean isEscorting() {
+        return escorting;
+    }
+
+    public void endEscort() {
+        if(escorting)
+            setPartyLeader(null);
+        escorting = false;
     }
 
     public void setRole(@Nullable Identifier role) {

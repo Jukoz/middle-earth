@@ -6,8 +6,9 @@ import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Act
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Period;
 
 public class NpcRoutines {
-    public final static RoutineData WATCH = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 1);
-    public final static RoutineData DAY_WATCH = RoutineData.create(Period.DAY).add(Activity.PATROL, 1);
+    public final static RoutineData WATCH = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.ESCORT, 1);
+    public final static RoutineData DAY_WATCH = RoutineData.create(Period.DAY).add(Activity.PATROL, 3).add(Activity.ESCORT, 1);
+    public final static RoutineData GUARD = RoutineData.create(Period.SHIFTS).add(Activity.POST, 1);
     // Orcs keep out of the sun
     public final static RoutineData NIGHT_WATCH = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1);
 

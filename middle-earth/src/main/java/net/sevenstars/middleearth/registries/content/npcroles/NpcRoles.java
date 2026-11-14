@@ -5,6 +5,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
 import net.sevenstars.middleearth.resources.datas.npc_roles.NpcRole;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.RoutineData.Activity;
@@ -39,6 +40,10 @@ public class NpcRoles {
     public static final RegistryKey<NpcRole> BEEKEEPER = registerForNest("beekeeper", "beekeeper", trade(StationKind.HIVE));
     public static final RegistryKey<NpcRole> INNKEEPER = registerForNest("innkeeper", "innkeeper", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcRole> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade(StationKind.HAY));
+
+    // [WARRIORS]
+    // Keeps its own name: a Gondor Soldier on guard is still that
+    public static final RegistryKey<NpcRole> GUARD = registerForNest("guard", "guard", new NpcRole(Optional.of(NpcRoutines.GUARD), false));
 
     public static void bootstrap(Registerable<NpcRole> context) {
         ROLES.forEach(context::register);
