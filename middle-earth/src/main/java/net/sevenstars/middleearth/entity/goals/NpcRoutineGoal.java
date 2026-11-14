@@ -114,6 +114,7 @@ public class NpcRoutineGoal extends Goal {
     private static final double STORE_REACH = 3.5;
     private static final double STORE_ARRIVAL_DISTANCE = 1.5;
     private static final double SEAT_ARRIVAL_DISTANCE = 2;
+    private static final double SAT_FROM_RANGE = 5;
     // How far from a store with no floor beside it a floor that sees it is looked for
     private static final int STORE_STAND_RADIUS = 2;
     // Just inside the side of a block, so that a ray aimed there ends in the block
@@ -251,6 +252,7 @@ public class NpcRoutineGoal extends Goal {
     // Doors already tried as the way in on this walk
     private final Set<BlockPos> triedDoors = new HashSet<>();
     // The whole way to the place of this walk, once planned
+    private @Nullable Vec3d satFrom = null;
     private boolean planned = false;
     private @Nullable List<BlockPos> waypoints = null;
     private int waypointIndex = 0;
@@ -560,8 +562,12 @@ public class NpcRoutineGoal extends Goal {
                     return cannotStart(picked, "no other household to call on");
                 // To the table if there is room at it, or else just in at the door
                 meetSeat = site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
-                BlockPos beside = NestSurvey.standNextTo(world, meetSeat != null ? meetSeat : household, npc.getBlockPos());
-                spot = beside != null ? beside : household;
+                if(meetSeat != null) {
+                    spot = seatStand(world, meetSeat);
+                } else {
+                    BlockPos beside = NestSurvey.standNextTo(world, household, npc.getBlockPos());
+                    spot = beside != null ? beside : household;
+                }
             }
             case WORK -> {
                 RoutineData routine = npc.getRoutine();
@@ -593,8 +599,7 @@ public class NpcRoutineGoal extends Goal {
                 meetSeat = site.pickSeat(world, random, home, TABLE_RANGE);
                 if(meetSeat == null)
                     return cannotStart(picked, "no free seat at any table");
-                BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
-                spot = beside != null ? beside : meetSeat;
+                spot = seatStand(world, meetSeat);
             }
             case FARM -> {
                 hiddenPlots.clear();
@@ -673,8 +678,7 @@ public class NpcRoutineGoal extends Goal {
                 facing = seatMarker.facing();
                 if(seat != null) {
                     meetSeat = seat;
-                    BlockPos beside = NestSurvey.standNextTo(world, seat, npc.getBlockPos());
-                    spot = beside != null ? beside : seat;
+                    spot = seatStand(world, seat);
                 } else {
                     spot = seatMarker.pos();
                 }
@@ -719,6 +723,7 @@ public class NpcRoutineGoal extends Goal {
         activity = picked;
         homeward = false;
         // Only those with a home behind walls are worth seeing out and back
+        npc.setFarming(picked == RoutineData.Activity.FARM);
         npc.setOnOuting(npc.getStructureManagerHostPos() != null
                 && (picked == RoutineData.Activity.FORAGE || picked == RoutineData.Activity.HUNT || picked == RoutineData.Activity.FISH || picked == RoutineData.Activity.CHOP));
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
@@ -794,8 +799,10 @@ public class NpcRoutineGoal extends Goal {
     public void stop() {
         if(phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING) {
             LivingEntity foe = npc.getTarget();
-            // By the id of its kind: every npc's kind is named just Npc
-            abandoned(foe != null ? "interrupted by a fight with " + Registries.ENTITY_TYPE.getId(foe.getType()).getPath()
+            // Every npc is of the one entity kind, and is told apart by its own type
+            String foeName = foe == null ? "" : foe instanceof NpcEntity other && other.getNpcType() != null ? other.getNpcType().getId().getPath()
+                    : Registries.ENTITY_TYPE.getId(foe.getType()).getPath();
+            abandoned(foe != null ? "interrupted by a fight with " + foeName
                     : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
         }
         stopMoving();
@@ -902,12 +909,19 @@ public class NpcRoutineGoal extends Goal {
             return;
         }
         // A walk under cover that has gone wrong once gets its whole way planned, and walks it by stretches. With no way at all,
-        // there is no use trying on
-        if(failures > 0 && !planned && (isUnderCover(world, mover().getBlockPos()) || isUnderCover(world, target))
+        // there is no use trying on. Out in the open the stretches and the ways round mostly do, but not round the far side of
+        // a hill, and the way there is planned before the last try
+        boolean covered = isUnderCover(world, mover().getBlockPos()) || isUnderCover(world, target);
+        if(failures > 0 && !planned && (covered || failures >= MAXIMUM_FAILURES - 1)
                 && mover().getNavigation() instanceof NpcNavigation navigation) {
             planned = true;
             Path whole = navigation.plan(target);
             if(whole == null) {
+                // Up on a railing no way starts at all, and from the floor beside it there may well be one
+                if(stepOff(world)) {
+                    planned = false;
+                    return;
+                }
                 giveUp(world, "no way at all to " + target.toShortString());
                 return;
             }
@@ -927,17 +941,8 @@ public class NpcRoutineGoal extends Goal {
         Path leg = mover().getNavigation().getCurrentPath();
         lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
         lastLegMoved = moving;
-        // On roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
-        // nearest floor once a walk, rather than give up every walk from there
-        if(!moving && !steppedOff && !riding() && !npc.isClimbing() && !isOnFloor(world)) {
-            BlockPos floor = NestSurvey.freeFloorNear(world, npc.getBlockPos(), STEP_OFF_RADIUS, STEP_OFF_DEPTH);
-            steppedOff = true;
-            if(floor != null) {
-                did(activity.asString(), "stepped off a spot no path starts from, to " + floor.toShortString());
-                npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
-                return;
-            }
-        }
+        if(!moving && stepOff(world))
+            return;
         if(moving && !stalled) {
             failures = 0;
             return;
@@ -968,6 +973,20 @@ public class NpcRoutineGoal extends Goal {
     }
 
     // Standing on the ground, or on a low thing lying in its block such as a slab or a carpet
+    // On roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
+    // nearest floor once a walk, rather than give up every walk from there
+    private boolean stepOff(ServerWorld world) {
+        if(steppedOff || riding() || npc.isClimbing() || isOnFloor(world))
+            return false;
+        steppedOff = true;
+        BlockPos floor = NestSurvey.freeFloorNear(world, npc.getBlockPos(), STEP_OFF_RADIUS, STEP_OFF_DEPTH);
+        if(floor == null)
+            return false;
+        did(activity.asString(), "stepped off a spot no path starts from, to " + floor.toShortString());
+        npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
+        return true;
+    }
+
     private boolean isOnFloor(ServerWorld world) {
         BlockPos feet = npc.getBlockPos();
         // The top of a fence or a wall is higher than its block, and no path starts up there
@@ -1006,10 +1025,14 @@ public class NpcRoutineGoal extends Goal {
 
     // What the build lacks, so that the npc does something else in its place. Not a task given up, and noted once
     private void fallsBack(RoutineData.Activity what, String why) {
-        if(!notedFallbacks.add(what.asString() + ": " + why))
+        fallsBack(what.asString(), why);
+    }
+
+    private void fallsBack(String what, String why) {
+        if(!notedFallbacks.add(what + ": " + why))
             return;
         BlockPos pos = npc.getBlockPos();
-        MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s falls back from %s at %d,%d,%d: %s".formatted(who(), what.asString(), pos.getX(), pos.getY(), pos.getZ(), why));
+        MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s falls back from %s at %d,%d,%d: %s".formatted(who(), what, pos.getX(), pos.getY(), pos.getZ(), why));
     }
 
     // How far off the bed was when the npc gave up on it, across the floor and up or down
@@ -1239,7 +1262,7 @@ public class NpcRoutineGoal extends Goal {
             }
             case VISIT, TABLE -> {
                 // Somebody quicker may have taken the seat, the table is still the place to be
-                boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
+                boolean seated = sitDown(world);
                 phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
                 companion = null;
                 meetSeat = null;
@@ -1255,7 +1278,7 @@ public class NpcRoutineGoal extends Goal {
                 }
             }
             case COURT -> {
-                boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
+                boolean seated = sitDown(world);
                 phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
                 did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
                 companion = null;
@@ -1884,6 +1907,15 @@ public class NpcRoutineGoal extends Goal {
         return npc.getRoutineHome();
     }
 
+    // The floor beside a seat. One on a bench between the table, a wall and the next seat has none, and is got to across the
+    // next seat, from a floor a step further off that sees it
+    private BlockPos seatStand(ServerWorld world, BlockPos seat) {
+        BlockPos beside = NestSurvey.standNextTo(world, seat, npc.getBlockPos());
+        if(beside == null)
+            beside = NestSurvey.standInSight(world, seat, npc.getBlockPos(), STORE_STAND_RADIUS);
+        return beside != null ? beside : seat;
+    }
+
     // The store itself is a block nobody can stand in, and the closest the pathfinder gets to it may be the wrong side of a wall
     private BlockPos storeStand(ServerWorld world, BlockPos store) {
         if(!store.equals(standOf)) {
@@ -1937,7 +1969,19 @@ public class NpcRoutineGoal extends Goal {
         if(bed == null || !world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
             return null;
         BlockState state = world.getBlockState(bed);
-        return state.getBlock() instanceof BedBlock && !state.get(BedBlock.OCCUPIED) ? bed : null;
+        if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED))
+            return null;
+        // A bed with no floor anywhere beside it, such as one in a tent shut at both ends by its poles, is got into by
+        // nobody, and its owner rests at home. Looked for again in case the bed's chunk was not loaded when it was given out
+        if(npc.getBedStand() == null) {
+            BlockPos stand = NestSurvey.standFor(world, bed);
+            if(stand == null) {
+                fallsBack("bed", "no floor beside its bed at " + bed.toShortString() + ", rests at home instead");
+                return null;
+            }
+            npc.setHousehold(bed, stand, npc.getStore());
+        }
+        return bed;
     }
 
     private void goToBed(ServerWorld world) {
@@ -2011,6 +2055,16 @@ public class NpcRoutineGoal extends Goal {
             npc.escort(ward);
     }
 
+    // Of the floor around a seat, the side between it and the next one is shut in, and getting up is back to where it sat
+    // down from
+    private boolean sitDown(ServerWorld world) {
+        Vec3d from = npc.getPos();
+        if(meetSeat == null || !canSee(world, meetSeat) || !SeatBlock.seat(world, meetSeat, npc))
+            return false;
+        satFrom = from;
+        return true;
+    }
+
     private void standUp() {
         meetSeat = null;
         if(!(npc.getVehicle() instanceof SeatEntity seat))
@@ -2019,8 +2073,14 @@ public class NpcRoutineGoal extends Goal {
         npc.stopRiding();
         // Getting up leaves the npc standing on the seat, and there is no path off a piece of furniture.
         // It is put on the floor it sat down from
-        BlockPos floor = npc.getWorld() instanceof ServerWorld world ? NestSurvey.standNextTo(world, seatPos, npc.getBlockPos()) : null;
-        if(floor != null)
+        Vec3d back = satFrom;
+        satFrom = null;
+        if(back != null && back.isInRange(Vec3d.ofBottomCenter(seatPos), SAT_FROM_RANGE)) {
+            npc.refreshPositionAndAngles(back.x, back.y, back.z, npc.getYaw(), npc.getPitch());
+            return;
+        }
+        BlockPos floor = npc.getWorld() instanceof ServerWorld world ? seatStand(world, seatPos) : null;
+        if(floor != null && !floor.equals(seatPos))
             npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
     }
 
@@ -2041,6 +2101,7 @@ public class NpcRoutineGoal extends Goal {
         toBed = false;
         phase = Phase.NONE;
         npc.setOnOuting(false);
+        npc.setFarming(false);
         carried = null;
         lookTarget = null;
         restUntil = world.getTime() + rest;
