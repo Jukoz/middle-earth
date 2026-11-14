@@ -24,7 +24,8 @@ public class NpcPartySpawner {
     public static void spawn(ServerWorld world, NpcEntity leader, PartyData party) {
         Random random = world.getRandom();
         leader.setTravelHeading(random.nextFloat() * 360f);
-        leader.setTravelDestination(RoutineSites.findDestination(world, leader));
+        if(!leader.keepsBounds())
+            leader.setTravelDestination(RoutineSites.findDestination(world, leader));
 
         for(PartyData.Member member : party.getMembers()) {
             int amount = member.minimumAmount() + random.nextInt(Math.max(1, member.maximumAmount() - member.minimumAmount() + 1));

@@ -30,6 +30,8 @@ public class RoutineSite {
     private static final int MINIMUM_RING_POINTS = 8;
     private static final int MAXIMUM_RING_POINTS = 40;
     // Short enough for one path from a point of the ring to the next
+    // In ticks
+    private static final int GATHERING_TIME = 20 * 60;
     private static final int RING_SPACING = 14;
     // How far outside the outermost buildings the watch walks
     private static final int RING_MARGIN = 6;
@@ -70,6 +72,7 @@ public class RoutineSite {
     // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
     private @Nullable BlockPos meetingPoint = null;
+    private long gatheringUntil = 0;
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private @Nullable Identifier faction = null;
@@ -114,7 +117,8 @@ public class RoutineSite {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
             case PATROL -> ring.size() >= 3;
-            case MEET -> meetingPoint != null || !tables.isEmpty();
+            case MEET -> meetingPoint != null;
+            case TEA -> !tables.isEmpty();
         };
     }
 
@@ -146,6 +150,15 @@ public class RoutineSite {
 
     public @Nullable BlockPos getMeetingPoint() {
         return meetingPoint;
+    }
+
+    // Somebody is out to meet people, and the others of the place are more likely to come as well
+    public void callGathering(long time) {
+        gatheringUntil = time + GATHERING_TIME;
+    }
+
+    public boolean isGathering(long time) {
+        return time < gatheringUntil;
     }
 
     void setTables(List<List<BlockPos>> tables) {
@@ -235,13 +248,26 @@ public class RoutineSite {
     private void planRing(@Nullable List<BlockBox> pieces) {
         List<double[]> outline = pieces == null ? List.of() : outlineOf(pieces);
         if(outline.size() < 3) {
-            int points = MathHelper.clamp(Math.round(MathHelper.TAU * ringRadius / RING_SPACING), MINIMUM_RING_POINTS, MAXIMUM_RING_POINTS);
-            for(int i = 0; i < points; i++) {
-                double angle = MathHelper.TAU * i / points;
-                ringPlan.add(new double[]{centerX + Math.cos(angle) * ringRadius, centerZ + Math.sin(angle) * ringRadius, Math.cos(angle), Math.sin(angle)});
-            }
+            planCircle();
             return;
         }
+        planOutline(outline);
+        // Too small a place to walk around the outside of
+        if(ringPlan.size() < MINIMUM_RING_POINTS) {
+            ringPlan.clear();
+            planCircle();
+        }
+    }
+
+    private void planCircle() {
+        int points = MathHelper.clamp(Math.round(MathHelper.TAU * ringRadius / RING_SPACING), MINIMUM_RING_POINTS, MAXIMUM_RING_POINTS);
+        for(int i = 0; i < points; i++) {
+            double angle = MathHelper.TAU * i / points;
+            ringPlan.add(new double[]{centerX + Math.cos(angle) * ringRadius, centerZ + Math.sin(angle) * ringRadius, Math.cos(angle), Math.sin(angle)});
+        }
+    }
+
+    private void planOutline(List<double[]> outline) {
         double perimeter = 0;
         for(int i = 0; i < outline.size(); i++) {
             double[] from = outline.get(i);
@@ -277,6 +303,8 @@ public class RoutineSite {
             corners.add(new double[]{piece.getMinX(), piece.getMaxZ() + 1});
             corners.add(new double[]{piece.getMaxX() + 1, piece.getMaxZ() + 1});
         }
+        if(corners.isEmpty())
+            return List.of();
         corners.sort((a, b) -> a[0] != b[0] ? Double.compare(a[0], b[0]) : Double.compare(a[1], b[1]));
         List<double[]> hull = new ArrayList<>();
         for(int pass = 0; pass < 2; pass++) {

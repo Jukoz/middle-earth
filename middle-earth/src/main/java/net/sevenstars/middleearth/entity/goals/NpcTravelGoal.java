@@ -117,6 +117,9 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         for(float detour : DETOURS) {
             Vec3d ahead = npc.getPos().add(direction(heading + detour).multiply(length));
             Vec3d ground = groundAt(ahead.x, ahead.z);
+            // The border is where the land changes, and that way is not taken
+            if(ground != null && npc.keepsBounds() && !npc.getWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getWorld().getBiome(npc.getBlockPos())))
+                continue;
             if(ground != null && Math.abs(ground.y - npc.getY()) <= MAXIMUM_HEIGHT_CHANGE) {
                 onStretch = true;
                 return ground;
@@ -169,7 +172,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         BlockPos destination = npc.getTravelDestination();
         if(destination == null) {
             // Settlements become known as players come by
-            if(npc.getRandom().nextInt(DESTINATION_CHECK_CHANCE) == 0 && npc.getWorld() instanceof ServerWorld world)
+            if(!npc.keepsBounds() && npc.getRandom().nextInt(DESTINATION_CHECK_CHANCE) == 0 && npc.getWorld() instanceof ServerWorld world)
                 npc.setTravelDestination(RoutineSites.findDestination(world, npc));
             return heading;
         }

@@ -139,6 +139,7 @@ public class NpcRoutineGoal extends Goal {
     private int ringIndex = 0;
     private int ringStep = 1;
     private int ringLeft = 0;
+    private int laps = 0;
     private boolean ownsRod = false;
     private boolean toBed = false;
     private @Nullable NpcEntity companion = null;
@@ -242,13 +243,21 @@ public class NpcRoutineGoal extends Goal {
         BlockPos home = npc.getRoutineHome();
         askHousehold(world);
         RoutineData.Activity picked = null;
-        if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()))
-            picked = routine.pick(npc.getRandom(), site::supports);
+        if(routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift())) {
+            // People meet each other, not an empty square: once one sets out, most of those free to follow do
+            if(site.isGathering(time) && npc.getRandom().nextInt(4) != 0)
+                picked = routine.pick(npc.getRandom(), activity -> isSocial(activity) && site.supports(activity));
+            if(picked == null)
+                picked = routine.pick(npc.getRandom(), site::supports);
+        }
         else if(npc.isElf() && !npc.isRestTime())
             // Elves need little sleep, and keep company through the night
             picked = routine.pick(npc.getRandom(), activity -> activity == RoutineData.Activity.MEET && site.supports(activity));
-        if(picked != null && begin(world, picked, home))
+        if(picked != null && begin(world, picked, home)) {
+            if(isSocial(picked))
+                site.callGathering(time);
             return true;
+        }
 
         restUntil = time + NOTHING_TO_DO_REST;
         // Off duty, a settled npc that drifted away goes home
@@ -312,16 +321,13 @@ public class NpcRoutineGoal extends Goal {
                     return false;
                 spot = site.getGrounds().get(index);
             }
-            case MEET -> {
+            case MEET -> spot = site.getMeetingPoint();
+            case TEA -> {
                 meetSeat = site.pickSeat(world, random);
-                if(meetSeat != null) {
-                    BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
-                    spot = beside != null ? beside : meetSeat;
-                } else if(site.getMeetingPoint() != null) {
-                    spot = site.getMeetingPoint();
-                } else {
+                if(meetSeat == null)
                     return false;
-                }
+                BlockPos beside = NestSurvey.standNextTo(world, meetSeat, npc.getBlockPos());
+                spot = beside != null ? beside : meetSeat;
             }
             case PATROL -> {
                 List<BlockPos> ring = site.getRing();
@@ -330,6 +336,7 @@ public class NpcRoutineGoal extends Goal {
                     if(ring.get(i).getSquaredDistance(npc.getBlockPos()) < ring.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
                         ringIndex = i;
                 }
+                laps = 0;
                 ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
                 ringLeft = ring.size();
                 spot = ring.get(ringIndex);
@@ -418,7 +425,8 @@ public class NpcRoutineGoal extends Goal {
         }
         // The usual distance reaches through a wall, and a store on its far side was filled from the street
         boolean storing = phase == Phase.RETURNING && !toBed && carried != null && npc.getStore() != null;
-        if(target.isWithinDistance(npc.getPos(), storing ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)) {
+        boolean sitting = phase == Phase.GOING && meetSeat != null;
+        if(target.isWithinDistance(npc.getPos(), storing || sitting ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE)) {
             arrive(world);
             return;
         }
@@ -484,7 +492,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void giveUp(ServerWorld world) {
-        boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && ringLeft < site.getRing().size();
+        boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && (laps > 0 || ringLeft < site.getRing().size());
         if(phase != Phase.RETURNING && walkedSome) {
             // A blocked stretch of the round is skipped
             ringLeft--;
@@ -534,9 +542,12 @@ public class NpcRoutineGoal extends Goal {
             case MEET -> {
                 phaseEnd = time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
                 companion = null;
+            }
+            case TEA -> {
                 // Somebody quicker may have taken the seat, the table is still the place to be
-                if(meetSeat != null && SeatBlock.seat(world, meetSeat, npc))
-                    phaseEnd = time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION);
+                boolean seated = meetSeat != null && canSee(world, meetSeat) && SeatBlock.seat(world, meetSeat, npc);
+                phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
+                companion = null;
                 meetSeat = null;
             }
             case PATROL -> {
@@ -590,7 +601,7 @@ public class NpcRoutineGoal extends Goal {
                     }
                 }
             }
-            case MEET -> {
+            case MEET, TEA -> {
                 if(done) {
                     finish(world, REST + random.nextInt(REST_VARIATION));
                 } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
@@ -599,6 +610,9 @@ public class NpcRoutineGoal extends Goal {
                     lookTarget = null;
                 } else {
                     lookTarget = companion.getEyePos();
+                    // Talking with the hands
+                    if(random.nextInt(10) == 0)
+                        npc.swingHand(Hand.MAIN_HAND);
                 }
             }
             case PATROL -> {
@@ -606,11 +620,14 @@ public class NpcRoutineGoal extends Goal {
                     return;
                 ringLeft--;
                 // The watch walks its rounds until the shift is over. Going home after each one took it through the middle of the place
-                if(!onDuty(world)) {
+                // With nobody about to see it the round ends, as every other routine does
+                if(!onDuty(world) || !world.isPlayerInRange(npc.getX(), npc.getY(), npc.getZ(), PLAYER_RANGE)) {
                     startReturn(world);
                 } else {
-                    if(ringLeft <= 0)
+                    if(ringLeft <= 0) {
                         ringLeft = site.getRing().size();
+                        laps++;
+                    }
                     deadline = world.getTime() + ROUTINE_TIME_LIMIT;
                     nextWaypoint();
                 }
@@ -633,6 +650,8 @@ public class NpcRoutineGoal extends Goal {
         legs = 0;
         failures = 0;
         thinkCooldown = 0;
+        // Dusk and dawn come in the middle of a round
+        showProp();
     }
 
     private List<Item> forage() {
@@ -683,6 +702,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void startReturn(ServerWorld world) {
+        standUp();
         phase = Phase.RETURNING;
         lookTarget = null;
         legs = 0;
@@ -756,6 +776,10 @@ public class NpcRoutineGoal extends Goal {
             return;
         if(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager)
             manager.assignBed(npc);
+    }
+
+    private static boolean isSocial(RoutineData.Activity activity) {
+        return activity == RoutineData.Activity.MEET || activity == RoutineData.Activity.TEA;
     }
 
     private void standUp() {

@@ -300,6 +300,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(3, new TargetPlayerDiplomacyGoal(this));
         this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
+        this.targetSelector.add(4, new NpcModDoorGoal(this));
         this.targetSelector.add(5, new TargetNPCDiplomacyGoal(this));
         this.targetSelector.add(6, new ActiveTargetGoal<>(this, SnowTrollEntity.class, true));
         this.targetSelector.add(7, new ActiveTargetGoal<>(this, SpawnOfShelobEntity.class, true));
@@ -607,6 +608,11 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     public boolean isNightShift() {
         return (getUuid().hashCode() & 1) != 0;
+    }
+
+    public boolean keepsBounds() {
+        NpcType type = getNpcType();
+        return type != null && type.getRoutine() != null && type.getRoutine().keepsBounds();
     }
 
     public boolean isElf() {

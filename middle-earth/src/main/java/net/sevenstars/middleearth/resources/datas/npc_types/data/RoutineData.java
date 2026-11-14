@@ -20,6 +20,7 @@ public class RoutineData {
         public static final String WEIGHT = "weight";
         public static final String FORAGE = "forage";
         public static final String TIMID = "timid";
+        public static final String BOUNDS = "bounds";
     }
 
     public enum Activity implements StringIdentifiable {
@@ -27,7 +28,9 @@ public class RoutineData {
         HUNT("hunt"),
         FORAGE("forage"),
         PATROL("patrol"),
-        MEET("meet");
+        MEET("meet"),
+        // Sitting down together at a table
+        TEA("tea");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
         private final String name;
@@ -101,23 +104,26 @@ public class RoutineData {
             Period.CODEC.fieldOf(Fields.PERIOD).forGetter(RoutineData::getPeriod),
             Codec.list(Entry.CODEC).fieldOf(Fields.ACTIVITIES).forGetter(RoutineData::getEntries),
             Codec.list(Registries.ITEM.getCodec()).optionalFieldOf(Fields.FORAGE, List.of()).forGetter(RoutineData::getForage),
-            Codec.BOOL.optionalFieldOf(Fields.TIMID, false).forGetter(RoutineData::isTimid)
+            Codec.BOOL.optionalFieldOf(Fields.TIMID, false).forGetter(RoutineData::isTimid),
+            Codec.BOOL.optionalFieldOf(Fields.BOUNDS, false).forGetter(RoutineData::keepsBounds)
     ).apply(instance, RoutineData::new));
 
     private final Period period;
     private final List<Entry> entries;
     private final List<Item> forage;
     private boolean timid;
+    private boolean bounds;
 
-    private RoutineData(Period period, List<Entry> entries, List<Item> forage, boolean timid) {
+    private RoutineData(Period period, List<Entry> entries, List<Item> forage, boolean timid, boolean bounds) {
         this.timid = timid;
+        this.bounds = bounds;
         this.period = period;
         this.entries = new ArrayList<>(entries);
         this.forage = new ArrayList<>(forage);
     }
 
     public static RoutineData create(Period period) {
-        return new RoutineData(period, List.of(), List.of(), false);
+        return new RoutineData(period, List.of(), List.of(), false, false);
     }
 
     // What is carried home from foraging, mushrooms and berries when left out
@@ -130,6 +136,16 @@ public class RoutineData {
     public RoutineData timid() {
         this.timid = true;
         return this;
+    }
+
+    // Travels on for good inside the land it was born in, and seeks no settlement out
+    public RoutineData keepingBounds() {
+        this.bounds = true;
+        return this;
+    }
+
+    public boolean keepsBounds() {
+        return bounds;
     }
 
     public boolean isTimid() {
