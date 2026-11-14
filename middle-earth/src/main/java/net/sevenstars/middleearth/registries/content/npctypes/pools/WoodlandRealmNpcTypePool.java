@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
@@ -80,7 +79,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(7))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_AXE))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
 
         HUNTER = new NpcType(NpcRegistry.WOODLAND_REALM_HUNTER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
@@ -99,7 +98,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(5))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
 
         SENTINEL = new NpcType(NpcRegistry.WOODLAND_REALM_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_SENTINEL, List.of(
                 WeightedGearData.create()
@@ -148,7 +147,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(5))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
 
         RANGER = new NpcType(NpcRegistry.WOODLAND_REALM_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create().withWeight(3)
@@ -207,7 +206,7 @@ public class WoodlandRealmNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_LONGBOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.WOODLAND_REALMS_RANGER, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
 
         WARRIOR = new NpcType(NpcRegistry.WOODLAND_REALM_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
@@ -234,7 +233,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
 
         LANCER = new NpcType(NpcRegistry.WOODLAND_REALM_LANCER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
@@ -261,7 +260,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_BLUE_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_HEAVY_GREEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, new MountData(EntitiesME.GREAT_HORN).withArmor(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultStack()), NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.GREAT_HORN).withArmor(EquipmentItemsME.GREAT_HORN_PLATE_ARMOR.getDefaultStack()), NpcLoot.FROM_6_TO_10);
 
         NIGHTSHADE = new NpcType(NpcRegistry.WOODLAND_REALM_NIGHTSHADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_NIGHTSHADE, List.of(
                 WeightedGearData.create()
@@ -300,7 +299,7 @@ public class WoodlandRealmNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_DAGGER))
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NIGHTSHADE_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
 
         ELVEN_KINGS_GUARD = new NpcType(NpcRegistry.WOODLAND_REALM_ELVEN_KINGS_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_ELF, List.of(
                 WeightedGearData.create()
@@ -318,7 +317,7 @@ public class WoodlandRealmNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_SPEAR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
 
         COMMANDER = new NpcType(NpcRegistry.WOODLAND_REALM_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_COMMANDER, List.of(
                 WeightedGearData.create().withWeight(2)
@@ -377,7 +376,7 @@ public class WoodlandRealmNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.WOODLAND_REALM_NOBLE_LONGBOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
 
         WARDEN_OF_THE_GLADE = new NpcType(NpcRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.WOODLAND_REALM_WARDEN_OF_THE_GLADE, List.of(
                 WeightedGearData.create()
@@ -408,7 +407,7 @@ public class WoodlandRealmNpcTypePool {
                     AttributePoolElement.create(EntityAttributes.ATTACK_DAMAGE, 1, 2)
                             .withModifier(TOTAL_DAMAGE_MODIFIER, 1.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) // Does 1.5x damage, with 1 -> 2 base damage (strong)
             )));
-        }}, CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+        }}, NpcLoot.FROM_15_TO_25);
 
         ARTISAN.withRoutine(NpcRoutines.GATHERER);
         HUNTER.withRoutine(NpcRoutines.ELVEN_HUNTER);

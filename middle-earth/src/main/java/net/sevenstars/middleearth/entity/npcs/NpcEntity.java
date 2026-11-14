@@ -26,7 +26,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
@@ -114,7 +113,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         public static final String ROUTINE_STOWED_ITEM = "RoutineStowedItem";
         public static final String ROUTINE_STOWED_MAIN_HAND = "RoutineStowedMainHand";
     }
-    // [TrackedDatas]
     private static final TrackedData<NpcData> NPC_DATA;
     private static final TrackedData<NpcInitializationData> NPC_INITIALIZATION_DATA;
     private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
@@ -122,15 +120,21 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     // In ticks
     private static final int MANAGER_CHECK_INTERVAL = 100;
-    private static final int WAKE_RANGE = 16;
     private static final int HATCH_CHECK_INTERVAL = 4;
+    private static final int DEBUG_LABEL_INTERVAL = 5;
+    private static final int BOW_ATTACK_INTERVAL = 20;
+    private static final int BOW_ATTACK_INTERVAL_HARD = 30;
+    // In days
+    private static final int ELF_SLEEP_INTERVAL = 4;
+    // In blocks
+    private static final int WAKE_RANGE = 16;
     private static final int PARTY_RANGE = 64;
     private static final double HATCH_OPEN_DISTANCE = 3;
     private static final double HATCH_CLOSE_DISTANCE = 3.5;
-    // In days
-    private static final int ELF_SLEEP_INTERVAL = 4;
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
+    private static final float BOW_ATTACK_RANGE = 16.0F;
+    private static final float CROSSBOW_ATTACK_RANGE = 11.0F;
     // In blocks, from the npc's feet to its target's. A race sets its own, and the weapon in hand adds to it
     private static final double DEFAULT_REACH = 1.75;
     private static final float MOUNTED_REACH_BONUS = 0.5f;
@@ -138,6 +142,19 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private static final float CONTACT_REACH = 0.25f;
     // In ticks, from the last blow. Vanilla forgets an attacker after 5 seconds, which ends a fight with someone neutral halfway
     private static final int GRUDGE_TICKS = 20 * 60;
+    // Upward speed of an npc already on its way out of the water, which is not lifted again
+    private static final double CLIMBING_OUT = 0.1;
+    private static final double BOW_ATTACK_SPEED = 1.0;
+    private static final double MELEE_ATTACK_SPEED = 1.2;
+    private static final float KNOCKBACK_SCALE = 0.5f;
+    private static final double KNOCKBACK_SELF_SLOWDOWN = 0.6;
+    private static final int FALLBACK_EXPERIENCE = 1;
+    // Vanilla arrows leave a bow at 3 blocks a tick at full draw, which is BASE_ARROW_SPEED times the power
+    private static final float BASE_ARROW_SPEED = 1.6F;
+    private static final float CROSSBOW_ARROW_POWER = 1.25f;
+    private static final float NO_INACCURACY = 0f;
+    private static final double ARROW_AIR_DRAG = 0.99;
+    private static final double MAX_ARROW_FLIGHT_TICKS = 200;
 
     // The id of the npc's role, empty for none. Tracked so that the client can name the npc for it
     private static final TrackedData<String> ROLE = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
@@ -148,8 +165,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private @Nullable Float travelHeading = null;
     private @Nullable BlockPos travelDestination = null;
     private @Nullable BlockPos routineHome = null;
-    // Upward speed of an npc already on its way out of the water, which is not lifted again
-    private static final double CLIMBING_OUT = 0.1;
     // Given out by the structure manager of its nest
     private boolean householdKnown = false;
     private boolean onOuting = false;
@@ -176,9 +191,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     private boolean managerPresent = true;
     private int managerCheckAge = 0;
 
-    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, 1.0, 20, 16.0F);
-    private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, 1.0, 11.0F);
-    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, 1.2, false) {
+    private final CustomBowAttackGoal bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
+    private final NpcCrossBowAttackGoal crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
+    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
         @Override
         public void stop() {
             super.stop();
@@ -191,12 +206,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             NpcEntity.this.setAttacking(true);
         }
     };
-
-    public final AnimationState walkingState = new AnimationState();
-    public final AnimationState idleState = new AnimationState();
-    public final AnimationState aimingState = new AnimationState();
-    public final AnimationState attackState = new AnimationState();
-    public final AnimationState swingState = new AnimationState();
 
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
         super(entityType, world);
@@ -217,13 +226,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public boolean getFighting(){
         return this.dataTracker.get(IS_FIGHTING);
     }
-    // [IsBlocking] // TODO
-    public void setBlocking(boolean state){
-        //this.dataTracker.set(IS_FIGHTING, state);
-    }
-    public boolean getBlocking(){
-        return false; //this.dataTracker.get(IS_FIGHTING);
-    }
     // [NpcTextureData]
     public void saveNpcTextureData(NpcTextureData npcTextureData) {
         this.dataTracker.set(NPC_TEXTURE_DATA, npcTextureData);
@@ -233,9 +235,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
     public boolean hasTextureData(){
         return retrieveNpcTextureData().get(NpcRenderedPart.BODY) != null;
-    }
-    public boolean shouldRefreshVisuals() {
-        return this.retrieveNpcTextureData().needToBeRefreshed();
     }
     // [NpcInitializationData]
     public void saveNpcInitializationData(NpcInitializationData npcInitializationData) {
@@ -441,13 +440,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             this.goalSelector.remove(this.bowAttackGoal);
             ItemStack itemStack = this.getMainHandStack();
             if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
-                int i = 30;
-                if (this.getEntityWorld().getDifficulty() != Difficulty.HARD) {
-                    i = 20;
-                }
-                this.bowAttackGoal.setAttackInterval(i);
+                boolean hard = this.getWorld().getDifficulty() == Difficulty.HARD;
+                this.bowAttackGoal.setAttackInterval(hard ? BOW_ATTACK_INTERVAL_HARD : BOW_ATTACK_INTERVAL);
                 this.goalSelector.add(4, this.bowAttackGoal);
-            } if (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW)) {
+            } else if (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW)) {
                 this.goalSelector.add(4, this.crossBowAttackGoal);
             } else {
                 this.goalSelector.add(4, this.meleeAttackGoal);
@@ -455,21 +451,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         }
     }
 
-    public void updateTargetGoals() {
-        //if (this.getEntityWorld() != null && !this.getEntityWorld().isClient()) {
-        //    if(getFaction().getDisposition() == DispositionType.EVIL) {
-        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
-        //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, GreatHornEntity.class, true));
-        //    } else {
-        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, CaveTrollEntity.class, true));
-        //        this.targetSelector.add(5, new ActiveTargetGoal<>(this, StoneTrollEntity.class, true));
-        //        this.targetSelector.add(6, new ActiveTargetGoal<>(this, WargEntity.class, true));
-        //    }
-        //}
-    }
-
     //region [DATA TRANSFER]
-    // GETTERS
     public Identifier getNpcTypeIdentifier(){
         return retrieveNpcData().getNpcTypeId();
     }
@@ -794,7 +776,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public void tryToInitializeData(){
         if(dataInitialized)
             return;
-        if(Objects.equals(getBlockPos(), new BlockPos(0, 0, 0))) // 0,0,0 is what's used for commands, needs to be delayed
+        // Commands spawn at the origin first, so the npc waits until it has been moved
+        if(Objects.equals(getBlockPos(), BlockPos.ORIGIN))
             return;
 
         this.prepare();
@@ -835,19 +818,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         LivingEntity target = getTarget();
         if(target != null && !target.isAlive())
             setTarget(null);
-        //CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
-       // if(runtimeData != null)
-           // runtimeData.tick(this, world);
-
-        /*Profiler profiler = Profilers.get();
-        profiler.push("npcBrain");
-        this.getBrain().tick(world, this);
-        profiler.pop();
-        profiler.push("npcActivityUpdate");
-        NpcBrain.updateActivities(this);
-        profiler.pop();*/
         super.mobTick(world);
-        if(age % 5 == 0)
+        if(age % DEBUG_LABEL_INTERVAL == 0)
             tempDebugLabel();
 
         if(hasVehicle()){
@@ -924,19 +896,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         }
     }
 
-    /*protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return NpcBrain.create(dynamic);
-    }
-
-    public Brain<NpcEntity> getBrain() {
-        return (Brain<NpcEntity>) super.getBrain();
-    }*/
-
-    public float getFightingMovementSpeed(){
-        double currentSpeed = this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
-        return (float) (currentSpeed);
-    }
-
     public boolean isFighting() {
         boolean isFighting = getFighting();
 
@@ -945,32 +904,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             abstractHorseEntity.setSprinting(isFighting);
         }
         return isFighting;
-    }
-
-    @Override
-    public void tickMovement() {
-        super.tickMovement();
-
-        if(!this.getEntityWorld().isClient()) {
-
-        } else {
-            setupAnimationStates();
-        }
-
-    }
-
-    private void setupAnimationStates() {
-        if(this.forwardSpeed > 0) {
-            this.walkingState.startIfNotRunning(this.age);
-        } else {
-            this.idleState.startIfNotRunning(this.age);
-        }
-
-        int bowPullProgress = this.getItemUseTime();
-        if(bowPullProgress > 0) {
-            this.aimingState.startIfNotRunning(this.age);
-        }
-
     }
 
     @Override
@@ -985,7 +918,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        // Overrides vanilla init equipment (gold sets???)
+        // Gear comes from the npc type, not vanilla's random armour
     }
 
     @Override
@@ -1014,30 +947,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean canDropLoot(DamageSource damageSource, boolean causedByPlayer){
-        boolean canDropLoot = false;
-        if(!causedByPlayer)
-            return canDropLoot;
-        if(damageSource == null)
-            return canDropLoot;
-
-        if(damageSource.getAttacker() instanceof PlayerEntity player){
-            PlayerData data = StateSaverAndLoader.getPlayerState(player);
-            if(data == null)
-                canDropLoot = true;
-            else if(data.getFaction() == null)
-                canDropLoot = true;
-            else{
-                try{
-                    Faction faction = FactionLookup.getFactionById(getEntityWorld(), data.getFaction());
-                    if(faction.isHostileToward(this.getFactionIdentifier()))
-                        canDropLoot = true;
-                } catch (FactionIdentifierException e){
-                    canDropLoot = true;
-                }
-            }
+        if(!causedByPlayer || damageSource == null || !(damageSource.getAttacker() instanceof PlayerEntity player))
+            return false;
+        PlayerData data = StateSaverAndLoader.getPlayerState(player);
+        if(data == null || data.getFaction() == null)
+            return true;
+        try{
+            return FactionLookup.getFactionById(getWorld(), data.getFaction()).isHostileToward(this.getFactionIdentifier());
+        } catch (FactionIdentifierException e){
+            return true;
         }
-
-        return canDropLoot;
     }
 
     protected void drop(ServerWorld world, DamageSource damageSource) {
@@ -1049,7 +968,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     protected int getExperienceToDrop(ServerWorld world) {
         LootData lootData = retrieveLootData();
         if(lootData == null)
-            return 1;
+            return FALLBACK_EXPERIENCE;
         return lootData.getExperience(world);
     }
 
@@ -1090,11 +1009,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return super.isPersistent();
     }
 
-    @Override
-    public void setCustomName(@Nullable Text name) {
-        super.setCustomName(name);
-    }
-
     public @Nullable Faction getFaction(){
         NpcData data = retrieveNpcData();
         if(data == null)
@@ -1125,41 +1039,32 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-        boolean targetDamaged;
-        float damage = 1.0f;
-        try{
-            Optional<Double> damageOpt = Optional.of(this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE));
-            damage = damageOpt.get().floatValue();
-        } catch (Exception ignored){}
+        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        float damage = (float) this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
         ItemStack itemStack = this.getWeaponStack();
         DamageSource damageSource = Optional.ofNullable(itemStack.getItem().getDamageSource(this)).orElse(this.getDamageSources().mobAttack(this));
 
-        var enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
-        var bonusDamage =  itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
-        var finalDamage = damage + bonusDamage;
+        float enchantmentDamage = EnchantmentHelper.getDamage(world, itemStack, target, damageSource, damage);
+        float finalDamage = damage + itemStack.getItem().getBonusAttackDamage(target, enchantmentDamage, damageSource);
 
         if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
             mountEntity.tryAttack((ServerWorld) target.getEntityWorld(), target);
         }
 
-        targetDamaged = target.damage(world, damageSource, finalDamage);
+        boolean targetDamaged = target.damage(world, damageSource, finalDamage);
         if (targetDamaged) {
-            LivingEntity livingEntity;
-            float g = this.getAttackKnockbackAgainst(target, damageSource);
-            if (g > 0.0f && target instanceof LivingEntity) {
-                livingEntity = (LivingEntity)target;
-                livingEntity.takeKnockback(g * 0.5f, MathHelper.sin(this.getYaw() * ((float)Math.PI / 180)), -MathHelper.cos(this.getYaw() * ((float)Math.PI / 180)));
-                this.setVelocity(this.getVelocity().multiply(0.6, 1.0, 0.6));
-            }
-            if (target instanceof LivingEntity) {
-                livingEntity = (LivingEntity)target;
-                itemStack.postHit(livingEntity, this);
+            if (target instanceof LivingEntity livingTarget) {
+                float knockback = this.getAttackKnockbackAgainst(target, damageSource);
+                if (knockback > 0.0f) {
+                    float yaw = this.getYaw() * MathHelper.RADIANS_PER_DEGREE;
+                    livingTarget.takeKnockback(knockback * KNOCKBACK_SCALE, MathHelper.sin(yaw), -MathHelper.cos(yaw));
+                    this.setVelocity(this.getVelocity().multiply(KNOCKBACK_SELF_SLOWDOWN, 1.0, KNOCKBACK_SELF_SLOWDOWN));
+                }
+                itemStack.postHit(livingTarget, this);
             }
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
             this.onAttacking(target);
             this.playAttackSound();
-
         }
         return targetDamaged;
     }
@@ -1205,12 +1110,6 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         return NpcRelations.of(npcEntity, target) == Relation.ENEMY;
     }
 
-    public int getTickAttackSpeedCooldown(){
-        if(!this.getAttributes().hasAttribute(EntityAttributes.ATTACK_SPEED))
-            return 1;
-        return (int)this.getAttributes().getValue(EntityAttributes.ATTACK_SPEED);
-    }
-
     public void setPassingDoor(boolean passingDoor) {
         this.passingDoor = passingDoor;
     }
@@ -1230,12 +1129,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
-        // No drop allowed
     }
-
-    //public void releaseTicketFor(MemoryModuleType<GlobalPos> destination) {
-    //    this.releaseTicketFor(MemoryModuleType.HOME);
-    //}
 
     public float getWidthScale() {
         try{
@@ -1246,62 +1140,23 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         }
     }
 
-    /*@Override
-    public boolean isInAttackRange(LivingEntity entity) {
-        CombatArchetypeRuntimeData runtimeData = getCombatRuntimeData();
-        if(runtimeData == null)
-            return false;
-        return runtimeData.getCombatArchetypeData().isInOptimalRange(this, entity.getBlockPos());
-    }*/
-
     protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
         return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom);
     }
 
     public boolean isAiming() {
-        int i = this.getItemUseTime();
-        return i > 0;
+        return this.getItemUseTime() > 0;
     }
 
     public void aim() {
-        var currentItem = getActiveItem();
-        if(currentItem.isEmpty()){
+        if(getActiveItem().isEmpty()){
             clearActiveItem();
             setCurrentHand(Hand.MAIN_HAND);
         }
     }
 
     public void stopAiming() {
-        var currentItem = getActiveItem();
-        if(currentItem.isEmpty()){
-            this.clearActiveItem();
-            return;
-        }
         this.clearActiveItem();
-    }
-
-    public boolean isReadyToShoot() {
-        return getMainHandStack() != null;
-        //int i = this.getItemUseTime();
-        //if (i >= 20) {
-        //    return true;
-        //}
-        //return false;
-    }
-
-    private float arrowInaccuracy = 0f;
-
-    /** Spread added to every arrow this npc fires, in vanilla divergence units; 0 is a perfect shot. */
-    public float getArrowInaccuracy() {
-        return arrowInaccuracy;
-    }
-
-    public void setArrowInaccuracy(float arrowInaccuracy) {
-        this.arrowInaccuracy = Math.max(0f, arrowInaccuracy);
-    }
-
-    private void shootAt(LivingEntity target, float pullProgress, float powerModifier) {
-        shootAt(target, pullProgress, powerModifier, getArrowInaccuracy());
     }
 
     /**
@@ -1312,15 +1167,12 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
      *                   vanilla skeletons use 2 (hard) to 10 (easy).
      */
     public void shootAt(LivingEntity target, float pullProgress, float powerModifier, float inaccuracy) {
-        if (!isReadyToShoot())
-            return;
-
         ItemStack weapon = this.getMainHandStack();
         ItemStack projectileStack = this.getProjectileType(weapon);
         if(projectileStack.isEmpty()) projectileStack = new ItemStack(Items.ARROW, 1);
 
         PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
-        float speed = 1.6F * powerModifier;
+        float speed = BASE_ARROW_SPEED * powerModifier;
         Vec3d aim = solveArrowAim(projectile.getPos(), target, speed, projectile.getFinalGravity());
 
         if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
@@ -1336,17 +1188,10 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
             );
         }
 
-        this.playSound(
-                SoundEvents.ENTITY_ARROW_SHOOT,
-                1.0F,
-                1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F)
-        );
+        this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 
         stopAiming();
     }
-
-    private static final double ARROW_AIR_DRAG = 0.99;
-    private static final double MAX_ARROW_FLIGHT_TICKS = 200;
 
     /**
      * Returns the launch direction that lands an arrow fired from {@code origin} at {@code speed} on the
@@ -1365,7 +1210,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         for (double ticks = 0.5; ticks <= MAX_ARROW_FLIGHT_TICKS; ticks += 0.5) {
             double speedGap = requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks).length() - speed;
             if (speedGap <= 0) {
-                // The needed speed falls with flight time before it rises again, so the first crossing is the flat shot.
+                // The needed speed falls with flight time before it rises again, so the first crossing is the flat shot
                 double low = previousTicks, high = ticks;
                 for (int i = 0; i < 30; i++) {
                     double mid = (low + high) / 2;
@@ -1397,18 +1242,11 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
-        this.shootAt(target, 1, pullProgress);
+        this.shootAt(target, 1, pullProgress, NO_INACCURACY);
     }
 
-    public void shootAt(LivingEntity livingEntity) {
-        try{
-            this.shootAt(livingEntity, BowItem.getPullProgress(getItemUseTime()), 2f);
-        } catch (IllegalArgumentException e){
-            this.shootAt(livingEntity, CustomLongbowWeaponItem.getPullProgressLongbow(getItemUseTime()), 3f);
-        }
-    }
     public void shootCrossbowAt(LivingEntity target) {
-        this.shootAt(target, 1, 1.25f);
+        this.shootAt(target, 1, CROSSBOW_ARROW_POWER, NO_INACCURACY);
     }
 
     public boolean isCharging() {

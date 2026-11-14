@@ -96,7 +96,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if(!npcEntity.getEntityWorld().isClient())
             return;
 
-        npcEntityRenderState.aimingState = npcEntity.aimingState;
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
         NpcTextureData npcTextureData = npcEntity.retrieveNpcTextureData();

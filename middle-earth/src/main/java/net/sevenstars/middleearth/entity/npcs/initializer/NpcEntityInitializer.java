@@ -54,7 +54,6 @@ public class NpcEntityInitializer {
         npcEntity.prepareNpcIdentifier(npcTypeId);
         npcEntity.prepare();
         NpcGenerator.generateCharacterTextures(serverWorld, npcEntity);
-        npcEntity.updateTargetGoals();
         if(role != null)
             npcEntity.takeRole(role);
 

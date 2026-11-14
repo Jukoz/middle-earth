@@ -11,13 +11,6 @@ import net.sevenstars.api.dtos.WeightedPool;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePool;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.CombatArchetypeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.MeleeCombatArchetypeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.RangedCombatArchetypeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.CombatArchetypeRuntimeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.MeleeCombatArchetypeRuntimeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.runtime.RangedCombatArchetypeRuntimeData;
-import net.sevenstars.middleearth.resources.datas.combatarchetypes.utils.CombatArchetypeDataUtil;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.LootData;
 import net.sevenstars.middleearth.resources.datas.npc_types.data.MountData;
@@ -42,7 +35,6 @@ public class NpcType {
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcType::getNpcTextureDataValue),
             NbtCompound.CODEC.fieldOf("gear").forGetter(NpcType::getGearDataValues),
             NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcType::getNpcAttributePool),
-            NbtCompound.CODEC.fieldOf("combat_archetype").forGetter(NpcType::getCombatArchetypeData),
             MountData.CODEC.optionalFieldOf("mount").forGetter(NpcType::getOptionalMountData),
             LootData.CODEC.optionalFieldOf("loot").forGetter(NpcType::getOptionalLootData),
             RoutineData.CODEC.optionalFieldOf("routine").forGetter(NpcType::getOptionalRoutine),
@@ -53,7 +45,6 @@ public class NpcType {
     private final Identifier raceId;
     private final Identifier factionId;
     private final Identifier npcTextureKey;
-    private final CombatArchetypeData combatArchetypeData;
     private final WeightedPool<WeightedGearData> gearDatas;
     private final HashMap<EntityCategories, AttributePool> npcAttributePools;
     private final MountData mountData;
@@ -61,7 +52,7 @@ public class NpcType {
     private @Nullable RoutineData routine = null;
     private boolean civilian = false;
 
-    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, NbtCompound combatArchetypeData, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine, boolean civilian) {
+    public NpcType(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine, boolean civilian) {
         this.id = id;
         this.raceId = raceId;
         this.factionId = factionId;
@@ -82,24 +73,22 @@ public class NpcType {
             }
         }
 
-        this.combatArchetypeData = CombatArchetypeDataUtil.create(combatArchetypeData);
         this.mountData = mount.orElse(null);
         this.lootData = lootData.orElse(null);
         this.routine = routine.orElse(null);
         this.civilian = civilian;
     }
-    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, LootData lootData) {
-        this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, combatArchetypeData, null, lootData);
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, LootData lootData) {
+        this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, null, lootData);
     }
 
-    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, CombatArchetypeData combatArchetypeData, MountData mount, LootData lootData) {
+    public NpcType(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, MountData mount, LootData lootData) {
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
         this.gearDatas = new WeightedPool<>(weightedGearData);
         this.npcAttributePools = npcAttributePools;
-        this.combatArchetypeData = combatArchetypeData;
         this.mountData = mount;
         this.lootData = lootData;
     }
@@ -113,10 +102,6 @@ public class NpcType {
     }
     public Identifier getFactionIdentifier() {
         return factionId;
-    }
-
-    private NbtCompound getCombatArchetypeData() {
-        return combatArchetypeData.getNbt();
     }
 
     private Optional<MountData> getOptionalMountData() {
@@ -200,20 +185,6 @@ public class NpcType {
             npcAttributePools.get(category).apply(npcEntity);
 
         npcEntity.heal(npcEntity.getMaxHealth() - npcEntity.getHealth());
-    }
-
-    public CombatArchetypeRuntimeData getCombatArchetypeRuntime() {
-        CombatArchetypeData archetypeData = combatArchetypeData;
-        return switch (archetypeData.getArchetype()){
-            case MELEE -> new MeleeCombatArchetypeRuntimeData((MeleeCombatArchetypeData) archetypeData);
-            case RANGED -> new RangedCombatArchetypeRuntimeData((RangedCombatArchetypeData) archetypeData);
-            case HYBRID -> null;
-            case SHIELDED -> null;
-            case LANCERS -> null;
-            case SENTINEL -> null;
-            case BRAWLER -> null;
-            case BEAST_RIDER -> null;
-        };
     }
 
     public boolean hasCategory(World world, EntityCategories category) {

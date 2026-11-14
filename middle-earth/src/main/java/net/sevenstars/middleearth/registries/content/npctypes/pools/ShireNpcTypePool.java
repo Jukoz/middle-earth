@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRoutines;
@@ -55,7 +54,7 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(EquipmentItemsME.WOVEN_HAT).withWeight(2))
                                 .add(WeightedItemData.create().withWeight(12))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
 
         MILITIA = new NpcType(NpcRegistry.SHIRE_MILITIA.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
                 WeightedGearData.create()
@@ -82,7 +81,7 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
 
         BOUNDER = new NpcType(NpcRegistry.SHIRE_BOUNDER.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_MILITIA, List.of(
                 WeightedGearData.create()
@@ -105,7 +104,7 @@ public class ShireNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
 
         SHIRRIFF = new NpcType(NpcRegistry.SHIRE_SHIRRIFF.getValue(), RaceRegistry.HOBBIT, FACTION, TexturePresetsRegistry.SHIRE_SHIRRIFF, List.of(
                 WeightedGearData.create()
@@ -124,7 +123,7 @@ public class ShireNpcTypePool {
                                 .add(WeightedItemData.create(ToolItemsME.BRIMMINGBEND_PIPE))
                                 .add(WeightedItemData.create(Items.BOOK))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
 
         PEASANT.withRoutine(NpcRoutines.HOBBIT);
         MILITIA.withRoutine(NpcRoutines.DAY_WATCH);

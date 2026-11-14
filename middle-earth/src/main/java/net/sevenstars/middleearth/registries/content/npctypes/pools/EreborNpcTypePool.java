@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
-import net.sevenstars.middleearth.registries.content.npctypes.CombatArchetypePool;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcLoot;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
@@ -74,7 +73,7 @@ public class EreborNpcTypePool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
 
         MILITIA = new NpcType(NpcRegistry.EREBOR_MILITIA.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF, List.of(
                 WeightedGearData.create()
@@ -103,7 +102,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.HEATER_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
 
         SOLDIER = new NpcType(NpcRegistry.EREBOR_SOLDIER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -144,7 +143,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.HEATER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
 
         ARCHER = new NpcType(NpcRegistry.EREBOR_ARCHER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -179,7 +178,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_BOW).withWeight(3))
                                 .add(WeightedItemData.create(Items.BOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
 
         ELITE = new NpcType(NpcRegistry.EREBOR_ELITE.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -219,7 +218,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_CROSS_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(5))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
 
         VETERAN = new NpcType(NpcRegistry.EREBOR_VETERAN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -250,7 +249,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_SHIELD).withWeight(5))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
 
         GATEWARDEN = new NpcType(NpcRegistry.EREBOR_GATEWARDEN.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_DWARF_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -279,7 +278,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_REINFORCED_TOWER_SHIELD).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
 
 
         LEADER = new NpcType(NpcRegistry.EREBOR_LEADER.getValue(), RaceRegistry.DWARF, FACTION, TexturePresetsRegistry.LONGBEARDS_EREBOR_MIGHTY_DWARF, List.of(
@@ -309,7 +308,7 @@ public class EreborNpcTypePool {
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_ORNAMENTED_TOWER_SHIELD).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_BUCKLER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_15_TO_25);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
 
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
