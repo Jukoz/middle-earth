@@ -16,6 +16,7 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -35,6 +36,16 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         BlockPos blockPos = context.getOrigin();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         Random random = context.getRandom();
+
+        // Boulders are set down after the buildings, and one filled the rooms of a house it was put beside. None goes within a
+        // chunk of a structure
+        ChunkPos chunk = new ChunkPos(blockPos);
+        for(int offsetX = -1; offsetX <= 1; offsetX++) {
+            for(int offsetZ = -1; offsetZ <= 1; offsetZ++) {
+                if(structureWorldAccess.getChunk(chunk.x + offsetX, chunk.z + offsetZ).hasStructureReferences())
+                    return false;
+            }
+        }
 
         BlockState underBlock = structureWorldAccess.getBlockState(blockPos.down());
         if(underBlock.isIn(BlockTags.LEAVES) || CANNOT_PLACE_ON_BLOCKS.contains(underBlock.getBlock())) {
