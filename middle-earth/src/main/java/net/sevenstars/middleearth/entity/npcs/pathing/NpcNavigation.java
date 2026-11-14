@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,6 +23,8 @@ public class NpcNavigation extends MobNavigation {
     private static final int SEARCH_NODES = 2048;
     private static final float PATH_LENGTH = 64;
     private static final float LONG_PATH_LENGTH = 96;
+    // What the game passes for a search to one block
+    private static final int FOLLOW_TARGET_RANGE = 8;
 
     // The game keeps its own to itself
     private float searchMultiplier = 1;
@@ -37,6 +40,15 @@ public class NpcNavigation extends MobNavigation {
         // A search given more nodes, as on the way to bed, may follow a longer way too
         float length = searchMultiplier > 1 ? LONG_PATH_LENGTH : PATH_LENGTH;
         return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, length));
+    }
+
+    // The game raises a target that stands in a block it takes for solid. A bed stand beside an open trapdoor is no such block,
+    // and the search went for the block over it
+    @Override
+    public @Nullable Path findPathTo(BlockPos target, int distance) {
+        if(isBoard(world.getBlockState(target)))
+            return findPathTo(Set.of(target), FOLLOW_TARGET_RANGE, false, distance);
+        return super.findPathTo(target, distance);
     }
 
     @Override
@@ -66,16 +78,17 @@ public class NpcNavigation extends MobNavigation {
         if(isIdle() || currentPath == null || currentPath.isFinished())
             return;
         BlockPos node = currentPath.getCurrentNodePos();
-        // The board of a shutter can hang at head height only
-        BlockPos board = isBoard(world.getBlockState(node)) ? node : isBoard(world.getBlockState(node.up())) ? node.up() : null;
-        if(board == null)
-            return;
-        VoxelShape shape = world.getBlockState(board).getCollisionShape(world, board);
-        if(shape.isEmpty())
+        // A board at the feet and another at head height, as a ladder turning a corner or a shutter over a ladder, both narrow
+        // the room the body has to pass through
+        BlockState feet = world.getBlockState(node);
+        BlockState head = world.getBlockState(node.up());
+        VoxelShape low = isBoard(feet) ? feet.getCollisionShape(world, node) : VoxelShapes.empty();
+        VoxelShape high = isBoard(head) ? head.getCollisionShape(world, node.up()) : VoxelShapes.empty();
+        if(low.isEmpty() && high.isEmpty())
             return;
         Vec3d target = currentPath.getNodePosition(entity);
-        double x = node.getX() + freeMiddle(shape.getMin(Direction.Axis.X), shape.getMax(Direction.Axis.X));
-        double z = node.getZ() + freeMiddle(shape.getMin(Direction.Axis.Z), shape.getMax(Direction.Axis.Z));
+        double x = node.getX() + freeMiddle(low, high, Direction.Axis.X);
+        double z = node.getZ() + freeMiddle(low, high, Direction.Axis.Z);
         entity.getMoveControl().moveTo(x, adjustTargetY(target), z, speed);
     }
 
@@ -83,13 +96,19 @@ public class NpcNavigation extends MobNavigation {
         return state.isIn(BlockTags.CLIMBABLE) || state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
     }
 
-    // Along one axis, the middle of what a shape against one side of the block leaves free
-    private static double freeMiddle(double min, double max) {
-        if(min <= 0 && max < 0.5)
-            return (max + 1) / 2;
-        if(max >= 1 && min > 0.5)
-            return min / 2;
-        return 0.5;
+    // Along one axis, the middle of the room shapes against the sides of the block leave free
+    private static double freeMiddle(VoxelShape low, VoxelShape high, Direction.Axis axis) {
+        double from = 0;
+        double to = 1;
+        for(VoxelShape shape : new VoxelShape[]{low, high}) {
+            if(shape.isEmpty())
+                continue;
+            if(shape.getMin(axis) <= 0 && shape.getMax(axis) < 0.5)
+                from = Math.max(from, shape.getMax(axis));
+            else if(shape.getMax(axis) >= 1 && shape.getMin(axis) > 0.5)
+                to = Math.min(to, shape.getMin(axis));
+        }
+        return (from + to) / 2;
     }
 
     // Off the ground on a ladder is still somewhere a path can be followed from

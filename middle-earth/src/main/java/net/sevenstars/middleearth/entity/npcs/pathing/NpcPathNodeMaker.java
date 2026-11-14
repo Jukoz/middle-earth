@@ -24,6 +24,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.Heightmap;
 
 // Land pathfinding knows nothing of ladders: a mob only ever gets onto one by accident. This adds the way up and down them
@@ -39,6 +40,8 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Of a block, for a mob with no step height of its own: the attribute's default
     private static final double DEFAULT_STEP = 0.6;
     private static final double DEFAULT_HEADROOM = 0.8;
+    // A rise underfoot smaller than this is no rise
+    private static final double LIFT = 0.01;
     // A carpet or a layer of snow
     private static final double LOW_STEP = 0.2;
     // Room to spare between a body and the end of a ladder's board, below which it is taken not to fit past
@@ -76,6 +79,15 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         }
         if(state.getBlock() instanceof ScaffoldingBlock)
             return PathNodeType.BLOCKED;
+        // The game takes any trapdoor for something to stand on at its own height. An open one is a board at the side of an
+        // empty block, a floor only where there is one below it, and nothing at all to stand on top of
+        BlockState below = context.getBlockState(new BlockPos(x, y - 1, z));
+        if(isOpenBoard(state)) {
+            BlockPos under = new BlockPos(x, y - 1, z);
+            return !below.getCollisionShape(context.getWorld(), under).isEmpty() && !isOpenBoard(below) ? PathNodeType.WALKABLE : PathNodeType.OPEN;
+        }
+        if(state.isAir() && isOpenBoard(below))
+            return PathNodeType.OPEN;
         // A trapdoor shut against the top of a doorway as its lintel leaves room for a body below it. Where the feet would be
         // in it, the step is taken out again in removeFeetUnderLintels
         if(isOverhead(context, state, x, y, z))
@@ -101,6 +113,8 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         count = removeTooHighSteps(successors, count, node);
         count = removeStepsThroughBoards(successors, count, node);
         count = removeFeetUnderLintels(successors, count);
+        count = removeHeadBumps(successors, count, node);
+        count = removeLadderTops(successors, count);
         if(isLadderCell(node.x, node.y, node.z)) {
             if(isLadderCell(node.x, node.y + 1, node.z))
                 count = add(successors, count, node.x, node.y + 1, node.z);
@@ -277,6 +291,9 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         for(int up = 0; up < 2; up++) {
             if(boardTowards(from.x, from.y + up, from.z, stepX, stepZ) || boardTowards(next.x, next.y + up, next.z, -stepX, -stepZ))
                 return true;
+            // A step down goes past the board at the height it left from, before it drops
+            if(next.y < from.y && boardTowards(next.x, from.y + up, next.z, -stepX, -stepZ))
+                return true;
         }
         return false;
     }
@@ -327,6 +344,27 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             PathNode next = successors[i];
             if(isOverhead(context, context.getBlockState(probe.set(next.x, next.y, next.z)), next.x, next.y, next.z))
                 continue;
+            successors[kept++] = next;
+        }
+        return kept;
+    }
+
+    // A cushion or a rug underfoot lifts the body a little within its block, and a board or a beam just over the head stops
+    // it there. The game looks for this only on a step up of a whole block
+    private int removeHeadBumps(PathNode[] successors, int count, PathNode from) {
+        if(entity == null)
+            return count;
+        double fromFeet = feetAt(from.x, from.y, from.z);
+        double half = entity.getWidth() / 2;
+        int kept = 0;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            double feet = feetAt(next.x, next.y, next.z);
+            if(next.y == from.y && feet > fromFeet + LIFT) {
+                Box body = new Box(from.x + 0.5 - half, feet, from.z + 0.5 - half, from.x + 0.5 + half, feet + entity.getHeight(), from.z + 0.5 + half);
+                if(!context.getWorld().isSpaceEmpty(body))
+                    continue;
+            }
             successors[kept++] = next;
         }
         return kept;
@@ -437,9 +475,37 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return count + 1;
     }
 
-    // A place on a ladder, or just above its top, with room for the body
+    // A place on a ladder, or just above its top, with room for the body. Above the top is only a place where there is a floor
+    // to step off onto: a ladder one block high set up as a garden fence has none
     private boolean isLadderCell(int x, int y, int z) {
-        return (isClimbable(x, y, z) || isClimbable(x, y - 1, z)) && isPassable(x, y, z) && isPassable(x, y + 1, z);
+        if(!isPassable(x, y, z) || !isPassable(x, y + 1, z))
+            return false;
+        return isClimbable(x, y, z) || isClimbable(x, y - 1, z) && hasLanding(x, y, z);
+    }
+
+    private boolean hasLanding(int x, int y, int z) {
+        for(Direction side : Direction.Type.HORIZONTAL) {
+            int nextX = x + side.getOffsetX();
+            int nextZ = z + side.getOffsetZ();
+            for(int up = 0; up <= 1; up++) {
+                int floor = y + up - 1;
+                if(isPassable(nextX, floor + 1, nextZ) && isPassable(nextX, floor + 2, nextZ) && !isPassable(nextX, floor, nextZ) && !isClimbable(nextX, floor, nextZ))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    // The game takes a ladder for a solid block, and the air over the top of one for floor
+    private int removeLadderTops(PathNode[] successors, int count) {
+        int kept = 0;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            if(isClimbable(next.x, next.y - 1, next.z) && !isClimbable(next.x, next.y, next.z) && !hasLanding(next.x, next.y, next.z))
+                continue;
+            successors[kept++] = next;
+        }
+        return kept;
     }
 
     // Scaffolding is climbed, but only crouching is the way down, and a mob never crouches: its top is a floor
