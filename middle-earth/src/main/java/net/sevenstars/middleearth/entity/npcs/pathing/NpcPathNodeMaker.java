@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ScaffoldingBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.util.shape.VoxelShape;
@@ -27,11 +28,13 @@ import net.minecraft.util.math.Direction;
 public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Makes a walk on the flat win over a climb of the same length
     private static final float CLIMB_PENALTY = 1f;
-    // Places looked at below a step down before the land there is taken to be open
-    private static final int TRAP_SEARCH = 48;
+    // Places looked at below a step down before the land there is taken to be open. A cave beside a hall is a few hundred,
+    // and npcs that stepped down into one never came out
+    private static final int TRAP_SEARCH = 400;
     private static final int MAXIMUM_DROP = 3;
     // Of a block, for a mob with no step height of its own: the attribute's default
     private static final double DEFAULT_STEP = 0.6;
+    private static final double DEFAULT_HEADROOM = 0.8;
     // A carpet or a layer of snow
     private static final double LOW_STEP = 0.2;
     // Room to spare between a body and the end of a ladder's board, below which it is taken not to fit past
@@ -67,6 +70,12 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
                 return PathNodeType.DOOR_OPEN;
             return door.canMove(context.getWorld(), probe, state) ? PathNodeType.DOOR_WOOD_CLOSED : PathNodeType.BLOCKED;
         }
+        if(state.getBlock() instanceof ScaffoldingBlock)
+            return PathNodeType.BLOCKED;
+        // A trapdoor shut against the top of a doorway as its lintel leaves room for a body below it. Where the feet would be
+        // in it, the step is taken out again in removeFeetUnderLintels
+        if(isOverhead(context, state, x, y, z))
+            return PathNodeType.OPEN;
         // A door they are to leave alone is a wall while it is shut, whichever kind of door the game takes it for
         if(isLockedShut(state))
             return PathNodeType.BLOCKED;
@@ -87,6 +96,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         count = removeSideStepsAtLadders(successors, count, node);
         count = removeTooHighSteps(successors, count, node);
         count = removeStepsThroughBoards(successors, count, node);
+        count = removeFeetUnderLintels(successors, count);
         if(isLadderCell(node.x, node.y, node.z)) {
             if(isLadderCell(node.x, node.y + 1, node.z))
                 count = add(successors, count, node.x, node.y + 1, node.z);
@@ -289,6 +299,31 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return Math.abs(floors[0] - floors[1]) < LOW_STEP;
     }
 
+    // A shape high up in its block, under which there is room for a head
+    private boolean isOverhead(PathContext context, BlockState state, int x, int y, int z) {
+        if(state.isAir() || isLeftToTheGame(state))
+            return false;
+        BlockPos.Mutable at = new BlockPos.Mutable(x, y, z);
+        VoxelShape shape = state.getCollisionShape(context.getWorld(), at);
+        return !shape.isEmpty() && shape.getMin(Direction.Axis.Y) >= headroom();
+    }
+
+    private int removeFeetUnderLintels(PathNode[] successors, int count) {
+        int kept = 0;
+        for(int i = 0; i < count; i++) {
+            PathNode next = successors[i];
+            if(isOverhead(context, context.getBlockState(probe.set(next.x, next.y, next.z)), next.x, next.y, next.z))
+                continue;
+            successors[kept++] = next;
+        }
+        return kept;
+    }
+
+    // How much of the block over the feet a body fills
+    private double headroom() {
+        return entity == null ? DEFAULT_HEADROOM : entity.getHeight() - 1;
+    }
+
     // What the npc walks up without a jump, from its own attribute: anything higher it jumps onto
     private double stepHeight() {
         return entity == null ? DEFAULT_STEP : entity.getStepHeight();
@@ -313,7 +348,8 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             PathNode next = successors[i];
             int stepX = next.x - from.x;
             int stepZ = next.z - from.z;
-            if(next.y == from.y && (isPastBoard(next.x, next.y, next.z, stepX, stepZ, true) || isPastBoard(from.x, from.y, from.z, stepX, stepZ, false)))
+            // Down a step as much as on the level: a stair below the board of a railing is no way through it
+            if(next.y <= from.y && (isPastBoard(next.x, next.y, next.z, stepX, stepZ, true) || isPastBoard(from.x, from.y, from.z, stepX, stepZ, false)))
                 continue;
             successors[kept++] = next;
         }
@@ -393,8 +429,10 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return (isClimbable(x, y, z) || isClimbable(x, y - 1, z)) && isPassable(x, y, z) && isPassable(x, y + 1, z);
     }
 
+    // Scaffolding is climbed, but only crouching is the way down, and a mob never crouches: its top is a floor
     private boolean isClimbable(int x, int y, int z) {
-        return context.getBlockState(probe.set(x, y, z)).isIn(BlockTags.CLIMBABLE);
+        BlockState state = context.getBlockState(probe.set(x, y, z));
+        return state.isIn(BlockTags.CLIMBABLE) && !(state.getBlock() instanceof ScaffoldingBlock);
     }
 
     private boolean isPassable(int x, int y, int z) {
