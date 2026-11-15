@@ -38,6 +38,7 @@ import java.util.Objects;
 
 import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 
 public class EventRegistryME {
@@ -46,6 +47,7 @@ public class EventRegistryME {
     public static void register(){
         RoutineSites.register();
         StructureManagerService.register();
+        StructureEditSession.register();
         FollowHerderGoal.register();
         BuildersToolItem.register();
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {

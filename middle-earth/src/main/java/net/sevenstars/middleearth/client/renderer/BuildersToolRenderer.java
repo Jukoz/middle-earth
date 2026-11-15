@@ -13,6 +13,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -58,6 +59,9 @@ public class BuildersToolRenderer {
     private static final int SEAT = 0xFF26C6DA;
     private static final int TABLE = 0xFFEC407A;
     private static final int MARKER = 0xFFD500F9;
+    private static final int PIECE = 0xFF40C4FF;
+    private static final float PIECE_TEXT_SCALE = 0.04f;
+    private static final double PIECE_LABEL_HEIGHT = 1.5;
     private static final int[] STATION_COLORS = {0xFF8D6E63, 0xFFFF7043, 0xFFEF5350, 0xFF7E57C2, 0xFFA1887F, 0xFFFFEE58, 0xFF66BB6A, 0xFFD4E157, 0xFF78909C, 0xFFF06292, 0xFF9CCC65};
     private static final int NO_FEATURES = 0;
     private static final int STORE_FEATURE = 1;
@@ -88,12 +92,35 @@ public class BuildersToolRenderer {
                 return;
             try {
                 scan(client.world, player.getBlockPos());
-                DebugDraw.lines(context, (matrices, lines, camera) -> drawBoxes(matrices, lines));
-                drawLabels(context.matrixStack() == null ? new MatrixStack() : context.matrixStack(), context.consumers());
+                List<StructureEditSession.Piece> pieces = piecesAround(client, player);
+                DebugDraw.lines(context, (matrices, lines, camera) -> {
+                    drawBoxes(matrices, lines);
+                    for(StructureEditSession.Piece piece : pieces)
+                        DebugDraw.box(matrices, lines, Box.from(piece.box()), PIECE);
+                });
+                MatrixStack matrices = context.matrixStack() == null ? new MatrixStack() : context.matrixStack();
+                drawLabels(matrices, context.consumers());
+                for(StructureEditSession.Piece piece : pieces)
+                    DebugDraw.label(matrices, context.consumers(), piece.template().getPath(), new Vec3d(piece.box().getCenter().getX() + 0.5,
+                            piece.box().getMaxY() + PIECE_LABEL_HEIGHT, piece.box().getCenter().getZ() + 0.5), PIECE, PIECE_TEXT_SCALE);
             } catch (RuntimeException ignored) {
                 // A block entity that is gone between the scan and the frame only costs one frame
             }
         });
+    }
+
+    // The pieces of the structure the builder has loaded, to be told apart from outside. Standing in one, its walls are
+    // there to see and the boxes are only in the way. The session is the server's, which a builder's own game runs
+    private static List<StructureEditSession.Piece> piecesAround(MinecraftClient client, PlayerEntity player) {
+        StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
+        if(session == null || !session.getDimension().equals(player.getWorld().getRegistryKey()))
+            return List.of();
+        List<StructureEditSession.Piece> pieces = List.copyOf(session.getPieces());
+        for(StructureEditSession.Piece piece : pieces) {
+            if(piece.box().contains(player.getBlockPos()))
+                return List.of();
+        }
+        return pieces;
     }
 
     static boolean holdsTool(PlayerEntity player) {
