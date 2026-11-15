@@ -4,9 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +12,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.api.utils.IdentifierUtil;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -41,25 +38,30 @@ public class BiomeEventData {
             Codec.list(WildSpawnEventData.CODEC).fieldOf(Fields.WILD_SPAWNS).forGetter(BiomeEventData::getWildSpawnEventDatas)
     ).apply(instance, BiomeEventData::new));
 
-    private Boolean shouldSpawnDefaultWhenUnmet;
-    private List<WildSpawnEventData> wildSpawnEventDatas;
-
-    private static HashMap<ChunkPos, Long> disabledChunkSpawningCache = new HashMap<>();
-
     // In ticks
     private static final int PENDING_SPAWN_LIFETIME = 40;
+    private static final int CHUNK_DISABLE_TICKS = 20 * 5;
     private static final int MAXIMUM_PENDING_SPAWNS = 256;
+    private static final int DEFAULT_WEIGHT = 1;
     private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
+    private static final HashMap<ChunkPos, Long> DISABLED_CHUNKS = new HashMap<>();
 
     private record PendingSpawn(WildSpawnEventData data, long expires) {}
+
+    private boolean shouldSpawnDefaultWhenUnmet;
+    private List<WildSpawnEventData> wildSpawnEventDatas;
 
     public BiomeEventData(boolean shouldSpawnDefaultWhenUnmet, List<WildSpawnEventData> wildNpcs){
         this(wildNpcs);
         this.shouldSpawnDefaultWhenUnmet = shouldSpawnDefaultWhenUnmet;
     }
 
-    public BiomeEventData withMoreWildSpawns(List<WildSpawnEventData> wildNpcs){
+    public BiomeEventData(List<WildSpawnEventData> wildNpcs){
+        this.wildSpawnEventDatas = wildNpcs;
+        this.shouldSpawnDefaultWhenUnmet = false;
+    }
 
+    public BiomeEventData withMoreWildSpawns(List<WildSpawnEventData> wildNpcs){
         List<WildSpawnEventData> newWildSpawns = new ArrayList<>();
         if(wildSpawnEventDatas != null)
             newWildSpawns.addAll(wildSpawnEventDatas);
@@ -68,88 +70,78 @@ public class BiomeEventData {
         return this;
     }
 
-
-
     private List<WildSpawnEventData> getWildSpawnEventDatas() {
         return this.wildSpawnEventDatas;
     }
 
-    public BiomeEventData(List<WildSpawnEventData> wildNpcs){
-        this.wildSpawnEventDatas = wildNpcs;
-        this.shouldSpawnDefaultWhenUnmet = false;
-    }
-
-    public Boolean getSpawnDefaultWhenUnmet(){
+    public boolean getSpawnDefaultWhenUnmet(){
         return shouldSpawnDefaultWhenUnmet;
     }
 
     public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        DynamicRegistryManager manager = world.getRegistryManager();
-        // What the spawn check picked for this spot is what gets spawned, instead of rolling again and maybe coming up empty
-        PendingSpawn pending = PENDING_SPAWNS.remove(entity.getBlockPos().asLong());
-        if(pending != null && world.getTime() <= pending.expires() && wildSpawnEventDatas.contains(pending.data())) {
-            Identifier pendingId = pending.data().getNpcClass(null);
-            NpcClass pendingClass = (pendingId != null) ? manager.getOrThrow(DynamicRegistriesME.NPC_CLASS).get(pendingId) : null;
-            return new ContextualizedBiomeData(pendingClass, pending.data().getParty(), pending.data().getJob());
+        // What the spawn check picked for this spot is what gets spawned, instead of rolling again and maybe coming up empty.
+        // Structure events are asked before the biome's, so a pick is only taken by the event that made it
+        long spot = entity.getBlockPos().asLong();
+        PendingSpawn pending = PENDING_SPAWNS.get(spot);
+        WildSpawnEventData spawningData = null;
+        if(pending != null && wildSpawnEventDatas.contains(pending.data())) {
+            PENDING_SPAWNS.remove(spot);
+            if(world.getTime() <= pending.expires())
+                spawningData = pending.data();
         }
-
-        List<WildSpawnEventData> weightedData = new ArrayList<>();
-
-        for(WildSpawnEventData data : getWildSpawnEventDatas()){
-            if(SpawnEventDataUtil.isConsideredForSpawning(data, Registries.ENTITY_TYPE.getId(EntitiesME.NPC), world, entity.getBlockPos()))
-            {
-                int weightAmount = data.getWeight(1);
-                for(int i = 0; i < weightAmount; i ++){
-                    weightedData.add(data);
-                }
-            }
-        }
-        if(weightedData.isEmpty())
+        if(spawningData == null)
+            spawningData = pickWeighted(Registries.ENTITY_TYPE.getId(EntitiesME.NPC), world, entity.getBlockPos(), world.getRandom());
+        if(spawningData == null)
             return null;
 
-        WildSpawnEventData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        Registry<NpcClass> npcDataRegistry = manager.getOrThrow(DynamicRegistriesME.NPC_CLASS);
-        Identifier npcId = spawningData.getNpcClass(null);
-        NpcClass foundNpcClass = (npcId != null) ? npcDataRegistry.get(npcId) : null;
+        Identifier npcClassId = spawningData.getNpcClass(null);
+        NpcClass npcClass = npcClassId == null ? null : world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).get(npcClassId);
+        return new ContextualizedBiomeData(npcClass, spawningData.getParty(), spawningData.getJob());
+    }
 
-        return new ContextualizedBiomeData(foundNpcClass, spawningData.getParty(), spawningData.getJob());
+    private @Nullable WildSpawnEventData pickWeighted(Identifier entityId, World world, BlockPos pos, Random random) {
+        List<WildSpawnEventData> considered = new ArrayList<>();
+        int total = 0;
+        for(WildSpawnEventData data : wildSpawnEventDatas) {
+            if(SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, pos)) {
+                considered.add(data);
+                total += Math.max(0, data.getWeight(DEFAULT_WEIGHT));
+            }
+        }
+        if(total <= 0)
+            return null;
+        int roll = random.nextInt(total);
+        for(WildSpawnEventData data : considered) {
+            roll -= Math.max(0, data.getWeight(DEFAULT_WEIGHT));
+            if(roll < 0)
+                return data;
+        }
+        return null;
+    }
+
+    private boolean hasEntityType(Identifier entityId) {
+        for(WildSpawnEventData data : wildSpawnEventDatas) {
+            if(IdentifierUtil.compareId(data.getEntityType(), entityId))
+                return true;
+        }
+        return false;
     }
 
     public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
-        ChunkPos chunkPos = world.getChunk(pos).getPos();
-
-        Long expiredTick = disabledChunkSpawningCache.get(chunkPos);
-
+        ChunkPos chunkPos = new ChunkPos(pos);
+        Long expiredTick = DISABLED_CHUNKS.get(chunkPos);
         if (expiredTick != null) {
-            if(world.getTime() >= expiredTick)
-                disabledChunkSpawningCache.remove(chunkPos);
-            else
+            if(world.getTime() < expiredTick)
                 return false;
+            DISABLED_CHUNKS.remove(chunkPos);
         }
 
-        List<WildSpawnEventData> weightedData = new ArrayList<>();
-        boolean containEntityType = false;
-        for(WildSpawnEventData data : getWildSpawnEventDatas()){
-            Identifier entityId = Registries.ENTITY_TYPE.getId(type);
-            if(!containEntityType && IdentifierUtil.compareId(data.getEntityType(), entityId))
-                containEntityType = true;
-            if(SpawnEventDataUtil.isConsideredForSpawning(data, entityId, world, pos))
-            {
-                int weightAmount = data.getWeight(1);
-                for(int i = 0; i < weightAmount; i ++){
-                    weightedData.add(data);
-                }
-            }
-        }
-        if(!containEntityType)
+        Identifier entityId = Registries.ENTITY_TYPE.getId(type);
+        if(!hasEntityType(entityId))
             return true;
-        if(weightedData.isEmpty()){
-            disableChunk(world, chunkPos);
-            return false;
-        }
-        WildSpawnEventData spawningData = weightedData.get(Random.create().nextInt(weightedData.size()));
-        if(spawningData.isDiscarded(random)){
-            disableChunk(world, chunkPos);
+        WildSpawnEventData spawningData = pickWeighted(entityId, world, pos, random);
+        if(spawningData == null || spawningData.isDiscarded(random)){
+            DISABLED_CHUNKS.put(chunkPos, world.getTime() + CHUNK_DISABLE_TICKS);
             return false;
         }
         spawningData.broadcastMessage(world, pos);
@@ -162,15 +154,5 @@ public class BiomeEventData {
         return true;
     }
 
-    private void disableChunk(ServerWorld world, ChunkPos chunkPos) {
-        if(disabledChunkSpawningCache == null)
-            disabledChunkSpawningCache = new HashMap<>();
-        disabledChunkSpawningCache.remove(chunkPos);
-        disabledChunkSpawningCache.put(chunkPos, world.getTime() + 20 * 5);
-    }
-
-
-    public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job){
-
-    }
+    public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job) {}
 }

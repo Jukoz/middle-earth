@@ -6,9 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -19,10 +17,7 @@ import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class WildSpawnEventData {
     private final static WildSpawnEventData EXAMPLE = new WildSpawnEventData(NpcRegistry.BRIGAND_THUG)
@@ -338,7 +333,7 @@ public class WildSpawnEventData {
         return this;
     }
     public WildSpawnEventData lightShouldBeBetween(int minimumLevel, int maximumLevel){
-        if(minimumLevel <= 0 || maximumLevel > 15)
+        if(minimumLevel <= 0)
             this.lightLevelMinimum = null;
         else
             this.lightLevelMinimum = minimumLevel;
