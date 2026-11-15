@@ -45,6 +45,6 @@ public class LootData {
         if(random == 0) {
             return baseExperience;
         }
-        return baseExperience + world.getRandom().nextInt(random);
+        return baseExperience + world.getRandom().nextInt(random + 1);
     }
 }
