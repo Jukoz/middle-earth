@@ -14,8 +14,9 @@ public enum MarkerKind implements StringIdentifiable {
     SPAWN_NPC("spawn_npc"),
     SPAWN_ANIMAL("spawn_animal"),
     CELL_CORNER("cell_corner"),
-    // The door, gate or hatch it faces is one npcs leave shut
-    NO_ENTRY("no_entry");
+    // What it faces is not for npcs: a door, gate or hatch stays shut, and a seat, a store, a table or a place of work is
+    // left out of what the build is taken to have
+    OFF_LIMITS("off_limits");
 
     public static final Codec<MarkerKind> CODEC = StringIdentifiable.createCodec(MarkerKind::values);
     private final String name;

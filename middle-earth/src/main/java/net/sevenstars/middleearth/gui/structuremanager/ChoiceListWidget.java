@@ -10,12 +10,15 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Locale;
 
 @Environment(value = EnvType.CLIENT)
 public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWidget.ChoiceEntry> {
     private static final int TEXT_COLOR = 0xFFFFFFFF;
+    private static final int HEADER_COLOR = 0xFFA0A0A0;
     private static final int TEXT_INDENT = 4;
     private static final int SCROLLBAR_WIDTH = 6;
     private static final int SCROLLBAR_ROOM = 10;
@@ -26,7 +29,16 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
     private List<Choice> all = List.of();
     private String filter = "";
 
-    public record Choice(String value, Text label) {}
+    // A header stands over the choices below it and cannot be picked
+    public record Choice(String value, Text label, boolean header) {
+        public Choice(String value, Text label) {
+            this(value, label, false);
+        }
+
+        public static Choice header(Text label) {
+            return new Choice("", label, true);
+        }
+    }
 
     public ChoiceListWidget(int width, int height, int x, int y, int rowHeight) {
         super(MinecraftClient.getInstance(), width, height, y, rowHeight);
@@ -88,18 +100,33 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         clearEntries();
         ChoiceEntry selected = null;
         for(Choice choice : all) {
-            if(!choice.value().equals(current) && !choice.label().getString().toLowerCase(Locale.ROOT).contains(filter))
+            // Headers only stand over the whole list, not over what a search left of it
+            if(choice.header() ? !filter.isEmpty() : !choice.value().equals(current) && !choice.label().getString().toLowerCase(Locale.ROOT).contains(filter))
                 continue;
             ChoiceEntry entry = new ChoiceEntry(choice);
             addEntry(entry);
-            if(choice.value().equals(current))
+            if(!choice.header() && choice.value().equals(current))
                 selected = entry;
         }
         // Something no longer in the list is shown as the first choice
-        setSelected(selected == null && getEntryCount() > 0 ? getFirst() : selected);
+        if(selected == null) {
+            for(ChoiceEntry entry : children()) {
+                if(!entry.choice.header()) {
+                    selected = entry;
+                    break;
+                }
+            }
+        }
+        setSelected(selected);
         setScrollY(0);
         if(selected != null)
             centerScrollOn(selected);
+    }
+
+    @Override
+    public void setSelected(@Nullable ChoiceEntry entry) {
+        if(entry == null || !entry.choice.header())
+            super.setSelected(entry);
     }
 
     public String selectedValue() {
@@ -122,7 +149,8 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
             var textRenderer = MinecraftClient.getInstance().textRenderer;
-            context.drawTextWithShadow(textRenderer, choice.label(), x + TEXT_INDENT, y + (entryHeight - textRenderer.fontHeight) / 2, TEXT_COLOR);
+            context.drawTextWithShadow(textRenderer, choice.label(), x + (choice.header() ? 0 : TEXT_INDENT), y + (entryHeight - textRenderer.fontHeight) / 2,
+                    choice.header() ? HEADER_COLOR : TEXT_COLOR);
         }
     }
 }

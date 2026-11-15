@@ -82,7 +82,7 @@ public class RoutineSites {
         }
 
         private void listNoEntry(ServerWorld world, RoutineSite site) {
-            for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.NO_ENTRY)) {
+            for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.OFF_LIMITS)) {
                 BlockPos faced = marker.pos().offset(marker.facing());
                 noEntry.add(faced.asLong());
                 noEntry.add(faced.up().asLong());

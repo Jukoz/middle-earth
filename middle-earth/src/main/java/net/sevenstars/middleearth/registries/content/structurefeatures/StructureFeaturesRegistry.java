@@ -182,6 +182,20 @@ public class StructureFeaturesRegistry {
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos));
         }
+        // What a builder marked off limits is not in the build as far as its people know
+        Set<BlockPos> offLimits = new HashSet<>();
+        for(StructureFeatureData.Marker marker : markers) {
+            if(marker.kind() == MarkerKind.OFF_LIMITS)
+                offLimits.add(marker.pos().offset(marker.facing()));
+        }
+        stores.removeIf(offLimits::contains);
+        fires.removeIf(offLimits::contains);
+        seats.removeIf(offLimits::contains);
+        tableBlocks.removeIf(offLimits::contains);
+        ladders.removeIf(offLimits::contains);
+        stations.removeIf(station -> offLimits.contains(station.pos()));
+        // A door is marked on either of its halves
+        doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
         List<List<BlockPos>> tables = tables(tableBlocks, seats);
 
         List<StructureFeatureData.Bed> bedData = new ArrayList<>();

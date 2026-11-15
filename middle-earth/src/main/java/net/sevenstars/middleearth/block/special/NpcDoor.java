@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 // A door of the mod that npcs walk through. A block that implements this is known to their pathfinding and opened and shut on
 // the way by NpcModDoorGoal, with nothing else to change. Npcs open every door there is, of the game and of the mod, but
-// the ones a builder marked with a no_entry marker
+// the ones a builder marked off limits
 public interface NpcDoor {
 
     boolean isOpen(BlockState state);

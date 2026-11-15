@@ -33,8 +33,10 @@ import net.sevenstars.middleearth.resources.datas.structure_features.StructureFe
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import java.util.Optional;
 
@@ -63,6 +65,7 @@ public class BuildersToolRenderer {
     private static final int MARKER = 0xFFD500F9;
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
+    private static final int OFF_LIMITS = 0xFFB71C1C;
     private static final float PIECE_TEXT_SCALE = 0.04f;
     private static final double PIECE_LABEL_HEIGHT = 1.5;
     private static final int[] STATION_COLORS = {0xFF8D6E63, 0xFFFF7043, 0xFFEF5350, 0xFF7E57C2, 0xFFA1887F, 0xFFFFEE58, 0xFF66BB6A, 0xFFD4E157, 0xFF78909C, 0xFFF06292, 0xFF9CCC65};
@@ -197,19 +200,33 @@ public class BuildersToolRenderer {
             drawSelected(matrices, lines, selected);
             return;
         }
+        // What a marker puts off limits is drawn as that, and not as the store or seat it would be
+        Set<BlockPos> offLimits = new HashSet<>();
+        for(StructureFeatureData.Marker marker : markers) {
+            if(marker.kind() == MarkerKind.OFF_LIMITS) {
+                offLimits.add(marker.pos().offset(marker.facing()));
+                DebugDraw.box(matrices, lines, marker.pos().offset(marker.facing()), OFF_LIMITS);
+            }
+        }
         for(BlockPos pos : plainBeds)
             DebugDraw.box(matrices, lines, pos, BED_PLAIN);
-        for(BlockPos pos : stores)
-            DebugDraw.box(matrices, lines, pos, STORE);
-        for(BlockPos pos : seats)
-            DebugDraw.box(matrices, lines, pos, SEAT);
-        for(BlockPos pos : tables)
-            DebugDraw.box(matrices, lines, pos, TABLE);
+        for(BlockPos pos : stores) {
+            if(!offLimits.contains(pos))
+                DebugDraw.box(matrices, lines, pos, STORE);
+        }
+        for(BlockPos pos : seats) {
+            if(!offLimits.contains(pos))
+                DebugDraw.box(matrices, lines, pos, SEAT);
+        }
+        for(BlockPos pos : tables) {
+            if(!offLimits.contains(pos))
+                DebugDraw.box(matrices, lines, pos, TABLE);
+        }
         for(StructureFeatureData.Marker marker : markers)
             DebugDraw.box(matrices, lines, marker.pos(), MARKER);
         for(StructureFeatureData.Station station : stations) {
             // A field is a plot of farmland by the hundred
-            if(station.kind() != StationKind.FIELD)
+            if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
                 DebugDraw.box(matrices, lines, station.pos(), stationColor(station.kind()));
         }
         for(StructureFeatureData.Manager manager : managers)
