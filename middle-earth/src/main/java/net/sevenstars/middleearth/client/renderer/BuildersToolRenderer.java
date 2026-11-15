@@ -12,6 +12,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
@@ -48,7 +50,6 @@ public class BuildersToolRenderer {
     private static final int RANGE_HEIGHT = 16;
     private static final int RESCAN_TICKS = 10;
     private static final int RESCAN_DISTANCE = 2;
-    private static final String MINECRAFT_PREFIX = "minecraft:";
     private static final float LABEL_TEXT_SCALE = 0.02f;
     private static final float STATION_TEXT_SCALE = 0.012f;
     private static final float LABEL_HEIGHT = 1.3f;
@@ -65,7 +66,7 @@ public class BuildersToolRenderer {
     private static final int MARKER = 0xFFD500F9;
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
-    private static final int OFF_LIMITS = 0xFFB71C1C;
+    private static final int BOUNDS = 0xFFFFEB3B;
     private static final float PIECE_TEXT_SCALE = 0.04f;
     private static final double PIECE_LABEL_HEIGHT = 1.5;
     private static final int[] STATION_COLORS = {0xFF8D6E63, 0xFFFF7043, 0xFFEF5350, 0xFF7E57C2, 0xFFA1887F, 0xFFFFEE58, 0xFF66BB6A, 0xFFD4E157, 0xFF78909C, 0xFFF06292, 0xFF9CCC65};
@@ -123,8 +124,9 @@ public class BuildersToolRenderer {
         if(session == null || !session.getDimension().equals(player.getWorld().getRegistryKey()))
             return List.of();
         List<StructureEditSession.Piece> pieces = List.copyOf(session.getPieces());
+        // While its bounds are being set, a piece is drawn from inside too
         for(StructureEditSession.Piece piece : pieces) {
-            if(piece.box().contains(player.getBlockPos()))
+            if(piece.box().contains(player.getBlockPos()) && BuildersToolSelection.boundsAnchor() == null)
                 return List.of();
         }
         return pieces;
@@ -159,8 +161,8 @@ public class BuildersToolRenderer {
                 continue;
             }
             if(block == DecorativeBlockRegistryME.STRUCTURE_MANAGER || block == DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER) {
-                if(world.getBlockEntity(pos) instanceof StructureManagerBlockEntity manager && manager.getStructureManagerId() != null)
-                    managers.add(new StructureFeatureData.Manager(pos.toImmutable(), manager.getStructureManagerId()));
+                if(world.getBlockEntity(pos) instanceof StructureManagerBlockEntity manager)
+                    managers.add(new StructureFeatureData.Manager(pos.toImmutable(), Optional.ofNullable(manager.getStructureManagerId())));
                 continue;
             }
             if(block instanceof BedBlock) {
@@ -194,20 +196,33 @@ public class BuildersToolRenderer {
         return features;
     }
 
+    private static @Nullable BlockPos aimedBlock() {
+        HitResult hit = MinecraftClient.getInstance().crosshairTarget;
+        return hit instanceof BlockHitResult block && hit.getType() == HitResult.Type.BLOCK ? block.getBlockPos() : null;
+    }
+
+    // The bounds being set: from the corner that was clicked to the block that is looked at, which a click makes the other
+    private static @Nullable Box boundsPreview() {
+        BlockPos first = BuildersToolSelection.boundsFirst();
+        BlockPos aimed = aimedBlock();
+        if(BuildersToolSelection.boundsAnchor() == null || first == null && aimed == null)
+            return null;
+        return first == null ? new Box(aimed) : Box.enclosing(first, aimed == null ? first : aimed);
+    }
+
     private static void drawBoxes(MatrixStack matrices, VertexConsumer lines) {
+        if(BuildersToolSelection.boundsAnchor() != null) {
+            DebugDraw.box(matrices, lines, new Box(BuildersToolSelection.boundsAnchor()).expand(SELECTED_MARGIN), BOUNDS);
+            Box preview = boundsPreview();
+            if(preview != null)
+                DebugDraw.box(matrices, lines, preview, BOUNDS);
+        }
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {
             drawSelected(matrices, lines, selected);
             return;
         }
-        // What a marker puts off limits is drawn as that, and not as the store or seat it would be
-        Set<BlockPos> offLimits = new HashSet<>();
-        for(StructureFeatureData.Marker marker : markers) {
-            if(marker.kind() == MarkerKind.OFF_LIMITS) {
-                offLimits.add(marker.pos().offset(marker.facing()));
-                DebugDraw.box(matrices, lines, marker.pos().offset(marker.facing()), OFF_LIMITS);
-            }
-        }
+        Set<BlockPos> offLimits = offLimits();
         for(BlockPos pos : plainBeds)
             DebugDraw.box(matrices, lines, pos, BED_PLAIN);
         for(BlockPos pos : stores) {
@@ -242,6 +257,16 @@ public class BuildersToolRenderer {
         }
     }
 
+    // What a marker puts off limits is left bare, as any block npcs have no use for
+    private static Set<BlockPos> offLimits() {
+        Set<BlockPos> offLimits = new HashSet<>();
+        for(StructureFeatureData.Marker marker : markers) {
+            if(marker.kind() == MarkerKind.OFF_LIMITS)
+                offLimits.add(marker.pos().offset(marker.facing()));
+        }
+        return offLimits;
+    }
+
     // Only the connections of the bed that was picked
     private static void drawSelected(MatrixStack matrices, VertexConsumer lines, BlockPos selected) {
         DebugDraw.box(matrices, lines, new Box(selected).expand(SELECTED_MARGIN), SELECTED_BED);
@@ -264,6 +289,9 @@ public class BuildersToolRenderer {
         Optional<BlockPos> tied = bed.tag().manager().map(offset -> bed.pos().add(offset));
         StructureFeatureData.Bed asData = new StructureFeatureData.Bed(bed.pos(), Optional.of(bed.tag()), Optional.empty(), List.of(), false, tied);
         BlockPos owner = StructureManagerService.ownerOf(scannedWorld, asData, managers);
+        // A tie the game passes over: of a bed that names no place, to a manager that was given none or another's
+        if(tied.isPresent() && !tied.get().equals(owner) && managers.stream().anyMatch(manager -> manager.pos().equals(tied.get())))
+            DebugDraw.line(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(tied.get()), BED_LOST);
         if(owner == null)
             return;
         if(tied.filter(owner::equals).isPresent())
@@ -310,6 +338,10 @@ public class BuildersToolRenderer {
     }
 
     private static void drawLabels(MatrixStack matrices, VertexConsumerProvider consumers) {
+        Box preview = BuildersToolSelection.boundsFirst() == null ? null : boundsPreview();
+        if(preview != null)
+            DebugDraw.label(matrices, consumers, "%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
+                    new Vec3d(preview.getCenter().x, preview.maxY + PIECE_LABEL_HEIGHT, preview.getCenter().z), BOUNDS, PIECE_TEXT_SCALE);
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {
             Bed bed = selectedBed(selected);
@@ -328,8 +360,9 @@ public class BuildersToolRenderer {
             label(matrices, consumers, bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
         for(StructureFeatureData.Marker marker : markers)
             label(matrices, consumers, markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
+        Set<BlockPos> offLimits = offLimits();
         for(StructureFeatureData.Station station : stations) {
-            if(station.kind() != StationKind.FIELD)
+            if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
                 label(matrices, consumers, station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
         }
     }
@@ -345,7 +378,7 @@ public class BuildersToolRenderer {
     private static String markerLabel(StructureFeatureData.Marker marker) {
         if(marker.kind() != MarkerKind.SPAWN_NPC && marker.kind() != MarkerKind.SPAWN_ANIMAL)
             return marker.kind().asString();
-        String value = marker.value().isEmpty() ? "?" : marker.value().replace(MINECRAFT_PREFIX, "");
+        String value = marker.value().isEmpty() ? "?" : marker.value().substring(marker.value().indexOf(Identifier.NAMESPACE_SEPARATOR) + 1);
         return marker.kind().asString() + ": " + value + " x" + marker.count() + (marker.respawns() ? " (respawns)" : "");
     }
 

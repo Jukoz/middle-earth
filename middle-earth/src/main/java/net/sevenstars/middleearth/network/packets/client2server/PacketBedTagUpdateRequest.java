@@ -16,6 +16,8 @@ import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import java.util.Optional;
 
 public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTagUpdateRequest> {
@@ -23,6 +25,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
 
     public static final PacketCodec<RegistryByteBuf, PacketBedTagUpdateRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
+            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.place,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.nestKind,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.job,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.npcClass,
@@ -31,12 +34,15 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
     );
 
     private final BlockPos pos;
+    // Empty to leave the bed the place it has
+    private final String place;
     private final String nestKind;
     private final String job;
     private final String npcClass;
     private final boolean resetLinks;
 
-    public PacketBedTagUpdateRequest(BlockPos pos, String nestKind, String job, String npcClass, boolean resetLinks) {
+    public PacketBedTagUpdateRequest(BlockPos pos, String place, String nestKind, String job, String npcClass, boolean resetLinks) {
+        this.place = place;
         this.npcClass = npcClass;
         this.pos = pos;
         this.nestKind = nestKind;
@@ -83,13 +89,19 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                     return;
                 }
                 BedTag before = holder.getBedTag();
-                tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId));
+                Optional<Identifier> placeId = place.isEmpty() ? before == null ? Optional.empty() : before.place() : Optional.ofNullable(Identifier.tryParse(place));
+                StructureManagerData placeData = placeId.map(found -> StructureManagerService.getStructureManagerData(player.getWorld(), found)).orElse(null);
+                if(!place.isEmpty() && (placeData == null || placeData.findPeopleNest(nestKind) == null)) {
+                    StructureEditing.log("bed tag at %s refused: place `%s` has no `%s`".formatted(pos.toShortString(), place, nestKind));
+                    return;
+                }
+                tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId), placeId);
                 if(before != null && !resetLinks)
                     tag = tag.withLinks(before.links(), before.manual()).withManager(before.manager());
             }
             holder.setBedTag(tag);
-            StructureEditing.log("bed at %s tagged %s".formatted(pos.toShortString(), tag == null ? "nobody" : "`%s` job `%s` class `%s` links %d%s".formatted(
-                    tag.nestKind(), tag.job().map(Identifier::toString).orElse("as the nest"), tag.npcClass().map(Identifier::toString).orElse("of the nest"),
+            StructureEditing.log("bed at %s tagged %s".formatted(pos.toShortString(), tag == null ? "nobody" : "`%s` of `%s` job `%s` class `%s` links %d%s".formatted(
+                    tag.nestKind(), tag.place().map(Identifier::toString).orElse("its manager's place"), tag.job().map(Identifier::toString).orElse("as the nest"), tag.npcClass().map(Identifier::toString).orElse("of the nest"),
                     tag.links().size(), tag.manual() ? " by hand" : "")));
         });
     }

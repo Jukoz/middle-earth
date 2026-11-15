@@ -12,6 +12,7 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
@@ -137,8 +138,11 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
             shownKind = kind;
             List<Choice> choices = new ArrayList<>();
             if(kind == MarkerKind.SPAWN_NPC) {
-                for(String nestKind : handler.getData().nestKinds())
-                    choices.add(new Choice(nestKind, ChoiceListWidget.readable(nestKind)));
+                for(String nest : handler.getData().nests())
+                    choices.add(new Choice(nest, nestName(nest)));
+                // One placed before nests were named whole names only a kind, of the place its manager was given
+                if(!current.isEmpty() && !handler.getData().nests().contains(current))
+                    choices.add(new Choice(current, ChoiceListWidget.readable(current)));
             } else if(kind == MarkerKind.SPAWN_ANIMAL) {
                 for(String animal : handler.getData().animals())
                     choices.add(new Choice(animal, animalName(animal)));
@@ -158,6 +162,15 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
 
     private Text facingText() {
         return Text.translatable("ui.%s.structure_marker.facing".formatted(MiddleEarth.MOD_ID), ChoiceListWidget.readable(facing.asString()));
+    }
+
+    // Brigand dungeon: bandit
+    private static Text nestName(String id) {
+        Identifier nest = Identifier.tryParse(id);
+        Identifier place = nest == null ? null : BedTag.peopleNests().get(nest);
+        if(place == null)
+            return Text.literal(id);
+        return Text.translatable(place.toTranslationKey("structure_manager_data")).append(": ").append(ChoiceListWidget.readable(BedTag.nestKindOf(nest)));
     }
 
     private static Text animalName(String id) {

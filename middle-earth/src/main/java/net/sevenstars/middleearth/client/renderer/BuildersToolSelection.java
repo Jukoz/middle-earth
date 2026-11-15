@@ -4,6 +4,9 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureBoundsRequest;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -19,10 +22,40 @@ public class BuildersToolSelection {
     private static final long REPEAT_TICKS = 6;
 
     private static @Nullable BlockPos selected = null;
+    // The manager the bounds of its build are being set from, and the corner that was clicked first
+    private static @Nullable BlockPos boundsAnchor = null;
+    private static @Nullable BlockPos boundsFirst = null;
     private static long lastClick = Long.MIN_VALUE;
 
     public static @Nullable BlockPos selected() {
         return selected;
+    }
+
+    public static @Nullable BlockPos boundsAnchor() {
+        return boundsAnchor;
+    }
+
+    public static @Nullable BlockPos boundsFirst() {
+        return boundsFirst;
+    }
+
+    // With no bed picked, a manager starts the bounds of its build: the next two blocks clicked are its corners
+    private static void clickBounds(PlayerEntity player, BlockPos pos, boolean manager) {
+        if(boundsAnchor == null) {
+            boundsAnchor = pos;
+            boundsFirst = null;
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.first".formatted(MiddleEarth.MOD_ID)), true);
+        } else if(manager && pos.equals(boundsAnchor) && boundsFirst == null) {
+            boundsAnchor = null;
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.stopped".formatted(MiddleEarth.MOD_ID)), true);
+        } else if(boundsFirst == null) {
+            boundsFirst = pos;
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.second".formatted(MiddleEarth.MOD_ID)), true);
+        } else {
+            ClientPlayNetworking.send(new PacketStructureBoundsRequest(boundsAnchor, boundsFirst, pos));
+            boundsAnchor = null;
+            boundsFirst = null;
+        }
     }
 
     public static void register() {
@@ -36,13 +69,19 @@ public class BuildersToolSelection {
                 selected = null;
             BlockState state = world.getBlockState(pos);
             boolean bed = state.getBlock() instanceof BedBlock;
-            if(!bed && selected == null)
+            boolean manager = state.getBlock() instanceof StructureManagerBlock;
+            boolean bounds = boundsAnchor != null || manager && selected == null;
+            if(!bed && selected == null && !bounds)
                 return ActionResult.FAIL;
             long time = world.getTime();
             boolean repeated = time - lastClick < REPEAT_TICKS;
             lastClick = time;
             if(repeated)
                 return ActionResult.FAIL;
+            if(bounds) {
+                clickBounds(player, pos.toImmutable(), manager);
+                return ActionResult.FAIL;
+            }
             if(bed) {
                 BlockPos head = state.get(BedBlock.PART) == BedPart.HEAD ? pos : pos.offset(state.get(BedBlock.FACING));
                 selected = head.equals(selected) ? null : head.toImmutable();

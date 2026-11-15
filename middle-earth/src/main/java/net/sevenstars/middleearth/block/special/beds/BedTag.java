@@ -14,7 +14,10 @@ import net.sevenstars.middleearth.registries.content.structuremanagerdatas.Struc
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Optional;
 import java.util.TreeSet;
 
@@ -23,18 +26,22 @@ import java.util.TreeSet;
 // held in a cell. Links are what they work at, as offsets from the bed head so that a template
 // stays valid when it is turned. They are used as they are only when manual, otherwise the nearest target is the link.
 // The manager is the one the bed was tied to by hand, an offset as the links are. Without one the bed is born by the nearest
-// manager of its structure that has a nest of its kind
-public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager) {
+// manager of its structure. The place is whose people of that kind they are: the bandits of a brigand dungeon, the
+// soldiers of a Rohan village. A bed tagged before places were kept on beds has none, and takes the one its manager was given
+public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
+                     Optional<Identifier> place) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("type").forGetter(BedTag::nestKind),
             Identifier.CODEC.optionalFieldOf("role").forGetter(BedTag::job),
             Identifier.CODEC.optionalFieldOf("npc_class").forGetter(BedTag::npcClass),
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(BedTag::links),
             Codec.BOOL.optionalFieldOf("manual", false).forGetter(BedTag::manual),
-            BlockPos.CODEC.optionalFieldOf("manager").forGetter(BedTag::manager)
+            BlockPos.CODEC.optionalFieldOf("manager").forGetter(BedTag::manager),
+            Identifier.CODEC.optionalFieldOf("place").forGetter(BedTag::place)
     ).apply(instance, BedTag::new));
 
     private static List<String> nestKinds = null;
+    private static Map<Identifier, Identifier> peopleNests = null;
 
     // Who a kind of nest houses, by the classes of its pools in every structure that has one
     public enum Folk {
@@ -65,16 +72,16 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return common == fighters ? Folk.MIXED : common ? Folk.COMMON : Folk.FIGHTERS;
     }
 
-    public BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass) {
-        this(nestKind, job, npcClass, List.of(), false, Optional.empty());
+    public BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, Optional<Identifier> place) {
+        this(nestKind, job, npcClass, List.of(), false, Optional.empty(), place);
     }
 
     public BedTag withLinks(List<BlockPos> links, boolean manual) {
-        return new BedTag(nestKind, job, npcClass, List.copyOf(links), manual, manager);
+        return new BedTag(nestKind, job, npcClass, List.copyOf(links), manual, manager, place);
     }
 
     public BedTag withManager(Optional<BlockPos> manager) {
-        return new BedTag(nestKind, job, npcClass, links, manual, manager);
+        return new BedTag(nestKind, job, npcClass, links, manual, manager, place);
     }
 
     public BedTag withoutLinks() {
@@ -94,6 +101,29 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
             nestKinds = List.copyOf(found);
         }
         return nestKinds;
+    }
+
+    // The place of each nest of people there is, by the nest. A spawn marker names its people by such a nest
+    public static synchronized Map<Identifier, Identifier> peopleNests() {
+        if(peopleNests == null) {
+            Map<Identifier, Identifier> found = new TreeMap<>();
+            for(StructureManagerData place : StructureManagerDataPools.all()) {
+                for(SpawnNestNodeData nest : place.getNpcSpawnNest()) {
+                    if(nest.isPeople())
+                        found.put(nest.getId(), place.getId());
+                }
+            }
+            peopleNests = Collections.unmodifiableMap(found);
+        }
+        return peopleNests;
+    }
+
+    public static boolean placeHas(Identifier place, String nestKind) {
+        for(Map.Entry<Identifier, Identifier> nest : peopleNests().entrySet()) {
+            if(nest.getValue().equals(place) && nestKindOf(nest.getKey()).equals(nestKind))
+                return true;
+        }
+        return false;
     }
 
     public static String nestKindOf(Identifier nestId) {

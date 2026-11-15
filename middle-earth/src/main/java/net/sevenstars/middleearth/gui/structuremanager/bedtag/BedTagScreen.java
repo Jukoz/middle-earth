@@ -26,12 +26,16 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
-// One question, who lives here, answered from a list of those the place can house. The nest and the job behind each answer
-// are the server's to know. Only a cell asks a second one: who is held in it
+// One question, who lives here, answered from a list of those a place can house. The place is asked first, and comes up
+// as what the beds around this one were given. The nest and the job behind each answer are the server's to know. Only a
+// cell asks one more: who is held in it
 @Environment(value = EnvType.CLIENT)
 public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
+    private static final int PLACE_WIDTH = 130;
     private static final int LIST_WIDTH = 200;
     private static final int CLASS_WIDTH = 150;
     private static final int LIST_HEIGHT = 140;
@@ -49,7 +53,9 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final String KEPT = "kept";
 
     private final List<BedOccupant> occupants = new ArrayList<>();
+    private ChoiceListWidget placeList;
     private ChoiceListWidget occupantList;
+    private @Nullable String shownPlace;
     private ChoiceListWidget classList;
     private TextFieldWidget classSearch;
 
@@ -61,36 +67,30 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void init() {
         super.init();
         BedTagScreenData data = handler.getData();
-        int left = width / 2 - (LIST_WIDTH + GAP + CLASS_WIDTH) / 2;
+        int left = width / 2 - (PLACE_WIDTH + GAP + LIST_WIDTH + GAP + CLASS_WIDTH) / 2;
         int top = height / 2 - LIST_HEIGHT / 2 - BUTTON_HEIGHT;
 
         occupants.clear();
         occupants.addAll(data.occupants());
         occupants.sort(Comparator.comparing((BedOccupant occupant) -> occupant.group().ordinal())
                 .thenComparing(occupant -> !isVillager(occupant)).thenComparing(occupant -> label(occupant).getString()));
-        List<Choice> choices = new ArrayList<>();
-        choices.add(new Choice("", ui("nobody")));
-        BedOccupant.Group group = null;
-        for(int i = 0; i < occupants.size(); i++) {
-            BedOccupant occupant = occupants.get(i);
-            if(occupant.group() != group) {
-                group = occupant.group();
-                choices.add(Choice.header(ui(switch (group) {
-                    case COMMON -> "common";
-                    case FIGHTERS -> "fighters";
-                    case OTHER -> "other";
-                })));
-            }
-            choices.add(new Choice(Integer.toString(i), label(occupant)));
-        }
-        String current = currentChoice(data);
-        // A bed tagged with what this place does not offer keeps its tag unless something else is picked
-        if(current.equals(KEPT))
-            choices.add(new Choice(KEPT, ui("kept", data.nestKind() + (data.job().isEmpty() ? "" : " / " + data.job()))));
-        occupantList = new ChoiceListWidget(LIST_WIDTH, LIST_HEIGHT, left, top, ROW_HEIGHT);
-        occupantList.setChoices(choices, current);
+        List<Choice> places = new ArrayList<>();
+        Set<Identifier> listed = new LinkedHashSet<>();
+        occupants.forEach(occupant -> listed.add(occupant.place()));
+        List<Identifier> sorted = new ArrayList<>(listed);
+        sorted.sort(Comparator.comparing(place -> placeName(place).getString()));
+        for(Identifier place : sorted)
+            places.add(new Choice(place.toString(), placeName(place)));
+        placeList = new ChoiceListWidget(PLACE_WIDTH, LIST_HEIGHT, left, top, ROW_HEIGHT);
+        placeList.setChoices(places, data.place());
+        addDrawableChild(placeList.newSearchField(textRenderer));
+        addDrawableChild(placeList);
+
+        occupantList = new ChoiceListWidget(LIST_WIDTH, LIST_HEIGHT, left + PLACE_WIDTH + GAP, top, ROW_HEIGHT);
         addDrawableChild(occupantList.newSearchField(textRenderer));
         addDrawableChild(occupantList);
+        shownPlace = null;
+        showPlace();
 
         List<Choice> classes = new ArrayList<>();
         classes.add(new Choice("", ui("anyone")));
@@ -101,7 +101,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             for(Identifier id : ids)
                 classes.add(new Choice(id.toString(), className(id)));
         }
-        classList = new ChoiceListWidget(CLASS_WIDTH, LIST_HEIGHT, left + LIST_WIDTH + GAP, top, ROW_HEIGHT);
+        classList = new ChoiceListWidget(CLASS_WIDTH, LIST_HEIGHT, left + PLACE_WIDTH + GAP + LIST_WIDTH + GAP, top, ROW_HEIGHT);
         classList.setChoices(classes, data.npcClass());
         classSearch = addDrawableChild(classList.newSearchField(textRenderer));
         addDrawableChild(classList);
@@ -115,6 +115,37 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
                 .dimensions(width / 2 + BUTTON_WIDTH / 2 + GAP, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
     }
 
+    // The people of the place that is picked, with the bed's own pick among them while that place is still the one it had
+    private void showPlace() {
+        String place = placeList.selectedValue();
+        if(place.equals(shownPlace))
+            return;
+        shownPlace = place;
+        BedTagScreenData data = handler.getData();
+        List<Choice> choices = new ArrayList<>();
+        choices.add(new Choice("", ui("nobody")));
+        BedOccupant.Group group = null;
+        for(int i = 0; i < occupants.size(); i++) {
+            BedOccupant occupant = occupants.get(i);
+            if(!occupant.place().toString().equals(place))
+                continue;
+            if(occupant.group() != group) {
+                group = occupant.group();
+                choices.add(Choice.header(ui(switch (group) {
+                    case COMMON -> "common";
+                    case FIGHTERS -> "fighters";
+                    case OTHER -> "other";
+                })));
+            }
+            choices.add(new Choice(Integer.toString(i), label(occupant)));
+        }
+        String current = place.equals(data.place()) ? currentChoice(data) : data.nestKind().isEmpty() ? "" : KEPT;
+        // A bed tagged with what this place does not offer keeps its tag unless something else is picked
+        if(current.equals(KEPT))
+            choices.add(new Choice(KEPT, ui("kept", data.nestKind() + (data.job().isEmpty() ? "" : " / " + data.job()))));
+        occupantList.setChoices(choices, current);
+    }
+
     // The occupant the bed's tag stands for. A tag with no job is the one its nest gives by itself
     private String currentChoice(BedTagScreenData data) {
         if(data.nestKind().isEmpty())
@@ -122,7 +153,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         int ofNest = -1;
         for(int i = 0; i < occupants.size(); i++) {
             BedOccupant occupant = occupants.get(i);
-            if(!occupant.nestKind().equals(data.nestKind()))
+            if(!occupant.nestKind().equals(data.nestKind()) || !occupant.place().toString().equals(data.place()))
                 continue;
             if(occupant.job().equals(data.job()))
                 return Integer.toString(i);
@@ -145,11 +176,11 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         BedTagScreenData data = handler.getData();
         BedOccupant occupant = picked();
         if(occupant != null)
-            handler.save(occupant.nestKind(), occupant.job(), occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "", resetLinks);
+            handler.save(occupant.place().toString(), occupant.nestKind(), occupant.job(), occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "", resetLinks);
         else if(occupantList.selectedValue().equals(KEPT))
-            handler.save(data.nestKind(), data.job(), data.npcClass(), resetLinks);
+            handler.save("", data.nestKind(), data.job(), data.npcClass(), resetLinks);
         else
-            handler.save("", "", "", resetLinks);
+            handler.save("", "", "", "", resetLinks);
         close();
     }
 
@@ -163,6 +194,10 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             return ui("villager");
         Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
         return ChoiceListWidget.readable(job != null ? job.getPath() : occupant.nestKind());
+    }
+
+    private static Text placeName(Identifier id) {
+        return Text.translatable(id.toTranslationKey("structure_manager_data"));
     }
 
     private static Text className(Identifier id) {
@@ -226,7 +261,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{occupantList, classList}) {
+        for(ChoiceListWidget list : new ChoiceListWidget[]{placeList, occupantList, classList}) {
             if(list != null && list.visible && list.isMouseOver(mouseX, mouseY))
                 return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         }
@@ -235,6 +270,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        showPlace();
         BedOccupant occupant = picked();
         // Only a cell is asked who is held in it
         boolean held = occupant != null && occupant.group() == BedOccupant.Group.OTHER;
@@ -242,6 +278,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         classSearch.visible = held;
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
+        context.drawCenteredTextWithShadow(textRenderer, ui("place"), placeList.getX() + PLACE_WIDTH / 2, placeList.labelY(textRenderer), LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, ui("title"), occupantList.getX() + LIST_WIDTH / 2, occupantList.labelY(textRenderer), LABEL_COLOR);
         if(held)
             context.drawCenteredTextWithShadow(textRenderer, ui("held"), classList.getX() + CLASS_WIDTH / 2, classList.labelY(textRenderer), LABEL_COLOR);

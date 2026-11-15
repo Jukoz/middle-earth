@@ -702,7 +702,16 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_marker.no_room"), "No room for a marker there");
             put(of(LangCategory.UI, "structure_marker.off_limits"), "%s is off limits to npcs now");
             put(of(LangCategory.UI, "structure_marker.in_use"), "%s is for npcs to use again");
+            put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner. Left-click the manager again to stop");
+            put(of(LangCategory.UI, "structure_bounds.second"), "Bounds: left-click the opposite corner");
+            put(of(LangCategory.UI, "structure_bounds.stopped"), "Bounds left as they were");
+            put(of(LangCategory.UI, "structure_bounds.set"), "%s is now saved as %s");
+            put(of(LangCategory.UI, "structure_bounds.in_the_way"), "%s is in the way of those bounds");
+            put(of(LangCategory.UI, "structure_bounds.too_big"), "Bounds are at most %s blocks a side");
+            put(of(LangCategory.UI, "structure_bounds.view_only"), "An assembled structure is only to look at. Use /structedit view spaced");
+            put(of(LangCategory.UI, "structure_bounds.no_build"), "That manager is in no build that is loaded");
             put(of(LangCategory.UI, "bed_tag.title"), "Who lives here?");
+            put(of(LangCategory.UI, "bed_tag.place"), "Of which place?");
             put(of(LangCategory.UI, "bed_tag.type"), "Who lives here");
             put(of(LangCategory.UI, "bed_tag.role"), "Job (optional)");
             put(of(LangCategory.UI, "bed_tag.class"), "Class (optional)");

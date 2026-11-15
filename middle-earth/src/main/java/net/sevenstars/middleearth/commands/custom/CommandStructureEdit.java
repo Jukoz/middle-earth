@@ -24,6 +24,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.BlockBox;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKey;
@@ -323,6 +325,21 @@ public class CommandStructureEdit {
         } catch (IOException e) {
             source.sendError(Text.literal("Could not copy it to " + target + ": " + e.getMessage()));
         }
+    }
+
+    // A template loaded by itself is saved by its structure block, whose box this sets
+    public static @Nullable Identifier resizeLoaded(ServerWorld world, ServerPlayerEntity player, BlockBox box) {
+        StructureBlockBlockEntity block = findStructureBlock(world, player);
+        if(block == null)
+            return null;
+        BlockPos at = block.getPos();
+        block.setOffset(new BlockPos(box.getMinX() - at.getX(), box.getMinY() - at.getY(), box.getMinZ() - at.getZ()));
+        block.setSize(new Vec3i(box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ()));
+        block.markDirty();
+        world.updateListeners(at, world.getBlockState(at), world.getBlockState(at), Block.NOTIFY_ALL);
+        StructureEditing.log("%s given the bounds %s to %s by its structure block at %s".formatted(block.getTemplateName(),
+                new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ()).toShortString(), new BlockPos(box.getMaxX(), box.getMaxY(), box.getMaxZ()).toShortString(), at.toShortString()));
+        return Identifier.tryParse(block.getTemplateName());
     }
 
     private static StructureBlockBlockEntity findStructureBlock(ServerWorld world, ServerPlayerEntity player) {

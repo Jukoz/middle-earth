@@ -43,11 +43,14 @@ import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandle
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
+import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 // Right-click a bed to say who lives in it. Right-click a block the build is taken to have, such as a seat, a store, a door
 // or a place of work, to put it off limits to npcs, and again to give it back. Right-click anything else, or sneak and
 // right-click, to place or edit a structure marker. Left-click a bed to pick it, and then the blocks it works at or its
-// manager to tie them. While the tool is held, the client draws what the build's blocks are taken for
+// manager to tie them. With no bed picked, left-click a manager and then two corners to set what of its build is saved.
+// While the tool is held, the client draws what the build's blocks are taken for
 public class BuildersToolItem extends Item {
     // Left-clicks are for picking beds and links, never for breaking blocks
     @Override
@@ -168,8 +171,12 @@ public class BuildersToolItem extends Item {
     }
 
     private static void open(ServerPlayerEntity player, BlockPos head, @Nullable BedTag tag) {
-        BedTagScreenData data = new BedTagScreenData(head, tag == null ? "" : tag.nestKind(), tag == null || tag.job().isEmpty() ? "" : tag.job().get().toString(),
-                tag == null || tag.npcClass().isEmpty() ? "" : tag.npcClass().get().toString(), BedOccupant.forBed(player.getWorld(), head, player.getUuid()));
+        Optional<Identifier> place = tag == null ? Optional.empty() : tag.place();
+        if(place.isEmpty())
+            place = BedOccupant.likelyPlace(player.getWorld(), head, player.getUuid());
+        BedTagScreenData data = new BedTagScreenData(head, place.map(Identifier::toString).orElse(""), tag == null ? "" : tag.nestKind(),
+                tag == null || tag.job().isEmpty() ? "" : tag.job().get().toString(),
+                tag == null || tag.npcClass().isEmpty() ? "" : tag.npcClass().get().toString(), BedOccupant.all(player.getWorld()));
         player.openHandledScreen(new ExtendedScreenHandlerFactory<BedTagScreenData>() {
             @Override
             public BedTagScreenData getScreenOpeningData(ServerPlayerEntity opener) {

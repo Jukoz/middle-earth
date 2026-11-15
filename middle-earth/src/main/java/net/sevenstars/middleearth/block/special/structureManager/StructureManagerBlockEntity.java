@@ -38,9 +38,9 @@ import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenDat
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import org.jetbrains.annotations.Nullable;
 
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -77,6 +77,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     // Saved
     private boolean enabled = false;
     private boolean toInitialize = false;
+    // The place a manager was given before beds and markers kept theirs. Only those tagged before then still go by it
     @Nullable
     private Identifier structureManagerIdentifier = null;
     private StructureNestList structureNestList = null;
@@ -84,8 +85,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
     // Runtime
     private boolean wellnessChecked = false;
-    private StructureManagerData managerData;
     private boolean worldWasSet = false;
+    private boolean staleChecked = false;
     private boolean registered = false;
     // Unknown until the first tick
     @Nullable
@@ -122,7 +123,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-    // The builder's tool draws which manager each bed is born by, for which the client has to know what the manager spawns
+    // The builder's tool draws which manager each bed is born by, which for a bed that names no place hangs on the manager's
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         NbtCompound nbt = new NbtCompound();
@@ -174,7 +175,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             view.read(SyncedData.SPAWN_NEST_LIST.name, StructureNestList.CODEC)
                     .ifPresent(x -> structureNestList = x);
             markerAnimals = new ArrayList<>(view.read(SyncedData.MARKER_ANIMALS.name, Codec.list(MarkerAnimals.CODEC)).orElse(List.of()));
-        } else if(structureManagerIdentifier != null) {
+        } else {
             structureNestList = null;
             markerAnimals = new ArrayList<>();
             enabled = false;
@@ -216,7 +217,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureNestList == null)
             return false;
         for(SpawnNestManager nest : structureNestList.getManagers()) {
-            SpawnNestNodeData data = managerData == null ? null : managerData.findSpawnNest(nest.getId());
+            SpawnNestNodeData data = world == null ? null : StructureManagerService.findNest(world, nest.getId());
             Optional<Identifier> job = nest.getBed() != null ? nest.getBedJob() : data != null ? data.getJob() : NpcJobs.forNest(nest.getId());
             if(NpcJobs.isLord(job.orElse(null)))
                 return true;
@@ -234,8 +235,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return residents;
     }
 
-    public boolean canBear(String nestKind) {
-        return managerData != null && managerData.findPeopleNest(nestKind) != null;
+    public boolean canBear(BedTag tag) {
+        return world != null && StructureManagerService.nestFor(world, tag, Optional.ofNullable(structureManagerIdentifier)) != null;
     }
 
     public @Nullable BlockPos findNestOrigin(UUID entity) {
@@ -254,7 +255,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(world == null || world.isClient())
             return;
         for(var nest : structureNestList.getManagers()){
-            nest.forceRespawn(managerData, (ServerWorld) world, pos);
+            nest.forceRespawn((ServerWorld) world, pos);
         }
     }
 
@@ -295,31 +296,31 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!inCheckWindow)
             wellnessChecked = false;
 
-        if(managerData == null) {
-            managerData = StructureManagerService.getStructureManagerData(checkedWorld, structureManagerIdentifier);
-            if(managerData != null && structureNestList.removeStale(managerData) > 0)
+        if(!staleChecked) {
+            staleChecked = true;
+            if(structureNestList.removeStale(checkedWorld) > 0)
                 markDirty();
         }
         for(SpawnNestManager nest : structureNestList.getManagers()){
             if(haveToDoWellnessCheck)
-                nest.doWellnessCheck(managerData, checkedWorld, blockPos);
-            nest.tick(managerData, gameTick, checkedWorld, blockPos);
+                nest.doWellnessCheck(checkedWorld, blockPos);
+            nest.tick(gameTick, checkedWorld, blockPos);
         }
         if(haveToDoWellnessCheck)
             wellnessChecked = true;
-        if(managerData != null && gameTick % MARKER_CHECK_INTERVAL == 0)
+        if(gameTick % MARKER_CHECK_INTERVAL == 0)
             tickMarkers(checkedWorld);
     }
 
-    // What the builders marked to be spawned: people join the nests of the place, animals have their own count. Each tagged bed of
-    // the place that this manager is the nearest to with a nest for its kind is a nest of its own, of one person
+    // What the builders marked to be spawned: people of the nest a marker names, animals with their own count. Each tagged bed
+    // of the structure that is this manager's is a nest of its own, of one person
     private void tickMarkers(ServerWorld serverWorld) {
         RoutineSite site = RoutineSites.forManager(serverWorld, pos);
         if(site == null)
             return;
+        Optional<Identifier> place = Optional.ofNullable(structureManagerIdentifier);
         for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.SPAWN_NPC)) {
-            // The marker names its people as a bed tag does, by the last word of the nest
-            SpawnNestNodeData data = managerData.findPeopleNest(marker.value());
+            SpawnNestNodeData data = StructureManagerService.nestForMarker(serverWorld, marker.value(), place);
             if(data == null || structureNestList.getManagers().stream().anyMatch(nest -> nest.isMarked() && nest.getOriginPos().equals(marker.pos())))
                 continue;
             structureNestList.addNest(new SpawnNestManager(data, marker.pos(), MARKER_SPAWN_RADIUS, marker.count()));
@@ -338,10 +339,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         for(StructureFeatureData.Bed bed : site.getBeds()) {
             if(bed.tag().isEmpty() || ownsBed(bed.pos()))
                 continue;
-            SpawnNestNodeData data = managerData.findPeopleNest(bed.tag().get().nestKind());
+            SpawnNestNodeData data = StructureManagerService.nestFor(serverWorld, bed.tag().get(), place);
             if(data == null)
                 continue;
-            boolean owned = site.getManagers().isEmpty() ? StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().nestKind(), site, this)
+            boolean owned = site.getManagers().isEmpty() ? StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get(), site, this)
                     : pos.equals(StructureManagerService.ownerOf(serverWorld, bed, site.getManagers()));
             if(!owned)
                 continue;
@@ -373,14 +374,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
         if(!toInitialize || enabled)
             return;
-        if(structureManagerIdentifier == null)
-            return;
 
-        this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
         this.structureNestList = new StructureNestList();
-        if(managerData == null)
-            return;
-
         this.toInitialize = false;
         this.enabled = true;
     }

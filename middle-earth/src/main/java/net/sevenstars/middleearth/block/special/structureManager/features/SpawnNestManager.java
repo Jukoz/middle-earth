@@ -24,7 +24,6 @@ import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 import java.util.ArrayList;
@@ -172,8 +171,8 @@ public class SpawnNestManager {
         }
     }
 
-    private boolean housesPeople(@Nullable StructureManagerData structureManagerData) {
-        SpawnNestNodeData data = structureManagerData == null ? null : structureManagerData.findSpawnNest(id);
+    private boolean housesPeople(World world) {
+        SpawnNestNodeData data = StructureManagerService.findNest(world, id);
         return data != null && data.isPeople();
     }
 
@@ -185,17 +184,17 @@ public class SpawnNestManager {
         return (entities.isEmpty() && time > respawnEventTriggerTick + respawnTickDelay);
     }
 
-    public void tick(StructureManagerData structureManagerData, long currentTick, ServerWorld world, BlockPos sourcePos) {
+    public void tick(long currentTick, ServerWorld world, BlockPos sourcePos) {
         if(canRespawn(currentTick)){
-            respawnAll(structureManagerData, world, sourcePos);
+            respawnAll(world, sourcePos);
         }
     }
 
-    public void doWellnessCheck(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
+    public void doWellnessCheck(World world, BlockPos sourcePos) {
         // A person not found may only be out where the ground is not loaded, and dropped here its bed went to somebody new
         // while it still slept there. Their deaths and removals are told to the nest instead (NpcEntity.onDeath,
         // LivingEntityMixin.onRemove)
-        if(housesPeople(structureManagerData))
+        if(housesPeople(world))
             return;
         List<UUID> toRemove = new ArrayList<>();
         for (UUID uuid : entities){
@@ -207,10 +206,8 @@ public class SpawnNestManager {
             removeEntity(world, uuid);
     }
 
-    private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
-        if(structureManagerData == null)
-            return;
-        SpawnNestNodeData data = structureManagerData.findSpawnNest(id);
+    private void respawnAll(ServerWorld world, BlockPos structureManagerPos) {
+        SpawnNestNodeData data = StructureManagerService.findNest(world, id);
 
         if(data != null){
             StructureSpawnNestPool pool = data.getRandomPool();
@@ -279,7 +276,7 @@ public class SpawnNestManager {
                 || !site.getMarkers(MarkerKind.LOOKOUT).isEmpty());
     }
 
-    public void forceRespawn(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
+    public void forceRespawn(ServerWorld world, BlockPos structureManagerPos) {
         for(var uuid : getEntityUuids()){
             if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
                 livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
@@ -287,6 +284,6 @@ public class SpawnNestManager {
             }
         }
         entities = new ArrayList<>();
-        respawnAll(structureManagerData, world, structureManagerPos);
+        respawnAll(world, structureManagerPos);
     }
 }

@@ -21,10 +21,11 @@ import java.util.Optional;
 // its manager being loaded
 public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, List<Station> stations, List<BlockPos> seats,
                                    List<BlockPos> doors, List<BlockPos> ladders, List<Marker> markers, List<Manager> managers) {
-    public record Manager(BlockPos pos, Identifier data) {
+    // The data is the place a manager was given before beds kept theirs, which those tagged since have no need of
+    public record Manager(BlockPos pos, Optional<Identifier> data) {
         public static final Codec<Manager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Manager::pos),
-                Identifier.CODEC.fieldOf("data").forGetter(Manager::data)
+                Identifier.CODEC.optionalFieldOf("data").forGetter(Manager::data)
         ).apply(instance, Manager::new));
     }
 

@@ -176,7 +176,9 @@ public class StructureFeaturesReport {
                             warnings.badLinks.add(where + " is linked by hand to %s, which is no station, marker, store or seat".formatted(at(link)));
                     }
                 }
-                if(!nestKinds.contains(tag.nestKind()))
+                if(tag.place().isPresent() && !BedTag.placeHas(tag.place().get(), tag.nestKind()))
+                    warnings.noNestKind.add(where + " of `%s`, which has no nest of that kind".formatted(tag.place().get().getPath()));
+                else if(tag.place().isEmpty() && !nestKinds.contains(tag.nestKind()))
                     warnings.noNestKind.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that kind in the nests of the structure"));
                 if(bed.store().isEmpty())
                     warnings.noStore.add(where);
@@ -198,7 +200,8 @@ public class StructureFeaturesReport {
                 if(marker.kind() == MarkerKind.SPAWN_NPC) {
                     if(marker.value().isEmpty())
                         warnings.badSpawns.add(where + " has no value");
-                    else if(!nestKinds.contains(marker.value()))
+                    else if(marker.value().indexOf(Identifier.NAMESPACE_SEPARATOR) >= 0 ? Identifier.tryParse(marker.value()) == null || !BedTag.peopleNests().containsKey(Identifier.tryParse(marker.value()))
+                            : !nestKinds.contains(marker.value()))
                         warnings.badSpawns.add(where + " has the unknown nest `%s`".formatted(marker.value()));
                 } else if(marker.kind() == MarkerKind.SPAWN_ANIMAL) {
                     Identifier type = Identifier.tryParse(marker.value());

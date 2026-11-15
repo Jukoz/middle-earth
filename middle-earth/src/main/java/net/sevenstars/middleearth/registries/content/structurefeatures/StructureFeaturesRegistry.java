@@ -134,10 +134,9 @@ public class StructureFeaturesRegistry {
             BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
             if(name.equals(MANAGER_BLOCK) || name.equals(ORC_MANAGER_BLOCK)) {
                 Identifier id = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(MANAGER_ID, ""));
-                if(id != null) {
+                if(id != null)
                     managerIds.add(id);
-                    managers.add(new StructureFeatureData.Manager(pos, id));
-                }
+                managers.add(new StructureFeatureData.Manager(pos, Optional.ofNullable(id)));
                 continue;
             }
             if(name.equals(MARKER_BLOCK)) {

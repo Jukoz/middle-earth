@@ -113,8 +113,11 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
     }
 
     private boolean validValue() {
-        if(kind == MarkerKind.SPAWN_NPC)
-            return BedTag.nestKinds().contains(value);
+        // A nest, or as markers placed before nests were named whole, only its kind
+        if(kind == MarkerKind.SPAWN_NPC) {
+            Identifier nest = Identifier.tryParse(value);
+            return BedTag.nestKinds().contains(value) || nest != null && BedTag.peopleNests().containsKey(nest);
+        }
         if(kind == MarkerKind.SPAWN_ANIMAL) {
             Identifier id = Identifier.tryParse(value);
             return id != null && Registries.ENTITY_TYPE.containsId(id);

@@ -4,8 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
+import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,11 +37,11 @@ public class StructureNestList {
         return managers;
     }
 
-    // Nests that a manager keeps from before its data was what it is, or that came with a template of another one. And those
-    // of the nest blocks there were before beds were tagged and animals marked, which would respawn beside what those spawn
-    public int removeStale(StructureManagerData data) {
+    // Nests there is no data for any more. And those of the nest blocks there were before beds were tagged and animals
+    // marked, which would respawn beside what those spawn
+    public int removeStale(World world) {
         int before = managers.size();
-        managers.removeIf(nest -> data.findSpawnNest(nest.getId()) == null || !nest.isMarked());
+        managers.removeIf(nest -> StructureManagerService.findNest(world, nest.getId()) == null || !nest.isMarked());
         return before - managers.size();
     }
 

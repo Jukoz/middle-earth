@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -22,7 +23,11 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
+import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import java.util.List;
+import java.util.Optional;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -42,6 +47,37 @@ public class StructureManagerService {
             return null;
         var data =  StructureManagerDataLookup.getStructureManagerData(world, structureManagerDataId);
         return data.orElse(null);
+    }
+
+    // A nest is named for its place, and no two places share one
+    public static @Nullable SpawnNestNodeData findNest(World world, Identifier nestId) {
+        Registry<StructureManagerData> places = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).orElse(null);
+        if(places == null)
+            return null;
+        for(StructureManagerData place : places) {
+            SpawnNestNodeData nest = place.findSpawnNest(nestId);
+            if(nest != null)
+                return nest;
+        }
+        return null;
+    }
+
+    // The nest a bed's people are of: of its own place, or without one of the place its manager was given
+    public static @Nullable SpawnNestNodeData nestFor(World world, BedTag tag, Optional<Identifier> managerPlace) {
+        Identifier place = tag.place().or(() -> managerPlace).orElse(null);
+        StructureManagerData data = place == null ? null : getStructureManagerData(world, place);
+        return data == null ? null : data.findPeopleNest(tag.nestKind());
+    }
+
+    // A spawn marker names a nest whole, or as those placed before did only its kind, which is then of the manager's place
+    public static @Nullable SpawnNestNodeData nestForMarker(World world, String value, Optional<Identifier> managerPlace) {
+        if(value.indexOf(Identifier.NAMESPACE_SEPARATOR) >= 0) {
+            Identifier nestId = Identifier.tryParse(value);
+            SpawnNestNodeData nest = nestId == null ? null : findNest(world, nestId);
+            return nest != null && nest.isPeople() ? nest : null;
+        }
+        StructureManagerData data = managerPlace.map(place -> getStructureManagerData(world, place)).orElse(null);
+        return data == null ? null : data.findPeopleNest(value);
     }
 
     public static LivingEntity spawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
@@ -119,11 +155,9 @@ public class StructureManagerService {
     public static @Nullable BlockPos ownerOf(World world, StructureFeatureData.Bed bed, List<StructureFeatureData.Manager> managers) {
         if(bed.tag().isEmpty())
             return null;
-        String nestKind = bed.tag().get().nestKind();
         StructureFeatureData.Manager owner = null;
         for(StructureFeatureData.Manager manager : managers) {
-            StructureManagerData data = getStructureManagerData(world, manager.data());
-            if(data == null || data.findPeopleNest(nestKind) == null)
+            if(nestFor(world, bed.tag().get(), manager.data()) == null)
                 continue;
             if(bed.manager().isPresent() && bed.manager().get().equals(manager.pos()))
                 return manager.pos();
@@ -140,14 +174,14 @@ public class StructureManagerService {
     }
 
     // For a place whose templates say nothing of its managers: the nearest of those that are loaded
-    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, String nestKind, RoutineSite site, StructureManagerBlockEntity asking) {
+    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, BedTag tag, RoutineSite site, StructureManagerBlockEntity asking) {
         Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
         if (managers == null)
             return false;
         for (BlockPos managerPos : managers) {
             if (managerPos.equals(asking.getPos()) || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
                 continue;
-            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(nestKind) || RoutineSites.forManager(world, managerPos) != site)
+            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(tag) || RoutineSites.forManager(world, managerPos) != site)
                 continue;
             if (manager.ownsBed(bed))
                 return false;

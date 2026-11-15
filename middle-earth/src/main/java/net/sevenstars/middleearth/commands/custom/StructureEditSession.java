@@ -279,6 +279,26 @@ public class StructureEditSession {
         return null;
     }
 
+    // The box a piece is saved by, set whole. What it leaves out stays in the world, to be taken in again or cleared by hand
+    public @Nullable Piece resize(ServerWorld world, Piece piece, BlockBox resized) {
+        BlockBox box = piece.box();
+        for(Piece other : pieces) {
+            if(other != piece && other.box().intersects(resized)) {
+                StructureEditing.log("%s not given the bounds %s: %s in %s is in the way".formatted(piece.template(), describe(resized), other.template(), describe(other.box())));
+                return other;
+            }
+        }
+        // New room that is empty is open, as what a template leaves out is. What was built there is taken in as it stands
+        for(BlockPos pos : BlockPos.iterate(resized.getMinX(), resized.getMinY(), resized.getMinZ(), resized.getMaxX(), resized.getMaxY(), resized.getMaxZ())) {
+            if(!box.contains(pos) && world.isInBuildLimit(pos) && world.getBlockState(pos).isAir())
+                world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+        }
+        pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(resized, piece.rotation()), piece.rotation(), resized, piece.loaded()));
+        store(world.getServer());
+        StructureEditing.log("%s given the bounds %s where it had %s".formatted(piece.template(), describe(resized), describe(box)));
+        return null;
+    }
+
     // The corner of its box a turned template is placed from, and its size as it lies unturned
     private static BlockPos originOf(BlockBox box, BlockRotation rotation) {
         return switch (rotation) {
