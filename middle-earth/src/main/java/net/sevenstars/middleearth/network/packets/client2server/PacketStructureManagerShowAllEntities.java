@@ -4,9 +4,10 @@ import net.minecraft.command.DefaultPermissions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
@@ -38,17 +39,12 @@ public class PacketStructureManagerShowAllEntities extends ClientToServerPacket<
 
     @Override
     public void process(ServerPacketContext context) {
-        try{
-            MinecraftServer server = context.player().getEntityWorld().getServer();
-            server.execute(() -> {
-                if(!context.player().getPermissions().hasPermission(DefaultPermissions.GAMEMASTERS))
-                    return;
-                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
-                    blockEntity.showAllEntities();
-                }
-            });
-        } catch (Exception e){
-            MiddleEarth.LOGGER.logError("PacketStructureManagerShowAllEntities::Tried to show all entities.", e);
-        }
+        ServerPlayerEntity player = context.player();
+        player.getServer().execute(() -> {
+            if(!player.hasPermissionLevel(2) || !StructureEditing.isWithinReach(player, pos))
+                return;
+            if(player.getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity)
+                blockEntity.showAllEntities();
+        });
     }
 }

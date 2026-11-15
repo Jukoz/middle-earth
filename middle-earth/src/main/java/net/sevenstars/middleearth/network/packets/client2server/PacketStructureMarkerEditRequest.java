@@ -12,6 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -70,7 +71,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getServer().execute(() -> {
-            if(!player.isCreative() || !player.isCreativeLevelTwoOp() || !player.getBlockPos().isWithinDistance(pos, 8))
+            if(!StructureEditing.mayEdit(player, pos))
                 return;
             if(!(player.getWorld() instanceof ServerWorld world) || !world.isInBuildLimit(pos))
                 return;

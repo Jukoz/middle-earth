@@ -3,9 +3,10 @@ package net.sevenstars.middleearth.network.packets.client2server;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
@@ -68,18 +69,14 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
 
     @Override
     public void process(ServerPacketContext context) {
-        try{
-            MinecraftServer server = context.player().getEntityWorld().getServer();
-            server.execute(() -> {
-                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureNestBlockEntity blockEntity){
-                    blockEntity.setStructureManagerId(structureManagerId);
-                    blockEntity.setStructureNestId(structureNestId);
-                    blockEntity.setSpawnRadius(spawnRadius);
-                    blockEntity.setIsEnabled(isEnabled);
-                }
-            });
-        } catch (Exception e){
-            MiddleEarth.LOGGER.logError("PacketStructureNestUpdateBlockEntityRequest::Tried to update the block entity.", e);
-        }
+        ServerPlayerEntity player = context.player();
+        player.getServer().execute(() -> {
+            if(StructureEditing.mayEdit(player, pos) && player.getWorld().getBlockEntity(pos) instanceof StructureNestBlockEntity blockEntity){
+                blockEntity.setStructureManagerId(structureManagerId);
+                blockEntity.setStructureNestId(structureNestId);
+                blockEntity.setSpawnRadius(spawnRadius);
+                blockEntity.setIsEnabled(isEnabled);
+            }
+        });
     }
 }

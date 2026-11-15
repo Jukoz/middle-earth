@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.network.packets.client2server.PacketBedTagUpdateRequest;
 
@@ -23,7 +24,7 @@ public class BedTagScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return player.getBlockPos().isWithinDistance(data.pos(), 8);
+        return player.getBlockPos().isWithinDistance(data.pos(), StructureEditing.REACH);
     }
 
     public BedTagScreenData getData() {

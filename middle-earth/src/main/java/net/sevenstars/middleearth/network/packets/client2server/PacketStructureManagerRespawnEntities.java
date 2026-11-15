@@ -2,9 +2,10 @@ package net.sevenstars.middleearth.network.packets.client2server;
 
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
@@ -36,15 +37,10 @@ public class PacketStructureManagerRespawnEntities extends ClientToServerPacket<
 
     @Override
     public void process(ServerPacketContext context) {
-        try{
-            MinecraftServer server = context.player().getEntityWorld().getServer();
-            server.execute(() -> {
-                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
-                    blockEntity.respawnAllEntities();
-                }
-            });
-        } catch (Exception e){
-            MiddleEarth.LOGGER.logError("PacketStructureManagerRespawnEntities::Tried to reset all entities.", e);
-        }
+        ServerPlayerEntity player = context.player();
+        player.getServer().execute(() -> {
+            if(StructureEditing.mayEdit(player, pos) && player.getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity)
+                blockEntity.respawnAllEntities();
+        });
     }
 }

@@ -41,15 +41,15 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient()) {
+        if (world.isClient)
             return ActionResult.SUCCESS;
-        } else {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if(screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
-            }
-            return ActionResult.CONSUME;
-        }
+        // As the manager and the marker: set up by builders only
+        if(!player.isCreative() || !player.isCreativeLevelTwoOp())
+            return ActionResult.FAIL;
+        NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+        if(screenHandlerFactory != null)
+            player.openHandledScreen(screenHandlerFactory);
+        return ActionResult.CONSUME;
     }
 
     @Nullable
