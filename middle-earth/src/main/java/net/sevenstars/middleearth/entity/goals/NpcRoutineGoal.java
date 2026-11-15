@@ -494,13 +494,8 @@ public class NpcRoutineGoal extends Goal {
         }
 
         delay = IDLE_DELAY + npc.getRandom().nextInt(IDLE_DELAY_VARIATION);
-        // An escort stays with its ward until that one is home again, or lost
-        if(npc.isEscorting()) {
-            boolean stillOut = npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof NpcEntity ward && ward.isAlive() && ward.isOnOuting();
-            if(stillOut)
-                return false;
-            npc.endEscort();
-        }
+        if(isEscortOut(world))
+            return false;
         if(npc.getPartyLeader() != null || npc.getTravelHeading() != null)
             return false;
         long time = world.getTime();
@@ -529,27 +524,8 @@ public class NpcRoutineGoal extends Goal {
         // Bed time comes whether anyone is watching or not
         // A rider keeps to its mount through the night, and has no bed to lie down in
         BlockPos restingHome = npc.getStructureManagerHostPos() == null || riding() ? null : npc.getRoutineHome();
-        if(restingHome != null && npc.isRestTime()) {
-            if(!RoutineSites.takeStart(world)) {
-                delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
-                return false;
-            }
-            // Without a bed, staying around the house is all the rest there is
-            if(freeBed(world) == null && restingHome.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
-                restUntil = time + NOTHING_TO_DO_REST;
-                return false;
-            }
-            if(time < bedHeldUntil) {
-                restUntil = bedHeldUntil;
-                return false;
-            }
-            carried = null;
-            toBed = freeBed(world) != null;
-            homeward = true;
-            failed = false;
-            startReturn(world);
-            return true;
-        }
+        if(restingHome != null && npc.isRestTime())
+            return bedTime(world, time, restingHome);
         if(!isWatched(world)) debugWhyNot(world, "no player within " + PLAYER_RANGE);
         if(!isWatched(world))
             return false;
@@ -588,6 +564,43 @@ public class NpcRoutineGoal extends Goal {
         }
 
         restUntil = time + NOTHING_TO_DO_REST;
+        return goHomeOffDuty(world, time, home);
+    }
+
+    private boolean isEscortOut(ServerWorld world) {
+        // An escort stays with its ward until that one is home again, or lost
+        if(npc.isEscorting()) {
+            boolean stillOut = npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof NpcEntity ward && ward.isAlive() && ward.isOnOuting();
+            if(stillOut)
+                return true;
+            npc.endEscort();
+        }
+        return false;
+    }
+
+    private boolean bedTime(ServerWorld world, long time, BlockPos restingHome) {
+        if(!RoutineSites.takeStart(world)) {
+            delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
+            return false;
+        }
+        // Without a bed, staying around the house is all the rest there is
+        if(freeBed(world) == null && restingHome.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
+            restUntil = time + NOTHING_TO_DO_REST;
+            return false;
+        }
+        if(time < bedHeldUntil) {
+            restUntil = bedHeldUntil;
+            return false;
+        }
+        carried = null;
+        toBed = freeBed(world) != null;
+        homeward = true;
+        failed = false;
+        startReturn(world);
+        return true;
+    }
+
+    private boolean goHomeOffDuty(ServerWorld world, long time, BlockPos home) {
         // Off duty, a settled npc that drifted away goes home
         if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
             carried = null;
@@ -727,224 +740,20 @@ public class NpcRoutineGoal extends Goal {
             picked = RoutineData.Activity.TABLE;
         }
         switch (picked) {
-            case FISH -> {
-                int index = pickNear(site.getShoreStands(), home, SPOT_RANGE + site.getExtent(), random);
-                if(index < 0)
-                    return cannotStart(picked, "no shore within reach of home");
-                spot = site.getShoreStands().get(index);
-                lookTarget = Vec3d.ofCenter(site.getShoreWater(index));
-            }
-            case HUNT -> {
-                int index = huntingGround(world, home, world.getTime());
-                if(index < 0)
-                    return cannotStart(picked, "no game seen about the place");
-                spot = site.getGrounds().get(index);
-            }
-            case FORAGE -> {
-                int index = pickNear(site.getGrounds(), home, SPOT_RANGE + site.getExtent(), random);
-                if(index < 0)
-                    return cannotStart(picked, "no open ground within reach of home");
-                spot = site.getGrounds().get(index);
-            }
-            case VISIT -> {
-                if(hostingAt != null) {
-                    meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
-                    BlockPos beside = meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
-                    spot = meetSeat != null ? standAt(world, meetSeat) : beside != null ? beside : hostingAt;
-                    did("visit", "comes home to have a visitor over at " + spot.toShortString());
-                    hostingAt = null;
-                    break;
-                }
-                BlockPos household = visitHousehold != null ? visitHousehold : householdToVisit(world, home);
-                visitHousehold = null;
-                if(household == null)
-                    return cannotStart(picked, "no other household to call on");
-                // A visit is to somebody: the household is asked over to its own table
-                List<NpcEntity> hosts = hostsAt(world, household);
-                // To the table if there is room at it, or else just in at the door
-                meetSeat = site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
-                BlockPos hostSeat = meetSeat == null ? null : site.pickSeatNear(world, household, VISIT_SEAT_RANGE, meetSeat);
-                for(NpcEntity host : hosts)
-                    host.invite(hostSeat != null ? hostSeat : household, world.getTime() + INVITATION_TIME);
-                if(meetSeat != null) {
-                    spot = standAt(world, meetSeat);
-                } else {
-                    BlockPos beside = NestSurvey.standNextTo(world, household, npc.getBlockPos());
-                    spot = beside != null ? beside : household;
-                }
-            }
-            case WORK -> {
-                RoutineData routine = npc.getRoutine();
-                long time = world.getTime();
-                unusableStations.values().removeIf(until -> until <= time);
-                workStation = null;
-                workAnimal = null;
-                // A stable master's work is the animals of its spawn_animal marker
-                if(isStableWork()) {
-                    workAnimal = findAnimal(world, home);
-                    if(workAnimal == null)
-                        return cannotStart(picked, "no animal to see to");
-                    BlockPos byHorse = NestSurvey.standNextTo(world, workAnimal.getBlockPos(), npc.getBlockPos());
-                    spot = byHorse != null ? byHorse : workAnimal.getBlockPos();
-                    break;
-                }
-                BlockPos beside = null;
-                List<BlockPos> stations = routine == null ? List.of() : stationsToWork(routine, home);
-                boolean held = false;
-                for(BlockPos station : stations) {
-                    if(unusableStations.containsKey(station)) {
-                        held = true;
-                        continue;
-                    }
-                    if(!isLoaded(world, station))
-                        continue;
-                    if(RoutineStores.isHive(world, station) && !hiveReady(world, station, time))
-                        continue;
-                    if(isCookWork() && RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null)
-                        continue;
-                    beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
-                    // A forge walled in on every side is for show
-                    if(beside != null) {
-                        workStation = station;
-                        break;
-                    }
-                    unusableStations.put(station, time + STATION_HOLD);
-                }
-                if(beside == null)
-                    return cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
-                            : "no room to stand at any station of its trade");
-                spot = beside;
-                if(isCookWork()) {
-                    BlockPos pantry = storeWithRawFood(world, home);
-                    if(pantry == null)
-                        return cannotStart(picked, "nothing raw in any store to cook");
-                    fetchFrom = pantry;
-                    cookStand = beside;
-                    fuelFrom = RoutineStores.isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
-                    spot = standAt(world, pantry);
-                }
-            }
-            case TABLE -> {
-                meetSeat = site.pickSeat(world, random, home, TABLE_RANGE);
-                if(meetSeat == null)
-                    return cannotStart(picked, "no free seat at any table");
-                spot = standAt(world, meetSeat);
-            }
-            case FARM -> {
-                hiddenPlots.clear();
-                fieldCell = nextFieldCell(world, home, npc.getBlockPos());
-                if(fieldCell == null)
-                    return cannotStart(picked, "no field near home needs work");
-                spot = fieldCell.up();
-                farmingEnd = world.getTime() + FARMING_TIME + random.nextInt(FARMING_TIME_VARIATION);
-            }
-            case CHOP -> {
-                tree = nextTree(world, home);
-                if(tree == null)
-                    return cannotStart(picked, "no tree within reach of home");
-                spot = standAt(world, tree);
-                lookTarget = Vec3d.ofCenter(tree.up());
-            }
-            case MINE -> {
-                // The marker stands where the miner does, and faces the rock
-                StructureFeatureData.Marker nearest = null;
-                for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.MINE_FACE)) {
-                    if(marker.pos().isWithinDistance(home, WORK_RANGE) && (nearest == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < nearest.pos().getSquaredDistance(npc.getBlockPos())))
-                        nearest = marker;
-                }
-                if(nearest == null)
-                    return cannotStart(picked, site.supports(picked) ? "no mine face within reach of home" : "no mine face marked in this build");
-                rockFace = nearest.pos().offset(nearest.facing());
-                if(!isLoaded(world, rockFace) || world.getBlockState(rockFace).getBlock().asItem() == Items.AIR)
-                    return cannotStart(picked, "nothing to mine at the face " + rockFace.toShortString());
-                spot = nearest.pos();
-                lookTarget = Vec3d.ofCenter(rockFace);
-            }
-            case POST -> {
-                spot = home;
-                MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
-                StructureFeatureData.Marker post = site.claimPost(world, npc.getUuid(), home, kinds);
-                if(post != null) {
-                    spot = post.pos();
-                    facing = post.facing();
-                } else {
-                    boolean marked = false;
-                    for(MarkerKind kind : kinds)
-                        marked |= !site.getMarkers(kind).isEmpty();
-                    fallsBack(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
-                }
-            }
-            case PATROL -> {
-                List<BlockPos> route = site.getPatrolRoute();
-                if(route.size() < MINIMUM_ROUTE_POINTS)
-                    return cannotStart(picked, "no round to walk in this build");
-                ringIndex = 0;
-                for(int i = 1; i < route.size(); i++) {
-                    if(route.get(i).getSquaredDistance(npc.getBlockPos()) < route.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
-                        ringIndex = i;
-                }
-                laps = 0;
-                ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
-                ringLeft = route.size();
-                spot = routePoint(world, route.get(ringIndex));
-            }
-            case COURT -> {
-                StructureFeatureData.Marker seatMarker = null;
-                for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.LORD_SEAT)) {
-                    if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
-                        seatMarker = marker;
-                }
-                // The marker stands beside the seat
-                BlockPos seat = null;
-                for(BlockPos candidate : site.getSeats()) {
-                    if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
-                            && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
-                        seat = candidate;
-                }
-                facing = seatMarker.facing();
-                if(seat != null) {
-                    meetSeat = seat;
-                    spot = standAt(world, seat);
-                } else {
-                    spot = seatMarker.pos();
-                }
-            }
-            case INSPECT -> {
-                stops.clear();
-                List<StructureFeatureData.Marker> posts = new ArrayList<>(site.getMarkers(MarkerKind.GUARD_POST));
-                posts.addAll(site.getMarkers(MarkerKind.ENTRANCE));
-                if(posts.isEmpty()) {
-                    // Nothing marked, so a walk around the place will do
-                    List<BlockPos> ring = site.getRing();
-                    if(ring.size() < MINIMUM_RING_POINTS)
-                        return cannotStart(picked, "no post marked and no round to walk in this build");
-                    int step = Math.max(1, ring.size() / INSPECT_RING_STOPS);
-                    int first = random.nextInt(ring.size());
-                    for(int i = 0; i < Math.min(INSPECT_RING_STOPS, ring.size()); i++)
-                        stops.add(new StructureFeatureData.Marker(MarkerKind.PATROL_POINT, ring.get((first + i * step) % ring.size()), null));
-                } else {
-                    BlockPos at = npc.getBlockPos();
-                    while(!posts.isEmpty()) {
-                        StructureFeatureData.Marker nearest = posts.getFirst();
-                        for(StructureFeatureData.Marker post : posts) {
-                            if(post.pos().getSquaredDistance(at) < nearest.pos().getSquaredDistance(at))
-                                nearest = post;
-                        }
-                        posts.remove(nearest);
-                        stops.add(nearest);
-                        at = nearest.pos();
-                    }
-                }
-                StructureFeatureData.Marker first = stops.poll();
-                spot = first.pos();
-                facing = first.facing();
-            }
-            case FOLLOW -> {
-                NpcEntity lord = findLord(world);
-                BlockPos stand = lord == null ? null : followSpot(world, lord);
-                spot = stand != null ? stand : npc.getBlockPos();
-                followCheck = FOLLOW_REPATH;
-            }
+            case FISH -> { if(!beginFish(picked, home, random)) return false; }
+            case HUNT -> { if(!beginHunt(world, picked, home)) return false; }
+            case FORAGE -> { if(!beginForage(picked, home, random)) return false; }
+            case VISIT -> { if(!beginVisit(world, picked, home)) return false; }
+            case WORK -> { if(!beginWork(world, picked, home)) return false; }
+            case TABLE -> { if(!beginTable(world, picked, home, random)) return false; }
+            case FARM -> { if(!beginFarm(world, picked, home, random)) return false; }
+            case CHOP -> { if(!beginChop(world, picked, home)) return false; }
+            case MINE -> { if(!beginMine(world, picked, home)) return false; }
+            case POST -> beginPost(world, picked, home, sentry);
+            case PATROL -> { if(!beginPatrol(world, picked)) return false; }
+            case COURT -> beginCourt(world);
+            case INSPECT -> { if(!beginInspect(picked, random)) return false; }
+            case FOLLOW -> beginFollow(world);
         }
         activity = picked;
         homeward = false;
@@ -957,6 +766,249 @@ public class NpcRoutineGoal extends Goal {
         failed = false;
         deadline = world.getTime() + ROUTINE_TIME_LIMIT;
         return true;
+    }
+
+    private boolean beginFish(RoutineData.Activity picked, BlockPos home, Random random) {
+        int index = pickNear(site.getShoreStands(), home, SPOT_RANGE + site.getExtent(), random);
+        if(index < 0)
+            return cannotStart(picked, "no shore within reach of home");
+        spot = site.getShoreStands().get(index);
+        lookTarget = Vec3d.ofCenter(site.getShoreWater(index));
+        return true;
+    }
+
+    private boolean beginHunt(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        int index = huntingGround(world, home, world.getTime());
+        if(index < 0)
+            return cannotStart(picked, "no game seen about the place");
+        spot = site.getGrounds().get(index);
+        return true;
+    }
+
+    private boolean beginForage(RoutineData.Activity picked, BlockPos home, Random random) {
+        int index = pickNear(site.getGrounds(), home, SPOT_RANGE + site.getExtent(), random);
+        if(index < 0)
+            return cannotStart(picked, "no open ground within reach of home");
+        spot = site.getGrounds().get(index);
+        return true;
+    }
+
+    private boolean beginVisit(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        if(hostingAt != null) {
+            meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
+            BlockPos beside = meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
+            spot = meetSeat != null ? standAt(world, meetSeat) : beside != null ? beside : hostingAt;
+            did("visit", "comes home to have a visitor over at " + spot.toShortString());
+            hostingAt = null;
+            return true;
+        }
+        BlockPos household = visitHousehold != null ? visitHousehold : householdToVisit(world, home);
+        visitHousehold = null;
+        if(household == null)
+            return cannotStart(picked, "no other household to call on");
+        // A visit is to somebody: the household is asked over to its own table
+        List<NpcEntity> hosts = hostsAt(world, household);
+        // To the table if there is room at it, or else just in at the door
+        meetSeat = site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
+        BlockPos hostSeat = meetSeat == null ? null : site.pickSeatNear(world, household, VISIT_SEAT_RANGE, meetSeat);
+        for(NpcEntity host : hosts)
+            host.invite(hostSeat != null ? hostSeat : household, world.getTime() + INVITATION_TIME);
+        if(meetSeat != null) {
+            spot = standAt(world, meetSeat);
+        } else {
+            BlockPos beside = NestSurvey.standNextTo(world, household, npc.getBlockPos());
+            spot = beside != null ? beside : household;
+        }
+        return true;
+    }
+
+    private boolean beginWork(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        RoutineData routine = npc.getRoutine();
+        long time = world.getTime();
+        unusableStations.values().removeIf(until -> until <= time);
+        workStation = null;
+        workAnimal = null;
+        // A stable master's work is the animals of its spawn_animal marker
+        if(isStableWork()) {
+            workAnimal = findAnimal(world, home);
+            if(workAnimal == null)
+                return cannotStart(picked, "no animal to see to");
+            BlockPos byHorse = NestSurvey.standNextTo(world, workAnimal.getBlockPos(), npc.getBlockPos());
+            spot = byHorse != null ? byHorse : workAnimal.getBlockPos();
+            return true;
+        }
+        BlockPos beside = null;
+        List<BlockPos> stations = routine == null ? List.of() : stationsToWork(routine, home);
+        boolean held = false;
+        for(BlockPos station : stations) {
+            if(unusableStations.containsKey(station)) {
+                held = true;
+                continue;
+            }
+            if(!isLoaded(world, station))
+                continue;
+            if(RoutineStores.isHive(world, station) && !hiveReady(world, station, time))
+                continue;
+            if(isCookWork() && RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null)
+                continue;
+            beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
+            // A forge walled in on every side is for show
+            if(beside != null) {
+                workStation = station;
+                break;
+            }
+            unusableStations.put(station, time + STATION_HOLD);
+        }
+        if(beside == null)
+            return cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
+                    : "no room to stand at any station of its trade");
+        spot = beside;
+        if(isCookWork()) {
+            BlockPos pantry = storeWithRawFood(world, home);
+            if(pantry == null)
+                return cannotStart(picked, "nothing raw in any store to cook");
+            fetchFrom = pantry;
+            cookStand = beside;
+            fuelFrom = RoutineStores.isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
+            spot = standAt(world, pantry);
+        }
+        return true;
+    }
+
+    private boolean beginTable(ServerWorld world, RoutineData.Activity picked, BlockPos home, Random random) {
+        meetSeat = site.pickSeat(world, random, home, TABLE_RANGE);
+        if(meetSeat == null)
+            return cannotStart(picked, "no free seat at any table");
+        spot = standAt(world, meetSeat);
+        return true;
+    }
+
+    private boolean beginFarm(ServerWorld world, RoutineData.Activity picked, BlockPos home, Random random) {
+        hiddenPlots.clear();
+        fieldCell = nextFieldCell(world, home, npc.getBlockPos());
+        if(fieldCell == null)
+            return cannotStart(picked, "no field near home needs work");
+        spot = fieldCell.up();
+        farmingEnd = world.getTime() + FARMING_TIME + random.nextInt(FARMING_TIME_VARIATION);
+        return true;
+    }
+
+    private boolean beginChop(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        tree = nextTree(world, home);
+        if(tree == null)
+            return cannotStart(picked, "no tree within reach of home");
+        spot = standAt(world, tree);
+        lookTarget = Vec3d.ofCenter(tree.up());
+        return true;
+    }
+
+    private boolean beginMine(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        // The marker stands where the miner does, and faces the rock
+        StructureFeatureData.Marker nearest = null;
+        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.MINE_FACE)) {
+            if(marker.pos().isWithinDistance(home, WORK_RANGE) && (nearest == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < nearest.pos().getSquaredDistance(npc.getBlockPos())))
+                nearest = marker;
+        }
+        if(nearest == null)
+            return cannotStart(picked, site.supports(picked) ? "no mine face within reach of home" : "no mine face marked in this build");
+        rockFace = nearest.pos().offset(nearest.facing());
+        if(!isLoaded(world, rockFace) || world.getBlockState(rockFace).getBlock().asItem() == Items.AIR)
+            return cannotStart(picked, "nothing to mine at the face " + rockFace.toShortString());
+        spot = nearest.pos();
+        lookTarget = Vec3d.ofCenter(rockFace);
+        return true;
+    }
+
+    private void beginPost(ServerWorld world, RoutineData.Activity picked, BlockPos home, boolean sentry) {
+        spot = home;
+        MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
+        StructureFeatureData.Marker post = site.claimPost(world, npc.getUuid(), home, kinds);
+        if(post != null) {
+            spot = post.pos();
+            facing = post.facing();
+        } else {
+            boolean marked = false;
+            for(MarkerKind kind : kinds)
+                marked |= !site.getMarkers(kind).isEmpty();
+            fallsBack(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
+        }
+    }
+
+    private boolean beginPatrol(ServerWorld world, RoutineData.Activity picked) {
+        List<BlockPos> route = site.getPatrolRoute();
+        if(route.size() < MINIMUM_ROUTE_POINTS)
+            return cannotStart(picked, "no round to walk in this build");
+        ringIndex = 0;
+        for(int i = 1; i < route.size(); i++) {
+            if(route.get(i).getSquaredDistance(npc.getBlockPos()) < route.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
+                ringIndex = i;
+        }
+        laps = 0;
+        ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
+        ringLeft = route.size();
+        spot = routePoint(world, route.get(ringIndex));
+        return true;
+    }
+
+    private void beginCourt(ServerWorld world) {
+        StructureFeatureData.Marker seatMarker = null;
+        for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.LORD_SEAT)) {
+            if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
+                seatMarker = marker;
+        }
+        // The marker stands beside the seat
+        BlockPos seat = null;
+        for(BlockPos candidate : site.getSeats()) {
+            if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
+                    && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
+                seat = candidate;
+        }
+        facing = seatMarker.facing();
+        if(seat != null) {
+            meetSeat = seat;
+            spot = standAt(world, seat);
+        } else {
+            spot = seatMarker.pos();
+        }
+    }
+
+    private boolean beginInspect(RoutineData.Activity picked, Random random) {
+        stops.clear();
+        List<StructureFeatureData.Marker> posts = new ArrayList<>(site.getMarkers(MarkerKind.GUARD_POST));
+        posts.addAll(site.getMarkers(MarkerKind.ENTRANCE));
+        if(posts.isEmpty()) {
+            // Nothing marked, so a walk around the place will do
+            List<BlockPos> ring = site.getRing();
+            if(ring.size() < MINIMUM_RING_POINTS)
+                return cannotStart(picked, "no post marked and no round to walk in this build");
+            int step = Math.max(1, ring.size() / INSPECT_RING_STOPS);
+            int first = random.nextInt(ring.size());
+            for(int i = 0; i < Math.min(INSPECT_RING_STOPS, ring.size()); i++)
+                stops.add(new StructureFeatureData.Marker(MarkerKind.PATROL_POINT, ring.get((first + i * step) % ring.size()), null));
+        } else {
+            BlockPos at = npc.getBlockPos();
+            while(!posts.isEmpty()) {
+                StructureFeatureData.Marker nearest = posts.getFirst();
+                for(StructureFeatureData.Marker post : posts) {
+                    if(post.pos().getSquaredDistance(at) < nearest.pos().getSquaredDistance(at))
+                        nearest = post;
+                }
+                posts.remove(nearest);
+                stops.add(nearest);
+                at = nearest.pos();
+            }
+        }
+        StructureFeatureData.Marker first = stops.poll();
+        spot = first.pos();
+        facing = first.facing();
+        return true;
+    }
+
+    private void beginFollow(ServerWorld world) {
+        NpcEntity lord = findLord(world);
+        BlockPos stand = lord == null ? null : followSpot(world, lord);
+        spot = stand != null ? stand : npc.getBlockPos();
+        followCheck = FOLLOW_REPATH;
     }
 
     // A tree near home that still stands and was not worked at lately
@@ -1145,25 +1197,8 @@ public class NpcRoutineGoal extends Goal {
         // there is no use trying on. Out in the open the stretches and the ways round mostly do, but not round the far side of
         // a hill, and the way there is planned before the last try
         boolean covered = isUnderCover(world, mover().getBlockPos()) || isUnderCover(world, target);
-        if(failures > 0 && !planned && (covered || failures >= MAXIMUM_FAILURES - 1)
-                && mover().getNavigation() instanceof NpcNavigation navigation) {
-            planned = true;
-            Path whole = navigation.plan(target);
-            if(whole == null) {
-                // Up on a railing no way starts at all, and from the floor beside it there may well be one
-                if(stepOff(world)) {
-                    planned = false;
-                    return;
-                }
-                giveUp(world, "no way at all to " + target.toShortString());
-                return;
-            }
-            waypoints = new ArrayList<>();
-            for(int i = WAYPOINT_SPACING; i < whole.getLength(); i += WAYPOINT_SPACING)
-                waypoints.add(whole.getNodePos(i));
-            waypoints.add(target);
-            failures = 0;
-        }
+        if(planWay(world, target, covered))
+            return;
         Vec3d destination = legs > MAXIMUM_LEGS ? null : waypoints != null ? nextPlannedWaypoint() : nextLeg(world, target);
         // The way to a bed or a station ends on the floor beside it, not a step off where a table may hide it
         // A bed up a stair round the back of the house is a long way round, longer than the usual search looks
@@ -1184,6 +1219,29 @@ public class NpcRoutineGoal extends Goal {
         failures++;
         if(legs > MAXIMUM_LEGS || failures >= MAXIMUM_FAILURES)
             giveUp(world, (legs > MAXIMUM_LEGS ? "too far, " + legs + " stretches without arriving at " : moving ? "got no nearer to " : "no path to ") + target.toShortString());
+    }
+
+    private boolean planWay(ServerWorld world, BlockPos target, boolean covered) {
+        if(failures > 0 && !planned && (covered || failures >= MAXIMUM_FAILURES - 1)
+                && mover().getNavigation() instanceof NpcNavigation navigation) {
+            planned = true;
+            Path whole = navigation.plan(target);
+            if(whole == null) {
+                // Up on a railing no way starts at all, and from the floor beside it there may well be one
+                if(stepOff(world)) {
+                    planned = false;
+                    return true;
+                }
+                giveUp(world, "no way at all to " + target.toShortString());
+                return true;
+            }
+            waypoints = new ArrayList<>();
+            for(int i = WAYPOINT_SPACING; i < whole.getLength(); i += WAYPOINT_SPACING)
+                waypoints.add(whole.getNodePos(i));
+            waypoints.add(target);
+            failures = 0;
+        }
+        return false;
     }
 
     // What the walk of a trade ends in sight of: the store a cook fetches from, the wood pile, and then the station
@@ -1476,50 +1534,18 @@ public class NpcRoutineGoal extends Goal {
         long time = world.getTime();
         stopMoving();
         if(phase == Phase.RETURNING) {
-            homeStrikes = 0;
-            if(toBed) {
-                goToBed(world);
-                return;
-            }
-            if(carried != null) {
-                BlockPos store = dropOff();
-                if(store == null || canSee(world, store))
-                    npc.swingHand(Hand.MAIN_HAND);
-                if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store)) {
-                    world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, STORE_SOUND_VOLUME, 1f);
-                    deliver(world, store);
-                } else if(store != null)
-                    abandoned("could not put away what it brought, its store " + store.toShortString() + " is out of reach or behind a wall");
-            }
-            finish(world, REST + random.nextInt(REST_VARIATION));
+            arriveHome(world, random);
             return;
         }
 
         // The cook has fetched what it is to cook, and goes on to its station with it
         if(activity == RoutineData.Activity.WORK && fetchFrom != null) {
-            Item raw = RoutineStores.takeRawFood(world, fetchFrom);
-            if(raw == null) {
-                abandoned("what there was to cook in the store at " + fetchFrom.toShortString() + " is gone");
-                finish(world, REST);
-                return;
-            }
-            carried = raw;
-            did("work", "took " + itemName(raw) + " from the store at " + fetchFrom.toShortString() + " to cook");
-            dropOff = fetchFrom;
-            fetchFrom = null;
-            spot = fuelFrom != null ? standAt(world, fuelFrom) : cookStand;
-            newWalk(world);
-            showProp();
+            arriveAtStore(world);
             return;
         }
         // And a log for the oven, from the wood pile
         if(activity == RoutineData.Activity.WORK && fuelFrom != null) {
-            logInHand = RoutineStores.takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
-            if(logInHand != null)
-                did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
-            fuelFrom = null;
-            spot = cookStand;
-            newWalk(world);
+            arriveAtWoodPile(world);
             return;
         }
         // Nothing is worked on the far side of a wall
@@ -1545,242 +1571,316 @@ public class NpcRoutineGoal extends Goal {
 
             case CHOP -> phaseEnd = time + CHOPPING_TIME + random.nextInt(CHOPPING_TIME_VARIATION);
             case MINE -> phaseEnd = time + MINING_TIME + random.nextInt(MINING_TIME_VARIATION);
-            case WORK -> {
-                phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
-                lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
-                if(logInHand != null) {
-                    planks += PLANKS_PER_LOG;
-                    world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, SPLIT_SOUND_VOLUME, 1f);
-                    did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
-                    logInHand = null;
-                }
-                if(isCookWork() && workStation != null && RoutineStores.isOven(world, workStation) && planks == 0) {
-                    abandoned("has no wood for the oven at " + workStation.toShortString());
-                    // What was fetched to be cooked goes back to its store
-                    if(carried != null)
-                        startReturn(world);
-                    else
-                        finish(world, REST);
-                    return;
-                }
-                if(workAnimal != null && (!workAnimal.isAlive() || workAnimal.squaredDistanceTo(npc) > HORSE_REACH * HORSE_REACH)) {
-                    abandoned("the horse it came to see to wandered off");
-                    finish(world, REST);
-                    return;
-                }
-            }
-            case VISIT, TABLE -> {
-                // Somebody quicker may have taken the seat, the table is still the place to be
-                boolean seated = sitDown(world);
-                phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
-                companion = null;
-                meetSeat = null;
-            }
-            case POST -> {
-                phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
-                // A marked post says where to look, the rest watch the land outside
-                lookTarget = facingTarget();
-                if(lookTarget == null) {
-                    double awayX = npc.getX() - site.getCenterX();
-                    double awayZ = npc.getZ() - site.getCenterZ();
-                    lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
-                }
-            }
-            case COURT -> {
-                boolean seated = sitDown(world);
-                phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
-                did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
-                companion = null;
-                meetSeat = null;
-            }
+            case WORK -> arriveWork(world, random, time);
+            case VISIT, TABLE -> arriveVisitOrTable(world, random, time);
+            case POST -> arrivePost(random, time);
+            case COURT -> arriveCourt(world, random, time);
             case INSPECT -> {
                 phaseEnd = time + INSPECT_TIME + random.nextInt(INSPECT_TIME_VARIATION);
                 lookTarget = facingTarget();
             }
             case FOLLOW -> phaseEnd = time;
-            case PATROL -> {
-                phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
-                // Watches the land outside, the place for a rider being further out than the ring
-                double awayX = npc.getX() - site.getCenterX();
-                double awayZ = npc.getZ() - site.getCenterZ();
-                lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
-            }
+            case PATROL -> arrivePatrol(random, time);
         }
+    }
+
+    private void arriveHome(ServerWorld world, Random random) {
+        homeStrikes = 0;
+        if(toBed) {
+            goToBed(world);
+            return;
+        }
+        if(carried != null) {
+            BlockPos store = dropOff();
+            if(store == null || canSee(world, store))
+                npc.swingHand(Hand.MAIN_HAND);
+            if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store)) {
+                world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, STORE_SOUND_VOLUME, 1f);
+                deliver(world, store);
+            } else if(store != null)
+                abandoned("could not put away what it brought, its store " + store.toShortString() + " is out of reach or behind a wall");
+        }
+        finish(world, REST + random.nextInt(REST_VARIATION));
+    }
+
+    private void arriveAtStore(ServerWorld world) {
+        Item raw = RoutineStores.takeRawFood(world, fetchFrom);
+        if(raw == null) {
+            abandoned("what there was to cook in the store at " + fetchFrom.toShortString() + " is gone");
+            finish(world, REST);
+            return;
+        }
+        carried = raw;
+        did("work", "took " + itemName(raw) + " from the store at " + fetchFrom.toShortString() + " to cook");
+        dropOff = fetchFrom;
+        fetchFrom = null;
+        spot = fuelFrom != null ? standAt(world, fuelFrom) : cookStand;
+        newWalk(world);
+        showProp();
+    }
+
+    private void arriveAtWoodPile(ServerWorld world) {
+        logInHand = RoutineStores.takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
+        if(logInHand != null)
+            did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
+        fuelFrom = null;
+        spot = cookStand;
+        newWalk(world);
+    }
+
+    private void arriveWork(ServerWorld world, Random random, long time) {
+        phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
+        lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
+        if(logInHand != null) {
+            planks += PLANKS_PER_LOG;
+            world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, SPLIT_SOUND_VOLUME, 1f);
+            did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
+            logInHand = null;
+        }
+        if(isCookWork() && workStation != null && RoutineStores.isOven(world, workStation) && planks == 0) {
+            abandoned("has no wood for the oven at " + workStation.toShortString());
+            // What was fetched to be cooked goes back to its store
+            if(carried != null)
+                startReturn(world);
+            else
+                finish(world, REST);
+            return;
+        }
+        if(workAnimal != null && (!workAnimal.isAlive() || workAnimal.squaredDistanceTo(npc) > HORSE_REACH * HORSE_REACH)) {
+            abandoned("the horse it came to see to wandered off");
+            finish(world, REST);
+            return;
+        }
+    }
+
+    private void arriveVisitOrTable(ServerWorld world, Random random, long time) {
+        // Somebody quicker may have taken the seat, the table is still the place to be
+        boolean seated = sitDown(world);
+        phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
+        companion = null;
+        meetSeat = null;
+    }
+
+    private void arrivePost(Random random, long time) {
+        phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
+        // A marked post says where to look, the rest watch the land outside
+        lookTarget = facingTarget();
+        if(lookTarget == null) {
+            double awayX = npc.getX() - site.getCenterX();
+            double awayZ = npc.getZ() - site.getCenterZ();
+            lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+        }
+    }
+
+    private void arriveCourt(ServerWorld world, Random random, long time) {
+        boolean seated = sitDown(world);
+        phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
+        did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
+        companion = null;
+        meetSeat = null;
+    }
+
+    private void arrivePatrol(Random random, long time) {
+        phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
+        // Watches the land outside, the place for a rider being further out than the ring
+        double awayX = npc.getX() - site.getCenterX();
+        double awayZ = npc.getZ() - site.getCenterZ();
+        lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
     }
 
     private void work(ServerWorld world, long time) {
         Random random = npc.getRandom();
         boolean done = time >= phaseEnd;
         switch (activity) {
-            case FISH -> {
-                if(done) {
-                    if(random.nextInt(FISH_ESCAPE_ONE_IN) != 0) {
-                        carried = random.nextBoolean() ? Items.COD : Items.SALMON;
-                        did("caught " + itemName(carried));
-                    } else
-                        abandoned("caught nothing");
-                    startReturn(world);
-                } else if(lookTarget != null && random.nextInt(FISH_SPLASH_ONE_IN) == 0) {
-                    npc.swingHand(Hand.MAIN_HAND);
-                    world.spawnParticles(ParticleTypes.SPLASH, lookTarget.x, lookTarget.y + SPLASH_HEIGHT, lookTarget.z, SPLASH_PARTICLES, SPLASH_SPREAD, 0, SPLASH_SPREAD, 0);
-                    world.playSound(null, lookTarget.x, lookTarget.y, lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, SPLASH_SOUND_VOLUME, 1f);
-                }
-            }
-            case CHOP -> {
-                if(done) {
-                    carried = tree != null && world.getBlockState(tree).isIn(BlockTags.LOGS) ? world.getBlockState(tree).getBlock().asItem() : null;
-                    if(carried == null)
-                        abandoned("the tree was gone");
-                    else
-                        did("carries " + itemName(carried) + " from the tree at " + tree.toShortString());
-                    // Stacked on the wood pile of the place, where there is one
-                    BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
-                    dropOff = carried == null ? null : site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
-                    startReturn(world);
-                } else if(tree != null && random.nextInt(CHOP_SWING_ONE_IN) == 0) {
-                    npc.swingHand(Hand.MAIN_HAND);
-                    world.playSound(null, tree, SoundEvents.BLOCK_WOOD_HIT, SoundCategory.BLOCKS, CHOP_SOUND_VOLUME, CHOP_SOUND_PITCH + random.nextFloat() * CHOP_SOUND_PITCH_VARIATION);
-                    cracks(world, tree.up());
-                }
-            }
-            case MINE -> {
-                if(done) {
-                    BlockState rock = rockFace == null ? null : world.getBlockState(rockFace);
-                    carried = rock == null || rock.isAir() ? null : rock.getBlock().asItem();
-                    if(carried == Items.AIR)
-                        carried = null;
-                    if(carried == null)
-                        abandoned("the rock face was gone");
-                    else
-                        did("carries " + itemName(carried) + " from the face at " + rockFace.toShortString());
-                    startReturn(world);
-                } else if(rockFace != null && random.nextInt(MINE_SWING_ONE_IN) == 0) {
-                    npc.swingHand(Hand.MAIN_HAND);
-                    world.playSound(null, rockFace, world.getBlockState(rockFace).getSoundGroup().getHitSound(), SoundCategory.BLOCKS, MINE_SOUND_VOLUME, MINE_SOUND_PITCH + random.nextFloat() * MINE_SOUND_PITCH_VARIATION);
-                    cracks(world, rockFace);
-                }
-            }
-            case WORK -> {
-                if(done && workStation != null && RoutineStores.isHive(world, workStation)) {
-                    BlockState hive = world.getBlockState(workStation);
-                    world.setBlockState(workStation, hive.with(BeehiveBlock.HONEY_LEVEL, 0));
-                    site.emptyHive(workStation, time);
-                    world.playSound(null, workStation, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.BLOCKS, 1f, 1f);
-                    carried = Items.HONEYCOMB;
-                    did("work", "took the honey from the hive at " + workStation.toShortString());
-                    startReturn(world);
-                } else if(done && isCookWork() && carried != null) {
-                    Item raw = carried;
-                    carried = RoutineStores.cookedOf(world, raw);
-                    if(workStation != null && RoutineStores.isOven(world, workStation))
-                        planks--;
-                    did("work", "cooked " + itemName(raw) + " into " + itemName(carried) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
-                    startReturn(world);
-                } else if(done) {
-                    if(workAnimal != null)
-                        did("work", "tended the animal at " + workAnimal.getBlockPos().toShortString());
-                    finish(world, REST + random.nextInt(REST_VARIATION));
-                } else if(workAnimal != null) {
-                    // Brushed and fed where it stands
-                    workAnimal.getNavigation().stop();
-                    lookTarget = workAnimal.getEyePos();
-                    if(random.nextInt(STABLE_SWING_ONE_IN) == 0)
-                        npc.swingHand(Hand.MAIN_HAND);
-                    if(random.nextInt(STABLE_SOUND_ONE_IN) == 0)
-                        world.playSound(null, workAnimal.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, HORSE_SOUND_VOLUME, 1f);
-                    if(random.nextInt(STABLE_HEART_ONE_IN) == 0)
-                        world.spawnParticles(ParticleTypes.HEART, workAnimal.getX(), workAnimal.getEyeY() + HEART_HEIGHT, workAnimal.getZ(), 1, HEART_SPREAD, HEART_SPREAD_HEIGHT, HEART_SPREAD, 0);
-                } else if(random.nextInt(STATION_SWING_ONE_IN) == 0) {
-                    npc.swingHand(Hand.MAIN_HAND);
-                    if(workStation != null && random.nextInt(STATION_SOUND_ONE_IN) == 0)
-                        world.playSound(null, workStation, RoutineStores.workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, WORK_SOUND_VOLUME, WORK_SOUND_PITCH + random.nextFloat() * WORK_SOUND_PITCH_VARIATION);
-                }
-            }
-            case FORAGE -> {
-                if(done) {
-                    List<Item> forage = forage(world);
-                    carried = forage.get(random.nextInt(forage.size()));
-                    startReturn(world);
-                } else if(random.nextInt(FORAGE_SWING_ONE_IN) == 0) {
-                    npc.swingHand(Hand.MAIN_HAND);
-                } else if(random.nextInt(FORAGE_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-                    npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), spot.getY(), spot.getZ() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), speed * ROAM_SPEED);
-                }
-            }
-            case HUNT -> {
-                // Nothing is brought home but what was hunted down
-                if(done) {
-                    abandoned("found no game");
-                    // The game may come back, but not at once
-                    hold(RoutineData.Activity.HUNT, time);
-                    startReturn(world);
-                } else if(random.nextInt(PREY_SEARCH_ONE_IN) == 0 && RoutineSites.takeEntitySearch(world)) {
-                    LivingEntity prey = findPrey(world);
-                    if(prey != null) {
-                        npc.startHunt(prey, CHASE_TIME);
-                        phase = Phase.HUNTING;
-                    }
-                } else if(random.nextInt(HUNT_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-                    // Looks over the hunting ground
-                    npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), spot.getY(),
-                            spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), speed * ROAM_SPEED);
-                }
-            }
+            case FISH -> workFish(world, random, done);
+            case CHOP -> workChop(world, random, done);
+            case MINE -> workMine(world, random, done);
+            case WORK -> workAtStation(world, random, done, time);
+            case FORAGE -> workForage(world, random, done);
+            case HUNT -> workHunt(world, random, done, time);
             case FARM -> farm(world, done);
-            case VISIT, TABLE, COURT -> {
-                if(done) {
-                    finish(world, REST + random.nextInt(REST_VARIATION));
-                } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
-                    // Turns to whoever else is standing around
-                    companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE)) : null;
-                    lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
-                } else {
-                    lookTarget = companion.getEyePos();
-                    // Talking with the hands
-                    if(random.nextInt(GESTURE_ONE_IN) == 0)
-                        npc.swingHand(Hand.MAIN_HAND);
-                }
-            }
-            case POST -> {
-                if(!done) {
-                    showProp();
-                    return;
-                }
-                // The guard is not relieved while its shift lasts and there is somebody to see it stand there
-                if(onDuty(world) && isWatched(world))
-                    phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
-                else
-                    finish(world, REST + random.nextInt(REST_VARIATION));
-            }
-            case INSPECT -> {
-                if(!done)
-                    return;
-                did("inspect", "looked over the post at " + spot.toShortString());
-                if(stops.isEmpty() || !onDuty(world))
-                    startReturn(world);
-                else
-                    nextStop(time);
-            }
+            case VISIT, TABLE, COURT -> workAtTable(world, random, done);
+            case POST -> workPost(world, random, done, time);
+            case INSPECT -> workInspect(world, done, time);
             case FOLLOW -> follow(world, time);
-            case PATROL -> {
-                if(!done)
-                    return;
-                ringLeft--;
-                // The watch walks its rounds until the shift is over. Going home after each one took it through the middle of the place
-                // With nobody about to see it the round ends, as every other routine does
-                if(!onDuty(world) || !isWatched(world)) {
-                    if(onDuty(world))
-                        abandoned("cut its round short, no player near");
-                    startReturn(world);
-                } else {
-                    if(ringLeft <= 0) {
-                        ringLeft = site.getPatrolRoute().size();
-                        laps++;
-                    }
-                    deadline = world.getTime() + ROUTINE_TIME_LIMIT;
-                    nextWaypoint();
-                }
+            case PATROL -> workPatrol(world, done);
+        }
+    }
+
+    private void workFish(ServerWorld world, Random random, boolean done) {
+        if(done) {
+            if(random.nextInt(FISH_ESCAPE_ONE_IN) != 0) {
+                carried = random.nextBoolean() ? Items.COD : Items.SALMON;
+                did("caught " + itemName(carried));
+            } else
+                abandoned("caught nothing");
+            startReturn(world);
+        } else if(lookTarget != null && random.nextInt(FISH_SPLASH_ONE_IN) == 0) {
+            npc.swingHand(Hand.MAIN_HAND);
+            world.spawnParticles(ParticleTypes.SPLASH, lookTarget.x, lookTarget.y + SPLASH_HEIGHT, lookTarget.z, SPLASH_PARTICLES, SPLASH_SPREAD, 0, SPLASH_SPREAD, 0);
+            world.playSound(null, lookTarget.x, lookTarget.y, lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, SPLASH_SOUND_VOLUME, 1f);
+        }
+    }
+
+    private void workChop(ServerWorld world, Random random, boolean done) {
+        if(done) {
+            carried = tree != null && world.getBlockState(tree).isIn(BlockTags.LOGS) ? world.getBlockState(tree).getBlock().asItem() : null;
+            if(carried == null)
+                abandoned("the tree was gone");
+            else
+                did("carries " + itemName(carried) + " from the tree at " + tree.toShortString());
+            // Stacked on the wood pile of the place, where there is one
+            BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
+            dropOff = carried == null ? null : site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
+            startReturn(world);
+        } else if(tree != null && random.nextInt(CHOP_SWING_ONE_IN) == 0) {
+            npc.swingHand(Hand.MAIN_HAND);
+            world.playSound(null, tree, SoundEvents.BLOCK_WOOD_HIT, SoundCategory.BLOCKS, CHOP_SOUND_VOLUME, CHOP_SOUND_PITCH + random.nextFloat() * CHOP_SOUND_PITCH_VARIATION);
+            cracks(world, tree.up());
+        }
+    }
+
+    private void workMine(ServerWorld world, Random random, boolean done) {
+        if(done) {
+            BlockState rock = rockFace == null ? null : world.getBlockState(rockFace);
+            carried = rock == null || rock.isAir() ? null : rock.getBlock().asItem();
+            if(carried == Items.AIR)
+                carried = null;
+            if(carried == null)
+                abandoned("the rock face was gone");
+            else
+                did("carries " + itemName(carried) + " from the face at " + rockFace.toShortString());
+            startReturn(world);
+        } else if(rockFace != null && random.nextInt(MINE_SWING_ONE_IN) == 0) {
+            npc.swingHand(Hand.MAIN_HAND);
+            world.playSound(null, rockFace, world.getBlockState(rockFace).getSoundGroup().getHitSound(), SoundCategory.BLOCKS, MINE_SOUND_VOLUME, MINE_SOUND_PITCH + random.nextFloat() * MINE_SOUND_PITCH_VARIATION);
+            cracks(world, rockFace);
+        }
+    }
+
+    private void workAtStation(ServerWorld world, Random random, boolean done, long time) {
+        if(done && workStation != null && RoutineStores.isHive(world, workStation)) {
+            BlockState hive = world.getBlockState(workStation);
+            world.setBlockState(workStation, hive.with(BeehiveBlock.HONEY_LEVEL, 0));
+            site.emptyHive(workStation, time);
+            world.playSound(null, workStation, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.BLOCKS, 1f, 1f);
+            carried = Items.HONEYCOMB;
+            did("work", "took the honey from the hive at " + workStation.toShortString());
+            startReturn(world);
+        } else if(done && isCookWork() && carried != null) {
+            Item raw = carried;
+            carried = RoutineStores.cookedOf(world, raw);
+            if(workStation != null && RoutineStores.isOven(world, workStation))
+                planks--;
+            did("work", "cooked " + itemName(raw) + " into " + itemName(carried) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
+            startReturn(world);
+        } else if(done) {
+            if(workAnimal != null)
+                did("work", "tended the animal at " + workAnimal.getBlockPos().toShortString());
+            finish(world, REST + random.nextInt(REST_VARIATION));
+        } else if(workAnimal != null) {
+            // Brushed and fed where it stands
+            workAnimal.getNavigation().stop();
+            lookTarget = workAnimal.getEyePos();
+            if(random.nextInt(STABLE_SWING_ONE_IN) == 0)
+                npc.swingHand(Hand.MAIN_HAND);
+            if(random.nextInt(STABLE_SOUND_ONE_IN) == 0)
+                world.playSound(null, workAnimal.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, HORSE_SOUND_VOLUME, 1f);
+            if(random.nextInt(STABLE_HEART_ONE_IN) == 0)
+                world.spawnParticles(ParticleTypes.HEART, workAnimal.getX(), workAnimal.getEyeY() + HEART_HEIGHT, workAnimal.getZ(), 1, HEART_SPREAD, HEART_SPREAD_HEIGHT, HEART_SPREAD, 0);
+        } else if(random.nextInt(STATION_SWING_ONE_IN) == 0) {
+            npc.swingHand(Hand.MAIN_HAND);
+            if(workStation != null && random.nextInt(STATION_SOUND_ONE_IN) == 0)
+                world.playSound(null, workStation, RoutineStores.workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, WORK_SOUND_VOLUME, WORK_SOUND_PITCH + random.nextFloat() * WORK_SOUND_PITCH_VARIATION);
+        }
+    }
+
+    private void workForage(ServerWorld world, Random random, boolean done) {
+        if(done) {
+            List<Item> forage = forage(world);
+            carried = forage.get(random.nextInt(forage.size()));
+            startReturn(world);
+        } else if(random.nextInt(FORAGE_SWING_ONE_IN) == 0) {
+            npc.swingHand(Hand.MAIN_HAND);
+        } else if(random.nextInt(FORAGE_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
+            npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), spot.getY(), spot.getZ() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), speed * ROAM_SPEED);
+        }
+    }
+
+    private void workHunt(ServerWorld world, Random random, boolean done, long time) {
+        // Nothing is brought home but what was hunted down
+        if(done) {
+            abandoned("found no game");
+            // The game may come back, but not at once
+            hold(RoutineData.Activity.HUNT, time);
+            startReturn(world);
+        } else if(random.nextInt(PREY_SEARCH_ONE_IN) == 0 && RoutineSites.takeEntitySearch(world)) {
+            LivingEntity prey = findPrey(world);
+            if(prey != null) {
+                npc.startHunt(prey, CHASE_TIME);
+                phase = Phase.HUNTING;
             }
+        } else if(random.nextInt(HUNT_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
+            // Looks over the hunting ground
+            npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), spot.getY(),
+                    spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), speed * ROAM_SPEED);
+        }
+    }
+
+    private void workAtTable(ServerWorld world, Random random, boolean done) {
+        if(done) {
+            finish(world, REST + random.nextInt(REST_VARIATION));
+        } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
+            // Turns to whoever else is standing around
+            companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE)) : null;
+            lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
+        } else {
+            lookTarget = companion.getEyePos();
+            // Talking with the hands
+            if(random.nextInt(GESTURE_ONE_IN) == 0)
+                npc.swingHand(Hand.MAIN_HAND);
+        }
+    }
+
+    private void workPost(ServerWorld world, Random random, boolean done, long time) {
+        if(!done) {
+            showProp();
+            return;
+        }
+        // The guard is not relieved while its shift lasts and there is somebody to see it stand there
+        if(onDuty(world) && isWatched(world))
+            phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
+        else
+            finish(world, REST + random.nextInt(REST_VARIATION));
+    }
+
+    private void workInspect(ServerWorld world, boolean done, long time) {
+        if(!done)
+            return;
+        did("inspect", "looked over the post at " + spot.toShortString());
+        if(stops.isEmpty() || !onDuty(world))
+            startReturn(world);
+        else
+            nextStop(time);
+    }
+
+    private void workPatrol(ServerWorld world, boolean done) {
+        if(!done)
+            return;
+        ringLeft--;
+        // The watch walks its rounds until the shift is over. Going home after each one took it through the middle of the place
+        // With nobody about to see it the round ends, as every other routine does
+        if(!onDuty(world) || !isWatched(world)) {
+            if(onDuty(world))
+                abandoned("cut its round short, no player near");
+            startReturn(world);
+        } else {
+            if(ringLeft <= 0) {
+                ringLeft = site.getPatrolRoute().size();
+                laps++;
+            }
+            deadline = world.getTime() + ROUTINE_TIME_LIMIT;
+            nextWaypoint();
         }
     }
 
