@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
@@ -67,6 +68,8 @@ public class BuildersToolRenderer {
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
     private static final int BOUNDS = 0xFFFFEB3B;
+    private static final int FAILURE_LOG_TICKS = 200;
+    private static final int FAILURE_LOG_FRAMES = 6;
     private static final float PIECE_TEXT_SCALE = 0.04f;
     private static final double PIECE_LABEL_HEIGHT = 1.5;
     private static final int[] STATION_COLORS = {0xFF8D6E63, 0xFFFF7043, 0xFFEF5350, 0xFF7E57C2, 0xFFA1887F, 0xFFFFEE58, 0xFF66BB6A, 0xFFD4E157, 0xFF78909C, 0xFFF06292, 0xFF9CCC65};
@@ -89,6 +92,7 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> plainBeds = new ArrayList<>();
     private static final List<StructureFeatureData.Manager> managers = new ArrayList<>();
     private static ClientWorld scannedWorld;
+    private static long failureLoggedAt = Long.MIN_VALUE / 2;
     private static long scannedAt;
     private static BlockPos scannedFrom = BlockPos.ORIGIN;
 
@@ -111,25 +115,27 @@ public class BuildersToolRenderer {
                 for(StructureEditSession.Piece piece : pieces)
                     DebugDraw.label(matrices, context.consumers(), piece.template().getPath(), new Vec3d(piece.box().getCenter().getX() + 0.5,
                             piece.box().getMaxY() + PIECE_LABEL_HEIGHT, piece.box().getCenter().getZ() + 0.5), PIECE, PIECE_TEXT_SCALE);
-            } catch (RuntimeException ignored) {
-                // A block entity that is gone between the scan and the frame only costs one frame
+            } catch (RuntimeException e) {
+                // A block entity that is gone between the scan and the frame only costs one frame. Anything that keeps
+                // failing would leave the tool drawing nothing with no word of why
+                if(client.world.getTime() - failureLoggedAt >= FAILURE_LOG_TICKS) {
+                    failureLoggedAt = client.world.getTime();
+                    MiddleEarth.LOGGER.logError("StructEdit :: the builder's tool could not draw: " + e);
+                    for(int i = 0; i < Math.min(FAILURE_LOG_FRAMES, e.getStackTrace().length); i++)
+                        MiddleEarth.LOGGER.logError("StructEdit ::   at " + e.getStackTrace()[i]);
+                }
             }
         });
     }
 
-    // The pieces of the structure the builder has loaded, to be told apart from outside. Standing in one, its walls are
-    // there to see and the boxes are only in the way. The session is the server's, which a builder's own game runs
+    // The pieces of the structure the builder has loaded, to be told apart. The one the builder stands in is left out, its
+    // walls being there to see, unless its bounds are being set. The session is the server's, which a builder's own game runs
     private static List<StructureEditSession.Piece> piecesAround(MinecraftClient client, PlayerEntity player) {
         StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
         if(session == null || !session.getDimension().equals(player.getWorld().getRegistryKey()))
             return List.of();
-        List<StructureEditSession.Piece> pieces = List.copyOf(session.getPieces());
-        // While its bounds are being set, a piece is drawn from inside too
-        for(StructureEditSession.Piece piece : pieces) {
-            if(piece.box().contains(player.getBlockPos()) && BuildersToolSelection.boundsAnchor() == null)
-                return List.of();
-        }
-        return pieces;
+        boolean settingBounds = BuildersToolSelection.boundsAnchor() != null;
+        return session.getPieces().stream().filter(piece -> settingBounds || !piece.box().contains(player.getBlockPos())).toList();
     }
 
     static boolean holdsTool(PlayerEntity player) {

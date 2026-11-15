@@ -37,6 +37,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.registry.RegistryOps;
+import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
@@ -67,6 +72,11 @@ public class StructureEditSession {
     private static final double MAXIMUM_SPREAD = 6;
     // The same pieces come of the same seed wherever the builder stands: the structure is put together here, and moved
     private static final ChunkPos ASSEMBLY_CHUNK = new ChunkPos(0, 0);
+    // The game drops the pieces that reach out of the world. In the tallest there can be none do
+    private static final HeightLimitView ASSEMBLY_HEIGHT = HeightLimitView.create(-2032, 4064);
+    private static final String START_HEIGHT_KEY = "start_height";
+    private static final String PROJECT_TO_HEIGHTMAP_KEY = "project_start_to_heightmap";
+    private static final String ABSOLUTE_KEY = "absolute";
     private static final String PALETTE = "palette";
     private static final String PALETTES = "palettes";
     private static final String BLOCKS = "blocks";
@@ -347,9 +357,13 @@ public class StructureEditSession {
 
     // Null when the structure cannot be put together from that seed, or has no pieces of its own templates
     public static @Nullable StructureEditSession load(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, Identifier id, long seed, boolean spaced, BlockPos corner) {
-        StructureStart start = structure.value().createStructureStart(structure, world.getRegistryKey(), world.getRegistryManager(),
-                world.getChunkManager().getChunkGenerator(), world.getChunkManager().getChunkGenerator().getBiomeSource(), world.getChunkManager().getNoiseConfig(),
-                world.getStructureTemplateManager(), seed, ASSEMBLY_CHUNK, 0, world, biome -> true);
+        StructureStart start = assemble(world, structure, structure.value(), seed, world);
+        // One that goes underground is cut short where the ground is thin, as in a flat world. Whichever way gives more
+        // of it is the one to edit
+        Structure free = freeStanding(world, structure.value());
+        StructureStart freeStart = free == null ? null : assemble(world, structure, free, seed, ASSEMBLY_HEIGHT);
+        if(freeStart != null && freeStart.getChildren().size() > start.getChildren().size())
+            start = freeStart;
         if(!start.hasChildren()) {
             StructureEditing.log("%s from the seed %d: the game put no pieces together".formatted(id, seed));
             return null;
@@ -391,6 +405,27 @@ public class StructureEditSession {
         for(Piece piece : loaded)
             StructureEditing.log("  piece %s turned %s in %s".formatted(piece.template(), piece.rotation().asString(), describe(piece.box())));
         return session;
+    }
+
+    private static StructureStart assemble(ServerWorld world, RegistryEntry<Structure> entry, Structure structure, long seed, HeightLimitView height) {
+        return structure.createStructureStart(entry, world.getRegistryKey(), world.getRegistryManager(),
+                world.getChunkManager().getChunkGenerator(), world.getChunkManager().getChunkGenerator().getBiomeSource(), world.getChunkManager().getNoiseConfig(),
+                world.getStructureTemplateManager(), seed, ASSEMBLY_CHUNK, 0, height, biome -> true);
+    }
+
+    // The structure as it is but started at a set height in the middle of a world taller than any, with room for all of it
+    // above and below. Only what its own data can be read from and written back to, as that of a jigsaw structure can
+    private static @Nullable Structure freeStanding(ServerWorld world, Structure structure) {
+        RegistryOps<JsonElement> ops = world.getRegistryManager().getOps(JsonOps.INSTANCE);
+        JsonElement json = Structure.STRUCTURE_CODEC.encodeStart(ops, structure).result().orElse(null);
+        if(json == null || !json.isJsonObject() || !json.getAsJsonObject().has(START_HEIGHT_KEY))
+            return null;
+        JsonObject data = json.getAsJsonObject();
+        data.remove(PROJECT_TO_HEIGHTMAP_KEY);
+        JsonObject height = new JsonObject();
+        height.addProperty(ABSOLUTE_KEY, 0);
+        data.add(START_HEIGHT_KEY, height);
+        return Structure.STRUCTURE_CODEC.parse(ops, data).result().orElse(null);
     }
 
     private static Piece place(ServerWorld world, Piece piece, boolean spaced) {
