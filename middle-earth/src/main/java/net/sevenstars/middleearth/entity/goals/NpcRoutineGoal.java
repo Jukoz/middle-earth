@@ -261,6 +261,8 @@ public class NpcRoutineGoal extends Goal {
     private static final int DAWN = 23500;
     // In blocks, how far the place to stand by the lord has to move for the walk to it to start over
     private static final int FOLLOW_SPOT_SHIFT = 3;
+    // In blocks from the place of its work, past which an npc that was interrupted has left it
+    private static final double LEFT_WORK_DISTANCE = 4;
     private static final int COMPANION_RANGE = 6;
     private static final int COMPANION_HEIGHT_RANGE = 2;
     private static final int ESCORT_HEIGHT_RANGE = 8;
@@ -1011,9 +1013,21 @@ public class NpcRoutineGoal extends Goal {
 
     @Override
     public void start() {
+        // Work a fight or a fright took the npc away from is not carried on with from wherever that ended: it goes home.
+        // Stopping has already put the task in the log as given up
+        if(phase == Phase.WORKING && hasLeftWork() && npc.getWorld() instanceof ServerWorld world)
+            startReturn(world);
         resetWalk();
         thinkCooldown = 0;
         showProp();
+    }
+
+    // Hunting, foraging and farming go on wherever the npc is, and a bodyguard finds its lord again
+    private boolean hasLeftWork() {
+        return switch (activity) {
+            case HUNT, FORAGE, FARM, FOLLOW -> false;
+            default -> !spot.isWithinDistance(npc.getPos(), LEFT_WORK_DISTANCE);
+        };
     }
 
     @Override
