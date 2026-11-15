@@ -280,6 +280,7 @@ public class RoutineSites {
         List<BlockPos> seats = new ArrayList<>();
         List<BlockPos> doors = new ArrayList<>();
         List<StructureFeatureData.Marker> markers = new ArrayList<>();
+        List<StructureFeatureData.Manager> managers = new ArrayList<>();
         Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
         if(registry.isEmpty())
             return;
@@ -298,13 +299,16 @@ public class RoutineSites {
             for(StructureFeatureData.Bed bed : data.beds()) {
                 BlockPos at = NestSurvey.placedAt(placed, bed.pos());
                 beds.add(new StructureFeatureData.Bed(at, bed.tag(), bed.store().map(store -> NestSurvey.placedAt(placed, store)),
-                        bed.links().stream().map(link -> NestSurvey.placedAt(placed, link)).toList(), bed.manual()));
+                        bed.links().stream().map(link -> NestSurvey.placedAt(placed, link)).toList(), bed.manual(),
+                        bed.manager().map(manager -> NestSurvey.placedAt(placed, manager))));
                 if(bed.tag().isPresent())
                     households.add(at);
                 bed.store().ifPresent(store -> stores.add(NestSurvey.placedAt(placed, store)));
             }
             for(StructureFeatureData.Station station : data.stations())
                 stations.add(new StructureFeatureData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
+            for(StructureFeatureData.Manager manager : data.managers())
+                managers.add(new StructureFeatureData.Manager(NestSurvey.placedAt(placed, manager.pos()), manager.data()));
             for(BlockPos seat : data.seats())
                 seats.add(NestSurvey.placedAt(placed, seat));
             for(BlockPos door : data.doors())
@@ -321,6 +325,7 @@ public class RoutineSites {
         site.setSeats(seats);
         site.setDoors(doors);
         site.setMarkers(markers);
+        site.setManagers(managers);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {

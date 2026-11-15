@@ -17,10 +17,12 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -111,7 +113,33 @@ public class StructureManagerService {
             STRUCTURE_MANAGERS.remove(world.getRegistryKey());
     }
 
-    // A structure can have several managers, and a bed is born by the nearest of them that has a nest for its kind
+    // Whose bed a tagged bed is: the manager its builder tied it to, or else the nearest of the structure's managers that has
+    // a nest of its kind. Told from what the templates of the structure hold, so that it is the same answer whichever of the
+    // managers are loaded, and one bed is never born by two
+    public static @Nullable BlockPos ownerOf(World world, StructureFeatureData.Bed bed, List<StructureFeatureData.Manager> managers) {
+        if(bed.tag().isEmpty())
+            return null;
+        String nestKind = bed.tag().get().nestKind();
+        StructureFeatureData.Manager owner = null;
+        for(StructureFeatureData.Manager manager : managers) {
+            StructureManagerData data = getStructureManagerData(world, manager.data());
+            if(data == null || data.findPeopleNest(nestKind) == null)
+                continue;
+            if(bed.manager().isPresent() && bed.manager().get().equals(manager.pos()))
+                return manager.pos();
+            if(owner == null || isNearer(manager.pos(), owner.pos(), bed.pos()))
+                owner = manager;
+        }
+        return owner == null ? null : owner.pos();
+    }
+
+    private static boolean isNearer(BlockPos manager, BlockPos other, BlockPos bed) {
+        double distance = manager.getSquaredDistance(bed);
+        double otherDistance = other.getSquaredDistance(bed);
+        return distance < otherDistance || distance == otherDistance && manager.compareTo(other) < 0;
+    }
+
+    // For a place whose templates say nothing of its managers: the nearest of those that are loaded
     public static boolean isNearestBearer(ServerWorld world, BlockPos bed, String nestKind, RoutineSite site, StructureManagerBlockEntity asking) {
         Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
         if (managers == null)

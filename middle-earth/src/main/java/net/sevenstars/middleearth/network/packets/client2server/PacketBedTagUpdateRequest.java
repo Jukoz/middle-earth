@@ -73,7 +73,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                 BedTag before = holder.getBedTag();
                 tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId));
                 if(before != null && !resetLinks)
-                    tag = tag.withLinks(before.links(), before.manual());
+                    tag = tag.withLinks(before.links(), before.manual()).withManager(before.manager());
             }
             holder.setBedTag(tag);
         });

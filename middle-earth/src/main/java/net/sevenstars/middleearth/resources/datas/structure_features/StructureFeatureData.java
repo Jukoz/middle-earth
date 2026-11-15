@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.resources.datas.structure_features;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
@@ -16,8 +17,17 @@ import java.util.Optional;
 // Tables are the seats around one table each, places to sit down together. Seats is every seat there is
 // Stations are the places of work: a forge, an oven, a loom, a plot of field
 // Doors are the lower halves
+// Managers are the structure manager blocks, with the data each one spawns by: whose bed a bed is can then be told without
+// its manager being loaded
 public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, List<Station> stations, List<BlockPos> seats,
-                                   List<BlockPos> doors, List<BlockPos> ladders, List<Marker> markers) {
+                                   List<BlockPos> doors, List<BlockPos> ladders, List<Marker> markers, List<Manager> managers) {
+    public record Manager(BlockPos pos, Identifier data) {
+        public static final Codec<Manager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(Manager::pos),
+                Identifier.CODEC.fieldOf("data").forGetter(Manager::data)
+        ).apply(instance, Manager::new));
+    }
+
     public record Station(StationKind kind, BlockPos pos) {
         public static final Codec<Station> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 StationKind.CODEC.fieldOf("kind").forGetter(Station::kind),
@@ -43,14 +53,15 @@ public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, 
 
     // The tag says who is born in the bed, and a bed with none is free for travellers to sleep in. The store is the barrel or chest
     // nearest, where what its person brings home is put away. Links are the places the builder tied the bed to, as positions
-    // like the rest, and are the ones to use when manual
-    public record Bed(BlockPos pos, Optional<BedTag> tag, Optional<BlockPos> store, List<BlockPos> links, boolean manual) {
+    // like the rest, and are the ones to use when manual. The manager is the one the builder tied the bed to, where it was
+    public record Bed(BlockPos pos, Optional<BedTag> tag, Optional<BlockPos> store, List<BlockPos> links, boolean manual, Optional<BlockPos> manager) {
         public static final Codec<Bed> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Bed::pos),
                 BedTag.CODEC.optionalFieldOf("tag").forGetter(Bed::tag),
                 BlockPos.CODEC.optionalFieldOf("store").forGetter(Bed::store),
                 BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(Bed::links),
-                Codec.BOOL.optionalFieldOf("manual", false).forGetter(Bed::manual)
+                Codec.BOOL.optionalFieldOf("manual", false).forGetter(Bed::manual),
+                BlockPos.CODEC.optionalFieldOf("manager").forGetter(Bed::manager)
         ).apply(instance, Bed::new));
     }
 
@@ -61,6 +72,7 @@ public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, 
             Codec.list(BlockPos.CODEC).optionalFieldOf("seats", List.of()).forGetter(StructureFeatureData::seats),
             Codec.list(BlockPos.CODEC).optionalFieldOf("doors", List.of()).forGetter(StructureFeatureData::doors),
             Codec.list(BlockPos.CODEC).optionalFieldOf("ladders", List.of()).forGetter(StructureFeatureData::ladders),
-            Codec.list(Marker.CODEC).optionalFieldOf("markers", List.of()).forGetter(StructureFeatureData::markers)
+            Codec.list(Marker.CODEC).optionalFieldOf("markers", List.of()).forGetter(StructureFeatureData::markers),
+            Codec.list(Manager.CODEC).optionalFieldOf("managers", List.of()).forGetter(StructureFeatureData::managers)
     ).apply(instance, StructureFeatureData::new));
 }

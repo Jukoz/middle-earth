@@ -13,6 +13,8 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
@@ -60,6 +62,7 @@ public class BuildersToolRenderer {
     private static final int TABLE = 0xFFEC407A;
     private static final int MARKER = 0xFFD500F9;
     private static final int PIECE = 0xFF40C4FF;
+    private static final int MANAGER = 0xFF7C4DFF;
     private static final float PIECE_TEXT_SCALE = 0.04f;
     private static final double PIECE_LABEL_HEIGHT = 1.5;
     private static final int[] STATION_COLORS = {0xFF8D6E63, 0xFFFF7043, 0xFFEF5350, 0xFF7E57C2, 0xFFA1887F, 0xFFFFEE58, 0xFF66BB6A, 0xFFD4E157, 0xFF78909C, 0xFFF06292, 0xFF9CCC65};
@@ -80,6 +83,7 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> seats = new ArrayList<>();
     private static final List<BlockPos> tables = new ArrayList<>();
     private static final List<BlockPos> plainBeds = new ArrayList<>();
+    private static final List<StructureFeatureData.Manager> managers = new ArrayList<>();
     private static ClientWorld scannedWorld;
     private static long scannedAt;
     private static BlockPos scannedFrom = BlockPos.ORIGIN;
@@ -140,6 +144,7 @@ public class BuildersToolRenderer {
         stores.clear();
         seats.clear();
         tables.clear();
+        managers.clear();
         for(BlockPos pos : BlockPos.iterate(from.add(-RANGE, -RANGE_HEIGHT, -RANGE), from.add(RANGE, RANGE_HEIGHT, RANGE))) {
             BlockState state = world.getBlockState(pos);
             if(state.isAir())
@@ -148,6 +153,11 @@ public class BuildersToolRenderer {
             if(block == DecorativeBlockRegistryME.STRUCTURE_MARKER) {
                 if(world.getBlockEntity(pos) instanceof StructureMarkerBlockEntity marker)
                     markers.add(new StructureFeatureData.Marker(marker.getKind(), pos.toImmutable(), state.get(StructureMarkerBlock.FACING), marker.getValue(), marker.getCount(), marker.getRespawns()));
+                continue;
+            }
+            if(block == DecorativeBlockRegistryME.STRUCTURE_MANAGER || block == DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER) {
+                if(world.getBlockEntity(pos) instanceof StructureManagerBlockEntity manager && manager.getStructureManagerId() != null)
+                    managers.add(new StructureFeatureData.Manager(pos.toImmutable(), manager.getStructureManagerId()));
                 continue;
             }
             if(block instanceof BedBlock) {
@@ -202,8 +212,11 @@ public class BuildersToolRenderer {
             if(station.kind() != StationKind.FIELD)
                 DebugDraw.box(matrices, lines, station.pos(), stationColor(station.kind()));
         }
+        for(StructureFeatureData.Manager manager : managers)
+            DebugDraw.box(matrices, lines, manager.pos(), MANAGER);
         for(Bed bed : beds) {
             List<BlockPos> links = linksOf(bed);
+            drawManager(matrices, lines, bed);
             DebugDraw.box(matrices, lines, bed.pos(), links.isEmpty() && needsStation(bed) ? BED_LOST : BED_TAGGED);
             for(BlockPos link : links) {
                 DebugDraw.box(matrices, lines, link, BED_TAGGED);
@@ -218,11 +231,28 @@ public class BuildersToolRenderer {
         Bed bed = selectedBed(selected);
         if(bed == null)
             return;
+        drawManager(matrices, lines, bed);
         int color = bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC;
         for(BlockPos link : linksOf(bed)) {
             DebugDraw.box(matrices, lines, link, color);
             drawLink(matrices, lines, bed, link, color);
         }
+    }
+
+    // The manager the bed is born by, as the game will pick it: the one it was tied to by hand, drawn whole, or else the
+    // nearest in sight that has a nest of its kind, drawn dashed. One beyond the reach of the scan is not seen
+    private static void drawManager(MatrixStack matrices, VertexConsumer lines, Bed bed) {
+        if(scannedWorld == null)
+            return;
+        Optional<BlockPos> tied = bed.tag().manager().map(offset -> bed.pos().add(offset));
+        StructureFeatureData.Bed asData = new StructureFeatureData.Bed(bed.pos(), Optional.of(bed.tag()), Optional.empty(), List.of(), false, tied);
+        BlockPos owner = StructureManagerService.ownerOf(scannedWorld, asData, managers);
+        if(owner == null)
+            return;
+        if(tied.filter(owner::equals).isPresent())
+            DebugDraw.line(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(owner), MANAGER);
+        else
+            DebugDraw.dashedLine(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(owner), MANAGER);
     }
 
     private static void drawLink(MatrixStack matrices, VertexConsumer lines, Bed bed, BlockPos link, int color) {

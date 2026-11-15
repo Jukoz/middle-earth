@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.fluid.FluidState;
@@ -21,8 +20,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.entity.npcs.pathing.NpcPathNodeMaker;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
@@ -144,6 +143,7 @@ public class RoutineSite {
     private List<BlockPos> seats = List.of();
     private List<BlockPos> doors = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
+    private List<StructureFeatureData.Manager> managers = List.of();
     private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
     // The factions the structure is tagged as belonging to, by the path of their ids. Empty for a place nobody is named for
@@ -377,6 +377,15 @@ public class RoutineSite {
 
     void setDoors(List<BlockPos> doors) {
         this.doors = doors;
+    }
+
+    void setManagers(List<StructureFeatureData.Manager> managers) {
+        this.managers = managers;
+    }
+
+    // Every manager of the structure as its templates have them, loaded or not
+    public List<StructureFeatureData.Manager> getManagers() {
+        return managers;
     }
 
     void setMarkers(List<StructureFeatureData.Marker> markers) {
@@ -915,7 +924,7 @@ public class RoutineSite {
     // are for those who work them. Asks of the ground classify last looked at
     private boolean isField(ServerWorld world) {
         BlockState ground = world.getBlockState(probe);
-        return ground.getBlock() instanceof FarmlandBlock || ground.isIn(BlockTagsME.FARMLANDS);
+        return NpcPathNodeMaker.isFarmland(ground);
     }
 
     // The heightmap puts such a spot on a roof, the yard around the house stays free

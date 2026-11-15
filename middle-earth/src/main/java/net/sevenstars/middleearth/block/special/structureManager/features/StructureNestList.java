@@ -3,10 +3,12 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class StructureNestList {
     public static final Codec<StructureNestList> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -40,6 +42,12 @@ public class StructureNestList {
     public int removeStale(StructureManagerData data) {
         int before = managers.size();
         managers.removeIf(nest -> data.findSpawnNest(nest.getId()) == null || !nest.isMarked());
+        return before - managers.size();
+    }
+
+    public int removeBedsExcept(Set<BlockPos> beds) {
+        int before = managers.size();
+        managers.removeIf(nest -> nest.getBed() != null && !beds.contains(nest.getBed()));
         return before - managers.size();
     }
 

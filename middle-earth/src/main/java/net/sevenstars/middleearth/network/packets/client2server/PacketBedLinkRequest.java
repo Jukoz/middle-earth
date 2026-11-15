@@ -13,11 +13,13 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 // Ties a bed to a block, or unties it. The links the bed has before it is first tied by hand are those it finds by itself, which
 // only the client that drew them knows
@@ -69,6 +71,14 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             if(!(player.getWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null)
                 return;
             BedTag tag = holder.getBedTag();
+            BlockPos offset = target.subtract(bed);
+            // A manager that is clicked is the one the bed is born by, until it is clicked again and the nearest one is
+            if(player.getWorld().getBlockEntity(target) instanceof StructureManagerBlockEntity) {
+                boolean untied = tag.manager().filter(offset::equals).isPresent();
+                holder.setBedTag(tag.withManager(untied ? Optional.empty() : Optional.of(offset)));
+                player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, untied ? "manager_untied" : "manager_tied")), true);
+                return;
+            }
             List<BlockPos> links = new ArrayList<>();
             if(tag.manual()) {
                 links.addAll(tag.links());
@@ -78,7 +88,6 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                         links.add(link.subtract(bed));
                 }
             }
-            BlockPos offset = target.subtract(bed);
             boolean unlinked = links.remove(offset);
             if(!unlinked)
                 links.add(offset);

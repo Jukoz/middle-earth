@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 public class StructureFeaturesRegistry {
     private static final String TEMPLATES = "data/" + MiddleEarth.MOD_ID + "/structure";
     private static final String MANAGER_BLOCK = MiddleEarth.MOD_ID + ":structure_manager";
+    private static final String ORC_MANAGER_BLOCK = MiddleEarth.MOD_ID + ":orc_structure_manager";
     private static final String MANAGER_ID = "structure_manager.Identifier";
     private static final String MARKER_BLOCK = MiddleEarth.MOD_ID + ":structure_marker";
     private static final String MARKER_ID = "structure_marker.MarkerId";
@@ -72,7 +73,7 @@ public class StructureFeaturesRegistry {
         // Nothing in it worth a file
         public boolean isEmpty() {
             return data.beds().isEmpty() && data.tables().isEmpty() && data.stations().isEmpty() && data.seats().isEmpty()
-                    && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty();
+                    && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty() && data.managers().isEmpty();
         }
     }
 
@@ -111,6 +112,7 @@ public class StructureFeaturesRegistry {
         NbtList blocks = root.getListOrEmpty(BLOCKS_KEY);
 
         Set<Identifier> managerIds = new TreeSet<>();
+        List<StructureFeatureData.Manager> managers = new ArrayList<>();
         List<BlockPos> beds = new ArrayList<>();
         List<Optional<BedTag>> bedTags = new ArrayList<>();
         List<BlockPos> stores = new ArrayList<>();
@@ -130,10 +132,12 @@ public class StructureFeaturesRegistry {
             NbtCompound properties = state.getCompoundOrEmpty(PROPERTIES_KEY);
             NbtList at = block.getListOrEmpty(POS_KEY);
             BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
-            if(name.equals(MANAGER_BLOCK)) {
+            if(name.equals(MANAGER_BLOCK) || name.equals(ORC_MANAGER_BLOCK)) {
                 Identifier id = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(MANAGER_ID, ""));
-                if(id != null)
+                if(id != null) {
                     managerIds.add(id);
+                    managers.add(new StructureFeatureData.Manager(pos, id));
+                }
                 continue;
             }
             if(name.equals(MARKER_BLOCK)) {
@@ -195,9 +199,10 @@ public class StructureFeaturesRegistry {
             }
             Optional<BedTag> tag = bedTags.get(i);
             List<BlockPos> links = tag.map(found -> found.links().stream().map(bed::add).toList()).orElse(List.of());
-            bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false)));
+            bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false),
+                    tag.flatMap(BedTag::manager).map(bed::add)));
         }
-        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers), beds.size(), stores.size(), pools, unresolved, managerIds);
+        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers, managers), beds.size(), stores.size(), pools, unresolved, managerIds);
     }
 
     private static Optional<BedTag> tagOf(NbtCompound tag) {

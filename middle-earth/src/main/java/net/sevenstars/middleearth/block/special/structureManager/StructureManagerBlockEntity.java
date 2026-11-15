@@ -11,6 +11,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandler;
@@ -118,6 +120,19 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    // The builder's tool draws which manager each bed is born by, for which the client has to know what the manager spawns
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        NbtCompound nbt = new NbtCompound();
+        if(structureManagerIdentifier != null)
+            nbt.putString(SyncedData.IDENTIFIER.name, structureManagerIdentifier.toString());
+        return nbt;
+    }
+
+    public @Nullable Identifier getStructureManagerId() {
+        return structureManagerIdentifier;
     }
 
     @Nullable
@@ -310,11 +325,25 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             structureNestList.addNest(new SpawnNestManager(data, marker.pos(), MARKER_SPAWN_RADIUS, marker.count()));
             markDirty();
         }
+        // A bed this manager took before it was told whose each bed is goes back to the one it belongs to
+        if(!site.getManagers().isEmpty()) {
+            Set<BlockPos> owned = new HashSet<>();
+            for(StructureFeatureData.Bed bed : site.getBeds()) {
+                if(pos.equals(StructureManagerService.ownerOf(serverWorld, bed, site.getManagers())))
+                    owned.add(bed.pos());
+            }
+            if(structureNestList.removeBedsExcept(owned) > 0)
+                markDirty();
+        }
         for(StructureFeatureData.Bed bed : site.getBeds()) {
             if(bed.tag().isEmpty() || ownsBed(bed.pos()))
                 continue;
             SpawnNestNodeData data = managerData.findPeopleNest(bed.tag().get().nestKind());
-            if(data == null || !StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().nestKind(), site, this))
+            if(data == null)
+                continue;
+            boolean owned = site.getManagers().isEmpty() ? StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().nestKind(), site, this)
+                    : pos.equals(StructureManagerService.ownerOf(serverWorld, bed, site.getManagers()));
+            if(!owned)
                 continue;
             structureNestList.addNest(new SpawnNestManager(data, bed));
             markDirty();
