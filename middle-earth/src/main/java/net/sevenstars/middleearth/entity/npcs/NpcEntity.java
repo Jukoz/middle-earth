@@ -159,9 +159,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // Alarm: who is called, and from how far
     private static final int GUARDS_TO_FLEE = 3;
-    private static final int HOME_STAND_RANGE = 5;
 
     // In blocks
+    private static final int HOME_STAND_RANGE = 5;
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
     // Common folk come to help a neighbour close by, not across the village
