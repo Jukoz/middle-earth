@@ -79,7 +79,7 @@ public class ArtefactCustomGlowingDaggerWeaponItem extends CustomDaggerWeaponIte
         if (toolComponent == null) {
             return false;
         } else {
-            if (!world.isClient && state.getHardness(world, pos) != 0.0F && toolComponent.damagePerBlock() > 0) {
+            if (!world.isClient() && state.getHardness(world, pos) != 0.0F && toolComponent.damagePerBlock() > 0) {
                 if (stack.getDamage() == stack.getMaxDamage() - 1){
                     stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.builder()
                             .add(EntityAttributes.ATTACK_DAMAGE, new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID,

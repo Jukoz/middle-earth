@@ -35,7 +35,7 @@ public class ReinforcedScaffoldingItem extends ScaffoldingItem {
             BlockPos.Mutable mutable = blockPos.mutableCopy().move(direction);
 
             while (horizontalDistance < ReinforcedScaffoldingBlock.MAX_SUPPORT_DISTANCE) {
-                if (!world.isClient && !world.isInBuildLimit(mutable)) {
+                if (!world.isClient() && !world.isInBuildLimit(mutable)) {
                     if (context.getPlayer() instanceof ServerPlayerEntity serverPlayer && mutable.getY() > world.getTopYInclusive()) {
                         serverPlayer.sendMessageToClient(
                                 Text.translatable("build.tooHigh", world.getTopYInclusive()).formatted(Formatting.RED),

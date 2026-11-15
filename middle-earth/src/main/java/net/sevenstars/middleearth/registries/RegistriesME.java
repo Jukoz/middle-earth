@@ -739,7 +739,7 @@ public class RegistriesME {
 
     //This not good but will do for now until more cases appear
     public static final CauldronBehavior CLEAN_ITEM = (state, world, pos, player, hand, stack) -> {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             player.giveItemStack(new ItemStack(Items.BONE));
             stack.decrement(1);
         }
@@ -756,7 +756,7 @@ public class RegistriesME {
         if (!stack.contains(DataComponentTypesME.TEMPERATURE_DATA)) {
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
-        if (!world.isClient) {
+        if (!world.isClient()) {
             ItemStack originalStack = stack.copy();
             originalStack.setCount(1);
             originalStack.remove(DataComponentTypesME.TEMPERATURE_DATA);
@@ -795,7 +795,7 @@ public class RegistriesME {
         } else if (!stack.contains(DataComponentTypes.DYED_COLOR)) {
             return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         } else {
-            if (!world.isClient) {
+            if (!world.isClient()) {
                 stack.remove(DataComponentTypes.DYED_COLOR);
                 player.incrementStat(Stats.CLEAN_ARMOR);
                 LeveledCauldronBlock.decrementFluidLevel(state, world, pos);

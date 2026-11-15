@@ -39,7 +39,7 @@ public class GildedSmallBrazierBlock extends AbstractToggleableFireBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (world.isClient) {
+        if (world.isClient()) {
             if (state.get(LIT)) {
                 return AbstractToggleableFireBlock.validateTicker(type, BlockEntityRegistryME.GILDED_SMALL_BRAZIER, GildedSmallBrazierBlockEntity::clientTick);
             }

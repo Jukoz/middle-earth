@@ -67,7 +67,7 @@ public class BeechCofferEntityRenderer<T extends ChestBlockEntity> extends Chest
         BeechCofferBlock chest = (BeechCofferBlock)block;
 
         DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> properties;
-        properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
+        properties = chest.getBlockEntitySource(blockState, world, entity.getEntityPos(), true);
         float g = properties.apply(ReinforcedChestBlock.getAnimationProgressRetriever(entity)).get(tickProgress);
         g = 1.0F - g;
         g = 1.0F - g * g * g;

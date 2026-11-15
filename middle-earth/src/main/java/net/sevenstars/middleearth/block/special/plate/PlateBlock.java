@@ -90,7 +90,7 @@ public class PlateBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             return PlateBlock.validateTicker(world, type, BlockEntityRegistryME.PLATE);
         }
         return super.getTicker(world, state, type);
@@ -125,7 +125,7 @@ public class PlateBlock extends BlockWithEntity {
     }
 
     protected static ActionResult onEat(World world, BlockPos pos, PlayerEntity player) {
-        if (world.isClient) {
+        if (world.isClient()) {
             if (tryEat(world, pos, player).isAccepted()) {
                 return ActionResult.SUCCESS;
             }
@@ -152,10 +152,10 @@ public class PlateBlock extends BlockWithEntity {
         FoodComponent foodComponent = food.get(DataComponentTypes.FOOD);
         ConsumableComponent consumableComponent = food.get(DataComponentTypes.CONSUMABLE);
         if(foodComponent != null && consumableComponent != null) {
-            if(!world.isClient) {
+            if(!world.isClient()) {
                 player.getHungerManager().add((foodComponent.nutrition() / 2), foodComponent.saturation() / 2);
             }
-            foodComponent.onConsume(player.getWorld(), player, food, consumableComponent);
+            foodComponent.onConsume(player.getEntityWorld(), player, food, consumableComponent);
             world.emitGameEvent(player, GameEvent.EAT, pos);
 
             ItemStack remainderItem = ItemStack.EMPTY;
@@ -176,7 +176,7 @@ public class PlateBlock extends BlockWithEntity {
         }
 
         if(stack.contains(DataComponentTypes.FOOD)) {
-            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            BlockEntity blockEntity = player.getEntityWorld().getBlockEntity(pos);
             if(blockEntity instanceof PlateBlockEntity plateBlockEntity) {
                 ItemStack plateStack = plateBlockEntity.getStack();
                 if(plateStack == null || plateStack.isEmpty()) {
@@ -185,7 +185,7 @@ public class PlateBlock extends BlockWithEntity {
                     plateBlockEntity.setStack(insertedStack);
                     stack.decrementUnlessCreative(1, player);
                     return ActionResult.SUCCESS;
-                } else if (world.isClient) {
+                } else if (world.isClient()) {
                     return onEat(world, pos, player);
                 }
             } else {

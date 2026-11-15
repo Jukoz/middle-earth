@@ -83,7 +83,8 @@ public class ToughBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (entity instanceof LivingEntity && entity.getType() != EntitiesME.WARG || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             entity.slowMovement(state, new Vec3d(0.800000011920929, 0.75, 0.800000011920929));
             if (world instanceof ServerWorld) {

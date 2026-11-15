@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -53,8 +52,8 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
     private static final int TEXTURE_SIZE = 256;
 
     public TexturedButtonWidget extractButton;
-    public ToggleButtonWidget leftExtractCycleButton;
-    public ToggleButtonWidget rightExtractCycleButton;
+    public TexturedButtonWidget leftExtractCycleButton;
+    public TexturedButtonWidget rightExtractCycleButton;
 
     public TexturedButtonWidget modeSwitchToAlloyButton;
     public TexturedButtonWidget modeSwitchToHeatingButton;
@@ -74,12 +73,24 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         int y = (height - backgroundHeight) / 2;
         this.heatingMode = handler.heatingMode();
 
-        this.leftExtractCycleButton = new ToggleButtonWidget(x + 121, y + 24, 7 ,11, true);
-        this.leftExtractCycleButton.setTextures(LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES);
+        this.leftExtractCycleButton = new TexturedButtonWidget(x + 121, y + 24, 7 ,11, LEFT_CYCLE_EXTRACT_BUTTON_TEXTURES, (button) -> {
+            if(outputMode == 1){
+                outputMode = handler.checkMaxOutput();
+            } else if(outputMode > 1){
+                outputMode--;
+            }
+            setExtractButtonTooltip();
+        });
         this.leftExtractCycleButton.visible = false;
 
-        this.rightExtractCycleButton = new ToggleButtonWidget(x + 162, y + 24, 7,11, true);
-        this.rightExtractCycleButton.setTextures(RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES);
+        this.rightExtractCycleButton = new TexturedButtonWidget(x + 162, y + 24, 7,11, RIGHT_CYCLE_EXTRACT_BUTTON_TEXTURES, (button -> {
+            if(outputMode == handler.checkMaxOutput()){
+                outputMode = 1;
+            } else if(outputMode < 5){
+                outputMode++;
+            }
+            setExtractButtonTooltip();
+        }));
         this.rightExtractCycleButton.visible = false;
 
         this.extractButton = new TexturedButtonWidget(x + 131, y + 12, 28 ,36, EXTRACT_BUTTON_TEXTURES, (button)-> {
@@ -168,32 +179,6 @@ public class ForgeAlloyingScreen extends HandledScreen<ForgeAlloyingScreenHandle
         } else {
             setExtractButtonTooltip();
         }
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.leftExtractCycleButton.mouseClicked(mouseX, mouseY, button)) {
-            if(outputMode == 1){
-                outputMode = handler.checkMaxOutput();
-            } else if(outputMode > 1){
-                outputMode--;
-            }
-
-            setExtractButtonTooltip();
-            return true;
-        }
-
-        if (this.rightExtractCycleButton.mouseClicked(mouseX, mouseY, button)) {
-            if(outputMode == handler.checkMaxOutput()){
-                outputMode = 1;
-            } else if(outputMode < 5){
-                outputMode++;
-            }
-
-            setExtractButtonTooltip();
-            return true;
-        }
-        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     protected void setExtractButtonTooltip() {

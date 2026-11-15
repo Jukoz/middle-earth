@@ -27,7 +27,7 @@ public class BoulderEntity extends ThrownEntity {
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient()) {
             return;
         }
         Entity entity = entityHitResult.getEntity();
@@ -42,7 +42,7 @@ public class BoulderEntity extends ThrownEntity {
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient()) {
             this.getWorld().createExplosion((Entity)this, this.getX(), this.getY(), this.getZ(), 0.5f, false, World.ExplosionSourceType.MOB);
             this.discard();
         }

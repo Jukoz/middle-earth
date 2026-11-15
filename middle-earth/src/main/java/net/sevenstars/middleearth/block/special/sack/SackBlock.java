@@ -70,7 +70,7 @@ public class SackBlock extends BlockWithEntity {
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof SackBlockEntity sackBlockEntity) {
-            if (!world.isClient && player.shouldSkipBlockDrops() && !sackBlockEntity.isEmpty()) {
+            if (!world.isClient() && player.shouldSkipBlockDrops() && !sackBlockEntity.isEmpty()) {
                 ItemStack itemStack = new ItemStack(DecorativeItemsME.SACK);
                 itemStack.applyComponentsFrom(blockEntity.createComponentMap());
                 ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, itemStack);

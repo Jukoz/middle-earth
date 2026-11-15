@@ -1,27 +1,15 @@
 package net.sevenstars.middleearth.entity.ai.brain.task;
 
 import com.google.common.collect.ImmutableMap;
-import net.fabricmc.fabric.impl.loot.FabricLootTable;
-import net.fabricmc.fabric.mixin.loot.LootTableAccessor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTables;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.Pool;
 import net.sevenstars.api.registries.brain.MemoryModulesAPI;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
-import net.sevenstars.middleearth.item.WeaponItemsME;
 
 import java.util.List;
 

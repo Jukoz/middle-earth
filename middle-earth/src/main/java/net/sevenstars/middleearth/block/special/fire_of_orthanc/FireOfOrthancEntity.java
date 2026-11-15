@@ -107,7 +107,7 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
         this.setFuse(i);
         if (i <= 0) {
             this.discard();
-            if (!this.getWorld().isClient) {
+            if (!this.getWorld().isClient()) {
                 this.explode();
             }
         } else {

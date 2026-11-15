@@ -283,7 +283,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void tickMovement() {
-        if(this.getWorld().isClient) {
+        if(this.getWorld().isClient()) {
             setupAnimationStates();
         }
         else {
@@ -503,7 +503,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         LivingEntity target = this.getTarget();
         int difficulty = this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() : 0;
 
-        if(!this.isTame() && !this.getWorld().isClient) { // Charge Attack for wild Troll
+        if(!this.isTame() && !this.getWorld().isClient()) { // Charge Attack for wild Troll
             if(target != null) { // Has attack target memory
                 direction = this.getPos().relativize(target.getPos()); // Vector from Troll to target entity
             }

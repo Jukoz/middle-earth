@@ -10,9 +10,10 @@ import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.ElytraFeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
-import net.minecraft.client.render.entity.model.ArmorEntityModel;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.EquipmentModelData;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityPose;
@@ -44,7 +45,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityRenderState, NpcEntityModel> {
     private final SpriteAtlasTexture characterTextureAtlas;
-
     public final static int HURT_COLOR = 0xff7e75;
 
     public final static int LIGHT_LEVEL_EMISSIVE_EYES = 8;
@@ -58,7 +58,10 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         this.features.removeIf(x -> x.getClass() == ElytraFeatureRenderer.class);
         this.features.removeIf(x -> x.getClass() == HeadFeatureRenderer.class);
 
-        this.addFeature(new ArmorFeatureRenderer<>(this, new ArmorEntityModel<>(context.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new ArmorEntityModel<>(context.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), context.getEquipmentRenderer()));
+        EquipmentModelData<BipedEntityModel<NpcEntityRenderState>> armorModels = EquipmentModelData.mapToEntityModel(
+                EntityModelLayers.PLAYER_EQUIPMENT, context.getEntityModels(), BipedEntityModel::new);
+
+        this.addFeature(new ArmorFeatureRenderer<>(this, armorModels, armorModels, context.getEquipmentRenderer()));
         this.addFeature(new HairFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new EarFeatureRenderer(this, context.getEntityModels()));
         this.addFeature(new NoseFeatureRenderer(this, context.getEntityModels()));
@@ -88,7 +91,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     @Override
     @Environment(EnvType.CLIENT)
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float tickDelta) {
-        if(!npcEntity.getWorld().isClient)
+        if(!npcEntity.getWorld().isClient())
             return;
 
         npcEntityRenderState.aimingState = npcEntity.aimingState;

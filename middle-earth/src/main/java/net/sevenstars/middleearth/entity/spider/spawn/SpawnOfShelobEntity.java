@@ -219,7 +219,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient()) {
             this.setClimbingWall(this.horizontalCollision);
 
             if(biteAnimationCooldown <= 1) {

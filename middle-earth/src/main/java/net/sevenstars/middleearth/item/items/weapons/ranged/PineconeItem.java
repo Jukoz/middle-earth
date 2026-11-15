@@ -31,7 +31,7 @@ public class PineconeItem extends PebbleItem {
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             PineconeEntity pineconeEntity = new PineconeEntity(world, user, DAMAGE * percentage);
             pineconeEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
 

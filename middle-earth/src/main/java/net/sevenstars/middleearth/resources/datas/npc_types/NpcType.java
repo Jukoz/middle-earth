@@ -162,7 +162,7 @@ public class NpcType {
 
     public void applyAttributes(NpcEntity npcEntity) {
         AttributePool.reverse(npcEntity);
-        Race race = RaceLookup.getRace(npcEntity.getWorld(), raceId);
+        Race race = RaceLookup.getRace(npcEntity.getEntityWorld(), raceId);
         if(race != null)
             race.applyNpcAttributes(npcEntity);
         EntityCategories category = npcEntity.getNpcCategory();

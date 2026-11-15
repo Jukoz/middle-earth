@@ -93,7 +93,7 @@ public class StatueBlock extends Block implements Waterloggable {
     }
 
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && (player.isCreative() || !player.canHarvest(state))) {
+        if (!world.isClient() && (player.isCreative() || !player.canHarvest(state))) {
             DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
             if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
                 BlockPos blockPos = pos.down();

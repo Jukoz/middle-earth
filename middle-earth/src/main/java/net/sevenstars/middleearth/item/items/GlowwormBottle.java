@@ -31,7 +31,7 @@ public class GlowwormBottle extends Item {
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200));
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 40));
         }

@@ -56,7 +56,7 @@ public class ShireLanternBlock extends AbstractToggeableLightBlock {
     }
 
     public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient && projectile.isOnFire() && !state.get(LIT)) {
+        if (!world.isClient() && projectile.isOnFire() && !state.get(LIT)) {
             world.setBlockState(hit.getBlockPos(), state.with(LIT, true), STATE_TO_LUMINANCE.applyAsInt(state));
         }
     }

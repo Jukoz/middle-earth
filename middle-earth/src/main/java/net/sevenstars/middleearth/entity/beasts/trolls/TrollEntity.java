@@ -147,7 +147,7 @@ public class TrollEntity extends AbstractBeastEntity {
             --this.throwCooldown;
         }
 
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient()) {
             if(this.bondingTimeout > 0) {
                 this.bondingTimeout--;
             }
@@ -316,7 +316,7 @@ public class TrollEntity extends AbstractBeastEntity {
             }
         }
 
-        if(target != null && !this.getWorld().isClient) {
+        if(target != null && !this.getWorld().isClient()) {
             this.setThrowing(false);
 
             Vec3d rotationVec = this.getRotationVec(1.0f);
@@ -338,7 +338,7 @@ public class TrollEntity extends AbstractBeastEntity {
     public void chargeAttack() {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
-        if(!this.isTame() && !this.getWorld().isClient) {
+        if(!this.isTame() && !this.getWorld().isClient()) {
             if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                 targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
                         this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
@@ -347,7 +347,7 @@ public class TrollEntity extends AbstractBeastEntity {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
             this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
-        else if (this.getWorld().isClient) {
+        else if (this.getWorld().isClient()) {
             this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 

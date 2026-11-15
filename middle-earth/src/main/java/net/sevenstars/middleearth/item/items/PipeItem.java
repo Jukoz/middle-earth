@@ -81,7 +81,7 @@ public class PipeItem extends Item {
 
         if (remainingUseTicks % frequency != 0) return;
 
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
             spawnPassiveSmokePuff(serverWorld, user);
         }
     }

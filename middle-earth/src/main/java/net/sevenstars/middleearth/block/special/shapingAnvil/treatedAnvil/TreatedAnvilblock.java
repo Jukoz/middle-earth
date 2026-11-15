@@ -68,6 +68,6 @@ public class TreatedAnvilblock extends AbstractShapingAnvilBlock {
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<ShapingAnvilBlockEntity> expectedType) {
-        return world.isClient ? null : TreatedAnvilblock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
+        return world.isClient() ? null : TreatedAnvilblock.validateTicker(givenType, expectedType, ShapingAnvilBlockEntity::tick);
     }
 }

@@ -17,9 +17,10 @@ public class PricklyPlantBlock extends CustomPlantBlock {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (entity instanceof LivingEntity livingEntity && world instanceof ServerWorld serverWorld) {
-            Vec3d vec3d = entity.isControlledByPlayer() ? entity.getMovement() : entity.getLastRenderPos().subtract(entity.getPos());
+            Vec3d vec3d = entity.isControlledByPlayer() ? entity.getMovement() : entity.getLastRenderPos().subtract(entity.getEntityPos());
             if (vec3d.horizontalLengthSquared() > 0.0) {
                 double d = Math.abs(vec3d.getX());
                 double e = Math.abs(vec3d.getZ());

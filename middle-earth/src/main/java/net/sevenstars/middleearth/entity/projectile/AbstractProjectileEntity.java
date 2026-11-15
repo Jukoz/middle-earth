@@ -49,7 +49,7 @@ public abstract class AbstractProjectileEntity extends ThrownItemEntity {
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!getWorld().isClient) {
+        if (!getWorld().isClient()) {
             getWorld().sendEntityStatus(this, (byte)3);
             this.discard();
         }

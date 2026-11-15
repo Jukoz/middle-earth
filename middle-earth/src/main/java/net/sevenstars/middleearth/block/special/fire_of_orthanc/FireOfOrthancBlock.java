@@ -53,7 +53,7 @@ public class FireOfOrthancBlock extends Block {
     }
 
     public void explode(World world, BlockPos pos, @Nullable LivingEntity igniter) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double) pos.getX() + 0.5, pos.getY(), (double) pos.getZ() + 0.5, igniter, true);
             world.spawnEntity(fireOfOrthancEntity);
             world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
@@ -63,7 +63,7 @@ public class FireOfOrthancBlock extends Block {
     }
 
     public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             FireOfOrthancEntity fireOfOrthancEntity = new FireOfOrthancEntity(world, (double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5, explosion.getCausingEntity(), false);
             int i = fireOfOrthancEntity.getFuse();
             fireOfOrthancEntity.setFuse((short)(world.random.nextInt(i / 2) + i / 2));

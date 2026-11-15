@@ -49,7 +49,7 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
             case WEST -> matrices.multiply(RotationAxis.POSITIVE_Z.rotation((float) Math.toRadians(315)));
         }
 
-        int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
+        int currentLight = getLightLevel(entity.getWorld(), entity.getEntityPos(), direction);
 
         this.context.getItemRenderer().renderItem(stack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);

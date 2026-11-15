@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.minecraft.block.OxidizablePaneBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;

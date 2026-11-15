@@ -59,7 +59,7 @@ public class MistweedPlantBlock extends CustomPlantBlock implements Fertilizable
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = Hand.MAIN_HAND;
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             ItemStack itemStack = player.getStackInHand(hand);
             if (!state.get(ACTIVE) && itemStack.isIn(ItemTags.AXES)) {
                 activateState(null, state, world, pos);

@@ -83,7 +83,7 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
+        if (world.isClient()) {
             return ActionResult.SUCCESS;
         } else if(player.isCreative() && player.isCreativeLevelTwoOp()) {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
@@ -110,7 +110,7 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<StructureManagerBlockEntity> expectedType) {
         BlockEntityTicker ticker;
-        if (world.isClient) {
+        if (world.isClient()) {
             return null;
         }
 

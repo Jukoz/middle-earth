@@ -73,7 +73,8 @@ public class StrawBerryBushBlock extends CustomPlantBlock
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (!(entity instanceof LivingEntity) || entity.getType() == EntityType.BEE || entity.getType() == EntityType.FOX || entity.getType() == EntityType.BAT) {
             return;
         }

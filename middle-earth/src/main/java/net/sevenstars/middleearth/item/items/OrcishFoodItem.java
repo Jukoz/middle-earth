@@ -17,7 +17,7 @@ public class OrcishFoodItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if(world.isClient) return super.finishUsing(stack, world, user);
+        if(world.isClient()) return super.finishUsing(stack, world, user);
 
         if(user instanceof PlayerEntity playerEntity) {
             RaceType raceType = RaceUtil.getRaceType(playerEntity);

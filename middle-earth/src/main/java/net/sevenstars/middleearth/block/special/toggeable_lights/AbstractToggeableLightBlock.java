@@ -96,7 +96,7 @@ public abstract class AbstractToggeableLightBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {

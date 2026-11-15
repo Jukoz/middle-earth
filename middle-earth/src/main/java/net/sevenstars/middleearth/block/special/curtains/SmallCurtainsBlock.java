@@ -40,7 +40,7 @@ public class SmallCurtainsBlock extends HorizontalFacingBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             world.setBlockState(pos, state.cycle(OPEN));
         }
         return ActionResult.SUCCESS;

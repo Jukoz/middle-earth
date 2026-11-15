@@ -73,7 +73,7 @@ public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implemen
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (player.getMainHandStack().isEmpty() && !blockEntity.getStack(0).isEmpty()) {
                 player.equipStack(EquipmentSlot.MAINHAND, blockEntity.getStack(0));
                 blockEntity.removeStack(0);
@@ -92,7 +92,7 @@ public abstract class AbstractShapingAnvilBlock extends BlockWithEntity implemen
     protected void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.MAINHAND);
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (stack.getItem() instanceof SmithingHammerItem hammer && player.getAttackCooldownProgress(0.5f) > 0.9f) {
                 player.incrementStat(Stats.USED.getOrCreateStat(hammer));
                 stack.use(world, player, Hand.MAIN_HAND);

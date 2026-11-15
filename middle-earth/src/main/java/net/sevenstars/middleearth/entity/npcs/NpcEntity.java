@@ -304,7 +304,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     @Override
-    public boolean canUseRangedWeapon(RangedWeaponItem weapon) {
+    public boolean canUseRangedWeapon(ItemStack stack) {
         return true;
     }
 

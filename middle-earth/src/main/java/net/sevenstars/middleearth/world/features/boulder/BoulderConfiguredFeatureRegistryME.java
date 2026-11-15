@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.world.features.boulder;
 
-import net.minecraft.util.collection.Pool;
+import net.minecraft.util.collection.WeightedPool;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -252,7 +252,7 @@ public class BoulderConfiguredFeatureRegistryME {
                 new SingleStateFeatureConfig(NatureBlockRegistryME.MIRKWOOD_ROOTS.getDefaultState()));
 
         ConfiguredFeatures.register(featureRegisterable, MOSSY_BOULDER, Feature.BLOCK_PILE,
-                new BlockPileFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                new BlockPileFeatureConfig(new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                         .add(Blocks.STONE.getDefaultState(), 3)
                         .add(Blocks.ANDESITE.getDefaultState(), 2)
                         .add(Blocks.STONE_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.BOTTOM).with(SlabBlock.WATERLOGGED, false), 1)

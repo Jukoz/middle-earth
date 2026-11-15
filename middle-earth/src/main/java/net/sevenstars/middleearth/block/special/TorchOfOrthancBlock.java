@@ -31,7 +31,7 @@ public class TorchOfOrthancBlock extends TorchBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(world.isClient){
+        if(world.isClient()){
             return ActionResult.SUCCESS;
         } else {
             if(player.getMainHandStack().isOf(Items.FLINT_AND_STEEL) && !state.get(LIT)){

@@ -17,7 +17,7 @@ public class MiddleEarthMapItem extends Item {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (world.isClient) {
+        if (world.isClient()) {
             return ActionResult.SUCCESS;
         }
         if(user instanceof ServerPlayerEntity serverPlayerEntity) {

@@ -103,7 +103,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", at = @At("TAIL"))
     public final void addStatusEffect(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
-        if(!this.getWorld().isClient) {
+        if(!this.getWorld().isClient()) {
             for (ServerPlayerEntity player : ((ServerWorld) this.getWorld()).getPlayers()) {
                 ServerPlayNetworking.send(player, new PacketLivingEntityData(this.getId(), effect));
             }

@@ -555,7 +555,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             this.setTarget(null);
         }
 
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient()) {
             setupAnimationStates();
         }
 

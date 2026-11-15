@@ -10,6 +10,9 @@ import net.minecraft.client.render.block.BlockModelRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.DecoratedPotBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.util.math.MathHelper;
@@ -17,19 +20,20 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
 @Environment(EnvType.CLIENT)
-public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<DecoratedPotBlockEntity> {
+public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<DecoratedPotBlockEntity, BlockEntityRenderState> {
     private static final float POSITIVE_WOBBLE_SCALE = 0.015625F;
     private final DecoratedPotBlockEntityRenderer vanillaRenderer;
-    private final BlockRenderManager blockRenderManager;
+    //private final BlockRenderManager blockRenderManager;
 
     public LootablePotBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         this.vanillaRenderer = new DecoratedPotBlockEntityRenderer(context);
-        this.blockRenderManager = context.getRenderManager();
+        //this.blockRenderManager = context.getRenderManager();
     }
 
     @Override
-    public void render(DecoratedPotBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        BlockState state = entity.getCachedState();
+    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        /// TODO Fix me
+        /*
         if (!(state.getBlock() instanceof LootablePotBlock)) {
             vanillaRenderer.render(entity, tickProgress, matrices, vertexConsumers, light, overlay, cameraPos);
             return;
@@ -47,7 +51,7 @@ public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<Decor
                 light,
                 overlay
         );
-        matrices.pop();
+        matrices.pop();*/
     }
 
     private static void applyWobble(DecoratedPotBlockEntity entity, float tickProgress, MatrixStack matrices) {
@@ -73,5 +77,10 @@ public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<Decor
             matrices.multiply(RotationAxis.POSITIVE_Y.rotation(yaw * strength), 0.0F, 0.0F, 0.0F);
         }
         matrices.translate(-0.5D, 0.0D, -0.5D);
+    }
+
+    @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
     }
 }

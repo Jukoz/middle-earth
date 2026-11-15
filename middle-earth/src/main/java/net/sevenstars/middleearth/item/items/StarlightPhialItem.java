@@ -15,7 +15,7 @@ public class StarlightPhialItem extends Item {
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        if(world.isClient){
+        if(world.isClient()){
             ClientPlayNetworking.send(new PacketOnboardingRequest());
         }
         return ActionResult.SUCCESS;

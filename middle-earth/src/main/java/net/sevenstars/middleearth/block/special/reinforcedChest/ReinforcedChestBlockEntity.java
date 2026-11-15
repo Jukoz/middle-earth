@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.entity.ContainerUser;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
@@ -44,7 +45,7 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
         }
 
         @Override
-        protected boolean isPlayerViewing(PlayerEntity player) {
+        public boolean isPlayerViewing(PlayerEntity player) {
             if (player.currentScreenHandler instanceof GenericContainerScreenHandler) {
                 Inventory inventory = ((GenericContainerScreenHandler)player.currentScreenHandler).getInventory();
                 return inventory == ReinforcedChestBlockEntity.this || inventory instanceof DoubleInventory && ((DoubleInventory)inventory).isPart(ReinforcedChestBlockEntity.this);
@@ -76,20 +77,6 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
     protected void onViewerCountUpdate(World world, BlockPos pos, BlockState state, int oldViewerCount, int newViewerCount) {
         Block block = state.getBlock();
         world.addSyncedBlockEvent(pos, block, 1, newViewerCount);
-    }
-
-    @Override
-    public void onOpen(PlayerEntity player) {
-        if (!this.removed && !player.isSpectator()) {
-            this.stateManager.openContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
-        }
-    }
-
-    @Override
-    public void onClose(PlayerEntity player) {
-        if (!this.removed && !player.isSpectator()) {
-            this.stateManager.closeContainer(player, this.getWorld(), this.getPos(), this.getCachedState());
-        }
     }
 
     @Nullable

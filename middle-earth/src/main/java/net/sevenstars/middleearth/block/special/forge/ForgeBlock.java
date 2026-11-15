@@ -87,7 +87,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockPos blockPos = pos.add(0,1,0);
             world.setBlockState(blockPos, (BlockState)state.with(PART, ForgePart.TOP), 3);
             world.updateNeighbors(pos, Blocks.AIR);
@@ -97,7 +97,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             ForgePart forgePart = (ForgePart)state.get(PART);
             ForgePart forgePartOpposite = (ForgePart)state.get(PART).getOpposite(state.get(PART));
             BlockPos blockPos;
@@ -139,7 +139,7 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
+        if (world.isClient()) {
             return ActionResult.SUCCESS;
         } else {
             if(state.get(PART) == ForgePart.BOTTOM){

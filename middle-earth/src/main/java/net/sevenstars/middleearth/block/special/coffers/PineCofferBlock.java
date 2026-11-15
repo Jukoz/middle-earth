@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -17,7 +18,7 @@ import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 public class PineCofferBlock extends ChestBlock {
 
     public PineCofferBlock(Settings settings) {
-        super(() -> BlockEntityRegistryME.PINE_COFFER, settings);
+        super(() -> BlockEntityRegistryME.PINE_COFFER, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE, settings);
     }
 
     @Override

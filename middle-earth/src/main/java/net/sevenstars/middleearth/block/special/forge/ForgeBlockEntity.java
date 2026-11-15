@@ -326,7 +326,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
 
     public static void switchMode(Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getEntityWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
 
         if(forgeBlockEntity.isPresent()){
             ForgeBlockEntity entity = forgeBlockEntity.get();
@@ -341,7 +341,7 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
     public static void outputItemStack(int amount, Vec3d coords, ServerPlayerEntity player, int mode){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
 
-        Optional<ForgeBlockEntity> forgeBlockEntity = player.getWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
+        Optional<ForgeBlockEntity> forgeBlockEntity = player.getEntityWorld().getBlockEntity(pos, BlockEntityRegistryME.FORGE);
 
         ItemStack itemstack = ItemStack.EMPTY;
         if(forgeBlockEntity.isPresent()){

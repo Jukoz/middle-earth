@@ -39,7 +39,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
         super(EntitiesME.WEB, owner, world, new ItemStack(Items.COBWEB));
         this.damage = dmg;
         if(feature == null) {
-            if(!this.getWorld().isClient) {
+            if(!this.getWorld().isClient()) {
                 if(this.getWorld() instanceof ServerWorld serverWorld) {
                     Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
                             .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
@@ -57,7 +57,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient()) {
             this.spawnParticles(2);
         }
     }

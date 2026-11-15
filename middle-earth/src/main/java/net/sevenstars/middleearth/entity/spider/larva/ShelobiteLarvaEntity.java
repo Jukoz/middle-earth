@@ -136,7 +136,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient()) {
             this.setClimbingWall(this.horizontalCollision);
         } else {
             setupAnimationStates();

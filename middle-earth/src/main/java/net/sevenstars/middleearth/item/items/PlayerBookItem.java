@@ -21,7 +21,7 @@ public class PlayerBookItem extends Item {
     @Environment(EnvType.CLIENT)
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if(world.isClient) {
+        if(world.isClient()) {
             MinecraftClient client = MinecraftClient.getInstance();
             client.setScreen(new PlayerBookScreen(Text.of("Player's book")));
             return ActionResult.SUCCESS;

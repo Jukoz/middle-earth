@@ -32,7 +32,7 @@ public class LitPineconeItem extends PineconeItem {
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
         float percentage = (float) i / STRENGTH_CHARGE_TIME;
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             LitPineconeEntity litPineconeEntity = new LitPineconeEntity(world, user, DAMAGE * percentage);
             litPineconeEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0f, BASE_STRENGTH + (CHARGE_STRENGTH * percentage), 1.0f);
 

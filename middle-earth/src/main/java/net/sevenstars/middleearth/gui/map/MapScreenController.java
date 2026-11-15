@@ -29,7 +29,7 @@ public class MapScreenController {
     public boolean open(boolean canTeleport) {
         MinecraftClient mc = MinecraftClient.getInstance();
 
-        if(world.isClient) {
+        if(world.isClient()) {
             if (mc.currentScreen == null) {
                 screen = new MapScreen();
                 isInDimension = DimensionRegistryME.isInMiddleEarth(world);

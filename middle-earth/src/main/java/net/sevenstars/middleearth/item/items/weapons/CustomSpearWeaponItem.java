@@ -46,7 +46,7 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
         if(i > STRENGTH_CHARGE_TIME) i = STRENGTH_CHARGE_TIME;
         pullProgress = (float) i / STRENGTH_CHARGE_TIME;
 
-        if (!world.isClient) {
+        if (!world.isClient()) {
             float damage = getAttackDamage() * pullProgress;
             if(getAttackDamage() >= 2.0) {
                 damage += 10.0f;

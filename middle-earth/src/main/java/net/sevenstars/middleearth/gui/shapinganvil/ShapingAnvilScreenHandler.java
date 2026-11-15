@@ -70,7 +70,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
             @Override
             public void markDirty() {
                 super.markDirty();
-                if(player.getWorld().isClient) {
+                if(player.getWorld().isClient()) {
                     clientInputChanged.run();
                 }
                 ShapingAnvilScreenHandler.this.updateStack(ShapingAnvilScreenHandler.this.inventory);
@@ -120,7 +120,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
 
     public void updateStack(Inventory inventory) {
         ItemStack input = inventory.getStack(0);
-        if (!this.world.isClient){
+        if (!this.world.isClient()){
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
             this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
             recipesSize.set(this.availableRecipes.size());
@@ -135,7 +135,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
     public int getAvailableRecipeCount() {
         int count = 0;
         ItemStack input = inventory.getStack(0);
-        if (!this.world.isClient){
+        if (!this.world.isClient()){
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
             this.availableRecipes = serverRecipeManager.getAllMatches(RecipesME.ANVIL_SHAPING, new SingleStackRecipeInput(input), this.world).toList();
             count = this.availableRecipes.size();

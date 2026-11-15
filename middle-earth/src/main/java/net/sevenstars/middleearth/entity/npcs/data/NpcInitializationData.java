@@ -71,7 +71,7 @@ public class NpcInitializationData {
 
 
     public boolean tryToInitialize(NpcEntity entity) {
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         if(world == null)
             return false;
 

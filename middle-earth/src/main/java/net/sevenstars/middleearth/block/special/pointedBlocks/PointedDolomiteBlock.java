@@ -102,7 +102,7 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
     }
 
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockPos blockPos = hit.getBlockPos();
             if (world instanceof ServerWorld) {
                 ServerWorld serverWorld = (ServerWorld)world;

@@ -54,7 +54,7 @@ public class SeatBlock extends Block {
         seat.setInvisible(true);
         seat.setInvulnerable(true);
 
-        if(world.isClient) {
+        if(world.isClient()) {
             return ActionResult.CONSUME;
         } else if(player.isSneaking() || player.isSpectator() || player.hasVehicle()) {
             return ActionResult.FAIL;
@@ -68,7 +68,7 @@ public class SeatBlock extends Block {
             return ActionResult.SUCCESS;
         } else {
             if(world.spawnEntity(seat)) {
-                player.startRiding(seat, true);
+                player.startRiding(seat, true, true);
                 player.setYaw(yaw);
                 player.setHeadYaw(yaw);
                 world.setBlockState(pos, state.with(OCCUPIED, true));

@@ -60,7 +60,7 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
 
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockPos blockPos = pos.down();
             world.setBlockState(blockPos, (BlockState)state.with(BLOCK_HALF, BlockHalf.BOTTOM), 3);
             world.updateNeighbors(pos, Blocks.AIR);
@@ -70,7 +70,7 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (state.get(BLOCK_HALF) == BlockHalf.BOTTOM){
                 world.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 35);
                 world.syncWorldEvent(player, 2001, pos.up(), Block.getRawIdFromState(state));
@@ -97,8 +97,8 @@ public class ShelobiteLarvaEggHangingBlock extends AbstractShelobiteLarvaEgg {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        super.onEntityCollision(state, world, pos, entity, handler);
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (entity.getType() != EntitiesME.SHELOBITE_SCUTTLER && state.get(BLOCK_HALF) == BlockHalf.BOTTOM){
             breakEgg(world, pos, state);
         }

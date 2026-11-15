@@ -18,9 +18,11 @@ public class ThornyGrowthBlock extends GlowLichenBlock {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (entity instanceof LivingEntity livingEntity && world instanceof ServerWorld serverWorld) {
-            Vec3d movement = livingEntity.isControlledByPlayer() ? livingEntity.getMovement() : livingEntity.getLastRenderPos().subtract(livingEntity.getPos());
+            Vec3d movement = livingEntity.isControlledByPlayer() ? livingEntity.getMovement() :
+                    livingEntity.getLastRenderPos().subtract(livingEntity.getEntityPos());
             if (movement.horizontalLengthSquared() > 0.0) {
                 double d = Math.abs(movement.getX());
                 double e = Math.abs(movement.getZ());

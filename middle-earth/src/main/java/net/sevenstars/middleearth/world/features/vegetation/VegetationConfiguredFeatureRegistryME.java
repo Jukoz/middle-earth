@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.world.features.vegetation;
 
+import net.minecraft.util.collection.WeightedPool;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -17,7 +18,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Pool;
 import net.minecraft.util.dynamic.Range;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -236,7 +236,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.HEATHER_BUSH.getDefaultState(), 2))
                                 )))));
@@ -244,7 +244,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.DRY_HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.DRY_HEATHER_BUSH.getDefaultState(), 2))
                                 )))));
@@ -257,7 +257,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.TALL_WILD_WHEAT.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.WILD_WHEAT.getDefaultState(), 3))
                                 )))));
@@ -425,7 +425,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.BLUE_FESCUE.getDefaultState(), 2)
                                                 .add(NatureBlockRegistryME.LARGE_BLUE_FESCUE.getDefaultState(), 1))
                                 )))));
@@ -470,14 +470,14 @@ public class VegetationConfiguredFeatureRegistryME {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(NatureBlockRegistryME.BEACH_GRASS))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_BUSHES, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                 .add(Blocks.BUSH.getDefaultState(), 8)
                                 .add(NatureBlockRegistryME.LARGE_BUSH.getDefaultState(), 4))), List.of(), 15));
         ConfiguredFeatures.register(featureRegisterable, PATCH_CLOVERS, Feature.FLOWER, new RandomPatchFeatureConfig(48, 6, 2,
                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(CavesConfiguredFeatureRegistryME.get4StagesBlockBuilder(NatureBlockRegistryME.CLOVERS))))));
         ConfiguredFeatures.register(featureRegisterable, PATCH_DRY_GRASS, Feature.FLOWER,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                 .add(Blocks.TALL_DRY_GRASS.getDefaultState(), 8)
                                 .add(Blocks.SHORT_DRY_GRASS.getDefaultState(), 4))), List.of(), 15));
         ConfiguredFeatures.register(featureRegisterable, PATCH_SMALL_DRY_SHRUB, Feature.FLOWER,
@@ -539,7 +539,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.HEATHER_BUSH.getDefaultState(), 1))
                                 )))));
@@ -547,7 +547,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.DEAD_HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.DEAD_HEATHER_BUSH.getDefaultState(), 1))
                                 )))));
@@ -555,7 +555,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.DRY_HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.DRY_HEATHER_BUSH.getDefaultState(), 1))
                                 )))));
@@ -564,7 +564,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.RED_HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.RED_HEATHER_BUSH.getDefaultState(), 1))
                                 )))));
@@ -572,7 +572,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.HEATHER.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.HEATHER_BUSH.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.DEAD_HEATHER.getDefaultState(), 1)
@@ -595,7 +595,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.HOGWEED.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.SHORT_HOGWEED.getDefaultState(), 3))
                                         )))));
@@ -666,7 +666,7 @@ public class VegetationConfiguredFeatureRegistryME {
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_PATCH,
                         new RandomPatchFeatureConfig(8, 3, 2,
                                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                                        new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                                        new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                                 .add(NatureBlockRegistryME.ORANGE_SEDUM.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.RED_SEDUM.getDefaultState(), 1)
                                                 .add(NatureBlockRegistryME.YELLOW_SEDUM.getDefaultState(), 1))
@@ -748,7 +748,7 @@ public class VegetationConfiguredFeatureRegistryME {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIRKWOOD, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                                 .add(Blocks.SHORT_GRASS.getDefaultState(), 8)
                                 .add(Blocks.FERN.getDefaultState(), 8)
                                 .add(Blocks.TALL_GRASS.getDefaultState(), 15)
@@ -756,7 +756,7 @@ public class VegetationConfiguredFeatureRegistryME {
                                 .add(Blocks.BROWN_MUSHROOM.getDefaultState(), 1))), List.of(), 15));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIRKWOOD_ROOTS, Feature.BLOCK_PILE,
-                new BlockPileFeatureConfig(new WeightedBlockStateProvider(Pool.<BlockState>builder()
+                new BlockPileFeatureConfig(new WeightedBlockStateProvider(WeightedPool.<BlockState>builder()
                         .add(NatureBlockRegistryME.MIRKWOOD_ROOTS.getDefaultState(), 3))));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MOSS, Feature.MULTIFACE_GROWTH,
@@ -774,7 +774,7 @@ public class VegetationConfiguredFeatureRegistryME {
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_MIXED_WILD_WHEAT, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
-                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider((Pool.<BlockState>builder()
+                        new SimpleBlockFeatureConfig(new WeightedBlockStateProvider((WeightedPool.<BlockState>builder()
                                 .add(NatureBlockRegistryME.TALL_WILD_WHEAT.getDefaultState(), 1)
                                 .add(NatureBlockRegistryME.WILD_WHEAT.getDefaultState(), 3))
                         ))));

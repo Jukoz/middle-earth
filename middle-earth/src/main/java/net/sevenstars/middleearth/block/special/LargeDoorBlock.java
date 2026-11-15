@@ -160,7 +160,7 @@ public class LargeDoorBlock extends Block {
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        if (!world.isClient){
+        if (!world.isClient()){
             BlockPos blockPos = pos;
             //Places all additional blocks after placement is checked
             for (int i = 0; i < doorWidth; i++){

@@ -5,6 +5,9 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemDisplayContext;
@@ -15,7 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAnvilBlockEntity> {
+public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAnvilBlockEntity, BlockEntityRenderState> {
 
     private final BlockEntityRendererFactory.Context context;
 
@@ -30,8 +33,9 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
     }
 
     @Override
-    public void render(ShapingAnvilBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        ItemStack stack = entity.getRenderStack(entity);
+    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        /// TODO Fix me
+        /*ItemStack stack = entity.getRenderStack(entity);
 
         if(stack.isEmpty()) return;
 
@@ -62,6 +66,11 @@ public class ShapingAnvilEntityRenderer implements BlockEntityRenderer<ShapingAn
         this.context.getItemRenderer().renderItem(stack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
-        matrices.pop();
+        matrices.pop();*/
+    }
+
+    @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
     }
 }

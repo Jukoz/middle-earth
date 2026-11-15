@@ -80,7 +80,7 @@ public class ChestnutCofferEntityRenderer<T extends ChestBlockEntity> extends Ch
 
         ChestnutCofferBlock chest = (ChestnutCofferBlock)block;
 
-        DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
+        DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> properties = chest.getBlockEntitySource(blockState, world, entity.getEntityPos(), true);
         float g = properties.apply(ReinforcedChestBlock.getAnimationProgressRetriever(entity)).get(tickProgress);
         g = 1.0F - g;
         g = 1.0F - g * g * g;

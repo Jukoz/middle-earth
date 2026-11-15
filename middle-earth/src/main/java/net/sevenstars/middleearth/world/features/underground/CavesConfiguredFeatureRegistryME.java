@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.world.features.underground;
 
+import net.minecraft.util.collection.WeightedPool;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -24,7 +25,6 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.floatprovider.ClampedNormalFloatProvider;
@@ -591,11 +591,12 @@ public class CavesConfiguredFeatureRegistryME {
                 -16, 16, 0.05, 1));
     }
 
-    public static Pool.Builder<BlockState> get4StagesBlockBuilder(Block tiller) {
-        Pool.Builder<BlockState> builder = Pool.builder();
+    public static WeightedPool.Builder<net.minecraft.block.BlockState> get4StagesBlockBuilder(Block tiller) {
+        var builder = WeightedPool.<BlockState>builder();
         for (int i = 1; i <= 4; ++i) {
             for (Direction direction : Direction.Type.HORIZONTAL) {
-                builder.add((tiller.getDefaultState().with(FlowerbedBlock.FLOWER_AMOUNT, i)).with(FlowerbedBlock.HORIZONTAL_FACING, direction), 1);
+                WeightedPool.<BlockState>builder().add((tiller.getDefaultState()
+                        .with(FlowerbedBlock.FLOWER_AMOUNT, i)).with(FlowerbedBlock.HORIZONTAL_FACING, direction), 1);
             }
         }
         return builder;

@@ -38,7 +38,7 @@ public class SeatEntity extends VehicleEntity {
     @Override
     public void tick() {
         World world = this.getWorld();
-        if(world.isClient) return;
+        if(world.isClient()) return;
 
         BlockState state = world.getBlockState(this.getBlockPos());
         if(!this.hasPassengers() || !state.isIn(SEATS)) {
@@ -53,8 +53,8 @@ public class SeatEntity extends VehicleEntity {
     @Override
     public void onRemove(RemovalReason reason) {
         super.onRemove(reason);
-        World world = this.getWorld();
-        if(world.isClient || reason == RemovalReason.UNLOADED_TO_CHUNK) return;
+        World world = this.getEntityWorld();
+        if(world.isClient() || reason == RemovalReason.UNLOADED_TO_CHUNK) return;
 
         BlockPos pos = this.getBlockPos();
         BlockState state = world.getBlockState(pos);

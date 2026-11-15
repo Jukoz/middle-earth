@@ -52,7 +52,7 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {
@@ -104,22 +104,21 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (state.get(LIT) && entity instanceof LivingEntity) {
-            if (!world.isClient) {
+            if (!world.isClient()) {
                 ServerWorld serverWorld = (ServerWorld)world;
                 if (isEntityAbove(pos, entity)) {
                     entity.damage(serverWorld, world.getDamageSources().campfire(), (float) 1);
                 }
             }
         }
-
-        super.onEntityCollision(state, world, pos, entity, handler);
     }
 
     protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!world.isClient && projectile.isOnFire()) {
+        if (!world.isClient() && projectile.isOnFire()) {
             ServerWorld serverWorld = (ServerWorld)world;
             if (projectile.canModifyAt(serverWorld, blockPos) && !(Boolean)state.get(LIT)){
                 world.setBlockState(blockPos, (BlockState)state.with(Properties.LIT, true), 11);
@@ -132,6 +131,6 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
     }
 
     private static boolean isEntityAbove(BlockPos pos, Entity entity) {
-        return entity.isOnGround() && entity.getPos().y > (double)((float)pos.getY() + 0.51F);
+        return entity.isOnGround() && entity.getEntityPos().y > (double)((float)pos.getY() + 0.51F);
     }
 }

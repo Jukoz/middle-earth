@@ -33,7 +33,7 @@ public class DwarvenGroundBookBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(!world.isClient && player.getAbilities().allowModifyWorld){
+        if(!world.isClient() && player.getAbilities().allowModifyWorld){
             world.setBlockState(pos, state.cycle(OPEN), 2 | 3);
         }
         return ActionResult.SUCCESS;

@@ -35,7 +35,7 @@ public class MEWallTorchBlock extends WallTorchBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             if(player.isCreative()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {

@@ -263,7 +263,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     private void updateInput(Inventory inventory) {
         ItemStack inputChisel = inventory.getStack(1);
         if (this.hasAll()) {
-             if (!this.world.isClient){
+             if (!this.world.isClient()){
                 updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
                 this.outputRecipes = serverRecipeManager.getAllMatches(RecipesME.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();

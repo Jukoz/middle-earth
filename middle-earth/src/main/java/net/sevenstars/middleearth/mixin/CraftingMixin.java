@@ -31,7 +31,7 @@ public class CraftingMixin {
                                            RecipeInputInventory craftingInventory, CraftingResultInventory resultInventory,
                                            @Nullable RecipeEntry<CraftingRecipe> recipe, CallbackInfo ci, CraftingRecipeInput craftingRecipeInput,
                                            ServerPlayerEntity serverPlayerEntity, ItemStack itemStack){
-        if (world.isClient){
+        if (world.isClient()){
             return;
         }
         if (!ServerConfigME.ENABLE_GOLDEN_FOOD_RECIPES && DimensionRegistryME.isInMiddleEarth(world)

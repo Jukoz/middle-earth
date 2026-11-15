@@ -308,7 +308,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        if(!world.isClient && super.tryAttack(world, target)) {
+        if(!world.isClient() && super.tryAttack(world, target)) {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         }
 
@@ -319,7 +319,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     public void chargeAttack() {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
 
-        if(!this.isTame() && !this.getWorld().isClient) {
+        if(!this.isTame() && !this.getWorld().isClient()) {
             if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                 targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
                         this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
@@ -328,7 +328,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
             this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
-        else if (this.getWorld().isClient) {
+        else if (this.getWorld().isClient()) {
             this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 

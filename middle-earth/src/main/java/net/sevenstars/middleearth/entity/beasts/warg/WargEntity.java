@@ -371,7 +371,7 @@ public class WargEntity extends AbstractBeastEntity {
     public void chargeAttack() {
         if(!this.hasCharged()) {
             this.setHasCharged(true);
-            if(!this.isTame() && !this.getWorld().isClient) {
+            if(!this.isTame() && !this.getWorld().isClient()) {
                 if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                     targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
                             this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
@@ -379,12 +379,12 @@ public class WargEntity extends AbstractBeastEntity {
                 }
                 this.setVelocity(targetDir.multiply(1,0,1).normalize().add(0,0.6,0).multiply(0.7f));
             }
-            else if (this.getWorld().isClient) {
+            else if (this.getWorld().isClient()) {
                 this.setHasCharged(true);
                 this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.35,0).multiply(1.3f));
             }
         }
-        if(!this.isTame() && !this.getWorld().isClient) {
+        if(!this.isTame() && !this.getWorld().isClient()) {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
         }
 
@@ -399,7 +399,7 @@ public class WargEntity extends AbstractBeastEntity {
                 if(entity instanceof ServerPlayerEntity) {
                     entity.stopRiding();
                 }
-                else if(!this.getWorld().isClient) {
+                else if(!this.getWorld().isClient()) {
                     entity.dismountVehicle();
                     entity.removeAllPassengers();
                 }

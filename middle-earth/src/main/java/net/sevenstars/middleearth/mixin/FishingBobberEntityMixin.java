@@ -21,7 +21,7 @@ public abstract class FishingBobberEntityMixin extends ProjectileEntity {
 
     @ModifyArg(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/registry/ReloadableRegistries$Lookup;getLootTable(Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/loot/LootTable;"))
     public RegistryKey<LootTable> onUseFishingRod(RegistryKey<LootTable> key) {
-        if(!getWorld().isClient) {
+        if(!getWorld().isClient()) {
             if(DimensionRegistryME.isInMiddleEarth(getWorld())) {
                 return LootModifiers.FISHING_LOOT_TABLE;
             }

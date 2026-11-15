@@ -129,7 +129,7 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
 
     public static void updateIndex(int index, Vec3d coords, ServerPlayerEntity player){
         BlockPos pos = new BlockPos((int) coords.getX(), (int) coords.getY(), (int) coords.getZ());
-        BlockEntity shapingAnvilBlockEntity = player.getWorld().getBlockEntity(pos);
+        BlockEntity shapingAnvilBlockEntity = player.getEntityWorld().getBlockEntity(pos);
 
         if(shapingAnvilBlockEntity instanceof ShapingAnvilBlockEntity entity){
             if(index >= 0) {

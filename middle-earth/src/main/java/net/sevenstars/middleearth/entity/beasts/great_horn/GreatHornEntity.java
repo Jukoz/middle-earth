@@ -290,11 +290,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
             float entitySpeed = (float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue();
-            if(!this.getWorld().isClient) {
+            if(!this.getWorld().isClient()) {
                 Vec2f vec2f = this.getControlledRotation(this.getControllingPassenger());
                 this.setVelocity(new Vec3d(vec2f.x,0,vec2f.y).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
             }
-            else if (this.getWorld().isClient) {
+            else if (this.getWorld().isClient()) {
                 this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
             }
             this.chargeAnimationState.startIfNotRunning(this.age);

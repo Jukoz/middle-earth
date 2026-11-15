@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,7 +18,7 @@ import net.minecraft.world.BlockView;
 public class ReinforcedChestBlock extends ChestBlock {
 
     public ReinforcedChestBlock(Settings settings) {
-        super(() -> BlockEntityRegistryME.REINFORCED_CHEST, settings);
+        super(() -> BlockEntityRegistryME.REINFORCED_CHEST, SoundEvents.BLOCK_COPPER_CHEST_OPEN, SoundEvents.BLOCK_COPPER_CHEST_CLOSE, settings);
     }
 
     @Override

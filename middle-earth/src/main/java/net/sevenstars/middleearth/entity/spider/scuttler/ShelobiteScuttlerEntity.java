@@ -246,7 +246,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient()) {
             if(biteAnimationCooldown <= 1) {
                 this.dataTracker.set(BITE_FLAG, -1);
             }

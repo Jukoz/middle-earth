@@ -19,7 +19,7 @@ public class HotChickenFoodItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if(world.isClient) return super.finishUsing(stack, world, user);
+        if(world.isClient()) return super.finishUsing(stack, world, user);
 
         if(user instanceof PlayerEntity playerEntity) {
             if (!stack.isEmpty() && stack.get(DataComponentTypesME.TEMPERATURE_DATA) != null) {

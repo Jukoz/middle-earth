@@ -34,8 +34,8 @@ public class FloatingIceBlock extends Block {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        super.onEntityCollision(state, world, pos, entity, handler);
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
         if (world instanceof ServerWorld && entity instanceof BoatEntity) {
             world.breakBlock(new BlockPos(pos), true, entity);
         }

@@ -41,7 +41,7 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world.isClient) {
+        if (world.isClient()) {
             return ActionResult.SUCCESS;
         } else {
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
@@ -100,7 +100,7 @@ public class StructureNestBlock extends BlockWithEntity implements BlockEntityPr
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<StructureNestBlockEntity> expectedType) {
         BlockEntityTicker ticker;
-        if (world.isClient) {
+        if (world.isClient()) {
             return null;
         }
 
