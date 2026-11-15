@@ -44,6 +44,7 @@
   ],
   "client": [
     "IntegratedServerLoaderMixin",
+    "client.StructureBlockScreenMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.AtmosphericFogModifierMixin",
     "client.ClientWorldMixin",

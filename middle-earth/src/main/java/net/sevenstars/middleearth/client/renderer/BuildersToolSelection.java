@@ -4,6 +4,12 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.hit.HitResult;
+import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
+import net.sevenstars.middleearth.network.packets.client2server.PacketJigsawFitsRequest;
+import java.util.List;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
@@ -28,6 +34,9 @@ public class BuildersToolSelection {
     // The manager the bounds of its build are being set from, and the corner that was clicked first
     private static @Nullable BlockPos boundsAnchor = null;
     private static @Nullable BlockPos boundsFirst = null;
+    // The jigsaw block that was picked, and the plugs it could be joined to
+    private static @Nullable BlockPos jigsaw = null;
+    private static List<BlockPos> jigsawFits = List.of();
     private static long lastClick = 0;
 
     public static @Nullable BlockPos selected() {
@@ -61,7 +70,38 @@ public class BuildersToolSelection {
         }
     }
 
+    public static @Nullable BlockPos jigsaw() {
+        return jigsaw;
+    }
+
+    public static List<BlockPos> jigsawFits() {
+        return jigsawFits;
+    }
+
+    public static void showJigsawFits(BlockPos pos, List<BlockPos> fits) {
+        if(!pos.equals(jigsaw))
+            return;
+        jigsawFits = List.copyOf(fits);
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if(player != null)
+            player.sendMessage(Text.translatable("ui.%s.jigsaw_fits.%s".formatted(MiddleEarth.MOD_ID, fits.isEmpty() ? "none" : "some"), fits.size()), true);
+    }
+
+    private static void unselect() {
+        selected = null;
+        boundsAnchor = null;
+        boundsFirst = null;
+        jigsaw = null;
+        jigsawFits = List.of();
+    }
+
     public static void register() {
+        // A click that hits nothing lets go of whatever was picked
+        ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
+            if(clickCount > 0 && BuildersToolRenderer.holdsTool(player) && (client.crosshairTarget == null || client.crosshairTarget.getType() == HitResult.Type.MISS))
+                unselect();
+            return false;
+        });
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             if(!world.isClient || !BuildersToolRenderer.holdsTool(player))
                 return ActionResult.PASS;
@@ -74,8 +114,12 @@ public class BuildersToolSelection {
             boolean bed = state.getBlock() instanceof BedBlock;
             boolean manager = state.getBlock() instanceof StructureManagerBlock;
             boolean bounds = boundsAnchor != null || manager && selected == null;
-            if(!bed && selected == null && !bounds)
+            boolean plug = state.isOf(Blocks.JIGSAW) && selected == null && !bounds;
+            if(!bed && selected == null && !bounds && !plug) {
+                jigsaw = null;
+                jigsawFits = List.of();
                 return ActionResult.FAIL;
+            }
             long time = Util.getMeasuringTimeMs();
             boolean repeated = time - lastClick < REPEAT_MILLIS;
             lastClick = time;
@@ -85,6 +129,17 @@ public class BuildersToolSelection {
                 clickBounds(player, pos.toImmutable(), manager);
                 return ActionResult.FAIL;
             }
+            if(plug) {
+                // Its fits come from the server, which knows the pools. Clicked again, it is let go of
+                boolean again = pos.equals(jigsaw);
+                jigsaw = again ? null : pos.toImmutable();
+                jigsawFits = List.of();
+                if(!again)
+                    ClientPlayNetworking.send(new PacketJigsawFitsRequest(jigsaw));
+                return ActionResult.FAIL;
+            }
+            jigsaw = null;
+            jigsawFits = List.of();
             if(bed) {
                 BlockPos head = state.get(BedBlock.PART) == BedPart.HEAD ? pos : pos.offset(state.get(BedBlock.FACING));
                 selected = head.equals(selected) ? null : head.toImmutable();

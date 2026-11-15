@@ -70,6 +70,7 @@ public class BuildersToolRenderer {
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
     private static final int BOUNDS = 0xFFFFEB3B;
+    private static final int PLUG = 0xFF00E676;
     private static final int FAILURE_LOG_MILLIS = 10000;
     private static final int FAILURE_LOG_FRAMES = 6;
     private static final float PIECE_TEXT_SCALE = 0.04f;
@@ -219,6 +220,14 @@ public class BuildersToolRenderer {
     }
 
     private static void drawBoxes(MatrixStack matrices, VertexConsumer lines) {
+        BlockPos plug = BuildersToolSelection.jigsaw();
+        if(plug != null) {
+            DebugDraw.box(matrices, lines, new Box(plug).expand(SELECTED_MARGIN), PLUG);
+            for(BlockPos fit : BuildersToolSelection.jigsawFits()) {
+                DebugDraw.box(matrices, lines, fit, PLUG);
+                DebugDraw.line(matrices, lines, Vec3d.ofCenter(plug), Vec3d.ofCenter(fit), PLUG);
+            }
+        }
         if(BuildersToolSelection.boundsAnchor() != null) {
             DebugDraw.box(matrices, lines, new Box(BuildersToolSelection.boundsAnchor()).expand(SELECTED_MARGIN), BOUNDS);
             Box preview = boundsPreview();

@@ -19,6 +19,7 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketOpenMapScreen.ID, PacketOpenMapScreen.CODEC);
+        PayloadTypeRegistry.playS2C().register(PacketJigsawFits.ID, PacketJigsawFits.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
@@ -27,6 +28,7 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playC2S().register(PacketBedTagUpdateRequest.ID, PacketBedTagUpdateRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketBedLinkRequest.ID, PacketBedLinkRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureBoundsRequest.ID, PacketStructureBoundsRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketJigsawFitsRequest.ID, PacketJigsawFitsRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
@@ -53,6 +55,7 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         ServerPlayNetworking.registerGlobalReceiver(PacketBedTagUpdateRequest.ID, wrapServerHandler(connection, PacketBedTagUpdateRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketBedLinkRequest.ID, wrapServerHandler(connection, PacketBedLinkRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureBoundsRequest.ID, wrapServerHandler(connection, PacketStructureBoundsRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketJigsawFitsRequest.ID, wrapServerHandler(connection, PacketJigsawFitsRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));

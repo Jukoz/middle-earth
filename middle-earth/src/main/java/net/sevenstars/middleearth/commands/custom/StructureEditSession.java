@@ -654,7 +654,7 @@ public class StructureEditSession {
         return new Saved(written, conflicts);
     }
 
-    private static List<Identifier> templatesOf(StructurePoolElement element) {
+    static List<Identifier> templatesOf(StructurePoolElement element) {
         List<Identifier> templates = new ArrayList<>();
         if(element instanceof SinglePoolElement single)
             single.location.left().ifPresent(templates::add);
@@ -676,8 +676,8 @@ public class StructureEditSession {
     }
 
     // Moved apart from the middle of the structure until no two are within the gap of each other, so that they keep their
-    // places beside one another. What stands on or under another piece, as a cellar under its house, stays with it. Pieces
-    // that run through one another are put side by side instead
+    // places beside one another. What stands on or under another piece, as a cellar under its house, stays over or under
+    // it, and is lifted off it by the gap. Pieces that run through one another are put side by side instead
     private static List<Piece> spread(List<Piece> assembled, int gap) {
         List<List<Piece>> groups = attached(assembled);
         List<BlockBox> bounds = groups.stream().map(StructureEditSession::boundsOf).toList();
@@ -712,10 +712,28 @@ public class StructureEditSession {
             for(Piece piece : groups.get(i))
                 groupOf.put(piece, i);
         }
+        // Each above whatever it stands on by the gap, the lowest first
+        Map<Piece, Integer> lifts = new IdentityHashMap<>();
+        for(List<Piece> group : groups) {
+            List<Piece> rising = new ArrayList<>(group);
+            rising.sort(Comparator.comparingInt(piece -> piece.box().getMinY()));
+            for(int i = 0; i < rising.size(); i++) {
+                BlockBox box = rising.get(i).box();
+                int lift = 0;
+                for(int j = 0; j < i; j++) {
+                    BlockBox under = rising.get(j).box();
+                    boolean over = box.getMinX() <= under.getMaxX() && box.getMaxX() >= under.getMinX() && box.getMinZ() <= under.getMaxZ() && box.getMaxZ() >= under.getMinZ();
+                    if(over && under.getMaxY() < box.getMinY())
+                        lift = Math.max(lift, lifts.get(rising.get(j)) + gap);
+                }
+                lifts.put(rising.get(i), lift);
+            }
+        }
         List<Piece> spread = new ArrayList<>();
         for(Piece piece : assembled) {
             int i = groupOf.get(piece);
-            spread.add(new Piece(piece.template(), piece.origin().add(movesX[i], 0, movesZ[i]), piece.rotation(), piece.box().offset(movesX[i], 0, movesZ[i]), piece.loaded()));
+            int lift = lifts.get(piece);
+            spread.add(new Piece(piece.template(), piece.origin().add(movesX[i], lift, movesZ[i]), piece.rotation(), piece.box().offset(movesX[i], lift, movesZ[i]), piece.loaded()));
         }
         return spread;
     }
