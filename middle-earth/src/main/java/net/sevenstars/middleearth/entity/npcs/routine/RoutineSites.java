@@ -148,6 +148,11 @@ public class RoutineSites {
 
     // A door, gate or hatch a builder marked for npcs to leave shut. Known once the place it is in has been looked at, which
     // its managers see to as soon as they are loaded
+    // What was worked out of the structures of a world is worked out again, after one of them was taken away
+    public static void forget(ServerWorld world) {
+        WORLDS.remove(world.getRegistryKey());
+    }
+
     public static boolean isNoEntry(World world, BlockPos pos) {
         WorldSites sites = WORLDS.get(world.getRegistryKey());
         return sites != null && !sites.noEntry.isEmpty() && sites.noEntry.contains(pos.asLong());

@@ -47,6 +47,12 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.structure.StructurePiecesList;
 import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.chunk.Chunk;
+import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
@@ -169,6 +175,7 @@ public class StructureEditSession {
             SESSIONS.clear();
             RESTORED.clear();
             SINGLES.clear();
+            TESTS.clear();
             StructureEditing.clearNoClip();
         });
     }
@@ -455,10 +462,14 @@ public class StructureEditSession {
 
     public record Generated(BlockBox box, int pieces) {}
 
+    private record Test(RegistryKey<World> dimension, Structure structure, ChunkPos chunk) {}
+
+    private static final Map<UUID, List<Test>> TESTS = new HashMap<>();
+
     // The structure as the game would generate it, at the builder, and known to the world for a structure: its managers
     // wake, its people are born, its markers are gone. What a command places is only blocks. One the ground would cut
     // short is set whole at the builder's height instead of on the ground
-    public static @Nullable Generated generate(ServerWorld world, RegistryEntry<Structure> structure, long seed, BlockPos at) {
+    public static @Nullable Generated generate(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, long seed, BlockPos at) {
         ChunkPos chunk = new ChunkPos(at);
         StructureStart start = assemble(world, structure, structure.value(), seed, world, chunk);
         Structure free = freeStanding(world, structure.value());
@@ -490,8 +501,67 @@ public class StructureEditSession {
             world.getStructureAccessor().addStructureReference(ChunkSectionPos.from(in, 0), structure.value(), chunk.toLong(), world.getChunk(in.x, in.z));
         });
         world.getStructureAccessor().setStructureStart(ChunkSectionPos.from(chunk, 0), structure.value(), start, world.getChunk(chunk.x, chunk.z));
+        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), structure.value(), chunk));
         StructureEditing.log("generated %s from the seed %d: %d pieces in %s".formatted(structure.getIdAsString(), seed, start.getChildren().size(), describe(box)));
         return new Generated(box, start.getChildren().size());
+    }
+
+    // Takes away what the builder generated to try out, in this dimension: its blocks, whoever lives there, and the
+    // world's knowing it for a structure. The ground it was set in is not put back
+    public static int clearTests(ServerWorld world, UUID builder) {
+        List<Test> tests = TESTS.getOrDefault(builder, List.of());
+        int cleared = 0;
+        for(Test test : List.copyOf(tests)) {
+            if(!test.dimension().equals(world.getRegistryKey()))
+                continue;
+            tests.remove(test);
+            if(clear(world, test.structure(), test.chunk()))
+                cleared++;
+        }
+        return cleared;
+    }
+
+    // The same for the structure the builder stands in, whichever way it came to be there: one generated before the game
+    // was last started is not remembered as the builder's
+    public static boolean clearTestAt(ServerWorld world, BlockPos pos) {
+        for(StructureStart start : world.getStructureAccessor().getStructureStarts(new ChunkPos(pos), structure -> true)) {
+            if(start.hasChildren() && start.getBoundingBox().contains(pos))
+                return clear(world, start.getStructure(), start.getPos());
+        }
+        return false;
+    }
+
+    private static boolean clear(ServerWorld world, Structure structure, ChunkPos chunk) {
+        StructureStart start = world.getStructureAccessor().getStructureStart(ChunkSectionPos.from(chunk, 0), structure, world.getChunk(chunk.x, chunk.z));
+        if(start == null || !start.hasChildren())
+            return false;
+        BlockBox box = start.getBoundingBox();
+        Set<UUID> residents = new HashSet<>();
+        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+            for(BlockEntity blockEntity : world.getChunk(in.x, in.z).getBlockEntities().values()) {
+                if(blockEntity instanceof StructureManagerBlockEntity manager && box.contains(manager.getPos()))
+                    residents.addAll(manager.residents());
+            }
+        });
+        for(UUID resident : residents) {
+            Entity entity = world.getEntity(resident);
+            if(entity != null)
+                entity.discard();
+        }
+        // And what was left lying or standing in it: loot, animals of its markers, anybody its managers lost count of
+        for(Entity entity : world.getOtherEntities(null, Box.from(box), entity -> !(entity instanceof PlayerEntity)))
+            entity.discard();
+        for(StructurePiece piece : start.getChildren())
+            fill(world, piece.getBoundingBox(), Blocks.AIR.getDefaultState());
+        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+            Chunk within = world.getChunk(in.x, in.z);
+            within.getStructureReferences(structure).remove(chunk.toLong());
+            within.markNeedsSaving();
+        });
+        world.getStructureAccessor().setStructureStart(ChunkSectionPos.from(chunk, 0), structure, StructureStart.DEFAULT, world.getChunk(chunk.x, chunk.z));
+        RoutineSites.forget(world);
+        StructureEditing.log("took away the generated structure in %s, %d pieces and %d who lived there".formatted(describe(box), start.getChildren().size(), residents.size()));
+        return true;
     }
 
     // The structure as it is but started at a set height in the middle of a world taller than any, with room for all of it

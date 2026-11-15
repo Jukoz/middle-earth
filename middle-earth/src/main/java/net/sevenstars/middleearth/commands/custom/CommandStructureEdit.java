@@ -68,6 +68,7 @@ public class CommandStructureEdit {
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
     private static final String TEST = "test";
+    private static final String CLEAR = "clear";
     private static final String NEXT = "next";
     private static final String BACK = "back";
     // Looking down at the bed from where the builder is set beside it
@@ -122,6 +123,7 @@ public class CommandStructureEdit {
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
                 .then(CommandManager.literal(TEST)
+                        .then(CommandManager.literal(CLEAR).executes(CommandStructureEdit::clearTest))
                         .then(CommandManager.argument(STRUCTURE, IdentifierArgumentType.identifier())
                                 .suggests(STRUCTURES)
                                 .executes(context -> test(context, null))
@@ -248,14 +250,30 @@ public class CommandStructureEdit {
             return 0;
         }
         long seed = given != null ? given : world.getRandom().nextLong();
-        StructureEditSession.Generated generated = StructureEditSession.generate(world, structure, seed, player.getBlockPos());
+        StructureEditSession.Generated generated = StructureEditSession.generate(world, player.getUuid(), structure, seed, player.getBlockPos());
         if(generated == null) {
             source.sendError(Text.literal("The game put no pieces of %s together from the seed %d here".formatted(id, seed)));
             return 0;
         }
         BlockBox box = generated.box();
-        source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born as its managers wake".formatted(id, seed,
-                generated.pieces(), box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())), false);
+        source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born as its managers wake. /%s %s %s takes it away again".formatted(id, seed,
+                generated.pieces(), box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ(), COMMAND, TEST, CLEAR)), false);
+        return 1;
+    }
+
+    // Those the builder generated since the game was started, or else the one stood in
+    private static int clearTest(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        int cleared = StructureEditSession.clearTests(source.getWorld(), player.getUuid());
+        if(cleared == 0 && StructureEditSession.clearTestAt(source.getWorld(), player.getBlockPos()))
+            cleared = 1;
+        if(cleared == 0) {
+            source.sendError(Text.literal("Nothing to take away: stand inside the generated structure and try again"));
+            return 0;
+        }
+        int count = cleared;
+        source.sendFeedback(() -> Text.literal("Took away %d generated structure%s and whoever lived there".formatted(count, count == 1 ? "" : "s")), false);
         return 1;
     }
 
@@ -355,7 +373,12 @@ public class CommandStructureEdit {
     private static int close(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         boolean single = StructureEditSession.endSingle(source.getServer(), source.getPlayerOrThrow().getUuid());
+        int tests = StructureEditSession.clearTests(source.getWorld(), source.getPlayerOrThrow().getUuid());
         if(!StructureEditSession.close(source.getWorld(), source.getPlayerOrThrow().getUuid())) {
+            if(tests > 0) {
+                source.sendFeedback(() -> Text.literal("Took away %d generated structure%s and whoever lived there".formatted(tests, tests == 1 ? "" : "s")), false);
+                return 1;
+            }
             // A template loaded by itself stays where it is: only the world is set running again
             if(single) {
                 source.sendFeedback(() -> Text.literal("The world runs again. The template stays where it was loaded"), false);
