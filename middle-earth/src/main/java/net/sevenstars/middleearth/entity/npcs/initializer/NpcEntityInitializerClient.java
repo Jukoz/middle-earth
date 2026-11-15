@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 

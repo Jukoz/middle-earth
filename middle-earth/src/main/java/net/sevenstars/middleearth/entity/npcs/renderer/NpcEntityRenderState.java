@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {

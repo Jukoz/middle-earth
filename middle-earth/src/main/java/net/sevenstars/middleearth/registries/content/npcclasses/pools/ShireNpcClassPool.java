@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.registries.content.npcclasses.pools;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -17,7 +16,6 @@ import net.sevenstars.middleearth.registries.content.texturepresets.TexturePrese
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.GearSlotPool;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.MountData;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.WeightedItemData;
 

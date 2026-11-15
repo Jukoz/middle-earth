@@ -7,7 +7,6 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.Optional;
