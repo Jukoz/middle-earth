@@ -106,11 +106,6 @@ public class NpcJobs {
         return LORD.getValue().equals(job) || NIGHT_LORD.getValue().equals(job);
     }
 
-    // Those who live in a place go through its steel doors. Prisoners, and npcs only passing through, do not
-    public static boolean holdsKeys(NpcEntity npc) {
-        return npc.getStructureManagerHostPos() != null && !PRISONER.getValue().equals(npc.getJobId());
-    }
-
     public static boolean isGuardNest(String nestKind) {
         return GUARD_NESTS.contains(nestKind);
     }

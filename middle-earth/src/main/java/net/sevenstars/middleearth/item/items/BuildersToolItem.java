@@ -18,6 +18,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.minecraft.state.property.Properties;
+import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -76,7 +78,9 @@ public class BuildersToolItem extends Item {
                 player.sendMessage(Text.translatable("ui.%s.structure_marker.no_room".formatted(MiddleEarth.MOD_ID)), true);
                 return;
             }
-            data = StructureMarkerScreenData.create(pos, true, MarkerKind.GUARD_POST, "", 1, false, player.getHorizontalFacing());
+            // On something that opens, the marker to put before it is most likely the one that keeps npcs out
+            boolean opens = state.getBlock() instanceof NpcDoor || state.contains(Properties.OPEN);
+            data = StructureMarkerScreenData.create(pos, true, opens ? MarkerKind.NO_ENTRY : MarkerKind.GUARD_POST, "", 1, false, hit.getSide().getAxis().isHorizontal() ? hit.getSide().getOpposite() : player.getHorizontalFacing());
         }
         player.openHandledScreen(new ExtendedScreenHandlerFactory<StructureMarkerScreenData>() {
             @Override

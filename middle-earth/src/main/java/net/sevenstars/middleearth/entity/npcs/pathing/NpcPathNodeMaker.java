@@ -80,7 +80,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     @Override
     public PathNodeType getDefaultNodeType(PathContext context, int x, int y, int z) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        if(state.getBlock() instanceof NpcDoor door && NpcDoor.opensFor(state, entity)) {
+        if(state.getBlock() instanceof NpcDoor door && NpcDoor.opensFor(entity.getWorld(), probe, state, entity)) {
             if(door.isOpen(state))
                 return PathNodeType.DOOR_OPEN;
             return door.canMove(context.getWorld(), probe, state) ? PathNodeType.DOOR_WOOD_CLOSED : PathNodeType.BLOCKED;
@@ -107,7 +107,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         if(isOverhead(context, state, x, y, z))
             return PathNodeType.OPEN;
         // A door they are to leave alone is a wall while it is shut, whichever kind of door the game takes it for
-        if(isLockedShut(state))
+        if(isLockedShut(state, probe.set(x, y, z)))
             return PathNodeType.BLOCKED;
         // The game takes a shut gate for a fence for good. One across a way on the level is opened on the way, as a door is
         if(state.getBlock() instanceof FenceGateBlock && !state.get(FenceGateBlock.OPEN) && isGateAcrossLevelWay(context, x, y, z, state))
@@ -242,11 +242,11 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     // What a way out leads through: free space, a door that can be opened, a carpet on the floor
     private boolean isWalkedThrough(int x, int y, int z) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        if(isLockedShut(state))
+        if(isLockedShut(state, probe))
             return false;
         if(isHatch(state) || isOpenBoard(state) || state.isIn(BlockTags.CLIMBABLE) || state.isIn(BlockTags.WOODEN_DOORS))
             return true;
-        if(state.getBlock() instanceof NpcDoor door && door.opensForNpcs(state))
+        if(state.getBlock() instanceof NpcDoor)
             return true;
         VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
         return shape.isEmpty() || shape.getMax(Direction.Axis.Y) <= LOW_STEP;
@@ -551,8 +551,11 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return state.getCollisionShape(context.getWorld(), probe).isEmpty();
     }
 
-    private boolean isLockedShut(BlockState state) {
-        if(NpcDoor.opensFor(state, entity))
+    // Only what opens is asked about, or every block of every path would be looked up among the marked doors
+    private boolean isLockedShut(BlockState state, BlockPos pos) {
+        if(!(state.getBlock() instanceof NpcDoor) && !state.contains(Properties.OPEN))
+            return false;
+        if(NpcDoor.opensFor(entity.getWorld(), pos, state, entity))
             return false;
         if(state.getBlock() instanceof NpcDoor door)
             return !door.isOpen(state);

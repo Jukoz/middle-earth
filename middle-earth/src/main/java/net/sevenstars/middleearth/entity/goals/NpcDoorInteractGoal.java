@@ -101,7 +101,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
     @Override
     protected void setDoorOpen(boolean open) {
         BlockState blockState = this.mob.getWorld().getBlockState(this.doorPos);
-        if(!NpcDoor.opensFor(blockState, mob))
+        if(!NpcDoor.opensFor(this.mob.getWorld(), this.doorPos, blockState, mob))
             return;
         super.setDoorOpen(open);
     }

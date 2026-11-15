@@ -1,10 +1,13 @@
 package net.sevenstars.middleearth.entity.npcs.routine;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.sevenstars.middleearth.block.special.NpcDoor;
+import net.minecraft.block.BlockState;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -23,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
@@ -66,6 +70,30 @@ public class RoutineSites {
     private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
 
     private static class WorldSites {
+        // The blocks no_entry markers face, with the block over each for the upper half of a door
+        private final LongOpenHashSet noEntry = new LongOpenHashSet();
+
+        // Listed over now and then: a gate of many blocks is known by its one block that stays in place, which is only
+        // found once the gate is loaded
+        private void listNoEntry(ServerWorld world) {
+            noEntry.clear();
+            for(RoutineSite site : sites.values())
+                listNoEntry(world, site);
+        }
+
+        private void listNoEntry(ServerWorld world, RoutineSite site) {
+            for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.NO_ENTRY)) {
+                BlockPos faced = marker.pos().offset(marker.facing());
+                noEntry.add(faced.asLong());
+                noEntry.add(faced.up().asLong());
+                if(!world.isChunkLoaded(faced.getX() >> 4, faced.getZ() >> 4))
+                    continue;
+                BlockState state = world.getBlockState(faced);
+                if(state.getBlock() instanceof NpcDoor door)
+                    noEntry.add(door.getAnchor(faced, state).asLong());
+            }
+        }
+
         final Long2ObjectOpenHashMap<RoutineSite> sites = new Long2ObjectOpenHashMap<>();
         final ArrayDeque<RoutineSite> scanning = new ArrayDeque<>();
         long budgetTick = -1;
@@ -114,6 +142,15 @@ public class RoutineSites {
         }
         if(time % CLEANUP_INTERVAL == 0)
             sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().lastUsed > UNUSED_LIFETIME);
+        if(time % RETRY_INTERVAL == 0)
+            sites.listNoEntry(world);
+    }
+
+    // A door, gate or hatch a builder marked for npcs to leave shut. Known once the place it is in has been looked at, which
+    // its managers see to as soon as they are loaded
+    public static boolean isNoEntry(World world, BlockPos pos) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        return sites != null && !sites.noEntry.isEmpty() && sites.noEntry.contains(pos.asLong());
     }
 
     public static boolean takeStart(ServerWorld world) {
@@ -326,6 +363,7 @@ public class RoutineSites {
         site.setDoors(doors);
         site.setMarkers(markers);
         site.setManagers(managers);
+        of(world).listNoEntry(world, site);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {

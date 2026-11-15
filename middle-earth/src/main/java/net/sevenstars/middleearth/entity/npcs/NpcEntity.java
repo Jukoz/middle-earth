@@ -53,6 +53,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
@@ -1371,7 +1372,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 if(!pos.isWithinDistance(getPos(), HATCH_OPEN_DISTANCE))
                     continue;
                 BlockState state = world.getBlockState(pos);
-                if(NpcPathNodeMaker.isHatch(state) && !state.get(Properties.OPEN)) {
+                if(NpcPathNodeMaker.isHatch(state) && !state.get(Properties.OPEN) && NpcDoor.opensFor(world, pos, state, this)) {
                     world.setBlockState(pos, state.with(Properties.OPEN, true));
                     openedHatch = pos;
                 }

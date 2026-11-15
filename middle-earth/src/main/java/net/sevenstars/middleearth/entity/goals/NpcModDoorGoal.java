@@ -53,7 +53,7 @@ public class NpcModDoorGoal extends Goal {
             PathNode node = path.getNode(i);
             for(int up = 0; up < DOOR_HEIGHT; up++) {
                 BlockState state = world.getBlockState(probe.set(node.x, node.y + up, node.z));
-                if(!(state.getBlock() instanceof NpcDoor door) || door.isOpen(state) || !NpcDoor.opensFor(state, npc))
+                if(!(state.getBlock() instanceof NpcDoor door) || door.isOpen(state) || !NpcDoor.opensFor(world, probe, state, npc))
                     continue;
                 if(npc.squaredDistanceTo(node.x + 0.5, npc.getY(), node.z + 0.5) > REACH * REACH)
                     return false;

@@ -13,7 +13,9 @@ public enum MarkerKind implements StringIdentifiable {
     MINE_FACE("mine_face"),
     SPAWN_NPC("spawn_npc"),
     SPAWN_ANIMAL("spawn_animal"),
-    CELL_CORNER("cell_corner");
+    CELL_CORNER("cell_corner"),
+    // The door, gate or hatch it faces is one npcs leave shut
+    NO_ENTRY("no_entry");
 
     public static final Codec<MarkerKind> CODEC = StringIdentifiable.createCodec(MarkerKind::values);
     private final String name;
