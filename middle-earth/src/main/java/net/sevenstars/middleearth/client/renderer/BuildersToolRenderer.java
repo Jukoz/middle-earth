@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.BedPart;
@@ -36,6 +37,9 @@ import net.sevenstars.middleearth.resources.datas.structure_features.StructureFe
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import net.minecraft.util.math.Direction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -70,6 +74,7 @@ public class BuildersToolRenderer {
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
     private static final int BOUNDS = 0xFFFFEB3B;
+    private static final int MAXIMUM_PLOT = 4096;
     private static final int PLUG = 0xFF00E676;
     private static final int FAILURE_LOG_MILLIS = 10000;
     private static final int FAILURE_LOG_FRAMES = 6;
@@ -94,6 +99,8 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> tables = new ArrayList<>();
     private static final List<BlockPos> plainBeds = new ArrayList<>();
     private static final List<StructureFeatureData.Manager> managers = new ArrayList<>();
+    private static final Set<BlockPos> fields = new HashSet<>();
+    private static final Map<BlockPos, List<Box>> PLOTS = new HashMap<>();
     private static ClientWorld scannedWorld;
     private static long failureLoggedAt = 0;
     private static long scannedAt;
@@ -154,6 +161,8 @@ public class BuildersToolRenderer {
         beds.clear();
         plainBeds.clear();
         stations.clear();
+        fields.clear();
+        PLOTS.clear();
         markers.clear();
         stores.clear();
         seats.clear();
@@ -191,6 +200,8 @@ public class BuildersToolRenderer {
             StationKind kind = STATIONS.computeIfAbsent(block, found -> Optional.ofNullable(BuildFeatures.stationOf(found))).orElse(null);
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos.toImmutable()));
+            if(kind == StationKind.FIELD)
+                fields.add(pos.toImmutable());
         }
     }
 
@@ -266,9 +277,10 @@ public class BuildersToolRenderer {
         for(Bed bed : beds) {
             List<BlockPos> links = linksOf(bed);
             drawManager(matrices, lines, bed);
+            drawStore(matrices, lines, bed);
             DebugDraw.box(matrices, lines, bed.pos(), links.isEmpty() && needsStation(bed) ? BED_LOST : BED_TAGGED);
             for(BlockPos link : links) {
-                DebugDraw.box(matrices, lines, link, BED_TAGGED);
+                drawLinked(matrices, lines, link, BED_TAGGED);
                 drawLink(matrices, lines, bed, link, BED_TAGGED);
             }
         }
@@ -291,11 +303,82 @@ public class BuildersToolRenderer {
         if(bed == null)
             return;
         drawManager(matrices, lines, bed);
+        drawStore(matrices, lines, bed);
         int color = bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC;
         for(BlockPos link : linksOf(bed)) {
-            DebugDraw.box(matrices, lines, link, color);
+            drawLinked(matrices, lines, link, color);
             drawLink(matrices, lines, bed, link, color);
         }
+    }
+
+    // What a bed works at. A field is all the farmland that lies together with the plot it was linked by, which is what
+    // its farmer goes over
+    private static void drawLinked(MatrixStack matrices, VertexConsumer lines, BlockPos link, int color) {
+        if(!fields.contains(link)) {
+            DebugDraw.box(matrices, lines, link, color);
+            return;
+        }
+        for(Box row : PLOTS.computeIfAbsent(link, BuildersToolRenderer::plotOf))
+            DebugDraw.box(matrices, lines, row, color);
+    }
+
+    // The farmland joined to a plot, also a step up or down as on a slope, as one box for each of its rows
+    private static List<Box> plotOf(BlockPos from) {
+        Set<BlockPos> plot = new HashSet<>();
+        List<BlockPos> open = new ArrayList<>();
+        plot.add(from);
+        open.add(from);
+        while(!open.isEmpty() && plot.size() < MAXIMUM_PLOT) {
+            BlockPos cell = open.removeLast();
+            for(Direction side : Direction.Type.HORIZONTAL) {
+                for(int rise = -1; rise <= 1; rise++) {
+                    BlockPos next = cell.offset(side).up(rise);
+                    if(fields.contains(next) && plot.add(next))
+                        open.add(next);
+                }
+            }
+        }
+        List<BlockPos> cells = new ArrayList<>(plot);
+        cells.sort(Comparator.comparingInt((BlockPos cell) -> cell.getY()).thenComparingInt(BlockPos::getZ).thenComparingInt(BlockPos::getX));
+        List<Box> rows = new ArrayList<>();
+        BlockPos first = null;
+        BlockPos last = null;
+        for(BlockPos cell : cells) {
+            if(last != null && cell.getY() == last.getY() && cell.getZ() == last.getZ() && cell.getX() == last.getX() + 1) {
+                last = cell;
+                continue;
+            }
+            if(first != null)
+                rows.add(Box.enclosing(first, last));
+            first = cell;
+            last = cell;
+        }
+        if(first != null)
+            rows.add(Box.enclosing(first, last));
+        return rows;
+    }
+
+    // Where the bed's things are put away: the store its builder picked, drawn whole, or else the nearest in sight, drawn
+    // dashed. A fire is only kept by where there is no chest or barrel, as the builds are read
+    private static void drawStore(MatrixStack matrices, VertexConsumer lines, Bed bed) {
+        if(scannedWorld == null)
+            return;
+        Set<BlockPos> offLimits = offLimits();
+        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(pos -> stores.contains(pos) && !offLimits.contains(pos)).orElse(null);
+        if(picked != null) {
+            DebugDraw.line(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
+            return;
+        }
+        boolean anyBox = stores.stream().anyMatch(pos -> !offLimits.contains(pos) && !(scannedWorld.getBlockState(pos).getBlock() instanceof CampfireBlock));
+        BlockPos nearest = null;
+        for(BlockPos store : stores) {
+            if(offLimits.contains(store) || anyBox && scannedWorld.getBlockState(store).getBlock() instanceof CampfireBlock)
+                continue;
+            if(nearest == null || store.getSquaredDistance(bed.pos()) < nearest.getSquaredDistance(bed.pos()))
+                nearest = store;
+        }
+        if(nearest != null)
+            DebugDraw.dashedLine(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(nearest), STORE);
     }
 
     // The manager the bed is born by, as the game will pick it: the one it was tied to by hand, drawn whole, or else the

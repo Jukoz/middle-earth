@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.network.packets.client2server;
 
+import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
+import net.minecraft.block.Block;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.BedPart;
@@ -87,6 +89,16 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                 holder.setBedTag(tag.withManager(untied ? Optional.empty() : Optional.of(offset)));
                 player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, untied ? "manager_untied" : "manager_tied")), true);
                 StructureEditing.log("bed %s %s the manager at %s".formatted(bed.toShortString(), untied ? "untied from" : "tied to", target.toShortString()));
+                return;
+            }
+            // A chest or a barrel that is clicked is where the bed's things are put away, until it is clicked again and
+            // the nearest one is. A fire is a place of work first, and is linked as one
+            Block clicked = player.getWorld().getBlockState(target).getBlock();
+            if(BuildFeatures.STORE.test(clicked) && BuildFeatures.stationOf(clicked) == null) {
+                boolean untied = tag.store().filter(offset::equals).isPresent();
+                holder.setBedTag(tag.withStore(untied ? Optional.empty() : Optional.of(offset)));
+                player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, untied ? "store_untied" : "store_tied"), clicked.getName()), true);
+                StructureEditing.log("bed %s %s the store at %s (%s)".formatted(bed.toShortString(), untied ? "untied from" : "tied to", target.toShortString(), clicked.getName().getString()));
                 return;
             }
             List<BlockPos> links = new ArrayList<>();

@@ -97,7 +97,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                 }
                 tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId), placeId);
                 if(before != null && !resetLinks)
-                    tag = tag.withLinks(before.links(), before.manual()).withManager(before.manager());
+                    tag = tag.withLinks(before.links(), before.manual()).withManager(before.manager()).withStore(before.store());
             }
             holder.setBedTag(tag);
             StructureEditing.log("bed at %s tagged %s".formatted(pos.toShortString(), tag == null ? "nobody" : "`%s` of `%s` job `%s` class `%s` links %d%s".formatted(

@@ -759,6 +759,8 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "bed_link.unlinked"), "Unlinked %s");
             put(of(LangCategory.UI, "bed_link.untagged"), "Tag the bed first");
             put(of(LangCategory.UI, "bed_link.manager_tied"), "Born by this manager");
+            put(of(LangCategory.UI, "bed_link.store_tied"), "Keeps its things in this %s");
+            put(of(LangCategory.UI, "bed_link.store_untied"), "Keeps its things in the nearest store again");
             put(of(LangCategory.UI, "bed_link.manager_untied"), "Born by the nearest manager again");
             put(of(LangCategory.UI, "structure_manager.label_runtime_id"), "Runtime : %s");
             put(of(LangCategory.UI, "structure_manager.label_enable_status"), "Enabled : %s");

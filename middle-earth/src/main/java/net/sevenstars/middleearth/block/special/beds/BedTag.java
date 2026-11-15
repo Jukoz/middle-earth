@@ -27,9 +27,11 @@ import java.util.TreeSet;
 // stays valid when it is turned. They are used as they are only when manual, otherwise the nearest target is the link.
 // The manager is the one the bed was tied to by hand, an offset as the links are. Without one the bed is born by the nearest
 // manager of its structure. The place is whose people of that kind they are: the bandits of a brigand dungeon, the
-// soldiers of a Rohan village. A bed tagged before places were kept on beds has none, and takes the one its manager was given
+// soldiers of a Rohan village. A bed tagged before places were kept on beds has none, and takes the one its manager was given.
+// The store is the chest or barrel its things are put away in, an offset too, where the builder picked one. Without one
+// it is the nearest
 public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
-                     Optional<Identifier> place) {
+                     Optional<Identifier> place, Optional<BlockPos> store) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("type").forGetter(BedTag::nestKind),
             Identifier.CODEC.optionalFieldOf("role").forGetter(BedTag::job),
@@ -37,7 +39,8 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(BedTag::links),
             Codec.BOOL.optionalFieldOf("manual", false).forGetter(BedTag::manual),
             BlockPos.CODEC.optionalFieldOf("manager").forGetter(BedTag::manager),
-            Identifier.CODEC.optionalFieldOf("place").forGetter(BedTag::place)
+            Identifier.CODEC.optionalFieldOf("place").forGetter(BedTag::place),
+            BlockPos.CODEC.optionalFieldOf("store").forGetter(BedTag::store)
     ).apply(instance, BedTag::new));
 
     private static List<String> nestKinds = null;
@@ -73,15 +76,19 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
     }
 
     public BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, Optional<Identifier> place) {
-        this(nestKind, job, npcClass, List.of(), false, Optional.empty(), place);
+        this(nestKind, job, npcClass, List.of(), false, Optional.empty(), place, Optional.empty());
     }
 
     public BedTag withLinks(List<BlockPos> links, boolean manual) {
-        return new BedTag(nestKind, job, npcClass, List.copyOf(links), manual, manager, place);
+        return new BedTag(nestKind, job, npcClass, List.copyOf(links), manual, manager, place, store);
     }
 
     public BedTag withManager(Optional<BlockPos> manager) {
-        return new BedTag(nestKind, job, npcClass, links, manual, manager, place);
+        return new BedTag(nestKind, job, npcClass, links, manual, manager, place, store);
+    }
+
+    public BedTag withStore(Optional<BlockPos> store) {
+        return new BedTag(nestKind, job, npcClass, links, manual, manager, place, store);
     }
 
     public BedTag withoutLinks() {

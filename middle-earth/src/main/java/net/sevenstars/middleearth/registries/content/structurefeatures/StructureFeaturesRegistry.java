@@ -211,6 +211,10 @@ public class StructureFeaturesRegistry {
                     store = candidate;
             }
             Optional<BedTag> tag = bedTags.get(i);
+            // The one its builder picked, while it still stands there
+            BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
+            if(picked != null && stores.contains(picked))
+                store = picked;
             List<BlockPos> links = tag.map(found -> found.links().stream().map(bed::add).toList()).orElse(List.of());
             bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false),
                     tag.flatMap(BedTag::manager).map(bed::add)));
