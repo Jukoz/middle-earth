@@ -3,7 +3,11 @@ package net.sevenstars.middleearth.mixin.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.MiddleEarth;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.Perspective;
+import net.sevenstars.middleearth.client.TrollRiderCamera;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.util.Identifier;
@@ -11,6 +15,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
@@ -36,7 +41,10 @@ public abstract class InGameHudMixin {
 
         }
     }*/
+
+    // Shown in third person on a troll; TrollRiderCamera makes what it covers the real target
+    @WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
+    private boolean showCrosshairOnTroll(Perspective perspective, Operation<Boolean> original) {
+        return original.call(perspective) || TrollRiderCamera.isActive(MinecraftClient.getInstance());
+    }
 }
-
-
-

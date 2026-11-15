@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.trolls.snow;
 
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -8,6 +9,8 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetPlayerGoal;
@@ -43,6 +46,12 @@ public class SnowTrollEntity extends TrollEntity {
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, NpcEntity.class, true));
         this.targetSelector.add(5, new ActiveTargetGoal<>(this, AnimalEntity.class, true));
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        super.playStepSound(pos, state);
+        this.playSound(SoundEvents.BLOCK_SNOW_STEP, 1.0f, 0.7f);
     }
 
     @Override
