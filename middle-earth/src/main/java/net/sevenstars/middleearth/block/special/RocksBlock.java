@@ -40,7 +40,7 @@ public class RocksBlock extends HorizontalFacingBlock implements Waterloggable {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             if (player.getMainHandStack().isOf(this.asItem()) && state.get(STAGE) < 3){
                 world.setBlockState(pos, state.cycle(STAGE));
                 if(!player.isInCreativeMode()){

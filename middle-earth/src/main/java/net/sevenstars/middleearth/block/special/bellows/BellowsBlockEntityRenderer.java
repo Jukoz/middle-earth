@@ -2,6 +2,13 @@ package net.sevenstars.middleearth.block.special.bellows;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.ModelCommandRenderer;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -9,9 +16,6 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -23,17 +27,14 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity>  {
-    private final float BELLOW_MAX_ANGLE = 0.72f;
-    private final ModelPart bottom;
-    private final ModelPart top;
-    private final ModelPart cavity;
+public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity, BellowsBlockEntityRenderState>  {
+    private static final Identifier TEXTURE = MiddleEarth.id ("textures/entity/bellows.png");
+    private final BellowsModel model;
+    private final SpriteHolder sprites;
 
     public BellowsBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-        ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayersME.BELLOWS);
-        this.bottom = modelPart.getChild("bottom");
-        this.top = modelPart.getChild("top");
-        this.cavity = modelPart.getChild("cavity");
+        this.model = new BellowsModel(ctx.getLayerModelPart(EntityModelLayersME.BELLOWS));
+        this.sprites = ctx.spriteHolder();
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -63,41 +64,38 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     }
 
     @Override
-    public void render(BellowsBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        World world = entity.getWorld();
-        BlockState blockState = world != null
-                ? entity.getCachedState()
-                : DecorativeBlockRegistryME.BELLOWS.getDefaultState().with(BellowsBlock.FACING, Direction.SOUTH);
+    public void render(BellowsBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        float rotation = state.blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
 
-        float animationProgress = getAnimationProgress(entity);
+        SpriteIdentifier spriteId = getSpriteIdentifier(state.animationProgress);
+        Sprite sprite = this.sprites.getSprite(spriteId);
+        RenderLayer layer = spriteId.getRenderLayer(RenderLayers::entityCutout);
 
-        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
+        matrices.push();
         matrices.translate(0.5D, 1.5D, 0.5D);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));
 
-        VertexConsumer vertexConsumer = getSpriteIdentifier(animationProgress).getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
-
-        this.top.pitch = 0.37f + (animationProgress * -BELLOW_MAX_ANGLE);
-        this.top.render(matrices, vertexConsumer, light, overlay);
-        this.bottom.render(matrices, vertexConsumer, light, overlay);
-        this.cavity.render(matrices, vertexConsumer, light, overlay);
-    }
-
-
-    private float getAnimationProgress(BellowsBlockEntity bellowsBlockEntity){
-        float animationProgress = 0;
-        if (bellowsBlockEntity.pumping){
-            animationProgress = bellowsBlockEntity.animationProgress;
-            if(animationProgress > (float) BellowsBlockEntity.MAX_TICKS / 2) animationProgress = BellowsBlockEntity.MAX_TICKS - animationProgress;
-            animationProgress /= BellowsBlockEntity.MAX_TICKS;
-        }
-        return animationProgress;
+        queue.submitModel(this.model, state, matrices, layer, state.lightmapCoordinates,
+                OverlayTexture.DEFAULT_UV, -1, sprite, 0, state.crumblingOverlay);
+        matrices.pop();
     }
 
     private SpriteIdentifier getSpriteIdentifier(float animationProgress){
         int spriteState = (int) Math.max(0, Math.min(2, animationProgress * 7.5f));
         return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
                 Identifier.of(MiddleEarth.MOD_ID, "model/bellows/bellows_" + spriteState));
+    }
+
+    @Override
+    public BellowsBlockEntityRenderState createRenderState() {
+        return new BellowsBlockEntityRenderState();
+    }
+
+    @Override
+    public void updateRenderState(BellowsBlockEntity blockEntity, BellowsBlockEntityRenderState state, float tickProgress, Vec3d cameraPos, ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
+        state.pumping = blockEntity.pumping;
+        state.animationProgress = blockEntity.animationProgress;
+        BlockEntityRenderer.super.updateRenderState(blockEntity, state, tickProgress, cameraPos, crumblingOverlay);
     }
 }

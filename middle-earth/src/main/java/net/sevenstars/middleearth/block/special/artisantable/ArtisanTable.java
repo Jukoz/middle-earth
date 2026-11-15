@@ -51,7 +51,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(!world.isClient) {
+        if(!world.isClient()) {
             player.openHandledScreen(new ExtendedScreenHandlerFactory<>() {
                 @Override
                 public Object getScreenOpeningData(ServerPlayerEntity player) {
@@ -97,7 +97,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
         ArtisanTablePart tablePart = (ArtisanTablePart)state.get(PART);
         ArtisanTablePart tablePartOpposite = (ArtisanTablePart)state.get(PART).getOpposite(state.get(PART));
 
-        if (!world.isClient && (player.isCreative() || !player.canHarvest(state))) {
+        if (!world.isClient() && (player.isCreative() || !player.canHarvest(state))) {
             if (tablePart == ArtisanTablePart.RIGHT) {
                 BlockPos blockPos = pos.offset(state.get(FACING).rotateYCounterclockwise());
                 BlockState blockState = world.getBlockState(blockPos);
@@ -125,7 +125,7 @@ public class ArtisanTable extends HorizontalFacingBlock {
 
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockPos blockPos = pos.offset((Direction)state.get(FACING).rotateYClockwise());
             world.setBlockState(blockPos, (BlockState)state.with(PART, ArtisanTablePart.RIGHT), 3);
             world.updateNeighbors(pos, Blocks.AIR);

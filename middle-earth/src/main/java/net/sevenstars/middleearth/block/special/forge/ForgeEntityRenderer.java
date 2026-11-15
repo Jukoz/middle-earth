@@ -5,6 +5,9 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemDisplayContext;
@@ -15,7 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
-public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity> {
+public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity, BlockEntityRenderState> {
 
     private final BlockEntityRendererFactory.Context context;
 
@@ -23,6 +26,8 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
         this.context = context;
     }
 
+    /// TODO fixme
+    /*
     @Override
     public void render(ForgeBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
         ItemStack stack = entity.getRenderStack(entity);
@@ -50,11 +55,21 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
                 matrices, vertexConsumers, entity.getWorld(), 1);
 
         matrices.pop();
-    }
+    }*/
 
     private int getLightLevel(World world, BlockPos pos, Direction direction) {
         int bLight = world.getLightLevel(LightType.BLOCK, pos.offset(direction).up());
         int sLight = world.getLightLevel(LightType.SKY, pos.offset(direction).up());
         return LightmapTextureManager.pack(bLight, sLight);
+    }
+
+    @Override
+    public BlockEntityRenderState createRenderState() {
+        return null;
+    }
+
+    @Override
+    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+
     }
 }

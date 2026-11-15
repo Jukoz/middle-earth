@@ -25,7 +25,7 @@ public class StateSaverAndLoader extends PersistentState {
 
     private HashMap<UUID, PlayerData> players;
 
-    public StateSaverAndLoader(Context context) {
+    public StateSaverAndLoader() {
         this.players = new HashMap<>();
     }
 
@@ -33,9 +33,6 @@ public class StateSaverAndLoader extends PersistentState {
             NbtCompound.CODEC.fieldOf("player_datas").forGetter(StateSaverAndLoader::getPlayerDataNbt)
     ).apply(instance, StateSaverAndLoader::new));
 
-    public StateSaverAndLoader() {
-        this.players = new HashMap<>();
-    }
     public StateSaverAndLoader(NbtCompound nbt){
         this.players = new HashMap<>();
         var listOpt = nbt.getList("list");
@@ -77,7 +74,7 @@ public class StateSaverAndLoader extends PersistentState {
     }
     public static PlayerData getPlayerState(PlayerEntity player) {
         if(player == null) return null;
-        StateSaverAndLoader serverState = getServerState((MinecraftServer) player.getServer());
+        StateSaverAndLoader serverState = getServerState((MinecraftServer) player.getEntityWorld().getServer());
         UUID playerUUID = player.getUuid();
         serverState.players.computeIfAbsent(playerUUID, k -> new PlayerData());
         return serverState.players.get(playerUUID);

@@ -51,7 +51,7 @@ public class CrockpotBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+        BlockEntity blockEntity = player.getEntityWorld().getBlockEntity(pos);
 
         if(blockEntity instanceof CrockpotBlockEntity crockpotBlockEntity) {
             boolean filled = crockpotBlockEntity.fill(stack);
@@ -75,7 +75,7 @@ public class CrockpotBlock extends BlockWithEntity {
                         stack.decrement(1);
                         world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0F, 0.9F);
 
-                        if(world.isClient) {
+                        if(world.isClient()) {
                             if (stack.isEmpty()) {
                                 player.setStackInHand(hand, stackResult);
                             } else if (!player.getInventory().insertStack(stackResult)) {
@@ -129,7 +129,7 @@ public class CrockpotBlock extends BlockWithEntity {
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<CrockpotBlockEntity> expectedType) {
-        return world.isClient
+        return world.isClient()
                 ? BellowsBlock.validateTicker(givenType, expectedType, CrockpotBlockEntity::clientTick)
                 : BellowsBlock.validateTicker(givenType, expectedType, CrockpotBlockEntity::serverTick);
     }

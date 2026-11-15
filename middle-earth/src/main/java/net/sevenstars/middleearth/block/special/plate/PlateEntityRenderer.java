@@ -4,13 +4,18 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
@@ -23,17 +28,16 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
 
 @Environment(value= EnvType.CLIENT)
-public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity> {
-
-    private final ItemRenderer itemRenderer;
+public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity, BlockEntityRenderState> {
+    private final ItemModelManager itemModelManager;
 
     public PlateEntityRenderer(BlockEntityRendererFactory.Context context) {
-        this.itemRenderer = context.getItemRenderer();
+        this.itemModelManager = context.itemModelManager();
     }
 
     @Override
-    public void render(PlateBlockEntity entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        ItemStack stack = entity.getStack();
+    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        ItemStack stack = ItemStack.EMPTY; ///TODO FIX ME entity.getStack();
 
         if(stack.isEmpty()) return;
 
@@ -45,9 +49,9 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         boolean is3D = oldId != modelId;
 
         matrices.push();
-        Direction direction = entity.getCachedState().get(ForgeBlock.FACING);
+        Direction direction = state.blockState.get(PlateBlock.FACING);
 
-        long seed = MathHelper.hashCode(entity.getPos().getX(), 0, entity.getPos().getZ());
+        long seed = MathHelper.hashCode(state.pos.getX(), 0, state.pos.getZ());
         double xOffset = ((seed & 15L) / 15.0 - 0.5) * 0.15;
         double zOffset = (((seed >> 4 & 15L) / 15.0) - 0.5) * 0.15;
         double rotOffset = (((seed >> 5 & 15L) / 15.0) - 0.5) * 35;
@@ -75,10 +79,12 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
             matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(rotOffset)));
         }
 
-        int currentLight = getLightLevel(entity.getWorld(), entity.getPos(), direction);
-
-        this.itemRenderer.renderItem(copyStack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
-                matrices, vertexConsumers, entity.getWorld(), 1);
+        //this.itemRenderer.renderItem(copyStack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
+        //        matrices, vertexConsumers, entity.getWorld(), 1);
+        //ItemRenderState itemRenderState = state.itemRenderState;
+        //if (itemRenderState != null) {
+        //    this.renderItem(shelfBlockEntityRenderState, itemRenderState, matrixStack, orderedRenderCommandQueue, i, f);
+        //}
 
         matrices.pop();
     }
@@ -87,5 +93,10 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         int bLight = world.getLightLevel(LightType.BLOCK, pos.offset(direction).up());
         int sLight = world.getLightLevel(LightType.SKY, pos.offset(direction).up());
         return LightmapTextureManager.pack(bLight, sLight);
+    }
+
+    @Override
+    public BlockEntityRenderState createRenderState() {
+        return new BlockEntityRenderState();
     }
 }

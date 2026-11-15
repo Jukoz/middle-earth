@@ -114,7 +114,7 @@ public class MountData {
         if(notLiving == null)
             return;
         if(notLiving instanceof LivingEntity entity){
-            entity.setPosition(owner.getPos());
+            entity.setPosition(owner.getEntityPos());
             entity.equipStack(EquipmentSlot.SADDLE, Items.SADDLE.asItem().getDefaultStack());
             if(armor != null)
                 entity.equipStack(EquipmentSlot.BODY, this.armor);
@@ -136,7 +136,7 @@ public class MountData {
 
             }
 
-            owner.startRiding(entity, true);
+            owner.startRiding(entity, true, true);
             world.spawnEntity(entity);
 
             if(entity instanceof NpcEntity npc && npcType != null){
@@ -148,7 +148,7 @@ public class MountData {
             passengerSlots.forEach(slot -> {
                LivingEntity passengerEntity = slot.createRandom(world, owner);
                if(passengerEntity != null)
-                   passengerEntity.startRiding(entity, true);
+                   passengerEntity.startRiding(entity, true, true);
             });
 
         }

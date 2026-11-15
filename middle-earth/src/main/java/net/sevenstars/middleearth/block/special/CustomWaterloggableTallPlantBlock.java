@@ -53,7 +53,7 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
 
     @Override
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, WireOrientation orientation, boolean notify) {
-        if (!world.isClient && state.get(HALF) == DoubleBlockHalf.UPPER && (
+        if (!world.isClient() && state.get(HALF) == DoubleBlockHalf.UPPER && (
                 world.getBlockState(pos.up()).getFluidState().isOf(Fluids.WATER)
                         || world.getBlockState(pos.north()).getFluidState().isOf(Fluids.WATER)
                         || world.getBlockState(pos.south()).getFluidState().isOf(Fluids.WATER)
@@ -152,7 +152,7 @@ public class CustomWaterloggableTallPlantBlock extends TallPlantBlock implements
             return;
         }
 
-        if (world instanceof World actualWorld && !actualWorld.isClient) {
+        if (world instanceof World actualWorld && !actualWorld.isClient()) {
             dropStacks(upperState, actualWorld, upperPos);
         }
 

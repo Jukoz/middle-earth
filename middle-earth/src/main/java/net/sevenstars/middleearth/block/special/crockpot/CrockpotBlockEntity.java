@@ -94,7 +94,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
             }
         }
         boolean markDirty = false;
-        if (blockEntity.isBoiling() && !world.isClient) {
+        if (blockEntity.isBoiling() && !world.isClient()) {
             blockEntity.randomBubbles();
             ServerWorld serverWorld = (ServerWorld) world;
             MultipleStackRecipeInput recipeInput = new MultipleStackRecipeInput(ingredients);

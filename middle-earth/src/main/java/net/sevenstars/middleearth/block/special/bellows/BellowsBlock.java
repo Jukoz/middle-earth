@@ -53,7 +53,7 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> validateTicker(World world, BlockEntityType<T> givenType, BlockEntityType<BellowsBlockEntity> expectedType) {
-        return world.isClient
+        return world.isClient()
                 ? BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::clientTick)
                 : BellowsBlock.validateTicker(givenType, expectedType, BellowsBlockEntity::serverTick);
     }
@@ -75,13 +75,13 @@ public class BellowsBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-        if(!world.isClient){
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
+        if(!world.isClient()){
             if (entity.getVelocity().y < -0.1f && entity instanceof LivingEntity) {
                 this.pump(world, pos, state, entity);
             }
         }
-        super.onEntityCollision(state, world, pos, entity, handler);
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
     }
 
     public void onEntityLand(BlockView world, Entity entity) {
@@ -102,7 +102,7 @@ public class BellowsBlock extends BlockWithEntity {
 
 
     public boolean pump(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (world.isClient) return false;
+        if (world.isClient()) return false;
 
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if(blockEntity instanceof BellowsBlockEntity bellowsBlockEntity){

@@ -7,6 +7,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -17,13 +20,15 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
 @Environment(value= EnvType.CLIENT)
-public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlockEntity> {
+public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlockEntity, BlockEntityRenderState> {
     private static final float SIZE_FACTOR = 0.25f;
     private static SpriteIdentifier waterSpriteId = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, Identifier.ofVanilla("block/water_still"));
 
     public CrockpotEntityRenderer(BlockEntityRendererFactory.Context context) {
     }
 
+    /// TODO fixme when doing crockpot as next feat.
+    /*
     @Override
     public void render(CrockpotBlockEntity entity, float tickProgress, MatrixStack matrices,
                        VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
@@ -63,5 +68,15 @@ public class CrockpotEntityRenderer implements BlockEntityRenderer<CrockpotBlock
         }
 
         matrices.pop();
+    }*/
+
+    @Override
+    public BlockEntityRenderState createRenderState() {
+        return null;
+    }
+
+    @Override
+    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+
     }
 }

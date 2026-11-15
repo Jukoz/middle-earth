@@ -127,7 +127,7 @@ public class AttributePoolElement {
 
     public static NbtCompound createAttributeNbtListFromPlayer(PlayerEntity player) {
         NbtList attributeList = new NbtList();
-        var registry = player.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        var registry = player.getEntityWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
         Collection<EntityAttributeInstance> attributes = new ArrayList<>();
         var entries = registry.getIndexedEntries();
         for(var entry : entries){

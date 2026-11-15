@@ -51,7 +51,7 @@ public class BellowsBlockEntity extends BlockEntity {
 
     public boolean tryPumpingBellow(BlockState state, World world, BlockPos pos, BellowsBlockEntity blockEntity, Direction direction, Entity entity) {
         if(blockEntity.animationProgress == 0) {
-            if (!world.isClient){
+            if (!world.isClient()){
                 if(blockEntity.activate(direction)){
                     BlockPos forgePos = pos.offset(state.get(BellowsBlock.FACING));
                     if(world.getBlockState(forgePos).isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("forge")))) {

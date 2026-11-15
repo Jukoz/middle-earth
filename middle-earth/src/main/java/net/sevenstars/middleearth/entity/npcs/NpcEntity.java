@@ -312,16 +312,16 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public @Nullable ItemStack getPickBlockStack() {
         if(getNpcType() == null)
             return ItemStack.EMPTY;
-        return NpcSpawnEggHelper.getSpawnEgg(getWorld(), getNpcType().getId());
+        return NpcSpawnEggHelper.getSpawnEgg(getEntityWorld(), getNpcType().getId());
     }
     public void updateAttackType() {
-        if (this.getWorld() != null && !this.getWorld().isClient) {
+        if (this.getEntityWorld() != null && !this.getEntityWorld().isClient()) {
             this.goalSelector.remove(this.meleeAttackGoal);
             this.goalSelector.remove(this.bowAttackGoal);
             ItemStack itemStack = this.getMainHandStack();
             if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
                 int i = 30;
-                if (this.getWorld().getDifficulty() != Difficulty.HARD) {
+                if (this.getEntityWorld().getDifficulty() != Difficulty.HARD) {
                     i = 20;
                 }
                 this.bowAttackGoal.setAttackInterval(i);
@@ -335,7 +335,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     public void updateTargetGoals() {
-        //if (this.getWorld() != null && !this.getWorld().isClient) {
+        //if (this.getEntityWorld() != null && !this.getEntityWorld().isClient()) {
         //    if(getFaction().getDisposition() == DispositionType.EVIL) {
         //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, BroadhoofGoatEntity.class, true));
         //        this.targetSelector.add(10, new ActiveTargetGoal<>(this, GreatHornEntity.class, true));
@@ -368,8 +368,8 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
         this.prepare();
 
-        World world = getWorld();
-        if(world.isClient)
+        World world = getEntityWorld();
+        if(world.isClient())
             return;
 
         if(world instanceof ServerWorld serverWorld){
@@ -472,7 +472,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     public void tickMovement() {
         super.tickMovement();
 
-        if(!this.getWorld().isClient) {
+        if(!this.getEntityWorld().isClient()) {
 
         } else {
             setupAnimationStates();
@@ -547,7 +547,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
                 canDropLoot = true;
             else{
                 try{
-                    Faction faction = FactionLookup.getFactionById(getWorld(), data.getFaction());
+                    Faction faction = FactionLookup.getFactionById(getEntityWorld(), data.getFaction());
                     if(faction.isHostileToward(this.getFactionIdentifier()))
                         canDropLoot = true;
                 } catch (FactionIdentifierException e){
@@ -579,7 +579,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
         if (lootTable != null) {
             LootWorldContext.Builder builder = (new LootWorldContext.Builder(world)).add(LootContextParameters.THIS_ENTITY, this)
-                    .add(LootContextParameters.ORIGIN, this.getPos())
+                    .add(LootContextParameters.ORIGIN, this.getEntityPos())
                     .add(LootContextParameters.DAMAGE_SOURCE, damageSource)
                     .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
                     .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
@@ -598,7 +598,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos == null)
             return super.isPersistent();
-        if(getWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
+        if(getEntityWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity structureManagerBlockEntity)
             return true;
         return super.isPersistent();
     }
@@ -616,7 +616,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         if(factionId == null)
             return null;
         try {
-            return FactionLookup.getFactionById(getWorld(), factionId);
+            return FactionLookup.getFactionById(getEntityWorld(), factionId);
         } catch (FactionIdentifierException e) {
             return null;
         }
@@ -639,7 +639,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+        this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         boolean targetDamaged;
         float damage = 1.0f;
         try{
@@ -654,7 +654,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         var finalDamage = damage + bonusDamage;
 
         if(hasVehicle() && getVehicle() instanceof AbstractBeastEntity mountEntity){
-            mountEntity.tryAttack((ServerWorld) target.getWorld(), target);
+            mountEntity.tryAttack((ServerWorld) target.getEntityWorld(), target);
         }
 
         targetDamaged = target.damage(world, damageSource, finalDamage);
@@ -815,7 +815,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         // Reduce the vanilla arc compensation for larger entities and faster arrows.
         double arcCompensation = horizontalDistance * (0.2F / (scale * powerModifier));
 
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
+        if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             ProjectileEntity.spawnWithVelocity(
                     projectile,
                     serverWorld,
@@ -879,7 +879,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
     }
 
     private boolean isHostileTowardPlayer(PlayerEntity player) {
-        if(player.getWorld().isClient || !player.canTakeDamage())
+        if(player.getEntityWorld().isClient() || !player.canTakeDamage())
             return false;
         PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
         if(playerData == null || playerData.getFaction() == null)

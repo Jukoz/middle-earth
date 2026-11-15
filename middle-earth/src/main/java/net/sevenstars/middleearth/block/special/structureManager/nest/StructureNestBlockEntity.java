@@ -135,7 +135,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
     }
 
     private void tickEvent(World world, BlockState blockState) {
-        if(world.isClient)
+        if(world.isClient())
             return;
 
         if(!blockState.get(StructureNestBlock.ENABLED)) {

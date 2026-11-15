@@ -109,7 +109,7 @@ public class MountPassengerData {
             return null;
         if(notLiving instanceof LivingEntity entity){
             serverWorld.spawnEntity(entity);
-            entity.setPosition(owner.getPos());
+            entity.setPosition(owner.getEntityPos());
             if(entity instanceof NpcEntity npc){
                 npc.prepareNpcIdentifier(npcType);
                 npc.prepare();

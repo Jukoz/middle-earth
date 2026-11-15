@@ -159,7 +159,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     public void respawnAllEntities() {
         if(structureNestList == null)
             return;
-        if(world == null || world.isClient)
+        if(world == null || world.isClient())
             return;
         for(var nest : structureNestList.getManagers()){
             nest.forceRespawn(managerData, (ServerWorld) world, pos);
@@ -177,9 +177,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
-        if(entity.getWorld().isClient)
+        if(entity.getEntityWorld().isClient())
             return;
-        StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getWorld().getBlockEntity(pos);
+        StructureManagerBlockEntity blockEntity = (StructureManagerBlockEntity) entity.getEntityWorld().getBlockEntity(pos);
         if(blockEntity != null && !blockEntity.isRemoved()){
             blockEntity.structureNestList.computeDeath(entity);
             blockEntity.world.markDirty(pos);
@@ -187,12 +187,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tickEvent(World world, BlockPos blockPos, BlockState blockState) {
-        if(!world.isClient && worldWasSet){
+        if(!world.isClient() && worldWasSet){
             tryToInitializeManager(world);
             this.worldWasSet = false;
         }
 
-        if (!world.isClient && !this.registered) {
+        if (!world.isClient() && !this.registered) {
             StructureManagerService.register(this);
             this.registered = true;
         }
@@ -223,7 +223,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     private void tryToInitializeManager(World world){
-        if(world.isClient)
+        if(world.isClient())
             return;
         if(!toInitialize || enabled)
             return;

@@ -645,15 +645,15 @@ public class DecorativeBlockRegistryME {
             ChainBlock::new, AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision());
 
     public static final Block BRONZE_CHAIN = registerBlockWithItem("bronze_chain",
-            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.COPPER_CHAINS.unaffected()));
     public static final Block BRONZE_BROAD_CHAIN = registerBlockWithItem("bronze_broad_chain",
-            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.COPPER_CHAINS.unaffected()));
     public static final Block CRUDE_CHAIN = registerBlockWithItem("crude_chain",
-            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.COPPER_CHAINS.oxidized()));
     public static final Block CRUDE_BROAD_CHAIN = registerBlockWithItem("crude_broad_chain",
-            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.COPPER_CHAINS.oxidized()));
     public static final Block SPIKY_CHAIN = registerBlockWithItem("spiky_chain",
-            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.CHAIN));
+            ChainBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_CHAIN));
 
     public static final Block CHIMNEY = registerBlockWithItem("chimney",
             ChimneyBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_BRICKS).requiresTool());

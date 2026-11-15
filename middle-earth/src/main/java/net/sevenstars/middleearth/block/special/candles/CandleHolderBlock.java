@@ -86,7 +86,7 @@ public class CandleHolderBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient && player.getAbilities().allowModifyWorld) {
+        if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             ItemStack itemStack = player.getMainHandStack();
             if(player.isInCreativeMode() && itemStack.isEmpty()){
                 world.setBlockState(pos, state.cycle(LIT));
@@ -143,7 +143,7 @@ public class CandleHolderBlock extends Block {
     }
 
     public void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient && projectile.isOnFire() && !state.get(LIT)) {
+        if (!world.isClient() && projectile.isOnFire() && !state.get(LIT)) {
             world.setBlockState(hit.getBlockPos(), state.with(LIT, true), STATE_TO_LUMINANCE.applyAsInt(state));
         }
     }

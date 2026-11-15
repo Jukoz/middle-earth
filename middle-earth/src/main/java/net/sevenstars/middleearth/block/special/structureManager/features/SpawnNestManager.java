@@ -87,7 +87,7 @@ public class SpawnNestManager {
     }
 
     public void addEntity(LivingEntity entity){
-        if(entity.getWorld().isClient)
+        if(entity.getEntityWorld().isClient())
             return;
 
         UUID uuid = entity.getUuid();
@@ -98,16 +98,16 @@ public class SpawnNestManager {
     }
 
     public boolean removeEntity(LivingEntity entity){
-        if(entity.getWorld().isClient || !this.entities.contains(entity.getUuid()))
+        if(entity.getEntityWorld().isClient() || !this.entities.contains(entity.getUuid()))
             return false;
         this.entities.remove(entity.getUuid());
         if(this.entities.isEmpty()){
-            beginRespawnSequence(entity.getWorld());
+            beginRespawnSequence(entity.getEntityWorld());
         }
         return true;
     }
     public void removeEntity(World world, UUID uuid){
-        if(world.isClient || !this.entities.contains(uuid))
+        if(world.isClient() || !this.entities.contains(uuid))
             return;
         this.entities.remove(uuid);
         if(this.entities.isEmpty()){

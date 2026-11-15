@@ -13,10 +13,10 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.rule.GameRules;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -64,7 +64,9 @@ public class CustomFarmlandBlock extends FarmlandBlock {
 
     public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         if (world instanceof ServerWorld serverWorld) {
-            if ((double)world.random.nextFloat() < fallDistance - 0.5 && entity instanceof LivingEntity && (entity instanceof PlayerEntity || serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) && entity.getWidth() * entity.getWidth() * entity.getHeight() > 0.512F) {
+            if ((double)world.random.nextFloat() < fallDistance - 0.5 && entity instanceof LivingEntity
+                    && (entity instanceof PlayerEntity || serverWorld.getGameRules().getValue(GameRules.DO_MOB_GRIEFING))
+                    && entity.getWidth() * entity.getWidth() * entity.getHeight() > 0.512F) {
                 setToDirt((Entity)null, state, world, pos, target);
             }
         }

@@ -4,7 +4,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.input.MouseInput;
+import net.minecraft.client.render.entity.EntityRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.world.ClientWorld;
@@ -19,6 +20,7 @@ import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,16 +147,15 @@ public class PlayableNpcPreviewWidget extends CustomWidget {
 
         if(currentButtonClicked != null){
             if(tickHoldingStart > 0 && (isEnterKeyPressed || isMouseOver(currentButtonClicked.getWidth(), currentButtonClicked.getHeight(), currentButtonClicked.getX(), currentButtonClicked.getY()))) {
-                if(canRotateSmoothly())
-                    currentButtonClicked.onPress();
+                if(canRotateSmoothly()) currentButtonClicked.onPress(new MouseInput(0, 0));
             }
             else{
                 resetCurrentButton();
             }
         }
 
-        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
-        entityRenderDispatcher.setRenderShadows(true);
+        EntityRenderManager entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        //entityRenderDispatcher.setRenderShadows(true);
         EntityRenderer<? super LivingEntity, ?> entityRenderer = entityRenderDispatcher.getRenderer(entity);
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
         NpcEntityRenderState npcEntityRenderState = (NpcEntityRenderState) entityRenderState;

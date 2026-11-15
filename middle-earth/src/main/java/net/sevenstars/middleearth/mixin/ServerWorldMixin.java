@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.rule.GameRules;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,11 +39,11 @@ public class ServerWorldMixin {
         if ((Object) this == overworld) return;
 
         // The math is like vanilla (ServerWorld lines ~[310-319])
-        if (server.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE)) {
+        if (overworld.getGameRules().getValue(GameRules.ADVANCE_TIME)) {
             long currentTimeOfDay = overworld.getTimeOfDay() + 24000L;
             overworld.setTimeOfDay(currentTimeOfDay - currentTimeOfDay % 24000L);
         }
-        if (server.getGameRules().getBoolean(GameRules.DO_WEATHER_CYCLE) && overworld.isRaining()) {
+        if (overworld.getGameRules().getValue(GameRules.ADVANCE_WEATHER) && overworld.isRaining()) {
             overworld.resetWeather();
         }
     }
