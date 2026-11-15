@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries.content.structurefeatures;
 
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.CampfireBlock;
@@ -203,14 +204,18 @@ public class StructureFeaturesRegistry {
         boolean anyBox = stores.size() > fires.size();
         for(int i = 0; i < beds.size(); i++) {
             BlockPos bed = beds.get(i);
+            Optional<BedTag> tag = bedTags.get(i);
+            // Things are put away where the work is done: by the place the bed was linked to, or the one its job will
+            // find. Whoever works at none, or out in the land, keeps them by the bed
+            BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
+                    .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, stations, markers))).orElse(bed);
             BlockPos store = null;
             for(BlockPos candidate : stores) {
                 if(anyBox && fires.contains(candidate))
                     continue;
-                if(store == null || candidate.getSquaredDistance(bed) < store.getSquaredDistance(bed))
+                if(store == null || candidate.getSquaredDistance(work) < store.getSquaredDistance(work))
                     store = candidate;
             }
-            Optional<BedTag> tag = bedTags.get(i);
             // The one its builder picked, while it still stands there
             BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
             if(picked != null && stores.contains(picked))

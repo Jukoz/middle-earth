@@ -358,8 +358,8 @@ public class BuildersToolRenderer {
         return rows;
     }
 
-    // Where the bed's things are put away: the store its builder picked, drawn whole, or else the nearest in sight, drawn
-    // dashed. A fire is only kept by where there is no chest or barrel, as the builds are read
+    // Where the bed's things are put away: the store its builder picked, drawn whole, or else the nearest in sight to
+    // where it works, drawn dashed. A fire is only kept by where there is no chest or barrel, as the builds are read
     private static void drawStore(MatrixStack matrices, VertexConsumer lines, Bed bed) {
         if(scannedWorld == null)
             return;
@@ -370,11 +370,14 @@ public class BuildersToolRenderer {
             return;
         }
         boolean anyBox = stores.stream().anyMatch(pos -> !offLimits.contains(pos) && !(scannedWorld.getBlockState(pos).getBlock() instanceof CampfireBlock));
+        // By where the work is done, or by the bed of whoever has no place of work
+        List<BlockPos> links = linksOf(bed);
+        BlockPos work = links.isEmpty() ? bed.pos() : links.getFirst();
         BlockPos nearest = null;
         for(BlockPos store : stores) {
             if(offLimits.contains(store) || anyBox && scannedWorld.getBlockState(store).getBlock() instanceof CampfireBlock)
                 continue;
-            if(nearest == null || store.getSquaredDistance(bed.pos()) < nearest.getSquaredDistance(bed.pos()))
+            if(nearest == null || store.getSquaredDistance(work) < nearest.getSquaredDistance(work))
                 nearest = store;
         }
         if(nearest != null)
