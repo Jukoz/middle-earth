@@ -67,6 +67,7 @@ public class CommandStructureEdit {
     private static final String CLOSE = "close";
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
+    private static final String TEST = "test";
     private static final String NEXT = "next";
     private static final String BACK = "back";
     // Looking down at the bed from where the builder is set beside it
@@ -120,6 +121,12 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
+                .then(CommandManager.literal(TEST)
+                        .then(CommandManager.argument(STRUCTURE, IdentifierArgumentType.identifier())
+                                .suggests(STRUCTURES)
+                                .executes(context -> test(context, null))
+                                .then(CommandManager.argument(SEED, LongArgumentType.longArg())
+                                        .executes(context -> test(context, LongArgumentType.getLong(context, SEED))))))
                 .then(CommandManager.literal(BEDS)
                         .executes(context -> beds(context, 0))
                         .then(CommandManager.literal(NEXT).executes(context -> beds(context, 1)))
@@ -221,6 +228,34 @@ public class CommandStructureEdit {
             return 0;
         }
         source.sendFeedback(() -> Text.literal("Made %s %d blocks bigger to the %s. /%s %s writes it".formatted(piece.template(), blocks, side.asString(), COMMAND, SAVE)), false);
+        return 1;
+    }
+
+    // A real one, to see what was saved come alive: built from the templates as they are now, but tagged beds and markers
+    // only count once datagen has read them
+    private static int test(CommandContext<ServerCommandSource> context, @Nullable Long given) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        ServerWorld world = source.getWorld();
+        Identifier id = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
+        RegistryEntry<Structure> structure = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(id).orElse(null);
+        if(structure == null) {
+            source.sendError(Text.literal("No structure " + id));
+            return 0;
+        }
+        if(world.getServer().getTickManager().isFrozen()) {
+            source.sendError(Text.literal("The world stands still, and nobody would be born. /%s %s first".formatted(COMMAND, CLOSE)));
+            return 0;
+        }
+        long seed = given != null ? given : world.getRandom().nextLong();
+        StructureEditSession.Generated generated = StructureEditSession.generate(world, structure, seed, player.getBlockPos());
+        if(generated == null) {
+            source.sendError(Text.literal("The game put no pieces of %s together from the seed %d here".formatted(id, seed)));
+            return 0;
+        }
+        BlockBox box = generated.box();
+        source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born as its managers wake".formatted(id, seed,
+                generated.pieces(), box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())), false);
         return 1;
     }
 

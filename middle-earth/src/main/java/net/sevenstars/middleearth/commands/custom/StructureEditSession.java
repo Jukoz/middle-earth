@@ -45,6 +45,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.registry.RegistryOps;
+import net.minecraft.structure.StructurePiecesList;
+import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
@@ -391,11 +393,11 @@ public class StructureEditSession {
 
     // Null when the structure cannot be put together from that seed, or has no pieces of its own templates
     public static @Nullable StructureEditSession load(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, Identifier id, long seed, boolean spaced, BlockPos corner) {
-        StructureStart start = assemble(world, structure, structure.value(), seed, world);
+        StructureStart start = assemble(world, structure, structure.value(), seed, world, ASSEMBLY_CHUNK);
         // One that goes underground is cut short where the ground is thin, as in a flat world. Whichever way gives more
         // of it is the one to edit
         Structure free = freeStanding(world, structure.value());
-        StructureStart freeStart = free == null ? null : assemble(world, structure, free, seed, ASSEMBLY_HEIGHT);
+        StructureStart freeStart = free == null ? null : assemble(world, structure, free, seed, ASSEMBLY_HEIGHT, ASSEMBLY_CHUNK);
         if(freeStart != null && freeStart.getChildren().size() > start.getChildren().size())
             start = freeStart;
         if(!start.hasChildren()) {
@@ -445,10 +447,51 @@ public class StructureEditSession {
         return session;
     }
 
-    private static StructureStart assemble(ServerWorld world, RegistryEntry<Structure> entry, Structure structure, long seed, HeightLimitView height) {
+    private static StructureStart assemble(ServerWorld world, RegistryEntry<Structure> entry, Structure structure, long seed, HeightLimitView height, ChunkPos chunk) {
         return structure.createStructureStart(entry, world.getRegistryKey(), world.getRegistryManager(),
                 world.getChunkManager().getChunkGenerator(), world.getChunkManager().getChunkGenerator().getBiomeSource(), world.getChunkManager().getNoiseConfig(),
-                world.getStructureTemplateManager(), seed, ASSEMBLY_CHUNK, 0, height, biome -> true);
+                world.getStructureTemplateManager(), seed, chunk, 0, height, biome -> true);
+    }
+
+    public record Generated(BlockBox box, int pieces) {}
+
+    // The structure as the game would generate it, at the builder, and known to the world for a structure: its managers
+    // wake, its people are born, its markers are gone. What a command places is only blocks. One the ground would cut
+    // short is set whole at the builder's height instead of on the ground
+    public static @Nullable Generated generate(ServerWorld world, RegistryEntry<Structure> structure, long seed, BlockPos at) {
+        ChunkPos chunk = new ChunkPos(at);
+        StructureStart start = assemble(world, structure, structure.value(), seed, world, chunk);
+        Structure free = freeStanding(world, structure.value());
+        StructureStart freeStart = free == null ? null : assemble(world, structure, free, seed, ASSEMBLY_HEIGHT, chunk);
+        if(freeStart != null && freeStart.getChildren().size() > start.getChildren().size()) {
+            List<StructurePiece> pieces = freeStart.getChildren();
+            BlockBox whole = BlockBox.encompass(pieces.stream().map(StructurePiece::getBoundingBox).toList()).orElseThrow();
+            int rise = at.getY() - pieces.getFirst().getBoundingBox().getMinY();
+            rise += Math.max(0, world.getBottomY() + 1 - (whole.getMinY() + rise));
+            rise -= Math.max(0, whole.getMaxY() + rise - (world.getTopYInclusive() - 1));
+            if(whole.getMinY() + rise <= world.getBottomY()) {
+                StructureEditing.log("%s from the seed %d not generated: %d blocks tall, more than the world".formatted(structure.getIdAsString(), seed, whole.getBlockCountY()));
+                return null;
+            }
+            for(StructurePiece piece : pieces)
+                piece.translate(0, rise, 0);
+            // A start remembers its bounds from before its pieces were moved
+            start = new StructureStart(structure.value(), chunk, 0, new StructurePiecesList(pieces));
+        }
+        if(!start.hasChildren()) {
+            StructureEditing.log("%s from the seed %d: the game put no pieces together".formatted(structure.getIdAsString(), seed));
+            return null;
+        }
+        BlockBox box = start.getBoundingBox();
+        StructureStart placed = start;
+        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+            placed.place(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
+                    new BlockBox(in.getStartX(), world.getBottomY(), in.getStartZ(), in.getEndX(), world.getTopYInclusive() + 1, in.getEndZ()), in);
+            world.getStructureAccessor().addStructureReference(ChunkSectionPos.from(in, 0), structure.value(), chunk.toLong(), world.getChunk(in.x, in.z));
+        });
+        world.getStructureAccessor().setStructureStart(ChunkSectionPos.from(chunk, 0), structure.value(), start, world.getChunk(chunk.x, chunk.z));
+        StructureEditing.log("generated %s from the seed %d: %d pieces in %s".formatted(structure.getIdAsString(), seed, start.getChildren().size(), describe(box)));
+        return new Generated(box, start.getChildren().size());
     }
 
     // The structure as it is but started at a set height in the middle of a world taller than any, with room for all of it
@@ -649,8 +692,13 @@ public class StructureEditSession {
 
     private static void fill(ServerWorld world, BlockBox box, BlockState state) {
         for(BlockPos pos : BlockPos.iterate(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())) {
-            if(world.isInBuildLimit(pos))
-                world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+            if(!world.isInBuildLimit(pos))
+                continue;
+            // A chest that is taken away spills what it holds, and one that was never opened rolls its loot to spill it.
+            // Without its data it has nothing to drop
+            if(world.getBlockState(pos).hasBlockEntity())
+                world.removeBlockEntity(pos);
+            world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.FORCE_STATE | Block.SKIP_DROPS);
         }
     }
 
