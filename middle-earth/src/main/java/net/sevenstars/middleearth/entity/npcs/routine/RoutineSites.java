@@ -329,7 +329,7 @@ public class RoutineSites {
         for(StructurePiece piece : start.getChildren()) {
             if(!(piece instanceof PoolStructurePiece placed))
                 continue;
-            StructureFeatureData data = NestSurvey.dataOf(registry.get(), placed);
+            StructureFeatureData data = NestSurvey.dataOf(world, registry.get(), placed);
             if(data == null)
                 continue;
             for(List<BlockPos> table : data.tables()) {

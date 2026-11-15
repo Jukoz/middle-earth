@@ -57,6 +57,12 @@ import net.minecraft.block.JigsawBlock;
 import net.minecraft.block.entity.JigsawBlockEntity;
 import net.minecraft.block.enums.Orientation;
 import net.minecraft.structure.pool.StructurePools;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry;
+import net.sevenstars.middleearth.MiddleEarth;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -74,6 +80,10 @@ public class CommandStructureEdit {
     private static final String CLOSE = "close";
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
+    private static final String POOLS = "pools";
+    private static final String NEW_STRUCTURE = "newstructure";
+    private static final String NAME = "name";
+    private static final String START_POOL_KEY = "start_pool";
     private static final String NEW = "new";
     private static final String PLUG = "plug";
     private static final String SIZE_X = "x";
@@ -144,6 +154,17 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
+                .then(CommandManager.literal(POOLS)
+                        .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
+                                .suggests(TEMPLATES)
+                                .executes(CommandStructureEdit::pools)))
+                .then(CommandManager.literal(NEW_STRUCTURE)
+                        .then(CommandManager.argument(NAME, IdentifierArgumentType.identifier())
+                                .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
+                                        .suggests(TEMPLATES)
+                                        .then(CommandManager.argument(STRUCTURE, IdentifierArgumentType.identifier())
+                                                .suggests(STRUCTURES)
+                                                .executes(CommandStructureEdit::newStructure)))))
                 .then(CommandManager.literal(NEW)
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
                                 .executes(context -> create(context, DEFAULT_NEW_SIZE, false))
@@ -277,13 +298,27 @@ public class CommandStructureEdit {
         ServerWorld world = source.getWorld();
         Identifier id = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
         RegistryEntry<Structure> structure = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(id).orElse(null);
-        if(structure == null) {
-            source.sendError(Text.literal("No structure " + id));
+        boolean piece = structure == null && world.getStructureTemplateManager().getTemplate(id).isPresent();
+        if(structure == null && !piece) {
+            source.sendError(Text.literal("No structure and no template " + id));
             return 0;
         }
         if(world.getServer().getTickManager().isFrozen()) {
             source.sendError(Text.literal("The world stands still, and nobody would be born. /%s %s first".formatted(COMMAND, CLOSE)));
             return 0;
+        }
+        if(piece) {
+            RegistryEntry<Structure> carrier = carrierFor(world, id);
+            Direction facing = player.getHorizontalFacing();
+            StructureEditSession.Generated set = carrier == null ? null : StructureEditSession.generatePiece(world, player.getUuid(), id, carrier,
+                    player.getBlockPos().offset(facing, DISTANCE_IN_FRONT));
+            if(set == null) {
+                source.sendError(Text.literal("Could not set down the piece " + id));
+                return 0;
+            }
+            source.sendFeedback(() -> Text.literal("Set down the piece %s by itself from %d, %d, %d. Its people are born at its beds. /%s %s %s takes it away again".formatted(id,
+                    set.box().getMinX(), set.box().getMinY(), set.box().getMinZ(), COMMAND, TEST, CLEAR)), false);
+            return 1;
         }
         long seed = given != null ? given : world.getRandom().nextLong();
         StructureEditSession.Generated generated = StructureEditSession.generate(world, player.getUuid(), structure, seed, player.getBlockPos());
@@ -295,6 +330,24 @@ public class CommandStructureEdit {
         source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born as its managers wake. /%s %s %s takes it away again".formatted(id, seed,
                 generated.pieces(), box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ(), COMMAND, TEST, CLEAR)), false);
         return 1;
+    }
+
+    // A piece set down by itself is kept by the world under the name of a structure it knows: one named after the folder
+    // the piece is in where there is one, so that it is of the same people, or else the first there is
+    private static @Nullable RegistryEntry<Structure> carrierFor(ServerWorld world, Identifier template) {
+        Registry<Structure> structures = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
+        String folder = template.getPath().split("/")[0];
+        RegistryEntry<Structure> first = null;
+        for(Identifier id : structures.getIds().stream().sorted().toList()) {
+            if(!id.getNamespace().equals(template.getNamespace()))
+                continue;
+            RegistryEntry<Structure> entry = structures.getEntry(id).orElse(null);
+            if(first == null)
+                first = entry;
+            if(entry != null && id.getPath().startsWith(folder))
+                return entry;
+        }
+        return first;
     }
 
     // Those the builder generated since the game was started, or else the one stood in
@@ -313,14 +366,14 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    private static final SuggestionProvider<ServerCommandSource> POOLS = (context, builder) ->
+    private static final SuggestionProvider<ServerCommandSource> POOL_NAMES = (context, builder) ->
             CommandSource.suggestIdentifiers(context.getSource().getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).getIds(), builder);
 
     private static LiteralArgumentBuilder<ServerCommandSource> projection(String name, StructurePool.Projection projection) {
         return CommandManager.literal(name)
                 .executes(context -> setProjection(context, projection, null))
                 .then(CommandManager.argument(POOL, IdentifierArgumentType.identifier())
-                        .suggests(POOLS)
+                        .suggests(POOL_NAMES)
                         .executes(context -> setProjection(context, projection, IdentifierArgumentType.getIdentifier(context, POOL))));
     }
 
@@ -343,7 +396,7 @@ public class CommandStructureEdit {
         StructureEditing.log("%s now %s in the pools %s".formatted(template, how, changed));
         source.sendFeedback(() -> Text.literal("%s now %s in %s, for what is generated from now on".formatted(template, how, changed)), false);
         Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !Files.isDirectory(resources)) {
+        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !isOwnSources(resources)) {
             source.sendFeedback(() -> Text.literal("Not written to any file: it lasts until this world is closed"), false);
             return 1;
         }
@@ -427,6 +480,83 @@ public class CommandStructureEdit {
                 size.getX(), size.getY(), size.getZ(), origin.toShortString(), saveBlock.toShortString(),
                 placedPlug == null ? "" : ", and a plug named %s at %s".formatted(id, placedPlug.toShortString()), COMMAND, SAVE)), false);
         return 1;
+    }
+
+    // Another project that runs the mod from its jar has sources of its own beside the game, which are not the mod's
+    private static boolean isOwnSources(Path resources) {
+        return Files.isDirectory(resources.resolve("data").resolve(MiddleEarth.MOD_ID).resolve("structure"));
+    }
+
+    private static @Nullable Path sources(ServerCommandSource source) {
+        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
+        if(FabricLoader.getInstance().isDevelopmentEnvironment() && isOwnSources(resources))
+            return resources;
+        source.sendError(Text.literal("Pool and structure files are written to the mod's own sources, which this game does not run from"));
+        return null;
+    }
+
+    // Puts a saved piece into the pools its plugs say it belongs in, and makes the pools its own plugs ask for
+    private static int pools(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        if(source.getWorld().getStructureTemplateManager().getTemplate(template).isEmpty()) {
+            source.sendError(Text.literal("No template " + template));
+            return 0;
+        }
+        Path resources = sources(source);
+        if(resources == null)
+            return 0;
+        try {
+            PiecePools.Result result = PiecePools.publish(source.getWorld(), template, resources);
+            StructureEditing.log("pools of %s: put in %s of the open world, wrote %s, new %s".formatted(template, result.live(), result.written(), result.created()));
+            if(result.live().isEmpty() && result.written().isEmpty()) {
+                source.sendFeedback(() -> Text.literal("%s is already in every pool its plugs fit, or no plug asks for it by name".formatted(template)), false);
+                return 1;
+            }
+            source.sendFeedback(() -> Text.literal("%s: wrote %d pool file%s. In the open world it is now in %s".formatted(template, result.written().size(),
+                    result.written().size() == 1 ? "" : "s", result.live().isEmpty() ? "no pool yet" : result.live().toString())), false);
+            if(!result.created().isEmpty())
+                source.sendFeedback(() -> Text.literal("New pools %s are only seen once the world is opened again".formatted(result.created())), false);
+            return 1;
+        } catch (IOException e) {
+            source.sendError(Text.literal("Could not write the pool files: " + e.getMessage()));
+            return 0;
+        }
+    }
+
+    // A structure of its own for a piece to start from: the settings of one that is like it, with a pool of that piece
+    // to start with. Where it generates is as the one it was copied from, until its file says otherwise
+    private static int newStructure(CommandContext<ServerCommandSource> context) {
+        ServerCommandSource source = context.getSource();
+        Identifier name = IdentifierArgumentType.getIdentifier(context, NAME);
+        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Identifier like = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
+        Path resources = sources(source);
+        if(resources == null)
+            return 0;
+        Path folder = resources.resolve("data").resolve(name.getNamespace()).resolve("worldgen").resolve("structure");
+        Path file = folder.resolve(name.getPath() + ".json");
+        Path copied = resources.resolve("data").resolve(like.getNamespace()).resolve("worldgen").resolve("structure").resolve(like.getPath() + ".json");
+        if(Files.exists(file) || !Files.isRegularFile(copied) || source.getWorld().getStructureTemplateManager().getTemplate(template).isEmpty()) {
+            source.sendError(Text.literal(Files.exists(file) ? "There is a structure %s already".formatted(name) : !Files.isRegularFile(copied)
+                    ? "No structure file of %s to copy the settings from".formatted(like) : "No template " + template));
+            return 0;
+        }
+        try {
+            JsonObject settings = new Gson().fromJson(Files.readString(copied), JsonObject.class);
+            settings.addProperty(START_POOL_KEY, template.toString());
+            Files.createDirectories(file.getParent());
+            Files.writeString(file, new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(settings));
+            PiecePools.writeStart(resources, template, template);
+            PiecePools.Result result = PiecePools.publish(source.getWorld(), template, resources);
+            StructureEditing.log("new structure %s starting from %s, settings of %s, wrote %s and pools %s".formatted(name, template, like, file, result.written()));
+            source.sendFeedback(() -> Text.literal("Wrote the structure %s, starting from %s with the settings of %s, and %d pool file%s. Leave the world and open it again, then /%s %s %s"
+                    .formatted(name, template, like, result.written().size() + 1, result.written().isEmpty() ? "" : "s", COMMAND, TEST, name)), false);
+            return 1;
+        } catch (IOException | JsonParseException e) {
+            source.sendError(Text.literal("Could not write the structure: " + e.getMessage()));
+            return 0;
+        }
     }
 
     private static int noClip(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -637,6 +767,7 @@ public class CommandStructureEdit {
             source.sendError(Text.literal("Saving " + id + " failed, see the log"));
             return 0;
         }
+        StructureFeaturesRegistry.edited(id);
         Path saved = world.getStructureTemplateManager().getTemplatePath(id, ".nbt");
         source.sendFeedback(() -> Text.literal("Saved " + id + " to " + saved), false);
 
@@ -649,7 +780,7 @@ public class CommandStructureEdit {
         if(!FabricLoader.getInstance().isDevelopmentEnvironment())
             return;
         Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(!Files.isDirectory(resources))
+        if(!isOwnSources(resources))
             return;
         Path target = resources.resolve("data").resolve(id.getNamespace()).resolve("structure").resolve(id.getPath() + ".nbt");
         try {

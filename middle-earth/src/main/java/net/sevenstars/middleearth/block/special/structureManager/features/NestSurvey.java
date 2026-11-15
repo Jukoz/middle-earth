@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
+import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry;
+import net.minecraft.util.Identifier;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -36,10 +38,16 @@ public class NestSurvey {
     private static final double UNDERFOOT = 0.2;
     private static final double EYE_HEIGHT = 1.6;
 
-    public static @Nullable StructureFeatureData dataOf(Registry<StructureFeatureData> registry, PoolStructurePiece piece) {
+    // From the generated data, or read from the template itself where there is none yet or a builder changed it since
+    public static @Nullable StructureFeatureData dataOf(ServerWorld world, Registry<StructureFeatureData> registry, PoolStructurePiece piece) {
         if(!(piece.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
             return null;
-        return registry.get(element.location.left().get());
+        Identifier template = element.location.left().get();
+        StructureFeatureData generated = registry.get(template);
+        if(generated != null && !StructureFeaturesRegistry.isEdited(template))
+            return generated;
+        StructureFeatureData live = StructureFeaturesRegistry.live(world.getStructureTemplateManager(), template);
+        return live != null ? live : generated;
     }
 
     public static BlockPos placedAt(PoolStructurePiece piece, BlockPos inTemplate) {

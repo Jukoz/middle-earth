@@ -53,6 +53,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.StructureLiquidSettings;
+import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
@@ -494,16 +497,39 @@ public class StructureEditSession {
             return null;
         }
         BlockBox box = start.getBoundingBox();
-        StructureStart placed = start;
-        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
-            placed.place(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
-                    new BlockBox(in.getStartX(), world.getBottomY(), in.getStartZ(), in.getEndX(), world.getTopYInclusive() + 1, in.getEndZ()), in);
-            world.getStructureAccessor().addStructureReference(ChunkSectionPos.from(in, 0), structure.value(), chunk.toLong(), world.getChunk(in.x, in.z));
-        });
-        world.getStructureAccessor().setStructureStart(ChunkSectionPos.from(chunk, 0), structure.value(), start, world.getChunk(chunk.x, chunk.z));
+        register(world, structure.value(), start, chunk);
         TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), structure.value(), chunk));
         StructureEditing.log("generated %s from the seed %d: %d pieces in %s".formatted(structure.getIdAsString(), seed, start.getChildren().size(), describe(box)));
         return new Generated(box, start.getChildren().size());
+    }
+
+    // One piece by itself, set down at the builder as a structure the world knows: its people are born and its markers
+    // are gone, with no pool and no structure of its own. The world keeps it under the name of a structure it has, which
+    // is only a name to keep it by
+    public static @Nullable Generated generatePiece(ServerWorld world, UUID builder, Identifier template, RegistryEntry<Structure> carrier, BlockPos at) {
+        StructureTemplateManager manager = world.getStructureTemplateManager();
+        if(manager.getTemplate(template).isEmpty())
+            return null;
+        StructurePoolElement element = StructurePoolElement.ofSingle(template.toString()).apply(StructurePool.Projection.RIGID);
+        BlockBox box = element.getBoundingBox(manager, at, BlockRotation.NONE);
+        ChunkPos chunk = new ChunkPos(at);
+        StructureStart start = new StructureStart(carrier.value(), chunk, 0, new StructurePiecesList(List.of(
+                new PoolStructurePiece(manager, element, at, 0, BlockRotation.NONE, box, StructureLiquidSettings.IGNORE_WATERLOGGING))));
+        register(world, carrier.value(), start, chunk);
+        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), carrier.value(), chunk));
+        StructureEditing.log("generated the piece %s by itself in %s, kept as %s".formatted(template, describe(box), carrier.getIdAsString()));
+        return new Generated(box, 1);
+    }
+
+    private static void register(ServerWorld world, Structure structure, StructureStart start, ChunkPos chunk) {
+        BlockBox box = start.getBoundingBox();
+        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+            start.place(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
+                    new BlockBox(in.getStartX(), world.getBottomY(), in.getStartZ(), in.getEndX(), world.getTopYInclusive() + 1, in.getEndZ()), in);
+            world.getStructureAccessor().addStructureReference(ChunkSectionPos.from(in, 0), structure, chunk.toLong(), world.getChunk(in.x, in.z));
+        });
+        world.getStructureAccessor().setStructureStart(ChunkSectionPos.from(chunk, 0), structure, start, world.getChunk(chunk.x, chunk.z));
+        RoutineSites.forget(world);
     }
 
     // Takes away what the builder generated to try out, in this dimension: its blocks, whoever lives there, and the
@@ -638,8 +664,10 @@ public class StructureEditSession {
             nbt.put(PALETTE, entry.getValue().getListOrEmpty(PALETTE));
             nbt.put(BLOCKS, entry.getValue().getListOrEmpty(BLOCKS));
             template.readNbt(world.getRegistryManager().getOrThrow(RegistryKeys.BLOCK), nbt);
-            if(manager.saveTemplate(entry.getKey()))
+            if(manager.saveTemplate(entry.getKey())) {
                 written.add(entry.getKey());
+                StructureFeaturesRegistry.edited(entry.getKey());
+            }
         }
         // What was saved is what later changes are told from. The other pieces of a template that was written are made
         // like it, or the old one would be saved over it next time

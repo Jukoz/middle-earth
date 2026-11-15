@@ -721,7 +721,7 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_block.mode.load"), "Load: places a template in the world. Click for the next mode");
             put(of(LangCategory.UI, "structure_block.mode.corner"), "Corner: marks a corner of a build for a Save block's Detect. Click for the next mode");
             put(of(LangCategory.UI, "structure_block.mode.data"), "Data: a label the game's own structures read, not used by this mod. Click for the next mode");
-            put(of(LangCategory.UI, "jigsaw_fits.some"), "%s plugs fit this one");
+            put(of(LangCategory.UI, "jigsaw_fits.some"), "Plugs that fit this one: %s");
             put(of(LangCategory.UI, "jigsaw_fits.none"), "No plug of what is loaded fits this one");
             put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner. Sneak and left-click again to stop");
             put(of(LangCategory.UI, "structure_bounds.second"), "Bounds: left-click the opposite corner");

@@ -35,9 +35,9 @@ import java.util.Set;
 // cell asks one more: who is held in it
 @Environment(value = EnvType.CLIENT)
 public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
-    private static final int PLACE_WIDTH = 130;
-    private static final int LIST_WIDTH = 200;
-    private static final int CLASS_WIDTH = 150;
+    private static final int PLACE_WIDTH = 120;
+    private static final int LIST_WIDTH = 150;
+    private static final int CLASS_WIDTH = 120;
     private static final int LIST_HEIGHT = 140;
     private static final int ROW_HEIGHT = 16;
     private static final int GAP = 10;
@@ -67,7 +67,8 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void init() {
         super.init();
         BedTagScreenData data = handler.getData();
-        int left = width / 2 - (PLACE_WIDTH + GAP + LIST_WIDTH + GAP + CLASS_WIDTH) / 2;
+        // On a small window the three lists are wider than the screen, and are kept on it from the left
+        int left = Math.max(GAP, width / 2 - (PLACE_WIDTH + GAP + LIST_WIDTH + GAP + CLASS_WIDTH) / 2);
         int top = height / 2 - LIST_HEIGHT / 2 - BUTTON_HEIGHT;
 
         occupants.clear();

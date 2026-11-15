@@ -24,6 +24,9 @@ import net.sevenstars.middleearth.resources.datas.structure_features.StructureFe
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import net.minecraft.structure.StructureTemplateManager;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -107,8 +110,29 @@ public class StructureFeaturesRegistry {
         return scanned;
     }
 
+    private static final Map<Identifier, Optional<StructureFeatureData>> LIVE = new ConcurrentHashMap<>();
+    private static final Set<Identifier> EDITED = ConcurrentHashMap.newKeySet();
+
+    // A template a builder saved since the game was started is not what the generated data was made from any more
+    public static void edited(Identifier template) {
+        EDITED.add(template);
+        LIVE.remove(template);
+    }
+
+    public static boolean isEdited(Identifier template) {
+        return EDITED.contains(template);
+    }
+
+    // What a template holds, read from it as it is now: for one that has no generated data yet, or was changed since
+    public static @Nullable StructureFeatureData live(StructureTemplateManager manager, Identifier template) {
+        return LIVE.computeIfAbsent(template, id -> manager.getTemplate(id).map(found -> read(id, found.writeNbt(new NbtCompound())).data())).orElse(null);
+    }
+
     private static Template read(Identifier templateId, Path file) throws IOException {
-        NbtCompound root = NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes());
+        return read(templateId, NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes()));
+    }
+
+    private static Template read(Identifier templateId, NbtCompound root) {
         NbtList palette = root.contains(PALETTE_KEY) ? root.getListOrEmpty(PALETTE_KEY) : root.getListOrEmpty(PALETTES_KEY).getListOrEmpty(0);
         NbtList blocks = root.getListOrEmpty(BLOCKS_KEY);
 
