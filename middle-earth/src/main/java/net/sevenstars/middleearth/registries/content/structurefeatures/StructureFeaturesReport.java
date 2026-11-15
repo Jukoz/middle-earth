@@ -177,16 +177,16 @@ public class StructureFeaturesReport {
                     }
                 }
                 if(!nestKinds.contains(tag.nestKind()))
-                    warnings.noNestKind.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that type in the nests of the structure"));
+                    warnings.noNestKind.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that kind in the nests of the structure"));
                 if(bed.store().isEmpty())
                     warnings.noStore.add(where);
                 if(tag.job().isPresent()) {
                     List<StationKind> needed = NpcJobs.stationKinds(tag.job().get());
                     List<MarkerKind> neededMarkers = NpcJobs.stationMarkers(tag.job().get());
                     if(!needed.isEmpty() && needed.stream().noneMatch(stations::contains))
-                        warnings.noStation.add(where + ", role `%s` needs one of %s".formatted(tag.job().get().getPath(), needed.stream().map(StationKind::asString).toList()));
+                        warnings.noStation.add(where + ", job `%s` needs one of %s".formatted(tag.job().get().getPath(), needed.stream().map(StationKind::asString).toList()));
                     else if(needed.isEmpty() && !neededMarkers.isEmpty() && neededMarkers.stream().noneMatch(markers::contains))
-                        warnings.noStation.add(where + ", role `%s` needs a marker of %s".formatted(tag.job().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
+                        warnings.noStation.add(where + ", job `%s` needs a marker of %s".formatted(tag.job().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
                 } else {
                     if(NpcJobs.isGuardNest(tag.nestKind()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
                         warnings.noGuardMarkers.add(where);
@@ -297,9 +297,9 @@ public class StructureFeaturesReport {
             }
             out.append(byKind.isEmpty() ? "" : " (" + byKind.entrySet().stream().map(entry -> entry.getKey().asString() + " " + entry.getValue()).toList() + ")");
             out.append("\n\n");
-            section(out, "Tagged beds whose type has no nest pool in the structure", found.noNestKind);
+            section(out, "Tagged beds whose nest kind has no nest pool in the structure", found.noNestKind);
             section(out, "Tagged beds without a store", found.noStore);
-            section(out, "Tagged beds whose role has none of its stations or markers in the structure", found.noStation);
+            section(out, "Tagged beds whose job has none of its stations or markers in the structure", found.noStation);
             section(out, "Guards in a structure without an entrance or guard_post marker", found.noGuardMarkers);
             section(out, "Spawn markers with no value or an unknown one", found.badSpawns);
             section(out, "Cell corners that do not make up groups of four", found.badCells);
