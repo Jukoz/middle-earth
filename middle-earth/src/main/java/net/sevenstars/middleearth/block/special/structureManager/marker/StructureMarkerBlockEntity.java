@@ -1,5 +1,15 @@
 package net.sevenstars.middleearth.block.special.structureManager.marker;
 
+import java.util.Optional;
+import java.util.List;
+import net.minecraft.util.Identifier;
+import net.minecraft.registry.Registries;
+import net.minecraft.entity.EntityType;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
+import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,13 +34,16 @@ import net.sevenstars.middleearth.gui.structuremanager.structuremarker.Structure
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<StructureMarkerScreenData> {
+public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<StructureMarkerScreenData>, NestHost {
     private static final String ID = "structure_marker";
     private static final String MARKER_ID = "%s.MarkerId".formatted(ID);
     private static final String VALUE = "%s.Value".formatted(ID);
     private static final String COUNT = "%s.Count".formatted(ID);
     private static final String RESPAWNS = "%s.Respawns".formatted(ID);
     public static final int MAXIMUM_VALUE_LENGTH = 128;
+    private static final String ANIMALS = "Animals";
+    // In ticks, between the looks a marker that spawns takes at what it spawned
+    private static final int SPAWN_CHECK_INTERVAL = 100;
     public static final int MAXIMUM_COUNT = 64;
 
     private MarkerKind kind = MarkerKind.GUARD_POST;
@@ -39,6 +52,10 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
     private int count = 1;
     private boolean respawns = false;
     private boolean checked;
+    private boolean inStructure;
+    // Who it spawned, of this world only: the people of a spawn_npc marker, the animals of a spawn_animal one
+    private @Nullable SpawnNestManager nest;
+    private @Nullable MarkerAnimals animals;
 
     public StructureMarkerBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistryME.STRUCTURE_MARKER, pos, state);
@@ -96,6 +113,24 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
         value = view.getString(VALUE, "");
         count = view.getInt(COUNT, 1);
         respawns = view.getBoolean(RESPAWNS, false);
+        nest = NestHost.load(view);
+        animals = NestHost.isOfThisWorld(view) ? view.read(ANIMALS, MarkerAnimals.CODEC).orElse(null) : null;
+    }
+
+    @Override
+    public @Nullable SpawnNestManager getNest() {
+        return nest;
+    }
+
+    @Override
+    public void setNest(@Nullable SpawnNestManager nest) {
+        this.nest = nest;
+    }
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregisterHost(world, pos);
+        super.markRemoved();
     }
 
     @Override
@@ -105,6 +140,8 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
         view.putString(VALUE, value);
         view.putInt(COUNT, count);
         view.putBoolean(RESPAWNS, respawns);
+        NestHost.save(view, nest);
+        view.putNullable(ANIMALS, MarkerAnimals.CODEC, animals);
     }
 
     @Override
@@ -119,11 +156,52 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, StructureMarkerBlockEntity marker) {
-        if(marker.checked || !(world instanceof ServerWorld serverWorld))
+        if(!(world instanceof ServerWorld serverWorld))
             return;
-        marker.checked = true;
-        // A marker in a structure that was generated has done its work, which is in the data of its template
-        if(GeneratedStructures.contains(serverWorld, pos))
-            serverWorld.setBlockState(pos, state.getFluidState().getBlockState(), Block.NOTIFY_ALL);
+        boolean spawns = marker.kind == MarkerKind.SPAWN_NPC || marker.kind == MarkerKind.SPAWN_ANIMAL;
+        if(!marker.checked) {
+            marker.checked = true;
+            marker.inStructure = GeneratedStructures.contains(serverWorld, pos);
+            if(marker.inStructure && !spawns) {
+                // In a structure that was generated it has done its work, which is in the data of its template
+                serverWorld.setBlockState(pos, state.getFluidState().getBlockState(), Block.NOTIFY_ALL);
+                return;
+            }
+            if(marker.inStructure && !state.get(StructureMarkerBlock.HIDDEN))
+                serverWorld.setBlockState(pos, state.with(StructureMarkerBlock.HIDDEN, true), Block.NOTIFY_ALL);
+        }
+        if(marker.inStructure && spawns && Math.floorMod(world.getTime() + pos.hashCode(), SPAWN_CHECK_INTERVAL) == 0)
+            marker.spawn(serverWorld);
+    }
+
+    // Its people are a nest of as many as it counts, born on it. Its animals are counted by themselves, and come back
+    // only where it says they do
+    private void spawn(ServerWorld serverWorld) {
+        if(kind == MarkerKind.SPAWN_NPC) {
+            SpawnNestNodeData data = StructureManagerService.nestForMarker(serverWorld, value, Optional.empty());
+            if(data == null)
+                return;
+            if(nest == null || !nest.getId().equals(data.getId())) {
+                nest = new SpawnNestManager(data, pos, 0, count);
+                markDirty();
+            }
+            StructureManagerService.registerHost(serverWorld, pos);
+            nest.tick(serverWorld.getTime(), serverWorld, pos);
+            return;
+        }
+        Identifier typeId = Identifier.tryParse(value);
+        EntityType<?> type = typeId == null ? null : Registries.ENTITY_TYPE.getOptionalValue(typeId).orElse(null);
+        if(type == null)
+            return;
+        if(animals == null) {
+            // Tried again once the ground about it is loaded
+            if(!serverWorld.shouldTickEntityAt(pos))
+                return;
+            animals = new MarkerAnimals(pos, List.of(), -1);
+            animals.spawn(serverWorld, type, count);
+            markDirty();
+        } else if(respawns && animals.topUp(serverWorld, type, count)) {
+            markDirty();
+        }
     }
 }

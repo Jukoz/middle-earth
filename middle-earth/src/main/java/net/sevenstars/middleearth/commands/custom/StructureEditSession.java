@@ -51,7 +51,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.chunk.Chunk;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.minecraft.world.HeightLimitView;
 import net.minecraft.world.World;
@@ -539,8 +539,8 @@ public class StructureEditSession {
         Set<UUID> residents = new HashSet<>();
         ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
             for(BlockEntity blockEntity : world.getChunk(in.x, in.z).getBlockEntities().values()) {
-                if(blockEntity instanceof StructureManagerBlockEntity manager && box.contains(manager.getPos()))
-                    residents.addAll(manager.residents());
+                if(blockEntity instanceof NestHost host && host.getNest() != null && box.contains(blockEntity.getPos()))
+                    residents.addAll(host.getNest().getEntityUuids());
             }
         });
         for(UUID resident : residents) {

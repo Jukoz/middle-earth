@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.dev.NpcDebug;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
@@ -54,7 +55,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.NpcDoor;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
@@ -802,8 +802,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     // [HOUSEHOLD AND MANAGER]
-    public void assignStructureManager(StructureManagerBlockEntity blockEntity){
-        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(blockEntity.getPos());
+    // The bed or marker it was born by
+    public void assignHost(BlockPos host){
+        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(host);
         this.saveNpcData(newNpcData);
     }
 
@@ -851,7 +852,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(age >= managerCheckAge) {
             managerCheckAge = age + MANAGER_CHECK_INTERVAL;
             if(getWorld().isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4))
-                managerPresent = getWorld().getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity;
+                managerPresent = NestHost.isHost(getWorld(), structureManagerPos);
         }
         if(managerPresent)
             return true;
@@ -969,7 +970,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 centerX = site.getCenterX() + 0.5;
                 centerZ = site.getCenterZ() + 0.5;
             }
-            StructureManagerBlockEntity.triggerDeathSignal(managerPos, this);
+            NestHost.signalGone(world, managerPos, this);
         }
         prisonCell = null;
         setJob(null);
@@ -1075,9 +1076,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         Set<NpcEntity> guards = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
         BlockPos structureManagerPos = getStructureManagerHostPos();
         // Reading a block entity in an unloaded chunk would load that chunk
-        if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)
-                && world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager) {
-            for(UUID owner : manager.residents()) {
+        if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)) {
+            for(UUID owner : NestHost.residents(world, structureManagerPos)) {
                 if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
                     guards.add(resident);
             }
@@ -1480,9 +1480,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             }
         }
         BlockPos structureManagerPos = getStructureManagerHostPos();
-        if(structureManagerPos != null){
-            StructureManagerBlockEntity.triggerDeathSignal(structureManagerPos, this);
-        }
+        NestHost.signalGone(getWorld(), structureManagerPos, this);
         super.onDeath(source);
     }
 

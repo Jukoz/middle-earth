@@ -11,14 +11,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerDataLookup;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
@@ -26,7 +22,6 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import java.util.List;
 import java.util.Optional;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -128,69 +123,24 @@ public class StructureManagerService {
         return entity;
     }
 
-    public static void register(StructureManagerBlockEntity manager) {
-        World world = manager.getWorld();
+    // The beds and markers that people are born by, while they are loaded: where they are, a place is lived in
+    public static void registerHost(World world, BlockPos pos) {
         if (world == null || world.isClient())
             return;
         STRUCTURE_MANAGERS.computeIfAbsent(world.getRegistryKey(), key -> new HashSet<>())
-                          .add(manager.getPos().toImmutable());
+                          .add(pos.toImmutable());
     }
 
-    public static void unregister(StructureManagerBlockEntity manager) {
-        World world = manager.getWorld();
+    public static void unregisterHost(@Nullable World world, BlockPos pos) {
         if (world == null || world.isClient())
             return;
         Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
         if (managers == null)
             return;
 
-        managers.remove(manager.getPos());
+        managers.remove(pos);
         if (managers.isEmpty())
             STRUCTURE_MANAGERS.remove(world.getRegistryKey());
-    }
-
-    // Whose bed a tagged bed is: the manager its builder tied it to, or else the nearest of the structure's managers that has
-    // a nest of its kind. Told from what the templates of the structure hold, so that it is the same answer whichever of the
-    // managers are loaded, and one bed is never born by two
-    public static @Nullable BlockPos ownerOf(World world, StructureFeatureData.Bed bed, List<StructureFeatureData.Manager> managers) {
-        if(bed.tag().isEmpty())
-            return null;
-        StructureFeatureData.Manager owner = null;
-        for(StructureFeatureData.Manager manager : managers) {
-            if(nestFor(world, bed.tag().get(), manager.data()) == null)
-                continue;
-            if(bed.manager().isPresent() && bed.manager().get().equals(manager.pos()))
-                return manager.pos();
-            if(owner == null || isNearer(manager.pos(), owner.pos(), bed.pos()))
-                owner = manager;
-        }
-        return owner == null ? null : owner.pos();
-    }
-
-    private static boolean isNearer(BlockPos manager, BlockPos other, BlockPos bed) {
-        double distance = manager.getSquaredDistance(bed);
-        double otherDistance = other.getSquaredDistance(bed);
-        return distance < otherDistance || distance == otherDistance && manager.compareTo(other) < 0;
-    }
-
-    // For a place whose templates say nothing of its managers: the nearest of those that are loaded
-    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, BedTag tag, RoutineSite site, StructureManagerBlockEntity asking) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
-        if (managers == null)
-            return false;
-        for (BlockPos managerPos : managers) {
-            if (managerPos.equals(asking.getPos()) || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
-                continue;
-            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(tag) || RoutineSites.forManager(world, managerPos) != site)
-                continue;
-            if (manager.ownsBed(bed))
-                return false;
-            double distance = managerPos.getSquaredDistance(bed);
-            double own = asking.getPos().getSquaredDistance(bed);
-            if (distance < own || distance == own && managerPos.compareTo(asking.getPos()) < 0)
-                return false;
-        }
-        return true;
     }
 
     public static boolean isClose(World world, BlockPos pos, int radius) {

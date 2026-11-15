@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.block.special.structureManager.marker;
 
+import net.minecraft.world.BlockView;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.util.shape.VoxelShape;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -33,14 +37,16 @@ import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 // Says what blocks cannot: where a guard stands, where the lord sits. Builders place it in a template and the generated data
-// of the template keeps it. In a world that has the structure placed, it is gone on its first tick
+// of the template keeps it. In a world that has the structure placed, it is gone on its first tick, but for one that spawns:
+// that one stays to see to what it spawned, hidden, and gives way to whatever is built in its place
 public class StructureMarkerBlock extends BlockWithEntity implements Waterloggable {
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty HIDDEN = BooleanProperty.of("hidden");
 
     public StructureMarkerBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(WATERLOGGED, false).with(HIDDEN, false));
     }
 
     @Override
@@ -52,7 +58,7 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(world.isClient)
             return ActionResult.SUCCESS;
-        if(!player.isCreative() || !player.isCreativeLevelTwoOp())
+        if(state.get(HIDDEN) || !player.isCreative() || !player.isCreativeLevelTwoOp())
             return ActionResult.FAIL;
         NamedScreenHandlerFactory factory = state.createScreenHandlerFactory(world, pos);
         if(factory != null)
@@ -68,7 +74,17 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
 
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        return state.get(HIDDEN) ? BlockRenderType.INVISIBLE : BlockRenderType.MODEL;
+    }
+
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return state.get(HIDDEN) ? VoxelShapes.empty() : super.getOutlineShape(state, world, pos, context);
+    }
+
+    @Override
+    protected boolean canReplace(BlockState state, ItemPlacementContext context) {
+        return state.get(HIDDEN) || super.canReplace(state, context);
     }
 
     @Override
@@ -102,7 +118,7 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(FACING, WATERLOGGED, HIDDEN);
     }
 
     @Nullable

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -22,7 +23,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.utils.TwoHandedItems;
@@ -160,6 +160,6 @@ public abstract class LivingEntityMixin extends Entity {
         BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
         // Its nest no longer looks for missing people, and hears of a death from the npc itself
         if(reason == Entity.RemovalReason.DISCARDED && livingEntity instanceof NpcEntity npc && !npc.getWorld().isClient && npc.getStructureManagerHostPos() != null)
-            StructureManagerBlockEntity.triggerDeathSignal(npc.getStructureManagerHostPos(), npc);
+            NestHost.signalGone(npc.getWorld(), npc.getStructureManagerHostPos(), npc);
     }
 }

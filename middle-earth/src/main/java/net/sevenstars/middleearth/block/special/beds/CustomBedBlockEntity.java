@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.block.special.beds;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
+import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,8 +15,9 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class CustomBedBlockEntity extends BlockEntity implements BedTagHolder {
+public class CustomBedBlockEntity extends BlockEntity implements BedTagHolder, NestHost {
     private @Nullable BedTag tag;
+    private @Nullable SpawnNestManager nest;
 
     public CustomBedBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistryME.BED, pos, state);
@@ -35,15 +39,33 @@ public class CustomBedBlockEntity extends BlockEntity implements BedTagHolder {
     }
 
     @Override
+    public @Nullable SpawnNestManager getNest() {
+        return nest;
+    }
+
+    @Override
+    public void setNest(@Nullable SpawnNestManager nest) {
+        this.nest = nest;
+    }
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregisterHost(world, pos);
+        super.markRemoved();
+    }
+
+    @Override
     protected void readData(ReadView view) {
         super.readData(view);
         tag = BedTagHolder.load(view);
+        nest = NestHost.load(view);
     }
 
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
         BedTagHolder.save(view, tag);
+        NestHost.save(view, nest);
     }
 
     @Override

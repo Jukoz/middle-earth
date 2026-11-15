@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
+import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,9 +20,11 @@ import org.spongepowered.asm.mixin.Unique;
 
 // The beds of vanilla keep the tag a builder gave them, as the beds of the mod do
 @Mixin(BedBlockEntity.class)
-public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagHolder {
+public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagHolder, NestHost {
     @Unique
     private @Nullable BedTag middleearth$tag;
+    @Unique
+    private @Nullable SpawnNestManager middleearth$nest;
 
     public BedBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -37,15 +42,33 @@ public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagH
     }
 
     @Override
+    public @Nullable SpawnNestManager getNest() {
+        return middleearth$nest;
+    }
+
+    @Override
+    public void setNest(@Nullable SpawnNestManager nest) {
+        middleearth$nest = nest;
+    }
+
+    @Override
+    public void markRemoved() {
+        StructureManagerService.unregisterHost(world, pos);
+        super.markRemoved();
+    }
+
+    @Override
     protected void readData(ReadView view) {
         super.readData(view);
         middleearth$tag = BedTagHolder.load(view);
+        middleearth$nest = NestHost.load(view);
     }
 
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
         BedTagHolder.save(view, middleearth$tag);
+        NestHost.save(view, middleearth$nest);
     }
 
     @Override

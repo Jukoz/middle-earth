@@ -9,7 +9,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
@@ -102,7 +101,7 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
     }
 
     // The place a bed not yet given one is most likely of: the one most of its neighbours have, which are the beds of the
-    // structure the builder has loaded or else those near it. Failing those, the one a manager there was given
+    // structure the builder has loaded or else those near it
     public static Optional<Identifier> likelyPlace(ServerWorld world, BlockPos bed, UUID builder) {
         StructureEditSession session = StructureEditSession.of(builder);
         boolean inSession = session != null && session.getDimension().equals(world.getRegistryKey())
@@ -118,7 +117,6 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
             }
         }
         Map<Identifier, Integer> counts = new LinkedHashMap<>();
-        Identifier ofManager = null;
         for(int x = fromX; x <= toX; x++) {
             for(int z = fromZ; z <= toZ; z++) {
                 if(!world.isChunkLoaded(x, z))
@@ -128,8 +126,6 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                     boolean belongs = inSession ? session.getPieces().stream().anyMatch(piece -> piece.box().contains(at)) : at.isWithinDistance(bed, NEIGHBOUR_RANGE);
                     if(!belongs)
                         continue;
-                    if(blockEntity instanceof StructureManagerBlockEntity manager && manager.getStructureManagerId() != null && ofManager == null)
-                        ofManager = manager.getStructureManagerId();
                     if(blockEntity instanceof BedTagHolder holder && holder.getBedTag() != null)
                         holder.getBedTag().place().ifPresent(place -> counts.merge(place, 1, Integer::sum));
                 }
@@ -140,6 +136,6 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
             if(most == null || count.getValue() > counts.get(most))
                 most = count.getKey();
         }
-        return Optional.ofNullable(most != null ? most : ofManager);
+        return Optional.ofNullable(most);
     }
 }

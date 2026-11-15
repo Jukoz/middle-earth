@@ -16,7 +16,6 @@ import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 
@@ -83,14 +82,6 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             }
             BedTag tag = holder.getBedTag();
             BlockPos offset = target.subtract(bed);
-            // A manager that is clicked is the one the bed is born by, until it is clicked again and the nearest one is
-            if(player.getWorld().getBlockEntity(target) instanceof StructureManagerBlockEntity) {
-                boolean untied = tag.manager().filter(offset::equals).isPresent();
-                holder.setBedTag(tag.withManager(untied ? Optional.empty() : Optional.of(offset)));
-                player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, untied ? "manager_untied" : "manager_tied")), true);
-                StructureEditing.log("bed %s %s the manager at %s".formatted(bed.toShortString(), untied ? "untied from" : "tied to", target.toShortString()));
-                return;
-            }
             // A chest or a barrel that is clicked is where the bed's things are put away, until it is clicked again and
             // the nearest one is. A fire is a place of work first, and is linked as one
             Block clicked = player.getWorld().getBlockState(target).getBlock();

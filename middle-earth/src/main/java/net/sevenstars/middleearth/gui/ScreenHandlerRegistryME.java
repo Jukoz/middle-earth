@@ -6,7 +6,6 @@ import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
-import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
@@ -16,7 +15,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
-import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
@@ -41,8 +39,6 @@ public class ScreenHandlerRegistryME {
     public static final ScreenHandlerType<ForgeAlloyingScreenHandler> FORGE_ALLOYING_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(ForgeAlloyingScreenHandler::new, BlockPos.PACKET_CODEC.cast());
 
-    public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
 
     public static final ScreenHandlerType<StructureMarkerScreenHandler> STRUCTURE_MARKER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureMarkerScreenHandler::new, StructureMarkerScreenData.PACKET_CODEC);
@@ -56,7 +52,6 @@ public class ScreenHandlerRegistryME {
         register("artisan_table", ARTISAN_SCREEN_HANDLER);
         register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
         register("treated_anvil", TREATED_ANVIL_SCREEN_HANDLER);
-        register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_marker", STRUCTURE_MARKER_SCREEN_HANDLER);
         register("bed_tag", BED_TAG_SCREEN_HANDLER);
         register("crockpot",CROCKPOT_SCREEN_HANDLER );

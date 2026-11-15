@@ -80,7 +80,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
             }
             Identifier template = CommandStructureEdit.resizeLoaded(world, player, box);
             if(template == null) {
-                StructureEditing.log("bounds from %s to %s refused: the manager at %s is in no build that is loaded".formatted(first.toShortString(), second.toShortString(), anchor.toShortString()));
+                StructureEditing.log("bounds from %s to %s refused: the block at %s is in no build that is loaded".formatted(first.toShortString(), second.toShortString(), anchor.toShortString()));
                 player.sendMessage(Text.translatable("ui.%s.structure_bounds.no_build".formatted(MiddleEarth.MOD_ID)), true);
                 return;
             }

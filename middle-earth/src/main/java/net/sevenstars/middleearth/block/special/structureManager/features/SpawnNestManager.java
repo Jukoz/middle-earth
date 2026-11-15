@@ -15,7 +15,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
@@ -245,8 +244,7 @@ public class SpawnNestManager {
         if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
             job = guardDuty(world, structureManagerPos, site);
         job.ifPresent(npc::takeJob);
-        if(world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)
-            npc.assignStructureManager(manager);
+        npc.assignHost(structureManagerPos);
         if(npc.isPrisoner())
             npc.setPrisonCell(site == null ? null : site.findCell(npc.getBlockPos()));
         if(bed != null)
@@ -262,7 +260,7 @@ public class SpawnNestManager {
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;
         Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
         // Guards can spawn before their lord does, who is counted all the same
-        boolean lordExpected = world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager && manager.hasLordNest();
+        boolean lordExpected = site.getBeds().stream().anyMatch(found -> NpcJobs.isLord(found.tag().flatMap(BedTag::job).orElse(null)));
         return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
     }
 

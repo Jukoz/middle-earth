@@ -12,7 +12,6 @@ import net.sevenstars.middleearth.network.packets.client2server.PacketJigsawFits
 import java.util.List;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.entity.player.PlayerEntity;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureBoundsRequest;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.text.Text;
@@ -31,7 +30,7 @@ public class BuildersToolSelection {
     private static final long REPEAT_MILLIS = 300;
 
     private static @Nullable BlockPos selected = null;
-    // The manager the bounds of its build are being set from, and the corner that was clicked first
+    // The block the bounds of its build are being set from, and the corner that was clicked first
     private static @Nullable BlockPos boundsAnchor = null;
     private static @Nullable BlockPos boundsFirst = null;
     // The jigsaw block that was picked, and the plugs it could be joined to
@@ -51,13 +50,14 @@ public class BuildersToolSelection {
         return boundsFirst;
     }
 
-    // With no bed picked, a manager starts the bounds of its build: the next two blocks clicked are its corners
-    private static void clickBounds(PlayerEntity player, BlockPos pos, boolean manager) {
+    // With no bed picked, a block clicked while sneaking starts the bounds of the build it is in: the next two blocks
+    // clicked are its corners. Clicked while sneaking again before the first of them, it is left as it was
+    private static void clickBounds(PlayerEntity player, BlockPos pos, boolean starting) {
         if(boundsAnchor == null) {
             boundsAnchor = pos;
             boundsFirst = null;
             player.sendMessage(Text.translatable("ui.%s.structure_bounds.first".formatted(MiddleEarth.MOD_ID)), true);
-        } else if(manager && pos.equals(boundsAnchor) && boundsFirst == null) {
+        } else if(starting && boundsFirst == null) {
             boundsAnchor = null;
             player.sendMessage(Text.translatable("ui.%s.structure_bounds.stopped".formatted(MiddleEarth.MOD_ID)), true);
         } else if(boundsFirst == null) {
@@ -112,8 +112,8 @@ public class BuildersToolSelection {
                 selected = null;
             BlockState state = world.getBlockState(pos);
             boolean bed = state.getBlock() instanceof BedBlock;
-            boolean manager = state.getBlock() instanceof StructureManagerBlock;
-            boolean bounds = boundsAnchor != null || manager && selected == null;
+            boolean starting = player.isSneaking() && selected == null;
+            boolean bounds = boundsAnchor != null || starting;
             boolean plug = state.isOf(Blocks.JIGSAW) && selected == null && !bounds;
             if(!bed && selected == null && !bounds && !plug) {
                 jigsaw = null;
@@ -126,7 +126,7 @@ public class BuildersToolSelection {
             if(repeated)
                 return ActionResult.FAIL;
             if(bounds) {
-                clickBounds(player, pos.toImmutable(), manager);
+                clickBounds(player, pos.toImmutable(), starting);
                 return ActionResult.FAIL;
             }
             if(plug) {

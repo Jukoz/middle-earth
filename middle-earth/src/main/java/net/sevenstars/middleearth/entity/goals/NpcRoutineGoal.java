@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.goals;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -54,7 +55,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
@@ -681,8 +681,7 @@ public class NpcRoutineGoal extends Goal {
         if(home == null) {
             if(!isLoaded(world, managerPos))
                 return false;
-            BlockPos nest = world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager ? manager.findNestOrigin(npc.getUuid()) : null;
-            home = nest != null ? nest : managerPos;
+            home = managerPos;
             npc.setRoutineHome(home);
         }
         return !home.isWithinDistance(npc.getBlockPos(), DRIFT_DISTANCE);
@@ -2077,10 +2076,9 @@ public class NpcRoutineGoal extends Goal {
     // Where the place has a hunter of its own, the hunting is the hunter's, and the rest keep to their other work
     private boolean leftToHunters(ServerWorld world) {
         BlockPos managerPos = npc.getStructureManagerHostPos();
-        if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !isLoaded(world, managerPos)
-                || !(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager))
+        if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !isLoaded(world, managerPos))
             return false;
-        for(UUID resident : manager.residents()) {
+        for(UUID resident : NestHost.residents(world, managerPos)) {
             if(world.getEntity(resident) instanceof NpcEntity other && other.isAlive() && NpcJobs.HUNTER.getValue().equals(other.getJobId()))
                 return true;
         }

@@ -723,14 +723,14 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_block.mode.data"), "Data: a label the game's own structures read, not used by this mod. Click for the next mode");
             put(of(LangCategory.UI, "jigsaw_fits.some"), "%s plugs fit this one");
             put(of(LangCategory.UI, "jigsaw_fits.none"), "No plug of what is loaded fits this one");
-            put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner. Left-click the manager again to stop");
+            put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner. Sneak and left-click again to stop");
             put(of(LangCategory.UI, "structure_bounds.second"), "Bounds: left-click the opposite corner");
             put(of(LangCategory.UI, "structure_bounds.stopped"), "Bounds left as they were");
             put(of(LangCategory.UI, "structure_bounds.set"), "%s is now saved as %s");
             put(of(LangCategory.UI, "structure_bounds.in_the_way"), "%s is in the way of those bounds");
             put(of(LangCategory.UI, "structure_bounds.too_big"), "Bounds are at most %s blocks a side");
             put(of(LangCategory.UI, "structure_bounds.view_only"), "An assembled structure is only to look at. Use /structedit view spaced");
-            put(of(LangCategory.UI, "structure_bounds.no_build"), "That manager is in no build that is loaded");
+            put(of(LangCategory.UI, "structure_bounds.no_build"), "That block is in no build that is loaded");
             put(of(LangCategory.UI, "bed_tag.title"), "Who lives here?");
             put(of(LangCategory.UI, "bed_tag.place"), "Of which place?");
             put(of(LangCategory.UI, "bed_tag.type"), "Who lives here");
