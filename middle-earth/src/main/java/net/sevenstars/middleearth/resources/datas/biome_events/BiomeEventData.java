@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -44,7 +45,12 @@ public class BiomeEventData {
     private static final int MAXIMUM_PENDING_SPAWNS = 256;
     private static final int DEFAULT_WEIGHT = 1;
     private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
-    private static final HashMap<ChunkPos, Long> DISABLED_CHUNKS = new HashMap<>();
+    // Until when a kind of entity is not tried again in a chunk where it was just refused. Kept for each kind by itself:
+    // npcs that are waiting for the night do not keep the sheep of the place from spawning
+    private static final HashMap<DisabledSpawn, Long> DISABLED_SPAWNS = new HashMap<>();
+    private static final int MAXIMUM_DISABLED_SPAWNS = 4096;
+
+    private record DisabledSpawn(RegistryKey<World> world, ChunkPos chunk, EntityType<?> type) {}
 
     private record PendingSpawn(WildSpawnEventData data, long expires) {}
 
@@ -128,20 +134,23 @@ public class BiomeEventData {
     }
 
     public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
-        ChunkPos chunkPos = new ChunkPos(pos);
-        Long expiredTick = DISABLED_CHUNKS.get(chunkPos);
-        if (expiredTick != null) {
-            if(world.getTime() < expiredTick)
-                return false;
-            DISABLED_CHUNKS.remove(chunkPos);
-        }
-
         Identifier entityId = Registries.ENTITY_TYPE.getId(type);
         if(!hasEntityType(entityId))
             return true;
+        DisabledSpawn spawn = new DisabledSpawn(world.getRegistryKey(), new ChunkPos(pos), type);
+        Long expiredTick = DISABLED_SPAWNS.get(spawn);
+        if (expiredTick != null) {
+            if(world.getTime() < expiredTick)
+                return false;
+            DISABLED_SPAWNS.remove(spawn);
+        }
+
         WildSpawnEventData spawningData = pickWeighted(entityId, world, pos, random);
         if(spawningData == null || spawningData.isDiscarded(random)){
-            DISABLED_CHUNKS.put(chunkPos, world.getTime() + CHUNK_DISABLE_TICKS);
+            // Entries are only looked at again where something tries to spawn, so the ones of chunks left behind pile up
+            if(DISABLED_SPAWNS.size() >= MAXIMUM_DISABLED_SPAWNS)
+                DISABLED_SPAWNS.values().removeIf(until -> until <= world.getTime());
+            DISABLED_SPAWNS.put(spawn, world.getTime() + CHUNK_DISABLE_TICKS);
             return false;
         }
         spawningData.broadcastMessage(world, pos);
