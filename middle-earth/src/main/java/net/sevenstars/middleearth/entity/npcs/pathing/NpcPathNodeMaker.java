@@ -28,7 +28,6 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.sevenstars.middleearth.block.special.plants.ToughBerryBushBlock;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 
 // Land pathfinding knows nothing of ladders: a mob only ever gets onto one by accident. This adds the way up and down them
@@ -81,7 +80,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     @Override
     public PathNodeType getDefaultNodeType(PathContext context, int x, int y, int z) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        if(state.getBlock() instanceof NpcDoor door && door.opensForNpcs(state)) {
+        if(state.getBlock() instanceof NpcDoor door && NpcDoor.opensFor(state, entity)) {
             if(door.isOpen(state))
                 return PathNodeType.DOOR_OPEN;
             return door.canMove(context.getWorld(), probe, state) ? PathNodeType.DOOR_WOOD_CLOSED : PathNodeType.BLOCKED;
@@ -161,7 +160,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         for(int i = 0; i < count; i++) {
             PathNode next = successors[i];
             BlockState floor = context.getBlockState(probe.set(next.x, next.y - 1, next.z));
-            if(floor.getBlock() instanceof FarmlandBlock || floor.isIn(BlockTagsME.FARMLANDS))
+            if(isFarmland(floor))
                 next.penalty = Math.max(next.penalty, FIELD_PENALTY);
         }
     }
@@ -297,7 +296,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
 
     // A trapdoor standing open is a board against one side of its block, of stone as much as of wood. Shutters at the sides
     // of a doorway leave the way through clear
-    private static boolean isOpenBoard(BlockState state) {
+    public static boolean isOpenBoard(BlockState state) {
         return state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
     }
 
@@ -553,12 +552,15 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     }
 
     private boolean isLockedShut(BlockState state) {
-        boolean keyed = state.isIn(NpcDoor.KEYED) && !(entity instanceof NpcEntity npc && NpcJobs.holdsKeys(npc));
-        if(!state.isIn(NpcDoor.LOCKED) && !keyed)
+        if(NpcDoor.opensFor(state, entity))
             return false;
         if(state.getBlock() instanceof NpcDoor door)
             return !door.isOpen(state);
         return state.contains(Properties.OPEN) && !state.get(Properties.OPEN);
+    }
+
+    public static boolean isFarmland(BlockState state) {
+        return state.getBlock() instanceof FarmlandBlock || state.isIn(BlockTagsME.FARMLANDS);
     }
 
     // The gate or trapdoor closing a loft, which the npc opens on its way

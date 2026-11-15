@@ -5,9 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.block.EntityShapeContext;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -335,7 +333,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
     // The open leaf leaves less room than an npc is wide, as with ordinary doors
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if(state.get(OPEN) && context instanceof EntityShapeContext entityContext && entityContext.getEntity() instanceof NpcEntity)
+        if(state.get(OPEN) && NpcDoor.isNpcPassing(context))
             return VoxelShapes.empty();
         return super.getCollisionShape(state, world, pos, context);
     }

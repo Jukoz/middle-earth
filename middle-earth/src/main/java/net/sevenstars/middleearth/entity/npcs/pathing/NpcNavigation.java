@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.entity.npcs.pathing;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
@@ -114,7 +113,7 @@ public class NpcNavigation extends MobNavigation {
     }
 
     private static boolean isBoard(BlockState state) {
-        return state.isIn(BlockTags.CLIMBABLE) || state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
+        return state.isIn(BlockTags.CLIMBABLE) || NpcPathNodeMaker.isOpenBoard(state);
     }
 
     // Along one axis, the middle of the room shapes against the sides of the block leave free

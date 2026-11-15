@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -34,21 +33,19 @@ public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagH
     @Override
     public void setBedTag(@Nullable BedTag tag) {
         middleearth$tag = tag;
-        markDirty();
-        if(world != null)
-            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+        BedTagHolder.markChanged(this);
     }
 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        middleearth$tag = view.read(TAG_KEY, BedTag.CODEC).orElse(null);
+        middleearth$tag = BedTagHolder.load(view);
     }
 
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-        view.putNullable(TAG_KEY, BedTag.CODEC, middleearth$tag);
+        BedTagHolder.save(view, middleearth$tag);
     }
 
     @Override

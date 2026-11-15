@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.entity.npcs.pathing;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
@@ -53,7 +51,6 @@ public class NpcMoveControl extends MoveControl {
         if(entity.isClimbing())
             return true;
         BlockPos feet = entity.getBlockPos();
-        BlockState state = entity.getWorld().getBlockState(feet);
-        return state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN);
+        return NpcPathNodeMaker.isOpenBoard(entity.getWorld().getBlockState(feet));
     }
 }

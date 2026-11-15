@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.block.special.beds;
 
-import net.minecraft.block.Block;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -32,21 +31,19 @@ public class CustomBedBlockEntity extends BlockEntity implements BedTagHolder {
     @Override
     public void setBedTag(@Nullable BedTag tag) {
         this.tag = tag;
-        markDirty();
-        if(world != null)
-            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
+        BedTagHolder.markChanged(this);
     }
 
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        tag = view.read(TAG_KEY, BedTag.CODEC).orElse(null);
+        tag = BedTagHolder.load(view);
     }
 
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-        view.putNullable(TAG_KEY, BedTag.CODEC, tag);
+        BedTagHolder.save(view, tag);
     }
 
     @Override
