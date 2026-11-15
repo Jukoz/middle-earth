@@ -111,7 +111,7 @@ public class NpcWandererBedGoal extends Goal {
             npc.wakeUp();
         npc.getNavigation().stop();
         if(site != null)
-            site.release(npc.getUuid());
+            site.releaseBed(npc.getUuid());
         site = null;
         bed = null;
     }

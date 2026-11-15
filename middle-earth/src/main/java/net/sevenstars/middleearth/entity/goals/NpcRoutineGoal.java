@@ -1621,7 +1621,7 @@ public class NpcRoutineGoal extends Goal {
                     // The game may come back, but not at once
                     hold(RoutineData.Activity.HUNT, time);
                     startReturn(world);
-                } else if(random.nextInt(3) == 0 && RoutineSites.takePreySearch(world)) {
+                } else if(random.nextInt(3) == 0 && RoutineSites.takeEntitySearch(world)) {
                     LivingEntity prey = findPrey(world);
                     if(prey != null) {
                         npc.startHunt(prey, CHASE_TIME);
@@ -1639,7 +1639,7 @@ public class NpcRoutineGoal extends Goal {
                     finish(world, REST + random.nextInt(REST_VARIATION));
                 } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
                     // Turns to whoever else is standing around
-                    companion = RoutineSites.takePreySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, 2, COMPANION_RANGE)) : null;
+                    companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, 2, COMPANION_RANGE)) : null;
                     lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
                 } else {
                     lookTarget = companion.getEyePos();
@@ -2148,7 +2148,7 @@ public class NpcRoutineGoal extends Goal {
         standUp();
         meetSeat = null;
         if(site != null)
-            site.release(npc.getUuid());
+            site.releasePost(npc.getUuid());
         phase = Phase.RETURNING;
         newWalk(world);
         showProp();
@@ -2520,7 +2520,7 @@ public class NpcRoutineGoal extends Goal {
 
     // The nearest of the place's own who is setting out and has nobody with it yet
     private void findWard(ServerWorld world) {
-        if(!RoutineSites.takePreySearch(world))
+        if(!RoutineSites.takeEntitySearch(world))
             return;
         List<NpcEntity> setting = world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(ESCORT_RANGE, ESCORT_HEIGHT_RANGE, ESCORT_RANGE),
                 other -> other != npc && other.isAlive() && other.isOnOuting() && other.getEscort() == null
@@ -2573,7 +2573,7 @@ public class NpcRoutineGoal extends Goal {
         meetSeat = null;
         companion = null;
         if(site != null)
-            site.release(npc.getUuid());
+            site.releasePost(npc.getUuid());
         toBed = false;
         phase = Phase.NONE;
         dropOff = null;

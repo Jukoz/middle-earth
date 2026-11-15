@@ -50,6 +50,9 @@ public class NpcNavigation extends MobNavigation {
     // and the search went for the block over it
     @Override
     public @Nullable Path findPathTo(BlockPos target, int distance) {
+        // Looking at the block of a place that is not loaded would load it
+        if(!world.isChunkLoaded(target.getX() >> 4, target.getZ() >> 4))
+            return null;
         if(isBoard(world.getBlockState(target)))
             return findPathTo(Set.of(target), FOLLOW_TARGET_RANGE, false, distance);
         return super.findPathTo(target, distance);

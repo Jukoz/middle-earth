@@ -82,7 +82,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
     }
 
     //Get the origin of the door based on the state and pos
-    public BlockPos getOrigin(BlockPos pos, BlockState state){
+    private BlockPos getOrigin(BlockPos pos, BlockState state){
         BlockPos blockPos;
         int part = state.get(getPart());
 
@@ -277,7 +277,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
     }
 
     // False when something stands where the door would swing to
-    public boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity player) {
+    private boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity player) {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 

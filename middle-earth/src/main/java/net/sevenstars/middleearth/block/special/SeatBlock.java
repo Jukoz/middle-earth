@@ -59,7 +59,10 @@ public class SeatBlock extends Block {
         seat.setInvulnerable(true);
         if(!world.spawnEntity(seat))
             return false;
-        sitter.startRiding(seat, true);
+        if(!sitter.startRiding(seat, true)) {
+            seat.discard();
+            return false;
+        }
         world.setBlockState(pos, state.with(OCCUPIED, true));
         return true;
     }

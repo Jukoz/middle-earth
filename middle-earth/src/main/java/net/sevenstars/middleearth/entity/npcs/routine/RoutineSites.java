@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.npcs.routine;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
@@ -10,7 +11,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.registry.Registry;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
@@ -104,7 +104,8 @@ public class RoutineSites {
 
         long time = world.getTime();
         if(time % RETRY_INTERVAL == 0) {
-            for(RoutineSite site : sites.sites.values()) {
+            // A structure's site is kept under the key of each of its managers as well as its own
+            for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {
                 if(site.hasMissed())
                     site.retryMissed(world);
             }
@@ -129,7 +130,8 @@ public class RoutineSites {
         return true;
     }
 
-    public static boolean takePreySearch(ServerWorld world) {
+    // Shared by the searches for prey, for company at a table and for somebody to escort
+    public static boolean takeEntitySearch(ServerWorld world) {
         WorldSites sites = of(world);
         if(sites.searches <= 0)
             return false;
@@ -179,7 +181,7 @@ public class RoutineSites {
             int reach = range + site.getExtent();
             long distanceX = site.getCenterX() - pos.getX();
             long distanceZ = site.getCenterZ() - pos.getZ();
-            if(!site.getBeds().isEmpty() && distanceX * distanceX + distanceZ * distanceZ <= (long) reach * reach)
+            if(!site.getBeds().isEmpty() && distanceX * distanceX + distanceZ * distanceZ <= (long) reach * reach && !found.contains(site))
                 found.add(site);
         }
         return found;
@@ -272,7 +274,6 @@ public class RoutineSites {
         List<BlockPos> stores = new ArrayList<>();
         List<BlockPos> seats = new ArrayList<>();
         List<BlockPos> doors = new ArrayList<>();
-        List<BlockPos> ladders = new ArrayList<>();
         List<StructureFeatureData.Marker> markers = new ArrayList<>();
         Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
         if(registry.isEmpty())
@@ -303,8 +304,6 @@ public class RoutineSites {
                 seats.add(NestSurvey.placedAt(placed, seat));
             for(BlockPos door : data.doors())
                 doors.add(NestSurvey.placedAt(placed, door));
-            for(BlockPos ladder : data.ladders())
-                ladders.add(NestSurvey.placedAt(placed, ladder));
             for(StructureFeatureData.Marker marker : data.markers())
                 markers.add(new StructureFeatureData.Marker(marker.kind(), NestSurvey.placedAt(placed, marker.pos()), placed.getRotation().rotate(marker.facing()),
                         marker.value(), marker.count(), marker.respawns()));
@@ -316,7 +315,6 @@ public class RoutineSites {
         site.setStores(stores.stream().distinct().toList());
         site.setSeats(seats);
         site.setDoors(doors);
-        site.setLadders(ladders);
         site.setMarkers(markers);
     }
 

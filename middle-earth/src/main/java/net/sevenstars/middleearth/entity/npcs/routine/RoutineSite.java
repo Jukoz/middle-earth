@@ -96,7 +96,6 @@ public class RoutineSite {
     private final int extent;
     // Stretches the samples of a large structure out past its edge
     private final float sampleScale;
-    private final boolean enclosed;
     private final List<BlockBox> buildings = new ArrayList<>();
 
     private final List<BlockPos> shoreStands = new ArrayList<>();
@@ -114,15 +113,16 @@ public class RoutineSite {
     // The seats around each table of the settlement, from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureFeatureData.Station> stations = List.of();
-    // Every seat, doors and ladders of the settlement, and the markers its builders put down
+    // Every seat and door of the settlement, and the markers its builders put down
     private List<BlockPos> seats = List.of();
     private List<BlockPos> doors = List.of();
-    private List<BlockPos> ladders = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
     private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
     // Who stands at which marker, so that two guards never take the same post
-    private final Map<BlockPos, UUID> claims = new HashMap<>();
+    // Kept apart: a traveller's bed for the night is not given up when its routine lets go of a post
+    private final Map<BlockPos, UUID> postClaims = new HashMap<>();
+    private final Map<BlockPos, UUID> bedClaims = new HashMap<>();
     private @Nullable List<BlockPos> patrolRoute = null;
 
     private final BlockPos.Mutable probe = new BlockPos.Mutable();
@@ -158,8 +158,8 @@ public class RoutineSite {
         }
         if(ringRadius > 0)
             planRing(pieces);
-        this.enclosed = referenceY != null && surfaceY - referenceY > ENCLOSED_DEPTH;
-        this.ready = enclosed;
+        // Shut in underground, a place has no ground around it to look over
+        this.ready = referenceY != null && surfaceY - referenceY > ENCLOSED_DEPTH;
     }
 
     // Far enough under the ground at that spot to be shut in, in a cave or a delving
@@ -311,10 +311,6 @@ public class RoutineSite {
         this.doors = doors;
     }
 
-    void setLadders(List<BlockPos> ladders) {
-        this.ladders = ladders;
-    }
-
     void setMarkers(List<StructureFeatureData.Marker> markers) {
         this.markers = markers;
         this.patrolRoute = null;
@@ -327,10 +323,6 @@ public class RoutineSite {
 
     public List<BlockPos> getDoors() {
         return doors;
-    }
-
-    public List<BlockPos> getLadders() {
-        return ladders;
     }
 
     // Where they are and which way they face
@@ -477,41 +469,49 @@ public class RoutineSite {
         StructureFeatureData.Marker best = null;
         for(MarkerKind kind : kinds) {
             for(StructureFeatureData.Marker marker : getMarkers(kind)) {
-                UUID holder = claims.get(marker.pos());
+                UUID holder = postClaims.get(marker.pos());
                 boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
                 if(free && (best == null || marker.pos().getSquaredDistance(near) < best.pos().getSquaredDistance(near)))
                     best = marker;
             }
         }
         if(best != null) {
-            claims.values().removeIf(npc::equals);
-            claims.put(best.pos(), npc);
+            postClaims.values().removeIf(npc::equals);
+            postClaims.put(best.pos(), npc);
         }
         return best;
     }
 
     // The nearest bed nobody is born in, empty and with floor to get into it from, taken for the traveller. One it holds already is its own
     public @Nullable BlockPos claimFreeBed(ServerWorld world, UUID npc, BlockPos near) {
-        List<StructureFeatureData.Bed> candidates = new ArrayList<>(beds);
+        List<StructureFeatureData.Bed> candidates = new ArrayList<>();
+        for(StructureFeatureData.Bed bed : beds) {
+            if(bed.tag().isEmpty())
+                candidates.add(bed);
+        }
         candidates.sort((a, b) -> Double.compare(a.pos().getSquaredDistance(near), b.pos().getSquaredDistance(near)));
         for(StructureFeatureData.Bed bed : candidates) {
             BlockPos pos = bed.pos();
-            if(bed.tag().isPresent() || !world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
+            if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
                 continue;
             BlockState state = world.getBlockState(pos);
-            UUID holder = claims.get(pos);
+            UUID holder = bedClaims.get(pos);
             boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
             if(!free || !(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED) || NestSurvey.standFor(world, pos) == null)
                 continue;
-            claims.values().removeIf(npc::equals);
-            claims.put(pos, npc);
+            bedClaims.values().removeIf(npc::equals);
+            bedClaims.put(pos, npc);
             return pos;
         }
         return null;
     }
 
-    public void release(UUID npc) {
-        claims.values().removeIf(npc::equals);
+    public void releasePost(UUID npc) {
+        postClaims.values().removeIf(npc::equals);
+    }
+
+    public void releaseBed(UUID npc) {
+        bedClaims.values().removeIf(npc::equals);
     }
 
     public int getExtent() {
