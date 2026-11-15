@@ -39,8 +39,8 @@ public class SpawnEventDataUtil {
         if(targetEntityType != EntitiesME.NPC || data.getNpcClass(null) == null)
             return true;
         int sameNpcClassAmount = data.getSameNpcClassLimitAmount().orElse(DEFAULT_SAME_NPC_CLASS_AMOUNT);
-        if(sameNpcClassAmount <= 0)
-            return false;
+        // A limit of none still lets the first one in
+        sameNpcClassAmount = Math.max(sameNpcClassAmount, 1);
         int sameNpcClassDistance = data.getSameNpcClassLimitDistance().orElse(DEFAULT_SAME_NPC_CLASS_DISTANCE);
         boolean sameNpcClassSurfaceOnly = data.getSameNpcClassSurfaceOnly().orElse(false);
         Box npcSearchBox = Box.of(pos.toCenterPos(), sameNpcClassDistance, sameNpcClassDistance, sameNpcClassDistance);
@@ -110,7 +110,7 @@ public class SpawnEventDataUtil {
             return true;
         BlockPos max = blockPos.add(size.getX() - 1, size.getY() - 1, size.getZ() - 1);
         for (BlockPos pos : BlockPos.iterate(blockPos, max)) {
-            if (!world.getBlockState(pos).isSolidBlock(world, pos)) {
+            if (world.getBlockState(pos).isSolidBlock(world, pos)) {
                 return false;
             }
         }
