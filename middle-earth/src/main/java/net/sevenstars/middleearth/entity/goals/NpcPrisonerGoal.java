@@ -8,7 +8,7 @@ import java.util.EnumSet;
 
 // A prisoner has no day to spend and nowhere to go. It ambles about in its cell
 public class NpcPrisonerGoal extends Goal {
-    // In ticks
+    // In ticks of the goal, which the game gives it every other tick
     private static final int PAUSE = 40;
     private static final int PAUSE_VARIATION = 100;
 

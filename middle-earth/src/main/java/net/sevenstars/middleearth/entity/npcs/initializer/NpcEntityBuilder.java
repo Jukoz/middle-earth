@@ -28,9 +28,4 @@ public class NpcEntityBuilder {
         return this.entity;
     }
 
-    public NpcEntity forceBuild() {
-        this.entity.tryToInitializeData();
-        return this.entity;
-    }
-
 }

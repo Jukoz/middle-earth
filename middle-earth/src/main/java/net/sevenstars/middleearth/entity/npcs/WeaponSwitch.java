@@ -21,7 +21,8 @@ public final class WeaponSwitch {
 
     public static void tick(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
-        if(target == null)
+        // What a routine put in the hand is not a weapon to change to, and is put away as the fight takes over
+        if(target == null || npc.hasRoutineProp())
             return;
         ItemStack main = npc.getMainHandStack();
         ItemStack off = npc.getOffHandStack();

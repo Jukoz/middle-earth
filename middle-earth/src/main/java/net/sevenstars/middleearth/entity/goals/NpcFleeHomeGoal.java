@@ -6,7 +6,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
+import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -18,7 +18,7 @@ public class NpcFleeHomeGoal extends Goal {
     // Close to home there is nowhere left to run, and the npc stands its ground
     private static final int HOME_RANGE = 5;
     private static final int FLEE_DISTANCE = 12;
-    // In ticks
+    // In ticks of the goal, which the game gives it every other tick
     private static final int MAXIMUM_TIME = 20 * 15;
     private static final int PATH_INTERVAL = 20;
 
@@ -37,7 +37,10 @@ public class NpcFleeHomeGoal extends Goal {
     public boolean canStart() {
         LivingEntity danger = npc.getTarget() != null ? npc.getTarget() : npc.getAttacker();
         // Game is not a danger
-        if(danger == null || !danger.isAlive() || danger == npc.getHuntTarget() || !isTimid())
+        if(danger == null || !danger.isAlive() || danger == npc.getHuntTarget() || !npc.isTimid())
+            return false;
+        // A friend's stray blow is not run from
+        if(NpcRelations.of(npc, danger).isFriendly())
             return false;
         if(npc.squaredDistanceTo(danger) > THREAT_RANGE * THREAT_RANGE || isHome())
             return false;
@@ -45,11 +48,6 @@ public class NpcFleeHomeGoal extends Goal {
             return false;
         threat = danger;
         return true;
-    }
-
-    private boolean isTimid() {
-        RoutineData routine = npc.getRoutine();
-        return routine != null && routine.isTimid();
     }
 
     private boolean isHome() {
