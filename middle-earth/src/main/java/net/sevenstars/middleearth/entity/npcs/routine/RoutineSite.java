@@ -769,6 +769,11 @@ public class RoutineSite {
     }
 
     // A round with a long gap in it, where the place runs along a lake or a cliff, is walked there and back
+    // Walked where the builders put it, and not along the outline of the place
+    public boolean hasMarkedRoute() {
+        return getMarkers(MarkerKind.PATROL_POINT).size() >= 2;
+    }
+
     public boolean isPatrolArc() {
         getPatrolRoute();
         return patrolArc;
