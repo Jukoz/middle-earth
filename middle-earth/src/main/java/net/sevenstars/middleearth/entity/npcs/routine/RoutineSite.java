@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -145,6 +146,8 @@ public class RoutineSite {
     private List<StructureFeatureData.Marker> markers = List.of();
     private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
+    // The factions the structure is tagged as belonging to, by the path of their ids. Empty for a place nobody is named for
+    private Set<String> owners = Set.of();
     // Who stands at which marker, so that two guards never take the same post
     // Kept apart: a traveller's bed for the night is not given up when its routine lets go of a post
     private final Map<BlockPos, UUID> postClaims = new HashMap<>();
@@ -162,6 +165,7 @@ public class RoutineSite {
     private final List<Integer> missedSamples = new ArrayList<>();
     private boolean patrolArc = false;
     private final Map<BlockPos, Long> hivesEmptied = new HashMap<>();
+    private final Map<BlockPos, Integer> hiveLevels = new HashMap<>();
     private List<BlockPos> game = List.of();
     // Looked for at once the first time, without the gap from the smallest long overflowing
     private long gameSeenAt = -GAME_INTERVAL;
@@ -227,12 +231,21 @@ public class RoutineSite {
     }
 
     // When the honey was last taken from a hive. One not seen before is reckoned from the honey already in it
-    public long hiveEmptiedAt(BlockPos hive, long time, long filledFor) {
-        return hivesEmptied.computeIfAbsent(hive, pos -> time - filledFor);
+    // Reckoned again where the honey found in it is not what the routine left there
+    public long hiveEmptiedAt(BlockPos hive, long time, int levelFound, long filledFor) {
+        Integer left = hiveLevels.get(hive);
+        if(left == null || left != levelFound)
+            hivesEmptied.put(hive, time - filledFor);
+        return hivesEmptied.get(hive);
+    }
+
+    public void noteHiveLevel(BlockPos hive, int level) {
+        hiveLevels.put(hive, level);
     }
 
     public void emptyHive(BlockPos hive, long time) {
         hivesEmptied.put(hive, time);
+        hiveLevels.put(hive, 0);
     }
 
     public List<BlockPos> getGrounds() {
@@ -259,9 +272,20 @@ public class RoutineSite {
     }
 
     // The first of its people to live here names the place
+    // The first of its people to start a routine names the place. Where the structure says whose it is, nobody else can:
+    // a prisoner held there does not make it a place of his own people
     public void claim(@Nullable Identifier faction) {
-        if(this.faction == null && ringRadius > 0)
+        if(this.faction != null || faction == null || ringRadius <= 0)
+            return;
+        String path = faction.getPath();
+        // longbeards.erebor also lives in the structures of the longbeards
+        int split = path.indexOf('.');
+        if(owners.isEmpty() || owners.contains(path) || split >= 0 && owners.contains(path.substring(0, split)))
             this.faction = faction;
+    }
+
+    void setOwners(Set<String> owners) {
+        this.owners = owners;
     }
 
     public int getSurfaceY() {

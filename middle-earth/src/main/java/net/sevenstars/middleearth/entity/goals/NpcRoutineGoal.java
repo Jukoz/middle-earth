@@ -351,6 +351,7 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable BlockPos dropOff = null;
     // The seat at its own table a visitor asked it to, while it comes home for the visit
     private @Nullable BlockPos hostingAt = null;
+    private String interruptedBy = "";
     // The household the pick found somebody in, for the visit to go to
     private @Nullable BlockPos visitHousehold = null;
     private boolean planned = false;
@@ -1013,10 +1014,11 @@ public class NpcRoutineGoal extends Goal {
 
     @Override
     public void start() {
-        // Work a fight or a fright took the npc away from is not carried on with from wherever that ended: it goes home.
-        // Stopping has already put the task in the log as given up
-        if(phase == Phase.WORKING && hasLeftWork() && npc.getWorld() instanceof ServerWorld world)
+        // Work a fight or a fright took the npc away from is not carried on with from wherever that ended: it goes home
+        if(phase == Phase.WORKING && hasLeftWork() && npc.getWorld() instanceof ServerWorld world) {
+            abandoned("left its work, " + interruptedBy);
             startReturn(world);
+        }
         resetWalk();
         thinkCooldown = 0;
         showProp();
@@ -1037,8 +1039,12 @@ public class NpcRoutineGoal extends Goal {
             // Every npc is of the one entity kind, and is told apart by its own class
             String foeName = foe == null ? "" : foe instanceof NpcEntity other && other.getNpcClass() != null ? other.getNpcClass().getId().getPath()
                     : Registries.ENTITY_TYPE.getId(foe.getType()).getPath();
-            abandoned(foe != null ? "interrupted by a fight with " + foeName
-                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing");
+            // A task taken up again after the fight is not one given up. It only counts as that if the npc has to leave it
+            interruptedBy = foe != null ? "interrupted by a fight with " + foeName
+                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing";
+            BlockPos pos = npc.getBlockPos();
+            MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s paused %s (%s) at %d,%d,%d: %s".formatted(who(), activity.asString(),
+                    phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), interruptedBy));
         }
         stopMoving();
         standUp();
@@ -1445,6 +1451,8 @@ public class NpcRoutineGoal extends Goal {
         debugWhy("GIVEUP", world, null, null);
         if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && !stops.isEmpty()) {
             abandoned("skipped a post, " + why);
+            // The skip is in the log. The rest of the round is still seen through
+            failed = false;
             nextStop(world.getTime());
             return;
         }
@@ -1459,7 +1467,8 @@ public class NpcRoutineGoal extends Goal {
         boolean walkedSome = activity == RoutineData.Activity.PATROL && ringLeft > 1 && (laps > 0 || ringLeft < site.getPatrolRoute().size());
         abandoned((phase != Phase.RETURNING && walkedSome ? "skipped a stretch of its round, " : "") + why);
         if(phase != Phase.RETURNING && walkedSome) {
-            // A blocked stretch of the round is skipped
+            // A blocked stretch of the round is skipped, and the rest of it is still seen through
+            failed = false;
             ringLeft--;
             nextWaypoint();
             return;
@@ -2316,13 +2325,17 @@ public class NpcRoutineGoal extends Goal {
         return world.getBlockState(pos).contains(BeehiveBlock.HONEY_LEVEL);
     }
 
-    // Fills the hive as the day goes since its honey was last taken, which is due once it has stood full for a whole day
+    // Fills the hive as the day goes since its honey was last taken, which is due once it has stood full for a whole day.
+    // The hives of a settlement have no bees to fill them. Where the honey in one is not what was left in it, somebody else
+    // took some or bees brought some, and it is reckoned again from what is there
     private boolean hiveReady(ServerWorld world, BlockPos hive, long time) {
         BlockState state = world.getBlockState(hive);
-        long since = time - site.hiveEmptiedAt(hive, time, state.get(BeehiveBlock.HONEY_LEVEL) * DAY / FULL_HONEY);
+        int found = state.get(BeehiveBlock.HONEY_LEVEL);
+        long since = time - site.hiveEmptiedAt(hive, time, found, found * DAY / FULL_HONEY);
         int level = (int) Math.min(FULL_HONEY, since * FULL_HONEY / DAY);
-        if(state.get(BeehiveBlock.HONEY_LEVEL) != level)
+        if(found != level)
             world.setBlockState(hive, state.with(BeehiveBlock.HONEY_LEVEL, level));
+        site.noteHiveLevel(hive, level);
         return since >= HIVE_READY_TIME;
     }
 

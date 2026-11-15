@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // Keeps the sites of each world, and rations the work routines may do in one tick
 public class RoutineSites {
@@ -262,6 +263,9 @@ public class RoutineSites {
         int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), referenceY, radius, extent, pieces);
         placesOf(world, start, site);
+        site.setOwners(world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure()).streamTags()
+                .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
+                .map(tag -> tag.id().getPath().substring(FACTION_TAG_PREFIX.length())).collect(Collectors.toSet()));
         sites.sites.put(key, site);
         return site;
     }
