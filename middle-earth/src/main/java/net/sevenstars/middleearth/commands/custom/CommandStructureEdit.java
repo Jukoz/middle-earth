@@ -53,6 +53,10 @@ import net.sevenstars.middleearth.block.special.structureManager.features.NestSu
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.registry.Registry;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.JigsawBlock;
+import net.minecraft.block.entity.JigsawBlockEntity;
+import net.minecraft.block.enums.Orientation;
+import net.minecraft.structure.pool.StructurePools;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -70,6 +74,17 @@ public class CommandStructureEdit {
     private static final String CLOSE = "close";
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
+    private static final String NEW = "new";
+    private static final String PLUG = "plug";
+    private static final String SIZE_X = "x";
+    private static final String SIZE_Y = "y";
+    private static final String SIZE_Z = "z";
+    private static final Vec3i DEFAULT_NEW_SIZE = new Vec3i(16, 8, 16);
+    private static final Identifier EMPTY_PLUG = Identifier.ofVanilla("empty");
+    // What the plug turns into where the piece is generated
+    private static final String PLUG_FINAL_STATE = "minecraft:air";
+    // The most a structure block's own screen lets a box span
+    private static final int MAXIMUM_NEW_SIZE = 48;
     private static final String PROJECTION = "projection";
     private static final String RIGID = "rigid";
     private static final String TERRAIN_MATCHING = "terrain_matching";
@@ -129,6 +144,15 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
+                .then(CommandManager.literal(NEW)
+                        .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
+                                .executes(context -> create(context, DEFAULT_NEW_SIZE, false))
+                                .then(CommandManager.literal(PLUG).executes(context -> create(context, DEFAULT_NEW_SIZE, true)))
+                                .then(CommandManager.argument(SIZE_X, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
+                                        .then(CommandManager.argument(SIZE_Y, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
+                                                .then(CommandManager.argument(SIZE_Z, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
+                                                        .executes(context -> create(context, sizeOf(context), false))
+                                                        .then(CommandManager.literal(PLUG).executes(context -> create(context, sizeOf(context), true))))))))
                 .then(CommandManager.literal(PROJECTION)
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
                                 .suggests(TEMPLATES)
@@ -330,6 +354,78 @@ public class CommandStructureEdit {
         } catch (IOException e) {
             source.sendError(Text.literal("Could not write the pool files: " + e.getMessage()));
         }
+        return 1;
+    }
+
+    private static Vec3i sizeOf(CommandContext<ServerCommandSource> context) {
+        return new Vec3i(IntegerArgumentType.getInteger(context, SIZE_X), IntegerArgumentType.getInteger(context, SIZE_Y), IntegerArgumentType.getInteger(context, SIZE_Z));
+    }
+
+    // A build that does not exist yet: a structure block set to save a box of that size under that name, in front of the
+    // builder, with whatever stands there left as it is. With a plug, a jigsaw block of the build's own name is set in
+    // the middle of the side the builder stands at, for another piece's plug to take it by
+    private static int create(CommandContext<ServerCommandSource> context, Vec3i size, boolean plug) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        ServerWorld world = source.getWorld();
+        Identifier id = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        if(world.getStructureTemplateManager().getTemplate(id).isPresent()) {
+            source.sendError(Text.literal("There is a template %s already. /%s %s %s to change it".formatted(id, COMMAND, LOAD, id)));
+            return 0;
+        }
+        Direction facing = player.getHorizontalFacing();
+        BlockPos feet = player.getBlockPos();
+        int x = facing.getOffsetX() > 0 ? feet.getX() + DISTANCE_IN_FRONT
+                : facing.getOffsetX() < 0 ? feet.getX() - DISTANCE_IN_FRONT - size.getX() + 1 : feet.getX() - size.getX() / 2;
+        int z = facing.getOffsetZ() > 0 ? feet.getZ() + DISTANCE_IN_FRONT
+                : facing.getOffsetZ() < 0 ? feet.getZ() - DISTANCE_IN_FRONT - size.getZ() + 1 : feet.getZ() - size.getZ() / 2;
+        BlockPos origin = new BlockPos(x, feet.getY(), z);
+        BlockPos saveBlock = origin.subtract(SAVE_OFFSET);
+        if(!world.isInBuildLimit(saveBlock) || !world.isInBuildLimit(origin.add(size).add(-1, -1, -1))) {
+            source.sendError(Text.literal("A box of that size does not fit in the world here"));
+            return 0;
+        }
+        world.setBlockState(saveBlock, Blocks.STRUCTURE_BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+        if(!(world.getBlockEntity(saveBlock) instanceof StructureBlockBlockEntity structureBlock)) {
+            source.sendError(Text.literal("Could not place the structure block at " + saveBlock.toShortString()));
+            return 0;
+        }
+        structureBlock.setMode(StructureBlockMode.SAVE);
+        structureBlock.setTemplateName(id);
+        structureBlock.setOffset(SAVE_OFFSET);
+        structureBlock.setSize(size);
+        structureBlock.setIgnoreEntities(true);
+        structureBlock.setAuthor(player);
+        structureBlock.markDirty();
+        world.updateListeners(saveBlock, world.getBlockState(saveBlock), world.getBlockState(saveBlock), Block.NOTIFY_ALL);
+
+        BlockPos plugPos = null;
+        if(plug) {
+            // On the floor of the box, in the middle of the side that faces the builder, and facing out of it
+            Direction out = facing.getOpposite();
+            int along = (out.getAxis() == Direction.Axis.X ? size.getZ() : size.getX()) / 2;
+            plugPos = out.getAxis() == Direction.Axis.X
+                    ? new BlockPos(out == Direction.WEST ? origin.getX() : origin.getX() + size.getX() - 1, origin.getY(), origin.getZ() + along)
+                    : new BlockPos(origin.getX() + along, origin.getY(), out == Direction.NORTH ? origin.getZ() : origin.getZ() + size.getZ() - 1);
+            world.setBlockState(plugPos, Blocks.JIGSAW.getDefaultState().with(JigsawBlock.ORIENTATION, Orientation.byDirections(out, Direction.UP)), Block.NOTIFY_ALL);
+            if(world.getBlockEntity(plugPos) instanceof JigsawBlockEntity jigsaw) {
+                jigsaw.setName(id);
+                jigsaw.setTarget(EMPTY_PLUG);
+                jigsaw.setPool(StructurePools.EMPTY);
+                jigsaw.setFinalState(PLUG_FINAL_STATE);
+                jigsaw.setJoint(JigsawBlockEntity.Joint.ROLLABLE);
+                jigsaw.markDirty();
+                world.updateListeners(plugPos, world.getBlockState(plugPos), world.getBlockState(plugPos), Block.NOTIFY_ALL);
+            }
+        }
+        PLACED.put(player.getUuid(), new Placed(world.getRegistryKey(), saveBlock));
+        StructureEditSession.beginSingle(world.getServer(), player.getUuid());
+        BlockPos placedPlug = plugPos;
+        StructureEditing.log("new build %s, %dx%dx%d from %s, structure block at %s%s".formatted(id, size.getX(), size.getY(), size.getZ(), origin.toShortString(),
+                saveBlock.toShortString(), placedPlug == null ? "" : ", plug at " + placedPlug.toShortString()));
+        source.sendFeedback(() -> Text.literal("New build %s: a box of %dx%dx%d from %s, its structure block below the first corner at %s%s. /%s %s writes it".formatted(id,
+                size.getX(), size.getY(), size.getZ(), origin.toShortString(), saveBlock.toShortString(),
+                placedPlug == null ? "" : ", and a plug named %s at %s".formatted(id, placedPlug.toShortString()), COMMAND, SAVE)), false);
         return 1;
     }
 
