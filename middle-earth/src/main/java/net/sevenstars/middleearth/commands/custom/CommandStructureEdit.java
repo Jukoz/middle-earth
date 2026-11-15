@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.commands.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -51,6 +52,12 @@ public class CommandStructureEdit {
     private static final String SEED = "seed";
     private static final String VIEW = "view";
     private static final String CLOSE = "close";
+    private static final String GAP = "gap";
+    private static final String EXPAND = "expand";
+    private static final String BLOCKS = "blocks";
+    private static final int MAXIMUM_EXPANSION = 64;
+    // In degrees up or down from level, past which the builder is taken to mean up or down
+    private static final float LOOKING_UP = 45;
     // Blocks between the player and the nearest face of the loaded template
     private static final int DISTANCE_IN_FRONT = 3;
     // The structure block saves from one block above itself, as vanilla's default does
@@ -91,6 +98,18 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(SPACED).executes(context -> view(context, true)))
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
+                .then(CommandManager.literal(GAP)
+                        .then(CommandManager.argument(BLOCKS, IntegerArgumentType.integer(0, StructureEditSession.MAXIMUM_GAP))
+                                .executes(CommandStructureEdit::gap)))
+                .then(CommandManager.literal(EXPAND)
+                        .then(CommandManager.argument(BLOCKS, IntegerArgumentType.integer(1, MAXIMUM_EXPANSION))
+                                .executes(context -> expand(context, null))
+                                .then(CommandManager.literal("up").executes(context -> expand(context, Direction.UP)))
+                                .then(CommandManager.literal("down").executes(context -> expand(context, Direction.DOWN)))
+                                .then(CommandManager.literal("north").executes(context -> expand(context, Direction.NORTH)))
+                                .then(CommandManager.literal("south").executes(context -> expand(context, Direction.SOUTH)))
+                                .then(CommandManager.literal("east").executes(context -> expand(context, Direction.EAST)))
+                                .then(CommandManager.literal("west").executes(context -> expand(context, Direction.WEST)))))
                 .then(CommandManager.literal(SAVE)
                         .executes(context -> save(context, null))
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
@@ -126,7 +145,7 @@ public class CommandStructureEdit {
             return 0;
         }
         source.sendFeedback(() -> Text.literal("Loaded %s from the seed %d: %d pieces, %s. %s".formatted(id, seed, session.getPieces().size(),
-                spaced ? "spaced apart" : "assembled", spaced ? "/%s %s writes the pieces that were changed".formatted(COMMAND, SAVE)
+                spaced ? "spaced %d blocks apart".formatted(session.getGap()) : "assembled", spaced ? "/%s %s writes the pieces that were changed".formatted(COMMAND, SAVE)
                         : "This view is for looking: /%s %s %s to change and save pieces".formatted(COMMAND, VIEW, SPACED))), false);
         return 1;
     }
@@ -140,6 +159,43 @@ public class CommandStructureEdit {
             return 0;
         }
         return loadStructure(source, session.getStructure(), spaced, session.getSeed());
+    }
+
+    // How far apart spaced pieces stand. A structure that is loaded is laid out again with it
+    private static int gap(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        int blocks = IntegerArgumentType.getInteger(context, BLOCKS);
+        StructureEditSession.setGap(player.getUuid(), blocks);
+        StructureEditSession session = StructureEditSession.of(player.getUuid());
+        if(session == null || !session.isSpaced()) {
+            source.sendFeedback(() -> Text.literal("Spaced pieces will stand %d blocks apart".formatted(blocks)), false);
+            return 1;
+        }
+        return loadStructure(source, session.getStructure(), true, session.getSeed());
+    }
+
+    // Makes the piece the builder stands in, or the nearest, bigger on the side they look to or name
+    private static int expand(CommandContext<ServerCommandSource> context, @Nullable Direction named) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        StructureEditSession session = StructureEditSession.of(player.getUuid());
+        if(session == null || !session.isSpaced() || !session.getDimension().equals(source.getWorld().getRegistryKey())) {
+            source.sendError(Text.literal("Only the pieces of a structure loaded spaced apart can be made bigger. /%s %s <structure> loads one".formatted(COMMAND, STRUCTURE)));
+            return 0;
+        }
+        StructureEditSession.Piece piece = session.pieceAt(player.getBlockPos());
+        if(piece == null)
+            return 0;
+        Direction side = named != null ? named : player.getPitch() < -LOOKING_UP ? Direction.UP : player.getPitch() > LOOKING_UP ? Direction.DOWN : player.getHorizontalFacing();
+        int blocks = IntegerArgumentType.getInteger(context, BLOCKS);
+        StructureEditSession.Piece inTheWay = session.expand(source.getWorld(), piece, side, blocks);
+        if(inTheWay != null) {
+            source.sendError(Text.literal("%s is in the way of %s to the %s. /%s %s <blocks> sets the pieces further apart".formatted(inTheWay.template(), piece.template(), side.asString(), COMMAND, GAP)));
+            return 0;
+        }
+        source.sendFeedback(() -> Text.literal("Made %s %d blocks bigger to the %s. /%s %s writes it".formatted(piece.template(), blocks, side.asString(), COMMAND, SAVE)), false);
+        return 1;
     }
 
     private static int close(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {

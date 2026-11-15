@@ -28,6 +28,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
@@ -36,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +47,9 @@ import java.util.UUID;
 // as it would in the world, to be looked at. Spaced, its pieces stand apart, each whole in a box of its own, and what is
 // changed in one is saved back to the template of that piece
 public class StructureEditSession {
-    // In blocks, left between the pieces when they are spaced
-    private static final int PIECE_GAP = 4;
+    // In blocks, left between the pieces when they are spaced, unless the builder asks for another gap
+    public static final int DEFAULT_GAP = 4;
+    public static final int MAXIMUM_GAP = 64;
     private static final double FIRST_SPREAD = 1.5;
     private static final double SPREAD_STEP = 0.25;
     private static final double MAXIMUM_SPREAD = 6;
@@ -58,6 +61,9 @@ public class StructureEditSession {
     private static final String POS = "pos";
     private static final String STATE = "state";
     private static final String NBT = "nbt";
+    private static final String SIZE = "size";
+
+    private static final Map<UUID, Integer> GAPS = new HashMap<>();
 
     private static final Map<UUID, StructureEditSession> SESSIONS = new HashMap<>();
 
@@ -70,9 +76,11 @@ public class StructureEditSession {
     private final Identifier structure;
     private final long seed;
     private final boolean spaced;
+    private final int gap;
     private final List<Piece> pieces;
 
-    private StructureEditSession(RegistryKey<World> dimension, Identifier structure, long seed, boolean spaced, List<Piece> pieces) {
+    private StructureEditSession(RegistryKey<World> dimension, Identifier structure, long seed, boolean spaced, int gap, List<Piece> pieces) {
+        this.gap = gap;
         this.dimension = dimension;
         this.structure = structure;
         this.seed = seed;
@@ -89,12 +97,75 @@ public class StructureEditSession {
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> SESSIONS.clear());
     }
 
+    public static int gapOf(UUID builder) {
+        return GAPS.getOrDefault(builder, DEFAULT_GAP);
+    }
+
+    public static void setGap(UUID builder, int gap) {
+        GAPS.put(builder, Math.clamp(gap, 0, MAXIMUM_GAP));
+    }
+
+    public int getGap() {
+        return gap;
+    }
+
+    // The piece the builder stands in, or else the nearest one
+    public @Nullable Piece pieceAt(BlockPos pos) {
+        Piece nearest = null;
+        double nearestDistance = Double.MAX_VALUE;
+        for(Piece piece : pieces) {
+            if(piece.box().contains(pos))
+                return piece;
+            double distance = piece.box().getCenter().getSquaredDistance(pos);
+            if(distance < nearestDistance) {
+                nearestDistance = distance;
+                nearest = piece;
+            }
+        }
+        return nearest;
+    }
+
+    // Makes a piece bigger on one side, to be built into and saved as part of its template. Null when it went well, or else
+    // the piece that is in the way
+    public @Nullable Piece expand(ServerWorld world, Piece piece, Direction side, int blocks) {
+        BlockBox box = piece.box();
+        BlockBox grown = new BlockBox(
+                box.getMinX() + Math.min(0, side.getOffsetX() * blocks), box.getMinY() + Math.min(0, side.getOffsetY() * blocks), box.getMinZ() + Math.min(0, side.getOffsetZ() * blocks),
+                box.getMaxX() + Math.max(0, side.getOffsetX() * blocks), box.getMaxY() + Math.max(0, side.getOffsetY() * blocks), box.getMaxZ() + Math.max(0, side.getOffsetZ() * blocks));
+        for(Piece other : pieces) {
+            if(other != piece && other.box().intersects(grown))
+                return other;
+        }
+        // The new room is open, as what a template leaves out is, until something is built in it
+        for(BlockPos pos : BlockPos.iterate(grown.getMinX(), grown.getMinY(), grown.getMinZ(), grown.getMaxX(), grown.getMaxY(), grown.getMaxZ())) {
+            if(!box.contains(pos) && world.isInBuildLimit(pos))
+                world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+        }
+        pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
+        return null;
+    }
+
+    // The corner of its box a turned template is placed from, and its size as it lies unturned
+    private static BlockPos originOf(BlockBox box, BlockRotation rotation) {
+        return switch (rotation) {
+            case NONE -> new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ());
+            case CLOCKWISE_90 -> new BlockPos(box.getMaxX(), box.getMinY(), box.getMinZ());
+            case CLOCKWISE_180 -> new BlockPos(box.getMaxX(), box.getMinY(), box.getMaxZ());
+            case COUNTERCLOCKWISE_90 -> new BlockPos(box.getMinX(), box.getMinY(), box.getMaxZ());
+        };
+    }
+
+    private static Vec3i sizeOf(BlockBox box, BlockRotation rotation) {
+        boolean turned = rotation == BlockRotation.CLOCKWISE_90 || rotation == BlockRotation.COUNTERCLOCKWISE_90;
+        return new Vec3i(turned ? box.getBlockCountZ() : box.getBlockCountX(), box.getBlockCountY(), turned ? box.getBlockCountX() : box.getBlockCountZ());
+    }
+
     public boolean hasChanges(ServerWorld world) {
         if(!spaced)
             return false;
         for(Piece piece : pieces) {
             StructureTemplate template = world.getStructureTemplateManager().getTemplate(piece.template()).orElse(null);
-            if(template != null && !read(world, piece, template.getSize()).equals(piece.loaded()))
+            if(template != null && !read(world, piece).equals(piece.loaded()))
                 return true;
         }
         return false;
@@ -142,7 +213,8 @@ public class StructureEditSession {
         if(assembled.isEmpty())
             return null;
 
-        List<Piece> placed = spaced ? spread(assembled) : assembled;
+        int gap = gapOf(builder);
+        List<Piece> placed = spaced ? spread(assembled, gap) : assembled;
         BlockBox whole = boundsOf(placed);
         Vec3i move = new Vec3i(corner.getX() - whole.getMinX(), corner.getY() - whole.getMinY(), corner.getZ() - whole.getMinZ());
         List<Piece> pieces = new ArrayList<>();
@@ -154,21 +226,23 @@ public class StructureEditSession {
         List<Piece> loaded = new ArrayList<>();
         for(Piece piece : pieces)
             loaded.add(place(world, piece, spaced));
-        StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, loaded);
+        StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, gap, loaded);
         SESSIONS.put(builder, session);
         return session;
     }
 
     private static Piece place(ServerWorld world, Piece piece, boolean spaced) {
+        StructureTemplate template = world.getStructureTemplateManager().getTemplate(piece.template()).orElseThrow();
+        // Its box is that of the template as it is now, which a save may have made bigger
+        piece = new Piece(piece.template(), piece.origin(), piece.rotation(), boxOf(template, piece.origin(), piece.rotation()), piece.loaded());
         // What a template leaves open is kept open: a block of void stands for it, and is left out again when saving
         if(spaced)
             fill(world, piece.box(), Blocks.STRUCTURE_VOID.getDefaultState());
-        StructureTemplate template = world.getStructureTemplateManager().getTemplate(piece.template()).orElseThrow();
         // Placed as they were saved: left to settle, a door at the edge of a piece falls for want of the floor of the next
         // one, and fences reach for neighbours that are not there
         StructurePlacementData placement = new StructurePlacementData().setRotation(piece.rotation()).setIgnoreEntities(true).setUpdateNeighbors(true);
         template.place(world, piece.origin(), piece.origin(), placement, world.getRandom(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
-        return new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), spaced ? read(world, piece, template.getSize()) : piece.loaded());
+        return new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), spaced ? read(world, piece) : piece.loaded());
     }
 
     // Takes the pieces of the builder's structure out of the world again
@@ -191,7 +265,7 @@ public class StructureEditSession {
             StructureTemplate template = manager.getTemplate(piece.template()).orElse(null);
             if(template == null)
                 continue;
-            NbtCompound now = read(world, piece, template.getSize());
+            NbtCompound now = read(world, piece);
             if(now.equals(piece.loaded()))
                 continue;
             NbtCompound other = changed.put(piece.template(), now);
@@ -203,8 +277,9 @@ public class StructureEditSession {
             if(conflicts.contains(entry.getKey()))
                 continue;
             StructureTemplate template = manager.getTemplateOrBlank(entry.getKey());
-            // Its size and its entities stay as they were
+            // Its entities stay as they were
             NbtCompound nbt = template.writeNbt(new NbtCompound());
+            nbt.put(SIZE, entry.getValue().getListOrEmpty(SIZE));
             nbt.remove(PALETTES);
             nbt.put(PALETTE, entry.getValue().getListOrEmpty(PALETTE));
             nbt.put(BLOCKS, entry.getValue().getListOrEmpty(BLOCKS));
@@ -239,44 +314,85 @@ public class StructureEditSession {
         return BlockBox.encompass(pieces.stream().map(Piece::box).toList()).orElseThrow();
     }
 
-    // Moved apart from the middle of the structure until no two boxes are within the gap of each other, so that the pieces
-    // keep their places beside one another. Pieces that stand inside or over one another are put side by side instead
-    private static List<Piece> spread(List<Piece> assembled) {
+    // Moved apart from the middle of the structure until no two are within the gap of each other, so that they keep their
+    // places beside one another. What stands on or under another piece, as a cellar under its house, stays with it. Pieces
+    // that run through one another are put side by side instead
+    private static List<Piece> spread(List<Piece> assembled, int gap) {
+        List<List<Piece>> groups = attached(assembled);
+        List<BlockBox> bounds = groups.stream().map(StructureEditSession::boundsOf).toList();
         BlockPos middle = boundsOf(assembled).getCenter();
-        List<Piece> spread = assembled;
-        for(double factor = FIRST_SPREAD; factor <= MAXIMUM_SPREAD; factor += SPREAD_STEP) {
-            spread = new ArrayList<>();
-            for(Piece piece : assembled) {
-                BlockPos center = piece.box().getCenter();
-                int moveX = (int) Math.round((center.getX() - middle.getX()) * (factor - 1));
-                int moveZ = (int) Math.round((center.getZ() - middle.getZ()) * (factor - 1));
-                spread.add(new Piece(piece.template(), piece.origin().add(moveX, 0, moveZ), piece.rotation(), piece.box().offset(moveX, 0, moveZ), piece.loaded()));
+        int[] movesX = new int[groups.size()];
+        int[] movesZ = new int[groups.size()];
+        List<BlockBox> moved = new ArrayList<>(bounds);
+        boolean apart = tooClose(moved, gap) < 0;
+        for(double factor = FIRST_SPREAD; factor <= MAXIMUM_SPREAD && !apart; factor += SPREAD_STEP) {
+            for(int i = 0; i < bounds.size(); i++) {
+                BlockPos center = bounds.get(i).getCenter();
+                movesX[i] = (int) Math.round((center.getX() - middle.getX()) * (factor - 1));
+                movesZ[i] = (int) Math.round((center.getZ() - middle.getZ()) * (factor - 1));
+                moved.set(i, bounds.get(i).offset(movesX[i], 0, movesZ[i]));
             }
-            if(firstTooClose(spread, spread.size()) < 0)
-                return spread;
+            apart = tooClose(moved, gap) < 0;
         }
-        List<Piece> apart = new ArrayList<>();
-        for(Piece piece : spread) {
-            Piece moved = piece;
-            apart.add(moved);
-            int other;
-            while((other = firstTooClose(apart, apart.size())) >= 0 && other < apart.size() - 1) {
-                int moveX = apart.get(other).box().getMaxX() + PIECE_GAP + 1 - moved.box().getMinX();
-                moved = new Piece(moved.template(), moved.origin().add(moveX, 0, 0), moved.rotation(), moved.box().offset(moveX, 0, 0), moved.loaded());
-                apart.set(apart.size() - 1, moved);
+        if(!apart) {
+            List<BlockBox> settled = new ArrayList<>();
+            for(int i = 0; i < moved.size(); i++) {
+                settled.add(moved.get(i));
+                int other;
+                while((other = tooClose(settled, gap)) >= 0 && other < i) {
+                    int shift = settled.get(other).getMaxX() + gap + 1 - settled.get(i).getMinX();
+                    movesX[i] += shift;
+                    settled.set(i, settled.get(i).offset(shift, 0, 0));
+                }
             }
         }
-        return apart;
+        Map<Piece, Integer> groupOf = new IdentityHashMap<>();
+        for(int i = 0; i < groups.size(); i++) {
+            for(Piece piece : groups.get(i))
+                groupOf.put(piece, i);
+        }
+        List<Piece> spread = new ArrayList<>();
+        for(Piece piece : assembled) {
+            int i = groupOf.get(piece);
+            spread.add(new Piece(piece.template(), piece.origin().add(movesX[i], 0, movesZ[i]), piece.rotation(), piece.box().offset(movesX[i], 0, movesZ[i]), piece.loaded()));
+        }
+        return spread;
     }
 
-    // The earlier of the first two pieces that stand within the gap of each other across the ground, or -1
-    private static int firstTooClose(List<Piece> pieces, int count) {
-        for(int i = 0; i < count; i++) {
+    // Pieces over one another without running through each other are one group, and are moved as one
+    private static List<List<Piece>> attached(List<Piece> pieces) {
+        int[] group = new int[pieces.size()];
+        for(int i = 0; i < group.length; i++)
+            group[i] = i;
+        for(int i = 0; i < pieces.size(); i++) {
             BlockBox box = pieces.get(i).box();
-            for(int j = i + 1; j < count; j++) {
+            for(int j = i + 1; j < pieces.size(); j++) {
                 BlockBox other = pieces.get(j).box();
-                if(box.getMinX() - PIECE_GAP <= other.getMaxX() && box.getMaxX() + PIECE_GAP >= other.getMinX()
-                        && box.getMinZ() - PIECE_GAP <= other.getMaxZ() && box.getMaxZ() + PIECE_GAP >= other.getMinZ())
+                boolean over = box.getMinX() <= other.getMaxX() && box.getMaxX() >= other.getMinX() && box.getMinZ() <= other.getMaxZ() && box.getMaxZ() >= other.getMinZ();
+                if(over && !box.intersects(other)) {
+                    int from = group[j];
+                    int to = group[i];
+                    for(int k = 0; k < group.length; k++) {
+                        if(group[k] == from)
+                            group[k] = to;
+                    }
+                }
+            }
+        }
+        Map<Integer, List<Piece>> groups = new LinkedHashMap<>();
+        for(int i = 0; i < pieces.size(); i++)
+            groups.computeIfAbsent(group[i], key -> new ArrayList<>()).add(pieces.get(i));
+        return new ArrayList<>(groups.values());
+    }
+
+    // The earlier of the first two boxes that stand within the gap of each other across the ground, or -1
+    private static int tooClose(List<BlockBox> boxes, int gap) {
+        for(int i = 0; i < boxes.size(); i++) {
+            BlockBox box = boxes.get(i);
+            for(int j = i + 1; j < boxes.size(); j++) {
+                BlockBox other = boxes.get(j);
+                if(box.getMinX() - gap <= other.getMaxX() && box.getMaxX() + gap >= other.getMinX()
+                        && box.getMinZ() - gap <= other.getMaxZ() && box.getMaxZ() + gap >= other.getMinZ())
                     return i;
             }
         }
@@ -292,7 +408,8 @@ public class StructureEditSession {
 
     // The blocks of a piece as its template holds them: turned back to how the template lies, in the order the game saves
     // them in, whole blocks first and those with data last
-    private static NbtCompound read(ServerWorld world, Piece piece, Vec3i size) {
+    private static NbtCompound read(ServerWorld world, Piece piece) {
+        Vec3i size = sizeOf(piece.box(), piece.rotation());
         BlockRotation back = switch (piece.rotation()) {
             case CLOCKWISE_90 -> BlockRotation.COUNTERCLOCKWISE_90;
             case COUNTERCLOCKWISE_90 -> BlockRotation.CLOCKWISE_90;
@@ -343,7 +460,12 @@ public class StructureEditSession {
         NbtList states = new NbtList();
         for(BlockState state : palette)
             states.add(NbtHelper.fromBlockState(state));
+        NbtList sizes = new NbtList();
+        sizes.add(NbtInt.of(size.getX()));
+        sizes.add(NbtInt.of(size.getY()));
+        sizes.add(NbtInt.of(size.getZ()));
         NbtCompound read = new NbtCompound();
+        read.put(SIZE, sizes);
         read.put(PALETTE, states);
         read.put(BLOCKS, blocks);
         return read;
