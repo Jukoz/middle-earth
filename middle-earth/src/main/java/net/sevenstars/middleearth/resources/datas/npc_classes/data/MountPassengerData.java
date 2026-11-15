@@ -14,7 +14,6 @@ import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -37,8 +36,6 @@ public class MountPassengerData {
     private Identifier npcClass = null;
     private Integer weight = null;
     private Double discardChance = null;
-
-    private List<MountPassengerSlotData> passengerSlots;
 
     private MountPassengerData(
             Identifier entityType,

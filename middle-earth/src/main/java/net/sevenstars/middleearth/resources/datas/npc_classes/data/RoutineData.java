@@ -73,6 +73,8 @@ public class RoutineData {
         ALWAYS("always");
 
         public static final Codec<Period> CODEC = StringIdentifiable.createCodec(Period::values);
+        // In ticks
+        private static final int DAY_LENGTH = 24000;
         // Dusk and dawn, so that nobody sets out as the light changes
         private static final int DAY_END = 11500;
         private static final int NIGHT_START = 13000;
@@ -87,7 +89,7 @@ public class RoutineData {
         }
 
         public boolean isActive(long timeOfDay, boolean nightShift) {
-            long time = timeOfDay % 24000;
+            long time = timeOfDay % DAY_LENGTH;
             return switch (this) {
                 case DAY -> time < DAY_END;
                 case NIGHT -> time >= NIGHT_START && time < NIGHT_END;
@@ -98,7 +100,7 @@ public class RoutineData {
 
         // The hours spent in bed, which leave some time between work and sleep
         public boolean isResting(long timeOfDay, boolean nightShift) {
-            long time = timeOfDay % 24000;
+            long time = timeOfDay % DAY_LENGTH;
             return switch (this) {
                 case DAY -> time >= BED_TIME && time < RISING_TIME;
                 case NIGHT -> time >= DAY_REST_START && time < DAY_END;
@@ -132,66 +134,52 @@ public class RoutineData {
     private final Period period;
     private final List<Entry> entries;
     private final List<Item> forage;
-    private boolean timid;
-    private boolean bounds;
+    private final boolean timid;
+    private final boolean bounds;
     private final List<StationKind> stations;
 
     private RoutineData(Period period, List<Entry> entries, List<Item> forage, boolean timid, boolean bounds, List<StationKind> stations) {
-        this.stations = new ArrayList<>(stations);
+        this.period = period;
+        this.entries = List.copyOf(entries);
+        this.forage = List.copyOf(forage);
         this.timid = timid;
         this.bounds = bounds;
-        this.period = period;
-        this.entries = new ArrayList<>(entries);
-        this.forage = new ArrayList<>(forage);
+        this.stations = List.copyOf(stations);
     }
 
     public static RoutineData create(Period period) {
         return new RoutineData(period, List.of(), List.of(), false, false, List.of());
     }
 
-    // What is carried home from foraging, mushrooms and berries when left out
+    // Each of these gives a new routine: the ones in NpcRoutines are shared by many classes
+    public RoutineData add(Activity activity, int weight) {
+        return new RoutineData(period, appended(entries, List.of(new Entry(activity, weight))), forage, timid, bounds, stations);
+    }
+
+    // What is carried home from foraging, what grows in the land around when left out
     public RoutineData foraging(Item... items) {
-        this.forage.addAll(List.of(items));
-        return this;
+        return new RoutineData(period, entries, appended(forage, List.of(items)), timid, bounds, stations);
     }
 
     // Runs home from a fight and leaves it to the guards
     public RoutineData timid() {
-        this.timid = true;
-        return this;
+        return new RoutineData(period, entries, forage, true, bounds, stations);
     }
 
     // Travels on for good inside the land it was born in, and seeks no settlement out
     public RoutineData keepingBounds() {
-        this.bounds = true;
-        return this;
-    }
-
-    public boolean keepsBounds() {
-        return bounds;
+        return new RoutineData(period, entries, forage, timid, true, stations);
     }
 
     // Where the work of this routine is done
     public RoutineData working(StationKind... kinds) {
-        this.stations.addAll(List.of(kinds));
-        return this;
+        return new RoutineData(period, entries, forage, timid, bounds, appended(stations, List.of(kinds)));
     }
 
-    public List<StationKind> getStations() {
-        return stations;
-    }
-
-    public boolean isTimid() {
-        return timid;
-    }
-
-    public List<Item> getForage() {
-        return forage;
-    }
-
-    public RoutineData add(Activity activity, int weight) {
-        this.entries.add(new Entry(activity, weight));
-        return this;
+    private static <T> List<T> appended(List<T> list, List<T> more) {
+        List<T> all = new ArrayList<>(list);
+        all.addAll(more);
+        return all;
     }
 
     public Period getPeriod() {
@@ -200,6 +188,22 @@ public class RoutineData {
 
     public List<Entry> getEntries() {
         return entries;
+    }
+
+    public List<Item> getForage() {
+        return forage;
+    }
+
+    public boolean isTimid() {
+        return timid;
+    }
+
+    public boolean keepsBounds() {
+        return bounds;
+    }
+
+    public List<StationKind> getStations() {
+        return stations;
     }
 
     public @Nullable Activity pick(Random random, Predicate<Activity> possible) {

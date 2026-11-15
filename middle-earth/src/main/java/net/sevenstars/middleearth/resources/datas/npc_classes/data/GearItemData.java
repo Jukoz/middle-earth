@@ -181,7 +181,6 @@ public class GearItemData {
             if(this.hood.getConstantState() != null){
                 this.isDown = this.hood.getConstantState() == HelmetAttachmentsStatesME.DOWN;
                 hoodState = this.isDown;
-                MiddleEarth.LOGGER.logError("NpcGearItemData:: [%s - %s] Cannot set the hood state to %s, it was forced to %s!".formatted(this.item.getName(), hood.getName(), isDown, this.isDown));
             } else if(isDown == null){
                 hoodState = Math.random() >= 0.5;
             } else {

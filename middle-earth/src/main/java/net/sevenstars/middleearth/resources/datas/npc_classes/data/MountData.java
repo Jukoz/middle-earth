@@ -117,7 +117,7 @@ public class MountData {
             entity.setPosition(owner.getEntityPos());
             entity.equipStack(EquipmentSlot.SADDLE, Items.SADDLE.asItem().getDefaultStack());
             if(armor != null)
-                entity.equipStack(EquipmentSlot.BODY, this.armor);
+                entity.equipStack(EquipmentSlot.BODY, this.armor.copy());
 
             if (entity instanceof MobEntity mob) {
                 mob.initialize(
@@ -145,7 +145,7 @@ public class MountData {
             }
 
             // Set other passengers
-            passengerSlots.forEach(slot -> {
+            getPassengerSlots().forEach(slot -> {
                LivingEntity passengerEntity = slot.createRandom(world, owner);
                if(passengerEntity != null)
                    passengerEntity.startRiding(entity, true, true);

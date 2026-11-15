@@ -27,7 +27,4 @@ public class NpcClassLookup {
         }
         return list;
     }
-    public static NpcClass getNpcClass(World world, Identifier id) {
-        return world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).get(id);
-    }
 }

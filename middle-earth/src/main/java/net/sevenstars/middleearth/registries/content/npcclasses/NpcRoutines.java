@@ -23,7 +23,6 @@ public class NpcRoutines {
     // Rangers live off the land they guard
     public final static RoutineData RANGER = RoutineData.create(Period.DAY).add(Activity.HUNT, 3).add(Activity.FORAGE, 1);
 
-    public final static RoutineData FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FISH, 1);
     public final static RoutineData GATHERER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 1);
     // Village folk work the fields where the place has any
     public final static RoutineData GATHERER_AND_FISHER = RoutineData.create(Period.DAY).timid().add(Activity.VISIT, 1).add(Activity.TABLE, 1).add(Activity.FORAGE, 3).add(Activity.FISH, 2).add(Activity.FARM, 2);
@@ -34,7 +33,7 @@ public class NpcRoutines {
     public final static RoutineData ELVEN_HUNTER = RoutineData.create(Period.ALWAYS).add(Activity.HUNT, 4).add(Activity.FORAGE, 1);
     public final static RoutineData OUTLAW = RoutineData.create(Period.ALWAYS).add(Activity.HUNT, 2).add(Activity.FORAGE, 1);
 
-    // [ARCHETYPES] For the classes that have nothing of their own. The night ones are for the orcs and goblins, who keep out of the sun
+    // [GENERAL] For the classes that have nothing of their own. The night ones are for the orcs and goblins, who keep out of the sun
     // The rank and file walk the rounds, and go out with those who work beyond the walls
     public final static RoutineData SOLDIER = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.ESCORT, 1);
     public final static RoutineData NIGHT_SOLDIER = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 3).add(Activity.ESCORT, 1);
@@ -46,7 +45,6 @@ public class NpcRoutines {
     public final static RoutineData NIGHT_LEADER = RoutineData.create(Period.NIGHT).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.VISIT, 1);
     public final static RoutineData ARCHER = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 2).add(Activity.HUNT, 1);
     // Riders go round on their mounts, and only hunt where they are on foot
-    public final static RoutineData RIDER = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 3).add(Activity.HUNT, 1);
     public final static RoutineData NIGHT_RIDER = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 3).add(Activity.HUNT, 1);
     public final static RoutineData BRUTE = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1);
     // Orc and goblin hands, at the forge or the fire where there is one and out foraging where not
