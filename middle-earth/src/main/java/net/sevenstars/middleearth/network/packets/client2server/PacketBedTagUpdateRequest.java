@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureEditin
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
@@ -24,6 +25,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.nestKind,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.job,
+            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.npcClass,
             PacketCodecs.BOOLEAN, p -> p.resetLinks,
             PacketBedTagUpdateRequest::new
     );
@@ -31,9 +33,11 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
     private final BlockPos pos;
     private final String nestKind;
     private final String job;
+    private final String npcClass;
     private final boolean resetLinks;
 
-    public PacketBedTagUpdateRequest(BlockPos pos, String nestKind, String job, boolean resetLinks) {
+    public PacketBedTagUpdateRequest(BlockPos pos, String nestKind, String job, String npcClass, boolean resetLinks) {
+        this.npcClass = npcClass;
         this.pos = pos;
         this.nestKind = nestKind;
         this.job = job;
@@ -63,8 +67,11 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                 Identifier id = job.isEmpty() ? null : Identifier.tryParse(job);
                 if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
                     return;
+                Identifier classId = npcClass.isEmpty() ? null : Identifier.tryParse(npcClass);
+                if(!npcClass.isEmpty() && (classId == null || !player.getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).containsId(classId)))
+                    return;
                 BedTag before = holder.getBedTag();
-                tag = new BedTag(nestKind, Optional.ofNullable(id));
+                tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId));
                 if(before != null && !resetLinks)
                     tag = tag.withLinks(before.links(), before.manual());
             }

@@ -5,10 +5,12 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import org.lwjgl.glfw.GLFW;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -19,7 +21,6 @@ import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget.Choice;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Environment(value = EnvType.CLIENT)
 public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHandler> {
@@ -28,7 +29,6 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     private static final int LIST_HEIGHT = 150;
     private static final int ROW_HEIGHT = 16;
     private static final int GAP = 10;
-    private static final int LABEL_GAP = 4;
     private static final int BUTTON_WIDTH = 80;
     private static final int BUTTON_HEIGHT = 20;
     private static final int STEP_WIDTH = 20;
@@ -68,12 +68,13 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
 
         List<Choice> kinds = new ArrayList<>();
         for(MarkerKind kind : MarkerKind.values())
-            kinds.add(new Choice(kind.asString(), readable(kind.asString())));
+            kinds.add(new Choice(kind.asString(), ChoiceListWidget.readable(kind.asString())));
         kindList = new ChoiceListWidget(KIND_WIDTH, LIST_HEIGHT, left, top, ROW_HEIGHT);
         kindList.setChoices(kinds, data.kind().asString());
         addDrawableChild(kindList);
 
         valueList = new ChoiceListWidget(VALUE_WIDTH, LIST_HEIGHT, left + KIND_WIDTH + GAP, top, ROW_HEIGHT);
+        addDrawableChild(valueList.newSearchField(textRenderer));
         addDrawableChild(valueList);
 
         int optionTop = top + LIST_HEIGHT + GAP;
@@ -137,7 +138,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
             List<Choice> choices = new ArrayList<>();
             if(kind == MarkerKind.SPAWN_NPC) {
                 for(String nestKind : handler.getData().nestKinds())
-                    choices.add(new Choice(nestKind, readable(nestKind)));
+                    choices.add(new Choice(nestKind, ChoiceListWidget.readable(nestKind)));
             } else if(kind == MarkerKind.SPAWN_ANIMAL) {
                 for(String animal : handler.getData().animals())
                     choices.add(new Choice(animal, animalName(animal)));
@@ -156,25 +157,12 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     }
 
     private Text facingText() {
-        return Text.translatable("ui.%s.structure_marker.facing".formatted(MiddleEarth.MOD_ID), readable(facing.asString()));
+        return Text.translatable("ui.%s.structure_marker.facing".formatted(MiddleEarth.MOD_ID), ChoiceListWidget.readable(facing.asString()));
     }
 
     private static Text animalName(String id) {
         Identifier identifier = Identifier.tryParse(id);
         return identifier == null ? Text.literal(id) : Registries.ENTITY_TYPE.get(identifier).getName();
-    }
-
-    // guard_post is shown as Guard Post
-    private static Text readable(String name) {
-        StringBuilder text = new StringBuilder();
-        for(String word : name.split("_")) {
-            if(word.isEmpty())
-                continue;
-            if(!text.isEmpty())
-                text.append(' ');
-            text.append(word.substring(0, 1).toUpperCase(Locale.ROOT)).append(word.substring(1));
-        }
-        return Text.literal(text.toString());
     }
 
     @Override
@@ -183,6 +171,16 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
 
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    }
+
+    // A container screen closes on the inventory key, which is a letter somebody searching wants to type
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
+            field.keyPressed(keyCode, scanCode, modifiers);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
@@ -200,7 +198,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         refresh("");
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        int labelY = kindList.getY() - textRenderer.fontHeight - LABEL_GAP;
+        int labelY = valueList.labelY(textRenderer);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.structure_marker.kind_label".formatted(MiddleEarth.MOD_ID)),
                 kindList.getX() + KIND_WIDTH / 2, labelY, LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.structure_marker.value_label".formatted(MiddleEarth.MOD_ID)),

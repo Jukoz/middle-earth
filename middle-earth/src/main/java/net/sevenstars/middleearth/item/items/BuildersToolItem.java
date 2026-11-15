@@ -98,7 +98,8 @@ public class BuildersToolItem extends Item {
     }
 
     private static void open(ServerPlayerEntity player, BlockPos head, @Nullable BedTag tag) {
-        BedTagScreenData data = new BedTagScreenData(head, tag == null ? "" : tag.nestKind(), tag == null || tag.job().isEmpty() ? "" : tag.job().get().toString(), BedTag.nestKinds());
+        BedTagScreenData data = new BedTagScreenData(head, tag == null ? "" : tag.nestKind(), tag == null || tag.job().isEmpty() ? "" : tag.job().get().toString(),
+                tag == null || tag.npcClass().isEmpty() ? "" : tag.npcClass().get().toString(), BedTag.nestKinds());
         player.openHandledScreen(new ExtendedScreenHandlerFactory<BedTagScreenData>() {
             @Override
             public BedTagScreenData getScreenOpeningData(ServerPlayerEntity opener) {

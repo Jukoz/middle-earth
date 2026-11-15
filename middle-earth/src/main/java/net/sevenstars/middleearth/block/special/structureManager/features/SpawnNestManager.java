@@ -42,6 +42,7 @@ public class SpawnNestManager {
             Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
             BlockPos.CODEC.optionalFieldOf("bed").forGetter(manager -> Optional.ofNullable(manager.bed)),
             Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.bedJob),
+            Identifier.CODEC.optionalFieldOf("bed_class").forGetter(manager -> manager.bedClass),
             BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store)),
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(manager -> manager.links),
             Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
@@ -63,13 +64,16 @@ public class SpawnNestManager {
     // origin of such a nest is the bed
     private @Nullable BlockPos bed = null;
     private Optional<Identifier> bedJob = Optional.empty();
+    // The class its tag names, born there instead of one from the pool of the nest
+    private Optional<Identifier> bedClass = Optional.empty();
     private @Nullable BlockPos store = null;
     // The places the builder tied the bed to, when it was tied by hand. Empty leaves the person to find its own work
     private List<BlockPos> links = List.of();
     // Above 0 for a nest that spawns a set number of people: one for a tagged bed, or as many as a spawn_npc marker says
     private int capacity = 0;
 
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
+    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<Identifier> bedClass, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
+        this.bedClass = bedClass;
         this.capacity = capacity;
         this.bed = bed.orElse(null);
         this.bedJob = bedJob;
@@ -94,6 +98,7 @@ public class SpawnNestManager {
         this(spawnNestNodeData, tagged.pos(), BED_SPAWN_RADIUS, 1);
         this.bed = tagged.pos();
         this.bedJob = tagged.tag().flatMap(BedTag::job);
+        this.bedClass = tagged.tag().flatMap(BedTag::npcClass);
         this.store = tagged.store().orElse(null);
         this.links = tagged.manual() ? tagged.links() : List.of();
     }
@@ -224,7 +229,8 @@ public class SpawnNestManager {
             RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
             int entityAmountToSpawn = isMarked() ? capacity : pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
+                LivingEntity entityToAdd = bedClass.isPresent() ? StructureManagerService.spawnNpcAt(world, bedClass.get(), bedside != null ? bedside : originPos)
+                        : bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
                 if(entityToAdd instanceof NpcEntity npcEntity)
                     settle(npcEntity, data, world, structureManagerPos, site, bedside);

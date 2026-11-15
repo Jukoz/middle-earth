@@ -13,24 +13,26 @@ import java.util.Optional;
 import java.util.TreeSet;
 
 // Who is born in a bed: the kind of person, as the last word of the nest of its structure that spawns them, and the job they
-// take, or none for the routine of the kind. Links are what they work at, as offsets from the bed head so that a template
+// take, or none for the routine of the kind. The class is named where one of the nest's own will not do, as for who is
+// held in a cell. Links are what they work at, as offsets from the bed head so that a template
 // stays valid when it is turned. They are used as they are only when manual, otherwise the nearest target is the link
-public record BedTag(String nestKind, Optional<Identifier> job, List<BlockPos> links, boolean manual) {
+public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("type").forGetter(BedTag::nestKind),
             Identifier.CODEC.optionalFieldOf("role").forGetter(BedTag::job),
+            Identifier.CODEC.optionalFieldOf("npc_class").forGetter(BedTag::npcClass),
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(BedTag::links),
             Codec.BOOL.optionalFieldOf("manual", false).forGetter(BedTag::manual)
     ).apply(instance, BedTag::new));
 
     private static List<String> nestKinds = null;
 
-    public BedTag(String nestKind, Optional<Identifier> job) {
-        this(nestKind, job, List.of(), false);
+    public BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass) {
+        this(nestKind, job, npcClass, List.of(), false);
     }
 
     public BedTag withLinks(List<BlockPos> links, boolean manual) {
-        return new BedTag(nestKind, job, List.copyOf(links), manual);
+        return new BedTag(nestKind, job, npcClass, List.copyOf(links), manual);
     }
 
     public BedTag withoutLinks() {

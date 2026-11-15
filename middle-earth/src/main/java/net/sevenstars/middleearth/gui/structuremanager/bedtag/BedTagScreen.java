@@ -6,8 +6,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -15,26 +17,26 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget.Choice;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
+import java.util.function.Function;
 
 @Environment(value = EnvType.CLIENT)
 public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
-    private static final int LIST_WIDTH = 140;
+    private static final int LIST_WIDTH = 120;
     private static final int LIST_HEIGHT = 150;
     private static final int ROW_HEIGHT = 16;
     private static final int GAP = 10;
-    private static final int LABEL_GAP = 4;
     private static final int BUTTON_WIDTH = 90;
     private static final int BUTTON_HEIGHT = 20;
     private static final int LABEL_COLOR = 0xFFA0A0A0;
 
     private ChoiceListWidget nestKindList;
     private ChoiceListWidget jobList;
+    private ChoiceListWidget classList;
 
     public BedTagScreen(BedTagScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -44,19 +46,25 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void init() {
         super.init();
         BedTagScreenData data = handler.getData();
-        int left = width / 2 - LIST_WIDTH - GAP / 2;
+        int left = width / 2 - (3 * LIST_WIDTH + 2 * GAP) / 2;
         int top = height / 2 - LIST_HEIGHT / 2;
 
         List<Choice> nestKinds = new ArrayList<>();
         nestKinds.add(new Choice("", none()));
         for(String nestKind : data.nestKinds())
-            nestKinds.add(new Choice(nestKind, readable(nestKind)));
+            nestKinds.add(new Choice(nestKind, ChoiceListWidget.readable(nestKind)));
         nestKindList = newList(nestKinds, data.nestKind(), left, top);
 
         List<Choice> jobs = new ArrayList<>();
         jobs.add(new Choice("", none()));
-        jobs.addAll(jobChoices());
+        jobs.addAll(choicesOf(DynamicRegistriesME.NPC_JOB, id -> ChoiceListWidget.readable(id.getPath())));
         jobList = newList(jobs, data.job(), left + LIST_WIDTH + GAP, top);
+
+        // Anybody can be named, for a cell holds whoever was caught. Left alone, the bed is for one of its nest
+        List<Choice> classes = new ArrayList<>();
+        classes.add(new Choice("", Text.translatable("ui.%s.bed_tag.from_nest".formatted(MiddleEarth.MOD_ID))));
+        classes.addAll(choicesOf(DynamicRegistriesME.NPC_CLASS, id -> Text.translatable(id.toTranslationKey("npc_type"))));
+        classList = newList(classes, data.npcClass(), left + 2 * (LIST_WIDTH + GAP), top);
 
         int buttonTop = top + LIST_HEIGHT + GAP;
         addDrawableChild(ButtonWidget.builder(Text.translatable("ui.%s.bed_tag.save".formatted(MiddleEarth.MOD_ID)), button -> save(false))
@@ -69,43 +77,31 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
 
     private void save(boolean resetLinks) {
         String nestKind = nestKindList.selectedValue();
-        handler.save(nestKind, nestKind.isEmpty() ? "" : jobList.selectedValue(), resetLinks);
+        handler.save(nestKind, nestKind.isEmpty() ? "" : jobList.selectedValue(), nestKind.isEmpty() ? "" : classList.selectedValue(), resetLinks);
         close();
     }
 
     private ChoiceListWidget newList(List<Choice> choices, String current, int x, int y) {
         ChoiceListWidget list = new ChoiceListWidget(LIST_WIDTH, LIST_HEIGHT, x, y, ROW_HEIGHT);
         list.setChoices(choices, current);
+        addDrawableChild(list.newSearchField(textRenderer));
         return addDrawableChild(list);
     }
 
-    private List<Choice> jobChoices() {
+    private static <T> List<Choice> choicesOf(RegistryKey<Registry<T>> key, Function<Identifier, Text> label) {
         List<Choice> choices = new ArrayList<>();
-        Registry<NpcJob> registry = MinecraftClient.getInstance().getNetworkHandler().getRegistryManager().getOptional(DynamicRegistriesME.NPC_JOB).orElse(null);
+        Registry<T> registry = MinecraftClient.getInstance().getNetworkHandler().getRegistryManager().getOptional(key).orElse(null);
         if(registry == null)
             return choices;
         List<Identifier> ids = new ArrayList<>(registry.getIds());
         ids.sort(Comparator.naturalOrder());
         for(Identifier id : ids)
-            choices.add(new Choice(id.toString(), readable(id.getPath())));
+            choices.add(new Choice(id.toString(), label.apply(id)));
         return choices;
     }
 
     private static Text none() {
         return Text.translatable("ui.%s.bed_tag.none".formatted(MiddleEarth.MOD_ID));
-    }
-
-    // stables_master is shown as Stables Master
-    private static Text readable(String name) {
-        StringBuilder text = new StringBuilder();
-        for(String word : name.split("_")) {
-            if(word.isEmpty())
-                continue;
-            if(!text.isEmpty())
-                text.append(' ');
-            text.append(word.substring(0, 1).toUpperCase(Locale.ROOT)).append(word.substring(1));
-        }
-        return Text.literal(text.toString());
     }
 
     @Override
@@ -116,10 +112,20 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
     }
 
+    // A container screen closes on the inventory key, which is a letter somebody searching wants to type
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
+            field.keyPressed(keyCode, scanCode, modifiers);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
     // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{nestKindList, jobList}) {
+        for(ChoiceListWidget list : new ChoiceListWidget[]{nestKindList, jobList, classList}) {
             if(list != null && list.isMouseOver(mouseX, mouseY))
                 return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         }
@@ -130,10 +136,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        int labelY = nestKindList.getY() - textRenderer.fontHeight - LABEL_GAP;
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.type".formatted(MiddleEarth.MOD_ID)),
-                nestKindList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.role".formatted(MiddleEarth.MOD_ID)),
-                jobList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
+        label(context, nestKindList, "type");
+        label(context, jobList, "role");
+        label(context, classList, "class");
+    }
+
+    private void label(DrawContext context, ChoiceListWidget list, String key) {
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.%s".formatted(MiddleEarth.MOD_ID, key)),
+                list.getX() + LIST_WIDTH / 2, list.labelY(textRenderer), LABEL_COLOR);
     }
 }

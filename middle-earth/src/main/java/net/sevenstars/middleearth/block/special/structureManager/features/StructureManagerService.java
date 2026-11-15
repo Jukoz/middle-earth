@@ -13,6 +13,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import org.jetbrains.annotations.Nullable;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityBuilder;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
@@ -57,6 +59,14 @@ public class StructureManagerService {
         if(chosenBlockPos == null)
             chosenBlockPos = pos;
         return spawnEntityAt(world, pool, chosenBlockPos);
+    }
+
+    public static @Nullable LivingEntity spawnNpcAt(ServerWorld world, Identifier npcClass, BlockPos pos) {
+        NpcEntity npc = new NpcEntityBuilder(world, pos).withNpcClass(npcClass).build();
+        if(npc == null)
+            return null;
+        world.spawnEntity(npc);
+        return npc;
     }
 
     public static LivingEntity spawnEntityAt(ServerWorld world, StructureSpawnNestPool pool, BlockPos chosenBlockPos){
