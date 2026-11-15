@@ -56,8 +56,9 @@ public class DebugDraw {
         VertexRendering.drawBox(matrices, lines, box, (color >> 16 & 255) / 255f, (color >> 8 & 255) / 255f, (color & 255) / 255f, 1f);
     }
 
-    // Text in the world, drawn with matrices that are not moved to the camera
+    // Text in the world, drawn with matrices that are not moved to the camera. It shows through blocks, or a wall
+    // beside it would cut it off
     public static void label(MatrixStack matrices, VertexConsumerProvider consumers, String text, Vec3d at, int color, float scale) {
-        DebugRenderer.drawString(matrices, consumers, text, at.x, at.y, at.z, color, scale);
+        DebugRenderer.drawString(matrices, consumers, text, at.x, at.y, at.z, color, scale, true, 0f, true);
     }
 }

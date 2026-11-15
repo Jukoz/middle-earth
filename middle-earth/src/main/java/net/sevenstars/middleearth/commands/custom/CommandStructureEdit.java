@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.context.ParsedCommandNode;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.fabricmc.loader.api.FabricLoader;
@@ -206,13 +207,13 @@ public class CommandStructureEdit {
                         .executes(context -> save(context, null))
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
                                 .suggests(TEMPLATES)
-                                .executes(context -> save(context, IdentifierArgumentType.getIdentifier(context, TEMPLATE))))));
+                                .executes(context -> save(context, identifier(context, TEMPLATE))))));
     }
 
     // The whole structure, put together from its pieces as the game would from that seed. With no seed, one is rolled and
     // told, to come back to the same pieces later
     private static int loadStructure(CommandContext<ServerCommandSource> context, boolean spaced, @Nullable Long seed) throws CommandSyntaxException {
-        Identifier id = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
+        Identifier id = identifier(context, STRUCTURE);
         return loadStructure(context.getSource(), id, spaced, seed != null ? seed : context.getSource().getWorld().getRandom().nextLong());
     }
 
@@ -296,7 +297,7 @@ public class CommandStructureEdit {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
         ServerWorld world = source.getWorld();
-        Identifier id = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
+        Identifier id = identifier(context, STRUCTURE);
         RegistryEntry<Structure> structure = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(id).orElse(null);
         boolean piece = structure == null && world.getStructureTemplateManager().getTemplate(id).isPresent();
         if(structure == null && !piece) {
@@ -327,7 +328,7 @@ public class CommandStructureEdit {
             return 0;
         }
         BlockBox box = generated.box();
-        source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born as its managers wake. /%s %s %s takes it away again".formatted(id, seed,
+        source.sendFeedback(() -> Text.literal("Generated %s from the seed %d: %d pieces from %d, %d, %d to %d, %d, %d. Its people are born at its beds. /%s %s %s takes it away again".formatted(id, seed,
                 generated.pieces(), box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ(), COMMAND, TEST, CLEAR)), false);
         return 1;
     }
@@ -374,14 +375,14 @@ public class CommandStructureEdit {
                 .executes(context -> setProjection(context, projection, null))
                 .then(CommandManager.argument(POOL, IdentifierArgumentType.identifier())
                         .suggests(POOL_NAMES)
-                        .executes(context -> setProjection(context, projection, IdentifierArgumentType.getIdentifier(context, POOL))));
+                        .executes(context -> setProjection(context, projection, identifier(context, POOL))));
     }
 
     // How a piece meets the ground is said by the pools that offer it. Changed in those the game has loaded, for what is
     // generated from now on, and in the mod's own files where the game runs from them, for every world opened after
     private static int setProjection(CommandContext<ServerCommandSource> context, StructurePool.Projection projection, @Nullable Identifier pool) {
         ServerCommandSource source = context.getSource();
-        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Identifier template = identifier(context, TEMPLATE);
         Registry<StructurePool> pools = source.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
         if(!PieceProjections.of(pools).containsKey(template)) {
             source.sendError(Text.literal("No pool offers the template " + template));
@@ -421,7 +422,7 @@ public class CommandStructureEdit {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
         ServerWorld world = source.getWorld();
-        Identifier id = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Identifier id = identifier(context, TEMPLATE);
         if(world.getStructureTemplateManager().getTemplate(id).isPresent()) {
             source.sendError(Text.literal("There is a template %s already. /%s %s %s to change it".formatted(id, COMMAND, LOAD, id)));
             return 0;
@@ -482,6 +483,16 @@ public class CommandStructureEdit {
         return 1;
     }
 
+    // A name typed without a namespace is one of the mod's, not one of the game's
+    private static Identifier identifier(CommandContext<ServerCommandSource> context, String argument) {
+        Identifier id = IdentifierArgumentType.getIdentifier(context, argument);
+        for(ParsedCommandNode<ServerCommandSource> node : context.getNodes()) {
+            if(node.getNode().getName().equals(argument) && !node.getRange().get(context.getInput()).contains(":"))
+                return Identifier.of(MiddleEarth.MOD_ID, id.getPath());
+        }
+        return id;
+    }
+
     // Another project that runs the mod from its jar has sources of its own beside the game, which are not the mod's
     private static boolean isOwnSources(Path resources) {
         return Files.isDirectory(resources.resolve("data").resolve(MiddleEarth.MOD_ID).resolve("structure"));
@@ -498,7 +509,7 @@ public class CommandStructureEdit {
     // Puts a saved piece into the pools its plugs say it belongs in, and makes the pools its own plugs ask for
     private static int pools(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
-        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Identifier template = identifier(context, TEMPLATE);
         if(source.getWorld().getStructureTemplateManager().getTemplate(template).isEmpty()) {
             source.sendError(Text.literal("No template " + template));
             return 0;
@@ -528,9 +539,9 @@ public class CommandStructureEdit {
     // to start with. Where it generates is as the one it was copied from, until its file says otherwise
     private static int newStructure(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
-        Identifier name = IdentifierArgumentType.getIdentifier(context, NAME);
-        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
-        Identifier like = IdentifierArgumentType.getIdentifier(context, STRUCTURE);
+        Identifier name = identifier(context, NAME);
+        Identifier template = identifier(context, TEMPLATE);
+        Identifier like = identifier(context, STRUCTURE);
         Path resources = sources(source);
         if(resources == null)
             return 0;
@@ -695,7 +706,7 @@ public class CommandStructureEdit {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
         ServerWorld world = source.getWorld();
-        Identifier id = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Identifier id = identifier(context, TEMPLATE);
 
         StructureTemplateManager manager = world.getStructureTemplateManager();
         // Read it again, in case the file was changed since it was loaded

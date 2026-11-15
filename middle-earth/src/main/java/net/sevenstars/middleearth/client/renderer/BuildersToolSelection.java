@@ -95,6 +95,12 @@ public class BuildersToolSelection {
         jigsawFits = List.of();
     }
 
+    // A bed that was picked and then left behind would keep every other bed from being shown
+    static void forgetOutOfRange(PlayerEntity player, int range) {
+        if(selected != null && (!player.getBlockPos().isWithinDistance(selected, range) || !(player.getWorld().getBlockState(selected).getBlock() instanceof BedBlock)))
+            selected = null;
+    }
+
     public static void register() {
         // A click that hits nothing lets go of whatever was picked
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {

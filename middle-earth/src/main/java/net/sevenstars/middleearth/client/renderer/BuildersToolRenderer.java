@@ -116,6 +116,7 @@ public class BuildersToolRenderer {
                 return;
             try {
                 scan(client.world, player.getBlockPos());
+                BuildersToolSelection.forgetOutOfRange(player, RANGE);
                 List<StructureEditSession.Piece> pieces = piecesAround(client, player);
                 DebugDraw.lines(context, (matrices, lines, camera) -> {
                     drawBoxes(matrices, lines);
