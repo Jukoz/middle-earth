@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -25,7 +26,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class StructureManagerService {
+    private static final int SPAWN_ATTEMPTS = 12;
     private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
+
+    // Managers are only taken off the list as their chunks unload, which a stopping server does not wait for
+    public static void register() {
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> STRUCTURE_MANAGERS.clear());
+    }
 
     public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
         if(world == null)
@@ -36,9 +43,8 @@ public class StructureManagerService {
 
     public static LivingEntity spawnEntity(ServerWorld world, StructureSpawnNestPool pool, BlockPos pos, int spawnRadius){
         var random = world.getRandom();
-        int chances = 12;
         BlockPos chosenBlockPos = null;
-        for(BlockPos blockPos : BlockPos.iterateRandomly(random, chances, pos, spawnRadius)){
+        for(BlockPos blockPos : BlockPos.iterateRandomly(random, SPAWN_ATTEMPTS, pos, spawnRadius)){
             blockPos = blockPos.withY(pos.getY());
             // Air alone is also what the mouth of a well is made of
             BlockPos below = blockPos.down();
@@ -54,25 +60,25 @@ public class StructureManagerService {
     }
 
     public static LivingEntity spawnEntityAt(ServerWorld world, StructureSpawnNestPool pool, BlockPos chosenBlockPos){
-        BlockPos pos = chosenBlockPos;
         LivingEntity entity;
         if(pool.getEntityType() == EntitiesME.NPC){
-
+            if(pool.getNpcIdentifier().isEmpty())
+                return null;
             entity = new NpcEntityBuilder(world, chosenBlockPos)
                     .withNpcClass(pool.getNpcIdentifier().get())
                     .build();
         } else {
-            entity = (LivingEntity) pool.getEntityType().create(world, SpawnReason.STRUCTURE);
+            if(!(pool.getEntityType().create(world, SpawnReason.STRUCTURE) instanceof LivingEntity created))
+                return null;
+            entity = created;
             if(entity instanceof MobEntity mob)
-                mob.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
+                mob.initialize(world, world.getLocalDifficulty(chosenBlockPos), SpawnReason.STRUCTURE, null);
             entity.setPosition(chosenBlockPos.toCenterPos());
         }
-
-        if(entity instanceof LivingEntity livEntity){
-            world.spawnEntity(entity);
-            return livEntity;
-        }
-        return null;
+        if(entity == null)
+            return null;
+        world.spawnEntity(entity);
+        return entity;
     }
 
     public static void register(StructureManagerBlockEntity manager) {

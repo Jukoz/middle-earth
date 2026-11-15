@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 // While the builder's tool is held, draws what the blocks around are taken for: tagged beds with who is born in them and the
 // station or marker their job will use, free beds, stations, stores, seats, tables and structure markers
@@ -64,7 +64,8 @@ public class BuildersToolRenderer {
     private record Bed(BlockPos pos, BedTag tag) {}
 
     private static final Map<Block, Integer> FEATURES = new IdentityHashMap<>();
-    private static final Map<Block, StationKind> STATIONS = new IdentityHashMap<>();
+    // Empty for the blocks that are no station, so that they are not looked up again
+    private static final Map<Block, Optional<StationKind>> STATIONS = new IdentityHashMap<>();
     private static final List<Bed> beds = new ArrayList<>();
     private static final List<StructureFeatureData.Station> stations = new ArrayList<>();
     private static final List<StructureFeatureData.Marker> markers = new ArrayList<>();
@@ -133,7 +134,7 @@ public class BuildersToolRenderer {
                 seats.add(pos.toImmutable());
             if((features & TABLE_FEATURE) != 0)
                 tables.add(pos.toImmutable());
-            StationKind kind = STATIONS.computeIfAbsent(block, BuildFeatures::stationOf);
+            StationKind kind = STATIONS.computeIfAbsent(block, found -> Optional.ofNullable(BuildFeatures.stationOf(found))).orElse(null);
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos.toImmutable()));
         }

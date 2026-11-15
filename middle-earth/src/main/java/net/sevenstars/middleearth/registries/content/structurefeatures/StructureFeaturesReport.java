@@ -196,10 +196,9 @@ public class StructureFeaturesReport {
             for(StructureFeatureData.Marker marker : template.data().markers()) {
                 String where = "`%s` at %s, %s".formatted(id.getPath(), at(marker.pos()), marker.kind().asString());
                 if(marker.kind() == MarkerKind.SPAWN_NPC) {
-                    Identifier nest = Identifier.tryParse(marker.value());
                     if(marker.value().isEmpty())
                         warnings.badSpawns.add(where + " has no value");
-                    else if(nest == null || !peopleNests().contains(nest))
+                    else if(!types.contains(marker.value()))
                         warnings.badSpawns.add(where + " has the unknown nest `%s`".formatted(marker.value()));
                 } else if(marker.kind() == MarkerKind.SPAWN_ANIMAL) {
                     Identifier type = Identifier.tryParse(marker.value());

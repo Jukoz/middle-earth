@@ -14,7 +14,8 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.Struct
 import java.util.List;
 
 public class StructureManagerDataPools {
-    private final static int RESPAWN_TICKS = 24000 * 3;
+    // In ticks, three days
+    public final static int RESPAWN_TICKS = 24000 * 3;
 
     public static List<StructureManagerData> all() {
         return List.of(BRIGAND_DUNGEON_NESTS, DALE_VILLAGE_NESTS, DALE_KEEP_NESTS, EREBOR_GENERIC_NESTS, GONDOR_VILLAGE_NESTS, GONDOR_LORD_NESTS, GUNDABAD_CAMP_NESTS, ISENGARD_CAMP_NESTS, LOTHLORIEN_HAMLET_NESTS, MORDOR_CAMP_NESTS, MORIA_HALL_NESTS, ROHAN_VILLAGE_NESTS, ROHAN_MILITARY_NESTS, SHIRE_VILLAGE_NESTS, WOODLAND_REALM_HAMLET_NESTS, WOODLAND_REALM_HALL_NESTS);

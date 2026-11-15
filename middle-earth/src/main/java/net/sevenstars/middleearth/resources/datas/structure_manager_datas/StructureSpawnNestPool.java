@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import java.util.Optional;
 import java.util.Random;
 
-/// StructureSpawnNestPool is a list of npcs with spawn parameters such as weight, category, etc.
+// One of the kinds of entity a nest can spawn, and how many of it
 public class StructureSpawnNestPool {
     public static final Codec<StructureSpawnNestPool> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EntityType.CODEC.fieldOf("entity_type").forGetter(StructureSpawnNestPool::getEntityType),

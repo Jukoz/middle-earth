@@ -50,6 +50,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     private static final String ID = "structure_manager";
     // In ticks, a second
     private static final int MARKER_CHECK_INTERVAL = 20;
+    private static final int GLOW_TICKS = 10 * 20;
+    private static final int DAY_TICKS = 24000;
+    // The nests are looked over once at dusk and once before dawn
+    private static final int DUSK_CHECK_START = 11000;
+    private static final int DUSK_CHECK_END = 12000;
+    private static final int DAWN_CHECK_START = 23000;
     // Nobody is placed at random around a marker, but on it
     private static final int MARKER_SPAWN_RADIUS = 0;
 
@@ -66,22 +72,26 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
-    // Synced Data
-    private boolean enabled;
-    private boolean toInitialize;
+    // Saved
+    private boolean enabled = false;
+    private boolean toInitialize = false;
     @Nullable
-    protected Identifier structureManagerIdentifier;
-    private StructureNestList structureNestList;
+    private Identifier structureManagerIdentifier = null;
+    private StructureNestList structureNestList = null;
     private List<MarkerAnimals> markerAnimals = new ArrayList<>();
-    private boolean wellnessChecked;
 
-    boolean firstTick = true;
     // Runtime
+    private boolean wellnessChecked = false;
     private StructureManagerData managerData;
     private boolean worldWasSet = false;
     private boolean registered = false;
+    // Unknown until the first tick
     @Nullable
     private Boolean inGeneratedStructure;
+
+    public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistryME.STRUCTURE_MANAGER, pos, state);
+    }
 
     @Override
     public void markRemoved() {
@@ -89,18 +99,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         super.markRemoved();
     }
 
-    public StructureManagerBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistryME.STRUCTURE_MANAGER, pos, state);
-        // Default values
-        this.enabled = false;
-        this.toInitialize = false;
-        this.structureManagerIdentifier = null;
-        this.structureNestList = null;
-        this.firstTick = true;
-        this.wellnessChecked = false;
-    }
-
-    // region [Basic Overrides]
     public void updateData(Identifier structureManagerId, boolean isActive, boolean toInitialize) {
         this.structureManagerIdentifier = structureManagerId;
         this.enabled = isActive;
@@ -168,8 +166,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             toInitialize = true;
         }
     }
-    // endregion
-
 
     @Override
     public void setWorld(World world) {
@@ -183,20 +179,10 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         for(SpawnNestManager nest : structureNestList.getManagers()){
             for(UUID uuid : nest.getEntityUuids()){
                 if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10*20));
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, GLOW_TICKS));
                 }
             }
         }
-    }
-
-    public @Nullable SpawnNestManager findNest(UUID entity) {
-        if(structureNestList == null)
-            return null;
-        for(SpawnNestManager nest : structureNestList.getManagers()){
-            if(nest.getEntityUuids().contains(entity))
-                return nest;
-        }
-        return null;
     }
 
     // A tagged bed this manager has a spawn slot for
@@ -215,7 +201,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(structureNestList == null)
             return false;
         for(SpawnNestManager nest : structureNestList.getManagers()) {
-            Optional<Identifier> job = nest.getBed() != null ? nest.getBedJob() : NpcJobs.forNest(nest.getId());
+            SpawnNestNodeData data = managerData == null ? null : managerData.findSpawnNest(nest.getId());
+            Optional<Identifier> job = nest.getBed() != null ? nest.getBedJob() : data != null ? data.getJob() : NpcJobs.forNest(nest.getId());
             if(NpcJobs.isLord(job.orElse(null)))
                 return true;
         }
@@ -288,46 +275,40 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(!inGeneratedStructure)
             return;
 
-        if(!world.isClient && worldWasSet){
+        if(worldWasSet){
             tryToInitializeManager(world);
             this.worldWasSet = false;
         }
 
-        if (!world.isClient() && !this.registered) {
+        if (!this.registered) {
             StructureManagerService.register(this);
             this.registered = true;
         }
 
-        if(!enabled)
+        if(!enabled || structureNestList == null)
             return;
 
-        ServerWorld serverWorld = (ServerWorld) world;
-        if(structureNestList == null)
-            return;
-
-        long timeOfDay = serverWorld.getTime() % 24000;
-        long gameTick = serverWorld.getTime();
-        if((timeOfDay > 0 && timeOfDay < 11000) || (timeOfDay > 12000 && timeOfDay < 23000) && wellnessChecked)
+        long gameTick = checkedWorld.getTime();
+        long timeOfDay = gameTick % DAY_TICKS;
+        boolean inCheckWindow = (timeOfDay > DUSK_CHECK_START && timeOfDay < DUSK_CHECK_END) || timeOfDay >= DAWN_CHECK_START;
+        boolean haveToDoWellnessCheck = inCheckWindow && !wellnessChecked;
+        if(!inCheckWindow)
             wellnessChecked = false;
 
-        boolean haveToDoWellnessCheck = (timeOfDay > 11000 && timeOfDay < 12000) || (timeOfDay >= 23000) && !wellnessChecked;
         if(managerData == null) {
-            managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
+            managerData = StructureManagerService.getStructureManagerData(checkedWorld, structureManagerIdentifier);
             if(managerData != null && structureNestList.removeUnknown(managerData) > 0)
                 markDirty();
         }
-        for(SpawnNestManager data : structureNestList.getManagers()){
-            if(managerData == null)
-                managerData = StructureManagerService.getStructureManagerData(serverWorld, structureManagerIdentifier);
-            if(haveToDoWellnessCheck){
-                data.doWellnessCheck(managerData, serverWorld, blockPos);
-            }
-            data.tick(managerData, gameTick, serverWorld, blockPos);
+        for(SpawnNestManager nest : structureNestList.getManagers()){
+            if(haveToDoWellnessCheck)
+                nest.doWellnessCheck(managerData, checkedWorld, blockPos);
+            nest.tick(managerData, gameTick, checkedWorld, blockPos);
         }
-        if(haveToDoWellnessCheck && !wellnessChecked)
+        if(haveToDoWellnessCheck)
             wellnessChecked = true;
         if(managerData != null && gameTick % MARKER_CHECK_INTERVAL == 0)
-            tickMarkers(serverWorld);
+            tickMarkers(checkedWorld);
     }
 
     // What the builders marked to be spawned: people join the nests of the place, animals have their own count. Each tagged bed of
@@ -337,8 +318,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         if(site == null)
             return;
         for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.SPAWN_NPC)) {
-            Identifier nestId = Identifier.tryParse(marker.value());
-            SpawnNestNodeData data = nestId == null ? null : managerData.findSpawnNest(nestId);
+            // The marker names its people as a bed tag does, by the last word of the nest
+            SpawnNestNodeData data = managerData.findPeopleNest(marker.value());
             if(data == null || structureNestList.getManagers().stream().anyMatch(nest -> nest.isMarked() && nest.getOriginPos().equals(marker.pos())))
                 continue;
             structureNestList.addNest(new SpawnNestManager(data, marker.pos(), MARKER_SPAWN_RADIUS, marker.count()));
@@ -360,6 +341,9 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
                 continue;
             MarkerAnimals animals = markerAnimals.stream().filter(found -> found.getPos().equals(marker.pos())).findFirst().orElse(null);
             if(animals == null) {
+                // Tried again once the marker's ground is loaded
+                if(!serverWorld.shouldTickEntityAt(marker.pos()))
+                    continue;
                 animals = new MarkerAnimals(marker.pos(), List.of(), -1);
                 markerAnimals.add(animals);
                 animals.spawn(serverWorld, type, marker.count());
@@ -380,27 +364,11 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         this.managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
         this.structureNestList = new StructureNestList();
-        if(managerData == null) {
+        if(managerData == null)
             return;
-        };
 
         this.toInitialize = false;
         this.enabled = true;
-    }
-
-    public void setInitializationState(boolean toInitialize) {
-        this.toInitialize = toInitialize;
-        updateListeners();
-    }
-
-    public void setActiveState(boolean activate) {
-        this.enabled = activate;
-        updateListeners();
-    }
-
-    public void setStructureManagerId(Identifier identifier) {
-        this.structureManagerIdentifier = identifier;
-        updateListeners();
     }
 
     private void updateListeners() {

@@ -62,10 +62,6 @@ public enum BuildFeatures implements Predicate<Block> {
         return test.test(block);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public TagKey<Block> getTag() {
         return tag;
     }

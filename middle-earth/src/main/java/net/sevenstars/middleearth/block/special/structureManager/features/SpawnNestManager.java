@@ -47,7 +47,6 @@ public class SpawnNestManager {
             Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
     ).apply(instance, SpawnNestManager::new));
 
-    private static final String ID = "spawn_nest_data";
     // Where somebody is put when there is no floor beside its bed
     private static final int BED_SPAWN_RADIUS = 2;
     // Around the structure, to count those who live there
@@ -100,7 +99,7 @@ public class SpawnNestManager {
     }
 
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius) {
-        this.entities = new ArrayList<UUID>();
+        this.entities = new ArrayList<>();
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
         // The delay is for coming back after a defeat, a new settlement is lived in from the start
@@ -147,11 +146,7 @@ public class SpawnNestManager {
         if(entity.getEntityWorld().isClient())
             return;
 
-        UUID uuid = entity.getUuid();
-        if(this.entities == null)
-            this.entities = new ArrayList<UUID>();
-
-        this.entities.add(uuid);
+        this.entities.add(entity.getUuid());
     }
 
     public boolean removeEntity(LivingEntity entity){
@@ -197,18 +192,15 @@ public class SpawnNestManager {
         // LivingEntityMixin.onRemove)
         if(housesPeople(structureManagerData))
             return;
-        if(entities != null && !entities.isEmpty()){
-            List<UUID> toRemove = new ArrayList<>();
-            for (UUID uuid : entities){ // Wellness check
-                var entity = world.getEntity(uuid);
-                if(entity == null || !entity.isAlive())
-                    toRemove.add(uuid);
-            }
-            for (UUID uuid : toRemove)
-                removeEntity(world, uuid);
+        List<UUID> toRemove = new ArrayList<>();
+        for (UUID uuid : entities){
+            var entity = world.getEntity(uuid);
+            if(entity == null || !entity.isAlive())
+                toRemove.add(uuid);
         }
+        for (UUID uuid : toRemove)
+            removeEntity(world, uuid);
     }
-
 
     private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
         if(structureManagerData == null)
@@ -229,25 +221,13 @@ public class SpawnNestManager {
                 }
                 bedside = NestSurvey.standFor(world, bed);
             }
+            RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
             int entityAmountToSpawn = isMarked() ? capacity : pool.getEntityAmount();
             for(int i = 0; i < entityAmountToSpawn; i ++){
                 LivingEntity entityToAdd = bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
                         : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
-                if(entityToAdd instanceof NpcEntity npcEntity){
-                    Optional<Identifier> job = bed != null ? bedJob : data.getJob();
-                    if(job.isEmpty() && (NpcJobs.isGuardType(BedTag.typeOf(id)) || mansPosts(world, structureManagerPos, npcEntity)))
-                        job = guardDuty(world, structureManagerPos);
-                    job.ifPresent(npcEntity::takeJob);
-                    npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
-                    if(npcEntity.isPrisoner()) {
-                        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
-                        npcEntity.setPrisonCell(site == null ? null : site.findCell(npcEntity.getBlockPos()));
-                    }
-                    if(bed != null)
-                        npcEntity.setHousehold(bed, bedside, store, links);
-                    else if(isMarked())
-                        npcEntity.setHousehold(null, null, null, List.of());
-                }
+                if(entityToAdd instanceof NpcEntity npcEntity)
+                    settle(npcEntity, data, world, structureManagerPos, site, bedside);
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
             }
@@ -256,9 +236,24 @@ public class SpawnNestManager {
         this.respawnEventTriggerTick = -1;
     }
 
+    // Gives the newly spawned its job, its home and, for a prisoner, its cell
+    private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
+        Optional<Identifier> job = bed != null ? bedJob : data.getJob();
+        if(job.isEmpty() && (NpcJobs.isGuardType(BedTag.typeOf(id)) || mansPosts(site, npc)))
+            job = guardDuty(world, structureManagerPos, site);
+        job.ifPresent(npc::takeJob);
+        if(world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)
+            npc.assignStructureManager(manager);
+        if(npc.isPrisoner())
+            npc.setPrisonCell(site == null ? null : site.findCell(npc.getBlockPos()));
+        if(bed != null)
+            npc.setHousehold(bed, bedside, store, links);
+        else if(isMarked())
+            npc.setHousehold(null, null, null, List.of());
+    }
+
     // Which duty of the place is next to be filled, counted over everyone living in it
-    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos) {
-        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site) {
         if(site == null)
             return Optional.of(NpcJobs.PATROL.getValue());
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;
@@ -270,20 +265,12 @@ public class SpawnNestManager {
 
     // A fighter of any nest stands guard where the build has posts or lookouts marked, as in a watch tower. Elsewhere it keeps
     // the routine of its kind
-    private boolean mansPosts(ServerWorld world, BlockPos structureManagerPos, NpcEntity npc) {
+    private boolean mansPosts(@Nullable RoutineSite site, NpcEntity npc) {
         NpcClass npcClass = npc.getNpcClass();
         if(npcClass == null || npcClass.isCivilian())
             return false;
-        RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
         return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty()
                 || !site.getMarkers(MarkerKind.LOOKOUT).isEmpty());
-    }
-
-    public boolean computeDeath(LivingEntity entity) {
-        if (removeEntity(entity)) {
-            return true;
-        }
-        return false;
     }
 
     public void forceRespawn(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
@@ -293,7 +280,7 @@ public class SpawnNestManager {
                 MiddleEarth.LOGGER.logDebugMsg("Removed %s".formatted(uuid));
             }
         }
-        entities = new ArrayList<UUID>();
+        entities = new ArrayList<>();
         respawnAll(structureManagerData, world, structureManagerPos);
     }
 }

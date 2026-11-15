@@ -22,10 +22,6 @@ public enum MarkerKind implements StringIdentifiable {
         this.name = name;
     }
 
-    public MarkerKind next() {
-        return values()[(ordinal() + 1) % values().length];
-    }
-
     @Override
     public String asString() {
         return name;

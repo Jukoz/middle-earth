@@ -9,8 +9,7 @@ import net.sevenstars.middleearth.block.special.beds.BedTag;
 
 import java.util.List;
 
-/// StructureManagerData is used by StructureManagers. It's a data entity that stores the different properties necessary for
-/// Spawn Nests.
+// What a structure manager spawns: the nests of its place
 public class StructureManagerData {
     public static final Codec<StructureManagerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(StructureManagerData::getIdString),

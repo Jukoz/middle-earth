@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.Entity;
+import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
@@ -24,8 +25,7 @@ public class MarkerAnimals {
             Codec.LONG.optionalFieldOf("missing_since", -1L).forGetter(markerAnimals -> markerAnimals.missingSince)
     ).apply(instance, MarkerAnimals::new));
 
-    // The same wait as the nests, in ticks
-    private static final long RESPAWN_DELAY = 24000 * 3;
+    private static final long RESPAWN_DELAY = StructureManagerDataPools.RESPAWN_TICKS;
 
     private final BlockPos pos;
     private final List<UUID> animals;

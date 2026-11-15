@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import java.util.Random;
 
-/// NpcSpawnNest is a specific area where entities can spawn with the different parameters.
+// One nest of a place: who is spawned there, and how long after the last of them is gone they come back
 public class SpawnNestNodeData {
     public static final Codec<SpawnNestNodeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(SpawnNestNodeData::getId),
