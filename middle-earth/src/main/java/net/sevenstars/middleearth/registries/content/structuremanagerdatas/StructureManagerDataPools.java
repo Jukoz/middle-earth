@@ -16,6 +16,10 @@ import java.util.List;
 public class StructureManagerDataPools {
     // In ticks, three days
     public final static int RESPAWN_TICKS = 24000 * 3;
+    // Who is held in a cell unless its bed names somebody else
+    private static final List<StructureSpawnNestPool> PRISONERS = List.of(
+            new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF),
+            new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG));
 
     public static List<StructureManagerData> all() {
         return List.of(BRIGAND_DUNGEON_NESTS, DALE_VILLAGE_NESTS, DALE_KEEP_NESTS, EREBOR_GENERIC_NESTS, GONDOR_VILLAGE_NESTS, GONDOR_LORD_NESTS, GUNDABAD_CAMP_NESTS, ISENGARD_CAMP_NESTS, LOTHLORIEN_HAMLET_NESTS, MORDOR_CAMP_NESTS, MORIA_HALL_NESTS, ROHAN_VILLAGE_NESTS, ROHAN_MILITARY_NESTS, SHIRE_VILLAGE_NESTS, WOODLAND_REALM_HAMLET_NESTS, WOODLAND_REALM_HALL_NESTS);
@@ -52,10 +56,7 @@ public class StructureManagerDataPools {
                         new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG),
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY)
                 )),
-                new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.prisoner"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.ROHAN_PEASANT),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.HOBGOBLIN_TRIBES, NpcRegistry.GUNDABAD_GOBLIN)
-                )),
+                new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.prisoner"), RESPAWN_TICKS, PRISONERS),
                 new SpawnNestNodeData(createIdentifier("brigand_dungeon_nests.mercenary"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY)
                 )),
@@ -92,16 +93,8 @@ public class StructureManagerDataPools {
                 new StructureSpawnNestPool(EntityType.HORSE, 4).SetFixAmount(1),
                 new StructureSpawnNestPool(EntityType.DONKEY, 1).SetFixAmount(1)
             )),
-            new SpawnNestNodeData(createIdentifier("dale_keep_nests.small_prisoner_cell"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_THIEF),
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_THUG),
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_CHIEFTAIN)
-            )),
-            new SpawnNestNodeData(createIdentifier("dale_keep_nests.large_prisoner_cell"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_THIEF),
-                new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_THUG),
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.DALE, NpcRegistry.BRIGAND_CHIEFTAIN)
-            )),
+            new SpawnNestNodeData(createIdentifier("dale_keep_nests.small_prisoner_cell"), RESPAWN_TICKS, PRISONERS),
+            new SpawnNestNodeData(createIdentifier("dale_keep_nests.large_prisoner_cell"), RESPAWN_TICKS, PRISONERS),
             new SpawnNestNodeData(createIdentifier("dale_keep_nests.soldier"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 4).SetNpcData(FactionRegistry.DALE, NpcRegistry.DALE_SOLDIER),
                 new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.DALE, NpcRegistry.DALE_ARCHER),
@@ -134,12 +127,7 @@ public class StructureManagerDataPools {
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.smith"), RESPAWN_TICKS, List.of(
                     new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.LONGBEARDS_EREBOR, NpcRegistry.EREBOR_PEASANT)
             )),
-            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.prisoner"), RESPAWN_TICKS, List.of(
-                    new StructureSpawnNestPool(EntitiesME.NPC, 5).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_SNAGA),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY),
-                    new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG)
-            )),
+            new SpawnNestNodeData(createIdentifier("erebor_generic_nests.prisoner"), RESPAWN_TICKS, PRISONERS),
             new SpawnNestNodeData(createIdentifier("erebor_generic_nests.stable"), RESPAWN_TICKS, List.of(
                     new StructureSpawnNestPool(EntitiesME.BROADHOOF_GOAT, 5).SetFixAmount(1),
                     new StructureSpawnNestPool(EntityType.PIG, 2).SetFixAmount(1),
@@ -187,10 +175,7 @@ public class StructureManagerDataPools {
             )),
             // Its bed is in the cell. With no room to look for one, the cell's bed went to the smith of the militia house, who
             // was then spawned behind the locked door
-            new SpawnNestNodeData(createIdentifier("gondor_lord_nests.prisoner"), RESPAWN_TICKS, List.of(
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF),
-                new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG)
-            )),
+            new SpawnNestNodeData(createIdentifier("gondor_lord_nests.prisoner"), RESPAWN_TICKS, PRISONERS),
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.stable"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntityType.HORSE, 5).SetFixAmount(1),
                 new StructureSpawnNestPool(EntityType.DONKEY, 2).SetFixAmount(1),
@@ -390,14 +375,7 @@ public class StructureManagerDataPools {
                 new SpawnNestNodeData(createIdentifier("woodland_realm_hall_nests.stable"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.GREAT_HORN, 1).SetFixAmount(1)
                 )),
-                new SpawnNestNodeData(createIdentifier("woodland_realm_hall_nests.prisoner_cell"), RESPAWN_TICKS, List.of(
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_SNAGA),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_SCOUT),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.MORDOR, NpcRegistry.MORDOR_MILITIA),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG),
-                        new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_MERCENARY)
-                )),
+                new SpawnNestNodeData(createIdentifier("woodland_realm_hall_nests.prisoner_cell"), RESPAWN_TICKS, PRISONERS),
                 new SpawnNestNodeData(createIdentifier("woodland_realm_hall_nests.soldier"), RESPAWN_TICKS, List.of(
                         new StructureSpawnNestPool(EntitiesME.NPC, 3).SetNpcData(FactionRegistry.WOODLAND_REALM, NpcRegistry.WOODLAND_REALM_WARRIOR),
                         new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.WOODLAND_REALM, NpcRegistry.WOODLAND_REALM_RANGER),
