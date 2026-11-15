@@ -159,6 +159,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // Alarm: who is called, and from how far
     private static final int GUARDS_TO_FLEE = 3;
+    private static final int HOME_STAND_RANGE = 5;
 
     // In blocks
     private static final int ALARM_RANGE = 24;
@@ -268,6 +269,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Threat and grudges
     private @Nullable UUID threatFaced = null;
     private boolean fleesThreat = false;
+    private @Nullable UUID guardsCalledFor = null;
     // Who wronged this npc, until when in world ticks. Kept by the npc alone, and not saved
     private final Map<UUID, Long> grudges = new HashMap<>();
 
@@ -357,11 +359,19 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.goalSelector.add(6, new NpcTravelGoal(this, WALK_SPEED));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, LOOK_RANGE));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        // Common folk strike back unless they have run for the guards
+        // Common folk strike back unless they have run for the guards. At home there is nowhere left to run: the guards are
+        // called from where the npc stands, and it fights
         this.targetSelector.add(1, new RevengeGoal(this) {
             @Override
             public boolean canStart() {
-                return (!isTimid() || getAttacker() == null || !fleesFrom(getAttacker())) && super.canStart();
+                LivingEntity attacker = getAttacker();
+                if(isTimid() && attacker != null && !NpcRelations.of(NpcEntity.this, attacker).isFriendly()) {
+                    if(isAtHome())
+                        callGuardsOnce(attacker);
+                    else if(fleesFrom(attacker))
+                        return false;
+                }
+                return super.canStart();
             }
         });
         this.targetSelector.add(3, new NpcTargetEnemyGoal(this));
@@ -1022,6 +1032,18 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 callCommonFolk(world, threat);
         }
         return fleesThreat;
+    }
+
+    // Close to home there is nowhere left to run, and the npc stands its ground
+    public boolean isAtHome() {
+        return routineHome != null && getStructureManagerHostPos() != null && routineHome.isWithinDistance(getPos(), HOME_STAND_RANGE);
+    }
+
+    private void callGuardsOnce(LivingEntity threat) {
+        if(threat.getUuid().equals(guardsCalledFor))
+            return;
+        guardsCalledFor = threat.getUuid();
+        callGuards(threat);
     }
 
     private int countGuards(ServerWorld world) {

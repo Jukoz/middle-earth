@@ -15,8 +15,6 @@ import java.util.EnumSet;
 public class NpcFleeHomeGoal extends Goal {
     private static final int THREAT_RANGE = 16;
     private static final int SAFE_RANGE = 24;
-    // Close to home there is nowhere left to run, and the npc stands its ground
-    private static final int HOME_RANGE = 5;
     private static final int FLEE_DISTANCE = 12;
     private static final int FLEE_HEIGHT = 7;
     private static final double HOME_ANGLE = Math.PI / 2;
@@ -44,7 +42,7 @@ public class NpcFleeHomeGoal extends Goal {
         // A friend's stray blow is not run from
         if(NpcRelations.of(npc, danger).isFriendly())
             return false;
-        if(npc.squaredDistanceTo(danger) > THREAT_RANGE * THREAT_RANGE || isHome())
+        if(npc.squaredDistanceTo(danger) > THREAT_RANGE * THREAT_RANGE || npc.isAtHome())
             return false;
         if(!npc.fleesFrom(danger))
             return false;
@@ -52,14 +50,9 @@ public class NpcFleeHomeGoal extends Goal {
         return true;
     }
 
-    private boolean isHome() {
-        BlockPos home = npc.getRoutineHome();
-        return home != null && npc.getStructureManagerHostPos() != null && home.isWithinDistance(npc.getPos(), HOME_RANGE);
-    }
-
     @Override
     public boolean shouldContinue() {
-        return threat != null && threat.isAlive() && ticks < MAXIMUM_TIME && !isHome()
+        return threat != null && threat.isAlive() && ticks < MAXIMUM_TIME && !npc.isAtHome()
                 && npc.squaredDistanceTo(threat) < SAFE_RANGE * SAFE_RANGE;
     }
 
