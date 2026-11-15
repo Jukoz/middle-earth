@@ -5,31 +5,31 @@ import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ScaffoldingBlock;
-import net.minecraft.block.enums.BlockFace;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.ScaffoldingBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapdoorBlock;
+import net.minecraft.block.enums.BlockFace;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathContext;
 import net.minecraft.entity.ai.pathing.PathNode;
+import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.fireBlocks.AbstractToggleableFireBlock;
 import net.sevenstars.middleearth.block.special.plants.ToughBerryBushBlock;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.utils.BlockTagsME;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.state.property.Properties;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.Heightmap;
 
 // Land pathfinding knows nothing of ladders: a mob only ever gets onto one by accident. This adds the way up and down them
 public class NpcPathNodeMaker extends LandPathNodeMaker {
@@ -56,6 +56,9 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     private static final double MAXIMUM_RISE = 1.125;
     // How far across its block a board has to lie to be on the far side of it
     private static final double FAR_HALF = 0.5;
+    private static final int BODY_BLOCKS = 2;
+    // Blocks to the side of where the step came down that still count as beside it
+    private static final int BESIDE_DISTANCE = 1;
     private static final byte TRAP = 1;
     private static final byte OPEN = 2;
 
@@ -145,6 +148,12 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return count;
     }
 
+    @Override
+    public void clear() {
+        traps.clear();
+        super.clear();
+    }
+
     // Fields are walked by those working them, and everybody else goes round
     private void keepOffFields(PathNode[] successors, int count) {
         if(!(entity instanceof NpcEntity npc) || npc.isFarming())
@@ -196,7 +205,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             int x = BlockPos.unpackLongX(cell);
             int y = BlockPos.unpackLongY(cell);
             int z = BlockPos.unpackLongZ(cell);
-            if(y >= from.y && Math.abs(x - from.x) <= 1 && Math.abs(z - from.z) <= 1)
+            if(y >= from.y && Math.abs(x - from.x) <= BESIDE_DISTANCE && Math.abs(z - from.z) <= BESIDE_DISTANCE)
                 return false;
             // Swimming up, and climbing
             if(isWater(x, y + 1, z) || isLadderCell(x, y + 1, z))
@@ -242,12 +251,6 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             return true;
         VoxelShape shape = state.getCollisionShape(context.getWorld(), probe);
         return shape.isEmpty() || shape.getMax(Direction.Axis.Y) <= LOW_STEP;
-    }
-
-    @Override
-    public void clear() {
-        traps.clear();
-        super.clear();
     }
 
     private boolean isWater(int x, int y, int z) {
@@ -313,7 +316,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     }
 
     private boolean crossesBoard(PathNode from, PathNode next, int stepX, int stepZ) {
-        for(int up = 0; up < 2; up++) {
+        for(int up = 0; up < BODY_BLOCKS; up++) {
             if(boardTowards(from.x, from.y + up, from.z, stepX, stepZ) || boardTowards(next.x, next.y + up, next.z, -stepX, -stepZ))
                 return true;
             // A step down goes past the board at the height it left from, before it drops

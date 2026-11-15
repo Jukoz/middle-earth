@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 public class NpcModDoorGoal extends Goal {
     private static final double REACH = 2.5;
     private static final int NODES_AHEAD = 2;
+    private static final int DOOR_HEIGHT = 2;
     // In ticks
     private static final int PASSING_TIME = 30;
     private static final int MAXIMUM_HOLD_TIME = 20 * 8;
@@ -50,7 +51,7 @@ public class NpcModDoorGoal extends Goal {
         int last = Math.min(path.getCurrentNodeIndex() + NODES_AHEAD, path.getLength() - 1);
         for(int i = path.getCurrentNodeIndex(); i <= last; i++) {
             PathNode node = path.getNode(i);
-            for(int up = 0; up < 2; up++) {
+            for(int up = 0; up < DOOR_HEIGHT; up++) {
                 BlockState state = world.getBlockState(probe.set(node.x, node.y + up, node.z));
                 if(!(state.getBlock() instanceof NpcDoor door) || door.isOpen(state) || !door.opensForNpcs(state))
                     continue;

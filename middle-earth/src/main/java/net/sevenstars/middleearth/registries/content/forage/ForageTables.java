@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -27,6 +28,8 @@ public class ForageTables {
     // The kind of land decides, unless the land is one with plants of its own
     private static final int LAND = 1;
     private static final int HARSH_LAND = 2;
+    private static final int HARSHER_LAND = HARSH_LAND + 1;
+    private static final int HARSHEST_LAND = HARSH_LAND + 2;
     private static final int REALM = 10;
 
     static {
@@ -40,9 +43,9 @@ public class ForageTables {
         land("swamp", ConventionalBiomeTags.IS_SWAMP, HARSH_LAND, "reeds", "rushes", "minecraft:brown_mushroom", "minecraft:red_mushroom", "wild_garlic");
         land("mountain", ConventionalBiomeTags.IS_MOUNTAIN, HARSH_LAND, "tough_berries", "heather", "thistle");
         land("desert", ConventionalBiomeTags.IS_DESERT, HARSH_LAND, "thistle", "minecraft:dead_bush", "minecraft:cactus");
-        land("snowy", ConventionalBiomeTags.IS_SNOWY, HARSH_LAND + 1, "tough_berries", "dead_heather", "minecraft:stick");
-        land("wasteland", ConventionalBiomeTags.IS_WASTELAND, HARSH_LAND + 1, "thistle", "minecraft:dead_bush", "minecraft:bone");
-        land("cave", ConventionalBiomeTags.IS_CAVE, HARSH_LAND + 2, "ghostshroom", "white_mushroom", "trumpet_shroom", "tubeshroom", "minecraft:brown_mushroom");
+        land("snowy", ConventionalBiomeTags.IS_SNOWY, HARSHER_LAND, "tough_berries", "dead_heather", "minecraft:stick");
+        land("wasteland", ConventionalBiomeTags.IS_WASTELAND, HARSHER_LAND, "thistle", "minecraft:dead_bush", "minecraft:bone");
+        land("cave", ConventionalBiomeTags.IS_CAVE, HARSHEST_LAND, "ghostshroom", "white_mushroom", "trumpet_shroom", "tubeshroom", "minecraft:brown_mushroom");
 
         // Hobbits have a passion for mushrooms, surpassing even the greediest likings of Big People
         realm("shire", "minecraft:brown_mushroom", "minecraft:brown_mushroom", "minecraft:red_mushroom", "white_mushroom", "strawberries", "minecraft:apple", "wild_carrot", "wild_onion");
@@ -91,7 +94,7 @@ public class ForageTables {
     private static List<Item> items(String... ids) {
         List<Item> items = new ArrayList<>();
         for(String id : ids) {
-            Item item = Registries.ITEM.get(id.contains(":") ? net.minecraft.util.Identifier.of(id) : MiddleEarth.id(id));
+            Item item = Registries.ITEM.get(id.contains(":") ? Identifier.of(id) : MiddleEarth.id(id));
             if(item == Items.AIR)
                 throw new IllegalStateException("No such item to forage: " + id);
             items.add(item);

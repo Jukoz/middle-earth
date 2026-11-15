@@ -15,7 +15,10 @@ import net.minecraft.util.math.MathHelper;
 public class NpcMoveControl extends MoveControl {
     // Below this much difference in height the way is level
     private static final double LEVEL = 0.1;
+    // Degrees, as in the game's own move control
     private static final float TURN = 90;
+    // Between the angle atan2 gives and a yaw, as in the game's own move control
+    private static final float YAW_OFFSET = 90;
 
     public NpcMoveControl(MobEntity entity) {
         super(entity);
@@ -32,7 +35,7 @@ public class NpcMoveControl extends MoveControl {
         double towardsZ = targetZ - entity.getZ();
         double up = targetY - entity.getY();
         if(towardsX * towardsX + towardsZ * towardsZ > REACHED_DESTINATION_DISTANCE_SQUARED) {
-            float yaw = (float) (MathHelper.atan2(towardsZ, towardsX) * MathHelper.DEGREES_PER_RADIAN) - 90;
+            float yaw = (float) (MathHelper.atan2(towardsZ, towardsX) * MathHelper.DEGREES_PER_RADIAN) - YAW_OFFSET;
             entity.setYaw(wrapDegrees(entity.getYaw(), yaw, TURN));
         }
         // A ladder laid on the floor is climbable all the same, and is only walked over

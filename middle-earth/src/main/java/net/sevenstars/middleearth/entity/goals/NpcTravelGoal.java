@@ -28,6 +28,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     // In path nodes
     private static final int MINIMUM_STROLL = 4;
     private static final int STROLL_RETRY_RANGE = 6;
+    private static final int STROLL_RETRY_HEIGHT = 4;
     // Strolls tried from the same block before the npc is taken to be stuck, about 20 seconds
     private static final int STUCK_STROLLS = 5;
     private static final int MAXIMUM_RESCUE_BACK_OFF = 4;
@@ -41,11 +42,15 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final int MAXIMUM_HEIGHT_CHANGE = 8;
     private static final int MAXIMUM_FAILURES = 3;
     private static final int WANDER_RANGE = 20;
+    private static final int HOME_PULL_RANGE = 10;
+    private static final int HOME_PULL_HEIGHT = 7;
     private static final int ARRIVAL_DISTANCE = 24;
     private static final int DESTINATION_CHECK_CHANCE = 10;
     // Two stretches and a bit: far enough to turn before the edge is reached
     private static final int LOOK_AHEAD = 32;
     private static final int TURN_VARIATION = 45;
+    private static final float TURN_BACK = 180f;
+    private static final float TURN_ASIDE = 90f;
 
     private static final double SLOT_REACHED = 2.5;
     private static final double FOLLOW_GAP = 2.5;
@@ -161,7 +166,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         // Indoors most random spots lie behind a wall, so an idle npc tries a few before it gives up on its stroll
         if(strolling) {
             for(int attempt = 0; attempt < STROLL_RETRIES && npc.getWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
-                Vec3d other = nearHome(NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, 4));
+                Vec3d other = nearHome(NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
                 if(other != null && npc.getNavigation().startMovingTo(other.x, other.y, other.z, moveSpeed) && isWorthWalking())
                     return;
             }
@@ -174,7 +179,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
             return inField(target) ? null : target;
-        Vec3d back = NoPenaltyTargeting.findTo(npc, 10, 7, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
+        Vec3d back = NoPenaltyTargeting.findTo(npc, HOME_PULL_RANGE, HOME_PULL_HEIGHT, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
         return inField(back) ? null : back;
     }
 
@@ -217,7 +222,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         Vec3d ahead = npc.getPos().add(direction(heading).multiply(LOOK_AHEAD));
         if(world.shouldTickEntityAt(BlockPos.ofFloored(ahead)))
             return heading;
-        float turned = heading + 180f + npc.getRandom().nextBetween(-TURN_VARIATION, TURN_VARIATION);
+        float turned = heading + TURN_BACK + npc.getRandom().nextBetween(-TURN_VARIATION, TURN_VARIATION);
         npc.setTravelDestination(null);
         npc.setTravelHeading(turned);
         failures = 0;
@@ -260,7 +265,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         failures++;
         if(failures >= MAXIMUM_FAILURES) {
             failures = 0;
-            npc.setTravelHeading(heading + (npc.getRandom().nextBoolean() ? 90f : -90f));
+            npc.setTravelHeading(heading + (npc.getRandom().nextBoolean() ? TURN_ASIDE : -TURN_ASIDE));
         }
     }
 

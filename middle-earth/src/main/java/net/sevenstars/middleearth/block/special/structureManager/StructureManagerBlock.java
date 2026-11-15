@@ -49,6 +49,7 @@ public class StructureManagerBlock extends BlockWithEntity implements BlockEntit
     }
 
     @Nullable
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction direction = ctx.getHorizontalPlayerFacing().getOpposite();
 

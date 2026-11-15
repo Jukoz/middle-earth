@@ -7,11 +7,14 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 // Looks around for anyone the npc counts as an enemy. Who that is, NpcRelations decides through canTarget
 public class NpcTargetEnemyGoal extends ActiveTargetGoal<LivingEntity> {
+    // One in this many checks looks for a target
+    private static final int SEARCH_CHANCE = 10;
+
     private final NpcEntity npc;
 
     public NpcTargetEnemyGoal(NpcEntity npc) {
         // Game being hunted is left to the hunt
-        super(npc, LivingEntity.class, 10, true, false, (target, world) -> target != npc.getHuntTarget());
+        super(npc, LivingEntity.class, SEARCH_CHANCE, true, false, (target, world) -> target != npc.getHuntTarget());
         this.npc = npc;
     }
 

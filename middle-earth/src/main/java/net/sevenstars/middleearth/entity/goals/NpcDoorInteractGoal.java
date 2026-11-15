@@ -19,6 +19,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
     private static final int PASSING_TIME = 20;
     private static final int MAXIMUM_HOLD_TIME = 20 * 10;
     private static final int DOORWAY_CHECK_INTERVAL = 5;
+    private static final int NODES_AHEAD = 2;
     private static final double DOORWAY_REACH = 1.25;
     private static final double OWN_REACH = 2;
     private static final double DOOR_REACH = 1.5;
@@ -42,7 +43,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         Path path = navigation.getCurrentPath();
         if(path == null || path.isFinished())
             return false;
-        for(int i = 0; i < Math.min(path.getCurrentNodeIndex() + 2, path.getLength()); i++) {
+        for(int i = 0; i < Math.min(path.getCurrentNodeIndex() + NODES_AHEAD, path.getLength()); i++) {
             PathNode node = path.getNode(i);
             BlockPos pos = new BlockPos(node.x, node.y + 1, node.z);
             if(mob.squaredDistanceTo(pos.getX() + 0.5, mob.getY(), pos.getZ() + 0.5) <= DOOR_REACH * DOOR_REACH && DoorBlock.canOpenByHand(mob.getWorld(), pos)) {

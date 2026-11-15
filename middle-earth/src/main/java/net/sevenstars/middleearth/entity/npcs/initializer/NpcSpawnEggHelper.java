@@ -26,6 +26,10 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import java.util.List;
 
 public class NpcSpawnEggHelper {
+    private static final String SPAWN_EGG_SUFFIX = "_spawn_egg";
+    private static final String ENTITY_ID_KEY = "id";
+    private static final String NPC_ENTITY = "npc";
+
     public static ItemStack getSpawnEgg(NpcClass npcClass, RegistryWrapper.WrapperLookup wrapper) {
         if(npcClass == null)
             return ItemStack.EMPTY;
@@ -42,10 +46,11 @@ public class NpcSpawnEggHelper {
         if(npcClass == null)
             return ItemStack.EMPTY;
 
-        Identifier itemId = MiddleEarth.appendSuffix(npcClass.getId(), "_spawn_egg");
+        Identifier itemId = MiddleEarth.appendSuffix(npcClass.getId(), SPAWN_EGG_SUFFIX);
         ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
+        compoundData.putString(ENTITY_ID_KEY, MiddleEarth.id(NPC_ENTITY).toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(npcClass.getId(), false);
 
@@ -66,7 +71,7 @@ public class NpcSpawnEggHelper {
         itemStack.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
                 List.of(),
                 List.of(),
-                List.of(npcClass.getId().getPath().replaceAll("\\.", "_") + "_spawn_egg"),
+                List.of(npcClass.getId().getPath().replaceAll("\\.", "_") + SPAWN_EGG_SUFFIX),
                 List.of()));
 
         return itemStack;

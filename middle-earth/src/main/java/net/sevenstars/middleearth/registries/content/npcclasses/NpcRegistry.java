@@ -26,10 +26,12 @@ import java.util.Map;
 
 public class NpcRegistry {
     private static final RegistryKey<Registry<NpcClass>> NPC_CLASS_KEY = DynamicRegistriesME.NPC_CLASS;
+    private static final double COMMON_SPEED_MIN = 0.25;
+    private static final double COMMON_SPEED_MAX = 0.35;
 
     public static final HashMap<EntityCategories, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
         put(EntityCategories.SHARED, new AttributePool().addElement(
-            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.25, 0.35)
+            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, COMMON_SPEED_MIN, COMMON_SPEED_MAX)
         ));
     }};
 

@@ -41,8 +41,25 @@ public class RoutineSite {
     private static final int[] RADII = {8, 14, 20, 26, 32, 38, 44};
     private static final int SAMPLE_SPACING = 6;
     private static final int SAMPLE_MARGIN = 36;
+    private static final int MINIMUM_SAMPLES_PER_CIRCLE = 8;
+    // In radians per block of radius
+    private static final double SAMPLE_TWIST = 0.37;
     // x and z pairs
-    private static final int[] SAMPLES;
+    private static final int[] SAMPLES = samples();
+
+    private static int[] samples() {
+        List<Integer> samples = new ArrayList<>();
+        for(int radius : RADII) {
+            int amount = Math.max(MINIMUM_SAMPLES_PER_CIRCLE, Math.round(MathHelper.TAU * radius / SAMPLE_SPACING));
+            for(int i = 0; i < amount; i++) {
+                // Offset each circle, so that the samples do not line up into spokes
+                double angle = MathHelper.TAU * i / amount + radius * SAMPLE_TWIST;
+                samples.add(MathHelper.floor(Math.cos(angle) * radius));
+                samples.add(MathHelper.floor(Math.sin(angle) * radius));
+            }
+        }
+        return samples.stream().mapToInt(Integer::intValue).toArray();
+    }
 
     private static final int MINIMUM_RING_POINTS = 8;
     private static final int MAXIMUM_RING_POINTS = 40;
@@ -56,10 +73,19 @@ public class RoutineSite {
     // A gap this wide between two points of the ring is no stretch of the round
     private static final double ARC_GAP = RING_SPACING * 2.5;
     // How far outside the outermost buildings the watch walks
-    private static final int RING_MARGIN = 6;
+    private static final int OUTLINE_OFFSET = 6;
     // Outwards first, a point moved inwards ends up between the houses
     private static final int[] RING_ADJUSTMENTS = {0, 4, 8, -4};
+    private static final int MINIMUM_OUTLINE_CORNERS = 3;
+    private static final int MINIMUM_ROUND_POINTS = 3;
+    private static final int MINIMUM_MARKED_ROUND_POINTS = 2;
+    private static final int MINIMUM_HOUSEHOLDS_TO_VISIT = 2;
+    private static final int FAR_TABLE_FACTOR = 2;
+    private static final int MINIMUM_FREE_SEATS_ALONE = 2;
     private static final int MAXIMUM_SHORES = 8;
+    // Water this many blocks wide behind the spot, or it is a puddle
+    private static final int MINIMUM_WATER_WIDTH = 2;
+    private static final int SHORE_SEARCH = 3;
     private static final int SHORE_SPACING = 6;
     private static final int MAXIMUM_GROUNDS = 12;
     private static final int GROUND_SPACING = 10;
@@ -179,10 +205,10 @@ public class RoutineSite {
         return switch (activity) {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
-            case PATROL -> getPatrolRoute().size() >= 3 || !getMarkers(MarkerKind.PATROL_POINT).isEmpty() && getPatrolRoute().size() >= 2;
+            case PATROL -> getPatrolRoute().size() >= MINIMUM_ROUND_POINTS || !getMarkers(MarkerKind.PATROL_POINT).isEmpty() && getPatrolRoute().size() >= MINIMUM_MARKED_ROUND_POINTS;
             case COURT -> !getMarkers(MarkerKind.LORD_SEAT).isEmpty() || !tables.isEmpty();
-            case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= 3;
-            case VISIT -> households.size() >= 2;
+            case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= MINIMUM_ROUND_POINTS;
+            case VISIT -> households.size() >= MINIMUM_HOUSEHOLDS_TO_VISIT;
             case TABLE -> !tables.isEmpty();
             case WORK -> stations.stream().anyMatch(station -> station.kind() != StationKind.FIELD) || !getMarkers(MarkerKind.SPAWN_ANIMAL).isEmpty();
             case FARM -> stations.stream().anyMatch(station -> station.kind() == StationKind.FIELD);
@@ -264,7 +290,6 @@ public class RoutineSite {
         this.households = households;
     }
 
-    // Somebody else's home, not the one next to the npc's own bed
     // Another household to call on, among those down in the halls for one living there and up in the open for one living
     // there: the way between is up the stairs of the whole place
     public @Nullable BlockPos pickHousehold(ServerWorld world, BlockPos home, Random random) {
@@ -345,7 +370,6 @@ public class RoutineSite {
         return null;
     }
 
-    // The station of one of these kinds closest to the given place, which is the npc's home
     public List<BlockPos> getFields(BlockPos near, int range) {
         List<BlockPos> fields = new ArrayList<>();
         for(StructureFeatureData.Station station : stations) {
@@ -374,6 +398,7 @@ public class RoutineSite {
         return null;
     }
 
+    // The station of one of these kinds closest to the given place, which is the npc's home
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
         for(StructureFeatureData.Station station : stations) {
@@ -389,14 +414,14 @@ public class RoutineSite {
         this.tables = tables;
     }
 
-    // A free seat at a table where somebody already sits, or else at any table with room for two
     // A table on the same floor within range of the given place, or else one twice as far on any floor. In a stronghold a
     // table two floors up is a long way round by its stairs, and the far tables are further still down its halls
     public @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range) {
         BlockPos seat = pickSeat(world, random, near, range, true);
-        return seat != null ? seat : pickSeat(world, random, near, range * 2, false);
+        return seat != null ? seat : pickSeat(world, random, near, range * FAR_TABLE_FACTOR, false);
     }
 
+    // A free seat at a table where somebody already sits, or else at any table with room for two
     private @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range, boolean sameFloor) {
         BlockPos alone = null;
         int offset = tables.isEmpty() ? 0 : random.nextInt(tables.size());
@@ -421,7 +446,7 @@ public class RoutineSite {
                 continue;
             if(freeSeats < loaded)
                 return free;
-            if(alone == null && freeSeats >= 2)
+            if(alone == null && freeSeats >= MINIMUM_FREE_SEATS_ALONE)
                 alone = free;
         }
         return alone;
@@ -437,7 +462,7 @@ public class RoutineSite {
             List<BlockPos> points = new ArrayList<>();
             for(StructureFeatureData.Marker marker : getMarkers(MarkerKind.PATROL_POINT))
                 points.add(marker.pos());
-            if(points.size() < 2) {
+            if(points.size() < MINIMUM_MARKED_ROUND_POINTS) {
                 patrolRoute = ring;
                 patrolArc = false;
                 int widest = -1;
@@ -555,7 +580,7 @@ public class RoutineSite {
     // The ring follows the outline of the settlement. A circle cuts through any place that is not round
     private void planRing(@Nullable List<BlockBox> pieces) {
         List<double[]> outline = pieces == null ? List.of() : outlineOf(pieces);
-        if(outline.size() < 3) {
+        if(outline.size() < MINIMUM_OUTLINE_CORNERS) {
             planCircle();
             return;
         }
@@ -597,7 +622,7 @@ public class RoutineSite {
             double outZ = -alongX;
             double walked = untilNext;
             for(; walked < length; walked += spacing)
-                ringPlan.add(new double[]{from[0] + alongX * walked + outX * RING_MARGIN, from[1] + alongZ * walked + outZ * RING_MARGIN, outX, outZ});
+                ringPlan.add(new double[]{from[0] + alongX * walked + outX * OUTLINE_OFFSET, from[1] + alongZ * walked + outZ * OUTLINE_OFFSET, outX, outZ});
             untilNext = walked - length;
         }
     }
@@ -706,10 +731,10 @@ public class RoutineSite {
         if(towardsX == 0 && towardsZ == 0)
             return;
         // A puddle is not worth the walk
-        if(classify(world, waterX - towardsX * 2, waterZ - towardsZ * 2) != WATER)
+        if(classify(world, waterX - towardsX * MINIMUM_WATER_WIDTH, waterZ - towardsZ * MINIMUM_WATER_WIDTH) != WATER)
             return;
 
-        for(int step = 1; step <= 3; step++) {
+        for(int step = 1; step <= SHORE_SEARCH; step++) {
             int x = waterX + towardsX * step;
             int z = waterZ + towardsZ * step;
             int kind = classify(world, x, z);
@@ -768,12 +793,12 @@ public class RoutineSite {
             keepReachable(world);
     }
 
-    // A round with a long gap in it, where the place runs along a lake or a cliff, is walked there and back
     // Walked where the builders put it, and not along the outline of the place
     public boolean hasMarkedRoute() {
-        return getMarkers(MarkerKind.PATROL_POINT).size() >= 2;
+        return getMarkers(MarkerKind.PATROL_POINT).size() >= MINIMUM_MARKED_ROUND_POINTS;
     }
 
+    // A round with a long gap in it, where the place runs along a lake or a cliff, is walked there and back
     public boolean isPatrolArc() {
         getPatrolRoute();
         return patrolArc;
@@ -867,19 +892,5 @@ public class RoutineSite {
                 return false;
         }
         return true;
-    }
-
-    static {
-        List<Integer> samples = new ArrayList<>();
-        for(int radius : RADII) {
-            int amount = Math.max(8, Math.round(MathHelper.TAU * radius / SAMPLE_SPACING));
-            for(int i = 0; i < amount; i++) {
-                // Offset each circle, so that the samples do not line up into spokes
-                double angle = MathHelper.TAU * i / amount + radius * 0.37;
-                samples.add(MathHelper.floor(Math.cos(angle) * radius));
-                samples.add(MathHelper.floor(Math.sin(angle) * radius));
-            }
-        }
-        SAMPLES = samples.stream().mapToInt(Integer::intValue).toArray();
     }
 }

@@ -44,6 +44,26 @@ public class StructureFeaturesRegistry {
     private static final String MARKER_VALUE = "structure_marker.Value";
     private static final String MARKER_COUNT = "structure_marker.Count";
     private static final String MARKER_RESPAWNS = "structure_marker.Respawns";
+    private static final String JIGSAW_BLOCK = "minecraft:jigsaw";
+    private static final int MINIMUM_TABLE_SEATS = 2;
+
+    // Keys of a structure template and of its block states
+    private static final String PALETTE_KEY = "palette";
+    private static final String PALETTES_KEY = "palettes";
+    private static final String BLOCKS_KEY = "blocks";
+    private static final String STATE_KEY = "state";
+    private static final String POS_KEY = "pos";
+    private static final String NAME_KEY = "Name";
+    private static final String PROPERTIES_KEY = "Properties";
+    private static final String NBT_KEY = "nbt";
+    private static final String POOL_KEY = "pool";
+    private static final String PART_PROPERTY = "part";
+    private static final String HALF_PROPERTY = "half";
+    private static final String FACING_PROPERTY = "facing";
+    private static final String HEAD_PART = "head";
+    private static final String UPPER_HALF = "upper";
+
+    private static List<Template> scanned;
 
     // What the scan found in one template, besides the data itself
     // Managers are those the template has blocks for, which say which structure manager data its beds are born by
@@ -55,8 +75,6 @@ public class StructureFeaturesRegistry {
                     && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty();
         }
     }
-
-    private static List<Template> scanned;
 
     public static void bootstrap(Registerable<StructureFeatureData> context) {
         for(Template template : scan()) {
@@ -89,8 +107,8 @@ public class StructureFeaturesRegistry {
 
     private static Template read(Identifier templateId, Path file) throws IOException {
         NbtCompound root = NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes());
-        NbtList palette = root.contains("palette") ? root.getListOrEmpty("palette") : root.getListOrEmpty("palettes").getListOrEmpty(0);
-        NbtList blocks = root.getListOrEmpty("blocks");
+        NbtList palette = root.contains(PALETTE_KEY) ? root.getListOrEmpty(PALETTE_KEY) : root.getListOrEmpty(PALETTES_KEY).getListOrEmpty(0);
+        NbtList blocks = root.getListOrEmpty(BLOCKS_KEY);
 
         Set<Identifier> managerIds = new TreeSet<>();
         List<BlockPos> beds = new ArrayList<>();
@@ -107,27 +125,27 @@ public class StructureFeaturesRegistry {
         Set<Identifier> pools = new TreeSet<>();
         for(int i = 0; i < blocks.size(); i++) {
             NbtCompound block = blocks.getCompoundOrEmpty(i);
-            NbtCompound state = palette.getCompoundOrEmpty(block.getInt("state", 0));
-            String name = state.getString("Name", "");
-            NbtCompound properties = state.getCompoundOrEmpty("Properties");
-            NbtList at = block.getListOrEmpty("pos");
+            NbtCompound state = palette.getCompoundOrEmpty(block.getInt(STATE_KEY, 0));
+            String name = state.getString(NAME_KEY, "");
+            NbtCompound properties = state.getCompoundOrEmpty(PROPERTIES_KEY);
+            NbtList at = block.getListOrEmpty(POS_KEY);
             BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
             if(name.equals(MANAGER_BLOCK)) {
-                Identifier id = Identifier.tryParse(block.getCompoundOrEmpty("nbt").getString(MANAGER_ID, ""));
+                Identifier id = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(MANAGER_ID, ""));
                 if(id != null)
                     managerIds.add(id);
                 continue;
             }
             if(name.equals(MARKER_BLOCK)) {
-                NbtCompound markerData = block.getCompoundOrEmpty("nbt");
+                NbtCompound markerData = block.getCompoundOrEmpty(NBT_KEY);
                 MarkerKind kind = markerKind(markerData.getString(MARKER_ID, ""));
                 if(kind != null)
                     markers.add(new StructureFeatureData.Marker(kind, pos, facingOf(properties), markerData.getString(MARKER_VALUE, ""),
                             markerData.getInt(MARKER_COUNT, 1), markerData.getBoolean(MARKER_RESPAWNS, false)));
                 continue;
             }
-            if(name.equals("minecraft:jigsaw")) {
-                Identifier pool = Identifier.tryParse(block.getCompoundOrEmpty("nbt").getString("pool", ""));
+            if(name.equals(JIGSAW_BLOCK)) {
+                Identifier pool = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(POOL_KEY, ""));
                 if(pool != null)
                     pools.add(pool);
                 continue;
@@ -138,9 +156,9 @@ public class StructureFeaturesRegistry {
                 continue;
             }
             if(BuildFeatures.BED.test(resolved)) {
-                if(properties.getString("part", "").equals("head")) {
+                if(properties.getString(PART_PROPERTY, "").equals(HEAD_PART)) {
                     beds.add(pos);
-                    bedTags.add(tagOf(block.getCompoundOrEmpty("nbt").getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
+                    bedTags.add(tagOf(block.getCompoundOrEmpty(NBT_KEY).getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
                 }
             }
             if(BuildFeatures.STORE.test(resolved)) {
@@ -195,7 +213,7 @@ public class StructureFeaturesRegistry {
     }
 
     private static Direction facingOf(NbtCompound properties) {
-        String facing = properties.getString("facing", "");
+        String facing = properties.getString(FACING_PROPERTY, "");
         for(Direction side : Direction.Type.HORIZONTAL) {
             if(side.asString().equals(facing))
                 return side;
@@ -205,9 +223,9 @@ public class StructureFeaturesRegistry {
 
     // Of a door of several blocks, the one the rest are counted from
     private static boolean isAnchor(Block door, NbtCompound properties) {
-        if(properties.getString("half", "").equals("upper"))
+        if(properties.getString(HALF_PROPERTY, "").equals(UPPER_HALF))
             return false;
-        return !(door instanceof NpcDoor) || properties.getString("part", "0").equals("0");
+        return !(door instanceof NpcDoor) || properties.getString(PART_PROPERTY, "0").equals("0");
     }
 
     // Table blocks that touch are one table, and the seats beside it are its places. A table for one is no place to meet
@@ -236,7 +254,7 @@ public class StructureFeaturesRegistry {
                 if(beside && taken.add(seat))
                     places.add(seat);
             }
-            if(places.size() >= 2)
+            if(places.size() >= MINIMUM_TABLE_SEATS)
                 tables.add(places);
         }
         return tables;

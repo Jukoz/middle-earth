@@ -20,11 +20,12 @@ public class NpcPartySpawner {
     private static final int SPAWN_RADIUS = 3;
     private static final int SPAWN_ATTEMPTS = 6;
     private static final int MAXIMUM_HEIGHT_DIFFERENCE = 4;
+    private static final float FULL_TURN = 360f;
 
     public static void spawn(ServerWorld world, NpcEntity leader, PartyData party) {
         Random random = world.getRandom();
         party.getLeaderJob().ifPresent(leader::takeJob);
-        leader.setTravelHeading(random.nextFloat() * 360f);
+        leader.setTravelHeading(random.nextFloat() * FULL_TURN);
         if(!leader.keepsBounds())
             leader.setTravelDestination(RoutineSites.findDestination(world, leader));
 
@@ -40,7 +41,7 @@ public class NpcPartySpawner {
                     follower.setPartyLeader(leader.getUuid());
                     world.spawnEntity(follower);
                 } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {
-                    animal.refreshPositionAndAngles(pos, random.nextFloat() * 360f, 0);
+                    animal.refreshPositionAndAngles(pos, random.nextFloat() * FULL_TURN, 0);
                     animal.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null);
                     // Pack animals go laden, and a farm dog is nobody's wolf
                     if(animal instanceof AbstractDonkeyEntity donkey)

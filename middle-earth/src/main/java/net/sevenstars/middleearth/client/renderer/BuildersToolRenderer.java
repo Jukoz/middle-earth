@@ -42,6 +42,9 @@ public class BuildersToolRenderer {
     private static final int RANGE = 32;
     private static final int RANGE_HEIGHT = 16;
     private static final int RESCAN_TICKS = 10;
+    private static final int RESCAN_DISTANCE = 2;
+    private static final String MINECRAFT_PREFIX = "minecraft:";
+    private static final float LABEL_TEXT_SCALE = 0.02f;
     private static final float STATION_TEXT_SCALE = 0.012f;
     private static final float LABEL_HEIGHT = 1.3f;
     private static final int BED_TAGGED = 0xFFFFD54F;
@@ -98,7 +101,7 @@ public class BuildersToolRenderer {
     }
 
     private static void scan(ClientWorld world, BlockPos from) {
-        if(world == scannedWorld && world.getTime() - scannedAt < RESCAN_TICKS && scannedFrom.isWithinDistance(from, 2))
+        if(world == scannedWorld && world.getTime() - scannedAt < RESCAN_TICKS && scannedFrom.isWithinDistance(from, RESCAN_DISTANCE))
             return;
         scannedWorld = world;
         scannedAt = world.getTime();
@@ -238,7 +241,7 @@ public class BuildersToolRenderer {
             Bed bed = selectedBed(selected);
             if(bed == null)
                 return;
-            label(matrices, consumers, bedLabel(bed), bed.pos(), SELECTED_BED, 0.02f);
+            label(matrices, consumers, bedLabel(bed), bed.pos(), SELECTED_BED, LABEL_TEXT_SCALE);
             for(BlockPos link : linksOf(bed)) {
                 label(matrices, consumers, MinecraftClient.getInstance().world.getBlockState(link).getBlock().getName().getString(), link,
                         bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC, STATION_TEXT_SCALE);
@@ -246,11 +249,11 @@ public class BuildersToolRenderer {
             return;
         }
         for(BlockPos pos : plainBeds)
-            label(matrices, consumers, "free (wanderers)", pos, BED_PLAIN, 0.02f);
+            label(matrices, consumers, "free (wanderers)", pos, BED_PLAIN, LABEL_TEXT_SCALE);
         for(Bed bed : beds)
-            label(matrices, consumers, bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, 0.02f);
+            label(matrices, consumers, bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
         for(StructureFeatureData.Marker marker : markers)
-            label(matrices, consumers, markerLabel(marker), marker.pos(), MARKER, 0.02f);
+            label(matrices, consumers, markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
         for(StructureFeatureData.Station station : stations) {
             if(station.kind() != StationKind.FIELD)
                 label(matrices, consumers, station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
@@ -267,7 +270,7 @@ public class BuildersToolRenderer {
     private static String markerLabel(StructureFeatureData.Marker marker) {
         if(marker.kind() != MarkerKind.SPAWN_NPC && marker.kind() != MarkerKind.SPAWN_ANIMAL)
             return marker.kind().asString();
-        String value = marker.value().isEmpty() ? "?" : marker.value().replace("minecraft:", "");
+        String value = marker.value().isEmpty() ? "?" : marker.value().replace(MINECRAFT_PREFIX, "");
         return marker.kind().asString() + ": " + value + " x" + marker.count() + (marker.respawns() ? " (respawns)" : "");
     }
 

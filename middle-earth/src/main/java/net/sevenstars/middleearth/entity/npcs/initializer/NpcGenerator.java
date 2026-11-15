@@ -21,8 +21,9 @@ import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetD
 import java.util.Optional;
 
 public class NpcGenerator {
+    private static final String EMISSIVE_SUFFIX = "_emissive";
+
     public static void generateCharacterTextures(World world, NpcEntity npcEntity) {
-        // Get npc data
         String currentStep = "Fetching datas";
         Identifier currentNpcClassId = npcEntity.getNpcClassIdentifier();
 
@@ -107,7 +108,7 @@ public class NpcGenerator {
         Identifier materialId = TexturePresetDataPool.getRawMaterial(textureIdentity, CharacterMaterialTypes.EYE);
         Identifier patternId = TexturePresetDataPool.getRawPattern(textureIdentity, CharacterPatternTypes.EYE);
 
-        npcTextureData = npcTextureData.withEyeTexture(TexturePresetDataPool.buildId(patternId, materialId), TexturePresetDataPool.buildId(Identifier.of(patternId.getPath() + "_emissive"), materialId), haveEmissiveEyes);
+        npcTextureData = npcTextureData.withEyeTexture(TexturePresetDataPool.buildId(patternId, materialId), TexturePresetDataPool.buildId(Identifier.of(patternId.getPath() + EMISSIVE_SUFFIX), materialId), haveEmissiveEyes);
 
         return npcTextureData;
     }

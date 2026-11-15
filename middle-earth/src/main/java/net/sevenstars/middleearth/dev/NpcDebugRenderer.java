@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.dev;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexRendering;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.client.renderer.DebugDraw;
 import net.sevenstars.middleearth.entity.goals.NpcRoutineGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 
 import java.util.List;
 
@@ -32,6 +32,13 @@ public class NpcDebugRenderer {
     private static final int HOME = 0xFF7E57C2;
     private static final int LOOK = 0xFF26C6DA;
     private static final int LEADER = 0xFFD4E157;
+    private static final int RING_CURRENT = 0xFFFFFFFF;
+    private static final double FEET_OFFSET = 0.15;
+    private static final double CHEST_HEIGHT = 0.6;
+    private static final double COMPANION_HEIGHT = 0.8;
+    private static final double DIRECTION_LENGTH = 24;
+    private static final double END_BOX_SIZE = 0.4;
+    private static final double RING_HEIGHT = 0.3;
 
     public static void register() {
         NpcFailureRecorder.registerCommand();
@@ -58,15 +65,22 @@ public class NpcDebugRenderer {
                 continue;
             if(!(world.getEntity(seen.getUuid()) instanceof NpcEntity npc))
                 continue;
-            Vec3d feet = seen.getLerpedPos(tickProgress).add(0, 0.15, 0);
-            Vec3d chest = feet.add(0, seen.getHeight() * 0.6, 0);
+            Vec3d feet = seen.getLerpedPos(tickProgress).add(0, FEET_OFFSET, 0);
+            Vec3d chest = feet.add(0, seen.getHeight() * CHEST_HEIGHT, 0);
             drawPath(matrices, lines, npc, feet);
             NpcRoutineGoal routine = npc.getRoutineGoal();
             if(routine != null && routine.debugActive()) {
                 int color = switch (routine.debugActivity()) {
-                    case FISH -> FISH; case HUNT -> HUNT; case FORAGE -> FORAGE; case PATROL -> PATROL; case VISIT, TABLE -> MEET; case WORK, FARM, CHOP, MINE -> FORAGE; case POST, ESCORT, INSPECT, FOLLOW -> PATROL; case COURT -> MEET;
+                    case FISH -> FISH;
+                    case HUNT -> HUNT;
+                    case FORAGE -> FORAGE;
+                    case PATROL -> PATROL;
+                    case VISIT, TABLE -> MEET;
+                    case WORK, FARM, CHOP, MINE -> FORAGE;
+                    case POST, ESCORT, INSPECT, FOLLOW -> PATROL;
+                    case COURT -> MEET;
                 };
-                if(routine.debugActivity() == net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData.Activity.PATROL)
+                if(routine.debugActivity() == RoutineData.Activity.PATROL)
                     drawRing(matrices, lines, routine.debugRing(), routine.debugRingIndex());
                 if(routine.debugReturning()) {
                     BlockPos home = routine.debugToBed() && npc.getAssignedBed() != null ? npc.getAssignedBed()
@@ -82,16 +96,16 @@ public class NpcDebugRenderer {
                 if(routine.debugLookTarget() != null)
                     DebugDraw.line(matrices, lines, seen.getLerpedPos(tickProgress).add(0, seen.getStandingEyeHeight(), 0), routine.debugLookTarget(), LOOK);
                 if(routine.debugCompanion() != null)
-                    DebugDraw.line(matrices, lines, chest, routine.debugCompanion().getPos().add(0, 0.8, 0), MEET);
+                    DebugDraw.line(matrices, lines, chest, routine.debugCompanion().getPos().add(0, COMPANION_HEIGHT, 0), MEET);
             }
             LivingEntity prey = npc.getHuntTarget() != null ? npc.getHuntTarget() : npc.getTarget();
             if(prey != null)
                 DebugDraw.line(matrices, lines, chest, prey.getPos().add(0, prey.getHeight() * 0.5, 0), HUNT);
             if(npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof LivingEntity leader)
-                DebugDraw.line(matrices, lines, chest, leader.getPos().add(0, leader.getHeight() * 0.6, 0), LEADER);
+                DebugDraw.line(matrices, lines, chest, leader.getPos().add(0, leader.getHeight() * CHEST_HEIGHT, 0), LEADER);
             if(npc.getTravelDestination() != null) {
                 Vec3d toward = Vec3d.ofCenter(npc.getTravelDestination()).subtract(chest);
-                DebugDraw.line(matrices, lines, chest, chest.add(toward.length() > 24 ? toward.normalize().multiply(24) : toward), LEADER);
+                DebugDraw.line(matrices, lines, chest, chest.add(toward.length() > DIRECTION_LENGTH ? toward.normalize().multiply(DIRECTION_LENGTH) : toward), LEADER);
             }
             if(npc.isSleeping() && npc.getAssignedBed() != null)
                 DebugDraw.box(matrices, lines, npc.getAssignedBed(), HOME);
@@ -105,21 +119,21 @@ public class NpcDebugRenderer {
         Vec3d from = feet;
         for(int i = path.getCurrentNodeIndex(); i < path.getLength(); i++) {
             PathNode node = path.getNode(i);
-            Vec3d to = new Vec3d(node.x + 0.5, node.y + 0.15, node.z + 0.5);
+            Vec3d to = new Vec3d(node.x + 0.5, node.y + FEET_OFFSET, node.z + 0.5);
             DebugDraw.line(matrices, lines, from, to, PATH);
             from = to;
         }
-        Box end = Box.of(from, 0.4, 0.4, 0.4);
-        VertexRendering.drawBox(matrices, lines, end, 1f, 1f, 1f, 1f);
+        Box end = Box.of(from, END_BOX_SIZE, END_BOX_SIZE, END_BOX_SIZE);
+        DebugDraw.box(matrices, lines, end, PATH);
     }
 
     private static void drawRing(MatrixStack matrices, VertexConsumer lines, List<BlockPos> ring, int current) {
         for(int i = 0; i < ring.size(); i++) {
-            Vec3d from = Vec3d.ofBottomCenter(ring.get(i)).add(0, 0.3, 0);
-            Vec3d to = Vec3d.ofBottomCenter(ring.get((i + 1) % ring.size())).add(0, 0.3, 0);
+            Vec3d from = Vec3d.ofBottomCenter(ring.get(i)).add(0, RING_HEIGHT, 0);
+            Vec3d to = Vec3d.ofBottomCenter(ring.get((i + 1) % ring.size())).add(0, RING_HEIGHT, 0);
             DebugDraw.line(matrices, lines, from, to, PATROL);
             if(i == current)
-                DebugDraw.box(matrices, lines, ring.get(i), 0xFFFFFFFF);
+                DebugDraw.box(matrices, lines, ring.get(i), RING_CURRENT);
         }
     }
 }

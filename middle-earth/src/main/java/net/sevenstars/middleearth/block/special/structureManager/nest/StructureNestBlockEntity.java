@@ -30,6 +30,11 @@ import java.util.Optional;
 
 public class StructureNestBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     private static final String ID = "structure_nest";
+    // In ticks
+    private static final int SUBSCRIBE_INTERVAL = 20;
+    // In blocks
+    private static final int MANAGER_SEARCH_RADIUS = 20;
+    private static final int MAXIMUM_FAILS = 12;
 
     private enum SyncedData {
         MANAGER_ID("%s.ManagerId".formatted(ID)),
@@ -68,6 +73,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
             );
     }
 
+    @Override
     public Text getDisplayName() {
         return Text.translatable("screen.%s.%s".formatted(MiddleEarth.MOD_ID, ID));
     }
@@ -152,10 +158,10 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
             return;
         }
 
-        if(managerId == null || nestId == null || world.getTickOrder() % 20 != 0) // every 1 seconds
+        if(managerId == null || nestId == null || world.getTickOrder() % SUBSCRIBE_INTERVAL != 0)
             return;
 
-        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, pos, 20);
+        StructureManagerBlockEntity structureManagerBlockEntity = StructureManagerService.getClosest(world, pos, MANAGER_SEARCH_RADIUS);
         if(structureManagerBlockEntity == null) {
             fails++;
         }
@@ -170,7 +176,7 @@ public class StructureNestBlockEntity extends BlockEntity implements ExtendedScr
                 fails++;
             }
         }
-        if(fails >= 12) {
+        if(fails >= MAXIMUM_FAILS) {
             world.breakBlock(pos, false);
             world.removeBlockEntity(pos);
             updateListeners();

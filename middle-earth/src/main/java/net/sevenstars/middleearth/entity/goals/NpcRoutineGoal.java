@@ -27,6 +27,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -65,6 +66,7 @@ import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.dev.NpcDebug;
+import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
@@ -89,6 +91,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 // Sends an npc out to fish, hunt, forage or patrol, then back home with what it got
 public class NpcRoutineGoal extends Goal {
@@ -98,6 +101,10 @@ public class NpcRoutineGoal extends Goal {
     private static final int IDLE_DELAY = 100;
     private static final int IDLE_DELAY_VARIATION = 60;
     private static final int WAITING_DELAY = 10;
+    private static final int SITE_NOT_READY_DELAY = WAITING_DELAY * 2;
+    private static final int FIRST_CHECK_DELAY = 20;
+    private static final int FIRST_CHECK_ID_FACTOR = 31;
+    private static final int FIRST_CHECK_SPREAD = 300;
     // Goal ticks between two looks at the world, 10 a second
     private static final int THINK_INTERVAL = 5;
 
@@ -129,6 +136,9 @@ public class NpcRoutineGoal extends Goal {
     private static final int DIRECT_DISTANCE = 18;
     // Blocks over the feet, past which a place is indoors or underground
     private static final int COVER_HEIGHT = 2;
+    // Tops of the shapes under and in the feet's block: a fence or a wall is over the first, a slab or a carpet under the second
+    private static final double BLOCK_HEIGHT = 1;
+    private static final double LOW_THING_HEIGHT = 0.5;
     // Near enough to the end of a stretch to have walked it
     private static final double LEG_END_REACH = 2;
     // Stretches walked to their end that came no nearer, before the walk counts as stuck
@@ -176,17 +186,12 @@ public class NpcRoutineGoal extends Goal {
     // Long enough to look over the hunting ground for game
     private static final int STALKING_TIME = 20 * 60;
     private static final int STALKING_TIME_VARIATION = 20 * 60;
-    private static final int HUNT_ROAM = 10;
     private static final int FARMING_TIME = 20 * 90;
     private static final int FARMING_TIME_VARIATION = 20 * 60;
-    // From where the farmer stands to the plot it works
-    private static final double FIELD_REACH = 3;
     private static final int CHOPPING_TIME = 20 * 40;
     private static final int CHOPPING_TIME_VARIATION = 20 * 20;
     private static final int MINING_TIME = 20 * 40;
     private static final int MINING_TIME_VARIATION = 20 * 20;
-    // The last trees worked at are left alone for a while
-    private static final int RECENT_TREES = 3;
     private static final int CHASE_TIME = 20 * 30;
     private static final int WATCH_TIME = 20 * 3;
     private static final int WATCH_TIME_VARIATION = 20 * 4;
@@ -198,49 +203,66 @@ public class NpcRoutineGoal extends Goal {
     private static final int COURT_TIME_VARIATION = 20 * 60;
     private static final int INSPECT_TIME = 20 * 6;
     private static final int INSPECT_TIME_VARIATION = 20 * 6;
+    private static final int LORD_SEARCH_DELAY = 20 * 5;
+    private static final int WORK_TIME = 20 * 40;
+    private static final int WORK_TIME_VARIATION = 20 * 40;
+    // How long a household asked to have a visitor over keeps it in mind
+    private static final int INVITATION_TIME = 20 * 60;
+    private static final int TEA_TIME = 20 * 45;
+    private static final int TEA_TIME_VARIATION = 20 * 45;
+    private static final int DEBUG_NOTE_INTERVAL = 600;
+
+    private static final int HUNT_ROAM = 10;
+    private static final int FORAGE_ROAM = 3;
+    private static final double ROAM_SPEED = 0.75;
+    // From where the farmer stands to the plot it works
+    private static final double FIELD_REACH = 3;
+    // The last trees worked at are left alone for a while
+    private static final int RECENT_TREES = 3;
     private static final int INSPECT_RING_STOPS = 4;
+    private static final int MINIMUM_ROUTE_POINTS = 2;
+    private static final int MINIMUM_RING_POINTS = 3;
     // From the marker of the lord's seat to the seat that is its own
     private static final int LORD_SEAT_REACH = 3;
     private static final double FOLLOW_NEAR = 3.5;
     private static final double FOLLOW_FAR = 5.5;
+    private static final int[] FOLLOW_HEIGHTS = {0, -1, 1};
+    // Squared distance under which two places are the same one, and there is no heading from one to the other
+    private static final double NO_HEADING = 0.01;
     // Where a bodyguard stands while the lord sits, from the lord
     private static final int FOLLOW_POST_RANGE = 8;
     // Looks, of half a second, between two corrections of where a bodyguard walks to
     private static final int FOLLOW_REPATH = 6;
     private static final int LORD_SEARCH_RANGE = 32;
-    private static final int LORD_SEARCH_DELAY = 20 * 5;
+    private static final int LORD_HEIGHT_RANGE = 48;
     // A rider's round lies this far outside the one on foot
     private static final int RIDER_MARGIN = 18;
     private static final int ESCORT_RANGE = 24;
-    private static final int WORK_TIME = 20 * 40;
-    private static final int WORK_TIME_VARIATION = 20 * 40;
     // From home. Nobody crosses the whole town to somebody else's forge
     private static final int WORK_RANGE = 48;
     private static final int STABLE_RANGE = 12;
     // Plots this close to a field a farmer's bed is linked to are its own
     private static final int LINKED_FIELD_RANGE = 8;
     private static final int VISIT_SEAT_RANGE = 10;
-    // How long a household asked to have a visitor over keeps it in mind
-    private static final int INVITATION_TIME = 20 * 60;
     private static final int HOST_RANGE = 24;
     private static final int VISIT_TRIES = 4;
     // A hive fills over a day, and its honey is taken once it has stood full for another
     private static final long DAY = 24000;
     private static final int FULL_HONEY = 5;
+    private static final long HIVE_READY_TIME = 2 * DAY;
     private static final double HORSE_REACH = 4;
     private static final int HORSE_HEIGHT = 8;
     private static final int PLANKS_PER_LOG = 4;
     // Past the edge of the buildings, so that the animals of the yards and the green are left alone
     private static final int SETTLEMENT_MARGIN = 12;
     private static final int PEN_REACH = 8;
-    private static final int TEA_TIME = 20 * 45;
-    private static final int TEA_TIME_VARIATION = 20 * 45;
     // Time of day
     private static final int DUSK = 12500;
     private static final int DAWN = 23500;
     // In blocks, how far the place to stand by the lord has to move for the walk to it to start over
     private static final int FOLLOW_SPOT_SHIFT = 3;
     private static final int COMPANION_RANGE = 6;
+    private static final int COMPANION_HEIGHT_RANGE = 2;
     private static final int ESCORT_HEIGHT_RANGE = 8;
     // Only those it can see: nobody talks to, or sets out with, somebody on the other side of a wall
     private static final TargetPredicate COMPANIONS = TargetPredicate.createNonAttackable();
@@ -248,7 +270,55 @@ public class NpcRoutineGoal extends Goal {
     private static final int PREY_RANGE = 24;
     private static final int PREY_HEIGHT_RANGE = 6;
     private static final int BYSTANDER_DISTANCE = 5;
+    private static final int LOOK_DISTANCE = 5;
+    private static final int CROP_SEARCH_RANGE = 2;
     private static final List<Item> DEFAULT_FORAGE = List.of(Items.BROWN_MUSHROOM, Items.SWEET_BERRIES, Items.APPLE);
+    private static final Set<RoutineSite> DEBUG_LOGGED = new HashSet<>();
+
+    // One in this many looks, while working
+    private static final int FISH_ESCAPE_ONE_IN = 5;
+    private static final int FISH_SPLASH_ONE_IN = 12;
+    private static final int CHOP_SWING_ONE_IN = 3;
+    private static final int MINE_SWING_ONE_IN = 3;
+    private static final int STABLE_SWING_ONE_IN = 3;
+    private static final int STABLE_SOUND_ONE_IN = 6;
+    private static final int STABLE_HEART_ONE_IN = 12;
+    private static final int STATION_SWING_ONE_IN = 4;
+    private static final int STATION_SOUND_ONE_IN = 3;
+    private static final int FORAGE_SWING_ONE_IN = 3;
+    private static final int FORAGE_ROAM_ONE_IN = 4;
+    private static final int PREY_SEARCH_ONE_IN = 3;
+    private static final int HUNT_ROAM_ONE_IN = 4;
+    private static final int GESTURE_ONE_IN = 10;
+    private static final int FARM_ACT_ONE_IN = 2;
+
+    private static final float STORE_SOUND_VOLUME = 0.4f;
+    private static final float SPLIT_SOUND_VOLUME = 0.8f;
+    private static final float SPLASH_SOUND_VOLUME = 0.2f;
+    private static final float HORSE_SOUND_VOLUME = 0.6f;
+    private static final float CHOP_SOUND_VOLUME = 0.8f;
+    private static final float CHOP_SOUND_PITCH = 0.9f;
+    private static final float CHOP_SOUND_PITCH_VARIATION = 0.2f;
+    private static final float MINE_SOUND_VOLUME = 0.8f;
+    private static final float MINE_SOUND_PITCH = 0.8f;
+    private static final float MINE_SOUND_PITCH_VARIATION = 0.2f;
+    private static final float WORK_SOUND_VOLUME = 0.5f;
+    private static final float WORK_SOUND_PITCH = 0.9f;
+    private static final float WORK_SOUND_PITCH_VARIATION = 0.2f;
+
+    private static final int CRACK_PARTICLES = 4;
+    private static final double CRACK_SPREAD = 0.25;
+    private static final double CRACK_SPEED = 0.05;
+    private static final int SMOKE_PARTICLES = 6;
+    private static final double SMOKE_HEIGHT = 0.8;
+    private static final double SMOKE_SPREAD = 0.2;
+    private static final double SMOKE_SPEED = 0.02;
+    private static final int SPLASH_PARTICLES = 6;
+    private static final double SPLASH_HEIGHT = 0.5;
+    private static final double SPLASH_SPREAD = 0.2;
+    private static final double HEART_HEIGHT = 0.3;
+    private static final double HEART_SPREAD = 0.2;
+    private static final double HEART_SPREAD_HEIGHT = 0.1;
 
     private final NpcEntity npc;
     private final double speed;
@@ -337,11 +407,26 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable UUID lordId = null;
     private long lordSearchAt = 0;
     private int followCheck = 0;
+    private long debugNoteAt = 0;
 
     public String debugLabel() {
         debugLogRing();
         String what = switch (activity) {
-            case FISH -> "fishing"; case HUNT -> "hunting"; case FORAGE -> "foraging"; case PATROL -> "patrol"; case VISIT -> npc.getVehicle() instanceof SeatEntity ? "visiting, seated" : "visiting"; case WORK -> "at work"; case POST -> "on guard"; case ESCORT -> "escort"; case TABLE -> npc.getVehicle() instanceof SeatEntity ? "sitting at a table" : "table"; case FARM -> fieldCell == null ? "farming" : "farming at " + fieldCell.toShortString(); case CHOP -> "chopping"; case MINE -> "mining"; case COURT -> npc.getVehicle() instanceof SeatEntity ? "holding court, seated" : "holding court"; case INSPECT -> "inspecting the posts"; case FOLLOW -> "following its lord";
+            case FISH -> "fishing";
+            case HUNT -> "hunting";
+            case FORAGE -> "foraging";
+            case PATROL -> "patrol";
+            case VISIT -> npc.getVehicle() instanceof SeatEntity ? "visiting, seated" : "visiting";
+            case WORK -> "at work";
+            case POST -> "on guard";
+            case ESCORT -> "escort";
+            case TABLE -> npc.getVehicle() instanceof SeatEntity ? "sitting at a table" : "table";
+            case FARM -> fieldCell == null ? "farming" : "farming at " + fieldCell.toShortString();
+            case CHOP -> "chopping";
+            case MINE -> "mining";
+            case COURT -> npc.getVehicle() instanceof SeatEntity ? "holding court, seated" : "holding court";
+            case INSPECT -> "inspecting the posts";
+            case FOLLOW -> "following its lord";
         };
         String load = carried == null ? "" : " [carrying " + carried.getName().getString() + "]";
         return switch (phase) {
@@ -363,7 +448,6 @@ public class NpcRoutineGoal extends Goal {
     public @Nullable Item debugCarried() { return carried; }
     public List<BlockPos> debugRing() { return site == null ? List.of() : site.getRing(); }
     public int debugRingIndex() { return ringIndex; }
-    private static final java.util.Set<RoutineSite> DEBUG_LOGGED = new java.util.HashSet<>();
     public void debugLogRing() {
         if(NpcDebug.ENABLED && site != null && activity == RoutineData.Activity.PATROL && phase != Phase.NONE && DEBUG_LOGGED.add(site))
             System.out.println("RINGDEBUG center " + site.getCenterX() + "," + site.getCenterZ() + " extent " + site.getExtent() + " ring " + site.getRing().stream().map(p -> p.getX() + "," + p.getZ()).toList());
@@ -373,7 +457,7 @@ public class NpcRoutineGoal extends Goal {
         this.npc = npc;
         this.speed = speed;
         // Spreads the first check of each npc over half a minute
-        this.delay = 20 + Math.floorMod(npc.getId() * 31, 300);
+        this.delay = FIRST_CHECK_DELAY + Math.floorMod(npc.getId() * FIRST_CHECK_ID_FACTOR, FIRST_CHECK_SPREAD);
         this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
     }
 
@@ -485,7 +569,7 @@ public class NpcRoutineGoal extends Goal {
         site.claim(npc.getFactionIdentifier());
         if(!site.isReady()) debugWhyNot(world, "site not ready");
         if(!site.isReady()) {
-            delay = WAITING_DELAY * 2;
+            delay = SITE_NOT_READY_DELAY;
             return false;
         }
 
@@ -797,7 +881,7 @@ public class NpcRoutineGoal extends Goal {
             }
             case PATROL -> {
                 List<BlockPos> route = site.getPatrolRoute();
-                if(route.size() < 2)
+                if(route.size() < MINIMUM_ROUTE_POINTS)
                     return cannotStart(picked, "no round to walk in this build");
                 ringIndex = 0;
                 for(int i = 1; i < route.size(); i++) {
@@ -837,7 +921,7 @@ public class NpcRoutineGoal extends Goal {
                 if(posts.isEmpty()) {
                     // Nothing marked, so a walk around the place will do
                     List<BlockPos> ring = site.getRing();
-                    if(ring.size() < 3)
+                    if(ring.size() < MINIMUM_RING_POINTS)
                         return cannotStart(picked, "no post marked and no round to walk in this build");
                     int step = Math.max(1, ring.size() / INSPECT_RING_STOPS);
                     int first = random.nextInt(ring.size());
@@ -1134,10 +1218,10 @@ public class NpcRoutineGoal extends Goal {
         BlockPos feet = npc.getBlockPos();
         // The top of a fence or a wall is higher than its block, and no path starts up there
         VoxelShape under = world.getBlockState(feet.down()).getCollisionShape(world, feet.down());
-        if(!under.isEmpty() && under.getMax(Direction.Axis.Y) > 1)
+        if(!under.isEmpty() && under.getMax(Direction.Axis.Y) > BLOCK_HEIGHT)
             return false;
         VoxelShape inside = world.getBlockState(feet).getCollisionShape(world, feet);
-        return npc.isOnGround() && (inside.isEmpty() || inside.getMax(Direction.Axis.Y) <= 0.5) && !(world.getBlockState(feet).getBlock() instanceof StairsBlock);
+        return npc.isOnGround() && (inside.isEmpty() || inside.getMax(Direction.Axis.Y) <= LOW_THING_HEIGHT) && !(world.getBlockState(feet).getBlock() instanceof StairsBlock);
     }
 
     // The block the walk was held up at, from the path it was following
@@ -1145,7 +1229,7 @@ public class NpcRoutineGoal extends Goal {
         Path path = mover().getNavigation().getCurrentPath();
         if(path == null || path.isFinished())
             return "";
-        net.minecraft.entity.ai.pathing.PathNode next = path.getCurrentNode();
+        PathNode next = path.getCurrentNode();
         BlockPos at = new BlockPos(next.x, next.y, next.z);
         return ", held up at " + at.toShortString() + " (" + world.getBlockState(at).getBlock().getName().getString() + ")";
     }
@@ -1165,7 +1249,7 @@ public class NpcRoutineGoal extends Goal {
         MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s gave up %s (%s) at %d,%d,%d: %s%s".formatted(who(), what,
                 phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), why, what.equals("bed") ? bedDistance() : ""));
         if(NpcDebug.ENABLED)
-            net.sevenstars.middleearth.dev.NpcFailureRecorder.record(npc, who(), what, phase.name().toLowerCase(), why, phase == Phase.RETURNING ? (toBed && npc.getBedStand() != null ? npc.getBedStand() : toBed ? npc.getAssignedBed() : carried != null && npc.getStore() != null ? npc.getStore() : npc.getRoutineHome()) : spot, npc.getAssignedBed(), npc.getRoutineHome(), npc.getNavigation().getCurrentPath());
+            NpcFailureRecorder.record(npc, who(), what, phase.name().toLowerCase(), why, phase == Phase.RETURNING ? (toBed && npc.getBedStand() != null ? npc.getBedStand() : toBed ? npc.getAssignedBed() : carried != null && npc.getStore() != null ? npc.getStore() : npc.getRoutineHome()) : spot, npc.getAssignedBed(), npc.getRoutineHome(), npc.getNavigation().getCurrentPath());
     }
 
     // What the build lacks, so that the npc does something else in its place. Not a task given up, and noted once
@@ -1212,7 +1296,7 @@ public class NpcRoutineGoal extends Goal {
     private void cracks(ServerWorld world, BlockPos block) {
         BlockState state = world.getBlockState(block);
         if(!state.isAir())
-            world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, state), block.getX() + 0.5, block.getY() + 0.5, block.getZ() + 0.5, 4, 0.25, 0.25, 0.25, 0.05);
+            world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, state), block.getX() + 0.5, block.getY() + 0.5, block.getZ() + 0.5, CRACK_PARTICLES, CRACK_SPREAD, CRACK_SPREAD, CRACK_SPREAD, CRACK_SPEED);
     }
 
     // One of what was carried goes into the store, if there is room
@@ -1221,7 +1305,7 @@ public class NpcRoutineGoal extends Goal {
             return;
         // A camp keeps its things by the fire, and what is brought there goes on it
         if(world.getBlockState(store).getBlock() instanceof CampfireBlock) {
-            world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + 0.8, store.getZ() + 0.5, 6, 0.2, 0.2, 0.2, 0.02);
+            world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + SMOKE_HEIGHT, store.getZ() + 0.5, SMOKE_PARTICLES, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPEED);
             did("deliver", "put " + itemName(carried) + " on the fire at " + store.toShortString());
             return;
         }
@@ -1327,8 +1411,8 @@ public class NpcRoutineGoal extends Goal {
         Path path = mover().getNavigation().getCurrentPath();
         String route = "none";
         if(path != null) {
-            net.minecraft.entity.ai.pathing.PathNode end = path.getEnd();
-            net.minecraft.entity.ai.pathing.PathNode next = path.isFinished() ? null : path.getCurrentNode();
+            PathNode end = path.getEnd();
+            PathNode next = path.isFinished() ? null : path.getCurrentNode();
             route = "len " + path.getLength() + " at " + path.getCurrentNodeIndex() + " reaches " + path.reachesTarget() + " end " + (end == null ? null : end.x + "," + end.y + "," + end.z)
                     + " next " + (next == null ? null : next.x + "," + next.y + "," + next.z + " " + world.getBlockState(new BlockPos(next.x, next.y, next.z)).getBlock().getName().getString());
         }
@@ -1337,10 +1421,9 @@ public class NpcRoutineGoal extends Goal {
                 + " leg " + (destination == null ? null : String.format("%.0f,%.0f,%.0f", destination.x, destination.y, destination.z)) + " legs " + legs + " failures " + failures + " path " + route);
     }
 
-    private long debugNoteAt = 0;
     private void debugWhyNot(ServerWorld world, String why) {
         if(!NpcDebug.ENABLED || world.getTime() < debugNoteAt) return;
-        debugNoteAt = world.getTime() + 600;
+        debugNoteAt = world.getTime() + DEBUG_NOTE_INTERVAL;
         System.out.println("WHYNOT " + (npc.getCustomName() == null ? "" : npc.getCustomName().getString()) + ": " + why);
     }
 
@@ -1393,7 +1476,7 @@ public class NpcRoutineGoal extends Goal {
                 if(store == null || canSee(world, store))
                     npc.swingHand(Hand.MAIN_HAND);
                 if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store)) {
-                    world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, 0.4f, 1f);
+                    world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, STORE_SOUND_VOLUME, 1f);
                     deliver(world, store);
                 } else if(store != null)
                     abandoned("could not put away what it brought, its store " + store.toShortString() + " is out of reach or behind a wall");
@@ -1457,7 +1540,7 @@ public class NpcRoutineGoal extends Goal {
                 lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
                 if(logInHand != null) {
                     planks += PLANKS_PER_LOG;
-                    world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.8f, 1f);
+                    world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, SPLIT_SOUND_VOLUME, 1f);
                     did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
                     logInHand = null;
                 }
@@ -1521,16 +1604,16 @@ public class NpcRoutineGoal extends Goal {
         switch (activity) {
             case FISH -> {
                 if(done) {
-                    if(random.nextInt(5) != 0) {
+                    if(random.nextInt(FISH_ESCAPE_ONE_IN) != 0) {
                         carried = random.nextBoolean() ? Items.COD : Items.SALMON;
                         did("caught " + itemName(carried));
                     } else
                         abandoned("caught nothing");
                     startReturn(world);
-                } else if(lookTarget != null && random.nextInt(12) == 0) {
+                } else if(lookTarget != null && random.nextInt(FISH_SPLASH_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
-                    world.spawnParticles(ParticleTypes.SPLASH, lookTarget.x, lookTarget.y + 0.5, lookTarget.z, 6, 0.2, 0, 0.2, 0);
-                    world.playSound(null, lookTarget.x, lookTarget.y, lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, 0.2f, 1f);
+                    world.spawnParticles(ParticleTypes.SPLASH, lookTarget.x, lookTarget.y + SPLASH_HEIGHT, lookTarget.z, SPLASH_PARTICLES, SPLASH_SPREAD, 0, SPLASH_SPREAD, 0);
+                    world.playSound(null, lookTarget.x, lookTarget.y, lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, SPLASH_SOUND_VOLUME, 1f);
                 }
             }
             case CHOP -> {
@@ -1544,9 +1627,9 @@ public class NpcRoutineGoal extends Goal {
                     BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
                     dropOff = carried == null ? null : site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
                     startReturn(world);
-                } else if(tree != null && random.nextInt(3) == 0) {
+                } else if(tree != null && random.nextInt(CHOP_SWING_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
-                    world.playSound(null, tree, SoundEvents.BLOCK_WOOD_HIT, SoundCategory.BLOCKS, 0.8f, 0.9f + random.nextFloat() * 0.2f);
+                    world.playSound(null, tree, SoundEvents.BLOCK_WOOD_HIT, SoundCategory.BLOCKS, CHOP_SOUND_VOLUME, CHOP_SOUND_PITCH + random.nextFloat() * CHOP_SOUND_PITCH_VARIATION);
                     cracks(world, tree.up());
                 }
             }
@@ -1561,9 +1644,9 @@ public class NpcRoutineGoal extends Goal {
                     else
                         did("carries " + itemName(carried) + " from the face at " + rockFace.toShortString());
                     startReturn(world);
-                } else if(rockFace != null && random.nextInt(3) == 0) {
+                } else if(rockFace != null && random.nextInt(MINE_SWING_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
-                    world.playSound(null, rockFace, world.getBlockState(rockFace).getSoundGroup().getHitSound(), SoundCategory.BLOCKS, 0.8f, 0.8f + random.nextFloat() * 0.2f);
+                    world.playSound(null, rockFace, world.getBlockState(rockFace).getSoundGroup().getHitSound(), SoundCategory.BLOCKS, MINE_SOUND_VOLUME, MINE_SOUND_PITCH + random.nextFloat() * MINE_SOUND_PITCH_VARIATION);
                     cracks(world, rockFace);
                 }
             }
@@ -1591,16 +1674,16 @@ public class NpcRoutineGoal extends Goal {
                     // Brushed and fed where it stands
                     workAnimal.getNavigation().stop();
                     lookTarget = workAnimal.getEyePos();
-                    if(random.nextInt(3) == 0)
+                    if(random.nextInt(STABLE_SWING_ONE_IN) == 0)
                         npc.swingHand(Hand.MAIN_HAND);
-                    if(random.nextInt(6) == 0)
-                        world.playSound(null, workAnimal.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, 0.6f, 1f);
-                    if(random.nextInt(12) == 0)
-                        world.spawnParticles(ParticleTypes.HEART, workAnimal.getX(), workAnimal.getEyeY() + 0.3, workAnimal.getZ(), 1, 0.2, 0.1, 0.2, 0);
-                } else if(random.nextInt(4) == 0) {
+                    if(random.nextInt(STABLE_SOUND_ONE_IN) == 0)
+                        world.playSound(null, workAnimal.getBlockPos(), random.nextBoolean() ? SoundEvents.ENTITY_HORSE_EAT : SoundEvents.ENTITY_HORSE_BREATHE, SoundCategory.NEUTRAL, HORSE_SOUND_VOLUME, 1f);
+                    if(random.nextInt(STABLE_HEART_ONE_IN) == 0)
+                        world.spawnParticles(ParticleTypes.HEART, workAnimal.getX(), workAnimal.getEyeY() + HEART_HEIGHT, workAnimal.getZ(), 1, HEART_SPREAD, HEART_SPREAD_HEIGHT, HEART_SPREAD, 0);
+                } else if(random.nextInt(STATION_SWING_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
-                    if(workStation != null && random.nextInt(3) == 0)
-                        world.playSound(null, workStation, workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, 0.5f, 0.9f + random.nextFloat() * 0.2f);
+                    if(workStation != null && random.nextInt(STATION_SOUND_ONE_IN) == 0)
+                        world.playSound(null, workStation, workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, WORK_SOUND_VOLUME, WORK_SOUND_PITCH + random.nextFloat() * WORK_SOUND_PITCH_VARIATION);
                 }
             }
             case FORAGE -> {
@@ -1608,10 +1691,10 @@ public class NpcRoutineGoal extends Goal {
                     List<Item> forage = forage(world);
                     carried = forage.get(random.nextInt(forage.size()));
                     startReturn(world);
-                } else if(random.nextInt(3) == 0) {
+                } else if(random.nextInt(FORAGE_SWING_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
-                } else if(random.nextInt(4) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-                    npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-3, 3), spot.getY(), spot.getZ() + random.nextBetween(-3, 3), speed * 0.75);
+                } else if(random.nextInt(FORAGE_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
+                    npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), spot.getY(), spot.getZ() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), speed * ROAM_SPEED);
                 }
             }
             case HUNT -> {
@@ -1621,16 +1704,16 @@ public class NpcRoutineGoal extends Goal {
                     // The game may come back, but not at once
                     hold(RoutineData.Activity.HUNT, time);
                     startReturn(world);
-                } else if(random.nextInt(3) == 0 && RoutineSites.takeEntitySearch(world)) {
+                } else if(random.nextInt(PREY_SEARCH_ONE_IN) == 0 && RoutineSites.takeEntitySearch(world)) {
                     LivingEntity prey = findPrey(world);
                     if(prey != null) {
                         npc.startHunt(prey, CHASE_TIME);
                         phase = Phase.HUNTING;
                     }
-                } else if(random.nextInt(4) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
+                } else if(random.nextInt(HUNT_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
                     // Looks over the hunting ground
                     npc.getNavigation().startMovingTo(spot.getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), spot.getY(),
-                            spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), speed * 0.75);
+                            spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), speed * ROAM_SPEED);
                 }
             }
             case FARM -> farm(world, done);
@@ -1639,12 +1722,12 @@ public class NpcRoutineGoal extends Goal {
                     finish(world, REST + random.nextInt(REST_VARIATION));
                 } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
                     // Turns to whoever else is standing around
-                    companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, 2, COMPANION_RANGE)) : null;
+                    companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE)) : null;
                     lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
                 } else {
                     lookTarget = companion.getEyePos();
                     // Talking with the hands
-                    if(random.nextInt(10) == 0)
+                    if(random.nextInt(GESTURE_ONE_IN) == 0)
                         npc.swingHand(Hand.MAIN_HAND);
                 }
             }
@@ -1717,7 +1800,7 @@ public class NpcRoutineGoal extends Goal {
         lordSearchAt = world.getTime() + LORD_SEARCH_DELAY;
         int reach = (site == null ? 0 : site.getExtent()) + LORD_SEARCH_RANGE;
         NpcEntity nearest = null;
-        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(reach, 48, reach),
+        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(reach, LORD_HEIGHT_RANGE, reach),
                 other -> other != npc && other.isAlive() && NpcJobs.isLord(other.getJobId()) && Objects.equals(npc.getFactionIdentifier(), other.getFactionIdentifier()))) {
             if(nearest == null || npc.squaredDistanceTo(other) < npc.squaredDistanceTo(nearest))
                 nearest = other;
@@ -1745,9 +1828,9 @@ public class NpcRoutineGoal extends Goal {
         if(npc.squaredDistanceTo(lord) <= FOLLOW_FAR * FOLLOW_FAR)
             return null;
         Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
-        away = away.lengthSquared() < 0.01 ? new Vec3d(1, 0, 0) : away.normalize();
+        away = away.lengthSquared() < NO_HEADING ? new Vec3d(1, 0, 0) : away.normalize();
         BlockPos lordAt = lord.getBlockPos();
-        for(int dy : new int[]{0, -1, 1}) {
+        for(int dy : FOLLOW_HEIGHTS) {
             BlockPos candidate = BlockPos.ofFloored(lord.getX() + away.x * FOLLOW_NEAR, lordAt.getY() + dy, lord.getZ() + away.z * FOLLOW_NEAR);
             if(world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) && world.getBlockState(candidate).getCollisionShape(world, candidate).isEmpty()
                     && world.getBlockState(candidate.up()).getCollisionShape(world, candidate.up()).isEmpty() && world.getBlockState(candidate.down()).isSolidBlock(world, candidate.down()))
@@ -1804,13 +1887,13 @@ public class NpcRoutineGoal extends Goal {
         lookTarget = facingTarget();
         if(lookTarget == null) {
             Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
-            lookTarget = away.lengthSquared() < 0.01 ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
+            lookTarget = away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
         }
         showProp();
     }
 
     private @Nullable Vec3d facingTarget() {
-        return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * 5, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * 5);
+        return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * LOOK_DISTANCE, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * LOOK_DISTANCE);
     }
 
     // The npc on its own mount, which it steers with the mount's own legs
@@ -1942,7 +2025,7 @@ public class NpcRoutineGoal extends Goal {
             endFarming(world);
             return;
         }
-        if(npc.getRandom().nextInt(2) != 0)
+        if(npc.getRandom().nextInt(FARM_ACT_ONE_IN) != 0)
             return;
         if(fieldCell != null && fieldCell.isWithinDistance(npc.getPos(), FIELD_REACH)) {
             if(!canSee(world, fieldCell.up()))
@@ -2050,7 +2133,7 @@ public class NpcRoutineGoal extends Goal {
 
     // Sown with what grows in the next rows, or wheat where nothing does
     private static Block cropFor(ServerWorld world, BlockPos cell) {
-        for(BlockPos near : BlockPos.iterateOutwards(cell.up(), 2, 0, 2)) {
+        for(BlockPos near : BlockPos.iterateOutwards(cell.up(), CROP_SEARCH_RANGE, 0, CROP_SEARCH_RANGE)) {
             if(world.getBlockState(near).getBlock() instanceof CropBlock crop)
                 return crop;
         }
@@ -2226,7 +2309,7 @@ public class NpcRoutineGoal extends Goal {
         int level = (int) Math.min(FULL_HONEY, since * FULL_HONEY / DAY);
         if(state.get(BeehiveBlock.HONEY_LEVEL) != level)
             world.setBlockState(hive, state.with(BeehiveBlock.HONEY_LEVEL, level));
-        return since >= 2 * DAY;
+        return since >= HIVE_READY_TIME;
     }
 
     private boolean isCookWork() {
@@ -2305,7 +2388,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     // One of the first thing in the inventory that will do, taken out of it
-    private static @Nullable Item takeFrom(ServerWorld world, BlockPos place, java.util.function.Predicate<ItemStack> wanted) {
+    private static @Nullable Item takeFrom(ServerWorld world, BlockPos place, Predicate<ItemStack> wanted) {
         Inventory inventory = inventoryAt(world, place);
         if(inventory == null)
             return null;

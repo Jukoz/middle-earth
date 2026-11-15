@@ -15,7 +15,6 @@ import org.joml.Vector3f;
 // The lines, boxes and labels the debug views of the world are drawn with. Colours are 0xAARRGGBB
 public class DebugDraw {
     private static final double BOX_MARGIN = 0.02;
-    private static final float DEFAULT_TEXT_SCALE = 0.02f;
     private static final double DASH_LENGTH = 0.4;
 
     public interface Drawing {
@@ -58,10 +57,6 @@ public class DebugDraw {
     }
 
     // Text in the world, drawn with matrices that are not moved to the camera
-    public static void label(MatrixStack matrices, VertexConsumerProvider consumers, String text, Vec3d at, int color) {
-        label(matrices, consumers, text, at, color, DEFAULT_TEXT_SCALE);
-    }
-
     public static void label(MatrixStack matrices, VertexConsumerProvider consumers, String text, Vec3d at, int color, float scale) {
         DebugRenderer.drawString(matrices, consumers, text, at.x, at.y, at.z, color, scale);
     }

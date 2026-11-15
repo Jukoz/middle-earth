@@ -20,7 +20,13 @@ import java.util.EnumSet;
 
 public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & CrossbowUser> extends Goal {
     public static final UniformIntProvider COOLDOWN_RANGE = TimeHelper.betweenSeconds(1, 2);
-    private static int USING_ITEM_FLAG = 1;
+    private static final int USING_ITEM_FLAG = 1;
+    // In ticks
+    private static final int SEEING_TICKS = 5;
+    private static final int CHARGED_HOLD = 30;
+    private static final int CHARGED_HOLD_VARIATION = 15;
+    private static final double CHARGED_SPEED_FACTOR = 0.5;
+    private static final float LOOK_ANGLE = 30.0F;
     private final T actor;
     private Stage stage = Stage.UNCHARGED;
     private final double speed;
@@ -98,11 +104,11 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
             }
 
             double distance = this.actor.squaredDistanceTo(livingEntity);
-            boolean inRange = (distance > this.squaredRange || this.seeingTargetTicker < 5) && this.chargedTicksLeft == 0;
+            boolean inRange = (distance > this.squaredRange || this.seeingTargetTicker < SEEING_TICKS) && this.chargedTicksLeft == 0;
             if (inRange) {
                 this.cooldown--;
                 if (this.cooldown <= 0) {
-                    this.actor.getNavigation().startMovingTo(livingEntity, this.isUncharged() ? this.speed : this.speed * 0.5);
+                    this.actor.getNavigation().startMovingTo(livingEntity, this.isUncharged() ? this.speed : this.speed * CHARGED_SPEED_FACTOR);
                     this.cooldown = COOLDOWN_RANGE.get(this.actor.getRandom());
                 }
             } else {
@@ -110,7 +116,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                 this.actor.getNavigation().stop();
             }
 
-            this.actor.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+            this.actor.getLookControl().lookAt(livingEntity, LOOK_ANGLE, LOOK_ANGLE);
             if (this.stage == Stage.UNCHARGED) {
                 if (!inRange) {
                     this.actor.setCurrentHand(ProjectileUtil.getHandPossiblyHolding(this.actor, Items.CROSSBOW));
@@ -125,7 +131,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
                 if (useTicks >= CrossbowItem.getPullTime(itemStack, this.actor)) {
                     this.actor.stopUsingItem();
                     this.stage = Stage.CHARGED;
-                    this.chargedTicksLeft = 30 + this.actor.getRandom().nextInt(15);
+                    this.chargedTicksLeft = CHARGED_HOLD + this.actor.getRandom().nextInt(CHARGED_HOLD_VARIATION);
                     this.actor.setCharging(false);
                 }
             } else if (this.stage == Stage.CHARGED) {

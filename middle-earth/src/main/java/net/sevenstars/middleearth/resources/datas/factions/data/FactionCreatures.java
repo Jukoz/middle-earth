@@ -15,6 +15,8 @@ import java.util.Set;
 
 // Creatures a faction treats differently from everyone else. Each entry is an entity id, or an entity type tag starting with #
 public class FactionCreatures {
+    private static final String TAG_PREFIX = "#";
+
     public static final Codec<FactionCreatures> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.listOf().optionalFieldOf("hostile", List.of()).forGetter(creatures -> creatures.hostile),
             Codec.STRING.listOf().optionalFieldOf("friendly", List.of()).forGetter(creatures -> creatures.friendly)
@@ -52,8 +54,8 @@ public class FactionCreatures {
 
         Matcher(List<String> entries) {
             for(String entry : entries) {
-                if(entry.startsWith("#"))
-                    tags.add(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(entry.substring(1))));
+                if(entry.startsWith(TAG_PREFIX))
+                    tags.add(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(entry.substring(TAG_PREFIX.length()))));
                 else
                     ids.add(Identifier.of(entry));
             }

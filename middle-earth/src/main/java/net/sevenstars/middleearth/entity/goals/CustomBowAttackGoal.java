@@ -15,6 +15,22 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> extends Goal {
+    // In ticks
+    private static final int SEEING_TICKS = 20;
+    private static final int STRAFE_INTERVAL = 20;
+    private static final int LOST_SIGHT_TICKS = -60;
+    private static final int BOW_DRAW_TICKS = 20;
+    private static final int LONGBOW_DRAW_TICKS = 30;
+    private static final double STRAFE_FLIP_CHANCE = 0.3;
+    private static final float BACK_AWAY_FRACTION = 0.75F;
+    private static final float APPROACH_FRACTION = 0.25F;
+    private static final float STRAFE_INPUT = 0.5F;
+    private static final float MINIMUM_MOUNT_STRAFE = 0.15F;
+    private static final float MAXIMUM_MOUNT_STRAFE = 0.3F;
+    private static final float LOOK_ANGLE = 30.0F;
+    private static final float BOW_POWER = 1.5f;
+    private static final float LONGBOW_POWER = 2.5f;
+
     private final T actor;
     private final double speed;
     private int attackInterval;
@@ -93,7 +109,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                 --this.targetSeeingTicker;
             }
 
-            if (!(d > (double)this.squaredRange) && this.targetSeeingTicker >= 20) {
+            if (!(d > (double)this.squaredRange) && this.targetSeeingTicker >= SEEING_TICKS) {
                 this.actor.getNavigation().stop();
 
                 ++this.combatTicks;
@@ -102,12 +118,12 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
                 this.combatTicks = -1;
             }
 
-            if (this.combatTicks >= 20) {
-                if ((double)this.actor.getRandom().nextFloat() < 0.3) {
+            if (this.combatTicks >= STRAFE_INTERVAL) {
+                if ((double)this.actor.getRandom().nextFloat() < STRAFE_FLIP_CHANCE) {
                     this.movingToLeft = !this.movingToLeft;
                 }
 
-                if ((double)this.actor.getRandom().nextFloat() < 0.3) {
+                if ((double)this.actor.getRandom().nextFloat() < STRAFE_FLIP_CHANCE) {
                     this.backward = !this.backward;
                 }
 
@@ -115,16 +131,16 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
             }
 
             if (this.combatTicks > -1) {
-                if (d > (double)(this.squaredRange * 0.75F)) {
+                if (d > (double)(this.squaredRange * BACK_AWAY_FRACTION)) {
                     this.backward = false;
-                } else if (d < (double)(this.squaredRange * 0.25F)) {
+                } else if (d < (double)(this.squaredRange * APPROACH_FRACTION)) {
                     this.backward = true;
                 }
 
-                float input = 0.5F;
+                float input = STRAFE_INPUT;
                 if (this.actor.hasVehicle() && this.actor.getVehicle() instanceof LivingEntity mount) {
                     double speed = mount.getAttributeValue(EntityAttributes.MOVEMENT_SPEED);
-                    input = (float)Math.max(0.15F, Math.min(0.3F, speed * input));
+                    input = (float)Math.max(MINIMUM_MOUNT_STRAFE, Math.min(MAXIMUM_MOUNT_STRAFE, speed * input));
                 }
 
                 this.actor.getMoveControl().strafeTo(
@@ -134,35 +150,35 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
 
                 Entity var7 = this.actor.getControllingVehicle();
                 if (var7 instanceof MobEntity mobEntity) {
-                    mobEntity.lookAtEntity(livingEntity, 30.0F, 30.0F);
+                    mobEntity.lookAtEntity(livingEntity, LOOK_ANGLE, LOOK_ANGLE);
                 }
 
-                this.actor.lookAtEntity(livingEntity, 30.0F, 30.0F);
+                this.actor.lookAtEntity(livingEntity, LOOK_ANGLE, LOOK_ANGLE);
             } else {
-                this.actor.getLookControl().lookAt(livingEntity, 30.0F, 30.0F);
+                this.actor.getLookControl().lookAt(livingEntity, LOOK_ANGLE, LOOK_ANGLE);
             }
 
             if (this.actor.isUsingItem()) {
-                if (!bl && this.targetSeeingTicker < -60) {
+                if (!bl && this.targetSeeingTicker < LOST_SIGHT_TICKS) {
                     this.actor.clearActiveItem();
                 } else if (bl) {
                     int i = this.actor.getItemUseTime();
                     ItemStack itemStack = this.actor.getMainHandStack();
-                    if (i >= 20 && !livingEntity.isInvulnerable()) {
+                    if (i >= BOW_DRAW_TICKS && !livingEntity.isInvulnerable()) {
                         if(itemStack.getItem() instanceof CustomLongbowWeaponItem) {
-                            if(i >= 30) {
-                                this.actor.shootAt(livingEntity, 2.5f);
+                            if(i >= LONGBOW_DRAW_TICKS) {
+                                this.actor.shootAt(livingEntity, LONGBOW_POWER);
                                 this.cooldown = this.attackInterval;
                                 this.actor.clearActiveItem();
                             }
                         } else {
-                            this.actor.shootAt(livingEntity, 1.5f);
+                            this.actor.shootAt(livingEntity, BOW_POWER);
                             this.cooldown = this.attackInterval;
                             this.actor.clearActiveItem();
                         }
                     }
                 }
-            } else if (--this.cooldown <= 0 && this.targetSeeingTicker >= -60) {
+            } else if (--this.cooldown <= 0 && this.targetSeeingTicker >= LOST_SIGHT_TICKS) {
                 this.actor.setCurrentHand(Hand.MAIN_HAND);
             }
         }

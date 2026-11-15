@@ -28,6 +28,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final int LIST_HEIGHT = 150;
     private static final int ROW_HEIGHT = 16;
     private static final int GAP = 10;
+    private static final int LABEL_GAP = 4;
     private static final int BUTTON_WIDTH = 90;
     private static final int BUTTON_HEIGHT = 20;
     private static final int LABEL_COLOR = 0xFFA0A0A0;
@@ -129,7 +130,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        int labelY = typeList.getY() - textRenderer.fontHeight - 4;
+        int labelY = typeList.getY() - textRenderer.fontHeight - LABEL_GAP;
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.type".formatted(MiddleEarth.MOD_ID)),
                 typeList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.role".formatted(MiddleEarth.MOD_ID)),

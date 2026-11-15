@@ -13,10 +13,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructurePiece;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
-import java.util.Optional;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -26,7 +22,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 // Keeps the sites of each world, and rations the work routines may do in one tick
 public class RoutineSites {
@@ -50,7 +50,8 @@ public class RoutineSites {
     private static final int DEFAULT_RING_RADIUS = 14;
     private static final int MINIMUM_RING_RADIUS = 10;
     private static final int MAXIMUM_RING_RADIUS = 40;
-    private static final int RING_MARGIN = 6;
+    private static final int RING_RADIUS_PADDING = 6;
+    private static final String FACTION_TAG_PREFIX = "faction/";
     private static final int CLEANUP_INTERVAL = 20 * 60;
     private static final int UNUSED_LIFETIME = 20 * 60 * 10;
 
@@ -258,7 +259,7 @@ public class RoutineSites {
         for(StructurePiece piece : start.getChildren())
             pieces.add(piece.getBoundingBox());
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
-        int radius = MathHelper.clamp(extent + RING_MARGIN, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
+        int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), referenceY, radius, extent, pieces);
         placesOf(world, start, site);
         sites.sites.put(key, site);
@@ -350,6 +351,6 @@ public class RoutineSites {
     }
 
     private static TagKey<Structure> factionTag(String faction) {
-        return TagKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, "faction/" + faction));
+        return TagKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, FACTION_TAG_PREFIX + faction));
     }
 }

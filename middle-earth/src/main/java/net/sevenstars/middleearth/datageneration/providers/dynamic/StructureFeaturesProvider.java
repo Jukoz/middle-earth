@@ -14,6 +14,8 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 public class StructureFeaturesProvider extends FabricDynamicRegistryProvider {
+    private static final String REPORT_PATH = "../../../build/reports/structure_features.md";
+
     private final FabricDataOutput output;
 
     public StructureFeaturesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -30,7 +32,7 @@ public class StructureFeaturesProvider extends FabricDynamicRegistryProvider {
     public CompletableFuture<?> run(DataWriter writer) {
         return super.run(writer).thenRun(() -> {
             // The generated data is in the source folder of the module, the report goes to its build folder
-            Path report = output.getPath().resolve("../../../build/reports/structure_features.md").normalize();
+            Path report = output.getPath().resolve(REPORT_PATH).normalize();
             try {
                 MiddleEarth.LOGGER.logInfoMsg(StructureFeaturesReport.write(StructureFeaturesRegistry.scan(), report) + ", report in " + report);
             } catch (IOException e) {

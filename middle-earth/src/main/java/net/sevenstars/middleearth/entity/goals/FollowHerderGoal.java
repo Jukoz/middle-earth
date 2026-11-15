@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -20,6 +21,9 @@ public class FollowHerderGoal extends Goal {
     // About a minute without a herder
     private static final int ORPHAN_CHECKS = 30;
     private static final int ORPHAN_PLAYER_RANGE = 32;
+    private static final int GOAL_PRIORITY = 2;
+    // Times the normal speed
+    private static final double HERD_SPEED = 1.1;
 
     private final MobEntity animal;
     private final UUID herder;
@@ -42,7 +46,7 @@ public class FollowHerderGoal extends Goal {
             for(String tag : mob.getCommandTags()) {
                 if(tag.startsWith(TAG_PREFIX)) {
                     try {
-                        mob.goalSelector.add(2, new FollowHerderGoal(mob, UUID.fromString(tag.substring(TAG_PREFIX.length())), 1.1));
+                        mob.goalSelector.add(GOAL_PRIORITY, new FollowHerderGoal(mob, UUID.fromString(tag.substring(TAG_PREFIX.length())), HERD_SPEED));
                     } catch (IllegalArgumentException ignored) {}
                     return;
                 }
@@ -51,7 +55,7 @@ public class FollowHerderGoal extends Goal {
     }
 
     // Who drives the animal, null for one that runs wild
-    public static UUID herderOf(Entity animal) {
+    public static @Nullable UUID herderOf(Entity animal) {
         for(String tag : animal.getCommandTags()) {
             if(tag.startsWith(TAG_PREFIX)) {
                 try {

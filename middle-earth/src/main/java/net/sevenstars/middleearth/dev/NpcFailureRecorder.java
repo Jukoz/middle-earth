@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureTemplate;
 import net.minecraft.text.Text;
@@ -43,6 +44,14 @@ public final class NpcFailureRecorder {
     private static final int TARGET_IN_SNAPSHOT = 48;
     private static final int MAXIMUM_RECORDS = 600;
     private static final int MAXIMUM_NODES = 48;
+    private static final int MAXIMUM_RANGE = 4;
+    private static final int MAXIMUM_BUDGET = 16;
+    private static final int DEFAULT_RANGE = 0;
+    private static final int DEFAULT_BUDGET = 1;
+    private static final long TICKS_PER_DAY = 24000;
+    private static final String FAILURES_FOLDER = "npc-failures";
+    private static final String FAILURES_FILE = "failures.jsonl";
+    private static final String SNAPSHOT_EXTENSION = ".nbt";
     private static final Set<String> SEEN = new HashSet<>();
     private static int recorded = 0;
 
@@ -62,7 +71,7 @@ public final class NpcFailureRecorder {
         // The save folder: worlds copied from one another keep the level name of the first
         String world_name = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
         String id = "%s-%d-%s".formatted(world_name, world.getTime(), Integer.toHexString(key.hashCode()));
-        java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve("npc-failures");
+        java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
 
         BlockPos other = target != null && target.isWithinDistance(pos, TARGET_IN_SNAPSHOT) ? target : pos;
         int minX = Math.min(pos.getX(), other.getX()) - MARGIN;
@@ -79,7 +88,7 @@ public final class NpcFailureRecorder {
         out.addProperty("seed", world.getSeed());
         out.addProperty("dimension", world.getRegistryKey().getValue().toString());
         out.addProperty("gameTime", world.getTime());
-        out.addProperty("dayTime", world.getTimeOfDay() % 24000);
+        out.addProperty("dayTime", world.getTimeOfDay() % TICKS_PER_DAY);
         out.addProperty("who", who);
         out.addProperty("uuid", npc.getUuidAsString());
         out.addProperty("type", npc.getNpcClass() == null ? "?" : npc.getNpcClass().getId().toString());
@@ -127,13 +136,13 @@ public final class NpcFailureRecorder {
         size.add(sizeY);
         size.add(sizeZ);
         out.add("snapshotSize", size);
-        out.addProperty("snapshot", id + ".nbt");
+        out.addProperty("snapshot", id + SNAPSHOT_EXTENSION);
         try {
             Files.createDirectories(dir);
             StructureTemplate template = new StructureTemplate();
             template.saveFromWorld(world, origin, new Vec3i(sizeX, sizeY, sizeZ), false, List.of());
-            NbtIo.writeCompressed(template.writeNbt(new NbtCompound()), dir.resolve(id + ".nbt"));
-            Files.writeString(dir.resolve("failures.jsonl"), GSON.toJson(out) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            NbtIo.writeCompressed(template.writeNbt(new NbtCompound()), dir.resolve(id + SNAPSHOT_EXTENSION));
+            Files.writeString(dir.resolve(FAILURES_FILE), GSON.toJson(out) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch(IOException ignored) {
         }
     }
@@ -154,16 +163,16 @@ public final class NpcFailureRecorder {
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.argument("npc", EntityArgumentType.entity())
                         .then(CommandManager.argument("to", BlockPosArgumentType.blockPos())
-                                .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"), BlockPosArgumentType.getBlockPos(context, "to"), 0, 1))
-                                .then(CommandManager.argument("range", IntegerArgumentType.integer(0, 4))
+                                .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"), BlockPosArgumentType.getBlockPos(context, "to"), DEFAULT_RANGE, DEFAULT_BUDGET))
+                                .then(CommandManager.argument("range", IntegerArgumentType.integer(0, MAXIMUM_RANGE))
                                         .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"),
-                                                BlockPosArgumentType.getBlockPos(context, "to"), IntegerArgumentType.getInteger(context, "range"), 1))
-                                        .then(CommandManager.argument("budget", IntegerArgumentType.integer(1, 16))
+                                                BlockPosArgumentType.getBlockPos(context, "to"), IntegerArgumentType.getInteger(context, "range"), DEFAULT_BUDGET))
+                                        .then(CommandManager.argument("budget", IntegerArgumentType.integer(1, MAXIMUM_BUDGET))
                                                 .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"),
                                                         BlockPosArgumentType.getBlockPos(context, "to"), IntegerArgumentType.getInteger(context, "range"), IntegerArgumentType.getInteger(context, "budget")))))))));
     }
 
-    private static int path(net.minecraft.server.command.ServerCommandSource source, Entity entity, BlockPos to, int range, int budget) {
+    private static int path(ServerCommandSource source, Entity entity, BlockPos to, int range, int budget) {
         if(!(entity instanceof NpcEntity npc)) {
             source.sendError(Text.literal("not an npc"));
             return 0;

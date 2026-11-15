@@ -26,9 +26,11 @@ import java.util.Set;
 public class NpcPathNodeNavigator extends PathNodeNavigator {
     // As the game weighs the distance still to go against the way walked
     private static final float HEURISTIC_WEIGHT = 1.5f;
+    // The size of the game's own array for them
+    private static final int MAXIMUM_SUCCESSORS = 32;
 
     private final PathNodeMaker maker;
-    private final PathNode[] successors = new PathNode[32];
+    private final PathNode[] successors = new PathNode[MAXIMUM_SUCCESSORS];
     private final PathMinHeap heap = new PathMinHeap();
     private int nodes;
 

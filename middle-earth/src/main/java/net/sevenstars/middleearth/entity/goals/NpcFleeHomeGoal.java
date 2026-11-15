@@ -18,6 +18,8 @@ public class NpcFleeHomeGoal extends Goal {
     // Close to home there is nowhere left to run, and the npc stands its ground
     private static final int HOME_RANGE = 5;
     private static final int FLEE_DISTANCE = 12;
+    private static final int FLEE_HEIGHT = 7;
+    private static final double HOME_ANGLE = Math.PI / 2;
     // In ticks of the goal, which the game gives it every other tick
     private static final int MAXIMUM_TIME = 20 * 15;
     private static final int PATH_INTERVAL = 20;
@@ -87,9 +89,9 @@ public class NpcFleeHomeGoal extends Goal {
         BlockPos home = npc.getRoutineHome();
         Vec3d destination = null;
         if(home != null && npc.getStructureManagerHostPos() != null)
-            destination = NoPenaltyTargeting.findTo(npc, FLEE_DISTANCE, 7, Vec3d.ofBottomCenter(home), Math.PI / 2);
+            destination = NoPenaltyTargeting.findTo(npc, FLEE_DISTANCE, FLEE_HEIGHT, Vec3d.ofBottomCenter(home), HOME_ANGLE);
         if(destination == null && threat != null)
-            destination = NoPenaltyTargeting.findFrom(npc, FLEE_DISTANCE, 7, threat.getPos());
+            destination = NoPenaltyTargeting.findFrom(npc, FLEE_DISTANCE, FLEE_HEIGHT, threat.getPos());
         if(destination != null)
             npc.getNavigation().startMovingTo(destination.x, destination.y, destination.z, speed);
     }

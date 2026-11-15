@@ -28,6 +28,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     private static final int LIST_HEIGHT = 150;
     private static final int ROW_HEIGHT = 16;
     private static final int GAP = 10;
+    private static final int LABEL_GAP = 4;
     private static final int BUTTON_WIDTH = 80;
     private static final int BUTTON_HEIGHT = 20;
     private static final int STEP_WIDTH = 20;
@@ -199,7 +200,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         refresh("");
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        int labelY = kindList.getY() - textRenderer.fontHeight - 4;
+        int labelY = kindList.getY() - textRenderer.fontHeight - LABEL_GAP;
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.structure_marker.kind_label".formatted(MiddleEarth.MOD_ID)),
                 kindList.getX() + KIND_WIDTH / 2, labelY, LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.structure_marker.value_label".formatted(MiddleEarth.MOD_ID)),
