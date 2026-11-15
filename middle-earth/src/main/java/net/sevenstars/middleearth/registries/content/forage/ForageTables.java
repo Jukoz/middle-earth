@@ -50,14 +50,14 @@ public class ForageTables {
         // Hobbits have a passion for mushrooms, surpassing even the greediest likings of Big People
         realm("shire", "minecraft:brown_mushroom", "minecraft:brown_mushroom", "minecraft:red_mushroom", "white_mushroom", "strawberries", "minecraft:apple", "wild_carrot", "wild_onion");
         // The golden elanor and the pale niphredil of Cerin Amroth, and mallos
-        realm("lothlorien", "elanor", "niphredil", "mallos", "strawberries", "minecraft:sweet_berries");
+        realm("lothlorien", List.of("lorien_edge"), "elanor", "niphredil", "mallos", "strawberries", "minecraft:sweet_berries");
         // Evermind grows on the mounds of the kings
-        realm("rohan", "simbelmyne", "wild_wheat", "wild_onion", "wild_carrot", "heather");
+        realm("rohan", List.of("the_wold"), "simbelmyne", "wild_wheat", "wild_onion", "wild_carrot", "heather");
         // Kingsfoil grows wild where the men of the West once dwelt, and Ithilien is a garden gone wild
         realm("ithilien", "athelas", "lavender", "wild_garlic", "wild_onion", "thistle", "strawberries");
-        realm("gondor", "athelas", "wild_wheat", "wild_lettuce", "wild_onion", "lavender");
+        realm("gondor", List.of("anorien", "lebennin", "lossarnach", "lamedon", "belfalas", "pelennor", "osgiliath"), "athelas", "wild_wheat", "wild_lettuce", "wild_onion", "lavender");
         realm("mirkwood", "minecraft:brown_mushroom", "minecraft:red_mushroom", "ghostshroom", "nettles", "minecraft:stick");
-        realm("mordor", "thistle", "minecraft:bone", "minecraft:dead_bush");
+        realm("mordor", List.of("gorgoroth", "udun", "nurn", "morgul", "mount_doom"), "thistle", "minecraft:bone", "minecraft:dead_bush");
     }
 
     public static void bootstrap(Registerable<ForageTable> context) {
@@ -83,7 +83,14 @@ public class ForageTables {
     }
 
     private static void realm(String name, String... items) {
+        realm(name, List.of(), items);
+    }
+
+    // The extra words are for biomes of the realm whose ids do not contain its name
+    private static void realm(String name, List<String> otherWords, String... items) {
         TABLES.put(key(name), new ForageTable(Optional.empty(), Optional.of(name), items(items), REALM));
+        for(String word : otherWords)
+            TABLES.put(key(word), new ForageTable(Optional.empty(), Optional.of(word), items(items), REALM));
     }
 
     private static RegistryKey<ForageTable> key(String name) {
