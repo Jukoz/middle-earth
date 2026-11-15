@@ -137,8 +137,23 @@ public class NpcJobs {
     }
 
     public static Optional<Identifier> forNest(Identifier nestId) {
-        @Nullable RegistryKey<NpcJob> job = NEST_JOBS.get(BedTag.nestKindOf(nestId));
+        return forNestKind(BedTag.nestKindOf(nestId));
+    }
+
+    public static Optional<Identifier> forNestKind(String nestKind) {
+        @Nullable RegistryKey<NpcJob> job = NEST_JOBS.get(nestKind);
         return Optional.ofNullable(job).map(RegistryKey::getValue);
+    }
+
+    // A trade is for common folk and a duty for those who fight, and a prisoner has neither. What the nest of that kind
+    // gives by itself always fits
+    public static boolean fits(Identifier job, BedTag.Folk folk, String nestKind) {
+        if(forNestKind(nestKind).filter(job::equals).isPresent())
+            return true;
+        NpcJob found = get(job);
+        if(found == null || folk == BedTag.Folk.PRISONERS || PRISONER.getValue().equals(job))
+            return false;
+        return folk == BedTag.Folk.MIXED || found.replacesName() == (folk == BedTag.Folk.COMMON);
     }
 
     // The kinds of station a job works at. A farmer's is its fields, a woodcutter's the pile its logs go on

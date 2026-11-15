@@ -701,9 +701,10 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_marker.remove"), "Remove");
             put(of(LangCategory.UI, "structure_marker.no_room"), "No room for a marker there");
             put(of(LangCategory.UI, "bed_tag.title"), "Who is born in this bed");
-            put(of(LangCategory.UI, "bed_tag.type"), "Nest kind");
-            put(of(LangCategory.UI, "bed_tag.role"), "Job");
-            put(of(LangCategory.UI, "bed_tag.class"), "Class");
+            put(of(LangCategory.UI, "bed_tag.type"), "Who lives here");
+            put(of(LangCategory.UI, "bed_tag.role"), "Job (optional)");
+            put(of(LangCategory.UI, "bed_tag.class"), "Class (optional)");
+            put(of(LangCategory.UI, "bed_tag.as_nest"), "As the nest");
             put(of(LangCategory.UI, "bed_tag.from_nest"), "One of the nest");
             put(of(LangCategory.UI, "choice_list.search"), "Search");
             put(of(LangCategory.UI, "bed_tag.save"), "Save");

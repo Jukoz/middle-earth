@@ -14,6 +14,9 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import org.jetbrains.annotations.Nullable;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget.Choice;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -37,6 +40,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private ChoiceListWidget nestKindList;
     private ChoiceListWidget jobList;
     private ChoiceListWidget classList;
+    private @Nullable String shownNestKind = null;
 
     public BedTagScreen(BedTagScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -55,10 +59,9 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             nestKinds.add(new Choice(nestKind, ChoiceListWidget.readable(nestKind)));
         nestKindList = newList(nestKinds, data.nestKind(), left, top);
 
-        List<Choice> jobs = new ArrayList<>();
-        jobs.add(new Choice("", none()));
-        jobs.addAll(choicesOf(DynamicRegistriesME.NPC_JOB, id -> ChoiceListWidget.readable(id.getPath())));
-        jobList = newList(jobs, data.job(), left + LIST_WIDTH + GAP, top);
+        jobList = newList(List.of(), "", left + LIST_WIDTH + GAP, top);
+        shownNestKind = null;
+        refreshJobs(data.job());
 
         // Anybody can be named, for a cell holds whoever was caught. Left alone, the bed is for one of its nest
         List<Choice> classes = new ArrayList<>();
@@ -73,6 +76,27 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
                 .dimensions(width / 2 - BUTTON_WIDTH / 2, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         addDrawableChild(ButtonWidget.builder(ScreenTexts.CANCEL, button -> close())
                 .dimensions(width / 2 + BUTTON_WIDTH / 2 + GAP, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+    }
+
+    // Only the jobs that fit who lives there are offered: a trade for common folk, a duty for those who fight. Left alone,
+    // the bed gives the job its nest does
+    private void refreshJobs(String current) {
+        String nestKind = nestKindList.selectedValue();
+        if(nestKind.equals(shownNestKind))
+            return;
+        String picked = shownNestKind == null ? current : jobList.selectedValue();
+        shownNestKind = nestKind;
+        List<Choice> jobs = new ArrayList<>();
+        jobs.add(new Choice("", Text.translatable("ui.%s.bed_tag.as_nest".formatted(MiddleEarth.MOD_ID))));
+        if(!nestKind.isEmpty()) {
+            BedTag.Folk folk = BedTag.folkOf(MinecraftClient.getInstance().getNetworkHandler().getRegistryManager(), nestKind);
+            for(Choice job : choicesOf(DynamicRegistriesME.NPC_JOB, id -> ChoiceListWidget.readable(id.getPath()))) {
+                Identifier id = Identifier.tryParse(job.value());
+                if(id != null && NpcJobs.fits(id, folk, nestKind))
+                    jobs.add(job);
+            }
+        }
+        jobList.setChoices(jobs, picked);
     }
 
     private void save(boolean resetLinks) {
@@ -134,6 +158,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        refreshJobs("");
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
         label(context, nestKindList, "type");

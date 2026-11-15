@@ -2,6 +2,12 @@ package net.sevenstars.middleearth.block.special.beds;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
@@ -29,6 +35,35 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
     ).apply(instance, BedTag::new));
 
     private static List<String> nestKinds = null;
+
+    // Who a kind of nest houses, by the classes of its pools in every structure that has one
+    public enum Folk {
+        COMMON,
+        FIGHTERS,
+        PRISONERS,
+        MIXED
+    }
+
+    public static Folk folkOf(DynamicRegistryManager registries, String nestKind) {
+        if(NpcJobs.forNestKind(nestKind).filter(NpcJobs.PRISONER.getValue()::equals).isPresent())
+            return Folk.PRISONERS;
+        Registry<NpcClass> classes = registries.getOptional(DynamicRegistriesME.NPC_CLASS).orElse(null);
+        boolean common = false;
+        boolean fighters = false;
+        for(StructureManagerData manager : StructureManagerDataPools.all()) {
+            SpawnNestNodeData nest = manager.findPeopleNest(nestKind);
+            if(nest == null || classes == null)
+                continue;
+            for(StructureSpawnNestPool pool : nest.getNpcSpawnNestPool()) {
+                NpcClass npcClass = pool.getNpcIdentifier().map(classes::get).orElse(null);
+                if(npcClass == null)
+                    continue;
+                common |= npcClass.isCivilian();
+                fighters |= !npcClass.isCivilian();
+            }
+        }
+        return common == fighters ? Folk.MIXED : common ? Folk.COMMON : Folk.FIGHTERS;
+    }
 
     public BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass) {
         this(nestKind, job, npcClass, List.of(), false, Optional.empty());

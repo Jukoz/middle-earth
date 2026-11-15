@@ -67,6 +67,9 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                 Identifier id = job.isEmpty() ? null : Identifier.tryParse(job);
                 if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
                     return;
+                // A screen only offers the jobs that fit who lives there, and a made up request is held to the same
+                if(id != null && !NpcJobs.fits(id, BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind), nestKind))
+                    return;
                 Identifier classId = npcClass.isEmpty() ? null : Identifier.tryParse(npcClass);
                 if(!npcClass.isEmpty() && (classId == null || !player.getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).containsId(classId)))
                     return;
