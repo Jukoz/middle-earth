@@ -1152,7 +1152,7 @@ public class NpcRoutineGoal extends Goal {
         boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
         // A seat boxed in by others and a table is only got to from a corner, a little further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
-        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || canSee(world, workTarget()))
+        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || workTarget() == null || canSee(world, workTarget()))
                 && atStore && (!sitting || canSee(world, meetSeat))) {
             arrive(world);
             return;
@@ -1244,7 +1244,8 @@ public class NpcRoutineGoal extends Goal {
         return false;
     }
 
-    // What the walk of a trade ends in sight of: the store a cook fetches from, the wood pile, and then the station
+    // What the walk of a trade ends in sight of: the store a cook fetches from, the wood pile, and then the station. None for
+    // a stable master, who walks up to an animal
     private @Nullable BlockPos workTarget() {
         return fetchFrom != null ? fetchFrom : fuelFrom != null ? fuelFrom : workStation;
     }
