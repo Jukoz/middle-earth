@@ -64,7 +64,15 @@ public class SpawnNestNodeData {
     }
 
     public StructureSpawnNestPool getRandomPool() {
-        Random random = new Random();
-        return structureSpawnNestPools.get(random.nextInt(0, structureSpawnNestPools.size()));
+        int total = 0;
+        for(StructureSpawnNestPool pool : structureSpawnNestPools)
+            total += Math.max(1, pool.getWeight());
+        int roll = new Random().nextInt(total);
+        for(StructureSpawnNestPool pool : structureSpawnNestPools) {
+            roll -= Math.max(1, pool.getWeight());
+            if(roll < 0)
+                return pool;
+        }
+        return structureSpawnNestPools.getLast();
     }
 }
