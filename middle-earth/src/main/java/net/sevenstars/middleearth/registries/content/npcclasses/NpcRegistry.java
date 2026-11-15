@@ -170,9 +170,7 @@ public class NpcRegistry {
     // Classes that were folded into a base class with a job. An npc saved as one of them comes back as that
     public record Folded(RegistryKey<NpcClass> npcClass, RegistryKey<NpcJob> job) {}
     public final static Map<Identifier, Folded> FOLDED = Map.of(
-            createID(FactionRegistry.DALE, "fisherman"), new Folded(DALE_PEASANT, NpcJobs.FISHER),
-            createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"), new Folded(EREBOR_PEASANT, NpcJobs.MINER),
-            createID(FactionRegistry.LONGBEARDS_EREBOR, "traveller"), new Folded(EREBOR_PEASANT, NpcJobs.TRAVELLER)
+            createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"), new Folded(EREBOR_PEASANT, NpcJobs.MINER)
     );
 
     public static void bootstrap(Registerable<NpcClass> context) {
