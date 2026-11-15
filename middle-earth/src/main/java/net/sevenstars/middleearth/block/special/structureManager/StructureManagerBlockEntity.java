@@ -219,8 +219,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         return residents;
     }
 
-    public boolean canBear(String type) {
-        return managerData != null && managerData.findPeopleNest(type) != null;
+    public boolean canBear(String nestKind) {
+        return managerData != null && managerData.findPeopleNest(nestKind) != null;
     }
 
     public @Nullable BlockPos findNestOrigin(UUID entity) {
@@ -312,7 +312,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     // What the builders marked to be spawned: people join the nests of the place, animals have their own count. Each tagged bed of
-    // the place that this manager is the nearest to with a nest for its type is a nest of its own, of one person
+    // the place that this manager is the nearest to with a nest for its kind is a nest of its own, of one person
     private void tickMarkers(ServerWorld serverWorld) {
         RoutineSite site = RoutineSites.forManager(serverWorld, pos);
         if(site == null)
@@ -328,8 +328,8 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         for(StructureFeatureData.Bed bed : site.getBeds()) {
             if(bed.tag().isEmpty() || ownsBed(bed.pos()))
                 continue;
-            SpawnNestNodeData data = managerData.findPeopleNest(bed.tag().get().type());
-            if(data == null || !StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().type(), site, this))
+            SpawnNestNodeData data = managerData.findPeopleNest(bed.tag().get().nestKind());
+            if(data == null || !StructureManagerService.isNearestBearer(serverWorld, bed.pos(), bed.tag().get().nestKind(), site, this))
                 continue;
             structureNestList.addNest(new SpawnNestManager(data, bed));
             markDirty();

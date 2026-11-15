@@ -132,14 +132,14 @@ public class StructureFeaturesReport {
         }
     }
 
-    private record Warnings(List<String> noType, List<String> noStore, List<String> noStation, List<String> noGuardMarkers,
+    private record Warnings(List<String> noNestKind, List<String> noStore, List<String> noStation, List<String> noGuardMarkers,
                             List<String> badSpawns, List<String> badCells, List<String> badLinks) {
         Warnings() {
             this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
 
         int total() {
-            return noType.size() + noStore.size() + noStation.size() + noGuardMarkers.size() + badSpawns.size() + badCells.size() + badLinks.size();
+            return noNestKind.size() + noStore.size() + noStation.size() + noGuardMarkers.size() + badSpawns.size() + badCells.size() + badLinks.size();
         }
     }
 
@@ -154,7 +154,7 @@ public class StructureFeaturesReport {
             template.data().markers().forEach(marker -> markers.add(marker.kind()));
         }
         Warnings warnings = new Warnings();
-        Set<String> types = typesOf(structure);
+        Set<String> nestKinds = nestKindsOf(structure);
         Set<Identifier> managers = new TreeSet<>();
         for(Identifier id : structure) {
             if(templates.containsKey(id))
@@ -169,15 +169,15 @@ public class StructureFeaturesReport {
                 if(bed.tag().isEmpty())
                     continue;
                 BedTag tag = bed.tag().get();
-                String where = "`%s` at %s, bed tagged `%s`".formatted(id.getPath(), at(bed.pos()), tag.type());
+                String where = "`%s` at %s, bed tagged `%s`".formatted(id.getPath(), at(bed.pos()), tag.nestKind());
                 if(bed.manual()) {
                     for(BlockPos link : bed.links()) {
                         if(!known.contains(link))
                             warnings.badLinks.add(where + " is linked by hand to %s, which is no station, marker, store or seat".formatted(at(link)));
                     }
                 }
-                if(!types.contains(tag.type()))
-                    warnings.noType.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that type in the nests of the structure"));
+                if(!nestKinds.contains(tag.nestKind()))
+                    warnings.noNestKind.add(where + (managers.isEmpty() ? " in a structure with no nest data to say who is born" : " has no nest of that type in the nests of the structure"));
                 if(bed.store().isEmpty())
                     warnings.noStore.add(where);
                 if(tag.job().isPresent()) {
@@ -188,7 +188,7 @@ public class StructureFeaturesReport {
                     else if(needed.isEmpty() && !neededMarkers.isEmpty() && neededMarkers.stream().noneMatch(markers::contains))
                         warnings.noStation.add(where + ", role `%s` needs a marker of %s".formatted(tag.job().get().getPath(), neededMarkers.stream().map(MarkerKind::asString).toList()));
                 } else {
-                    if(NpcJobs.isGuardType(tag.type()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
+                    if(NpcJobs.isGuardNest(tag.nestKind()) && !markers.contains(MarkerKind.ENTRANCE) && !markers.contains(MarkerKind.GUARD_POST))
                         warnings.noGuardMarkers.add(where);
                 }
             }
@@ -198,7 +198,7 @@ public class StructureFeaturesReport {
                 if(marker.kind() == MarkerKind.SPAWN_NPC) {
                     if(marker.value().isEmpty())
                         warnings.badSpawns.add(where + " has no value");
-                    else if(!types.contains(marker.value()))
+                    else if(!nestKinds.contains(marker.value()))
                         warnings.badSpawns.add(where + " has the unknown nest `%s`".formatted(marker.value()));
                 } else if(marker.kind() == MarkerKind.SPAWN_ANIMAL) {
                     Identifier type = Identifier.tryParse(marker.value());
@@ -231,23 +231,23 @@ public class StructureFeaturesReport {
     }
 
     // The kinds of person the nests of the managers the structure's templates name have
-    private Set<String> typesOf(Set<Identifier> structure) {
+    private Set<String> nestKindsOf(Set<Identifier> structure) {
         Set<Identifier> managerIds = new TreeSet<>();
         for(Identifier id : structure) {
             Template template = templates.get(id);
             if(template != null)
                 managerIds.addAll(template.managers());
         }
-        Set<String> types = new TreeSet<>();
+        Set<String> nestKinds = new TreeSet<>();
         for(StructureManagerData manager : StructureManagerDataPools.all()) {
             if(!managerIds.contains(manager.getId()))
                 continue;
             for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
                 if(peopleNests().contains(nest.getId()))
-                    types.add(BedTag.typeOf(nest.getId()));
+                    nestKinds.add(BedTag.nestKindOf(nest.getId()));
             }
         }
-        return types;
+        return nestKinds;
     }
 
     // Only the nests of npcs can be spawned by a marker
@@ -297,7 +297,7 @@ public class StructureFeaturesReport {
             }
             out.append(byKind.isEmpty() ? "" : " (" + byKind.entrySet().stream().map(entry -> entry.getKey().asString() + " " + entry.getValue()).toList() + ")");
             out.append("\n\n");
-            section(out, "Tagged beds whose type has no nest pool in the structure", found.noType);
+            section(out, "Tagged beds whose type has no nest pool in the structure", found.noNestKind);
             section(out, "Tagged beds without a store", found.noStore);
             section(out, "Tagged beds whose role has none of its stations or markers in the structure", found.noStation);
             section(out, "Guards in a structure without an entrance or guard_post marker", found.noGuardMarkers);

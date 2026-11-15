@@ -22,20 +22,20 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
 
     public static final PacketCodec<RegistryByteBuf, PacketBedTagUpdateRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
-            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.type,
+            PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.nestKind,
             PacketCodecs.string(BedTagScreenData.MAXIMUM_LENGTH), p -> p.job,
             PacketCodecs.BOOLEAN, p -> p.resetLinks,
             PacketBedTagUpdateRequest::new
     );
 
     private final BlockPos pos;
-    private final String type;
+    private final String nestKind;
     private final String job;
     private final boolean resetLinks;
 
-    public PacketBedTagUpdateRequest(BlockPos pos, String type, String job, boolean resetLinks) {
+    public PacketBedTagUpdateRequest(BlockPos pos, String nestKind, String job, boolean resetLinks) {
         this.pos = pos;
-        this.type = type;
+        this.nestKind = nestKind;
         this.job = job;
         this.resetLinks = resetLinks;
     }
@@ -59,12 +59,12 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
             if(!(player.getWorld().getBlockEntity(pos) instanceof BedTagHolder holder))
                 return;
             BedTag tag = null;
-            if(!type.isEmpty()) {
+            if(!nestKind.isEmpty()) {
                 Identifier id = job.isEmpty() ? null : Identifier.tryParse(job);
-                if(!BedTag.types().contains(type) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
+                if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
                     return;
                 BedTag before = holder.getBedTag();
-                tag = new BedTag(type, Optional.ofNullable(id));
+                tag = new BedTag(nestKind, Optional.ofNullable(id));
                 if(before != null && !resetLinks)
                     tag = tag.withLinks(before.links(), before.manual());
             }

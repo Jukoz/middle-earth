@@ -103,7 +103,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
 
     private boolean validValue() {
         if(kind == MarkerKind.SPAWN_NPC)
-            return BedTag.types().contains(value);
+            return BedTag.nestKinds().contains(value);
         if(kind == MarkerKind.SPAWN_ANIMAL) {
             Identifier id = Identifier.tryParse(value);
             return id != null && Registries.ENTITY_TYPE.containsId(id);

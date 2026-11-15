@@ -17,7 +17,7 @@ import java.util.TreeSet;
 
 // The lists are sent because the client does not know the nests
 public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind kind, String value, int count, boolean respawns,
-                                        Direction facing, List<String> types, List<String> animals) {
+                                        Direction facing, List<String> nestKinds, List<String> animals) {
     private static final List<EntityType<?>> EXTRA_ANIMALS = List.of(EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.LLAMA, EntityType.GOAT);
     private static final int MAXIMUM_LIST_SIZE = 1024;
     private static List<String> animalIds;
@@ -30,13 +30,13 @@ public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind 
             PacketCodecs.VAR_INT, StructureMarkerScreenData::count,
             PacketCodecs.BOOLEAN, StructureMarkerScreenData::respawns,
             PacketCodecs.indexed(Direction::byIndex, Direction::getIndex), StructureMarkerScreenData::facing,
-            PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH).collect(PacketCodecs.toList(MAXIMUM_LIST_SIZE)), StructureMarkerScreenData::types,
+            PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH).collect(PacketCodecs.toList(MAXIMUM_LIST_SIZE)), StructureMarkerScreenData::nestKinds,
             PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH).collect(PacketCodecs.toList(MAXIMUM_LIST_SIZE)), StructureMarkerScreenData::animals,
             StructureMarkerScreenData::new
     );
 
     public static StructureMarkerScreenData create(BlockPos pos, boolean isNew, MarkerKind kind, String value, int count, boolean respawns, Direction facing) {
-        return new StructureMarkerScreenData(pos, isNew, kind, value, count, respawns, facing, BedTag.types(), allAnimals());
+        return new StructureMarkerScreenData(pos, isNew, kind, value, count, respawns, facing, BedTag.nestKinds(), allAnimals());
     }
 
     // The animals that live in the world, which are the creatures plus the rideable ones that are not

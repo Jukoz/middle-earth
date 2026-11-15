@@ -239,7 +239,7 @@ public class SpawnNestManager {
     // Gives the newly spawned its job, its home and, for a prisoner, its cell
     private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
         Optional<Identifier> job = bed != null ? bedJob : data.getJob();
-        if(job.isEmpty() && (NpcJobs.isGuardType(BedTag.typeOf(id)) || mansPosts(site, npc)))
+        if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
             job = guardDuty(world, structureManagerPos, site);
         job.ifPresent(npc::takeJob);
         if(world.getBlockEntity(structureManagerPos) instanceof StructureManagerBlockEntity manager)

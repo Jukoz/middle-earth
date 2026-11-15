@@ -31,7 +31,7 @@ public class BedTagScreenHandler extends ScreenHandler {
         return data;
     }
 
-    public void save(String type, String job, boolean resetLinks) {
-        ClientPlayNetworking.send(new PacketBedTagUpdateRequest(data.pos(), type, job, resetLinks));
+    public void save(String nestKind, String job, boolean resetLinks) {
+        ClientPlayNetworking.send(new PacketBedTagUpdateRequest(data.pos(), nestKind, job, resetLinks));
     }
 }

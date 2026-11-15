@@ -136,8 +136,8 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
             shownKind = kind;
             List<Choice> choices = new ArrayList<>();
             if(kind == MarkerKind.SPAWN_NPC) {
-                for(String type : handler.getData().types())
-                    choices.add(new Choice(type, readable(type)));
+                for(String nestKind : handler.getData().nestKinds())
+                    choices.add(new Choice(nestKind, readable(nestKind)));
             } else if(kind == MarkerKind.SPAWN_ANIMAL) {
                 for(String animal : handler.getData().animals())
                     choices.add(new Choice(animal, animalName(animal)));

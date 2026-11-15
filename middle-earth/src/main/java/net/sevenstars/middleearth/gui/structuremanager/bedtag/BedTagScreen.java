@@ -33,7 +33,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final int BUTTON_HEIGHT = 20;
     private static final int LABEL_COLOR = 0xFFA0A0A0;
 
-    private ChoiceListWidget typeList;
+    private ChoiceListWidget nestKindList;
     private ChoiceListWidget jobList;
 
     public BedTagScreen(BedTagScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -47,11 +47,11 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         int left = width / 2 - LIST_WIDTH - GAP / 2;
         int top = height / 2 - LIST_HEIGHT / 2;
 
-        List<Choice> types = new ArrayList<>();
-        types.add(new Choice("", none()));
-        for(String type : data.types())
-            types.add(new Choice(type, readable(type)));
-        typeList = newList(types, data.type(), left, top);
+        List<Choice> nestKinds = new ArrayList<>();
+        nestKinds.add(new Choice("", none()));
+        for(String nestKind : data.nestKinds())
+            nestKinds.add(new Choice(nestKind, readable(nestKind)));
+        nestKindList = newList(nestKinds, data.nestKind(), left, top);
 
         List<Choice> jobs = new ArrayList<>();
         jobs.add(new Choice("", none()));
@@ -68,8 +68,8 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     }
 
     private void save(boolean resetLinks) {
-        String type = typeList.selectedValue();
-        handler.save(type, type.isEmpty() ? "" : jobList.selectedValue(), resetLinks);
+        String nestKind = nestKindList.selectedValue();
+        handler.save(nestKind, nestKind.isEmpty() ? "" : jobList.selectedValue(), resetLinks);
         close();
     }
 
@@ -119,7 +119,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{typeList, jobList}) {
+        for(ChoiceListWidget list : new ChoiceListWidget[]{nestKindList, jobList}) {
             if(list != null && list.isMouseOver(mouseX, mouseY))
                 return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         }
@@ -130,9 +130,9 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         renderBackground(context, mouseX, mouseY, deltaTicks);
         super.render(context, mouseX, mouseY, deltaTicks);
-        int labelY = typeList.getY() - textRenderer.fontHeight - LABEL_GAP;
+        int labelY = nestKindList.getY() - textRenderer.fontHeight - LABEL_GAP;
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.type".formatted(MiddleEarth.MOD_ID)),
-                typeList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
+                nestKindList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
         context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ui.%s.bed_tag.role".formatted(MiddleEarth.MOD_ID)),
                 jobList.getX() + LIST_WIDTH / 2, labelY, LABEL_COLOR);
     }

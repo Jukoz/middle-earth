@@ -201,7 +201,7 @@ public class StructureFeaturesRegistry {
     }
 
     private static Optional<BedTag> tagOf(NbtCompound tag) {
-        return BedTag.CODEC.parse(NbtOps.INSTANCE, tag).result().filter(found -> !found.type().isEmpty());
+        return BedTag.CODEC.parse(NbtOps.INSTANCE, tag).result().filter(found -> !found.nestKind().isEmpty());
     }
 
     private static @Nullable MarkerKind markerKind(String name) {

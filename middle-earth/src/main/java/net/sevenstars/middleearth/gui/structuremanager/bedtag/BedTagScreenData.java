@@ -7,14 +7,14 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
-// An empty type is a bed nobody is born in, an empty job is the routine of the type. The types are sent because the client does not know the nests
-public record BedTagScreenData(BlockPos pos, String type, String job, List<String> types) {
+// An empty nest kind is a bed nobody is born in, an empty job is the routine of the class. The nest kinds are sent because the client does not know the nests
+public record BedTagScreenData(BlockPos pos, String nestKind, String job, List<String> nestKinds) {
     public static final int MAXIMUM_LENGTH = 128;
     public static final PacketCodec<RegistryByteBuf, BedTagScreenData> PACKET_CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, BedTagScreenData::pos,
-            PacketCodecs.string(MAXIMUM_LENGTH), BedTagScreenData::type,
+            PacketCodecs.string(MAXIMUM_LENGTH), BedTagScreenData::nestKind,
             PacketCodecs.string(MAXIMUM_LENGTH), BedTagScreenData::job,
-            PacketCodecs.string(MAXIMUM_LENGTH).collect(PacketCodecs.toList()), BedTagScreenData::types,
+            PacketCodecs.string(MAXIMUM_LENGTH).collect(PacketCodecs.toList()), BedTagScreenData::nestKinds,
             BedTagScreenData::new
     );
 }

@@ -52,10 +52,10 @@ public class StructureManagerData {
         return null;
     }
 
-    // The nest of people a bed of this type is born by. Nests of other beasts and the nests of other managers share their last word
-    public @Nullable SpawnNestNodeData findPeopleNest(String type) {
+    // The nest of people a bed of this kind is born by. Nests of other beasts and the nests of other managers share their last word
+    public @Nullable SpawnNestNodeData findPeopleNest(String nestKind) {
         for(SpawnNestNodeData nest : spawnNestNodeData) {
-            if(nest.isPeople() && BedTag.typeOf(nest.getId()).equals(type))
+            if(nest.isPeople() && BedTag.nestKindOf(nest.getId()).equals(nestKind))
                 return nest;
         }
         return null;

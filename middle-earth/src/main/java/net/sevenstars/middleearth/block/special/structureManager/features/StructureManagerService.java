@@ -102,15 +102,15 @@ public class StructureManagerService {
             STRUCTURE_MANAGERS.remove(world.getRegistryKey());
     }
 
-    // A structure can have several managers, and a bed is born by the nearest of them that has a nest for its type
-    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, String type, RoutineSite site, StructureManagerBlockEntity asking) {
+    // A structure can have several managers, and a bed is born by the nearest of them that has a nest for its kind
+    public static boolean isNearestBearer(ServerWorld world, BlockPos bed, String nestKind, RoutineSite site, StructureManagerBlockEntity asking) {
         Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
         if (managers == null)
             return false;
         for (BlockPos managerPos : managers) {
             if (managerPos.equals(asking.getPos()) || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
                 continue;
-            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(type) || RoutineSites.forManager(world, managerPos) != site)
+            if (!(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager) || !manager.canBear(nestKind) || RoutineSites.forManager(world, managerPos) != site)
                 continue;
             if (manager.ownsBed(bed))
                 return false;

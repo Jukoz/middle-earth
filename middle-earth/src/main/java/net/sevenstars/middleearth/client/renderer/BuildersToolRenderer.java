@@ -263,7 +263,7 @@ public class BuildersToolRenderer {
     private static String bedLabel(Bed bed) {
         String job = bed.tag().job().map(Identifier::getPath).orElse("none");
         boolean lost = needsStation(bed) && linksOf(bed).isEmpty();
-        return bed.tag().type() + " / " + job + (bed.tag().manual() ? " (manual)" : "") + (lost ? " (no station)" : "");
+        return bed.tag().nestKind() + " / " + job + (bed.tag().manual() ? " (manual)" : "") + (lost ? " (no station)" : "");
     }
 
     // spawn_animal: horse x2

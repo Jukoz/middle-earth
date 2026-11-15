@@ -32,7 +32,7 @@ public class NpcJobs {
     // In blocks
     private static final int BED_STATION_RANGE = 48;
     private static final int BODYGUARDS = 2;
-    private static final List<String> GUARD_TYPES = List.of("guard", "orthanc_guard");
+    private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
     private static final List<String> LORD_NESTS = List.of("lord", "captain", "chief", "chieftain", "marshal");
     private static final List<String> PRISONER_NESTS = List.of("prisoner", "prisoner_nest", "prisoner_cell", "small_prisoner_cell", "large_prisoner_cell");
     private static final Map<RegistryKey<NpcJob>, NpcJob> JOBS = new LinkedHashMap<>();
@@ -111,8 +111,8 @@ public class NpcJobs {
         return npc.getStructureManagerHostPos() != null && !PRISONER.getValue().equals(npc.getJobId());
     }
 
-    public static boolean isGuardType(String type) {
-        return GUARD_TYPES.contains(type);
+    public static boolean isGuardNest(String nestKind) {
+        return GUARD_NESTS.contains(nestKind);
     }
 
     // The first duty of the place that has nobody on it: a post at each entrance, bodyguards for the lord, a sentry at each
@@ -142,7 +142,7 @@ public class NpcJobs {
     }
 
     public static Optional<Identifier> forNest(Identifier nestId) {
-        @Nullable RegistryKey<NpcJob> job = NEST_JOBS.get(BedTag.typeOf(nestId));
+        @Nullable RegistryKey<NpcJob> job = NEST_JOBS.get(BedTag.nestKindOf(nestId));
         return Optional.ofNullable(job).map(RegistryKey::getValue);
     }
 
