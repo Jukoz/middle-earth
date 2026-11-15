@@ -325,8 +325,8 @@ public class LargeDoorBlock extends Block implements NpcDoor {
                     }
                 }
             }
-            this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
-            world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+            this.playOpenCloseSound(player, world, pos, !state.get(OPEN));
+            world.emitGameEvent(player, !this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
             return true;
         }
         return false;
