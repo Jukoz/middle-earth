@@ -6,6 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.minecraft.util.WorldSavePath;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.nbt.NbtSizeTracker;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtList;
@@ -34,6 +40,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -64,6 +75,22 @@ public class StructureEditSession {
     private static final String SIZE = "size";
 
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
+    // The sessions read back with the world that no builder has taken up since
+    private static final Set<UUID> RESTORED = new HashSet<>();
+    private static final String FILE = "data/middle-earth_structure_editing.nbt";
+    private static final String SESSIONS_KEY = "sessions";
+    private static final String BUILDER = "builder";
+    private static final String DIMENSION = "dimension";
+    private static final String STRUCTURE = "structure";
+    private static final String SEED = "seed";
+    private static final String SPACED = "spaced";
+    private static final String GAP = "gap";
+    private static final String PIECES = "pieces";
+    private static final String TEMPLATE = "template";
+    private static final String ROTATION = "rotation";
+    private static final String ORIGIN = "origin";
+    private static final String BOX = "box";
+    private static final String LOADED = "loaded";
 
     private static final Map<UUID, StructureEditSession> SESSIONS = new HashMap<>();
 
@@ -88,13 +115,113 @@ public class StructureEditSession {
         this.pieces = pieces;
     }
 
+    // The builder's own, or else the one that came back with the world and nobody has taken up yet: a game run from the
+    // workspace gives its player another name, and with it another id, every time
     public static @Nullable StructureEditSession of(UUID builder) {
-        return SESSIONS.get(builder);
+        StructureEditSession own = SESSIONS.get(builder);
+        if(own != null || RESTORED.size() != 1)
+            return own;
+        return SESSIONS.get(RESTORED.iterator().next());
+    }
+
+    // Makes the session that came back with the world the builder's own, for the commands to work on
+    public static @Nullable StructureEditSession claim(UUID builder) {
+        if(SESSIONS.containsKey(builder)) {
+            RESTORED.remove(builder);
+            return SESSIONS.get(builder);
+        }
+        if(RESTORED.size() != 1)
+            return null;
+        StructureEditSession restored = SESSIONS.remove(RESTORED.iterator().next());
+        RESTORED.clear();
+        if(restored != null) {
+            SESSIONS.put(builder, restored);
+            GAPS.put(builder, restored.gap);
+        }
+        return restored;
     }
 
     // The pieces are of the world that was open, and mean nothing in the next one
     public static void register() {
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> SESSIONS.clear());
+        ServerLifecycleEvents.SERVER_STARTED.register(StructureEditSession::restore);
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            SESSIONS.clear();
+            RESTORED.clear();
+        });
+    }
+
+    // Kept with the world: the pieces stay in it as blocks, and without this nothing would know them for pieces again
+    private static void store(MinecraftServer server) {
+        NbtList sessions = new NbtList();
+        for(Map.Entry<UUID, StructureEditSession> entry : SESSIONS.entrySet()) {
+            StructureEditSession session = entry.getValue();
+            NbtCompound stored = new NbtCompound();
+            stored.putString(BUILDER, entry.getKey().toString());
+            stored.putString(DIMENSION, session.dimension.getValue().toString());
+            stored.putString(STRUCTURE, session.structure.toString());
+            stored.putLong(SEED, session.seed);
+            stored.putBoolean(SPACED, session.spaced);
+            stored.putInt(GAP, session.gap);
+            NbtList pieces = new NbtList();
+            for(Piece piece : session.pieces) {
+                NbtCompound storedPiece = new NbtCompound();
+                storedPiece.putString(TEMPLATE, piece.template().toString());
+                storedPiece.putString(ROTATION, piece.rotation().name());
+                storedPiece.putIntArray(ORIGIN, new int[]{piece.origin().getX(), piece.origin().getY(), piece.origin().getZ()});
+                BlockBox box = piece.box();
+                storedPiece.putIntArray(BOX, new int[]{box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ()});
+                storedPiece.put(LOADED, piece.loaded());
+                pieces.add(storedPiece);
+            }
+            stored.put(PIECES, pieces);
+            sessions.add(stored);
+        }
+        NbtCompound root = new NbtCompound();
+        root.put(SESSIONS_KEY, sessions);
+        try {
+            Path file = server.getSavePath(WorldSavePath.ROOT).resolve(FILE);
+            Files.createDirectories(file.getParent());
+            NbtIo.writeCompressed(root, file);
+        } catch (IOException e) {
+            MiddleEarth.LOGGER.logError("StructureEditSession :: could not keep the loaded structures with the world", e);
+        }
+    }
+
+    private static void restore(MinecraftServer server) {
+        SESSIONS.clear();
+        RESTORED.clear();
+        Path file = server.getSavePath(WorldSavePath.ROOT).resolve(FILE);
+        if(!Files.isRegularFile(file))
+            return;
+        try {
+            NbtCompound root = NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes());
+            for(NbtElement element : root.getListOrEmpty(SESSIONS_KEY)) {
+                if(!(element instanceof NbtCompound stored))
+                    continue;
+                Identifier dimension = Identifier.tryParse(stored.getString(DIMENSION, ""));
+                Identifier structure = Identifier.tryParse(stored.getString(STRUCTURE, ""));
+                if(dimension == null || structure == null)
+                    continue;
+                List<Piece> pieces = new ArrayList<>();
+                for(NbtElement pieceElement : stored.getListOrEmpty(PIECES)) {
+                    if(!(pieceElement instanceof NbtCompound storedPiece))
+                        continue;
+                    Identifier template = Identifier.tryParse(storedPiece.getString(TEMPLATE, ""));
+                    int[] origin = storedPiece.getIntArray(ORIGIN).orElse(new int[0]);
+                    int[] box = storedPiece.getIntArray(BOX).orElse(new int[0]);
+                    if(template == null || origin.length != 3 || box.length != 6)
+                        continue;
+                    pieces.add(new Piece(template, new BlockPos(origin[0], origin[1], origin[2]), BlockRotation.valueOf(storedPiece.getString(ROTATION, BlockRotation.NONE.name())),
+                            new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), storedPiece.getCompoundOrEmpty(LOADED)));
+                }
+                UUID builder = UUID.fromString(stored.getString(BUILDER, ""));
+                SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),
+                        stored.getBoolean(SPACED, true), stored.getInt(GAP, DEFAULT_GAP), pieces));
+                RESTORED.add(builder);
+            }
+        } catch (IOException | IllegalArgumentException e) {
+            MiddleEarth.LOGGER.logError("StructureEditSession :: could not read the structures that were loaded in this world", e);
+        }
     }
 
     public static int gapOf(UUID builder) {
@@ -142,6 +269,7 @@ public class StructureEditSession {
                 world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         }
         pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
+        store(world.getServer());
         return null;
     }
 
@@ -228,6 +356,7 @@ public class StructureEditSession {
             loaded.add(place(world, piece, spaced));
         StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, gap, loaded);
         SESSIONS.put(builder, session);
+        store(world.getServer());
         return session;
     }
 
@@ -247,11 +376,13 @@ public class StructureEditSession {
 
     // Takes the pieces of the builder's structure out of the world again
     public static boolean close(ServerWorld world, UUID builder) {
-        StructureEditSession session = SESSIONS.remove(builder);
+        StructureEditSession session = claim(builder);
         if(session == null || !session.dimension.equals(world.getRegistryKey()))
             return false;
+        SESSIONS.remove(builder);
         for(Piece piece : session.pieces)
             fill(world, piece.box(), Blocks.AIR.getDefaultState());
+        store(world.getServer());
         return true;
     }
 
@@ -294,6 +425,7 @@ public class StructureEditSession {
             if(written.contains(piece.template()))
                 pieces.set(i, place(world, piece, true));
         }
+        store(world.getServer());
         return new Saved(written, conflicts);
     }
 

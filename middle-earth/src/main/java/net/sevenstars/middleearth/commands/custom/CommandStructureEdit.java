@@ -132,7 +132,7 @@ public class CommandStructureEdit {
             source.sendError(Text.literal("No structure " + id));
             return 0;
         }
-        StructureEditSession before = StructureEditSession.of(player.getUuid());
+        StructureEditSession before = StructureEditSession.claim(player.getUuid());
         if(before != null && before.hasChanges(world)) {
             source.sendError(Text.literal("The pieces of %s have changes that are not saved. /%s %s them or /%s %s first".formatted(before.getStructure(), COMMAND, SAVE, COMMAND, CLOSE)));
             return 0;
@@ -153,7 +153,7 @@ public class CommandStructureEdit {
     // The same structure of the same seed, the other way
     private static int view(CommandContext<ServerCommandSource> context, boolean spaced) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
-        StructureEditSession session = StructureEditSession.of(source.getPlayerOrThrow().getUuid());
+        StructureEditSession session = StructureEditSession.claim(source.getPlayerOrThrow().getUuid());
         if(session == null) {
             source.sendError(Text.literal("No structure is loaded. /%s %s <structure> loads one".formatted(COMMAND, STRUCTURE)));
             return 0;
@@ -167,7 +167,7 @@ public class CommandStructureEdit {
         ServerPlayerEntity player = source.getPlayerOrThrow();
         int blocks = IntegerArgumentType.getInteger(context, BLOCKS);
         StructureEditSession.setGap(player.getUuid(), blocks);
-        StructureEditSession session = StructureEditSession.of(player.getUuid());
+        StructureEditSession session = StructureEditSession.claim(player.getUuid());
         if(session == null || !session.isSpaced()) {
             source.sendFeedback(() -> Text.literal("Spaced pieces will stand %d blocks apart".formatted(blocks)), false);
             return 1;
@@ -179,7 +179,7 @@ public class CommandStructureEdit {
     private static int expand(CommandContext<ServerCommandSource> context, @Nullable Direction named) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
-        StructureEditSession session = StructureEditSession.of(player.getUuid());
+        StructureEditSession session = StructureEditSession.claim(player.getUuid());
         if(session == null || !session.isSpaced() || !session.getDimension().equals(source.getWorld().getRegistryKey())) {
             source.sendError(Text.literal("Only the pieces of a structure loaded spaced apart can be made bigger. /%s %s <structure> loads one".formatted(COMMAND, STRUCTURE)));
             return 0;
@@ -279,7 +279,7 @@ public class CommandStructureEdit {
         ServerPlayerEntity player = source.getPlayerOrThrow();
         ServerWorld world = source.getWorld();
 
-        StructureEditSession session = StructureEditSession.of(player.getUuid());
+        StructureEditSession session = StructureEditSession.claim(player.getUuid());
         if(override == null && session != null && session.getDimension().equals(world.getRegistryKey()))
             return saveStructure(source, world, session);
 
