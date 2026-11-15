@@ -40,6 +40,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Comparator;
 import java.util.HashMap;
 import net.minecraft.util.math.Direction;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.registry.RegistryKeys;
+import net.sevenstars.middleearth.commands.custom.PieceProjections;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -75,6 +78,7 @@ public class BuildersToolRenderer {
     private static final int MANAGER = 0xFF7C4DFF;
     private static final int BOUNDS = 0xFFFFEB3B;
     private static final int MAXIMUM_PLOT = 4096;
+    private static final int PROJECTIONS_MILLIS = 2000;
     private static final int PLUG = 0xFF00E676;
     private static final int FAILURE_LOG_MILLIS = 10000;
     private static final int FAILURE_LOG_FRAMES = 6;
@@ -101,6 +105,8 @@ public class BuildersToolRenderer {
     private static final List<StructureFeatureData.Manager> managers = new ArrayList<>();
     private static final Set<BlockPos> fields = new HashSet<>();
     private static final Map<BlockPos, List<Box>> PLOTS = new HashMap<>();
+    private static Map<Identifier, Set<StructurePool.Projection>> projections = Map.of();
+    private static long projectionsReadAt = 0;
     private static ClientWorld scannedWorld;
     private static long failureLoggedAt = 0;
     private static long scannedAt;
@@ -123,7 +129,7 @@ public class BuildersToolRenderer {
                 MatrixStack matrices = context.matrixStack() == null ? new MatrixStack() : context.matrixStack();
                 drawLabels(matrices, context.consumers());
                 for(StructureEditSession.Piece piece : pieces)
-                    DebugDraw.label(matrices, context.consumers(), piece.template().getPath(), new Vec3d(piece.box().getCenter().getX() + 0.5,
+                    DebugDraw.label(matrices, context.consumers(), piece.template().getPath() + projectionNote(client, piece.template()), new Vec3d(piece.box().getCenter().getX() + 0.5,
                             piece.box().getMaxY() + PIECE_LABEL_HEIGHT, piece.box().getCenter().getZ() + 0.5), PIECE, PIECE_TEXT_SCALE);
             } catch (RuntimeException e) {
                 // A block entity that is gone between the scan and the frame only costs one frame. Anything that keeps
@@ -146,6 +152,21 @@ public class BuildersToolRenderer {
             return List.of();
         boolean settingBounds = BuildersToolSelection.boundsAnchor() != null;
         return session.getPieces().stream().filter(piece -> settingBounds || !piece.box().contains(player.getBlockPos())).toList();
+    }
+
+    // Said of a piece that follows the ground in the pools that offer it, or in some of them. Read from the pools of the
+    // game's own server now and then, a command being able to change them
+    private static String projectionNote(MinecraftClient client, Identifier template) {
+        if(client.getServer() == null)
+            return "";
+        if(Util.getMeasuringTimeMs() - projectionsReadAt >= PROJECTIONS_MILLIS) {
+            projectionsReadAt = Util.getMeasuringTimeMs();
+            projections = PieceProjections.of(client.getServer().getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL));
+        }
+        Set<StructurePool.Projection> of = projections.getOrDefault(template, Set.of());
+        if(!of.contains(StructurePool.Projection.TERRAIN_MATCHING))
+            return "";
+        return of.size() > 1 ? " (follows the ground in some pools)" : " (follows the ground)";
     }
 
     static boolean holdsTool(PlayerEntity player) {

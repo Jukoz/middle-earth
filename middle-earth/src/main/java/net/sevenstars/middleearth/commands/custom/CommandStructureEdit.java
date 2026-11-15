@@ -50,6 +50,9 @@ import net.minecraft.block.enums.BedPart;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.registry.Registry;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -67,6 +70,10 @@ public class CommandStructureEdit {
     private static final String CLOSE = "close";
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
+    private static final String PROJECTION = "projection";
+    private static final String RIGID = "rigid";
+    private static final String TERRAIN_MATCHING = "terrain_matching";
+    private static final String POOL = "pool";
     private static final String TEST = "test";
     private static final String CLEAR = "clear";
     private static final String NEXT = "next";
@@ -122,6 +129,11 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
+                .then(CommandManager.literal(PROJECTION)
+                        .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
+                                .suggests(TEMPLATES)
+                                .then(projection(RIGID, StructurePool.Projection.RIGID))
+                                .then(projection(TERRAIN_MATCHING, StructurePool.Projection.TERRAIN_MATCHING))))
                 .then(CommandManager.literal(TEST)
                         .then(CommandManager.literal(CLEAR).executes(CommandStructureEdit::clearTest))
                         .then(CommandManager.argument(STRUCTURE, IdentifierArgumentType.identifier())
@@ -274,6 +286,50 @@ public class CommandStructureEdit {
         }
         int count = cleared;
         source.sendFeedback(() -> Text.literal("Took away %d generated structure%s and whoever lived there".formatted(count, count == 1 ? "" : "s")), false);
+        return 1;
+    }
+
+    private static final SuggestionProvider<ServerCommandSource> POOLS = (context, builder) ->
+            CommandSource.suggestIdentifiers(context.getSource().getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).getIds(), builder);
+
+    private static LiteralArgumentBuilder<ServerCommandSource> projection(String name, StructurePool.Projection projection) {
+        return CommandManager.literal(name)
+                .executes(context -> setProjection(context, projection, null))
+                .then(CommandManager.argument(POOL, IdentifierArgumentType.identifier())
+                        .suggests(POOLS)
+                        .executes(context -> setProjection(context, projection, IdentifierArgumentType.getIdentifier(context, POOL))));
+    }
+
+    // How a piece meets the ground is said by the pools that offer it. Changed in those the game has loaded, for what is
+    // generated from now on, and in the mod's own files where the game runs from them, for every world opened after
+    private static int setProjection(CommandContext<ServerCommandSource> context, StructurePool.Projection projection, @Nullable Identifier pool) {
+        ServerCommandSource source = context.getSource();
+        Identifier template = IdentifierArgumentType.getIdentifier(context, TEMPLATE);
+        Registry<StructurePool> pools = source.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
+        if(!PieceProjections.of(pools).containsKey(template)) {
+            source.sendError(Text.literal("No pool offers the template " + template));
+            return 0;
+        }
+        List<Identifier> changed = PieceProjections.set(pools, template, projection, pool);
+        String how = projection == StructurePool.Projection.TERRAIN_MATCHING ? "follows the ground" : "is set as it was built";
+        if(changed.isEmpty()) {
+            source.sendFeedback(() -> Text.literal("%s already %s in %s".formatted(template, how, pool == null ? "every pool that offers it" : pool.toString())), false);
+            return 1;
+        }
+        StructureEditing.log("%s now %s in the pools %s".formatted(template, how, changed));
+        source.sendFeedback(() -> Text.literal("%s now %s in %s, for what is generated from now on".formatted(template, how, changed)), false);
+        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
+        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !Files.isDirectory(resources)) {
+            source.sendFeedback(() -> Text.literal("Not written to any file: it lasts until this world is closed"), false);
+            return 1;
+        }
+        try {
+            List<Path> written = PieceProjections.write(resources, template, projection, pool);
+            StructureEditing.log("  written to %s".formatted(written));
+            source.sendFeedback(() -> Text.literal("Written to %d pool file%s of the mod".formatted(written.size(), written.size() == 1 ? "" : "s")), false);
+        } catch (IOException e) {
+            source.sendError(Text.literal("Could not write the pool files: " + e.getMessage()));
+        }
         return 1;
     }
 
