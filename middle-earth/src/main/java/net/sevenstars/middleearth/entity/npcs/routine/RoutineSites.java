@@ -199,9 +199,9 @@ public class RoutineSites {
         if(site == null) {
             StructureStart start = world.getStructureAccessor().getStructureContaining(managerPos, entry -> true);
             if(start != null && start.hasChildren())
-                site = forStructure(world, sites, start, managerPos.getY());
+                site = forStructure(world, sites, start);
             else
-                site = create(world, sites, managerPos.getX(), managerPos.getZ(), managerPos.getY(), DEFAULT_RING_RADIUS, 0, null);
+                site = create(world, sites, managerPos.getX(), managerPos.getZ(), RoutineSite.isEnclosed(world, managerPos.getX(), managerPos.getZ(), managerPos.getY()), DEFAULT_RING_RADIUS, 0, null);
             if(site == null)
                 return null;
             sites.sites.put(key, site);
@@ -218,7 +218,7 @@ public class RoutineSites {
 
         StructureStart start = factionId == null ? null : findFactionStructure(world, home, factionId);
         if(start != null) {
-            RoutineSite site = forStructure(world, sites, start, home.getY());
+            RoutineSite site = forStructure(world, sites, start);
             if(site != null)
                 site.lastUsed = world.getTime();
             return site;
@@ -239,13 +239,13 @@ public class RoutineSites {
             return site;
         }
 
-        site = create(world, sites, centerX, centerZ, home.getY(), 0, 0, null);
+        site = create(world, sites, centerX, centerZ, underground, 0, 0, null);
         sites.sites.put(wildKey, site);
         site.lastUsed = world.getTime();
         return site;
     }
 
-    private static @Nullable RoutineSite forStructure(ServerWorld world, WorldSites sites, StructureStart start, @Nullable Integer referenceY) {
+    private static @Nullable RoutineSite forStructure(ServerWorld world, WorldSites sites, StructureStart start) {
         BlockBox box = start.getBoundingBox();
         BlockPos center = box.getCenter();
         long key = BlockPos.asLong(center.getX(), STRUCTURE_KEY_Y, center.getZ());
@@ -261,7 +261,7 @@ public class RoutineSites {
             pieces.add(piece.getBoundingBox());
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
         int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
-        site = create(world, sites, center.getX(), center.getZ(), referenceY, radius, extent, pieces);
+        site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, extent, pieces);
         placesOf(world, start, site);
         site.setOwners(world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure()).streamTags()
                 .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
@@ -323,8 +323,8 @@ public class RoutineSites {
         site.setMarkers(markers);
     }
 
-    private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
-        RoutineSite site = new RoutineSite(world, centerX, centerZ, referenceY, ringRadius, extent, pieces);
+    private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
+        RoutineSite site = new RoutineSite(world, centerX, centerZ, enclosed, ringRadius, extent, pieces);
         if(!site.isReady())
             sites.scanning.add(site);
         return site;

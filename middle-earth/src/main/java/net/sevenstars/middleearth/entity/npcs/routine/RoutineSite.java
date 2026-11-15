@@ -172,7 +172,7 @@ public class RoutineSite {
     long lastUsed;
 
     // ringRadius 0 leaves the site without a patrol ring
-    RoutineSite(ServerWorld world, int centerX, int centerZ, @Nullable Integer referenceY, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
+    RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
         this.extent = extent;
         this.sampleScale = Math.max(1f, (extent + SAMPLE_MARGIN) / (float) RADII[RADII.length - 1]);
         this.centerX = centerX;
@@ -189,12 +189,31 @@ public class RoutineSite {
         if(ringRadius > 0)
             planRing(pieces);
         // Shut in underground, a place has no ground around it to look over
-        this.ready = referenceY != null && surfaceY - referenceY > ENCLOSED_DEPTH;
+        this.ready = enclosed;
     }
 
     // Far enough under the ground at that spot to be shut in, in a cave or a delving
     public static boolean isEnclosed(ServerWorld world, int x, int z, int y) {
-        return world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) - y > ENCLOSED_DEPTH;
+        return groundY(world, x, z) - y > ENCLOSED_DEPTH;
+    }
+
+    // A structure is shut in only if all of it is: one with a way up to the surface has guards and grounds up there. Told by
+    // the structure itself, so that the answer does not turn on who of its people asks first
+    public static boolean isEnclosed(ServerWorld world, BlockBox box) {
+        BlockPos center = box.getCenter();
+        int[][] spots = {{center.getX(), center.getZ()}, {box.getMinX(), box.getMinZ()}, {box.getMinX(), box.getMaxZ()},
+                {box.getMaxX(), box.getMinZ()}, {box.getMaxX(), box.getMaxZ()}};
+        for(int[] spot : spots) {
+            if(world.isChunkLoaded(spot[0] >> 4, spot[1] >> 4) && !isEnclosed(world, spot[0], spot[1], box.getMaxY()))
+                return false;
+        }
+        return true;
+    }
+
+    // The solid ground, under the water of a lake or the sea and under the leaves of a wood: depth below a water surface
+    // is not depth under the ground
+    private static int groundY(ServerWorld world, int x, int z) {
+        return Math.min(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), world.getTopY(Heightmap.Type.OCEAN_FLOOR, x, z));
     }
 
     public void touch(long time) {
