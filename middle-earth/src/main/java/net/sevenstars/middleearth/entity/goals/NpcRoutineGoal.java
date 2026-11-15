@@ -3,18 +3,13 @@ package net.sevenstars.middleearth.entity.goals;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.world.World;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.particle.BlockStateParticleEffect;
@@ -48,7 +43,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.registry.Registries;
-import net.minecraft.sound.SoundEvent;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
@@ -70,14 +64,15 @@ import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.entity.npcs.routine.FarmPlots;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineGame;
+import net.sevenstars.middleearth.entity.npcs.routine.RoutineStores;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.utils.SpawnUtil;
-import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
-import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayDeque;
@@ -91,7 +86,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 // Sends an npc out to fish, hunt, forage or patrol, then back home with what it got
 public class NpcRoutineGoal extends Goal {
@@ -255,7 +249,6 @@ public class NpcRoutineGoal extends Goal {
     private static final int PLANKS_PER_LOG = 4;
     // Past the edge of the buildings, so that the animals of the yards and the green are left alone
     private static final int SETTLEMENT_MARGIN = 12;
-    private static final int PEN_REACH = 8;
     // Time of day
     private static final int DUSK = 12500;
     private static final int DAWN = 23500;
@@ -273,7 +266,6 @@ public class NpcRoutineGoal extends Goal {
     private static final int PREY_HEIGHT_RANGE = 6;
     private static final int BYSTANDER_DISTANCE = 5;
     private static final int LOOK_DISTANCE = 5;
-    private static final int CROP_SEARCH_RANGE = 2;
     private static final List<Item> DEFAULT_FORAGE = List.of(Items.BROWN_MUSHROOM, Items.SWEET_BERRIES, Items.APPLE);
     private static final Set<RoutineSite> DEBUG_LOGGED = new HashSet<>();
 
@@ -674,7 +666,7 @@ public class NpcRoutineGoal extends Goal {
             return false;
         BlockPos home = npc.getRoutineHome();
         if(home == null) {
-            if(!world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
+            if(!isLoaded(world, managerPos))
                 return false;
             BlockPos nest = world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager ? manager.findNestOrigin(npc.getUuid()) : null;
             home = nest != null ? nest : managerPos;
@@ -756,7 +748,7 @@ public class NpcRoutineGoal extends Goal {
             }
             case VISIT -> {
                 if(hostingAt != null) {
-                    meetSeat = world.isChunkLoaded(hostingAt.getX() >> 4, hostingAt.getZ() >> 4) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
+                    meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
                     BlockPos beside = meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
                     spot = meetSeat != null ? standAt(world, meetSeat) : beside != null ? beside : hostingAt;
                     did("visit", "comes home to have a visitor over at " + spot.toShortString());
@@ -804,11 +796,11 @@ public class NpcRoutineGoal extends Goal {
                         held = true;
                         continue;
                     }
-                    if(!world.isChunkLoaded(station.getX() >> 4, station.getZ() >> 4))
+                    if(!isLoaded(world, station))
                         continue;
-                    if(isHive(world, station) && !hiveReady(world, station, time))
+                    if(RoutineStores.isHive(world, station) && !hiveReady(world, station, time))
                         continue;
-                    if(isCookWork() && isOven(world, station) && planks == 0 && woodSource(world, home) == null)
+                    if(isCookWork() && RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null)
                         continue;
                     beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
                     // A forge walled in on every side is for show
@@ -828,7 +820,7 @@ public class NpcRoutineGoal extends Goal {
                         return cannotStart(picked, "nothing raw in any store to cook");
                     fetchFrom = pantry;
                     cookStand = beside;
-                    fuelFrom = isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
+                    fuelFrom = RoutineStores.isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
                     spot = standAt(world, pantry);
                 }
             }
@@ -863,7 +855,7 @@ public class NpcRoutineGoal extends Goal {
                 if(nearest == null)
                     return cannotStart(picked, site.supports(picked) ? "no mine face within reach of home" : "no mine face marked in this build");
                 rockFace = nearest.pos().offset(nearest.facing());
-                if(!world.isChunkLoaded(rockFace.getX() >> 4, rockFace.getZ() >> 4) || world.getBlockState(rockFace).getBlock().asItem() == Items.AIR)
+                if(!isLoaded(world, rockFace) || world.getBlockState(rockFace).getBlock().asItem() == Items.AIR)
                     return cannotStart(picked, "nothing to mine at the face " + rockFace.toShortString());
                 spot = nearest.pos();
                 lookTarget = Vec3d.ofCenter(rockFace);
@@ -905,7 +897,7 @@ public class NpcRoutineGoal extends Goal {
                 // The marker stands beside the seat
                 BlockPos seat = null;
                 for(BlockPos candidate : site.getSeats()) {
-                    if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) && SeatBlock.isFree(world, candidate)
+                    if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
                             && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
                         seat = candidate;
                 }
@@ -977,7 +969,7 @@ public class NpcRoutineGoal extends Goal {
             for(int i = 0; i < trees.size(); i++) {
                 BlockPos candidate = trees.get((start + i) % trees.size());
                 if(!candidate.isWithinDistance(home, range) || recentTrees.contains(candidate)
-                        || !world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) || !world.getBlockState(candidate).isIn(BlockTags.LOGS))
+                        || !isLoaded(world, candidate) || !world.getBlockState(candidate).isIn(BlockTags.LOGS))
                     continue;
                 // A bush is a log in leaves on every side, with no room to stand and swing at it
                 if(NestSurvey.standNextTo(world, candidate, home) == null)
@@ -1329,7 +1321,7 @@ public class NpcRoutineGoal extends Goal {
             did("deliver", "put " + itemName(carried) + " on the fire at " + store.toShortString());
             return;
         }
-        Inventory inventory = inventoryAt(world, store);
+        Inventory inventory = RoutineStores.inventoryAt(world, store);
         if(inventory == null) {
             abandoned("its store " + store.toShortString() + " cannot hold anything");
             return;
@@ -1338,15 +1330,6 @@ public class NpcRoutineGoal extends Goal {
         // A full store is the work done all the same
         did("deliver", left.isEmpty() ? "stored " + itemName(carried) + " in the store at " + store.toShortString()
                 : "found the store at " + store.toShortString() + " full, " + itemName(carried) + " stays out");
-    }
-
-    // A double chest is one inventory
-    private static @Nullable Inventory inventoryAt(ServerWorld world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        if(state.getBlock() instanceof ChestBlock chest)
-            return ChestBlock.getInventory(chest, state, world, pos, true);
-        BlockEntity entity = world.getBlockEntity(pos);
-        return entity instanceof Inventory inventory ? inventory : null;
     }
 
     private boolean cannotStart(RoutineData.Activity what, String why) {
@@ -1381,8 +1364,12 @@ public class NpcRoutineGoal extends Goal {
         return Vec3d.ofBottomCenter(waypoints.get(waypointIndex));
     }
 
+    private static boolean isLoaded(ServerWorld world, BlockPos pos) {
+        return world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
+    }
+
     private static boolean isUnderCover(ServerWorld world, BlockPos pos) {
-        return world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4) && world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) > pos.getY() + COVER_HEIGHT;
+        return isLoaded(world, pos) && world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) > pos.getY() + COVER_HEIGHT;
     }
 
     // Long walks are cut into short stretches, a path over the whole way would cost too much
@@ -1510,7 +1497,7 @@ public class NpcRoutineGoal extends Goal {
 
         // The cook has fetched what it is to cook, and goes on to its station with it
         if(activity == RoutineData.Activity.WORK && fetchFrom != null) {
-            Item raw = takeRawFood(world, fetchFrom);
+            Item raw = RoutineStores.takeRawFood(world, fetchFrom);
             if(raw == null) {
                 abandoned("what there was to cook in the store at " + fetchFrom.toShortString() + " is gone");
                 finish(world, REST);
@@ -1527,7 +1514,7 @@ public class NpcRoutineGoal extends Goal {
         }
         // And a log for the oven, from the wood pile
         if(activity == RoutineData.Activity.WORK && fuelFrom != null) {
-            logInHand = takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
+            logInHand = RoutineStores.takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
             if(logInHand != null)
                 did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
             fuelFrom = null;
@@ -1567,7 +1554,7 @@ public class NpcRoutineGoal extends Goal {
                     did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
                     logInHand = null;
                 }
-                if(isCookWork() && workStation != null && isOven(world, workStation) && planks == 0) {
+                if(isCookWork() && workStation != null && RoutineStores.isOven(world, workStation) && planks == 0) {
                     abandoned("has no wood for the oven at " + workStation.toShortString());
                     // What was fetched to be cooked goes back to its store
                     if(carried != null)
@@ -1674,7 +1661,7 @@ public class NpcRoutineGoal extends Goal {
                 }
             }
             case WORK -> {
-                if(done && workStation != null && isHive(world, workStation)) {
+                if(done && workStation != null && RoutineStores.isHive(world, workStation)) {
                     BlockState hive = world.getBlockState(workStation);
                     world.setBlockState(workStation, hive.with(BeehiveBlock.HONEY_LEVEL, 0));
                     site.emptyHive(workStation, time);
@@ -1684,8 +1671,8 @@ public class NpcRoutineGoal extends Goal {
                     startReturn(world);
                 } else if(done && isCookWork() && carried != null) {
                     Item raw = carried;
-                    carried = cookedOf(world, raw);
-                    if(workStation != null && isOven(world, workStation))
+                    carried = RoutineStores.cookedOf(world, raw);
+                    if(workStation != null && RoutineStores.isOven(world, workStation))
                         planks--;
                     did("work", "cooked " + itemName(raw) + " into " + itemName(carried) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
                     startReturn(world);
@@ -1706,7 +1693,7 @@ public class NpcRoutineGoal extends Goal {
                 } else if(random.nextInt(STATION_SWING_ONE_IN) == 0) {
                     npc.swingHand(Hand.MAIN_HAND);
                     if(workStation != null && random.nextInt(STATION_SOUND_ONE_IN) == 0)
-                        world.playSound(null, workStation, workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, WORK_SOUND_VOLUME, WORK_SOUND_PITCH + random.nextFloat() * WORK_SOUND_PITCH_VARIATION);
+                        world.playSound(null, workStation, RoutineStores.workSound(world.getBlockState(workStation)), SoundCategory.BLOCKS, WORK_SOUND_VOLUME, WORK_SOUND_PITCH + random.nextFloat() * WORK_SOUND_PITCH_VARIATION);
                 }
             }
             case FORAGE -> {
@@ -1855,7 +1842,7 @@ public class NpcRoutineGoal extends Goal {
         BlockPos lordAt = lord.getBlockPos();
         for(int dy : FOLLOW_HEIGHTS) {
             BlockPos candidate = BlockPos.ofFloored(lord.getX() + away.x * FOLLOW_NEAR, lordAt.getY() + dy, lord.getZ() + away.z * FOLLOW_NEAR);
-            if(world.isChunkLoaded(candidate.getX() >> 4, candidate.getZ() >> 4) && world.getBlockState(candidate).getCollisionShape(world, candidate).isEmpty()
+            if(isLoaded(world, candidate) && world.getBlockState(candidate).getCollisionShape(world, candidate).isEmpty()
                     && world.getBlockState(candidate.up()).getCollisionShape(world, candidate.up()).isEmpty() && world.getBlockState(candidate.down()).isSolidBlock(world, candidate.down()))
                 return candidate;
         }
@@ -1989,7 +1976,7 @@ public class NpcRoutineGoal extends Goal {
     // Where the place has a hunter of its own, the hunting is the hunter's, and the rest keep to their other work
     private boolean leftToHunters(ServerWorld world) {
         BlockPos managerPos = npc.getStructureManagerHostPos();
-        if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)
+        if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !isLoaded(world, managerPos)
                 || !(world.getBlockEntity(managerPos) instanceof StructureManagerBlockEntity manager))
             return false;
         for(UUID resident : manager.residents()) {
@@ -2081,7 +2068,7 @@ public class NpcRoutineGoal extends Goal {
         BlockPos best = null;
         boolean bestLinked = false;
         for(BlockPos cell : site.getFields(home, WORK_RANGE)) {
-            if(hiddenPlots.contains(cell) || !world.isChunkLoaded(cell.getX() >> 4, cell.getZ() >> 4) || !needsWork(world, cell))
+            if(hiddenPlots.contains(cell) || !isLoaded(world, cell) || !FarmPlots.needsWork(world, cell))
                 continue;
             boolean linked = isByLinkedField(cell);
             if(best == null || linked && !bestLinked || linked == bestLinked && cell.getSquaredDistance(from) < best.getSquaredDistance(from)) {
@@ -2104,23 +2091,10 @@ public class NpcRoutineGoal extends Goal {
     // While the crops are growing, the fields need nobody
     private boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
         for(BlockPos cell : site.getFields(home, WORK_RANGE)) {
-            if(world.isChunkLoaded(cell.getX() >> 4, cell.getZ() >> 4) && needsWork(world, cell))
+            if(isLoaded(world, cell) && FarmPlots.needsWork(world, cell))
                 return true;
         }
         return false;
-    }
-
-    private static boolean needsWork(ServerWorld world, BlockPos cell) {
-        BlockState ground = world.getBlockState(cell);
-        BlockState above = world.getBlockState(cell.up());
-        if(ground.getBlock() instanceof FarmlandBlock)
-            return above.isAir() || (above.getBlock() instanceof CropBlock crop && crop.isMature(above));
-        return isTillable(ground) && (above.isAir() || above.isReplaceable());
-    }
-
-    // Ground that was a plot and has been trodden or grown over
-    private static boolean isTillable(BlockState ground) {
-        return ground.isIn(BlockTags.DIRT) && !ground.isOf(Blocks.MUD) && !ground.isOf(Blocks.MOSS_BLOCK);
     }
 
     // Tills it, sows it or brings in its crop and sows again. False when the plot needs nothing
@@ -2129,7 +2103,7 @@ public class NpcRoutineGoal extends Goal {
         BlockPos up = cell.up();
         BlockState above = world.getBlockState(up);
         if(!(ground.getBlock() instanceof FarmlandBlock)) {
-            if(!isTillable(ground) || !(above.isAir() || above.isReplaceable()))
+            if(!FarmPlots.isTillable(ground) || !(above.isAir() || above.isReplaceable()))
                 return false;
             if(!above.isAir())
                 world.breakBlock(up, false);
@@ -2137,12 +2111,12 @@ public class NpcRoutineGoal extends Goal {
             world.playSound(null, cell, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1f, 1f);
             did("tilled the plot at " + cell.toShortString());
         } else if(above.isAir()) {
-            Block sown = cropFor(world, cell);
+            Block sown = FarmPlots.cropFor(world, cell);
             world.setBlockState(up, sown.getDefaultState());
             world.playSound(null, up, SoundEvents.ITEM_CROP_PLANT, SoundCategory.BLOCKS, 1f, 1f);
             did("sowed " + Registries.BLOCK.getId(sown).getPath() + " at " + cell.toShortString());
         } else if(above.getBlock() instanceof CropBlock crop && crop.isMature(above)) {
-            carried = harvestOf(world, up, above);
+            carried = FarmPlots.harvestOf(world, up, above);
             did("harvested " + itemName(carried) + " at " + cell.toShortString());
             world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, up, Block.getRawIdFromState(above));
             world.setBlockState(up, crop.withAge(0));
@@ -2152,25 +2126,6 @@ public class NpcRoutineGoal extends Goal {
         npc.getLookControl().lookAt(cell.getX() + 0.5, cell.getY() + 1, cell.getZ() + 0.5);
         npc.swingHand(Hand.MAIN_HAND);
         return true;
-    }
-
-    // Sown with what grows in the next rows, or wheat where nothing does
-    private static Block cropFor(ServerWorld world, BlockPos cell) {
-        for(BlockPos near : BlockPos.iterateOutwards(cell.up(), CROP_SEARCH_RANGE, 0, CROP_SEARCH_RANGE)) {
-            if(world.getBlockState(near).getBlock() instanceof CropBlock crop)
-                return crop;
-        }
-        return Blocks.WHEAT;
-    }
-
-    // What the crop is grown for, not its seed: the block's own item is the seed of wheat and beetroot, the crop itself for carrots
-    private static Item harvestOf(ServerWorld world, BlockPos pos, BlockState crop) {
-        Item seed = crop.getBlock().asItem();
-        for(ItemStack drop : Block.getDroppedStacks(crop, world, pos, null)) {
-            if(!drop.isEmpty() && drop.getItem() != seed)
-                return drop.getItem();
-        }
-        return seed;
     }
 
     // A beast driven by a herder of a friendly people is theirs. Whether the herder is friend or foe is only known while it
@@ -2197,27 +2152,7 @@ public class NpcRoutineGoal extends Goal {
     private boolean isLoose(AnimalEntity animal) {
         if(site != null && Math.hypot(animal.getX() - site.getCenterX(), animal.getZ() - site.getCenterZ()) < site.getExtent() + SETTLEMENT_MARGIN)
             return false;
-        return !isPenned(animal);
-    }
-
-    // Fenced on every side within a few blocks
-    private static boolean isPenned(AnimalEntity animal) {
-        World world = animal.getWorld();
-        BlockPos at = animal.getBlockPos();
-        for(Direction side : Direction.Type.HORIZONTAL) {
-            boolean fenced = false;
-            for(int step = 1; step <= PEN_REACH && !fenced; step++) {
-                BlockPos pos = at.offset(side, step);
-                for(BlockPos check : new BlockPos[]{pos, pos.up()}) {
-                    BlockState state = world.getBlockState(check);
-                    if(state.isIn(BlockTags.FENCES) || state.isIn(BlockTags.FENCE_GATES) || state.isIn(BlockTags.WALLS))
-                        fenced = true;
-                }
-            }
-            if(!fenced)
-                return false;
-        }
-        return true;
+        return !RoutineGame.isPenned(animal);
     }
 
     // The fighting goals do the chase, the npc itself ends it
@@ -2227,27 +2162,11 @@ public class NpcRoutineGoal extends Goal {
         EntityType<?> kill = npc.takeHuntKill();
         if(kill == null)
             abandoned("the prey got away");
-        carried = kill == null ? null : meatOf(kill);
+        carried = kill == null ? null : RoutineGame.meatOf(kill);
         if(carried != null)
             did("killed " + Registries.ENTITY_TYPE.getId(kill).getPath() + ", carries " + itemName(carried));
         startReturn(world);
         return npc.getTarget() == null;
-    }
-
-    private static Item meatOf(EntityType<?> type) {
-        if(type == EntityType.COW)
-            return Items.BEEF;
-        if(type == EntityType.PIG)
-            return Items.PORKCHOP;
-        if(type == EntityType.SHEEP)
-            return Items.MUTTON;
-        if(type == EntityType.CHICKEN)
-            return Items.CHICKEN;
-        if(type == EntitiesWT.DEER)
-            return ItemsWT.RAW_VENISON;
-        if(type == EntitiesWT.PHEASANT)
-            return ItemsWT.RAW_POULTRY;
-        return Items.RABBIT;
     }
 
     private void startReturn(ServerWorld world) {
@@ -2321,10 +2240,6 @@ public class NpcRoutineGoal extends Goal {
         return dropOff != null ? dropOff : npc.getStore();
     }
 
-    private static boolean isHive(ServerWorld world, BlockPos pos) {
-        return world.getBlockState(pos).contains(BeehiveBlock.HONEY_LEVEL);
-    }
-
     // Fills the hive as the day goes since its honey was last taken, which is due once it has stood full for a whole day.
     // The hives of a settlement have no bees to fill them. Where the honey in one is not what was left in it, somebody else
     // took some or bees brought some, and it is reckoned again from what is there
@@ -2343,30 +2258,19 @@ public class NpcRoutineGoal extends Goal {
         return NpcJobs.COOK.getValue().equals(npc.getJobId());
     }
 
-    // Raw is what a smoker would cook: meat and fish
-    private static boolean isRawFood(ServerWorld world, ItemStack stack) {
-        return !stack.isEmpty() && world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, new SingleStackRecipeInput(stack), world).isPresent();
-    }
-
-    private static Item cookedOf(ServerWorld world, Item raw) {
-        SingleStackRecipeInput input = new SingleStackRecipeInput(new ItemStack(raw));
-        return world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, input, world)
-                .map(entry -> entry.value().craft(input, world.getRegistryManager()).getItem()).orElse(raw);
-    }
-
     // The nearest store of the place with something in it to cook
     private @Nullable BlockPos storeWithRawFood(ServerWorld world, BlockPos home) {
         BlockPos best = null;
         for(BlockPos store : site.getStores()) {
-            if(!store.isWithinDistance(home, WORK_RANGE) || !world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4))
+            if(!store.isWithinDistance(home, WORK_RANGE) || !isLoaded(world, store))
                 continue;
             if(best != null && store.getSquaredDistance(home) >= best.getSquaredDistance(home))
                 continue;
-            Inventory inventory = inventoryAt(world, store);
+            Inventory inventory = RoutineStores.inventoryAt(world, store);
             if(inventory == null)
                 continue;
             for(int slot = 0; slot < inventory.size(); slot++) {
-                if(isRawFood(world, inventory.getStack(slot))) {
+                if(RoutineStores.isRawFood(world, inventory.getStack(slot))) {
                     best = store;
                     break;
                 }
@@ -2375,24 +2279,16 @@ public class NpcRoutineGoal extends Goal {
         return best;
     }
 
-    private static @Nullable Item takeRawFood(ServerWorld world, BlockPos store) {
-        return takeFrom(world, store, stack -> isRawFood(world, stack));
-    }
-
-    private static boolean isOven(ServerWorld world, @Nullable BlockPos station) {
-        return station != null && StationKind.of(Registries.BLOCK.getId(world.getBlockState(station).getBlock()).getPath()) == StationKind.OVEN;
-    }
-
     // The nearest wood pile or store of the place with a log in it
     private @Nullable BlockPos woodSource(ServerWorld world, BlockPos home) {
         List<BlockPos> places = new ArrayList<>(site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE));
         places.addAll(site.getStores());
         BlockPos best = null;
         for(BlockPos place : places) {
-            if(!place.isWithinDistance(home, WORK_RANGE) || !world.isChunkLoaded(place.getX() >> 4, place.getZ() >> 4)
+            if(!place.isWithinDistance(home, WORK_RANGE) || !isLoaded(world, place)
                     || best != null && place.getSquaredDistance(home) >= best.getSquaredDistance(home))
                 continue;
-            Inventory inventory = inventoryAt(world, place);
+            Inventory inventory = RoutineStores.inventoryAt(world, place);
             if(inventory == null)
                 continue;
             for(int slot = 0; slot < inventory.size(); slot++) {
@@ -2412,23 +2308,6 @@ public class NpcRoutineGoal extends Goal {
         if(stand == null)
             stand = NestSurvey.standInSight(world, block, npc.getBlockPos(), STORE_STAND_RADIUS);
         return stand != null ? stand : block;
-    }
-
-    // One of the first thing in the inventory that will do, taken out of it
-    private static @Nullable Item takeFrom(ServerWorld world, BlockPos place, Predicate<ItemStack> wanted) {
-        Inventory inventory = inventoryAt(world, place);
-        if(inventory == null)
-            return null;
-        for(int slot = 0; slot < inventory.size(); slot++) {
-            ItemStack stack = inventory.getStack(slot);
-            if(wanted.test(stack)) {
-                Item taken = stack.getItem();
-                inventory.removeStack(slot, 1);
-                inventory.markDirty();
-                return taken;
-            }
-        }
-        return null;
     }
 
     private boolean isStableWork() {
@@ -2459,7 +2338,7 @@ public class NpcRoutineGoal extends Goal {
         EntityType<?> type = typeId == null ? null : Registries.ENTITY_TYPE.getOptionalValue(typeId).orElse(null);
         if(type == null)
             return null;
-        boolean horseLike = isHorseLike(type);
+        boolean horseLike = RoutineGame.isHorseLike(type);
         Vec3d centre = Vec3d.ofCenter(marker.pos());
         List<AnimalEntity> animals = world.getEntitiesByClass(AnimalEntity.class, new Box(marker.pos()).expand(STABLE_RANGE, HORSE_HEIGHT, STABLE_RANGE),
                 animal -> animal.isAlive() && !animal.hasPassengers() && !animal.isLeashed() && (animal.getType() == type || horseLike && animal instanceof AbstractHorseEntity));
@@ -2469,11 +2348,6 @@ public class NpcRoutineGoal extends Goal {
                 nearest = animal;
         }
         return nearest;
-    }
-
-    private static boolean isHorseLike(EntityType<?> type) {
-        return type == EntityType.HORSE || type == EntityType.DONKEY || type == EntityType.MULE || type == EntityType.SKELETON_HORSE
-                || type == EntityType.ZOMBIE_HORSE || Registries.ENTITY_TYPE.getId(type).getPath().contains("horse");
     }
 
     // The links of the bed that are stations of the trade, to be gone to before any other, and then the stations near home
@@ -2499,9 +2373,9 @@ public class NpcRoutineGoal extends Goal {
         if(isStableWork())
             return findAnimal(world, home) != null;
         for(BlockPos station : site.stationsNear(routine.getStations(), home, WORK_RANGE)) {
-            if(!world.isChunkLoaded(station.getX() >> 4, station.getZ() >> 4))
+            if(!isLoaded(world, station))
                 continue;
-            if(!isHive(world, station) || hiveReady(world, station, time))
+            if(!RoutineStores.isHive(world, station) || hiveReady(world, station, time))
                 return true;
         }
         return false;
@@ -2512,9 +2386,9 @@ public class NpcRoutineGoal extends Goal {
         if(!store.equals(standOf)) {
             standOf = store;
             BlockPos inside = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
-            storeStand = world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4) ? NestSurvey.standNextTo(world, store, inside) : null;
+            storeStand = isLoaded(world, store) ? NestSurvey.standNextTo(world, store, inside) : null;
             // A barrel on a table or in a corner is reached across it, from a floor that sees it
-            if(storeStand == null && world.isChunkLoaded(store.getX() >> 4, store.getZ() >> 4))
+            if(storeStand == null && isLoaded(world, store))
                 storeStand = NestSurvey.standInSight(world, store, inside, STORE_STAND_RADIUS);
         }
         return storeStand != null ? storeStand : store;
@@ -2557,7 +2431,7 @@ public class NpcRoutineGoal extends Goal {
     // Its own bed, unless that is gone or somebody is lying in it
     private @Nullable BlockPos freeBed(ServerWorld world) {
         BlockPos bed = npc.getAssignedBed();
-        if(bed == null || !world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
+        if(bed == null || !isLoaded(world, bed))
             return null;
         BlockState state = world.getBlockState(bed);
         if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED))
@@ -2604,24 +2478,6 @@ public class NpcRoutineGoal extends Goal {
         double distanceX = bed.getX() + 0.5 - npc.getX();
         double distanceZ = bed.getZ() + 0.5 - npc.getZ();
         return distanceX * distanceX + distanceZ * distanceZ <= BED_REACH * BED_REACH && Math.abs(bed.getY() - npc.getY()) <= BED_HEIGHT_REACH;
-    }
-
-    // The sound of the block itself being worked: hammer on iron at a forge, hay rustling in a stable
-    private static SoundEvent workSound(BlockState station) {
-        StationKind kind = StationKind.of(Registries.BLOCK.getId(station.getBlock()).getPath());
-        if(kind == null)
-            return station.getSoundGroup().getHitSound();
-        return switch (kind) {
-            case FORGE -> SoundEvents.BLOCK_ANVIL_USE;
-            case OVEN -> SoundEvents.BLOCK_SMOKER_SMOKE;
-            case HEARTH -> SoundEvents.BLOCK_CAMPFIRE_CRACKLE;
-            case LOOM -> SoundEvents.UI_LOOM_TAKE_RESULT;
-            case WOOD_PILE -> SoundEvents.ITEM_AXE_STRIP;
-            case HIVE -> SoundEvents.BLOCK_BEEHIVE_WORK;
-            case LECTERN -> SoundEvents.ITEM_BOOK_PAGE_TURN;
-            case GRINDSTONE -> SoundEvents.BLOCK_GRINDSTONE_USE;
-            case HAY, TARGET, FIELD -> station.getSoundGroup().getHitSound();
-        };
     }
 
     private static boolean isSocial(RoutineData.Activity activity) {
