@@ -59,7 +59,7 @@ public class SpawnNestManager {
     private BlockPos originPos;
     private int spawnRadius;
 
-    // The bed a nest of one person is for, with the job its tag gives that person and the place its things are put away. The
+    // The bed a nest of one person is for, with the job its tag gives that person (none: the job of the nest) and the place its things are put away. The
     // origin of such a nest is the bed
     private @Nullable BlockPos bed = null;
     private Optional<Identifier> bedJob = Optional.empty();
@@ -238,7 +238,7 @@ public class SpawnNestManager {
 
     // Gives the newly spawned its job, its home and, for a prisoner, its cell
     private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
-        Optional<Identifier> job = bed != null ? bedJob : data.getJob();
+        Optional<Identifier> job = bed != null && bedJob.isPresent() ? bedJob : data.getJob();
         if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
             job = guardDuty(world, structureManagerPos, site);
         job.ifPresent(npc::takeJob);

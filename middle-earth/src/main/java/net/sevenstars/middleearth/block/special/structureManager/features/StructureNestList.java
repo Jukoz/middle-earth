@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.block.special.structureManager.features;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.LivingEntity;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.ArrayList;
@@ -35,10 +36,14 @@ public class StructureNestList {
         return managers;
     }
 
-    // Nests that a manager keeps from before its data was what it is, or that came with a template of another one
-    public int removeUnknown(StructureManagerData data) {
+    // Nests that a manager keeps from before its data was what it is, or that came with a template of another one. Nests of
+    // people with no bed and no marker are from before beds were tagged, and would respawn the whole pool beside those born in beds
+    public int removeStale(StructureManagerData data) {
         int before = managers.size();
-        managers = new ArrayList<>(managers.stream().filter(nest -> data.findSpawnNest(nest.getId()) != null).toList());
+        managers = new ArrayList<>(managers.stream().filter(nest -> {
+            SpawnNestNodeData known = data.findSpawnNest(nest.getId());
+            return known != null && !(known.isPeople() && !nest.isMarked());
+        }).toList());
         return before - managers.size();
     }
 

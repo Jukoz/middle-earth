@@ -297,7 +297,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
 
         if(managerData == null) {
             managerData = StructureManagerService.getStructureManagerData(checkedWorld, structureManagerIdentifier);
-            if(managerData != null && structureNestList.removeUnknown(managerData) > 0)
+            if(managerData != null && structureNestList.removeStale(managerData) > 0)
                 markDirty();
         }
         for(SpawnNestManager nest : structureNestList.getManagers()){
