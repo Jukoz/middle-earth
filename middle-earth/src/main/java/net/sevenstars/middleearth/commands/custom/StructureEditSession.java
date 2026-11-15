@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.nbt.NbtSizeTracker;
@@ -218,6 +219,7 @@ public class StructureEditSession {
                 SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),
                         stored.getBoolean(SPACED, true), stored.getInt(GAP, DEFAULT_GAP), pieces));
                 RESTORED.add(builder);
+                StructureEditing.log("%s came back with the world: %d pieces, %s".formatted(structure, pieces.size(), stored.getBoolean(SPACED, true) ? "spaced" : "assembled"));
             }
         } catch (IOException | IllegalArgumentException e) {
             MiddleEarth.LOGGER.logError("StructureEditSession :: could not read the structures that were loaded in this world", e);
@@ -260,8 +262,11 @@ public class StructureEditSession {
                 box.getMinX() + Math.min(0, side.getOffsetX() * blocks), box.getMinY() + Math.min(0, side.getOffsetY() * blocks), box.getMinZ() + Math.min(0, side.getOffsetZ() * blocks),
                 box.getMaxX() + Math.max(0, side.getOffsetX() * blocks), box.getMaxY() + Math.max(0, side.getOffsetY() * blocks), box.getMaxZ() + Math.max(0, side.getOffsetZ() * blocks));
         for(Piece other : pieces) {
-            if(other != piece && other.box().intersects(grown))
+            if(other != piece && other.box().intersects(grown)) {
+                StructureEditing.log("%s not made bigger to the %s by %d: %s in %s is in the way of %s".formatted(piece.template(), side.asString(), blocks,
+                        other.template(), describe(other.box()), describe(grown)));
                 return other;
+            }
         }
         // The new room is open, as what a template leaves out is, until something is built in it
         for(BlockPos pos : BlockPos.iterate(grown.getMinX(), grown.getMinY(), grown.getMinZ(), grown.getMaxX(), grown.getMaxY(), grown.getMaxZ())) {
@@ -270,6 +275,7 @@ public class StructureEditSession {
         }
         pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
         store(world.getServer());
+        StructureEditing.log("%s made bigger to the %s by %d: %s where it was %s".formatted(piece.template(), side.asString(), blocks, describe(grown), describe(box)));
         return null;
     }
 
@@ -324,8 +330,10 @@ public class StructureEditSession {
         StructureStart start = structure.value().createStructureStart(structure, world.getRegistryKey(), world.getRegistryManager(),
                 world.getChunkManager().getChunkGenerator(), world.getChunkManager().getChunkGenerator().getBiomeSource(), world.getChunkManager().getNoiseConfig(),
                 world.getStructureTemplateManager(), seed, ASSEMBLY_CHUNK, 0, world, biome -> true);
-        if(!start.hasChildren())
+        if(!start.hasChildren()) {
+            StructureEditing.log("%s from the seed %d: the game put no pieces together".formatted(id, seed));
             return null;
+        }
 
         StructureTemplateManager manager = world.getStructureTemplateManager();
         List<Piece> assembled = new ArrayList<>();
@@ -338,8 +346,10 @@ public class StructureEditSession {
                     assembled.add(new Piece(template, piece.getPos(), piece.getRotation(), boxOf(found, piece.getPos(), piece.getRotation()), new NbtCompound()));
             }
         }
-        if(assembled.isEmpty())
+        if(assembled.isEmpty()) {
+            StructureEditing.log("%s from the seed %d: %d pieces, none of them a template of its own".formatted(id, seed, start.getChildren().size()));
             return null;
+        }
 
         int gap = gapOf(builder);
         List<Piece> placed = spaced ? spread(assembled, gap) : assembled;
@@ -357,6 +367,9 @@ public class StructureEditSession {
         StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, gap, loaded);
         SESSIONS.put(builder, session);
         store(world.getServer());
+        StructureEditing.log("loaded %s from the seed %d, %s, %d pieces in %s".formatted(id, seed, spaced ? "spaced %d apart".formatted(gap) : "assembled", loaded.size(), describe(boundsOf(loaded))));
+        for(Piece piece : loaded)
+            StructureEditing.log("  piece %s turned %s in %s".formatted(piece.template(), piece.rotation().asString(), describe(piece.box())));
         return session;
     }
 
@@ -380,6 +393,7 @@ public class StructureEditSession {
         if(session == null || !session.dimension.equals(world.getRegistryKey()))
             return false;
         SESSIONS.remove(builder);
+        StructureEditing.log("closed %s, %d pieces taken out of the world".formatted(session.structure, session.pieces.size()));
         for(Piece piece : session.pieces)
             fill(world, piece.box(), Blocks.AIR.getDefaultState());
         store(world.getServer());
@@ -399,6 +413,8 @@ public class StructureEditSession {
             NbtCompound now = read(world, piece);
             if(now.equals(piece.loaded()))
                 continue;
+            StructureEditing.log("  changed: %s in %s, %d blocks where there were %d, size %s where it was %s".formatted(piece.template(), describe(piece.box()),
+                    now.getListOrEmpty(BLOCKS).size(), piece.loaded().getListOrEmpty(BLOCKS).size(), now.getListOrEmpty(SIZE), piece.loaded().getListOrEmpty(SIZE)));
             NbtCompound other = changed.put(piece.template(), now);
             if(other != null && !other.equals(now) && !conflicts.contains(piece.template()))
                 conflicts.add(piece.template());
@@ -426,6 +442,8 @@ public class StructureEditSession {
                 pieces.set(i, place(world, piece, true));
         }
         store(world.getServer());
+        StructureEditing.log("saved %s: wrote %s, left unwritten for differing copies %s, %d pieces unchanged".formatted(structure, written, conflicts,
+                pieces.stream().filter(piece -> !changed.containsKey(piece.template())).count()));
         return new Saved(written, conflicts);
     }
 
@@ -440,6 +458,10 @@ public class StructureEditSession {
 
     private static BlockBox boxOf(StructureTemplate template, BlockPos origin, BlockRotation rotation) {
         return template.calculateBoundingBox(origin, rotation, BlockPos.ORIGIN, BlockMirror.NONE);
+    }
+
+    private static String describe(BlockBox box) {
+        return "%d,%d,%d to %d,%d,%d".formatted(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ());
     }
 
     private static BlockBox boundsOf(List<Piece> pieces) {

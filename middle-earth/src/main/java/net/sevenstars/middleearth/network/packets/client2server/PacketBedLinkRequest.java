@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
@@ -60,16 +61,24 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getServer().execute(() -> {
-            if(!player.isCreative() || !player.isCreativeLevelTwoOp() || bed.equals(target))
+            if(!player.isCreative() || !player.isCreativeLevelTwoOp() || bed.equals(target)) {
+                StructureEditing.log("link of bed %s to %s refused: not a creative operator, or the bed itself".formatted(bed.toShortString(), target.toShortString()));
                 return;
+            }
             BlockPos at = player.getBlockPos();
-            if(!at.isWithinDistance(bed, REACH) || !at.isWithinDistance(target, REACH))
+            if(!at.isWithinDistance(bed, REACH) || !at.isWithinDistance(target, REACH)) {
+                StructureEditing.log("link of bed %s to %s refused: more than %d blocks from the builder".formatted(bed.toShortString(), target.toShortString(), REACH));
                 return;
+            }
             BlockState state = player.getWorld().getBlockState(bed);
-            if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD)
+            if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD) {
+                StructureEditing.log("link of bed %s refused: no bed head there".formatted(bed.toShortString()));
                 return;
-            if(!(player.getWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null)
+            }
+            if(!(player.getWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null) {
+                StructureEditing.log("link of bed %s refused: the bed is not tagged".formatted(bed.toShortString()));
                 return;
+            }
             BedTag tag = holder.getBedTag();
             BlockPos offset = target.subtract(bed);
             // A manager that is clicked is the one the bed is born by, until it is clicked again and the nearest one is
@@ -77,6 +86,7 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                 boolean untied = tag.manager().filter(offset::equals).isPresent();
                 holder.setBedTag(tag.withManager(untied ? Optional.empty() : Optional.of(offset)));
                 player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, untied ? "manager_untied" : "manager_tied")), true);
+                StructureEditing.log("bed %s %s the manager at %s".formatted(bed.toShortString(), untied ? "untied from" : "tied to", target.toShortString()));
                 return;
             }
             List<BlockPos> links = new ArrayList<>();
@@ -92,6 +102,8 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             if(!unlinked)
                 links.add(offset);
             holder.setBedTag(tag.withLinks(links, true));
+            StructureEditing.log("bed %s %s %s (%s), %d links by hand now".formatted(bed.toShortString(), unlinked ? "unlinked from" : "linked to", target.toShortString(),
+                    player.getWorld().getBlockState(target).getBlock().getName().getString(), links.size()));
             Text block = player.getWorld().getBlockState(target).getBlock().getName();
             player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, unlinked ? "unlinked" : "linked"), block), true);
         });

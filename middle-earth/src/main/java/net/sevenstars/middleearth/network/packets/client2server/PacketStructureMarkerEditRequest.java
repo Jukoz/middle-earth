@@ -73,20 +73,27 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
         player.getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, pos))
                 return;
-            if(!(player.getWorld() instanceof ServerWorld world) || !world.isInBuildLimit(pos))
+            if(!(player.getWorld() instanceof ServerWorld world) || !world.isInBuildLimit(pos)) {
+                StructureEditing.log("marker at %s refused: outside the world".formatted(pos.toShortString()));
                 return;
+            }
             BlockState existing = world.getBlockState(pos);
             boolean marker = existing.isOf(DecorativeBlockRegistryME.STRUCTURE_MARKER);
             if(remove) {
                 if(marker)
                     world.setBlockState(pos, existing.getFluidState().getBlockState(), Block.NOTIFY_ALL);
+                StructureEditing.log(marker ? "marker at %s removed".formatted(pos.toShortString()) : "no marker at %s to remove".formatted(pos.toShortString()));
                 return;
             }
-            if(!facing.getAxis().isHorizontal() || !validValue())
+            if(!facing.getAxis().isHorizontal() || !validValue()) {
+                StructureEditing.log("marker %s at %s refused: facing %s, value `%s`".formatted(kind.asString(), pos.toShortString(), facing.asString(), value));
                 return;
+            }
             if(isNew) {
-                if(!existing.isReplaceable())
+                if(!existing.isReplaceable()) {
+                    StructureEditing.log("marker %s at %s refused: %s is in the way".formatted(kind.asString(), pos.toShortString(), existing.getBlock().getName().getString()));
                     return;
+                }
                 BlockState placed = DecorativeBlockRegistryME.STRUCTURE_MARKER.getDefaultState()
                         .with(StructureMarkerBlock.FACING, facing)
                         .with(StructureMarkerBlock.WATERLOGGED, existing.getFluidState().isEqualAndStill(Fluids.WATER));
@@ -94,8 +101,12 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
             } else if(marker) {
                 world.setBlockState(pos, existing.with(StructureMarkerBlock.FACING, facing), Block.NOTIFY_ALL);
             } else {
+                StructureEditing.log("marker %s at %s refused: the marker that was to be changed is gone".formatted(kind.asString(), pos.toShortString()));
                 return;
             }
+            StructureEditing.log("marker %s %s at %s facing %s%s, which is %s".formatted(kind.asString(), isNew ? "placed" : "changed", pos.toShortString(), facing.asString(),
+                    value.isEmpty() ? "" : " value `%s` x%d%s".formatted(value, count, respawns ? " respawning" : ""),
+                    world.getBlockState(pos.offset(facing)).getBlock().getName().getString()));
             if(world.getBlockEntity(pos) instanceof StructureMarkerBlockEntity entity)
                 entity.update(kind, kind == MarkerKind.SPAWN_NPC || kind == MarkerKind.SPAWN_ANIMAL ? value : "", count, kind == MarkerKind.SPAWN_ANIMAL && respawns);
         });

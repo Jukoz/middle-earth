@@ -60,25 +60,37 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
         player.getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, pos))
                 return;
-            if(!(player.getWorld().getBlockEntity(pos) instanceof BedTagHolder holder))
+            if(!(player.getWorld().getBlockEntity(pos) instanceof BedTagHolder holder)) {
+                StructureEditing.log("bed tag at %s refused: no bed head there".formatted(pos.toShortString()));
                 return;
+            }
             BedTag tag = null;
             if(!nestKind.isEmpty()) {
                 Identifier id = job.isEmpty() ? null : Identifier.tryParse(job);
-                if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null))
+                if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (id == null || NpcJobs.get(id) == null)) {
+                    StructureEditing.log("bed tag at %s refused: unknown nest kind `%s` or job `%s`".formatted(pos.toShortString(), nestKind, job));
                     return;
+                }
                 // A screen only offers the jobs that fit who lives there, and a made up request is held to the same
-                if(id != null && !NpcJobs.fits(id, BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind), nestKind))
+                if(id != null && !NpcJobs.fits(id, BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind), nestKind)) {
+                    StructureEditing.log("bed tag at %s refused: job `%s` does not fit `%s`, who are %s".formatted(pos.toShortString(), job, nestKind,
+                            BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind)));
                     return;
+                }
                 Identifier classId = npcClass.isEmpty() ? null : Identifier.tryParse(npcClass);
-                if(!npcClass.isEmpty() && (classId == null || !player.getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).containsId(classId)))
+                if(!npcClass.isEmpty() && (classId == null || !player.getWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS).containsId(classId))) {
+                    StructureEditing.log("bed tag at %s refused: unknown class `%s`".formatted(pos.toShortString(), npcClass));
                     return;
+                }
                 BedTag before = holder.getBedTag();
                 tag = new BedTag(nestKind, Optional.ofNullable(id), Optional.ofNullable(classId));
                 if(before != null && !resetLinks)
                     tag = tag.withLinks(before.links(), before.manual()).withManager(before.manager());
             }
             holder.setBedTag(tag);
+            StructureEditing.log("bed at %s tagged %s".formatted(pos.toShortString(), tag == null ? "nobody" : "`%s` job `%s` class `%s` links %d%s".formatted(
+                    tag.nestKind(), tag.job().map(Identifier::toString).orElse("as the nest"), tag.npcClass().map(Identifier::toString).orElse("of the nest"),
+                    tag.links().size(), tag.manual() ? " by hand" : "")));
         });
     }
 }
