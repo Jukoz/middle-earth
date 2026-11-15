@@ -135,6 +135,6 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
                 StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
         CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSetRegistryME.NURGON_SET.cobblestoneBlocks.base(),
                 StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.BARREL, Blocks.SPAWNER, DecorativeBlockRegistryME.STRUCTURE_MANAGER,
-                DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, DecorativeBlockRegistryME.STRUCTURE_NEST, DecorativeBlockRegistryME.THIN_BARREL, DecorativeBlockRegistryME.SMALL_CRATE);
+                DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, DecorativeBlockRegistryME.THIN_BARREL, DecorativeBlockRegistryME.SMALL_CRATE);
     }
 }

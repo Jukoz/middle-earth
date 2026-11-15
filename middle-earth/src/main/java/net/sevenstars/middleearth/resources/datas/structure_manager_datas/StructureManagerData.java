@@ -43,7 +43,6 @@ public class StructureManagerData {
         return spawnNestNodeData;
     }
 
-    // Unlike getNpcSpawnNest, null for a nest this manager does not have
     public @Nullable SpawnNestNodeData findSpawnNest(Identifier id) {
         for(SpawnNestNodeData nest : spawnNestNodeData) {
             if(nest.getId().equals(id))
@@ -59,14 +58,5 @@ public class StructureManagerData {
                 return nest;
         }
         return null;
-    }
-
-    public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {
-        for (var nest : spawnNestNodeData){
-            if(nest.getId().equals(idToCompare))
-                return nest;
-        }
-        MiddleEarth.LOGGER.logDebugMsg("StructureManagerData :: Couldn't find nest id : %s".formatted(idToCompare));
-        return spawnNestNodeData.getFirst();
     }
 }

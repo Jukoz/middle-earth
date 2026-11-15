@@ -78,7 +78,6 @@ import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
-import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
@@ -163,7 +162,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MARKER_SCREEN_HANDLER, StructureMarkerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.BED_TAG_SCREEN_HANDLER, net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen::new);
 
@@ -689,7 +687,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_NEST, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_MARKER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.MIRKWOOD_VINES, BlockRenderLayer.CUTOUT);

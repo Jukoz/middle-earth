@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
@@ -148,34 +147,5 @@ public class StructureManagerService {
         }
 
         return false;
-    }
-
-    public static StructureManagerBlockEntity getClosest(World world, BlockPos pos, int radius) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
-
-        if (managers == null) {
-            return null;
-        }
-
-        int radiusSquared = radius * radius;
-        double closestDistance = Double.MAX_VALUE;
-        StructureManagerBlockEntity closest = null;
-
-        for (BlockPos managerPos : managers) {
-            double distance = managerPos.getSquaredDistance(pos);
-
-            if (distance > radiusSquared || distance >= closestDistance) {
-                continue;
-            }
-
-            BlockEntity blockEntity = world.getBlockEntity(managerPos);
-
-            if (blockEntity instanceof StructureManagerBlockEntity structureManager) {
-                closestDistance = distance;
-                closest = structureManager;
-            }
-        }
-
-        return closest;
     }
 }

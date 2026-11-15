@@ -243,21 +243,6 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
     }
 
-    public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
-        if(!enabled || managerId == null || structureManagerIdentifier == null || managerData == null || managerId.compareTo(this.structureManagerIdentifier) != 0)
-            return false;
-
-        SpawnNestNodeData data = managerData.findSpawnNest(nestId);
-        if(data == null || structureNestList == null)
-            return false;
-        // The people of a place are born in its tagged beds, so a nest of them is only taken away
-        if(data.isPeople())
-            return true;
-        this.structureNestList.addNest(new SpawnNestManager(data, nestPos, spawnRadius));
-        markDirty();
-        return true;
-    }
-
     public static void triggerDeathSignal(BlockPos pos, LivingEntity entity) {
         if(entity.getEntityWorld().isClient())
             return;

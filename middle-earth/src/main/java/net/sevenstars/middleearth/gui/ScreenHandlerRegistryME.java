@@ -21,8 +21,6 @@ import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenHandler;
-import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
-import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 
 public class ScreenHandlerRegistryME {
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER
@@ -46,9 +44,6 @@ public class ScreenHandlerRegistryME {
     public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
 
-    public static final ScreenHandlerType<StructureNestScreenHandler> STRUCTURE_NEST_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, StructureNestScreenData.PACKET_CODEC.cast());
-
     public static final ScreenHandlerType<StructureMarkerScreenHandler> STRUCTURE_MARKER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureMarkerScreenHandler::new, StructureMarkerScreenData.PACKET_CODEC);
 
@@ -62,7 +57,6 @@ public class ScreenHandlerRegistryME {
         register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
         register("treated_anvil", TREATED_ANVIL_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
-        register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
         register("structure_marker", STRUCTURE_MARKER_SCREEN_HANDLER);
         register("bed_tag", BED_TAG_SCREEN_HANDLER);
         register("crockpot",CROCKPOT_SCREEN_HANDLER );

@@ -13,7 +13,6 @@ import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmen
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -120,9 +119,6 @@ public class LanguageProvider extends FabricLanguageProvider {
 
         TranslationEntries.structureManagerEntries.forEach(structureManagerData -> {
             createTranslation(translationBuilder, "structure_manager_data", structureManagerData.getId().getPath());
-            for(SpawnNestNodeData spawnNest : structureManagerData.getNpcSpawnNest()) {
-                createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
-            }
         });
 
         for(MarkerKind kind : MarkerKind.values()) {

@@ -88,8 +88,6 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item ORC_STRUCTURE_MANAGER = registerItem("orc_structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, settings), new Item.Settings());
-    public static final Item STRUCTURE_NEST = registerItem("structure_nest",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_NEST, settings), new Item.Settings());
     public static final Item STRUCTURE_MARKER = registerItem("structure_marker",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MARKER, settings), new Item.Settings());
 
