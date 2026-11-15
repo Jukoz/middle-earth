@@ -309,7 +309,7 @@ public class IsengardNpcClassPool {
         URUK_HAI_SOLDIER.withRoutine(NpcRoutines.WATCH);
         ORTHANC_GUARD.withRoutine(NpcRoutines.ELITE);
         URUK_HAI_VETERAN.withRoutine(NpcRoutines.SOLDIER);
-        URUK_HAI_BERSERKER.withRoutine(NpcRoutines.BRUTE);
+        URUK_HAI_BERSERKER.withRoutine(NpcRoutines.SOLDIER);
         URUK_HAI_LEADER.withRoutine(NpcRoutines.LEADER);
         SNAGA.asCivilian();
     }

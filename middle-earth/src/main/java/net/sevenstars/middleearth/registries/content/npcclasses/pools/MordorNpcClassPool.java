@@ -479,7 +479,7 @@ public class MordorNpcClassPool {
         SNAGA.withRoutine(NpcRoutines.NIGHT_WORKER);
         VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
         CAPTAIN.withRoutine(NpcRoutines.NIGHT_LEADER);
-        DOL_GULDUR_WARRIOR.withRoutine(NpcRoutines.NIGHT_SOLDIER);
+        DOL_GULDUR_WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
         SNAGA.asCivilian();
     }
 }

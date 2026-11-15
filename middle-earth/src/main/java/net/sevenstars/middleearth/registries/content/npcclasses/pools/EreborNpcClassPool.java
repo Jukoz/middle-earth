@@ -311,7 +311,7 @@ public class EreborNpcClassPool {
 
         MILITIA.withRoutine(NpcRoutines.WATCH);
         SOLDIER.withRoutine(NpcRoutines.WATCH);
-        GATEWARDEN.withRoutine(NpcRoutines.WATCH);
+        GATEWARDEN.withRoutine(NpcRoutines.GUARD);
         PEASANT.withRoutine(NpcRoutines.GATHERER);
         ARCHER.withRoutine(NpcRoutines.ARCHER);
         ELITE.withRoutine(NpcRoutines.ELITE);

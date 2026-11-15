@@ -244,7 +244,7 @@ public class BrigandNpcClassPool {
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
 
-        THUG.withRoutine(NpcRoutines.WATCH);
+        THUG.withRoutine(NpcRoutines.OUTLAW);
         THIEF.withRoutine(NpcRoutines.OUTLAW);
         MERCENARY.withRoutine(NpcRoutines.OUTLAW);
         CHIEFTAIN.withRoutine(NpcRoutines.LEADER);

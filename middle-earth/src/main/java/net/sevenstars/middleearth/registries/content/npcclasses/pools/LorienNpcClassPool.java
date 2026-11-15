@@ -254,7 +254,7 @@ public class LorienNpcClassPool {
 
         CIVILIAN.withRoutine(NpcRoutines.GATHERER);
         SENTINEL.withRoutine(NpcRoutines.WATCH);
-        RANGER.withRoutine(NpcRoutines.WATCH);
+        RANGER.withRoutine(NpcRoutines.HUNTING_WATCH);
         WARRIOR.withRoutine(NpcRoutines.WATCH);
         KNIGHT.withRoutine(NpcRoutines.ELITE);
         GUARD.withRoutine(NpcRoutines.ELITE);
