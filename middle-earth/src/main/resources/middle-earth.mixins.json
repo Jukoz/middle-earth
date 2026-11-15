@@ -20,7 +20,6 @@
     "CropBlockMixin",
     "DoorBlockMixin",
     "EntityDataSaverMixin",
-    "EntitySpawnMixin",
     "FilledMapItemMixin",
     "FishingBobberEntityMixin",
     "FoliagePlacerTypeInvoker",

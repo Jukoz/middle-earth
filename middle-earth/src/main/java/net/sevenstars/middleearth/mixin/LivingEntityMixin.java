@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -40,6 +41,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+    private static boolean stackTraceLock = false;
+    // Of the speed of a mount an npc rides: what a horse is held to, and the least any mount keeps
+    @Unique
+    private static final float NPC_HORSE_SPEED = 0.5f;
+    @Unique
+    private static final float MINIMUM_NPC_MOUNT_SPEED = 0.25f;
+
     @Shadow @Final protected EntityEquipment equipment;
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
@@ -131,18 +139,11 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getMovementSpeed()F", at = @At("RETURN"), cancellable = true)
     private void getMovementSpeed(CallbackInfoReturnable<Float> cir) {
-        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity){
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity){
             float currentValue = cir.getReturnValue();
-            float modifier = 1f;
-            float fightingModifier = 1f;
-            if(getControllingPassenger().getVehicle() instanceof HorseEntity){
-                currentValue = 0.5f;
-                fightingModifier = 2f;
-            }
-            if(npcEntity.isFighting()){
-                cir.setReturnValue(Math.max(currentValue * fightingModifier, 0.5f));
-            }
-            cir.setReturnValue(Math.max(currentValue * modifier, 0.25f));
+            if(getControllingPassenger().getVehicle() instanceof HorseEntity)
+                currentValue = NPC_HORSE_SPEED;
+            cir.setReturnValue(Math.max(currentValue, MINIMUM_NPC_MOUNT_SPEED));
         }
     }
     @WrapOperation(method = "applyClimbingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 0))

@@ -49,13 +49,6 @@ public class WildGoblinNpcClassPool {
         );
     }
 
-    public static final HashMap<EntityCategories, AttributePool> TANKY_ATTRIBUTES = new HashMap<>(){{
-        put(EntityCategories.SHARED, new AttributePool().addElements(List.of(
-            AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, 0.35, 0.45),
-            AttributePoolElement.create(EntityAttributes.ARMOR, 5, 10)
-        )));
-    }};
-
     static {
         GATHERER = new NpcClass(NpcRegistry.WILD_GOBLIN_GATHERER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.WILD_GOBLIN_WEAK, List.of(
             WeightedGearData.create()

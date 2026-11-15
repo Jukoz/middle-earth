@@ -106,7 +106,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         public static final String DATA = "NpcData";
         public static final String INITIALIZATION_DATA = "InitializationData";
         public static final String TEXTURE_DATA = "TextureData";
-        public static final String IS_FIGHTING = "IsFighting";
         public static final String PARTY_LEADER = "PartyLeader";
         public static final String TRAVEL_HEADING = "TravelHeading";
         public static final String TRAVEL_DESTINATION = "TravelDestination";
@@ -126,7 +125,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final TrackedData<NpcData> NPC_DATA;
     private static final TrackedData<NpcInitializationData> NPC_INITIALIZATION_DATA;
     private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
-    private static final TrackedData<Boolean> IS_FIGHTING;
 
     // Of a body whatever its scale, a little less than the room a board leaves in its block
     private static final float MAXIMUM_WIDTH = 0.8f;
@@ -288,13 +286,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
-    // [IsFighting]
-    public void setFighting(boolean state){
-        this.dataTracker.set(IS_FIGHTING, state);
-    }
-    public boolean getFighting(){
-        return this.dataTracker.get(IS_FIGHTING);
-    }
     // [NpcTextureData]
     public void saveNpcTextureData(NpcTextureData npcTextureData) {
         this.dataTracker.set(NPC_TEXTURE_DATA, npcTextureData);
@@ -406,7 +397,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         builder.add(NPC_INITIALIZATION_DATA, new NpcInitializationData());
         builder.add(NPC_DATA, new NpcData());
         builder.add(NPC_TEXTURE_DATA, new NpcTextureData());
-        builder.add(IS_FIGHTING, false);
         builder.add(JOB, "");
         builder.add(CROSSBOW_CHARGING, false);
         builder.add(USING_ITEM, 0);
@@ -418,7 +408,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         view.put(KeyStrings.DATA, NpcData.CODEC, this.retrieveNpcData());
         view.put(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC, this.retrieveNpcInitializationData());
         view.put(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC, this.retrieveNpcTextureData());
-        view.put(KeyStrings.IS_FIGHTING, Codec.BOOL, this.getFighting());
         view.putNullable(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC, this.partyLeader);
         view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
         view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
@@ -442,7 +431,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         NpcData foundNpcData = view.read(KeyStrings.DATA, NpcData.CODEC).orElse(new NpcData());
         NpcInitializationData foundNpcInitializationData = view.read(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData());
         NpcTextureData foundNpcTextureData = view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData());
-        boolean isFighting = view.read(KeyStrings.IS_FIGHTING, Codec.BOOL).orElse(false);
         this.partyLeader = view.read(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC).orElse(null);
         this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
         this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
@@ -479,13 +467,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             foundNpcInitializationData = foundNpcInitializationData.withNpcClass(MiddleEarth.ofId(npcDataId));
             foundNpcData = new NpcData();
             foundNpcTextureData = new  NpcTextureData();
-            isFighting = false;
         }
 
         this.dataTracker.set(NPC_DATA, foundNpcData);
         this.dataTracker.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
         this.dataTracker.set(NPC_TEXTURE_DATA, foundNpcTextureData);
-        this.dataTracker.set(IS_FIGHTING, isFighting);
 
         foundNpcInitializationData.tryToInitialize(this);
 
@@ -1113,16 +1099,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    public boolean isFighting() {
-        boolean isFighting = getFighting();
-
-        this.setSprinting(isFighting);
-        if(this.hasVehicle() && getVehicle() instanceof AbstractHorseEntity abstractHorseEntity){
-            abstractHorseEntity.setSprinting(isFighting);
-        }
-        return isFighting;
-    }
-
     @Override
     public boolean shouldControlVehicles() {
         return true;
@@ -1495,6 +1471,5 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         NPC_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
         NPC_INITIALIZATION_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
         NPC_TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
-        IS_FIGHTING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 }

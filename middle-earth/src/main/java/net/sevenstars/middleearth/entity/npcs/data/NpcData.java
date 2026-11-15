@@ -6,12 +6,10 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
@@ -82,17 +80,6 @@ public class NpcData {
     }
     public NpcData withoutStructureManagerPos() {
         return new NpcData(this.npcClass, this.category, this.spawnReason, Optional.empty());
-    }
-
-    public NpcData withNpcClass(World world, Identifier npcDataIdentifier) {
-        if(npcDataIdentifier == null || world == null)
-            return this;
-
-        Registry<NpcClass> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
-        NpcClass npcClass = registry.get(npcDataIdentifier);
-        if(npcClass == null)
-            return this;
-        return this.withNpcClass(registry.getEntry(npcClass));
     }
 
     public Identifier getNpcClassId() {
