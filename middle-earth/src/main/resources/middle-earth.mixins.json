@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AbstractHorseEntityMixin",
+    "BuilderNoClipMixin",
     "AnvilScreenHandlerMixin",
     "BedBlockOutlineMixin",
     "BannerPatternRegisterMixin",
@@ -26,6 +27,7 @@
     "GrassBlockMixin",
     "LivingEntityMixin",
     "PigEntityMixin",
+    "JigsawBlockMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
     "PowderSnowBlockMixin",

@@ -61,7 +61,7 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getServer().execute(() -> {
-            if(!player.isCreative() || !player.isCreativeLevelTwoOp() || bed.equals(target)) {
+            if(!StructureEditing.isBuilder(player) || bed.equals(target)) {
                 StructureEditing.log("link of bed %s to %s refused: not a creative operator, or the bed itself".formatted(bed.toShortString(), target.toShortString()));
                 return;
             }

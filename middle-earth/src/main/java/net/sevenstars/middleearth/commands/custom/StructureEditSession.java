@@ -4,6 +4,10 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SpawnerBlock;
+import net.minecraft.block.SpreadableBlock;
+import net.minecraft.block.TrialSpawnerBlock;
+import net.minecraft.block.VaultBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -84,10 +88,14 @@ public class StructureEditSession {
     private static final String STATE = "state";
     private static final String NBT = "nbt";
     private static final String SIZE = "size";
+    private static final String LOOT_TABLE_SEED = "LootTableSeed";
+    private static final int DIFFERENCES_LOGGED = 6;
+    private static final int DIFFERENCE_LENGTH = 90;
 
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
     // The sessions read back with the world that no builder has taken up since
     private static final Set<UUID> RESTORED = new HashSet<>();
+    private static final Set<UUID> SINGLES = new HashSet<>();
     private static final String FILE = "data/middle-earth_structure_editing.nbt";
     private static final String SESSIONS_KEY = "sessions";
     private static final String BUILDER = "builder";
@@ -158,6 +166,8 @@ public class StructureEditSession {
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             SESSIONS.clear();
             RESTORED.clear();
+            SINGLES.clear();
+            StructureEditing.clearNoClip();
         });
     }
 
@@ -223,7 +233,7 @@ public class StructureEditSession {
                     if(template == null || origin.length != 3 || box.length != 6)
                         continue;
                     pieces.add(new Piece(template, new BlockPos(origin[0], origin[1], origin[2]), BlockRotation.valueOf(storedPiece.getString(ROTATION, BlockRotation.NONE.name())),
-                            new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), storedPiece.getCompoundOrEmpty(LOADED)));
+                            new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), withoutSeeds(storedPiece.getCompoundOrEmpty(LOADED))));
                 }
                 UUID builder = UUID.fromString(stored.getString(BUILDER, ""));
                 SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),
@@ -234,6 +244,30 @@ public class StructureEditSession {
         } catch (IOException | IllegalArgumentException e) {
             MiddleEarth.LOGGER.logError("StructureEditSession :: could not read the structures that were loaded in this world", e);
         }
+        pause(server);
+    }
+
+    // A template loaded by itself is edited too, though it is no session
+    public static void beginSingle(MinecraftServer server, UUID builder) {
+        SINGLES.add(builder);
+        pause(server);
+    }
+
+    public static boolean endSingle(MinecraftServer server, UUID builder) {
+        boolean ended = SINGLES.remove(builder);
+        pause(server);
+        return ended;
+    }
+
+    // While pieces stand in the world to be edited, the world stands still: nothing grows, flows, burns or wakes in them,
+    // and what is saved is what the builder made. Builders move and build as ever. A frozen game is not kept with the
+    // world, so this is asked again when it starts
+    private static void pause(MinecraftServer server) {
+        boolean editing = !SINGLES.isEmpty() || SESSIONS.values().stream().anyMatch(session -> session.spaced);
+        if(server.getTickManager().isFrozen() == editing)
+            return;
+        server.getTickManager().setFrozen(editing);
+        StructureEditing.log(editing ? "the world stands still while pieces are edited" : "the world runs again");
     }
 
     public static int gapOf(UUID builder) {
@@ -329,7 +363,7 @@ public class StructureEditSession {
             return false;
         for(Piece piece : pieces) {
             StructureTemplate template = world.getStructureTemplateManager().getTemplate(piece.template()).orElse(null);
-            if(template != null && !read(world, piece).equals(piece.loaded()))
+            if(template != null && !read(world, piece, piece.loaded()).equals(piece.loaded()))
                 return true;
         }
         return false;
@@ -398,9 +432,13 @@ public class StructureEditSession {
         List<Piece> loaded = new ArrayList<>();
         for(Piece piece : pieces)
             loaded.add(place(world, piece, spaced));
+        // A piece set on another one makes the blocks along their seam join up, after the first was read
+        if(spaced)
+            loaded.replaceAll(piece -> new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), read(world, piece, null)));
         StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, gap, loaded);
         SESSIONS.put(builder, session);
         store(world.getServer());
+        pause(world.getServer());
         StructureEditing.log("loaded %s from the seed %d, %s, %d pieces in %s".formatted(id, seed, spaced ? "spaced %d apart".formatted(gap) : "assembled", loaded.size(), describe(boundsOf(loaded))));
         for(Piece piece : loaded)
             StructureEditing.log("  piece %s turned %s in %s".formatted(piece.template(), piece.rotation().asString(), describe(piece.box())));
@@ -439,7 +477,7 @@ public class StructureEditSession {
         // one, and fences reach for neighbours that are not there
         StructurePlacementData placement = new StructurePlacementData().setRotation(piece.rotation()).setIgnoreEntities(true).setUpdateNeighbors(true);
         template.place(world, piece.origin(), piece.origin(), placement, world.getRandom(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
-        return new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), spaced ? read(world, piece) : piece.loaded());
+        return new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), spaced ? read(world, piece, null) : piece.loaded());
     }
 
     // Takes the pieces of the builder's structure out of the world again
@@ -452,6 +490,7 @@ public class StructureEditSession {
         for(Piece piece : session.pieces)
             fill(world, piece.box(), Blocks.AIR.getDefaultState());
         store(world.getServer());
+        pause(world.getServer());
         return true;
     }
 
@@ -465,11 +504,11 @@ public class StructureEditSession {
             StructureTemplate template = manager.getTemplate(piece.template()).orElse(null);
             if(template == null)
                 continue;
-            NbtCompound now = read(world, piece);
+            NbtCompound now = read(world, piece, piece.loaded());
             if(now.equals(piece.loaded()))
                 continue;
-            StructureEditing.log("  changed: %s in %s, %d blocks where there were %d, size %s where it was %s".formatted(piece.template(), describe(piece.box()),
-                    now.getListOrEmpty(BLOCKS).size(), piece.loaded().getListOrEmpty(BLOCKS).size(), now.getListOrEmpty(SIZE), piece.loaded().getListOrEmpty(SIZE)));
+            StructureEditing.log("  changed: %s in %s, size %s where it was %s, %s".formatted(piece.template(), describe(piece.box()),
+                    now.getListOrEmpty(SIZE), piece.loaded().getListOrEmpty(SIZE), differences(piece.loaded(), now)));
             NbtCompound other = changed.put(piece.template(), now);
             if(other != null && !other.equals(now) && !conflicts.contains(piece.template()))
                 conflicts.add(piece.template());
@@ -615,9 +654,82 @@ public class StructureEditSession {
         }
     }
 
+    // Of a session stored when the seeds of loot were still read with the rest
+    private static NbtCompound withoutSeeds(NbtCompound template) {
+        NbtList blocks = template.getListOrEmpty(BLOCKS);
+        for(int i = 0; i < blocks.size(); i++)
+            blocks.getCompoundOrEmpty(i).getCompound(NBT).ifPresent(data -> data.remove(LOOT_TABLE_SEED));
+        return template;
+    }
+
+    private record Held(BlockState state, @Nullable NbtCompound data) {}
+
+    private static Map<BlockPos, Held> heldIn(ServerWorld world, NbtCompound template) {
+        Map<BlockPos, Held> held = new HashMap<>();
+        NbtList palette = template.getListOrEmpty(PALETTE);
+        NbtList blocks = template.getListOrEmpty(BLOCKS);
+        for(int i = 0; i < blocks.size(); i++) {
+            NbtCompound block = blocks.getCompoundOrEmpty(i);
+            NbtList at = block.getListOrEmpty(POS);
+            held.put(new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0)), new Held(
+                    NbtHelper.toBlockState(world.getRegistryManager().getOrThrow(RegistryKeys.BLOCK), palette.getCompoundOrEmpty(block.getInt(STATE, 0))),
+                    block.getCompound(NBT).orElse(null)));
+        }
+        return held;
+    }
+
+    // What a world left to itself does to a build while it stands there to be edited: a spawner or a vault wakes to the
+    // builder, grass dies under a roof and creeps over bare earth. None of it is the builder's work
+    private static boolean isWorldsDoing(BlockState held, BlockState now) {
+        Block before = held.getBlock();
+        Block after = now.getBlock();
+        if(before == after)
+            return before instanceof TrialSpawnerBlock || before instanceof VaultBlock || before instanceof SpawnerBlock;
+        return isSoil(before) && isSoil(after);
+    }
+
+    private static boolean isSoil(Block block) {
+        return block == Blocks.DIRT || block instanceof SpreadableBlock;
+    }
+
+    // What was changed, for the log: how many blocks, and the first few of them
+    private static String differences(NbtCompound before, NbtCompound now) {
+        Map<BlockPos, String> old = described(before);
+        Map<BlockPos, String> current = described(now);
+        Set<BlockPos> all = new HashSet<>(old.keySet());
+        all.addAll(current.keySet());
+        List<BlockPos> differing = new ArrayList<>(all.stream().filter(pos -> !String.valueOf(old.get(pos)).equals(String.valueOf(current.get(pos)))).toList());
+        differing.sort(Comparator.naturalOrder());
+        StringBuilder out = new StringBuilder("%d blocks differ".formatted(differing.size()));
+        for(int i = 0; i < Math.min(DIFFERENCES_LOGGED, differing.size()); i++) {
+            BlockPos pos = differing.get(i);
+            out.append(i == 0 ? ": " : "; ").append(pos.toShortString()).append(" ").append(shortened(old.get(pos))).append(" -> ").append(shortened(current.get(pos)));
+        }
+        return out.toString();
+    }
+
+    private static Map<BlockPos, String> described(NbtCompound template) {
+        Map<BlockPos, String> described = new HashMap<>();
+        NbtList palette = template.getListOrEmpty(PALETTE);
+        NbtList blocks = template.getListOrEmpty(BLOCKS);
+        for(int i = 0; i < blocks.size(); i++) {
+            NbtCompound block = blocks.getCompoundOrEmpty(i);
+            NbtList at = block.getListOrEmpty(POS);
+            described.put(new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0)),
+                    palette.getCompoundOrEmpty(block.getInt(STATE, 0)) + block.getCompound(NBT).map(NbtCompound::toString).orElse(""));
+        }
+        return described;
+    }
+
+    private static String shortened(@Nullable String text) {
+        return text == null ? "nothing" : text.length() > DIFFERENCE_LENGTH ? text.substring(0, DIFFERENCE_LENGTH) + "..." : text;
+    }
+
     // The blocks of a piece as its template holds them: turned back to how the template lies, in the order the game saves
-    // them in, whole blocks first and those with data last
-    private static NbtCompound read(ServerWorld world, Piece piece) {
+    // them in, whole blocks first and those with data last. Told what it held when it was loaded, what the world has since
+    // done to it by itself is read as it was
+    private static NbtCompound read(ServerWorld world, Piece piece, @Nullable NbtCompound loaded) {
+        Map<BlockPos, Held> held = loaded == null ? Map.of() : heldIn(world, loaded);
         Vec3i size = sizeOf(piece.box(), piece.rotation());
         BlockRotation back = switch (piece.rotation()) {
             case CLOCKWISE_90 -> BlockRotation.COUNTERCLOCKWISE_90;
@@ -640,9 +752,17 @@ public class StructureEditSession {
                 data.remove("x");
                 data.remove("y");
                 data.remove("z");
+                // Drawn anew for every chest each time a template is placed
+                data.remove(LOOT_TABLE_SEED);
             }
-            int order = data != null ? 2 : !state.getBlock().hasDynamicBounds() && state.isFullCube(world, pos) ? 0 : 1;
-            found.add(new Found(local, state.rotate(back), data, order));
+            BlockState turned = state.rotate(back);
+            Held before = held.get(local);
+            if(before != null && isWorldsDoing(before.state(), turned)) {
+                turned = before.state();
+                data = before.data();
+            }
+            int order = data != null ? 2 : !turned.getBlock().hasDynamicBounds() && turned.isFullCube(world, pos) ? 0 : 1;
+            found.add(new Found(local.toImmutable(), turned, data, order));
         }
         found.sort(Comparator.<Found>comparingInt(Found::order).thenComparingInt(block -> block.pos().getY())
                 .thenComparingInt(block -> block.pos().getX()).thenComparingInt(block -> block.pos().getZ()));

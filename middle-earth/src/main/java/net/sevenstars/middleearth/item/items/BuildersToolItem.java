@@ -70,8 +70,8 @@ public class BuildersToolItem extends Item {
             BlockState state = world.getBlockState(hit.getBlockPos());
             boolean bed = state.getBlock() instanceof BedBlock;
             if(world.isClient)
-                return player.isCreative() ? ActionResult.SUCCESS : ActionResult.FAIL;
-            if(!(player instanceof ServerPlayerEntity serverPlayer) || !player.isCreative() || !serverPlayer.isCreativeLevelTwoOp())
+                return StructureEditing.isBuildMode(player) ? ActionResult.SUCCESS : ActionResult.FAIL;
+            if(!(player instanceof ServerPlayerEntity serverPlayer) || !StructureEditing.isBuilder(player))
                 return ActionResult.FAIL;
             if(!bed) {
                 // What the build is taken to have is put off limits, or back in use, by the click itself. Sneaking, the

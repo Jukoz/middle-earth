@@ -39,6 +39,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -54,6 +65,12 @@ public class CommandStructureEdit {
     private static final String SEED = "seed";
     private static final String VIEW = "view";
     private static final String CLOSE = "close";
+    private static final String BEDS = "beds";
+    private static final String NO_CLIP = "noclip";
+    private static final String NEXT = "next";
+    private static final String BACK = "back";
+    // Looking down at the bed from where the builder is set beside it
+    private static final float BED_VIEW_PITCH = 35;
     private static final String GAP = "gap";
     private static final String EXPAND = "expand";
     private static final String BLOCKS = "blocks";
@@ -70,6 +87,8 @@ public class CommandStructureEdit {
     private record Placed(RegistryKey<World> dimension, BlockPos saveBlock) {}
 
     private static final Map<UUID, Placed> PLACED = new HashMap<>();
+    // The bed each builder was last taken to
+    private static final Map<UUID, BlockPos> BED_VISITED = new HashMap<>();
 
     private static final SuggestionProvider<ServerCommandSource> TEMPLATES = (context, builder) ->
             CommandSource.suggestIdentifiers(context.getSource().getServer().getStructureTemplateManager().streamTemplates(), builder);
@@ -100,6 +119,11 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(SPACED).executes(context -> view(context, true)))
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
+                .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
+                .then(CommandManager.literal(BEDS)
+                        .executes(context -> beds(context, 0))
+                        .then(CommandManager.literal(NEXT).executes(context -> beds(context, 1)))
+                        .then(CommandManager.literal(BACK).executes(context -> beds(context, -1))))
                 .then(CommandManager.literal(GAP)
                         .then(CommandManager.argument(BLOCKS, IntegerArgumentType.integer(0, StructureEditSession.MAXIMUM_GAP))
                                 .executes(CommandStructureEdit::gap)))
@@ -147,7 +171,7 @@ public class CommandStructureEdit {
             return 0;
         }
         source.sendFeedback(() -> Text.literal("Loaded %s from the seed %d: %d pieces, %s. %s".formatted(id, seed, session.getPieces().size(),
-                spaced ? "spaced %d blocks apart".formatted(session.getGap()) : "assembled", spaced ? "/%s %s writes the pieces that were changed".formatted(COMMAND, SAVE)
+                spaced ? "spaced %d blocks apart".formatted(session.getGap()) : "assembled", spaced ? "The world stands still until /%s %s. /%s %s writes the pieces that were changed".formatted(COMMAND, CLOSE, COMMAND, SAVE)
                         : "This view is for looking: /%s %s %s to change and save pieces".formatted(COMMAND, VIEW, SPACED))), false);
         return 1;
     }
@@ -200,9 +224,108 @@ public class CommandStructureEdit {
         return 1;
     }
 
+    private static int noClip(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        if(!player.isCreative()) {
+            source.sendError(Text.literal("Passing through blocks is for creative mode"));
+            return 0;
+        }
+        boolean on = StructureEditing.toggleNoClip(player);
+        if(on) {
+            player.getAbilities().flying = true;
+            player.sendAbilitiesUpdate();
+        }
+        source.sendFeedback(() -> Text.literal(on ? "You pass through blocks now, flying. /%s %s again to stop".formatted(COMMAND, NO_CLIP) : "Blocks are solid to you again"), false);
+        return 1;
+    }
+
+    private record FoundBed(BlockPos pos, String build) {}
+
+    // Every bed of what the builder has loaded, piece after piece, in an order that stays the same between calls
+    private static List<FoundBed> bedsOf(ServerWorld world, ServerPlayerEntity player) {
+        Map<BlockBox, String> builds = new LinkedHashMap<>();
+        StructureEditSession session = StructureEditSession.claim(player.getUuid());
+        if(session != null && session.getDimension().equals(world.getRegistryKey())) {
+            for(StructureEditSession.Piece piece : session.getPieces())
+                builds.put(piece.box(), piece.template().getPath());
+        } else {
+            StructureBlockBlockEntity block = findStructureBlock(world, player);
+            if(block != null) {
+                BlockPos from = block.getPos().add(block.getOffset());
+                builds.put(BlockBox.create(from, from.add(block.getSize()).add(-1, -1, -1)), block.getTemplateName());
+            }
+        }
+        List<FoundBed> beds = new ArrayList<>();
+        for(Map.Entry<BlockBox, String> build : builds.entrySet()) {
+            BlockBox box = build.getKey();
+            List<BlockPos> found = new ArrayList<>();
+            for(int x = box.getMinX() >> 4; x <= box.getMaxX() >> 4; x++) {
+                for(int z = box.getMinZ() >> 4; z <= box.getMaxZ() >> 4; z++) {
+                    if(!world.isChunkLoaded(x, z))
+                        continue;
+                    for(BlockPos pos : world.getChunk(x, z).getBlockEntityPositions()) {
+                        BlockState state = world.getBlockState(pos);
+                        if(box.contains(pos) && state.getBlock() instanceof BedBlock && state.get(BedBlock.PART) == BedPart.HEAD)
+                            found.add(pos.toImmutable());
+                    }
+                }
+            }
+            found.sort(Comparator.naturalOrder());
+            found.forEach(pos -> beds.add(new FoundBed(pos, build.getValue())));
+        }
+        return beds;
+    }
+
+    // Takes the builder to the first bed, or from the one last visited to the one after or before it
+    private static int beds(CommandContext<ServerCommandSource> context, int step) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        ServerWorld world = source.getWorld();
+        List<FoundBed> beds = bedsOf(world, player);
+        if(beds.isEmpty()) {
+            source.sendError(Text.literal("No beds: nothing is loaded here, or what is loaded has none"));
+            return 0;
+        }
+        int index = 0;
+        if(step != 0) {
+            BlockPos visited = BED_VISITED.get(player.getUuid());
+            int last = -1;
+            for(int i = 0; i < beds.size(); i++) {
+                if(beds.get(i).pos().equals(visited))
+                    last = i;
+            }
+            index = last < 0 ? 0 : Math.floorMod(last + step, beds.size());
+        }
+        FoundBed bed = beds.get(index);
+        BED_VISITED.put(player.getUuid(), bed.pos());
+        BlockPos stand = NestSurvey.standFor(world, bed.pos());
+        if(stand == null)
+            stand = bed.pos().up();
+        Vec3d from = Vec3d.ofBottomCenter(stand);
+        Vec3d to = Vec3d.ofCenter(bed.pos());
+        float yaw = stand.getX() == bed.pos().getX() && stand.getZ() == bed.pos().getZ() ? player.getYaw()
+                : (float) Math.toDegrees(Math.atan2(to.z - from.z, to.x - from.x)) - 90;
+        player.teleport(world, from.x, from.y, from.z, Set.of(), yaw, BED_VIEW_PITCH, false);
+
+        long untagged = beds.stream().filter(found -> BedTagHolder.tagAt(world, found.pos()).isEmpty()).count();
+        String who = BedTagHolder.tagAt(world, bed.pos()).map(tag -> "%s%s%s".formatted(tag.nestKind(),
+                tag.place().map(place -> " of " + place.getPath()).orElse(""), tag.job().map(job -> ", job " + job.getPath()).orElse(""))).orElse("not tagged");
+        int number = index + 1;
+        source.sendFeedback(() -> Text.literal("Bed %d of %d, in %s: %s. %d beds are not tagged. /%s %s %s and %s to go on".formatted(number, beds.size(), bed.build(), who,
+                untagged, COMMAND, BEDS, NEXT, BACK)), false);
+        return 1;
+    }
+
     private static int close(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
+        boolean single = StructureEditSession.endSingle(source.getServer(), source.getPlayerOrThrow().getUuid());
         if(!StructureEditSession.close(source.getWorld(), source.getPlayerOrThrow().getUuid())) {
+            // A template loaded by itself stays where it is: only the world is set running again
+            if(single) {
+                source.sendFeedback(() -> Text.literal("The world runs again. The template stays where it was loaded"), false);
+                return 1;
+            }
             source.sendError(Text.literal("No structure is loaded in this dimension"));
             return 0;
         }
@@ -271,6 +394,7 @@ public class CommandStructureEdit {
         world.updateListeners(saveBlock, world.getBlockState(saveBlock), world.getBlockState(saveBlock), Block.NOTIFY_ALL);
 
         PLACED.put(player.getUuid(), new Placed(world.getRegistryKey(), saveBlock));
+        StructureEditSession.beginSingle(world.getServer(), player.getUuid());
         source.sendFeedback(() -> Text.literal("Loaded %s (%dx%dx%d) from %s. Its structure block is at %s, below the first corner."
                 .formatted(id, size.getX(), size.getY(), size.getZ(), origin.toShortString(), saveBlock.toShortString())), false);
         return 1;

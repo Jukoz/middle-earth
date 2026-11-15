@@ -4,12 +4,14 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlock;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureBoundsRequest;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
@@ -19,13 +21,14 @@ import org.jetbrains.annotations.Nullable;
 // The bed picked with a left-click of the builder's tool, whose links the next left-clicks make and unmake
 public class BuildersToolSelection {
     // A held button repeats its click every five ticks, which must not pick and drop the bed again and again
-    private static final long REPEAT_TICKS = 6;
+    // By the clock, not by the game's time, which stands still while a structure is edited
+    private static final long REPEAT_MILLIS = 300;
 
     private static @Nullable BlockPos selected = null;
     // The manager the bounds of its build are being set from, and the corner that was clicked first
     private static @Nullable BlockPos boundsAnchor = null;
     private static @Nullable BlockPos boundsFirst = null;
-    private static long lastClick = Long.MIN_VALUE;
+    private static long lastClick = 0;
 
     public static @Nullable BlockPos selected() {
         return selected;
@@ -63,7 +66,7 @@ public class BuildersToolSelection {
             if(!world.isClient || !BuildersToolRenderer.holdsTool(player))
                 return ActionResult.PASS;
             // The tool never breaks anything, whatever is clicked
-            if(!player.isCreative())
+            if(!StructureEditing.isBuildMode(player))
                 return ActionResult.FAIL;
             if(selected != null && !(world.getBlockState(selected).getBlock() instanceof BedBlock))
                 selected = null;
@@ -73,8 +76,8 @@ public class BuildersToolSelection {
             boolean bounds = boundsAnchor != null || manager && selected == null;
             if(!bed && selected == null && !bounds)
                 return ActionResult.FAIL;
-            long time = world.getTime();
-            boolean repeated = time - lastClick < REPEAT_TICKS;
+            long time = Util.getMeasuringTimeMs();
+            boolean repeated = time - lastClick < REPEAT_MILLIS;
             lastClick = time;
             if(repeated)
                 return ActionResult.FAIL;

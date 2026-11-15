@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
@@ -49,7 +50,8 @@ public class BuildersToolRenderer {
     // Far enough to find the station a bed will be given, which is looked for within 48 blocks
     private static final int RANGE = 32;
     private static final int RANGE_HEIGHT = 16;
-    private static final int RESCAN_TICKS = 10;
+    // By the clock, not by the game's time, which stands still while a structure is edited
+    private static final int RESCAN_MILLIS = 500;
     private static final int RESCAN_DISTANCE = 2;
     private static final float LABEL_TEXT_SCALE = 0.02f;
     private static final float STATION_TEXT_SCALE = 0.012f;
@@ -68,7 +70,7 @@ public class BuildersToolRenderer {
     private static final int PIECE = 0xFF40C4FF;
     private static final int MANAGER = 0xFF7C4DFF;
     private static final int BOUNDS = 0xFFFFEB3B;
-    private static final int FAILURE_LOG_TICKS = 200;
+    private static final int FAILURE_LOG_MILLIS = 10000;
     private static final int FAILURE_LOG_FRAMES = 6;
     private static final float PIECE_TEXT_SCALE = 0.04f;
     private static final double PIECE_LABEL_HEIGHT = 1.5;
@@ -92,7 +94,7 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> plainBeds = new ArrayList<>();
     private static final List<StructureFeatureData.Manager> managers = new ArrayList<>();
     private static ClientWorld scannedWorld;
-    private static long failureLoggedAt = Long.MIN_VALUE / 2;
+    private static long failureLoggedAt = 0;
     private static long scannedAt;
     private static BlockPos scannedFrom = BlockPos.ORIGIN;
 
@@ -118,8 +120,8 @@ public class BuildersToolRenderer {
             } catch (RuntimeException e) {
                 // A block entity that is gone between the scan and the frame only costs one frame. Anything that keeps
                 // failing would leave the tool drawing nothing with no word of why
-                if(client.world.getTime() - failureLoggedAt >= FAILURE_LOG_TICKS) {
-                    failureLoggedAt = client.world.getTime();
+                if(Util.getMeasuringTimeMs() - failureLoggedAt >= FAILURE_LOG_MILLIS) {
+                    failureLoggedAt = Util.getMeasuringTimeMs();
                     MiddleEarth.LOGGER.logError("StructEdit :: the builder's tool could not draw: " + e);
                     for(int i = 0; i < Math.min(FAILURE_LOG_FRAMES, e.getStackTrace().length); i++)
                         MiddleEarth.LOGGER.logError("StructEdit ::   at " + e.getStackTrace()[i]);
@@ -143,10 +145,10 @@ public class BuildersToolRenderer {
     }
 
     private static void scan(ClientWorld world, BlockPos from) {
-        if(world == scannedWorld && world.getTime() - scannedAt < RESCAN_TICKS && scannedFrom.isWithinDistance(from, RESCAN_DISTANCE))
+        if(world == scannedWorld && Util.getMeasuringTimeMs() - scannedAt < RESCAN_MILLIS && scannedFrom.isWithinDistance(from, RESCAN_DISTANCE))
             return;
         scannedWorld = world;
-        scannedAt = world.getTime();
+        scannedAt = Util.getMeasuringTimeMs();
         scannedFrom = from;
         beds.clear();
         plainBeds.clear();
