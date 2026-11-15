@@ -56,6 +56,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
+import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -1378,7 +1379,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    // TODO: Verify this patch works and doesn't look goofy
     private void climbOutOfWater() {
         if(!isTouchingWater() || !horizontalCollision || getVelocity().y > CLIMBING_OUT)
             return;
@@ -1498,6 +1498,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 follower.setPartyLeader(heir.getUuid());
             }
         }
+        if(heir != null)
+            FollowHerderGoal.handOver(world, this, heir, PARTY_RANGE);
     }
 
     private boolean canDropLoot(DamageSource damageSource, boolean causedByPlayer){

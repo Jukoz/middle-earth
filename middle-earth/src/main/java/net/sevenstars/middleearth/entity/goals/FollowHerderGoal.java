@@ -3,7 +3,9 @@ package net.sevenstars.middleearth.entity.goals;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -26,7 +28,7 @@ public class FollowHerderGoal extends Goal {
     private static final double HERD_SPEED = 1.1;
 
     private final MobEntity animal;
-    private final UUID herder;
+    private UUID herder;
     private final double speed;
     private int cooldown = 0;
     private int missingChecks = 0;
@@ -69,6 +71,20 @@ public class FollowHerderGoal extends Goal {
     // The goal itself is added when the animal enters the world
     public static void assign(MobEntity animal, UUID herder) {
         animal.addCommandTag(TAG_PREFIX + herder);
+    }
+
+    // Re-ties the animals of one herder to another, as when the herder dies
+    public static void handOver(ServerWorld world, Entity from, Entity to, double range) {
+        UUID fromId = from.getUuid();
+        UUID toId = to.getUuid();
+        for(MobEntity animal : world.getEntitiesByClass(MobEntity.class, from.getBoundingBox().expand(range), mob -> fromId.equals(herderOf(mob)))) {
+            animal.removeCommandTag(TAG_PREFIX + fromId);
+            animal.addCommandTag(TAG_PREFIX + toId);
+            for(PrioritizedGoal prioritized : animal.goalSelector.getGoals()) {
+                if(prioritized.getGoal() instanceof FollowHerderGoal goal)
+                    goal.herder = toId;
+            }
+        }
     }
 
     @Override
