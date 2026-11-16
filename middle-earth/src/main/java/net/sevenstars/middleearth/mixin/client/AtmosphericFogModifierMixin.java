@@ -2,13 +2,12 @@ package net.sevenstars.middleearth.mixin.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.fog.AtmosphericFogModifier;
 import net.minecraft.client.render.fog.FogData;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.world.biomes.BiomeAmbianceME;
@@ -39,14 +38,14 @@ public class AtmosphericFogModifierMixin {
     private static float blend = 0;
 
     @Inject(method = "applyStartEndModifier", at = @At("TAIL"))
-    private void applyBiomeFog(FogData data, Entity cameraEntity, BlockPos cameraPos, ClientWorld world, float viewDistance, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void applyBiomeFog(FogData data, Camera camera, ClientWorld world, float viewDistance, RenderTickCounter tickCounter, CallbackInfo ci) {
         if(!DimensionRegistryME.isInMiddleEarth(world)) {
             blend = 0;
             return;
         }
 
         float deltaTicks = tickCounter.getDynamicDeltaTicks();
-        Optional<RegistryKey<Biome>> biome = world.getBiome(cameraPos).getKey();
+        Optional<RegistryKey<Biome>> biome = world.getBiome(camera.getBlockPos()).getKey();
         BiomeAmbianceME ambiance = biome.map(BiomeAmbianceME::of).orElse(null);
         BiomeAmbianceME.Fog biomeFog = ambiance == null ? null : ambiance.getFog();
         if(biomeFog == null) {
@@ -70,8 +69,10 @@ public class AtmosphericFogModifierMixin {
         // Rain may already bring the vanilla fog closer than the biome does
         if(biomeFogEnd >= data.environmentalEnd)
             return;
-        data.environmentalStart = MathHelper.lerp(blend, data.environmentalStart, biomeFogStart);
-        data.environmentalEnd = MathHelper.lerp(blend, data.environmentalEnd, biomeFogEnd);
+        // Vanilla fog ends at 1024 blocks, past the view distance
+        float vanillaFogEnd = Math.min(data.environmentalEnd, viewDistance);
+        data.environmentalStart = MathHelper.lerp(blend, Math.min(data.environmentalStart, vanillaFogEnd), biomeFogStart);
+        data.environmentalEnd = MathHelper.lerp(blend, vanillaFogEnd, biomeFogEnd);
     }
 
     @Unique

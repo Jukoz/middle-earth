@@ -437,12 +437,10 @@ public class CaveBiomesME {
             generationSettings.feature(GenerationStep.Feature.UNDERGROUND_ORES, feature);
         }
 
-        Biome biome = (new Biome.Builder())
+        Biome biome = biomeColors.createBiomeBuilder()
                 .precipitation(precipitation)
                 .temperature(temperature)
                 .downfall(0.5F)
-                .effects(biomeColors.createEffects()
-                        .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())
                 .build();
