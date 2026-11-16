@@ -112,6 +112,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.RED_AGATE_SHARD);
             add(ResourceItemsME.CITRINE_SHARD);
             add(ResourceItemsME.QUARTZ_SHARD);
+            add(ResourceItemsME.LUMINOUS_SHARD);
 
             add(ResourceItemsME.DIRTY_BONE);
             add(ResourceItemsME.FANG);
@@ -195,6 +196,10 @@ public class SimpleItemModel {
             add(BlockRegistryME.SMALL_GLOWSTONE_BUD.asItem());
             add(BlockRegistryME.MEDIUM_GLOWSTONE_BUD.asItem());
             add(BlockRegistryME.LARGE_GLOWSTONE_BUD.asItem());
+            add(BlockRegistryME.LUMINOUS_CRYSTAL_CLUSTER.asItem());
+            add(BlockRegistryME.SMALL_LUMINOUS_CRYSTAL_BUD.asItem());
+            add(BlockRegistryME.MEDIUM_LUMINOUS_CRYSTAL_BUD.asItem());
+            add(BlockRegistryME.LARGE_LUMINOUS_CRYSTAL_BUD.asItem());
         }
     };
 }

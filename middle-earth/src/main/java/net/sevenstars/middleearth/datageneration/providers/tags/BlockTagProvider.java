@@ -346,6 +346,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(DecorativeBlockRegistryME.GILDED_SMALL_BRAZIER);
         needsIronTools.add(DecorativeBlockRegistryME.FIRE_BOWL);
 
+        needsStoneTools.add(DecorativeBlockRegistryME.CRYSTAL_BRAZIER);
         needsStoneTools.add(DecorativeBlockRegistryME.CRUDE_ROD);
         needsStoneTools.add(DecorativeBlockRegistryME.TREATED_STEEL_ROD);
 
@@ -512,5 +513,9 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(BlockRegistryME.MEDIUM_GLOWSTONE_BUD);
         mineablePickaxe.add(BlockRegistryME.LARGE_GLOWSTONE_BUD);
         mineablePickaxe.add(BlockRegistryME.GLOWSTONE_CLUSTER);
+        mineablePickaxe.add(BlockRegistryME.LUMINOUS_CRYSTAL);
+        mineablePickaxe.add(BlockRegistryME.MEDIUM_LUMINOUS_CRYSTAL_BUD);
+        mineablePickaxe.add(BlockRegistryME.LARGE_LUMINOUS_CRYSTAL_BUD);
+        mineablePickaxe.add(BlockRegistryME.LUMINOUS_CRYSTAL_CLUSTER);
     }
 }

@@ -477,6 +477,10 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(BlockRegistryME.SMALL_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(BlockRegistryME.MEDIUM_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(BlockRegistryME.LARGE_GLOWSTONE_BUD, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.SMALL_LUMINOUS_CRYSTAL_BUD, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.MEDIUM_LUMINOUS_CRYSTAL_BUD, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.LARGE_LUMINOUS_CRYSTAL_BUD, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.LUMINOUS_CRYSTAL_CLUSTER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SMALL_BLACK_CURTAIN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SMALL_BLUE_CURTAIN, BlockRenderLayer.CUTOUT);
@@ -645,6 +649,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.GILDED_BIG_BRAZIER, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.GILDED_SMALL_BRAZIER, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CRYSTAL_BRAZIER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.FIRE_BOWL, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.TORCH_OF_ORTHANC, BlockRenderLayer.CUTOUT);

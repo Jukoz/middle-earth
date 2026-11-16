@@ -666,6 +666,8 @@ public class DecorativeBlockRegistryME {
             GildedBrazierBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
     public static final Block GILDED_SMALL_BRAZIER = registerBlockWithItem("gilded_small_brazier",
             GildedSmallBrazierBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
+    public static final Block CRYSTAL_BRAZIER = registerBlockWithItem("crystal_brazier",
+            LuminousCrystalBrazierBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
     public static final Block FIRE_BOWL = registerBlockWithItem("fire_bowl",
             FireBowlBlock::new, AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());

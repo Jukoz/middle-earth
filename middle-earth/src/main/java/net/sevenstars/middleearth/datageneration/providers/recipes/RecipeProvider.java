@@ -17,6 +17,7 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
 import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
@@ -2439,6 +2440,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.MAGMA_BLOCK))
                         .offerTo(exporter);
 
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, BlockRegistryME.LUMINOUS_CRYSTAL, 1)
+                        .pattern("CC")
+                        .pattern("CC")
+                        .input('C', ResourceItemsME.LUMINOUS_SHARD)
+                        .criterion(hasItem(ResourceItemsME.LUMINOUS_SHARD),
+                                conditionsFromItem(ResourceItemsME.LUMINOUS_SHARD))
+                        .offerTo(exporter);
+
+
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CHIMNEY, 2)
                         .pattern(" B ")
                         .pattern(" B ")
@@ -2469,6 +2479,17 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.GOLD_INGOT)
                         .criterion(hasItem(Items.CAMPFIRE),
                                 conditionsFromItem(Items.CAMPFIRE))
+                        .offerTo(exporter);
+
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CRYSTAL_BRAZIER, 2)
+                        .pattern("B B")
+                        .pattern("BCB")
+                        .pattern("SSS")
+                        .input('B', BlockRegistryME.BRONZE_BARS)
+                        .input('C', ResourceItemsME.LUMINOUS_SHARD)
+                        .input('S', ResourceItemsME.BRONZE_INGOT)
+                        .criterion(hasItem(ResourceItemsME.LUMINOUS_SHARD),
+                                conditionsFromItem(ResourceItemsME.LUMINOUS_SHARD))
                         .offerTo(exporter);
 
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SMALL_BRAZIER, 2)

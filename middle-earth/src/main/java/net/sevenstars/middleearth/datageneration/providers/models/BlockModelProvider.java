@@ -743,6 +743,11 @@ public class BlockModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerAmethyst(BlockRegistryME.SMALL_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(BlockRegistryME.MEDIUM_QUARTZ_BUD);
         blockStateModelGenerator.registerAmethyst(BlockRegistryME.LARGE_QUARTZ_BUD);
+        blockStateModelGenerator.registerAmethyst(BlockRegistryME.LUMINOUS_CRYSTAL_CLUSTER);
+        blockStateModelGenerator.registerAmethyst(BlockRegistryME.SMALL_LUMINOUS_CRYSTAL_BUD);
+        blockStateModelGenerator.registerAmethyst(BlockRegistryME.MEDIUM_LUMINOUS_CRYSTAL_BUD);
+        blockStateModelGenerator.registerAmethyst(BlockRegistryME.LARGE_LUMINOUS_CRYSTAL_BUD);
+
 
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) DecorativeBlockRegistryME.BLUE_HOBBIT_DOOR, LargeDoor2x2.PART);
         registerLargeDoor(blockStateModelGenerator, (LargeDoorBlock) DecorativeBlockRegistryME.GREEN_HOBBIT_DOOR, LargeDoor2x2.PART);

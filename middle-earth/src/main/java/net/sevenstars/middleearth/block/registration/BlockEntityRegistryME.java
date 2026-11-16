@@ -74,6 +74,8 @@ public class BlockEntityRegistryME {
             DecorativeBlockRegistryME.GILDED_BIG_BRAZIER);
     public static BlockEntityType<GildedSmallBrazierBlockEntity> GILDED_SMALL_BRAZIER = register("gilded_small_brazier", GildedSmallBrazierBlockEntity::new,
             DecorativeBlockRegistryME.GILDED_SMALL_BRAZIER);
+    public static BlockEntityType<LuminousCrystalBrazierBlockEntity> CRYSTAL_BRAZIER = register("crystal_brazier", LuminousCrystalBrazierBlockEntity::new,
+            DecorativeBlockRegistryME.CRYSTAL_BRAZIER);
     public static BlockEntityType<FireBowlBlockEntity> FIRE_BOWL = register("fire_bowl", FireBowlBlockEntity::new,
             DecorativeBlockRegistryME.FIRE_BOWL);
     public static BlockEntityType<BonfireBlockEntity> BONFIRE = register("bonfire", BonfireBlockEntity::new,

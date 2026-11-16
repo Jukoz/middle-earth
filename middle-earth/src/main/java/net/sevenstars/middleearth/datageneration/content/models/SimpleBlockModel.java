@@ -75,6 +75,8 @@ public class SimpleBlockModel {
             add(BlockRegistryME.BUDDING_CITRINE);
             add(BlockRegistryME.GLOWSTONE_BLOCK);
             add(BlockRegistryME.BUDDING_GLOWSTONE);
+            add(BlockRegistryME.LUMINOUS_CRYSTAL);
+
 
             add(BlockRegistryME.RIVER_SAND);
             add(BlockRegistryME.ASH_BLOCK);

@@ -121,6 +121,8 @@ public class ResourceItemsME {
             Item::new, new Item.Settings());
     public static final Item QUARTZ_SHARD = registerItem("quartz_shard",
             Item::new, new Item.Settings());
+    public static final Item LUMINOUS_SHARD = registerItem("luminous_shard",
+            Item::new, new Item.Settings());
 
     public static final Item DIRTY_BONE = registerItem("dirty_bone",
             Item::new, new Item.Settings());

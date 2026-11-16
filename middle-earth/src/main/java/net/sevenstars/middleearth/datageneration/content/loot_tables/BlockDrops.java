@@ -168,6 +168,7 @@ public class BlockDrops {
             add(DecorativeBlockRegistryME.SMALL_BRAZIER);
             add(DecorativeBlockRegistryME.GILDED_BIG_BRAZIER);
             add(DecorativeBlockRegistryME.GILDED_SMALL_BRAZIER);
+            add(DecorativeBlockRegistryME.CRYSTAL_BRAZIER);
             add(DecorativeBlockRegistryME.CHIMNEY);
             add(DecorativeBlockRegistryME.FIRE_BOWL);
             add(DecorativeBlockRegistryME.BONFIRE);
