@@ -93,6 +93,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     private static final float PLAYER_RIDER_DAMAGE_BONUS = 6.0f;
     private static final int RIDDEN_ABILITY_COOLDOWN = 120;
 
+    private static final double MAX_CHARGE_SPEED = 0.6; // Blocks per tick at the end of a charge
     private static final double SMASH_REACH = 2.5;
     private static final double SMASH_RADIUS = 5.0;
     private static final double SMASH_HEIGHT = 1.5;
@@ -695,7 +696,16 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+    }
+
+    // Starts as a stumble and eases into a run, so the speed rises with the square of the charge's progress
+    @Override
+    public void setChargeVelocity(Vec3d direction) {
+        double progress = MathHelper.clamp(1.0 - (double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration(), 0.0, 1.0);
+        this.setVelocity(direction
+                .getHorizontal().normalize()
+                .multiply(MAX_CHARGE_SPEED * progress * progress)
+                .add(0, this.getVelocity().y, 0));
     }
 
     // Fixed for a player rider, scales with difficulty for an NPC rider
