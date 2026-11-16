@@ -16,7 +16,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.client.option.SimpleOption;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
@@ -26,6 +30,11 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 public abstract class InGameHudMixin {
     @Unique
     private static final Identifier HALLUCINATION_OUTLINE = Identifier.of(MiddleEarth.MOD_ID, "textures/misc/hallucination_outline.png");
+
+    @Unique
+    private static final Identifier COOLDOWN_BACKGROUND = Identifier.ofVanilla("hud/crosshair_attack_indicator_background");
+    @Unique
+    private static final Identifier COOLDOWN_PROGRESS = Identifier.ofVanilla("hud/crosshair_attack_indicator_progress");
 
     @Shadow @Final private MinecraftClient client;
 
@@ -52,15 +61,34 @@ public abstract class InGameHudMixin {
         return original.call(perspective) || TrollRiderCamera.isActive(MinecraftClient.getInstance());
     }
 
-    // The troll's cooldown is long and the crosshair indicator tiny, so a rider always gets the bar beside the hotbar
-    @WrapOperation(method = "renderHotbar",
+    // The vanilla crosshair indicator inverts the colours behind it and goes grey and unreadable on a troll's long cooldown,
+    // so a rider gets the same bar drawn in plain colours instead
+    @WrapOperation(method = "renderCrosshair",
             slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/GameOptions;getAttackIndicator()Lnet/minecraft/client/option/SimpleOption;")),
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;", ordinal = 0))
-    private Object showHotbarCooldownOnTroll(SimpleOption<?> option, Operation<Object> original) {
-        Object value = original.call(option);
-        if(this.client.player != null && this.client.player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == this.client.player) {
-            return AttackIndicator.HOTBAR;
+    private Object hideVanillaIndicatorOnTroll(SimpleOption<?> option, Operation<Object> original) {
+        return isRidingTroll() ? AttackIndicator.OFF : original.call(option);
+    }
+
+    @Inject(method = "renderCrosshair", at = @At("RETURN"))
+    private void drawTrollCooldown(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if(!isRidingTroll()) {
+            return;
         }
-        return value;
+
+        float progress = this.client.player.getAttackCooldownProgress(0.0f);
+        if(progress >= 1.0f) {
+            return;
+        }
+
+        int x = context.getScaledWindowWidth() / 2 - 8;
+        int y = context.getScaledWindowHeight() / 2 - 7 + 16;
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_BACKGROUND, 16, 4, 0, 0, x, y, 16, 4);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_PROGRESS, 16, 4, 0, 0, x, y, (int)(progress * 17.0f), 4);
+    }
+
+    @Unique
+    private boolean isRidingTroll() {
+        return this.client.player != null && this.client.player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == this.client.player;
     }
 }

@@ -11,6 +11,8 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
@@ -50,6 +52,12 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
             bodyNoLegs.applyTransform(matrices);
             bodyNoLegs.getChild("body_no_limbs").applyTransform(matrices);
             matrices.translate((BASE_X + side * CORNER_X) / 16.0f, BASE_Y / 16.0f, BASE_Z / 16.0f);
+            // Sway on the mount: the poles lean back as the troll picks up speed and rock gently from side to side
+            float speed = Math.min(state.limbSwingAmplitude, 1.0f);
+            float rock = MathHelper.sin(state.age * 0.12f + side * 1.3f) * (1.0f + 3.0f * speed);
+            float lean = speed * 6.0f + MathHelper.sin(state.age * 0.17f + side) * (0.5f + 1.5f * speed);
+            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rock));
+            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(lean));
             matrices.scale(SCALE, SCALE, SCALE);
 
             VertexConsumer consumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
