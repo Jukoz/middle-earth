@@ -76,15 +76,16 @@ public abstract class InGameHudMixin {
             return;
         }
 
-        float progress = this.client.player.getAttackCooldownProgress(0.0f);
+        float progress = this.client.player.getAttackCooldownProgress(tickCounter.getTickProgress(false));
         if(progress >= 1.0f) {
             return;
         }
 
-        int x = context.getScaledWindowWidth() / 2 - 8;
-        int y = context.getScaledWindowHeight() / 2 - 7 + 16;
-        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_BACKGROUND, 16, 4, 0, 0, x, y, 16, 4);
-        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_PROGRESS, 16, 4, 0, 0, x, y, (int)(progress * 17.0f), 4);
+        // Twice the vanilla size, as a troll's swing is slow and the bar has to be read at a glance
+        int x = context.getScaledWindowWidth() / 2 - 16;
+        int y = context.getScaledWindowHeight() / 2 + 9;
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_BACKGROUND, 16, 4, 0, 0, x, y, 32, 8);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, COOLDOWN_PROGRESS, 16, 4, 0, 0, x, y, (int)(progress * 34.0f), 8);
     }
 
     @Unique
