@@ -6,12 +6,13 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
-/** A view of the troll's saddle and club, so the screen slots read and write the entity's own equipment. */
+/** A view of the troll's saddle, club and banner (its body slot, since horse armor is refused), so the screen slots read and write the entity's own equipment. */
 public class CaveTrollEquipmentInventory implements Inventory {
     public static final int SADDLE = 0;
     public static final int WEAPON = 1;
+    public static final int BANNER = 2;
 
-    private static final EquipmentSlot[] SLOTS = {EquipmentSlot.SADDLE, EquipmentSlot.MAINHAND};
+    private static final EquipmentSlot[] SLOTS = {EquipmentSlot.SADDLE, EquipmentSlot.MAINHAND, EquipmentSlot.BODY};
 
     private final CaveTrollEntity troll;
 
@@ -26,7 +27,7 @@ public class CaveTrollEquipmentInventory implements Inventory {
 
     @Override
     public boolean isEmpty() {
-        return getStack(SADDLE).isEmpty() && getStack(WEAPON).isEmpty();
+        return getStack(SADDLE).isEmpty() && getStack(WEAPON).isEmpty() && getStack(BANNER).isEmpty();
     }
 
     @Override

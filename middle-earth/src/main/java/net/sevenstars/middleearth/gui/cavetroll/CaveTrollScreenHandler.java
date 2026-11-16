@@ -14,9 +14,9 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 
-/** The cave troll's inventory: saddle, club (its main hand) and, with a chest, the chest slots. Laid out like the horse screen. */
+/** The cave troll's inventory: saddle, club (its main hand), banner and, with a chest, the chest slots. Laid out like the horse screen. */
 public class CaveTrollScreenHandler extends ScreenHandler {
-    private static final int EQUIPMENT_SLOTS = 2;
+    private static final int EQUIPMENT_SLOTS = 3;
 
     private final CaveTrollEntity troll;
     private final int chestSlots;
@@ -72,6 +72,18 @@ public class CaveTrollScreenHandler extends ScreenHandler {
             }
         });
 
+        this.addSlot(new Slot(equipment, CaveTrollEquipmentInventory.BANNER, 8, 54) {
+            @Override
+            public boolean canInsert(ItemStack stack) {
+                return CaveTrollEntity.isBanner(stack) && !this.hasStack();
+            }
+
+            @Override
+            public int getMaxItemCount() {
+                return 1;
+            }
+        });
+
         if(columns > 0) {
             SimpleInventory chest = troll.getChestInventory();
             for(int row = 0; row < 3; row++) {
@@ -118,6 +130,7 @@ public class CaveTrollScreenHandler extends ScreenHandler {
         }
         else if(!(this.getSlot(0).canInsert(stack) && this.insertItem(stack, 0, 1, false))
                 && !(this.getSlot(1).canInsert(stack) && this.insertItem(stack, 1, 2, false))
+                && !(this.getSlot(2).canInsert(stack) && this.insertItem(stack, 2, 3, false))
                 && !(chestSlots > 0 && this.insertItem(stack, EQUIPMENT_SLOTS, trollEnd, false))) {
             return ItemStack.EMPTY;
         }

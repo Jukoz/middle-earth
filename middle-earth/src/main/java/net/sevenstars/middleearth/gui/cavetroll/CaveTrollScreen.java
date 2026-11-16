@@ -10,7 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-/** Reuses the horse screen's textures and layout, with a club slot where the armor slot is. */
+/** Reuses the horse screen's textures and layout, with club and banner slots where the armor slot is. */
 @Environment(EnvType.CLIENT)
 public class CaveTrollScreen extends HandledScreen<CaveTrollScreenHandler> {
     private static final Identifier SLOT_TEXTURE = Identifier.ofVanilla("container/slot");
@@ -39,6 +39,7 @@ public class CaveTrollScreen extends HandledScreen<CaveTrollScreenHandler> {
             context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, left + 7, top + 17, 18, 18);
         }
         context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, left + 7, top + 35, 18, 18);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SLOT_TEXTURE, left + 7, top + 53, 18, 18);
 
         // The vanilla size of 17 fits a 1.6 block horse, so shrink it to fit the troll's height
         int size = Math.max(1, (int)(17 * 1.6f / this.handler.getTroll().getHeight()));

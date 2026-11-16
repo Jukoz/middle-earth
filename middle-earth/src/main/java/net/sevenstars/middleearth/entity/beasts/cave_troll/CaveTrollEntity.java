@@ -56,6 +56,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreenHandler;
+import net.minecraft.item.BannerItem;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -269,6 +271,15 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return slot != EquipmentSlot.BODY && super.canUseSlot(slot);
+    }
+
+    // The banner stands on the back and sits in the body slot, which no horse armor can use
+    public static boolean isBanner(ItemStack stack) {
+        return stack.getItem() instanceof BannerItem || stack.isOf(WeaponItemsME.HELD_BANNER);
+    }
+
+    public ItemStack getBannerStack() {
+        return this.getEquippedStack(EquipmentSlot.BODY);
     }
 
     public SimpleInventory getChestInventory() {
