@@ -92,7 +92,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     // Flat damage a player rider adds, the same as Hard difficulty adds (3 * 2), whatever the world difficulty
     private static final float PLAYER_RIDER_DAMAGE_BONUS = 6.0f;
     private static final int RIDDEN_ABILITY_COOLDOWN = 120;
-    private int riderSwingCooldown = 0; // Ticks until the troll has recovered from its last swing, on both sides
 
     private static final double SMASH_REACH = 2.5;
     private static final double SMASH_RADIUS = 5.0;
@@ -111,8 +110,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> SMASHING = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Boolean> ENRAGED = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    // Counts the rider's swings, so every client restarts its copy of the swing cooldown when it changes
-    private static final TrackedData<Integer> RIDER_SWINGS = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(CaveTrollEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public final AnimationState chaseAnimationState = new AnimationState();
     public final AnimationState scavengingAnimationState = new AnimationState();
@@ -158,7 +155,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
-        builder.add(RIDER_SWINGS, 0);
         builder.add(SCAVENGING, false);
         builder.add(ROARING, false);
         builder.add(SLEEPING, false);
@@ -376,9 +372,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void tickMovement() {
         // Vanilla only advances arm swings for players and hostile mobs
         this.tickHandSwing();
-        if(this.riderSwingCooldown > 0) {
-            this.riderSwingCooldown--;
-        }
         if(this.getWorld().isClient) {
             setupAnimationStates();
         }
@@ -444,23 +437,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
     }
 
-    // The troll swings its club instead of the rider's fist, so the swing cooldown is the troll's own
+    // The troll swings its club instead of the rider's fist, use its cooldown
     public float getRiderSwingCooldownTicks() {
         return (float)(20.0 / this.getAttributeValue(EntityAttributes.ATTACK_SPEED));
-    }
-
-    // 0 right after a swing up to 1 when the troll is ready to swing again
-    public float getRiderSwingProgress(float tickProgress) {
-        float total = getRiderSwingCooldownTicks();
-        return MathHelper.clamp(1.0f - (this.riderSwingCooldown - tickProgress) / total, 0.0f, 1.0f);
-    }
-
-    @Override
-    public void onTrackedDataSet(TrackedData<?> data) {
-        super.onTrackedDataSet(data);
-        if(RIDER_SWINGS.equals(data) && this.getWorld().isClient && !this.firstUpdate) {
-            this.riderSwingCooldown = MathHelper.ceil(getRiderSwingCooldownTicks());
-        }
     }
 
     public void riderSwing(ServerWorld world, PlayerEntity rider, Entity target) {
@@ -468,9 +447,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             return;
         }
 
-        float charge = getRiderSwingProgress(0.0f);
-        this.riderSwingCooldown = MathHelper.ceil(getRiderSwingCooldownTicks());
-        this.dataTracker.set(RIDER_SWINGS, this.dataTracker.get(RIDER_SWINGS) + 1);
+        float charge = rider.getAttackCooldownProgress(0.5f);
+        rider.resetLastAttackedTicks();
         this.swingHand(Hand.MAIN_HAND);
 
         float damage = (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * (0.2f + charge * charge * 0.8f) + PLAYER_RIDER_DAMAGE_BONUS;

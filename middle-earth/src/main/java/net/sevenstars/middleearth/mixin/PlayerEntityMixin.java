@@ -99,11 +99,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return value;
     }*/
 
-    // While steering a cave troll the troll does the hitting, so its swing cooldown is the one shown and used
-    @Inject(method = "getAttackCooldownProgress", at = @At("HEAD"), cancellable = true)
-    private void useTrollSwingCooldown(float baseTime, CallbackInfoReturnable<Float> cir) {
+    // While steering a cave troll the troll does the hitting
+    @Inject(method = "getAttackCooldownProgressPerTick", at = @At("HEAD"), cancellable = true)
+    private void useTrollSwingCooldown(CallbackInfoReturnable<Float> cir) {
         if(this.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == (Object)this) {
-            cir.setReturnValue(troll.getRiderSwingProgress(baseTime));
+            cir.setReturnValue(troll.getRiderSwingCooldownTicks());
         }
     }
 
