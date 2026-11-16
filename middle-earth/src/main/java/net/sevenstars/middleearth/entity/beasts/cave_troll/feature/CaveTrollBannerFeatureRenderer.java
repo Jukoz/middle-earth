@@ -18,13 +18,15 @@ import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRender
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
-/** A banner on a pole standing on the rear of the saddle platform, where the rider sits. */
+/** A banner on a pole at each rear corner of the harness platform on the troll's back. */
 public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    // Pole base on the shelf at the rear of the saddle platform, in the body bone's model space (pixels)
+    // Pole bases on the two rear corners of the harness platform, in the body bone's model space (pixels).
+    // The platform's origin is (0.5, -48, 6.5); its top is 1 below that and it spans x -19..19, z 1.6..17.6 from there
     private static final float BASE_X = 0.5f;
-    private static final float BASE_Y = -56.0f;
-    private static final float BASE_Z = 13.5f;
-    private static final float SCALE = 0.45f;
+    private static final float CORNER_X = 17.0f;
+    private static final float BASE_Y = -47.0f;
+    private static final float BASE_Z = 22.5f;
+    private static final float SCALE = 0.7f;
 
     private final HeldBannerEntityModel model;
 
@@ -39,21 +41,23 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
             return;
         }
 
-        matrices.push();
-        // Follow the animated body so the banner moves with the platform
-        ModelPart root = this.getContextModel().getRootPart().getChild("root");
-        ModelPart bodyNoLegs = root.getChild("body_no_legs");
-        root.applyTransform(matrices);
-        bodyNoLegs.applyTransform(matrices);
-        bodyNoLegs.getChild("body_no_limbs").applyTransform(matrices);
-        matrices.translate(BASE_X / 16.0f, BASE_Y / 16.0f, BASE_Z / 16.0f);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f)); // Pattern faces the back
-        matrices.scale(SCALE, SCALE, SCALE);
-
         SpriteIdentifier sprite = ModelBaker.BANNER_BASE;
-        VertexConsumer consumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
-        this.model.getPole().render(matrices, consumer, light, OverlayTexture.DEFAULT_UV);
-        HeldBannerModelRenderer.renderCanvas(matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, this.model.getBanner(), sprite, false, state.bannerColor, state.bannerPatterns, false, false);
-        matrices.pop();
+        for(float side : new float[]{-1.0f, 1.0f}) {
+            matrices.push();
+            // Follow the animated body bone the harness is fixed to, not the rider
+            ModelPart root = this.getContextModel().getRootPart().getChild("root");
+            ModelPart bodyNoLegs = root.getChild("body_no_legs");
+            root.applyTransform(matrices);
+            bodyNoLegs.applyTransform(matrices);
+            bodyNoLegs.getChild("body_no_limbs").applyTransform(matrices);
+            matrices.translate((BASE_X + side * CORNER_X) / 16.0f, BASE_Y / 16.0f, BASE_Z / 16.0f);
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f)); // Pattern faces the back
+            matrices.scale(SCALE, SCALE, SCALE);
+
+            VertexConsumer consumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
+            this.model.getPole().render(matrices, consumer, light, OverlayTexture.DEFAULT_UV);
+            HeldBannerModelRenderer.renderCanvas(matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, this.model.getBanner(), sprite, false, state.bannerColor, state.bannerPatterns, false, false);
+            matrices.pop();
+        }
     }
 }
