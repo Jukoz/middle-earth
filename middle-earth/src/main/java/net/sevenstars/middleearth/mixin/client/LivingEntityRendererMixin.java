@@ -29,5 +29,6 @@ public class LivingEntityRendererMixin {
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setMainHandStack(mainHandStack);
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setOffHandStack(offHandStack);
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setRestrained(restrained);
+        ((ArmedEntityRenderStateAccess)livingEntityRenderState).setHeadStackItself(livingEntity.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD));
     }
 }
