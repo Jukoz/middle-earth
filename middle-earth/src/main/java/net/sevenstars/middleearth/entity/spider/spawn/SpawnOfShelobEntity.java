@@ -190,9 +190,9 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         if(biteAnimationCooldown == 0) biteAnimationCooldown = 40;
         if (target instanceof LivingEntity) {
             int i = 0;
-            if (this.getWorld().getDifficulty() == Difficulty.NORMAL) {
+            if (this.getEntityWorld().getDifficulty() == Difficulty.NORMAL) {
                 i = 7;
-            } else if (this.getWorld().getDifficulty() == Difficulty.HARD) {
+            } else if (this.getEntityWorld().getDifficulty() == Difficulty.HARD) {
                 i = 15;
             }
 
@@ -205,9 +205,9 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     @Override
     public void onLanding() {
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
+        if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             if (this.isOnGround() && this.fallDistance > 1.5) {
-                Vec3d vec3d = getPos().add(0.0, 0.5, 0.0);
+                Vec3d vec3d = getEntityPos().add(0.0, 0.5, 0.0);
                 BlockState blockState = this.getSteppingBlockState();
                 int count = (int) MathHelper.clamp(25.0 * this.fallDistance - 1, 0.0, 150.0);
                 serverWorld.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), vec3d.x, vec3d.y, vec3d.z,
@@ -219,7 +219,7 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient()) {
+        if (!this.getEntityWorld().isClient()) {
             this.setClimbingWall(this.horizontalCollision);
 
             if(biteAnimationCooldown <= 1) {
@@ -283,11 +283,11 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
         double e = target.getEyeY() - 1.1F;
         double dZ = target.getZ() - this.getZ();
         double g = Math.sqrt(dX * dX + dZ * dZ) * 0.2F;
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
+        if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             ItemStack itemStack = new ItemStack(Items.COBWEB);
             ProjectileEntity.spawn(
                     new WebbedEntity(serverWorld, this, WEB_PROJECTILE_DAMAGE * pullProgress), serverWorld, itemStack,
-                    entity -> entity.setVelocity(dX, e + g - entity.getY(), dZ, 1.6F, 8 - this.getWorld().getDifficulty().getId() * 4)
+                    entity -> entity.setVelocity(dX, e + g - entity.getY(), dZ, 1.6F, 8 - this.getEntityWorld().getDifficulty().getId() * 4)
             );
         }
 
@@ -369,13 +369,13 @@ public class SpawnOfShelobEntity extends HostileEntity implements Pouncer, Shiel
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+        Variants.writeData(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
+        Variants.fromData(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
     }
 
     static {

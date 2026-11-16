@@ -136,7 +136,7 @@ public class ShelobiteLarvaEntity extends HostileEntity {
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient()) {
+        if (!this.getEntityWorld().isClient()) {
             this.setClimbingWall(this.horizontalCollision);
         } else {
             setupAnimationStates();
@@ -228,13 +228,13 @@ public class ShelobiteLarvaEntity extends HostileEntity {
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+        Variants.writeData(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
+        Variants.fromData(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
     }
 
     static {

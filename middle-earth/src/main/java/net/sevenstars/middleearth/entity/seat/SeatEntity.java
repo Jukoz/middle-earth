@@ -37,7 +37,7 @@ public class SeatEntity extends VehicleEntity {
 
     @Override
     public void tick() {
-        World world = this.getWorld();
+        World world = this.getEntityWorld();
         if(world.isClient()) return;
 
         BlockState state = world.getBlockState(this.getBlockPos());
@@ -75,7 +75,7 @@ public class SeatEntity extends VehicleEntity {
 
     @Override
     public Vec3d updatePassengerForDismount(LivingEntity passenger) {
-        World world = this.getWorld();
+        World world = this.getEntityWorld();
         BlockPos pos = this.getBlockPos();
         BlockState state = world.getBlockState(pos);
         Direction front = state.contains(Properties.HORIZONTAL_FACING) ? state.get(Properties.HORIZONTAL_FACING) : passenger.getHorizontalFacing();

@@ -64,7 +64,7 @@ public class PounceRetreatGoal extends Goal {
                 leaping = false;
             }
         } else {
-            Vec3d vec3d = NoPenaltyTargeting.findFrom(this.spider, 28, 12, this.target.getPos());
+            Vec3d vec3d = NoPenaltyTargeting.findFrom(this.spider, 28, 12, this.target.getEntityPos());
             if (vec3d != null) {
                 this.path = this.fleeingEntityNavigation.findPathTo(vec3d.x, vec3d.y, vec3d.z, 0);
                 if(this.path != null) {

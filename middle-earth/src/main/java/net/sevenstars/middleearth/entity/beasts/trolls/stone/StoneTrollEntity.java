@@ -111,23 +111,22 @@ public class StoneTrollEntity extends TrollEntity {
         return false;
     }
 
-    @Override
     protected boolean isAffectedByDaylight() {
-        if (this.getWorld().isDay() && !this.getWorld().isClient()) {
-            if(this.getWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
+        if (this.getEntityWorld().isDay() && !this.getEntityWorld().isClient()) {
+            if(this.getEntityWorld().getBiome(getBlockPos()).isIn(TagKey.of(RegistryKeys.BIOME, Identifier.of(MiddleEarth.MOD_ID, "is_biome_in_darkness")))){
                 return false;
             }
-            float f = this.getWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getWorld(), getBlockPos());
+            float f = this.getEntityWorld().getBlockState(getBlockPos()).getAmbientOcclusionLightLevel(getEntityWorld(), getBlockPos());
             BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
-            return f > 0.5f && this.getWorld().isSkyVisible(blockPos);
+            return f > 0.5f && this.getEntityWorld().isSkyVisible(blockPos);
         }
         return false;
     }
 
     @Override
     public void tickMovement() {
-        if (this.isAlive() && !this.getWorld().isClient() && this.getPetrifying() != -1 && this.getWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
-            RegistryKey<Biome> biomeKey = this.getWorld().getBiome(this.getBlockPos()).getKey().get();
+        if (this.isAlive() && !this.getEntityWorld().isClient() && this.getPetrifying() != -1 && this.getEntityWorld().getBiome(this.getBlockPos()).getKey().isPresent()) {
+            RegistryKey<Biome> biomeKey = this.getEntityWorld().getBiome(this.getBlockPos()).getKey().get();
 
             boolean inDaylight = this.isAffectedByDaylight() && this.getEquippedStack(EquipmentSlot.CHEST).isEmpty() && !darkBiomes.contains(biomeKey);
 
@@ -144,8 +143,8 @@ public class StoneTrollEntity extends TrollEntity {
                 this.setPetrifying(PETRIFYING_DURATION);
             }
         }
-        if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getWorld().isClient() && this.age % 3 == 0) {
-            this.getWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
+        if(getPetrifying() != -1 && getPetrifying() < PETRIFYING_DURATION && this.getEntityWorld().isClient() && this.age % 3 == 0) {
+            this.getEntityWorld().addParticleClient(ParticleTypes.LARGE_SMOKE, this.getX() + ((random.nextFloat() * 2f) - 1f), this.getY() + 1d + random.nextFloat(), this.getZ() + ((random.nextFloat() * 2f) - 1f), random.nextFloat() / 8.0f, 0.2f, random.nextFloat() / 8.0f);
         }
 
         super.tickMovement();

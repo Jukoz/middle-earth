@@ -45,7 +45,7 @@ public class PetrifiedTrollEntity extends MobEntity {
 
     @Override
     public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        if (this.getWorld().isClient()) return false;
+        if (this.getEntityWorld().isClient()) return false;
         Entity entity = source.getAttacker();
         if(entity instanceof PlayerEntity playerEntity) {
             if(playerEntity.isCreative()) {
@@ -53,7 +53,7 @@ public class PetrifiedTrollEntity extends MobEntity {
                 return true;
             }
             ItemStack itemStack = playerEntity.getMainHandStack();
-            if(itemStack.getComponents().contains(DataComponentTypes.TOOL) && !this.getWorld().isClient()) {
+            if(itemStack.getComponents().contains(DataComponentTypes.TOOL) && !this.getEntityWorld().isClient()) {
                 TagKey tagKey = TagKey.of(RegistryKeys.ITEM, Identifier.of("pickaxes"));
                 if(itemStack.isIn(tagKey)) {
                     return super.damage(world, source, 10.0f);

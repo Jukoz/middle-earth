@@ -15,7 +15,7 @@ public class TargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
 
     @Override
     public boolean canStart() {
-        if (mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame()) {
+        if (mob.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame()) {
             if(mob.getTarget() instanceof PlayerEntity) {
                 mob.setTarget(null);
             }

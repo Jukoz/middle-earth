@@ -18,12 +18,12 @@ public class TargetNPCDiplomacyGoal extends ActiveTargetGoal<NpcEntity> {
 
     @Override
     public boolean canStart() {
-        if (mob.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+        if (mob.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         } else {
             if(mob.getTarget() instanceof NpcEntity npcEntity) {
                 try {
-                    Faction currentFaction = FactionLookup.getFactionById(mob.getWorld(), mob.getFactionIdentifier());
+                    Faction currentFaction = FactionLookup.getFactionById(mob.getEntityWorld(), mob.getFactionIdentifier());
                     if(!currentFaction.isHostileToward(npcEntity.getFactionIdentifier())) return false;
                 } catch (Exception e) {
                     e.printStackTrace();

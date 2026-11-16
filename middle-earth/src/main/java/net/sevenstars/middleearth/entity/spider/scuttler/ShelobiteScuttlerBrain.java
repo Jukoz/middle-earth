@@ -35,7 +35,7 @@ public class ShelobiteScuttlerBrain {
 	}
 
 	protected static void setCurrentPosAsHome(ShelobiteScuttlerEntity shelobiteScuttler) {
-		GlobalPos globalPos = GlobalPos.create(shelobiteScuttler.getWorld().getRegistryKey(), shelobiteScuttler.getBlockPos());
+		GlobalPos globalPos = GlobalPos.create(shelobiteScuttler.getEntityWorld().getRegistryKey(), shelobiteScuttler.getBlockPos());
 		shelobiteScuttler.getBrain().remember(MemoryModuleType.HOME, globalPos);
 	}
 
@@ -242,7 +242,7 @@ public class ShelobiteScuttlerBrain {
 	}
 
 	protected static void playSoundRandomly(ShelobiteScuttlerEntity shelobiteScuttlerEntity) {
-		if (shelobiteScuttlerEntity.getWorld().random.nextFloat() < 0.0125) {
+		if (shelobiteScuttlerEntity.getEntityWorld().random.nextFloat() < 0.0125) {
 			playSoundIfAngry(shelobiteScuttlerEntity);
 		}
 	}

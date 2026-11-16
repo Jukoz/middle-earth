@@ -61,7 +61,7 @@ public class SpearEntity extends PersistentProjectileEntity {
         float f = 8.0f;
         Entity entity2 = this.getOwner();
         DamageSource damageSource = this.getDamageSources().trident(this, entity2 == null ? this : entity2);
-        World world = this.getWorld();
+        World world = this.getEntityWorld();
 
         if (entity.damage((ServerWorld) world, damageSource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
@@ -83,7 +83,7 @@ public class SpearEntity extends PersistentProjectileEntity {
     protected void knockback(LivingEntity target, DamageSource source) {
         float f;
         World world;
-        if (this.getItemStack() != null && (world = this.getWorld()) instanceof ServerWorld) {
+        if (this.getItemStack() != null && (world = this.getEntityWorld()) instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld)world;
             f = EnchantmentHelper.modifyKnockback(serverWorld, this.getItemStack(), target, source, 0.0f);
         } else {

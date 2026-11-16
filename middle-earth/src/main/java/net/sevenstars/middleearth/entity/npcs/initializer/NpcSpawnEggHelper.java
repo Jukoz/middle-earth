@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.initializer;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.component.type.NbtComponent;
+import net.minecraft.entity.TypedEntityData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -59,7 +60,7 @@ public class NpcSpawnEggHelper {
                 .getOrThrow();
         compoundData.put(NpcEntity.KeyStrings.INITIALIZATION_DATA, element);
 
-        itemStack.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compoundData));
+        itemStack.set(DataComponentTypes.ENTITY_DATA, TypedEntityData.create(EntitiesME.NPC, compoundData));
         itemStack.set(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(npcType.getFactionIdentifier()));
         itemStack.set(DataComponentTypesME.RACE_DATA, new RaceDataComponent(npcType.getRace()));
         itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(itemId.toTranslationKey("item")));
