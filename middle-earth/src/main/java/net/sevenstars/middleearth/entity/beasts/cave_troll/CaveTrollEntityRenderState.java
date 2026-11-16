@@ -16,6 +16,7 @@ public class CaveTrollEntityRenderState extends BeastEntityRenderState {
 
     public CaveTrollVariant variant = CaveTrollVariant.GREEN;
     public boolean isEnraged = false;
+    public float handSwingProgress;
     public AnimationState chaseAnimationState = new AnimationState();
     public AnimationState scavengingAnimationState = new AnimationState();
     public AnimationState startSleepingAnimationState = new AnimationState();

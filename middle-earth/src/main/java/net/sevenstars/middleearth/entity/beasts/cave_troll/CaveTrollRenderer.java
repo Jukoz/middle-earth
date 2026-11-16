@@ -68,6 +68,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.stopSleepingAnimationState = troll.stopSleepingAnimationState;
         state.roaringAnimationState = troll.roaringAnimationState;
         state.smashingAnimationState = troll.smashingAnimationState;
+        state.handSwingProgress = troll.getHandSwingProgress(f);
         state.isSprinting = troll.isSprinting();
         state.isCharging = troll.isCharging();
         state.isEnraged = troll.isEnraged();

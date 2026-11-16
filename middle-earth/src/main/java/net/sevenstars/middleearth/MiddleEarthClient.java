@@ -69,6 +69,7 @@ import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaRenderer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderer;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
+import net.sevenstars.middleearth.client.TrollRiderCamera;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
@@ -112,6 +113,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
+        TrollRiderCamera.register();
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);

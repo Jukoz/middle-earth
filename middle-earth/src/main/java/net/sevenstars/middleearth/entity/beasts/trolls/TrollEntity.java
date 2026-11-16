@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.trolls;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -15,10 +16,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -29,6 +32,7 @@ import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.RaceType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
+import net.sevenstars.middleearth.sound.SoundsME;
 
 import java.util.Iterator;
 import java.util.List;
@@ -157,6 +161,20 @@ public class TrollEntity extends AbstractBeastEntity {
     @Override
     public boolean canBeLeashed() {
         return false;
+    }
+
+    // Trolls would otherwise walk on the horse hooves they inherit
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundsME.CAVE_TROLL_STEP, 1.5f, 1.0f);
+    }
+
+    @Override
+    public void playSound(SoundEvent sound, float volume, float pitch) {
+        if(sound == SoundEvents.ENTITY_HORSE_JUMP || sound == SoundEvents.ENTITY_HORSE_LAND) {
+            sound = SoundsME.CAVE_TROLL_STEP;
+        }
+        super.playSound(sound, volume, pitch);
     }
 
     @Override
