@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll.feature;
 
-import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -11,29 +12,18 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
-import net.sevenstars.middleearth.MiddleEarthClient;
-import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
-import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
+import net.minecraft.component.type.BannerPatternsComponent;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
-/** A banner on a pole at each rear corner of the harness platform on the troll's back. */
+/** Draws the banner rig, which hangs off the harness platform bone, see {@link CaveTrollBannerModel}. */
 public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
-    // Pole bases on the two rear corners of the harness platform, in the body bone's model space (pixels).
-    // The platform's origin is (0.5, -48, 6.5); its top is 1 below that and it spans x -19..19, z 1.6..17.6 from there
-    private static final float BASE_X = 0.5f;
-    private static final float CORNER_X = 17.0f;
-    private static final float BASE_Y = -47.0f;
-    private static final float BASE_Z = 22.5f;
-    private static final float SCALE = 0.7f;
-
-    private final HeldBannerEntityModel model;
+    private final CaveTrollBannerModel model;
 
     public CaveTrollBannerFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> context, LoadedEntityModels loader) {
         super(context);
-        this.model = new HeldBannerEntityModel(loader.getModelPart(MiddleEarthClient.HELD_BANNER_LAYER));
+        this.model = new CaveTrollBannerModel(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_BANNER));
     }
 
     @Override
@@ -42,28 +32,24 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
             return;
         }
 
+        this.model.setAngles(state);
         SpriteIdentifier sprite = ModelBaker.BANNER_BASE;
-        for(float side : new float[]{-1.0f, 1.0f}) {
-            matrices.push();
-            // Follow the animated body bone the harness is fixed to, not the rider
-            ModelPart root = this.getContextModel().getRootPart().getChild("root");
-            ModelPart bodyNoLegs = root.getChild("body_no_legs");
-            root.applyTransform(matrices);
-            bodyNoLegs.applyTransform(matrices);
-            bodyNoLegs.getChild("body_no_limbs").applyTransform(matrices);
-            matrices.translate((BASE_X + side * CORNER_X) / 16.0f, BASE_Y / 16.0f, BASE_Z / 16.0f);
-            // Sway on the mount: the poles lean back as the troll picks up speed and rock gently from side to side
-            float speed = Math.min(state.limbSwingAmplitude, 1.0f);
-            float rock = MathHelper.sin(state.age * 0.12f + side * 1.3f) * (1.0f + 3.0f * speed);
-            float lean = speed * 6.0f + MathHelper.sin(state.age * 0.17f + side) * (0.5f + 1.5f * speed);
-            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rock));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(lean));
-            matrices.scale(SCALE, SCALE, SCALE);
 
-            VertexConsumer consumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
-            this.model.getPole().render(matrices, consumer, light, OverlayTexture.DEFAULT_UV);
-            HeldBannerModelRenderer.renderCanvas(matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, this.model.getBanner(), sprite, false, state.bannerColor, state.bannerPatterns, false, false);
-            matrices.pop();
+        this.model.showPoles();
+        VertexConsumer poleConsumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
+        this.model.render(matrices, poleConsumer, light, OverlayTexture.DEFAULT_UV);
+
+        // The same layering as the vanilla banner: a plain base, the dyed base, then each pattern in its colour
+        this.model.showFlags();
+        this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, false, false), light, OverlayTexture.DEFAULT_UV);
+        renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.BANNER_BASE, state.bannerColor.getEntityColor());
+        for(int i = 0; i < 16 && i < state.bannerPatterns.layers().size(); i++) {
+            BannerPatternsComponent.Layer layer = state.bannerPatterns.layers().get(i);
+            renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()), layer.color().getEntityColor());
         }
+    }
+
+    private void renderLayer(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, SpriteIdentifier sprite, int color) {
+        this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline), light, OverlayTexture.DEFAULT_UV, color);
     }
 }
