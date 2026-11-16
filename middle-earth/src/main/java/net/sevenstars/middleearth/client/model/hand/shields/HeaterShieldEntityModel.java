@@ -1,17 +1,18 @@
 package net.sevenstars.middleearth.client.model.hand.shields;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Unit;
 
-public class HeaterShieldEntityModel extends Model {
+public class HeaterShieldEntityModel extends Model<Unit> {
     private final ModelPart root;
     private final ModelPart plate;
     private final ModelPart handle;
 
     public HeaterShieldEntityModel(ModelPart root) {
-        super(root, RenderLayer::getEntitySolid);
+        super(root, RenderLayers::entitySolid);
         this.root = root;
         this.plate = root.getChild("plate");
         this.handle = root.getChild("handle");

@@ -11,10 +11,11 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
@@ -28,16 +29,13 @@ public class WargArmorSideSkullsFeatureRenderer extends FeatureRenderer<WargEnti
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
         ItemStack itemStack = state.armor;
 
         MountArmorAddonComponent component = itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
 
         if(component != null && component.sideArmorAddon()) {
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_side_skull_addon.png")), itemStack.hasGlint());
-
-            model.setAngles(state);
-            model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+            RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_side_skull_addon.png"), itemStack.hasGlint(), light);
         }
     }
 }

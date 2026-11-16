@@ -1,18 +1,19 @@
 package net.sevenstars.middleearth.client.model.hand;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Unit;
 
 
-public class HeldBannerEntityModel extends Model {
+public class HeldBannerEntityModel extends Model<Unit> {
     private final ModelPart root;
     private final ModelPart pole;
     private final ModelPart banner;
 
     public HeldBannerEntityModel(ModelPart root) {
-        super(root, RenderLayer::getEntitySolid);
+        super(root, RenderLayers::entitySolid);
         this.root = root;
         this.pole = root.getChild("pole");
         this.banner = root.getChild("banner");

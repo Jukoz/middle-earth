@@ -18,9 +18,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
@@ -42,7 +42,8 @@ public class CustomBuiltInModelItemRenderer {
     public CustomBuiltInModelItemRenderer() {
     }
 
-    public void render(ItemStack stack, ItemDisplayContext mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ItemStack stack, ItemDisplayContext mode, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay) {
+        SpriteHolder spriteHolder = MinecraftClient.getInstance().getAtlasManager();
         this.heaterShieldEntityModel = new HeaterShieldEntityModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.HEATER_SHIELD_LAYER));
         this.kiteShieldEntityModel = new KiteShieldEntityModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.KITE_SHIELD_LAYER));
         this.roundShieldEntityModel = new RoundShieldEntityModel(MinecraftClient.getInstance().getLoadedEntityModels().getModelPart(MiddleEarthClient.ROUND_SHIELD_LAYER));
@@ -57,34 +58,34 @@ public class CustomBuiltInModelItemRenderer {
 
             if (stack.isOf(WeaponItemsME.HEATER_SHIELD)){
                 SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.HEATER_SHIELD_BASE : ModelLoaderME.HEATER_SHIELD_BASE_NO_PATTERN;
-                VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.heaterShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
-                this.heaterShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
+                RenderLayer layer = this.heaterShieldEntityModel.getLayer(spriteIdentifier.getAtlasId());
+                queue.submitModelPart(this.heaterShieldEntityModel.getHandle(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, false, -1, null, 0);
                 if (bl) {
-                    renderCanvas(matrices, vertexConsumers, light, overlay, this.heaterShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
+                    renderCanvas(spriteHolder, matrices, queue, light, overlay, this.heaterShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
                 } else {
-                    this.heaterShieldEntityModel.getPlate().render(matrices, vertexConsumer, light, overlay);
+                    queue.submitModelPart(this.heaterShieldEntityModel.getPlate(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, stack.hasGlint(), -1, null, 0);
                 }
 
                 matrices.pop();
             } else if (stack.isOf(WeaponItemsME.KITE_SHIELD)){
                 SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.KITE_SHIELD_BASE : ModelLoaderME.KITE_SHIELD_BASE_NO_PATTERN;
-                VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.kiteShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
-                this.kiteShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
+                RenderLayer layer = this.kiteShieldEntityModel.getLayer(spriteIdentifier.getAtlasId());
+                queue.submitModelPart(this.kiteShieldEntityModel.getHandle(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, false, -1, null, 0);
                 if (bl) {
-                    renderCanvas(matrices, vertexConsumers, light, overlay, this.kiteShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
+                    renderCanvas(spriteHolder, matrices, queue, light, overlay, this.kiteShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
                 } else {
-                    this.kiteShieldEntityModel.getPlate().render(matrices, vertexConsumer, light, overlay);
+                    queue.submitModelPart(this.kiteShieldEntityModel.getPlate(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, stack.hasGlint(), -1, null, 0);
                 }
 
                 matrices.pop();
             } else if (stack.isOf(WeaponItemsME.ROUND_SHIELD)){
                 SpriteIdentifier spriteIdentifier = bl ? ModelLoaderME.ROUND_SHIELD_BASE : ModelLoaderME.ROUND_SHIELD_BASE_NO_PATTERN;
-                VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.roundShieldEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
-                this.roundShieldEntityModel.getHandle().render(matrices, vertexConsumer, light, overlay);
+                RenderLayer layer = this.roundShieldEntityModel.getLayer(spriteIdentifier.getAtlasId());
+                queue.submitModelPart(this.roundShieldEntityModel.getHandle(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, false, -1, null, 0);
                 if (bl) {
-                    renderCanvas(matrices, vertexConsumers, light, overlay, this.roundShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
+                    renderCanvas(spriteHolder, matrices, queue, light, overlay, this.roundShieldEntityModel.getPlate(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
                 } else {
-                    this.roundShieldEntityModel.getPlate().render(matrices, vertexConsumer, light, overlay);
+                    queue.submitModelPart(this.roundShieldEntityModel.getPlate(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, stack.hasGlint(), -1, null, 0);
                 }
 
                 matrices.pop();
@@ -100,12 +101,12 @@ public class CustomBuiltInModelItemRenderer {
 
             if (stack.isOf(WeaponItemsME.HELD_BANNER)){
                 SpriteIdentifier spriteIdentifier = ModelBaker.BANNER_BASE;
-                VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.heldBannerEntityModel.getLayer(spriteIdentifier.getAtlasId()), true, stack.hasGlint()));
-                this.heldBannerEntityModel.getPole().render(matrices, vertexConsumer, light, overlay);
+                RenderLayer layer = this.heldBannerEntityModel.getLayer(spriteIdentifier.getAtlasId());
+                queue.submitModelPart(this.heldBannerEntityModel.getPole(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, false, -1, null, 0);
                 if (bl) {
-                    renderCanvas(matrices, vertexConsumers, light, overlay, this.heldBannerEntityModel.getBanner(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
+                    renderCanvas(spriteHolder, matrices, queue, light, overlay, this.heldBannerEntityModel.getBanner(), spriteIdentifier, false, (DyeColor) Objects.requireNonNullElse(dyeColor2, DyeColor.WHITE), bannerPatternsComponent, stack.hasGlint(), stack, false);
                 } else {
-                    this.heldBannerEntityModel.getBanner().render(matrices, vertexConsumer, light, overlay);
+                    queue.submitModelPart(this.heldBannerEntityModel.getBanner(), matrices, layer, light, overlay, spriteHolder.getSprite(spriteIdentifier), false, stack.hasGlint(), -1, null, 0);
                 }
 
                 matrices.pop();
@@ -113,16 +114,16 @@ public class CustomBuiltInModelItemRenderer {
         }
     }
 
-    public static void renderCanvas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, ItemStack stack, boolean solid) {
-        canvas.render(matrices, baseSprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, solid, glint), light, overlay);
+    public static void renderCanvas(SpriteHolder spriteHolder, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, ItemStack stack, boolean solid) {
+        queue.submitModelPart(canvas, matrices, baseSprite.getRenderLayer(RenderLayers::entitySolid), light, overlay, spriteHolder.getSprite(baseSprite), false, glint, -1, null, 0);
         if (stack.isOf(WeaponItemsME.HEATER_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.HEATER_SHIELD_BASE, color);
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.HEATER_SHIELD_BASE, color);
         } else if (stack.isOf(WeaponItemsME.KITE_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.KITE_SHIELD_BASE, color);
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.KITE_SHIELD_BASE, color);
         }else if (stack.isOf(WeaponItemsME.ROUND_SHIELD)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.ROUND_SHIELD_BASE, color);
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, isBanner ? TexturedRenderLayers.BANNER_BASE : TexturedRenderLayersME.ROUND_SHIELD_BASE, color);
         }else if (stack.isOf(WeaponItemsME.HELD_BANNER)){
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, TexturedRenderLayers.BANNER_BASE, color);
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, TexturedRenderLayers.BANNER_BASE, color);
         }
         for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternsComponent.Layer layer = (BannerPatternsComponent.Layer)patterns.layers().get(i);
@@ -136,14 +137,14 @@ public class CustomBuiltInModelItemRenderer {
             } else if (stack.isOf(WeaponItemsME.HELD_BANNER)){
                 spriteIdentifier = TexturedRenderLayers.getBannerPatternTextureId(layer.pattern());
             }
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, spriteIdentifier, layer.color());
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, spriteIdentifier, layer.color());
         }
     }
 
 
 
-    private static void renderLayer(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier textureId, DyeColor color) {
+    private static void renderLayer(SpriteHolder spriteHolder, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, ModelPart canvas, SpriteIdentifier textureId, DyeColor color) {
         int i = color.getEntityColor();
-        canvas.render(matrices, textureId.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline), light, overlay, i);
+        queue.submitModelPart(canvas, matrices, textureId.getRenderLayer(RenderLayers::entityNoOutline), light, overlay, spriteHolder.getSprite(textureId), i, null);
     }
 }

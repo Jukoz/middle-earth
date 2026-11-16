@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class GreatHornEntityRenderState extends LivingEntityRenderState {
@@ -13,6 +14,7 @@ public class GreatHornEntityRenderState extends LivingEntityRenderState {
     public ItemStack armor;
     public boolean blueSaddle;
     public boolean hasRider;
+    public Text customName;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState earWiggleAnimationState = new AnimationState();

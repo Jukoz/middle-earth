@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.beasts.warg;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.feature.SaddleFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,13 +25,15 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     public WargRenderer(EntityRendererFactory.Context context) {
         super(context, new WargModel(context.getPart(EntityModelLayersME.WARG)), 0.8f);
         this.addFeature(new WargEyesFeatureRenderer(this));
+        WargModel armorModel = new WargModel(context.getPart(EntityModelLayersME.WARG_ARMOR));
         this.addFeature( // Armor Feature
                 new SaddleFeatureRenderer<>(
                         this,
                         context.getEquipmentRenderer(),
-                        new WargModel(context.getPart(EntityModelLayersME.WARG_ARMOR)),
                         EquipmentModel.LayerType.HORSE_BODY,
-                        state -> state.armor
+                        state -> state.armor,
+                        armorModel,
+                        armorModel
                 )
         );
         this.addFeature(new WargArmorSpineFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
@@ -41,7 +44,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
     }
 
     @Override
-    public void render(WargEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(WargEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
         if(state.baby) {
             matrixStack.scale(SIZE/2, SIZE/2, SIZE/2);
         }
@@ -49,7 +52,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
             matrixStack.scale(SIZE, SIZE, SIZE);
         }
 
-        super.render(state, matrixStack, vertexConsumerProvider, i);
+        super.render(state, matrixStack, queue, cameraRenderState);
     }
 
     @Override
@@ -94,7 +97,7 @@ public class WargRenderer extends MobEntityRenderer<WargEntity, WargEntityRender
         state.conrollingPassenger = warg.getControllingPassenger();
         state.saddle = warg.getEquippedStack(EquipmentSlot.SADDLE);
         state.armor = warg.getBodyArmor();
-        state.haveEmissiveEyes = warg.getWorld().isNight() || warg.getWorld().getLightLevel(warg.getBlockPos()) <= LIGHT_LEVEL_EMISSIVE_EYES;
+        state.haveEmissiveEyes = warg.getEntityWorld().isNight() || warg.getEntityWorld().getLightLevel(warg.getBlockPos()) <= LIGHT_LEVEL_EMISSIVE_EYES;
 
         state.chargeAnimationState = warg.chargeAnimationState;
         state.startSittingAnimationState = warg.startSittingAnimationState;

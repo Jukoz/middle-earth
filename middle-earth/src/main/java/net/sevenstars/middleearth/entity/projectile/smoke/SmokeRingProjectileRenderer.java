@@ -4,7 +4,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
@@ -14,7 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 import org.joml.Matrix4f;
-import net.minecraft.client.render.RenderLayer;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
@@ -37,8 +38,9 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
     public void render(
             SmokeRingProjectileRenderState state,
             MatrixStack matrices,
-            VertexConsumerProvider vertexConsumers,
-            int light) {
+            OrderedRenderCommandQueue queue,
+            CameraRenderState cameraRenderState) {
+        int light = state.light;
         matrices.push();
         matrices.translate(0, 0.2, 0);
         matrices.multiply(state.orientationQuat);
@@ -49,9 +51,6 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
         Sprite sprite = frames[frame];
 
 
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        VertexConsumer vc = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(sprite.getAtlasId()));
-
         float minU = sprite.getMinU();
         float maxU = sprite.getMaxU();
         float minV = sprite.getMinV();
@@ -59,7 +58,8 @@ public class SmokeRingProjectileRenderer extends EntityRenderer<SmokeRingProject
 
         int overlay = net.minecraft.client.render.OverlayTexture.DEFAULT_UV;
 
-        drawQuad(vc, matrix, SMOKE_RING_SIZE, minU, maxU, minV, maxV, light, overlay);
+        queue.submitCustom(matrices, RenderLayers.entityTranslucent(sprite.getAtlasId()),
+                (entry, vc) -> drawQuad(vc, entry.getPositionMatrix(), SMOKE_RING_SIZE, minU, maxU, minV, maxV, light, overlay));
 
         matrices.pop();
     }

@@ -3,8 +3,7 @@ package net.sevenstars.middleearth.entity.npcs.renderer.features.nose;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -34,19 +33,18 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier noseId =  (isSimplified) ? state.simplifiedNoseId : MiddleEarth.appendPrefix(state.noseId, AtlasesME.SKIN_PREFIX);
 
         noseModel.setAngles(state);
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         if(noseId != null) {
             Sprite sprite = characterTexturesAtlas.getSprite(noseId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            renderModel(sprite, matrices, queue, state, light, overlay);
         }
     }
 
@@ -54,10 +52,9 @@ public class NoseFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
     }
 
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
+    private void renderModel(Sprite sprite, MatrixStack matrices, OrderedRenderCommandQueue queue, NpcEntityRenderState state, int light, int overlay){
         if(sprite != null){
-            VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            noseModel.render(matrices, newLayerVertexConsumer, light, overlay);
+            queue.submitModel(noseModel, state, matrices, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, -1, sprite, state.outlineColor, null);
         }
     }
 }

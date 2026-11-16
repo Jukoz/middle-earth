@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.client;
 
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -27,8 +28,8 @@ public class TexturedRenderLayersME extends TexturedRenderLayers {
 
 
     static {
-        CHARACTER_TEXTURES_RENDER_LAYER = RenderLayer.getEntityCutoutNoCull(CHARACTER_ATLAS_TEXTURES);
-        CHARACTER_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayer.getEntityTranslucentEmissive(CHARACTER_ATLAS_TEXTURES);
+        CHARACTER_TEXTURES_RENDER_LAYER = RenderLayers.entityCutoutNoCull(CHARACTER_ATLAS_TEXTURES);
+        CHARACTER_TEXTURES_EMISSIVE_RENDER_LAYER = RenderLayers.entityTranslucentEmissive(CHARACTER_ATLAS_TEXTURES);
 
         HEATER_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idVanilla("entity", "heater_shield", "base" ));
         KITE_SHIELD_BASE = new SpriteIdentifier(SHIELD_PATTERNS_ATLAS_TEXTURE, MiddleEarth.idVanilla("entity", "kite_shield", "base" ));

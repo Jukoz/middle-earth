@@ -3,8 +3,7 @@ package net.sevenstars.middleearth.entity.npcs.renderer.features.hair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -35,7 +34,7 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         EntityModel<NpcEntityRenderState> entityModel = hairModel;
 
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
@@ -49,30 +48,25 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
          */
 
         if(hairAddonTextureId == null && beardAddonTextureId == null){
-            entityModel.getRootPart().visible = false;
             return;
-        } else if (!entityModel.getRootPart().visible){
-            entityModel.getRootPart().visible = true;
         }
         entityModel.setAngles(state);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         if(hairAddonTextureId != null && state.canShowHair){
             Sprite sprite = characterTexturesAtlas.getSprite(hairAddonTextureId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            renderModel(sprite, matrices, queue, state, light, overlay);
         }
         if(beardAddonTextureId != null && state.canShowBeard){
             Sprite sprite = characterTexturesAtlas.getSprite(beardAddonTextureId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            renderModel(sprite, matrices, queue, state, light, overlay);
         }
     }
 
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
+    private void renderModel(Sprite sprite, MatrixStack matrices, OrderedRenderCommandQueue queue, NpcEntityRenderState state, int light, int overlay){
         if(sprite != null){
-            VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            hairModel.render(matrices, newLayerVertexConsumer, light, overlay);
+            queue.submitModel(hairModel, state, matrices, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, -1, sprite, state.outlineColor, null);
         }
     }
 

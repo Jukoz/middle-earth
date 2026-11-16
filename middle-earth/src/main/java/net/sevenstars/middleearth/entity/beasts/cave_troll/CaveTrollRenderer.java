@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -28,7 +29,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
     @Override
     public Identifier getTexture(CaveTrollEntityRenderState state) {
         boolean isCalm = (state.tameness > 25 || !state.isTame) && !state.isEnraged;
-        if(state.customName != null && state.customName.getString().equals("Angmarzku")) {
+        if(state instanceof NamedRenderState named && named.customName != null && named.customName.getString().equals("Angmarzku")) {
             return isCalm ?
                     MiddleEarth.id(TEXTURE_ANG) :
                     MiddleEarth.id(TEXTURE_ANGRY_ANG);
@@ -51,12 +52,20 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
 
     @Override
     public CaveTrollEntityRenderState createRenderState() {
-        return new CaveTrollEntityRenderState();
+        return new NamedRenderState();
+    }
+
+    // customName was dropped from the vanilla render state
+    private static class NamedRenderState extends CaveTrollEntityRenderState {
+        private Text customName;
     }
 
     @Override
     public void updateRenderState(CaveTrollEntity troll, CaveTrollEntityRenderState state, float f) {
         super.updateRenderState(troll, state, f);
+        if (state instanceof NamedRenderState named) {
+            named.customName = troll.getCustomName();
+        }
         CaveTrollEntityRenderState.updateRenderState(troll, state, this.itemModelResolver);
 
         state.chaseAnimationState = troll.chaseAnimationState;

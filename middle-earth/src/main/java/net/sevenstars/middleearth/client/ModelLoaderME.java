@@ -9,6 +9,8 @@ import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.model.BakedSimpleModel;
 import net.minecraft.client.render.model.BlockStateModel;
 import net.minecraft.client.render.model.ModelBaker;
+import net.minecraft.client.texture.PlayerSkinCache;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -26,8 +28,8 @@ public class ModelLoaderME extends ModelBaker {
     public static final SpriteIdentifier ROUND_SHIELD_BASE;
     public static final SpriteIdentifier ROUND_SHIELD_BASE_NO_PATTERN;
 
-    public ModelLoaderME(LoadedEntityModels entityModels, Map<BlockState, BlockStateModel.UnbakedGrouped> blockModels, Map<Identifier, ItemAsset> itemModels, Map<Identifier, BakedSimpleModel> simpleModels, BakedSimpleModel missingModel) {
-        super(entityModels, blockModels, itemModels, simpleModels, missingModel);
+    public ModelLoaderME(LoadedEntityModels entityModels, SpriteHolder spriteHolder, PlayerSkinCache skinCache, Map<BlockState, BlockStateModel.UnbakedGrouped> blockModels, Map<Identifier, ItemAsset> itemModels, Map<Identifier, BakedSimpleModel> simpleModels, BakedSimpleModel missingModel) {
+        super(entityModels, spriteHolder, skinCache, blockModels, itemModels, simpleModels, missingModel);
     }
 
     static {

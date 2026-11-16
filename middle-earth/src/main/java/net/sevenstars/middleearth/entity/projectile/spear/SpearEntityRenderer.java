@@ -3,7 +3,8 @@ package net.sevenstars.middleearth.entity.projectile.spear;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
@@ -49,7 +50,7 @@ public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntity
 
     //TODO fix all this
     @Override
-    public void render(SpearEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(SpearEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
         /*
         matrices.push();
         float cosYaw = (float) Math.cos(Math.toRadians(state.getYaw()));
@@ -70,6 +71,6 @@ public class SpearEntityRenderer extends EntityRenderer<SpearEntity, SpearEntity
         matrices.pop();
 
         */
-        super.render(state, matrices, vertexConsumers, light);
+        super.render(state, matrices, queue, cameraRenderState);
     }
 }
