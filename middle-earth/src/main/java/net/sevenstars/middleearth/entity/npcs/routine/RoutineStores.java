@@ -7,8 +7,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -36,21 +34,6 @@ public final class RoutineStores {
         return world.getBlockState(pos).contains(BeehiveBlock.HONEY_LEVEL);
     }
 
-    // Raw food is anything a smoker can cook, like meat and fish
-    public static boolean isRawFood(ServerWorld world, ItemStack stack) {
-        return !stack.isEmpty() && world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, new SingleStackRecipeInput(stack), world).isPresent();
-    }
-
-    public static Item cookedOf(ServerWorld world, Item raw) {
-        SingleStackRecipeInput input = new SingleStackRecipeInput(new ItemStack(raw));
-        return world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, input, world)
-                .map(entry -> entry.value().craft(input, world.getRegistryManager()).getItem()).orElse(raw);
-    }
-
-    public static @Nullable Item takeRawFood(ServerWorld world, BlockPos store) {
-        return takeFrom(world, store, stack -> isRawFood(world, stack));
-    }
-
     public static boolean isOven(ServerWorld world, @Nullable BlockPos station) {
         return station != null && StationKind.of(Registries.BLOCK.getId(world.getBlockState(station).getBlock()).getPath()) == StationKind.OVEN;
     }
@@ -70,6 +53,20 @@ public final class RoutineStores {
             }
         }
         return null;
+    }
+
+    // Takes this many of one item or none at all, because somebody else may have got to the store first
+    public static boolean take(ServerWorld world, BlockPos place, Item item, int count) {
+        Inventory inventory = inventoryAt(world, place);
+        if(inventory == null || inventory.count(item) < count)
+            return false;
+        int left = count;
+        for(int slot = 0; slot < inventory.size() && left > 0; slot++) {
+            if(inventory.getStack(slot).isOf(item))
+                left -= inventory.removeStack(slot, left).getCount();
+        }
+        inventory.markDirty();
+        return true;
     }
 
     // The sound of working the block itself, like a hammer on iron at a forge or rustling hay in a stable

@@ -68,6 +68,8 @@ import net.sevenstars.middleearth.entity.npcs.routine.FarmPlots;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineGame;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineStores;
+import net.sevenstars.middleearth.entity.npcs.routine.SiteStock;
+import net.sevenstars.middleearth.entity.npcs.routine.TradeRecipes;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
@@ -381,7 +383,11 @@ public class NpcRoutineGoal extends Goal {
     private @Nullable BlockPos workStation = null;
     // The animal a stable master is tending
     private @Nullable AnimalEntity workAnimal = null;
-    // A cook first fetches something raw from a store, cooks it at the station, then takes it back
+    // A trade that works from the place's stock first fetches its inputs from a store, works them at the station, then
+    // takes what it made back
+    private @Nullable TradeRecipes.Order order = null;
+    private int carriedCount = 1;
+    private boolean woodNeeded = false;
     private @Nullable BlockPos fetchFrom = null;
     private @Nullable BlockPos cookStand = null;
     // An oven burns planks split from the logs the woodcutters bring in. A hearth is already a fire
@@ -727,6 +733,7 @@ public class NpcRoutineGoal extends Goal {
         Random random = npc.getRandom();
         lookTarget = null;
         carried = null;
+        carriedCount = 1;
         facing = null;
         boolean sentry = NpcJobs.SENTRY.getValue().equals(npc.getJobId());
         // Falls back to another duty when the build lacks what this one needs
@@ -831,6 +838,10 @@ public class NpcRoutineGoal extends Goal {
         unusableStations.values().removeIf(until -> until <= time);
         workStation = null;
         workAnimal = null;
+        order = TradeRecipes.order(world, site.getStock(), npc.getJobId(), home, WORK_RANGE, npc.getRandom());
+        woodNeeded = false;
+        if(order == null && needsStock())
+            return cannotStart(picked, "nothing in any store for its trade to work with");
         // A stable master works on the animals at its spawn_animal marker
         if(isStableWork()) {
             workAnimal = findAnimal(world, home);
@@ -852,7 +863,7 @@ public class NpcRoutineGoal extends Goal {
                 continue;
             if(RoutineStores.isHive(world, station) && !hiveReady(world, station, time))
                 continue;
-            if(isCookWork() && RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null)
+            if(order != null && lacksWood(world, station, home))
                 continue;
             beside = NestSurvey.standNextTo(world, station, npc.getBlockPos());
             // A forge walled in on every side is for show
@@ -866,14 +877,12 @@ public class NpcRoutineGoal extends Goal {
             return cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
                     : "no room to stand at any station of its trade");
         spot = beside;
-        if(isCookWork()) {
-            BlockPos pantry = storeWithRawFood(world, home);
-            if(pantry == null)
-                return cannotStart(picked, "nothing raw in any store to cook");
-            fetchFrom = pantry;
+        if(order != null) {
+            fetchFrom = order.from();
             cookStand = beside;
             fuelFrom = RoutineStores.isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
-            spot = standAt(world, pantry);
+            woodNeeded = fuelFrom != null;
+            spot = standAt(world, fetchFrom);
         }
         return true;
     }
@@ -1247,8 +1256,8 @@ public class NpcRoutineGoal extends Goal {
         return false;
     }
 
-    // What the walk of a trade ends in sight of. That's the store a cook fetches from, then the wood pile, then the
-    // station. None for a stable master, who walks up to an animal
+    // What the walk of a trade ends in sight of. That's the store its inputs are fetched from, then the wood pile, then
+    // the station. None for a stable master, who walks up to an animal
     private @Nullable BlockPos workTarget() {
         return fetchFrom != null ? fetchFrom : fuelFrom != null ? fuelFrom : workStation;
     }
@@ -1373,7 +1382,7 @@ public class NpcRoutineGoal extends Goal {
             world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, state), block.getX() + 0.5, block.getY() + 0.5, block.getZ() + 0.5, CRACK_PARTICLES, CRACK_SPREAD, CRACK_SPREAD, CRACK_SPREAD, CRACK_SPEED);
     }
 
-    // Puts one of what was carried into the store, if there is room
+    // Puts what was carried into the store, if there is room
     private void deliver(ServerWorld world, BlockPos store) {
         if(carried == null)
             return;
@@ -1388,7 +1397,8 @@ public class NpcRoutineGoal extends Goal {
             abandoned("its store " + store.toShortString() + " cannot hold anything");
             return;
         }
-        ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(carried), null);
+        ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(carried, carriedCount), null);
+        site.getStock().changed();
         // A full store still counts as the work done
         did("deliver", left.isEmpty() ? "stored " + itemName(carried) + " in the store at " + store.toShortString()
                 : "found the store at " + store.toShortString() + " full, " + itemName(carried) + " stays out");
@@ -1609,14 +1619,16 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private void arriveAtStore(ServerWorld world) {
-        Item raw = RoutineStores.takeRawFood(world, fetchFrom);
-        if(raw == null) {
-            abandoned("what there was to cook in the store at " + fetchFrom.toShortString() + " is gone");
+        if(order == null || !RoutineStores.take(world, fetchFrom, order.input(), order.count())) {
+            abandoned("what it came for in the store at " + fetchFrom.toShortString() + " is gone");
+            site.getStock().changed();
             finish(world, REST);
             return;
         }
-        carried = raw;
-        did("work", "took " + itemName(raw) + " from the store at " + fetchFrom.toShortString() + " to cook");
+        site.getStock().changed();
+        carried = order.input();
+        carriedCount = order.count();
+        did("work", "took " + carriedCount + " " + itemName(carried) + " from the store at " + fetchFrom.toShortString() + " to make " + itemName(order.output()));
         dropOff = fetchFrom;
         fetchFrom = null;
         spot = fuelFrom != null ? standAt(world, fuelFrom) : cookStand;
@@ -1642,7 +1654,7 @@ public class NpcRoutineGoal extends Goal {
             did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
             logInHand = null;
         }
-        if(isCookWork() && workStation != null && RoutineStores.isOven(world, workStation) && planks == 0) {
+        if(woodNeeded && planks == 0) {
             abandoned("has no wood for the oven at " + workStation.toShortString());
             // What was fetched to be cooked goes back to its store
             if(carried != null)
@@ -1772,12 +1784,14 @@ public class NpcRoutineGoal extends Goal {
             carried = Items.HONEYCOMB;
             did("work", "took the honey from the hive at " + workStation.toShortString());
             startReturn(world);
-        } else if(done && isCookWork() && carried != null) {
-            Item raw = carried;
-            carried = RoutineStores.cookedOf(world, raw);
-            if(workStation != null && RoutineStores.isOven(world, workStation))
+        } else if(done && order != null && carried != null) {
+            Item used = carried;
+            carried = order.output();
+            if(planks > 0 && workStation != null && RoutineStores.isOven(world, workStation))
                 planks--;
-            did("work", "cooked " + itemName(raw) + " into " + itemName(carried) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
+            did("work", "made " + itemName(carried) + " from " + carriedCount + " " + itemName(used) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
+            carriedCount = 1;
+            order = null;
             startReturn(world);
         } else if(done) {
             if(workAnimal != null)
@@ -2360,51 +2374,22 @@ public class NpcRoutineGoal extends Goal {
         return since >= HIVE_READY_TIME;
     }
 
-    private boolean isCookWork() {
-        return NpcJobs.COOK.getValue().equals(npc.getJobId());
-    }
-
-    // The nearest store of the place with something in it to cook
-    private @Nullable BlockPos storeWithRawFood(ServerWorld world, BlockPos home) {
-        BlockPos best = null;
-        for(BlockPos store : site.getStores()) {
-            if(!store.isWithinDistance(home, WORK_RANGE) || !isLoaded(world, store))
-                continue;
-            if(best != null && store.getSquaredDistance(home) >= best.getSquaredDistance(home))
-                continue;
-            Inventory inventory = RoutineStores.inventoryAt(world, store);
-            if(inventory == null)
-                continue;
-            for(int slot = 0; slot < inventory.size(); slot++) {
-                if(RoutineStores.isRawFood(world, inventory.getStack(slot))) {
-                    best = store;
-                    break;
-                }
-            }
-        }
-        return best;
+    // A trade that lives off the place's stock can't work without it. Where a place has no stores at all there is
+    // nothing to share, and its people go through the motions at their stations
+    private boolean needsStock() {
+        return TradeRecipes.needsStock(npc.getJobId()) && !site.getStores().isEmpty();
     }
 
     // The nearest wood pile or store of the place with a log in it
     private @Nullable BlockPos woodSource(ServerWorld world, BlockPos home) {
-        List<BlockPos> places = new ArrayList<>(site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE));
-        places.addAll(site.getStores());
-        BlockPos best = null;
-        for(BlockPos place : places) {
-            if(!place.isWithinDistance(home, WORK_RANGE) || !isLoaded(world, place)
-                    || best != null && place.getSquaredDistance(home) >= best.getSquaredDistance(home))
-                continue;
-            Inventory inventory = RoutineStores.inventoryAt(world, place);
-            if(inventory == null)
-                continue;
-            for(int slot = 0; slot < inventory.size(); slot++) {
-                if(inventory.getStack(slot).isIn(ItemTags.LOGS)) {
-                    best = place;
-                    break;
-                }
-            }
-        }
-        return best;
+        SiteStock.Holding logs = site.getStock().nearest(world, home, WORK_RANGE, item -> item.getDefaultStack().isIn(ItemTags.LOGS), 1);
+        return logs == null ? null : logs.place();
+    }
+
+    // An oven burns the wood the woodcutters bring in. Where nobody keeps a wood pile it's taken to be fired already
+    private boolean lacksWood(ServerWorld world, BlockPos station, BlockPos home) {
+        return RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null
+                && !site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE).isEmpty();
     }
 
     // The floor beside a block. A seat on a bench between the table, a wall and the next seat has none, and is reached
@@ -2473,13 +2458,15 @@ public class NpcRoutineGoal extends Goal {
 
     // A station of its trade to work at, a hive only once its honey is due, and for a stable master an animal
     private boolean hasWork(ServerWorld world, RoutineData routine, BlockPos home, long time) {
-        if(isCookWork() && (storeWithRawFood(world, home) == null
-                || planks == 0 && site.stationsNear(List.of(StationKind.HEARTH), home, WORK_RANGE).isEmpty() && woodSource(world, home) == null))
+        boolean ready = TradeRecipes.order(world, site.getStock(), npc.getJobId(), home, WORK_RANGE, npc.getRandom()) != null;
+        if(!ready && needsStock())
             return false;
         if(isStableWork())
             return findAnimal(world, home) != null;
         for(BlockPos station : site.stationsNear(routine.getStations(), home, WORK_RANGE)) {
             if(!isLoaded(world, station))
+                continue;
+            if(ready && lacksWood(world, station, home))
                 continue;
             if(!RoutineStores.isHive(world, station) || hiveReady(world, station, time))
                 return true;
@@ -2654,6 +2641,8 @@ public class NpcRoutineGoal extends Goal {
         phase = Phase.NONE;
         dropOff = null;
         fetchFrom = null;
+        order = null;
+        carriedCount = 1;
         cookStand = null;
         fuelFrom = null;
         logInHand = null;

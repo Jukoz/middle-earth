@@ -137,6 +137,7 @@ public class RoutineSite {
     // The beds npcs are born in. Each one marks the middle of a household
     private List<BlockPos> households = List.of();
     private List<BlockPos> stores = List.of();
+    private final SiteStock stock = new SiteStock(this);
     // The seats around each table in the settlement, taken from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureFeatureData.Station> stations = List.of();
@@ -312,6 +313,10 @@ public class RoutineSite {
     }
 
     // The barrels and chests the households keep their things in
+    public SiteStock getStock() {
+        return stock;
+    }
+
     public List<BlockPos> getStores() {
         return stores;
     }
