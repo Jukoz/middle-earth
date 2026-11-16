@@ -4,7 +4,7 @@
   "group": "hanging_sign",
   "key": {
     "#": "#middle-earth:mod_stripped_logs",
-    "X": "minecraft:chain"
+    "X": "minecraft:iron_chain"
   },
   "pattern": [
     "X X",

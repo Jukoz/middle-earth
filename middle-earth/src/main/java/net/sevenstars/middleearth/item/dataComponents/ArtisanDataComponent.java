@@ -4,15 +4,17 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.entity.SkullBlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.ComponentsAccess;
 import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.server.GameProfileResolver;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.dynamic.Codecs;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -37,12 +39,13 @@ public record ArtisanDataComponent(UUID uuid) implements TooltipAppender {
 
     @Override
     public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        CompletableFuture<Optional<GameProfile>> profile = SkullBlockEntity.fetchProfileByUuid(uuid);
+        GameProfileResolver profileResolver = MinecraftClient.getInstance().getApiServices().profileResolver();
+        CompletableFuture<Optional<GameProfile>> profile = CompletableFuture.supplyAsync(() -> profileResolver.getProfileById(uuid), Util.getDownloadWorkerExecutor());
         try {
             if (profile.get().isPresent()){
                 try {
                     textConsumer.accept(Text.translatable("tooltip.%s.artisan".formatted(MiddleEarth.MOD_ID)).append(
-                            profile.get().get().getName()).formatted(Formatting.GRAY));
+                            profile.get().get().name()).formatted(Formatting.GRAY));
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }

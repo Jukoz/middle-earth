@@ -31,7 +31,7 @@ public class AtlasesME {
     @Environment(EnvType.CLIENT)
     public static SpriteAtlasTexture getAtlasFromPath(Identifier atlasPath){
         MinecraftClient client = MinecraftClient.getInstance();
-        return client.getBakedModelManager().getAtlas(atlasPath);
+        return (SpriteAtlasTexture) client.getTextureManager().getTexture(atlasPath);
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {

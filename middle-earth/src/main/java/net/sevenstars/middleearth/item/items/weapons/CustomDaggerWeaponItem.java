@@ -61,7 +61,7 @@ public class CustomDaggerWeaponItem extends ReachWeaponItem {
 
     public static boolean canBackStab(Entity target, Entity attacker) {
         Vector2f direction = new Vector2f((float) target.getRotationVector().x, (float) target.getRotationVector().z).normalize();
-        Vector3f attackerPosDifference = target.getPos().add(attacker.getPos().multiply(-1)).toVector3f();
+        Vector3f attackerPosDifference = target.getEntityPos().add(attacker.getEntityPos().multiply(-1)).toVector3f();
         Vector2f attackerDirection = new Vector2f(attackerPosDifference.x, attackerPosDifference.z).normalize();
         float dotProduct = direction.dot(attackerDirection);
         return dotProduct > 0.1f;

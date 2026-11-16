@@ -35,6 +35,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -361,7 +362,7 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
         double e = (double)pos.getX() + 0.5 + vec3d.x;
         double f = (double)pos.getY() + DOWN_TIP_Y - 0.0625;
         double g = (double)pos.getZ() + 0.5 + vec3d.z;
-        Fluid fluid2 = getDripFluid(world, fluid);
+        Fluid fluid2 = getDripFluid(world, fluid, pos);
         ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
         world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
     }
@@ -509,7 +510,7 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
             BlockPos blockPos = posx.up();
             BlockState blockState = world.getBlockState(blockPos);
             Object fluid;
-            if (blockState.isOf(Blocks.MUD) && !world.getDimension().ultrawarm()) {
+            if (blockState.isOf(Blocks.MUD) && !world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, blockPos)) {
                 fluid = Fluids.WATER;
             } else {
                 fluid = world.getFluidState(blockPos).getFluid();
@@ -527,9 +528,9 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
         return dripstoneBlockState.isOf(StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
     }
 
-    private static Fluid getDripFluid(World world, Fluid fluid) {
+    private static Fluid getDripFluid(World world, Fluid fluid, BlockPos pos) {
         if (fluid.matchesType(Fluids.EMPTY)) {
-            return world.getDimension().ultrawarm() ? Fluids.LAVA : Fluids.WATER;
+            return world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, pos) ? Fluids.LAVA : Fluids.WATER;
         } else {
             return fluid;
         }

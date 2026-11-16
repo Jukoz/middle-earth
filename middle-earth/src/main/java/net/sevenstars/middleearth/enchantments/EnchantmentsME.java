@@ -68,19 +68,19 @@ public class EnchantmentsME {
 
         register(registry, BANE_OF_GIANTS, Enchantment.builder(
                 Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                        registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 5, 5,
+                        registryEntryLookup3.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE), 5, 5,
                         Enchantment.leveledCost(5, 8),
                         Enchantment.leveledCost(25, 8), 2,
                         AttributeModifierSlot.MAINHAND))
                 .exclusiveSet(registryEntryLookup2.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE_SET))
                 .addEffect(EnchantmentEffectComponentTypes.DAMAGE,
                         new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5F)),
-                        EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS,
+                        EntityPropertiesLootCondition.builder(LootContext.EntityReference.THIS,
                                 EntityPredicate.Builder.create().type(EntityTypePredicate
                                         .create(registryEntryLookup5, EntityTypeTags.SENSITIVE_TO_SMITE)))));
 
         register(registry, CELERITY, Enchantment.builder(
-                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 1,
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE), 2, 1,
                         Enchantment.leveledCost(10, 20),
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))
@@ -158,7 +158,7 @@ public class EnchantmentsME {
                                 EntityAttributeModifier.Operation.ADD_VALUE)));
 
         register(registry, VANTAGE, Enchantment.builder(
-                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.SWORD_ENCHANTABLE), 2, 1,
+                Enchantment.definition(registryEntryLookup3.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE), 2, 1,
                         Enchantment.leveledCost(10, 20),
                         Enchantment.leveledCost(40, 20), 4,
                         AttributeModifierSlot.MAINHAND))

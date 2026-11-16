@@ -219,7 +219,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
-        chains.add(Items.CHAIN);
+        chains.add(Items.IRON_CHAIN);
         chains.add(DecorativeBlockRegistryME.BRONZE_CHAIN.asItem());
         chains.add(DecorativeBlockRegistryME.BRONZE_BROAD_CHAIN.asItem());
         chains.add(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem());

@@ -55,13 +55,13 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
     }
 
     public void explode() {
-        this.getWorld().createExplosion(this, this.getX(), this.getBodyY(0.0625), this.getZ(), EXPLOSION_FORCE, World.ExplosionSourceType.TNT);
+        this.getEntityWorld().createExplosion(this, this.getX(), this.getBodyY(0.0625), this.getZ(), EXPLOSION_FORCE, World.ExplosionSourceType.TNT);
         tryKillOwner();
     }
 
     private void tryKillOwner() {
         Entity owner = this.getOwner();
-        World world = this.getWorld();
+        World world = this.getEntityWorld();
         if(owner instanceof LivingEntity ownerEntity && world instanceof ServerWorld serverWorld) {
             if(ownerEntity instanceof PlayerEntity playerEntity){
                 if(!playerEntity.isCreative()){
@@ -107,14 +107,14 @@ public class FireOfOrthancEntity extends Entity implements Ownable {
         this.setFuse(i);
         if (i <= 0) {
             this.discard();
-            if (!this.getWorld().isClient()) {
+            if (!this.getEntityWorld().isClient()) {
                 this.explode();
             }
         } else {
             this.updateWaterState();
-            if (this.getWorld().isClient && !chainReaction) {
+            if (this.getEntityWorld().isClient() && !chainReaction) {
                 for(int j = 0; j < 4; j++) {
-                    this.getWorld().addParticleClient(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
+                    this.getEntityWorld().addParticleClient(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.8f, this.getZ(),
                             (Math.random() - 0.5f) * 0.3f, 0.4f, (Math.random() - 0.5f) * 0.5f);
                 }
             }

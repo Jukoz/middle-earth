@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProperties;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ServerConfigME;
@@ -58,24 +59,24 @@ public class DimensionRegistryME {
     }
 
     public static void teleportPlayerToMe(PlayerEntity player, Vec3d coordinates, boolean setSpawnPoint, boolean welcomeNeeded){
-        if(!player.getWorld().isClient()) {
+        if(!player.getEntityWorld().isClient()) {
             RegistryKey<World> registryKey = ME_WORLD_KEY;
-            ServerWorld serverWorld = (ServerWorld) player.getWorld();
+            ServerWorld serverWorld = (ServerWorld) player.getEntityWorld();
             if (serverWorld != null) {
 
-                player.teleportTo(new TeleportTarget(player.getServer().getWorld(ME_WORLD_KEY), coordinates, Vec3d.ZERO, 0, 0, new TeleportTarget.PostDimensionTransition() {
+                player.teleportTo(new TeleportTarget(serverWorld.getServer().getWorld(ME_WORLD_KEY), coordinates, Vec3d.ZERO, 0, 0, new TeleportTarget.PostDimensionTransition() {
                     @Override
                     public void onTransition(Entity entity) {
                         // idk
                     }
                 }));
                 if(setSpawnPoint){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), true);
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(registryKey, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), player.getYaw(), 0.0F), true);
                     ((ServerPlayerEntity) player).setSpawnPoint(respawn, true);
                 }
                 if(welcomeNeeded)
                     FactionUtil.sendOnFactionJoinMessage(player);
-                Race race =  PlayerDataService.getPlayerRace(player, player.getWorld());
+                Race race =  PlayerDataService.getPlayerRace(player, player.getEntityWorld());
                 if(race != null){
                     RaceUtil.updateRace(player, race, false);
                 }
@@ -93,20 +94,20 @@ public class DimensionRegistryME {
     }
 
     public static boolean teleportPlayerToOverworld(PlayerEntity player) {
-        if(!player.getWorld().isClient()) {
+        if(!player.getEntityWorld().isClient()) {
             RegistryKey<World> registryKey = OW_WORLD_KEY;
-            ServerWorld serverWorld = (ServerWorld) player.getWorld();
-            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(player, player.getWorld());
+            ServerWorld serverWorld = (ServerWorld) player.getEntityWorld();
+            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(player, player.getEntityWorld());
             BlockPos coordinate;
             if(origin == null) {
-                coordinate = player.getServer().getOverworld().getSpawnPos();
+                coordinate = serverWorld.getServer().getOverworld().getSpawnPoint().getPos();
             } else {
                 coordinate = origin.origin();
             }
 
             if (serverWorld != null) {
                 Vec3d coordinates = new Vec3d(coordinate.getX(), coordinate.getY(), coordinate.getZ());
-                player.teleportTo(new TeleportTarget(player.getServer().getOverworld(), coordinates, Vec3d.ZERO, 0, 0, entity -> {
+                player.teleportTo(new TeleportTarget(serverWorld.getServer().getOverworld(), coordinates, Vec3d.ZERO, 0, 0, entity -> {
                     // idk
                 }));
                 
