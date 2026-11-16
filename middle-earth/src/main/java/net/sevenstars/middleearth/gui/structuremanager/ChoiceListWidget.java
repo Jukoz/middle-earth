@@ -8,6 +8,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
+import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import org.jetbrains.annotations.Nullable;
@@ -24,19 +25,31 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
     private static final int SCROLLBAR_ROOM = 10;
     private static final int SEARCH_HEIGHT = 16;
     private static final int SEARCH_GAP = 2;
-    private static final int LABEL_GAP = 4;
+    private static final int LABEL_GAP = 3;
+    private static final int ICON_SIZE = 16;
+    private static final int HOVER = 0x18FFFFFF;
+    private static final int SELECTED = 0x38D4A94F;
+    private static final int ACCENT_WIDTH = 2;
+    private static final int HEADER_LINE = 0xFF333A45;
+
+    private @Nullable TextFieldWidget search;
 
     private List<Choice> all = List.of();
     private String filter = "";
 
-    // A header stands over the choices below it and cannot be picked
-    public record Choice(String value, Text label, boolean header) {
+    // A header stands over the choices below it and cannot be picked. A choice may have a few words more about it,
+    // shown dimmer at the end of its row, and something to be known by at a glance
+    public record Choice(String value, Text label, boolean header, @Nullable Text detail, ItemStack icon) {
         public Choice(String value, Text label) {
-            this(value, label, false);
+            this(value, label, false, null, ItemStack.EMPTY);
+        }
+
+        public Choice(String value, Text label, @Nullable Text detail, ItemStack icon) {
+            this(value, label, false, detail, icon);
         }
 
         public static Choice header(Text label) {
-            return new Choice("", label, true);
+            return new Choice("", label, true, null, ItemStack.EMPTY);
         }
     }
 
@@ -67,6 +80,40 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         String current = selectedValue();
         filter = text.trim().toLowerCase(Locale.ROOT);
         show(current);
+        // What was typed is shown for wrong while nothing but the pick itself answers to it
+        if(search != null)
+            search.setEditableColor(!filter.isEmpty() && all.stream().noneMatch(choice -> !choice.header() && matches(choice)) ? EditorPanel.WARNING : EditorPanel.TEXT);
+    }
+
+    private boolean matches(Choice choice) {
+        return choice.label().getString().toLowerCase(Locale.ROOT).contains(filter);
+    }
+
+    // In a well of the window's, with no bars of the game's own over and under it
+    @Override
+    protected void drawMenuListBackground(DrawContext context) {
+        EditorPanel.well(context, getX(), getY(), width, height);
+    }
+
+    @Override
+    protected void drawHeaderAndFooterSeparators(DrawContext context) {
+    }
+
+    // The row that is picked is lit, with a bar at its left, in place of the game's white frame
+    @Override
+    protected void drawSelectionHighlight(DrawContext context, int y, int entryWidth, int entryHeight, int borderColor, int fillColor) {
+        context.fill(getX(), y - 2, getScrollbarX(), y + entryHeight + 2, SELECTED);
+        context.fill(getX(), y - 2, getX() + ACCENT_WIDTH, y + entryHeight + 2, EditorPanel.ACCENT);
+    }
+
+    @Override
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        super.renderWidget(context, mouseX, mouseY, deltaTicks);
+        if(children().isEmpty()) {
+            var textRenderer = MinecraftClient.getInstance().textRenderer;
+            Text none = Text.translatable("ui.%s.choice_list.%s".formatted(MiddleEarth.MOD_ID, filter.isEmpty() ? "empty" : "no_match"));
+            context.drawCenteredTextWithShadow(textRenderer, none, getX() + width / 2, getY() + (height - textRenderer.fontHeight) / 2, EditorPanel.MUTED);
+        }
     }
 
     // A box to type in above the list, which then holds only the choices with that in their name
@@ -75,6 +122,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         TextFieldWidget field = new TextFieldWidget(textRenderer, getX(), getY() - SEARCH_HEIGHT - SEARCH_GAP, width, SEARCH_HEIGHT, hint);
         field.setPlaceholder(hint);
         field.setChangedListener(this::setFilter);
+        search = field;
         return field;
     }
 
@@ -101,7 +149,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         ChoiceEntry selected = null;
         for(Choice choice : all) {
             // Headers only stand over the whole list, not over what a search left of it
-            if(choice.header() ? !filter.isEmpty() : !choice.value().equals(current) && !choice.label().getString().toLowerCase(Locale.ROOT).contains(filter))
+            if(choice.header() ? !filter.isEmpty() : !choice.value().equals(current) && !matches(choice))
                 continue;
             ChoiceEntry entry = new ChoiceEntry(choice);
             addEntry(entry);
@@ -149,8 +197,35 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
             var textRenderer = MinecraftClient.getInstance().textRenderer;
-            context.drawTextWithShadow(textRenderer, choice.label(), x + (choice.header() ? 0 : TEXT_INDENT), y + (entryHeight - textRenderer.fontHeight) / 2,
-                    choice.header() ? HEADER_COLOR : TEXT_COLOR);
+            int textY = y + (entryHeight - textRenderer.fontHeight) / 2 + 1;
+            int right = getScrollbarX() - TEXT_INDENT;
+            if(choice.header()) {
+                // A line runs from the name of the group to the end of the row
+                context.drawTextWithShadow(textRenderer, choice.label(), x, textY, HEADER_COLOR);
+                int from = x + textRenderer.getWidth(choice.label()) + TEXT_INDENT;
+                if(from < right)
+                    context.fill(from, y + entryHeight / 2, right, y + entryHeight / 2 + 1, HEADER_LINE);
+                return;
+            }
+            if(hovered && getSelectedOrNull() != this)
+                context.fill(getX(), y - 2, getScrollbarX(), y + entryHeight + 2, HOVER);
+            int left = x + TEXT_INDENT;
+            if(!choice.icon().isEmpty()) {
+                context.drawItem(choice.icon(), left, y + (entryHeight - ICON_SIZE) / 2);
+                left += ICON_SIZE + TEXT_INDENT;
+            }
+            if(choice.detail() != null) {
+                int detailWidth = textRenderer.getWidth(choice.detail());
+                // Only where there is room for it beside the name
+                if(left + textRenderer.getWidth(choice.label()) + TEXT_INDENT + detailWidth <= right) {
+                    context.drawTextWithShadow(textRenderer, choice.detail(), right - detailWidth, textY, HEADER_COLOR);
+                    right -= detailWidth + TEXT_INDENT;
+                }
+            }
+            String label = choice.label().getString();
+            if(textRenderer.getWidth(label) > right - left)
+                label = textRenderer.trimToWidth(label, right - left - textRenderer.getWidth("...")) + "...";
+            context.drawTextWithShadow(textRenderer, label, left, textY, TEXT_COLOR);
         }
     }
 }

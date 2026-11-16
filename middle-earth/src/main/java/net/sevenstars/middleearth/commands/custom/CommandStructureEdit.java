@@ -697,7 +697,7 @@ public class CommandStructureEdit {
             source.sendFeedback(() -> Text.literal("No piece was changed since it was loaded or saved"), false);
         for(Identifier id : saved.written()) {
             Path file = world.getStructureTemplateManager().getTemplatePath(id, ".nbt");
-            source.sendFeedback(() -> Text.literal("Saved " + id + " to " + file), false);
+            source.sendFeedback(() -> Text.literal("Saved " + id + " to " + shown(file)), false);
             copyToSources(source, id, file);
         }
         return saved.written().size();
@@ -789,7 +789,7 @@ public class CommandStructureEdit {
             saved.add(id);
             StructureFeaturesRegistry.edited(id);
             Path file = world.getStructureTemplateManager().getTemplatePath(id, ".nbt");
-            source.sendFeedback(() -> Text.literal("Saved " + id + " to " + file), false);
+            source.sendFeedback(() -> Text.literal("Saved " + id + " to " + shown(file)), false);
             copyToSources(source, id, file);
         }
         publish(source, saved);
@@ -837,6 +837,15 @@ public class CommandStructureEdit {
         return 1;
     }
 
+    // A file as it lies under the folder of the project, which is all of its path a builder needs. One that is elsewhere
+    // is told whole
+    private static String shown(Path file) {
+        Path game = FabricLoader.getInstance().getGameDir().toAbsolutePath().normalize();
+        Path project = game.resolve("..").resolve("..").normalize();
+        Path whole = file.toAbsolutePath().normalize();
+        return (whole.startsWith(project) ? project.relativize(whole) : whole).toString();
+    }
+
     // In a development run the saved template goes over the one of the mod, for datagen to read
     private static void copyToSources(ServerCommandSource source, Identifier id, Path saved) {
         Path resources = resources();
@@ -846,9 +855,9 @@ public class CommandStructureEdit {
         try {
             Files.createDirectories(target.getParent());
             Files.copy(saved, target, StandardCopyOption.REPLACE_EXISTING);
-            source.sendFeedback(() -> Text.literal("Copied it over the mod template " + target + ". Rerun datagen."), false);
+            source.sendFeedback(() -> Text.literal("Copied it over the mod template " + shown(target) + ". Rerun datagen."), false);
         } catch (IOException e) {
-            source.sendError(Text.literal("Could not copy it to " + target + ": " + e.getMessage()));
+            source.sendError(Text.literal("Could not copy it to " + shown(target) + ": " + e.getMessage()));
         }
     }
 }

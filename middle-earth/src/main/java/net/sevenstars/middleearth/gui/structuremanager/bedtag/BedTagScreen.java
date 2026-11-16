@@ -6,6 +6,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.tooltip.Tooltip;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.OrderedText;
+import net.minecraft.util.math.BlockPos;
+import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registry;
@@ -35,22 +40,29 @@ import java.util.Set;
 // cell asks one more: who is held in it
 @Environment(value = EnvType.CLIENT)
 public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
-    private static final int PLACE_WIDTH = 120;
-    private static final int LIST_WIDTH = 150;
-    private static final int CLASS_WIDTH = 120;
-    private static final int LIST_HEIGHT = 140;
-    private static final int ROW_HEIGHT = 16;
-    private static final int GAP = 10;
+    private static final int PLACE_WIDTH = 108;
+    private static final int LIST_WIDTH = 128;
+    private static final int CARD_WIDTH = 118;
+    // The lists take what the window leaves them, between these
+    private static final int LEAST_LIST_HEIGHT = 70;
+    private static final int MOST_LIST_HEIGHT = 150;
+    private static final int ROW_HEIGHT = 14;
+    private static final int GAP = 6;
     private static final int LINE_GAP = 2;
-    private static final int BUTTON_WIDTH = 90;
+    private static final int BUTTON_WIDTH = 64;
+    private static final int WIDE_BUTTON_WIDTH = 84;
     private static final int BUTTON_HEIGHT = 20;
-    private static final int LABEL_COLOR = 0xFFA0A0A0;
-    private static final int TEXT_COLOR = 0xFFFFFFFF;
+    // From the top of a list up to its label: the label, the search box and the gaps between them
+    private static final int LIST_HEAD = 30;
+    private static final int SEARCH_HEAD = 18;
+    // The card that tells of the pick, over the list of who is held in a cell
+    private static final int HELD_CARD_HEIGHT = 46;
     // How many of the classes that may be born are named before the rest are left out
-    private static final int NAMED_CLASSES = 3;
+    private static final int NAMED_CLASSES = 5;
     private static final List<String> VILLAGER_NESTS = List.of("civilian", "peasant");
     // The value of the bed's own tag where the place has no such occupant to offer
     private static final String KEPT = "kept";
+    private static final String POOL_SUFFIX = " Pool";
 
     private final List<BedOccupant> occupants = new ArrayList<>();
     private ChoiceListWidget placeList;
@@ -58,6 +70,11 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private @Nullable String shownPlace;
     private ChoiceListWidget classList;
     private TextFieldWidget classSearch;
+    private int windowX;
+    private int windowY;
+    private int windowWidth;
+    private int windowHeight;
+    private int listHeight;
 
     public BedTagScreen(BedTagScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -67,9 +84,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void init() {
         super.init();
         BedTagScreenData data = handler.getData();
-        // On a small window the three lists are wider than the screen, and are kept on it from the left
-        int left = Math.max(GAP, width / 2 - (PLACE_WIDTH + GAP + LIST_WIDTH + GAP + CLASS_WIDTH) / 2);
-        int top = height / 2 - LIST_HEIGHT / 2 - BUTTON_HEIGHT;
+        listHeight = Math.clamp(height - 110, LEAST_LIST_HEIGHT, MOST_LIST_HEIGHT);
+        windowWidth = EditorPanel.PADDING * 2 + PLACE_WIDTH + GAP + LIST_WIDTH + GAP + CARD_WIDTH;
+        windowHeight = EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + LIST_HEAD + listHeight + EditorPanel.PADDING + EditorPanel.FOOTER_HEIGHT;
+        windowX = (width - windowWidth) / 2;
+        windowY = (height - windowHeight) / 2;
+        int left = windowX + EditorPanel.PADDING;
+        int top = windowY + EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + LIST_HEAD;
 
         occupants.clear();
         occupants.addAll(data.occupants());
@@ -82,12 +103,12 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         sorted.sort(Comparator.comparing(place -> placeName(place).getString()));
         for(Identifier place : sorted)
             places.add(new Choice(place.toString(), placeName(place)));
-        placeList = new ChoiceListWidget(PLACE_WIDTH, LIST_HEIGHT, left, top, ROW_HEIGHT);
+        placeList = new ChoiceListWidget(PLACE_WIDTH, listHeight, left, top, ROW_HEIGHT);
         placeList.setChoices(places, data.place());
         addDrawableChild(placeList.newSearchField(textRenderer));
         addDrawableChild(placeList);
 
-        occupantList = new ChoiceListWidget(LIST_WIDTH, LIST_HEIGHT, left + PLACE_WIDTH + GAP, top, ROW_HEIGHT);
+        occupantList = new ChoiceListWidget(LIST_WIDTH, listHeight, left + PLACE_WIDTH + GAP, top, ROW_HEIGHT);
         addDrawableChild(occupantList.newSearchField(textRenderer));
         addDrawableChild(occupantList);
         shownPlace = null;
@@ -102,18 +123,30 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             for(Identifier id : ids)
                 classes.add(new Choice(id.toString(), className(id)));
         }
-        classList = new ChoiceListWidget(CLASS_WIDTH, LIST_HEIGHT, left + PLACE_WIDTH + GAP + LIST_WIDTH + GAP, top, ROW_HEIGHT);
+        // Under the card, with its search box between them
+        int classTop = cardTop() + HELD_CARD_HEIGHT + GAP + SEARCH_HEAD;
+        classList = new ChoiceListWidget(CARD_WIDTH, top + listHeight - classTop, cardX(), classTop, ROW_HEIGHT);
         classList.setChoices(classes, data.npcClass());
         classSearch = addDrawableChild(classList.newSearchField(textRenderer));
         addDrawableChild(classList);
 
-        int buttonTop = top + LIST_HEIGHT + GAP + 2 * (textRenderer.fontHeight + LINE_GAP);
-        addDrawableChild(ButtonWidget.builder(ui("save"), button -> save(false))
-                .dimensions(width / 2 - BUTTON_WIDTH / 2 - GAP - BUTTON_WIDTH, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
-        addDrawableChild(ButtonWidget.builder(ui("reset_links"), button -> save(true))
-                .dimensions(width / 2 - BUTTON_WIDTH / 2, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        int buttonTop = windowY + windowHeight - EditorPanel.FOOTER_HEIGHT + (EditorPanel.FOOTER_HEIGHT - BUTTON_HEIGHT) / 2 + 1;
+        int right = windowX + windowWidth - EditorPanel.PADDING;
+        addDrawableChild(ButtonWidget.builder(ui("save"), button -> save(false)).tooltip(Tooltip.of(ui("save_tip")))
+                .dimensions(right - BUTTON_WIDTH, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         addDrawableChild(ButtonWidget.builder(ScreenTexts.CANCEL, button -> close())
-                .dimensions(width / 2 + BUTTON_WIDTH / 2 + GAP, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                .dimensions(right - 2 * BUTTON_WIDTH - GAP, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        addDrawableChild(ButtonWidget.builder(ui("reset_links"), button -> save(true)).tooltip(Tooltip.of(ui("reset_links_tip")))
+                .dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
+    }
+
+    private int cardX() {
+        return windowX + EditorPanel.PADDING + PLACE_WIDTH + GAP + LIST_WIDTH + GAP;
+    }
+
+    // Level with the search boxes of the lists beside it
+    private int cardTop() {
+        return placeList.getY() - SEARCH_HEAD;
     }
 
     // The people of the place that is picked, with the bed's own pick among them while that place is still the one it had
@@ -124,7 +157,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         shownPlace = place;
         BedTagScreenData data = handler.getData();
         List<Choice> choices = new ArrayList<>();
-        choices.add(new Choice("", ui("nobody")));
+        choices.add(new Choice("", ui("nobody"), ui("nobody_detail"), ItemStack.EMPTY));
         BedOccupant.Group group = null;
         for(int i = 0; i < occupants.size(); i++) {
             BedOccupant occupant = occupants.get(i);
@@ -138,7 +171,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
                     case OTHER -> "other";
                 })));
             }
-            choices.add(new Choice(Integer.toString(i), label(occupant)));
+            choices.add(new Choice(Integer.toString(i), label(occupant), station(occupant), ItemStack.EMPTY));
         }
         String current = place.equals(data.place()) ? currentChoice(data) : data.nestKind().isEmpty() ? "" : KEPT;
         // A bed tagged with what this place does not offer keeps its tag unless something else is picked
@@ -197,8 +230,10 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return ChoiceListWidget.readable(job != null ? job.getPath() : occupant.nestKind());
     }
 
+    // Every place is named as the pool of its people, which is one word too many in a narrow list
     private static Text placeName(Identifier id) {
-        return Text.translatable(id.toTranslationKey("structure_manager_data"));
+        String name = Text.translatable(id.toTranslationKey("structure_manager_data")).getString();
+        return Text.literal(name.endsWith(POOL_SUFFIX) ? name.substring(0, name.length() - POOL_SUFFIX.length()) : name);
     }
 
     private static Text className(Identifier id) {
@@ -209,36 +244,80 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return Text.translatable("ui.%s.bed_tag.%s".formatted(MiddleEarth.MOD_ID, key), arguments);
     }
 
-    // Who the pick spawns, in words: the classes of the nest, or the one named for a cell
-    private Text born(@Nullable BedOccupant occupant) {
-        if(occupant == null)
-            return occupantList.selectedValue().equals(KEPT) ? Text.empty() : ui("nobody_born");
-        MutableText who = Text.empty();
-        String named = occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "";
-        Identifier namedId = named.isEmpty() ? null : Identifier.tryParse(named);
-        if(namedId != null) {
-            who.append(className(namedId));
-        } else {
-            for(int i = 0; i < Math.min(NAMED_CLASSES, occupant.classes().size()); i++)
-                who.append(i == 0 ? "" : ", ").append(className(occupant.classes().get(i)));
-            if(occupant.classes().size() > NAMED_CLASSES)
-                who.append(", ...");
-        }
+    // The block the trade is first of all worked at, said at the end of its row: cook ... campfire. A builder sets down
+    // blocks, and knows nothing of the kinds of station they are sorted into
+    private static @Nullable Text station(BedOccupant occupant) {
         Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
-        return job == null ? ui("born", who) : ui("born_working", who, ChoiceListWidget.readable(job.getPath()));
+        List<StationKind> kinds = job == null ? List.of() : NpcJobs.stationKinds(job);
+        return kinds.isEmpty() ? null : Text.literal(kinds.getFirst().blocks().getFirst().replace('_', ' '));
     }
 
-    private Text worksAt(@Nullable BedOccupant occupant) {
-        Identifier job = occupant == null || occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
-        if(job == null)
-            return Text.empty();
+    // Campfire, Cauldron or Fat Pot
+    private static Text blocksOf(StationKind kind) {
+        MutableText blocks = Text.empty();
+        List<String> names = kind.blocks();
+        for(int i = 0; i < names.size(); i++)
+            blocks.append(i == 0 ? Text.empty() : i == names.size() - 1 ? ui("card_or") : Text.literal(", ")).append(ChoiceListWidget.readable(names.get(i)));
+        return blocks;
+    }
+
+    // What the pick comes to, under a heading each: who is born in the bed, as what, and where they will work
+    private void drawCard(DrawContext context, @Nullable BedOccupant occupant, int height) {
+        int x = cardX();
+        int y = cardTop();
+        EditorPanel.well(context, x, y, CARD_WIDTH, height);
+        context.enableScissor(x, y, x + CARD_WIDTH, y + height);
+        int line = y + GAP - 2;
+        int inner = CARD_WIDTH - 2 * GAP;
+        if(occupant == null) {
+            Text nobody = occupantList.selectedValue().equals(KEPT) ? ui("kept_card") : ui("nobody_born");
+            for(OrderedText wrapped : textRenderer.wrapLines(nobody, inner)) {
+                context.drawTextWithShadow(textRenderer, wrapped, x + GAP, line, EditorPanel.MUTED);
+                line += textRenderer.fontHeight + LINE_GAP;
+            }
+            context.disableScissor();
+            return;
+        }
+        line = heading(context, ui("card_born"), x, line);
+        String named = occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "";
+        Identifier namedId = named.isEmpty() ? null : Identifier.tryParse(named);
+        List<Text> born = new ArrayList<>();
+        if(namedId != null) {
+            born.add(className(namedId));
+        } else {
+            for(int i = 0; i < Math.min(NAMED_CLASSES, occupant.classes().size()); i++)
+                born.add(className(occupant.classes().get(i)));
+            if(occupant.classes().size() > NAMED_CLASSES)
+                born.add(ui("card_more", occupant.classes().size() - NAMED_CLASSES));
+        }
+        for(Text who : born) {
+            context.drawTextWithShadow(textRenderer, who, x + GAP, line, EditorPanel.TEXT);
+            line += textRenderer.fontHeight + LINE_GAP;
+        }
+        Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
+        if(job == null) {
+            context.disableScissor();
+            return;
+        }
+        line = heading(context, ui("card_job"), x, line + GAP - 2);
+        context.drawTextWithShadow(textRenderer, ChoiceListWidget.readable(job.getPath()), x + GAP, line, EditorPanel.TEXT);
+        line += textRenderer.fontHeight + LINE_GAP;
         List<StationKind> kinds = NpcJobs.stationKinds(job);
-        if(kinds.isEmpty())
-            return Text.empty();
-        MutableText stations = Text.empty();
-        for(int i = 0; i < kinds.size(); i++)
-            stations.append(i == 0 ? "" : ", ").append(ChoiceListWidget.readable(kinds.get(i).asString()));
-        return ui("works_at", stations);
+        if(!kinds.isEmpty()) {
+            line = heading(context, ui("card_works_at"), x, line + GAP - 2);
+            for(StationKind kind : kinds) {
+                for(OrderedText wrapped : textRenderer.wrapLines(blocksOf(kind), inner)) {
+                    context.drawTextWithShadow(textRenderer, wrapped, x + GAP, line, EditorPanel.TEXT);
+                    line += textRenderer.fontHeight + LINE_GAP;
+                }
+            }
+        }
+        context.disableScissor();
+    }
+
+    private int heading(DrawContext context, Text text, int x, int y) {
+        EditorPanel.label(context, textRenderer, text, x + GAP, y);
+        return y + textRenderer.fontHeight + LINE_GAP;
     }
 
     @Override
@@ -252,6 +331,10 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     // A container screen closes on the inventory key, which is a letter somebody searching wants to type
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
+            save(false);
+            return true;
+        }
         if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
             field.keyPressed(keyCode, scanCode, modifiers);
             return true;
@@ -269,6 +352,11 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
+    // The world is left in sight behind the window: it is the build that is being decided on
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         showPlace();
@@ -277,14 +365,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         boolean held = occupant != null && occupant.group() == BedOccupant.Group.OTHER;
         classList.visible = held;
         classSearch.visible = held;
-        renderBackground(context, mouseX, mouseY, deltaTicks);
+        BlockPos bed = handler.getData().pos();
+        EditorPanel.window(context, textRenderer, windowX, windowY, windowWidth, windowHeight, ui("title"), ui("about", bed.getX(), bed.getY(), bed.getZ()));
+        EditorPanel.footer(context, windowX, windowY, windowWidth, windowHeight);
+        drawCard(context, occupant, held ? HELD_CARD_HEIGHT : SEARCH_HEAD + listHeight);
         super.render(context, mouseX, mouseY, deltaTicks);
-        context.drawCenteredTextWithShadow(textRenderer, ui("place"), placeList.getX() + PLACE_WIDTH / 2, placeList.labelY(textRenderer), LABEL_COLOR);
-        context.drawCenteredTextWithShadow(textRenderer, ui("title"), occupantList.getX() + LIST_WIDTH / 2, occupantList.labelY(textRenderer), LABEL_COLOR);
-        if(held)
-            context.drawCenteredTextWithShadow(textRenderer, ui("held"), classList.getX() + CLASS_WIDTH / 2, classList.labelY(textRenderer), LABEL_COLOR);
-        int lineY = occupantList.getBottom() + GAP / 2;
-        context.drawTextWithShadow(textRenderer, born(occupant), occupantList.getX(), lineY, TEXT_COLOR);
-        context.drawTextWithShadow(textRenderer, worksAt(occupant), occupantList.getX(), lineY + textRenderer.fontHeight + LINE_GAP, LABEL_COLOR);
+        EditorPanel.label(context, textRenderer, ui("place"), placeList.getX(), placeList.labelY(textRenderer));
+        EditorPanel.label(context, textRenderer, ui("type"), occupantList.getX(), occupantList.labelY(textRenderer));
+        EditorPanel.label(context, textRenderer, ui(held ? "held" : "card"), cardX(), placeList.labelY(textRenderer));
     }
 }

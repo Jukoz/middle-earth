@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.tooltip.Tooltip;
+import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -22,12 +24,14 @@ import java.util.Locale;
 // section another name or takes its box away
 public class BuildSectionScreen extends Screen {
     private static final String KEY = "ui." + MiddleEarth.MOD_ID + ".build_section.";
-    private static final int WIDTH = 240;
-    private static final int ROW = 24;
-    private static final int FIELD_HEIGHT = 20;
+    private static final int WIDTH = 270;
+    private static final int FIELD_HEIGHT = 18;
+    private static final int BUTTON_HEIGHT = 20;
+    private static final int BUTTON_WIDTH = 64;
+    private static final int WIDE_BUTTON_WIDTH = 84;
+    private static final int GAP = 6;
+    private static final int LINE_GAP = 3;
     private static final int MAXIMUM_NAME_LENGTH = 100;
-    private static final int TEXT = 0xFFFFFFFF;
-    private static final int HINT = 0xFFA0A0A0;
 
     private final BlockPos anchor;
     private final BlockPos first;
@@ -38,6 +42,12 @@ public class BuildSectionScreen extends Screen {
     private final @Nullable BlockPos block;
     private TextFieldWidget name;
     private ButtonWidget create;
+    private int windowX;
+    private int windowY;
+    private int windowHeight;
+    // Why the name that is typed will not do, or what will come of it
+    private Text said = Text.empty();
+    private boolean wrong;
 
     public BuildSectionScreen(BlockPos anchor, BlockPos first, BlockPos second, String current) {
         super(Text.translatable(KEY + "title"));
@@ -59,24 +69,31 @@ public class BuildSectionScreen extends Screen {
 
     @Override
     protected void init() {
-        int left = (width - WIDTH) / 2;
-        int top = height / 2 - ROW * 2;
-        name = addDrawableChild(new TextFieldWidget(textRenderer, left, top + ROW, WIDTH, FIELD_HEIGHT, Text.translatable(KEY + "name")));
+        windowHeight = EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + textRenderer.fontHeight + LINE_GAP + FIELD_HEIGHT + LINE_GAP + textRenderer.fontHeight
+                + EditorPanel.PADDING + EditorPanel.FOOTER_HEIGHT;
+        windowX = (width - WIDTH) / 2;
+        windowY = (height - windowHeight) / 2;
+        int left = windowX + EditorPanel.PADDING;
+        int right = windowX + WIDTH - EditorPanel.PADDING;
+        int fieldTop = windowY + EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + textRenderer.fontHeight + LINE_GAP;
+        name = addDrawableChild(new TextFieldWidget(textRenderer, left, fieldTop, WIDTH - 2 * EditorPanel.PADDING, FIELD_HEIGHT, Text.translatable(KEY + "name")));
         name.setMaxLength(MAXIMUM_NAME_LENGTH);
         name.setText(shown(current));
         name.setChangedListener(typed -> update());
+        int buttonTop = windowY + windowHeight - EditorPanel.FOOTER_HEIGHT + (EditorPanel.FOOTER_HEIGHT - BUTTON_HEIGHT) / 2 + 1;
         create = addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + (block == null ? "create" : "rename")), button -> send(typed()))
-                .dimensions(left, top + ROW * 2 + 4, WIDTH, FIELD_HEIGHT).build());
+                .tooltip(Tooltip.of(Text.translatable(KEY + (block == null ? "create_tip" : "rename_tip"))))
+                .dimensions(right - WIDE_BUTTON_WIDTH, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        addDrawableChild(ButtonWidget.builder(Text.translatable("gui.cancel"), button -> close())
+                .dimensions(right - WIDE_BUTTON_WIDTH - GAP - BUTTON_WIDTH, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         if(block != null)
             addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "remove"), button -> {
                 ClientPlayNetworking.send(new PacketSectionEditRequest(block, PacketSectionEditRequest.REMOVE, ""));
                 close();
-            }).dimensions(left, top + ROW * 3 + 4, WIDTH, FIELD_HEIGHT).build());
+            }).tooltip(Tooltip.of(Text.translatable(KEY + "remove_tip"))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
         else if(!current.isEmpty())
-            addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "resize", shown(current)), button -> send(""))
-                    .dimensions(left, top + ROW * 3 + 4, WIDTH, FIELD_HEIGHT).build());
-        addDrawableChild(ButtonWidget.builder(Text.translatable("gui.cancel"), button -> close())
-                .dimensions(left, top + ROW * (current.isEmpty() ? 3 : 4) + 4, WIDTH, FIELD_HEIGHT).build());
+            addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "resize"), button -> send(""))
+                    .tooltip(Tooltip.of(Text.translatable(KEY + "resize_tip", shown(current)))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
         setInitialFocus(name);
         update();
     }
@@ -91,10 +108,25 @@ public class BuildSectionScreen extends Screen {
         return name.getText().trim().toLowerCase(Locale.ROOT).replace(' ', '_');
     }
 
-    // A new section needs a name that is one, and not that of the section the box was started in
+    // A new section needs a name that is one, that of no other section here, and not that of the section the box was
+    // started in. What is wrong with the name is said under it
     private void update() {
         String typed = typed();
-        create.active = !typed.isEmpty() && !typed.equals(shown(current)) && !typed.endsWith("/") && Identifier.tryParse(typed.contains(":") ? typed : MiddleEarth.MOD_ID + ":" + typed) != null;
+        Identifier id = typed.isEmpty() || typed.endsWith("/") ? null : Identifier.tryParse(typed.contains(":") ? typed : MiddleEarth.MOD_ID + ":" + typed);
+        String why = null;
+        if(typed.isEmpty())
+            why = "say_empty";
+        else if(typed.equals(shown(current)))
+            why = block == null ? "say_same" : "say_unchanged";
+        else if(id == null)
+            why = "bad_name";
+        else if(client != null && client.world != null && BuildSections.near(client.world, anchor).stream().anyMatch(section -> section.name().equals(id.toString())))
+            why = "say_taken";
+        // Not having typed anything yet is nothing wrong
+        wrong = why != null && !why.equals("say_empty") && !why.equals("say_same") && !why.equals("say_unchanged");
+        said = why != null ? Text.translatable(KEY + why, shown(current)) : Text.translatable(KEY + (block == null ? "say_create" : "say_rename"), id.toString());
+        create.active = why == null;
+        name.setEditableColor(wrong ? EditorPanel.WARNING : EditorPanel.TEXT);
     }
 
     private void send(String section) {
@@ -114,14 +146,20 @@ public class BuildSectionScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+    // The world is left in sight behind the window: the box that is being named is drawn in it
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        int top = height / 2 - ROW * 2;
         BlockBox box = BlockBox.create(first, second);
-        context.drawCenteredTextWithShadow(textRenderer, title, width / 2, top - ROW, TEXT);
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable(KEY + "size", box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ()), width / 2, top - ROW / 2, HINT);
-        context.drawTextWithShadow(textRenderer, Text.translatable(KEY + "name"), (width - WIDTH) / 2, top + ROW / 2, HINT);
+        EditorPanel.window(context, textRenderer, windowX, windowY, WIDTH, windowHeight, Text.translatable(KEY + (block == null ? "title" : "title_edit")),
+                Text.translatable(KEY + "size", box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ()));
+        EditorPanel.footer(context, windowX, windowY, WIDTH, windowHeight);
+        super.render(context, mouseX, mouseY, delta);
+        EditorPanel.label(context, textRenderer, Text.translatable(KEY + "name"), name.getX(), name.getY() - LINE_GAP - textRenderer.fontHeight);
+        context.drawTextWithShadow(textRenderer, said, name.getX(), name.getBottom() + LINE_GAP, wrong ? EditorPanel.WARNING : EditorPanel.MUTED);
     }
 
     @Override

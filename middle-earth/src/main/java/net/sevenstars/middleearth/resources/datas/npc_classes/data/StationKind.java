@@ -9,7 +9,7 @@ import java.util.List;
 public enum StationKind implements StringIdentifiable {
     FORGE("forge", "forge", "anvil"),
     OVEN("oven", "smoker", "oven"),
-    HEARTH("hearth", "fat_pot", "cauldron", "campfire"),
+    HEARTH("hearth", "campfire", "cauldron", "fat_pot"),
     LOOM("loom", "loom"),
     WOOD_PILE("wood_pile", "wood_pile"),
     HIVE("hive", "beehive", "bee_nest"),
@@ -38,6 +38,11 @@ public enum StationKind implements StringIdentifiable {
             }
         }
         return null;
+    }
+
+    // The blocks that make one, the best known first, for a builder to be told what to set down
+    public List<String> blocks() {
+        return blocks;
     }
 
     @Override
