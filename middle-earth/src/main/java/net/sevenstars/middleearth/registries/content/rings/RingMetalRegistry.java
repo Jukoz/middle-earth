@@ -7,6 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.TextColor;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.forge.MetalTypes;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
 
@@ -27,15 +28,15 @@ public class RingMetalRegistry {
 
     public static void bootstrap(Registerable<RingMetal> context) {
         RegistryEntryLookup<RingMetal> lookup = context.getRegistryLookup(RING_METAL_KEY);
-        register(context, lookup, COPPER, metal(0xE77C56, 1));
-        register(context, lookup, IRON, metal(0xA6A4A0, 2));
-        register(context, lookup, SILVER, metal(0xC1D5D5, 2));
-        register(context, lookup, GOLD, metal(0xF4E063, 3));
-        register(context, lookup, MITHRIL, metal(0xD9DFE7, 4));
+        register(context, lookup, COPPER, metal(MetalTypes.COPPER, 0xE77C56, 1));
+        register(context, lookup, IRON, metal(MetalTypes.IRON, 0xA6A4A0, 2));
+        register(context, lookup, SILVER, metal(MetalTypes.SILVER, 0xC1D5D5, 2));
+        register(context, lookup, GOLD, metal(MetalTypes.GOLD, 0xF4E063, 3));
+        register(context, lookup, MITHRIL, metal(MetalTypes.MITHRIL, 0xD9DFE7, 4));
     }
 
-    private static RingMetal metal(int color, int slots) {
-        return new RingMetal(TextColor.fromRgb(color), slots);
+    private static RingMetal metal(MetalTypes type, int color, int slots) {
+        return new RingMetal(type, TextColor.fromRgb(color), slots);
     }
 
     private static void register(Registerable<RingMetal> context, RegistryEntryLookup<RingMetal> lookup,

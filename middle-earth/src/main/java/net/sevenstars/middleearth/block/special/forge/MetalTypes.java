@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.forge;
 
+import com.mojang.serialization.Codec;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -30,6 +31,8 @@ public enum MetalTypes implements StringIdentifiable {
 
     CHICKEN_NUGGY(14, "chicken_nugget", ResourceItemsME.THERAPOD_NUGGET, ResourceItemsME.PTEROSAUR_NUGGET, false, 11242339),
     ;
+
+    public static final Codec<MetalTypes> CODEC = StringIdentifiable.createCodec(MetalTypes::values);
 
     public static MetalTypes fromValue(String name) {
         for (MetalTypes metal : MetalTypes.values()) {

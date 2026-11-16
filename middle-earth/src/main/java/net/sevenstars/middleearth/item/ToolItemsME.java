@@ -22,12 +22,18 @@ import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.ToolMaterialsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingCurseRegistry;
 import net.sevenstars.middleearth.registries.content.rings.RingMetalRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingThemeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingWordRegistry;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
+import net.sevenstars.middleearth.resources.datas.rings.RingCurse;
 import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
+import net.sevenstars.middleearth.resources.datas.rings.RingTheme;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class ToolItemsME {
@@ -177,6 +183,19 @@ public class ToolItemsME {
         ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.COPPER, 64, -40, GemTypeRegistry.BERYL, GemCut.ROUND, 55));
         ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.GOLD, 87, -60, GemTypeRegistry.RUBY, GemCut.BRIOLETTE, 81));
         ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.MITHRIL, 95, 85, GemTypeRegistry.SAPPHIRE, GemCut.BRILLIANT, 94));
+        ItemGroupsME.TOOLS_CONTENTS.add(inscribedRing(RingMetalRegistry.SILVER, 83, 70, RingThemeRegistry.SINDARIN,
+                List.of(new RingForgingDataComponent.Inscribed(RingWordRegistry.SIGHT, 1)), List.of()));
+        ItemGroupsME.TOOLS_CONTENTS.add(inscribedRing(RingMetalRegistry.COPPER, 64, -25, RingThemeRegistry.KHUZDUL,
+                List.of(new RingForgingDataComponent.Inscribed(RingWordRegistry.LUCK, 1)), List.of(RingCurseRegistry.MARKED, RingCurseRegistry.SUNBANE)));
+    }
+
+    private static ItemStack inscribedRing(RegistryKey<RingMetal> metal, int purity, int polarity, RegistryKey<RingTheme> theme,
+                                           List<RingForgingDataComponent.Inscribed> words, List<RegistryKey<RingCurse>> curses) {
+        ItemStack stack = new ItemStack(RING);
+        stack.set(DataComponentTypesME.RING_METAL, metal);
+        stack.set(DataComponentTypesME.RING_FORGING, new RingForgingDataComponent(purity, Optional.of(78), Optional.of(72),
+                polarity, words.stream().mapToInt(RingForgingDataComponent.Inscribed::fea).sum(), Optional.of(theme), words, Optional.empty(), curses));
+        return stack;
     }
 
     public static ItemStack ring(RegistryKey<RingMetal> metal, int purity, int polarity) {
@@ -191,7 +210,7 @@ public class ToolItemsME {
         ItemStack stack = ring(metal, purity, polarity);
         stack.set(DataComponentTypesME.GEM_TYPE, gemType);
         stack.apply(DataComponentTypesME.RING_FORGING, null,
-                forging -> forging.withGem(new RingForgingDataComponent.Gem(cut, gemQuality), 0, 0));
+                forging -> forging.withGem(new RingForgingDataComponent.Gem(cut, gemQuality)));
         return stack;
     }
 

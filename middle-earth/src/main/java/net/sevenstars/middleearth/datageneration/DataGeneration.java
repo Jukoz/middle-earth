@@ -12,6 +12,7 @@ import net.sevenstars.middleearth.datageneration.providers.models.BlockModelProv
 import net.sevenstars.middleearth.datageneration.providers.models.ItemModelProvider;
 import net.sevenstars.middleearth.datageneration.providers.recipes.*;
 import net.sevenstars.middleearth.datageneration.providers.tags.BiomeTagProvider;
+import net.sevenstars.middleearth.datageneration.providers.tags.RingWordTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.BlockTagProvider;
 import net.sevenstars.middleearth.datageneration.providers.tags.ItemTagProvider;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
@@ -58,6 +59,7 @@ public class DataGeneration implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(BiomeTagProvider::new);
+        pack.addProvider(RingWordTagProvider::new);
         pack.addProvider(BlockModelProvider::new);
         pack.addProvider(ItemModelProvider::new);
         pack.addProvider(RecipeProvider::new);

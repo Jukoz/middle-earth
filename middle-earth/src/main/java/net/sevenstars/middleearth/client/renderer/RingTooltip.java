@@ -15,7 +15,11 @@ import net.sevenstars.middleearth.item.dataComponents.RingForgingDataComponent;
 import net.sevenstars.middleearth.item.items.rings.RingItem;
 import net.sevenstars.middleearth.recipe.CraftQuality;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingCurseRegistry;
 import net.sevenstars.middleearth.registries.content.rings.RingMetalRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingThemeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingWordRegistry;
+import net.sevenstars.middleearth.resources.datas.rings.RingCurse;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import net.sevenstars.middleearth.resources.datas.rings.RingPolarity;
 
@@ -48,8 +52,18 @@ public final class RingTooltip {
         RingPolarity band = forging.band();
         tooltip.accept(line("polarity", Text.translatable(band.translationKey()).styled(style -> style.withColor(band.color())),
                 Text.literal((forging.polarity() > 0 ? "+" : "") + forging.polarity()).formatted(Formatting.DARK_GRAY)));
+        forging.theme().ifPresent(theme -> {
+            MutableText name = Text.translatable(RingThemeRegistry.translationKey(theme));
+            RingThemeRegistry.get(context.getRegistryLookup(), theme)
+                    .ifPresent(entry -> name.styled(style -> style.withColor(entry.value().color())));
+            tooltip.accept(line("theme", name));
+        });
         RingMetalRegistry.get(context.getRegistryLookup(), stack.get(DataComponentTypesME.RING_METAL)).ifPresent(metal ->
                 tooltip.accept(line("slots", Text.literal(forging.slotsUsed() + "/" + metal.slots()).formatted(Formatting.WHITE))));
+        for (RingForgingDataComponent.Inscribed inscribed : forging.words()) {
+            tooltip.accept(line("word", Text.translatable(RingWordRegistry.translationKey(inscribed.word())).formatted(Formatting.WHITE),
+                    Text.literal(String.valueOf(inscribed.fea())).formatted(Formatting.WHITE)));
+        }
         forging.gem().ifPresent(gem -> {
             RegistryKey<GemType> gemType = stack.get(DataComponentTypesME.GEM_TYPE);
             Text gemName = gemType != null ? Text.translatable(GemTypeRegistry.translationKey(gemType))
@@ -59,6 +73,12 @@ public final class RingTooltip {
         });
         if (forging.fea() > 0) {
             tooltip.accept(line("fea", Text.literal(String.valueOf(forging.fea())).formatted(Formatting.WHITE)));
+        }
+        for (RegistryKey<RingCurse> curse : forging.curses()) {
+            MutableText name = Text.translatable(RingCurseRegistry.translationKey(curse));
+            RingCurseRegistry.get(context.getRegistryLookup(), curse)
+                    .ifPresent(entry -> name.styled(style -> style.withColor(entry.severity().color())));
+            tooltip.accept(line("curse", name));
         }
     }
 
