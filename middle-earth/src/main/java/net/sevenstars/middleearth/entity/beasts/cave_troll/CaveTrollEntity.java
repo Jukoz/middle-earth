@@ -282,6 +282,17 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return this.getEquippedStack(EquipmentSlot.BODY);
     }
 
+    // The banner is not a normal piece of mob equipment, which only drops by chance, so it is always dropped
+    @Override
+    protected void dropInventory(ServerWorld world) {
+        super.dropInventory(world);
+        ItemStack banner = this.getBannerStack();
+        if(!banner.isEmpty()) {
+            this.dropStack(world, banner.copy());
+            this.equipStack(EquipmentSlot.BODY, ItemStack.EMPTY);
+        }
+    }
+
     public SimpleInventory getChestInventory() {
         return this.items;
     }
