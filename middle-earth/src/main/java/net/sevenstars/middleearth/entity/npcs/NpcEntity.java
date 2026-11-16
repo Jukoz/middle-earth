@@ -1235,7 +1235,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Of the arcs that reach the target the flattest is taken, and out of range the shot that carries furthest
     private static Vec3d solveArrowAim(Vec3d origin, LivingEntity target, double speed, double gravity) {
         Vec3d targetStart = new Vec3d(target.getX(), target.getBodyY(0.5), target.getZ());
-        Vec3d targetMovement = target.getMovement();
+        Vec3d targetMovement = movementOf(target);
 
         double bestTicks = -1;
         double previousTicks = 0;
@@ -1263,6 +1263,15 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
         double ticks = bestTicks > 0 ? bestTicks : closestTicks;
         return requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks);
+    }
+
+    // How far the target goes in a tick, to lead it by. A player's is kept by the game as it is told of it. For the rest it
+    // is how far they went in the last tick, their velocity being no measure of it: the ground has slowed that by nearly
+    // half already, and it pulls down on whoever stands, which would have every shot fall short
+    private static Vec3d movementOf(LivingEntity target) {
+        if(target instanceof PlayerEntity)
+            return target.getMovement();
+        return new Vec3d(target.getX() - target.lastX, target.isOnGround() ? 0 : target.getY() - target.lastY, target.getZ() - target.lastZ);
     }
 
     // What the arrow has to leave the bow with to be where the target will be after that many ticks
