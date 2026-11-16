@@ -23,6 +23,7 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import net.sevenstars.middleearth.utils.IEntityDataSaver;
 import net.sevenstars.middleearth.utils.PlayerMovementData;
+import net.sevenstars.middleearth.world.StartInMiddleEarth;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,9 +52,10 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         return this.interactionManager.getGameMode();
     }
 
+    // alive is only true after a death, not when leaving the End
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     public void getRespawnTargetWithBrokenBed(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld()) || (alive && StartInMiddleEarth.isEnabled(this.server))){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
@@ -63,7 +65,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 2), cancellable = true)
     public void getRespawnTargetNatural(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld()) || (alive && StartInMiddleEarth.isEnabled(this.server))){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
@@ -105,7 +107,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
-        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getEntityWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
+        if(PlayerDataService.getPlayerSpawnData(foundPlayer, getEntityWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
             BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
             if(spawnCoordinates != null){
                 ServerWorld MEWorld = this.server.getWorld(DimensionRegistryME.ME_WORLD_KEY);

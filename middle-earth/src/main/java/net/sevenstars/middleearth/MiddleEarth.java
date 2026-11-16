@@ -33,6 +33,7 @@ import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
+import net.sevenstars.middleearth.world.StartInMiddleEarth;
 import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
@@ -58,6 +59,7 @@ public class MiddleEarth implements ModInitializer {
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
 		EventRegistryME.register();
+		StartInMiddleEarth.register();
 		ServerConfigME.registerConfigs();
 		ClientConfigME.registerConfigs();
 

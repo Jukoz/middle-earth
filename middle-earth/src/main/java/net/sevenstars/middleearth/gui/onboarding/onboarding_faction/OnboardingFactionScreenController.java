@@ -40,6 +40,7 @@ import java.util.*;
 
 public class OnboardingFactionScreenController {
     public static OnboardingFactionScreenController INSTANCE;
+    private static OnboardingFactionScreenController pendingMandatory;
     private static final Text TITLE = Text.translatable("screen." + MiddleEarth.MOD_ID + ".onboarding_faction_screen");
     private static final float DEFAULT_DELAY = 3;
 
@@ -48,6 +49,7 @@ public class OnboardingFactionScreenController {
     OnboardingFactionScreenService service;
     private float currentDelay;
     private boolean shouldBeDetailed;
+    private boolean mandatory;
 
     private HashMap<DispositionType, List<Faction>> factions;
 
@@ -88,7 +90,35 @@ public class OnboardingFactionScreenController {
         updateScreenInformation();
     }
 
+    // Wait for the loading screen to close, or it replaces ours
+    public void openMandatory(){
+        mandatory = true;
+        reopenWhenNoScreen();
+    }
+
+    public void reopenWhenNoScreen(){
+        pendingMandatory = this;
+    }
+
+    public static void tickPendingMandatory(MinecraftClient client){
+        if(pendingMandatory == null)
+            return;
+        if(client.player == null){
+            pendingMandatory = null;
+            return;
+        }
+        if(client.currentScreen != null)
+            return;
+        pendingMandatory.open();
+        pendingMandatory = null;
+    }
+
+    public boolean isMandatory(){
+        return mandatory;
+    }
+
     public void close(){
+        mandatory = false;
         this.screen.close();
         INSTANCE = null;
     }
@@ -503,6 +533,7 @@ public class OnboardingFactionScreenController {
             BlockPos overworldBlockPos = player.getBlockPos();
             ClientPlayNetworking.send(new PacketSetSpawnData(overworldBlockPos.getX(), overworldBlockPos.getY(), overworldBlockPos.getZ()));
         }
+        mandatory = false;
         screen.close();
     }
 

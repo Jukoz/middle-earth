@@ -569,6 +569,9 @@ public class TranslationEntries {
             put(of(LangCategory.COMMAND, "open_target.onboarding.success"), "Successfully opened the onboarding screen for %s.");
             put(of(LangCategory.COMMAND, "open_target.onboarding.error"), "Impossible to open the onboarding screen for %s, their faction is already chosen.");
             put(of(LangCategory.COMMAND, "open.onboarding.error"), "Impossible to open the onboarding screen, you already have your chosen faction.");
+            put("generator." + MiddleEarth.MOD_ID + ".middle_earth", "Middle-earth");
+            put("gamerule." + MiddleEarth.MOD_ID + ".start_in_middle_earth", "Start in Middle-earth");
+            put("gamerule." + MiddleEarth.MOD_ID + ".start_in_middle_earth.description", "Players without a faction choose one when they join and are sent to its spawn in Middle-earth.");
 
             put(of(LangCategory.COMMAND, "get.faction.success"), "Your initial faction is %s");
             put(of(LangCategory.COMMAND, "get.faction.no_faction"), "You have no initial faction");

@@ -19,19 +19,25 @@ public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForc
     public static final PacketCodec<RegistryByteBuf, PacketForceOnboardingScreen> CODEC = PacketCodec.tuple(
             PacketCodecs.FLOAT, p -> p.delayOnTeleportationConfirm,
             PacketCodecs.NBT_COMPOUND, p -> p.attributeList,
+            PacketCodecs.BOOLEAN, p -> p.mandatory,
             PacketForceOnboardingScreen::new
     );
     private final float delayOnTeleportationConfirm;
     private final NbtCompound attributeList;
+    private final boolean mandatory;
 
-    public PacketForceOnboardingScreen(float delayOnTeleportationConfirm, NbtCompound attributeList) {
+    public PacketForceOnboardingScreen(float delayOnTeleportationConfirm, NbtCompound attributeList, boolean mandatory) {
         this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
         this.attributeList = attributeList;
+        this.mandatory = mandatory;
     }
 
     public PacketForceOnboardingScreen(float delayOnTeleportationConfirm, PlayerEntity player) {
-        this.delayOnTeleportationConfirm = delayOnTeleportationConfirm;
-        this.attributeList = AttributePoolElement.createAttributeNbtListFromPlayer(player);
+        this(delayOnTeleportationConfirm, player, false);
+    }
+
+    public PacketForceOnboardingScreen(float delayOnTeleportationConfirm, PlayerEntity player, boolean mandatory) {
+        this(delayOnTeleportationConfirm, AttributePoolElement.createAttributeNbtListFromPlayer(player), mandatory);
     }
 
     @Override
@@ -53,6 +59,9 @@ public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForc
 
         PlayerEntity player = context.player();
         var controller = new OnboardingFactionScreenController(player.getEntityWorld(), delay, AttributePoolElement.obtainAttributeList(attributeList));
-        controller.open();
+        if(mandatory)
+            controller.openMandatory();
+        else
+            controller.open();
     }
 }

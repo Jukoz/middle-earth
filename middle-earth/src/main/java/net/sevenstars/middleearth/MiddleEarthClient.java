@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.SimpleUnbakedExtraModel;
@@ -69,6 +70,7 @@ import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaRenderer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderer;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
+import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
@@ -112,6 +114,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
+        ClientTickEvents.END_CLIENT_TICK.register(OnboardingFactionScreenController::tickPendingMandatory);
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);

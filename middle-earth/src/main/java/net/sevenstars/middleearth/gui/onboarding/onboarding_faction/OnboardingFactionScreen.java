@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -117,6 +118,17 @@ public class OnboardingFactionScreen extends Screen {
     @Override
     public boolean shouldPause() {
         return false;
+    }
+
+    // Esc opens the pause menu so they can still quit, and the screen comes back on resume
+    @Override
+    public void close() {
+        if(controller.isMandatory()){
+            controller.reopenWhenNoScreen();
+            this.client.setScreen(new GameMenuScreen(true));
+            return;
+        }
+        super.close();
     }
 
     @Override
