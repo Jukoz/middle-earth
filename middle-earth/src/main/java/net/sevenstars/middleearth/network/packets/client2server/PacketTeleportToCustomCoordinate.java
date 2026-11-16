@@ -42,7 +42,7 @@ public class PacketTeleportToCustomCoordinate extends ClientToServerPacket<Packe
 
     @Override
     public void process(ServerPacketContext context) {
-        context.player().getServer().execute(() -> {
+        context.player().getEntityWorld().getServer().execute(() -> {
             Vec3d coordinates = new Vec3d(xCoordinate, yCoordinate, zCoordinate);
             DimensionRegistryME.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });

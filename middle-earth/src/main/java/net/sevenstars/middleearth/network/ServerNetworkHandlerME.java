@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.network;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.codec.PacketCodecs;
@@ -31,17 +31,17 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playC2S().register(PacketTeleportToCustomCoordinate.ID, PacketTeleportToCustomCoordinate.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicCoordinate.ID, PacketTeleportToDynamicCoordinate.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentSpawn.ID, PacketTeleportToCurrentSpawn.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentOverworldSpawn.ID, PacketCodecs.codec(Codec.unit(new PacketTeleportToCurrentOverworldSpawn())));
+        PayloadTypeRegistry.playC2S().register(PacketTeleportToCurrentOverworldSpawn.ID, PacketCodecs.codec(MapCodec.unit(new PacketTeleportToCurrentOverworldSpawn()).codec()));
         PayloadTypeRegistry.playC2S().register(PacketSetSpawnData.ID, PacketSetSpawnData.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(Codec.unit(new PacketOnboardingRequest())));
+        PayloadTypeRegistry.playC2S().register(PacketOnboardingRequest.ID, PacketCodecs.codec(MapCodec.unit(new PacketOnboardingRequest()).codec()));
         PayloadTypeRegistry.playC2S().register(ForgeOutputPacket.ID, ForgeOutputPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(ForgeModeSwitchPacket.ID, ForgeModeSwitchPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(InscriptionWordUpdatePacket.ID, InscriptionWordUpdatePacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(InscriptionConfirmationPacket.ID, PacketCodecs.codec(Codec.unit(new InscriptionConfirmationPacket())));
+        PayloadTypeRegistry.playC2S().register(InscriptionConfirmationPacket.ID, PacketCodecs.codec(MapCodec.unit(new InscriptionConfirmationPacket()).codec()));
         PayloadTypeRegistry.playC2S().register(AnvilIndexPacket.ID, AnvilIndexPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(ArtisanIndexPacket.ID, ArtisanIndexPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(ArtisanTableTabPacket.ID, ArtisanTableTabPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(Codec.unit(new HoodStateTogglePacket())));
+        PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(MapCodec.unit(new HoodStateTogglePacket()).codec()));
 
         // Application [SERVER SIDE]
         ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerRespawnEntities.ID, wrapServerHandler(connection, PacketStructureManagerRespawnEntities::process));

@@ -35,7 +35,7 @@ public abstract class AbstractHorseEntityMixin {
         return original.call(instance, item) || instance.isOf(FoodItemsME.LETTUCE);
     }
 
-    @WrapOperation(method = "receiveFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 5))
+    @WrapOperation(method = "receiveFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 6))
     private boolean receiveFoodHorseFeed(ItemStack instance, Item item, Operation<Boolean> original) {
         return original.call(instance, item) || instance.isOf(FoodItemsME.SACK_OF_HORSEFEED);
     }

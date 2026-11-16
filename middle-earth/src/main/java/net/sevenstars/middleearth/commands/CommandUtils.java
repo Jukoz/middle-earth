@@ -16,23 +16,23 @@ public class CommandUtils {
     public static final String COMMAND_PLAYER_REPLACEMENT = "<p>";
 
     public static void sendAllCommands(ServerPlayerEntity player, List<String> commands){
-        CommandManager commandManager =  player.getWorld().getServer().getCommandManager();
-        ServerCommandSource commandSource = player.getWorld().getServer().getCommandSource();
+        CommandManager commandManager =  player.getEntityWorld().getServer().getCommandManager();
+        ServerCommandSource commandSource = player.getEntityWorld().getServer().getCommandSource();
 
         for(String com : commands) {
             com = com.replace(COMMAND_PLAYER_REPLACEMENT, player.getName().getString());
-            commandManager.executeWithPrefix(commandSource, com);
+            commandManager.parseAndExecute(commandSource, com);
         }
     }
 
     public static void simpleCommand(CommandDispatcher<ServerCommandSource> dispatcher, String baseCommand, LiteralArgumentBuilder<ServerCommandSource> executes, String player, LiteralArgumentBuilder<ServerCommandSource> executes2) {
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(baseCommand)
                         .then(executes)));
 
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(baseCommand)
                     .then(argument(player, EntityArgumentType.player())
                             .then(executes2))));

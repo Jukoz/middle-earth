@@ -29,7 +29,7 @@ public class CommandInformation {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [INFO]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(INFO_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player()) // With Player Target
                     .executes(CommandInformation::getTargetInfo))
@@ -44,20 +44,20 @@ public class CommandInformation {
 
         PlayerData data = StateSaverAndLoader.getPlayerState(source);
 
-        Race race =  PlayerDataService.getPlayerRace(source, source.getWorld());
+        Race race =  PlayerDataService.getPlayerRace(source, source.getEntityWorld());
         if(race != null)
             source.sendMessage(Text.literal("Race : ").append(Text.translatable(race.getTranslatableKey())));
 
-        Faction faction =  PlayerDataService.getPlayerFaction(source, source.getWorld());
+        Faction faction =  PlayerDataService.getPlayerFaction(source, source.getEntityWorld());
         if(faction != null)
             source.sendMessage(Text.literal("Faction : ").append(faction.getFullName()));
 
-        SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(source, source.getWorld());
+        SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(source, source.getEntityWorld());
         if(spawnData != null){
             source.sendMessage(Text.literal("Middle-earth Spawn : ").append(spawnData.getFullName()));
         }
 
-        PlayerDataService.OriginAggregate origin =  PlayerDataService.getOriginAggregate(source, source.getWorld());
+        PlayerDataService.OriginAggregate origin =  PlayerDataService.getOriginAggregate(source, source.getEntityWorld());
         if(origin != null){
             source.sendMessage(Text.literal("Origin : ").append(Text.translatable(origin.dimensionId().toTranslationKey())).append(" " + origin.origin().toShortString()));
         }
@@ -69,12 +69,12 @@ public class CommandInformation {
 
         PlayerData data = StateSaverAndLoader.getPlayerState(targettedPlayer);
 
-        Race race =  PlayerDataService.getPlayerRace(targettedPlayer, targettedPlayer.getWorld());
+        Race race =  PlayerDataService.getPlayerRace(targettedPlayer, targettedPlayer.getEntityWorld());
         if(race != null)
             context.getSource().sendMessage(Text.literal("Race : ").append(Text.translatable(race.getTranslatableKey())));
 
 
-        Faction faction =  PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getWorld());
+        Faction faction =  PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getEntityWorld());
         if(faction != null)
             context.getSource().sendMessage(Text.literal("Faction : ").append(Text.translatable(faction.getId().toTranslationKey())));
         return 0;

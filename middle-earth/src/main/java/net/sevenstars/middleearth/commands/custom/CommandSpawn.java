@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProperties;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
@@ -52,7 +53,7 @@ public class CommandSpawn {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [GET OVERWORLD SPAWN]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player()) // With Player Target
                     .then(literal(GET)
@@ -64,7 +65,7 @@ public class CommandSpawn {
 
         // [GET SPAWN ID]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                     .then(argument(PLAYER, EntityArgumentType.player()) // With Player Target
                         .then(literal(GET)
@@ -76,7 +77,7 @@ public class CommandSpawn {
 
         // [TP - MIDDLE_EARTH]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                     .then(argument(PLAYER, EntityArgumentType.player())
                         .then(literal(TP) // With Player Target
@@ -90,7 +91,7 @@ public class CommandSpawn {
 
         // [TP - OVERWORLD]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(TP) // With Player Target
@@ -102,7 +103,7 @@ public class CommandSpawn {
 
         // [SET - OVERWORLD]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                         .then(argument(PLAYER, EntityArgumentType.player())
                                 .then(literal(SET)
@@ -116,7 +117,7 @@ public class CommandSpawn {
 
         // [SET - MIDDLE_EARTH]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                     .then(argument(PLAYER, EntityArgumentType.player())
                         .then(literal(SET)
@@ -132,7 +133,7 @@ public class CommandSpawn {
 
         // [RESET - OVERWORLD]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-            .requires(source -> source.hasPermissionLevel(2)) // Require OP
+            .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
             .then(literal(SPAWN_BASE_COMMAND)
             .then(argument(PLAYER, EntityArgumentType.player())
                 .then(literal(RESET) // With Player Target
@@ -144,7 +145,7 @@ public class CommandSpawn {
 
         // [RESET - MIDDLE_EARTH]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(SPAWN_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(RESET) // With Player Target
@@ -156,7 +157,7 @@ public class CommandSpawn {
 
         // [TP TO - SPAWN ID]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(TP)
                     .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(TO)
@@ -174,7 +175,7 @@ public class CommandSpawn {
         if(!context.getSource().isExecutedByPlayer() || context.getSource().getPlayer() == null)
             return 0;
         ServerPlayerEntity playerSource = context.getSource().getPlayer();
-        PlayerDataService.OriginAggregate originAggregate = PlayerDataService.getOriginAggregateOrDefault(playerSource, playerSource.getWorld());
+        PlayerDataService.OriginAggregate originAggregate = PlayerDataService.getOriginAggregateOrDefault(playerSource, playerSource.getEntityWorld());
         BlockPos pos = originAggregate.origin();
         MutableText sourceText = Text.translatable("command.%s.get.spawn.overworld.success".formatted(MiddleEarth.MOD_ID), pos.getX(), pos.getY(), pos.getZ());
         context.getSource().getPlayer().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
@@ -185,7 +186,7 @@ public class CommandSpawn {
     private static int getPlayerSpawnOverworld(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity playerTarget = EntityArgumentType.getPlayer(context, PLAYER);
         PlayerData data = StateSaverAndLoader.getPlayerState(playerTarget);
-        PlayerDataService.OriginAggregate originAggregate = PlayerDataService.getOriginAggregateOrDefault(playerTarget, playerTarget.getWorld());
+        PlayerDataService.OriginAggregate originAggregate = PlayerDataService.getOriginAggregateOrDefault(playerTarget, playerTarget.getEntityWorld());
         BlockPos pos = originAggregate.origin();
         MutableText sourceText = Text.translatable("command.%s.get.player.spawn.overworld.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName(), pos.getX(), pos.getY(), pos.getZ());
         context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
@@ -197,7 +198,7 @@ public class CommandSpawn {
         if(!context.getSource().isExecutedByPlayer() || context.getSource().getPlayer() == null)
             return 0;
         PlayerEntity playerSource = context.getSource().getPlayer();
-        SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getWorld());
+        SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getEntityWorld());
         if(spawnData != null){
             BlockPos pos = spawnData.getBlockPos();
             MutableText sourceText = Text.translatable("command.%s.get.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), Text.translatable("spawn."+ spawnData.getIdentifier().toTranslationKey()), pos.getX(), pos.getY(), pos.getZ());
@@ -214,7 +215,7 @@ public class CommandSpawn {
         if(!context.getSource().isExecutedByPlayer()) return 0;
 
         ServerPlayerEntity playerTarget = EntityArgumentType.getPlayer(context, PLAYER);
-        SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getWorld());
+        SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getEntityWorld());
         if(spawnData != null){
             BlockPos pos = spawnData.getBlockPos();
             MutableText sourceText = Text.translatable("command.%s.get.player.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName(), Text.translatable("spawn."+spawnData.getIdentifier().toTranslationKey()), pos.getX(), pos.getY(), pos.getZ());
@@ -241,12 +242,12 @@ public class CommandSpawn {
             return 0;
         }
 
-        if(PlayerDataService.setSpawn(playerSource, playerSource.getWorld(), spawnIdInput)){
-            SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getWorld());
+        if(PlayerDataService.setSpawn(playerSource, playerSource.getEntityWorld(), spawnIdInput)){
+            SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getEntityWorld());
             BlockPos pos =  spawnData.getBlockPos();
             if(pos != null) {
-                if(DimensionRegistryME.isInMiddleEarth(playerSource.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerSource.getEntityWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, pos, 0, 0), true);
                     playerSource.setSpawnPoint(respawn, true);
                 }
                 MutableText sourceText = Text.translatable("command.%s.set.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), Text.translatable("spawn."+spawnIdInput.toTranslationKey()), pos.getX(), pos.getY(), pos.getZ());
@@ -270,12 +271,12 @@ public class CommandSpawn {
             return 0;
         }
 
-        if(PlayerDataService.setSpawn(playerTarget, playerTarget.getWorld(), spawnIdInput)){
-            SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getWorld());
+        if(PlayerDataService.setSpawn(playerTarget, playerTarget.getEntityWorld(), spawnIdInput)){
+            SpawnData spawnData =  PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getEntityWorld());
             BlockPos pos =  spawnData.getBlockPos();
             if(pos != null) {
-                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getEntityWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, pos, 0, 0), true);
                     playerTarget.setSpawnPoint(respawn, true);
                 }
 
@@ -300,9 +301,9 @@ public class CommandSpawn {
 
         ServerPlayerEntity playerSource = context.getSource().getPlayer();
 
-        if(PlayerDataService.setOrigin(playerSource, playerSource.getWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput)) {
-            if(DimensionRegistryME.isInOverworld(playerSource.getWorld())){
-                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, posInput, 0, true);
+        if(PlayerDataService.setOrigin(playerSource, playerSource.getEntityWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput)) {
+            if(DimensionRegistryME.isInOverworld(playerSource.getEntityWorld())){
+                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(World.OVERWORLD, posInput, 0, 0), true);
                 playerSource.setSpawnPoint(respawn, true);
                 return 0;
             }
@@ -316,7 +317,7 @@ public class CommandSpawn {
         BlockPos posInput = BlockPosArgumentType.getBlockPos(context, OVERWORLD_COORD);
         ServerPlayerEntity playerTarget = EntityArgumentType.getPlayer(context, PLAYER);
 
-        PlayerDataService.setOrigin(playerTarget, playerTarget.getWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput);
+        PlayerDataService.setOrigin(playerTarget, playerTarget.getEntityWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput);
 
         MutableText sourceText = Text.translatable("command.%s.set.player.spawn.overworld.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName() ,posInput.getX(), posInput.getY(), posInput.getZ());
         context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
@@ -332,8 +333,8 @@ public class CommandSpawn {
     // region Resets
     private static int resetPlayerSpawnOverworld(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity playerTarget = EntityArgumentType.getPlayer(context, PLAYER);
-        BlockPos posInput = context.getSource().getServer().getOverworld().getSpawnPos();
-        PlayerDataService.setOrigin(playerTarget, playerTarget.getWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput);
+        BlockPos posInput = context.getSource().getServer().getOverworld().getSpawnPoint().getPos();
+        PlayerDataService.setOrigin(playerTarget, playerTarget.getEntityWorld(), DimensionTypes.OVERWORLD.getRegistry(), posInput);
 
         MutableText sourceText = Text.translatable("command.%s.reset.player.spawn.overworld.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName(), posInput.getX(), posInput.getY(), posInput.getZ());
         context.getSource().sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
@@ -346,8 +347,8 @@ public class CommandSpawn {
         if(!context.getSource().isExecutedByPlayer() || context.getSource().getPlayer() == null)
             return 0;
         ServerPlayerEntity playerSource = context.getSource().getPlayer();
-        PlayerDataService.resetOrigin(playerSource, playerSource.getWorld());
-        PlayerDataService.OriginAggregate newOrigin = PlayerDataService.getOriginAggregateOrDefault(playerSource, playerSource.getWorld());
+        PlayerDataService.resetOrigin(playerSource, playerSource.getEntityWorld());
+        PlayerDataService.OriginAggregate newOrigin = PlayerDataService.getOriginAggregateOrDefault(playerSource, playerSource.getEntityWorld());
         MutableText sourceText = Text.translatable("command.%s.reset.spawn.overworld.success".formatted(MiddleEarth.MOD_ID), newOrigin.origin().getX(), newOrigin.origin().getY(), newOrigin.origin().getZ());
         playerSource.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
         return 0;
@@ -361,8 +362,8 @@ public class CommandSpawn {
             context.getSource().sendMessage(sourceText.withColor(ColorsME.WARNING.color));
             return 0;
         }
-        if(PlayerDataService.resetSpawn(playerTarget, playerTarget.getWorld())){
-            SpawnData data = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getWorld());
+        if(PlayerDataService.resetSpawn(playerTarget, playerTarget.getEntityWorld())){
+            SpawnData data = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getEntityWorld());
 
             MutableText sourceText = Text.translatable("command.%s.reset.player.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID), playerTarget.getName(),
                     Text.translatable("spawn." + data.getIdentifier().toTranslationKey()), data.getBlockPos().getX(), data.getBlockPos().getY(), data.getBlockPos().getZ());
@@ -388,8 +389,8 @@ public class CommandSpawn {
             return 0;
         }
 
-        if(PlayerDataService.resetSpawn(playerSource, playerSource.getWorld())){
-            SpawnData data = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getWorld());
+        if(PlayerDataService.resetSpawn(playerSource, playerSource.getEntityWorld())){
+            SpawnData data = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getEntityWorld());
 
             MutableText sourceText = Text.translatable("command.%s.reset.spawn.middle_earth.success".formatted(MiddleEarth.MOD_ID),
                     Text.translatable("spawn." + data.getIdentifier().toTranslationKey()), data.getBlockPos().getX(), data.getBlockPos().getY(), data.getBlockPos().getZ());
@@ -409,19 +410,19 @@ public class CommandSpawn {
 
         ServerPlayerEntity playerSource = context.getSource().getPlayer();
         if(!PlayerDataService.playerPassedOnboarding(playerSource)){
-            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getWorld());
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerSource, playerSource.getEntityWorld());
             if(spawnData == null)
                 return 0;
 
-            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerSource, playerSource.getWorld());
-            if(DimensionRegistryME.isInOverworld(playerSource.getWorld()) && origin != null){
-                PlayerDataService.setOrigin(playerSource, playerSource.getWorld(), DimensionTypes.OVERWORLD_ID, playerSource.getBlockPos());
+            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerSource, playerSource.getEntityWorld());
+            if(DimensionRegistryME.isInOverworld(playerSource.getEntityWorld()) && origin != null){
+                PlayerDataService.setOrigin(playerSource, playerSource.getEntityWorld(), DimensionTypes.OVERWORLD.getValue(), playerSource.getBlockPos());
             }
             Vector3i spawnCoordinates = spawnData.getWorldCoordinates();
             if(spawnCoordinates != null) {
                 BlockPos pos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y,spawnCoordinates.z);
-                if(DimensionRegistryME.isInMiddleEarth(playerSource.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerSource.getEntityWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, pos, 0, 0), true);
                     playerSource.setSpawnPoint(respawn, true);
                 }
                 DimensionRegistryME.teleportPlayerToMe(playerSource, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);
@@ -442,19 +443,19 @@ public class CommandSpawn {
         boolean welcomeNeeded = BoolArgumentType.getBool(context, WELCOME);
 
         if(PlayerDataService.playerPassedOnboarding(playerTarget)){
-            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getWorld());
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(playerTarget, playerTarget.getEntityWorld());
             if(spawnData == null)
                 return 0;
 
-            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerTarget, playerTarget.getWorld());
-            if(DimensionRegistryME.isInOverworld(playerTarget.getWorld()) && origin != null){
-                PlayerDataService.setOrigin(playerTarget, playerTarget.getWorld(), DimensionTypes.OVERWORLD_ID, playerTarget.getBlockPos());
+            PlayerDataService.OriginAggregate origin = PlayerDataService.getOriginAggregate(playerTarget, playerTarget.getEntityWorld());
+            if(DimensionRegistryME.isInOverworld(playerTarget.getEntityWorld()) && origin != null){
+                PlayerDataService.setOrigin(playerTarget, playerTarget.getEntityWorld(), DimensionTypes.OVERWORLD.getValue(), playerTarget.getBlockPos());
             }
             Vector3i spawnCoordinates = spawnData.getWorldCoordinates();
             if(spawnCoordinates != null) {
                 BlockPos pos = new BlockPos(spawnCoordinates.x, spawnCoordinates.y,spawnCoordinates.z);
-                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getWorld())){
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, pos, 0, true);
+                if(DimensionRegistryME.isInMiddleEarth(playerTarget.getEntityWorld())){
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, pos, 0, 0), true);
                     playerTarget.setSpawnPoint(respawn, true);
                 }
                 DimensionRegistryME.teleportPlayerToMe(playerTarget, new Vec3d(spawnCoordinates.x, spawnCoordinates.y, spawnCoordinates.z), true, welcomeNeeded);

@@ -30,7 +30,7 @@ public class CommandOnboarding {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         // [TRY OPEN]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(ONBOARDING_BASE_COMMAND)
                         .then(literal(TRY)
                         .then(literal(OPEN)

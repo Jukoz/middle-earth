@@ -39,10 +39,10 @@ public class PacketSetRace extends ClientToServerPacket<PacketSetRace>
 
     @Override
     public void process(ServerPacketContext context) {
-        MinecraftServer server = context.player().getServer();
+        MinecraftServer server = context.player().getEntityWorld().getServer();
         server.execute(() -> {
             try{
-                RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getWorld(), MiddleEarth.ofId(race)), true);
+                RaceUtil.updateRace(context.player(), RaceLookup.getRace(context.player().getEntityWorld(), MiddleEarth.ofId(race)), true);
             } catch (Exception e){
                 MiddleEarth.LOGGER.logError("PacketSetRace::Tried setting race for player.", e);
             }

@@ -26,7 +26,7 @@ public class BipedEntityModelMixin {
 
 
     @Inject(at = @At("TAIL"), method = "positionRightArm")
-    private <T extends BipedEntityRenderState> void positionRightArm(T state, BipedEntityModel.ArmPose armPose, CallbackInfo ci) {
+    private <T extends BipedEntityRenderState> void positionRightArm(T state, CallbackInfo ci) {
         ArmedEntityRenderStateAccess renderStateAccess = ((ArmedEntityRenderStateAccess)state);
         ItemStack handItem = renderStateAccess.getMainHandStack();
 
@@ -39,7 +39,7 @@ public class BipedEntityModelMixin {
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
-    private <T extends BipedEntityRenderState> void positionLeftArm(T state, BipedEntityModel.ArmPose armPose, CallbackInfo ci) {
+    private <T extends BipedEntityRenderState> void positionLeftArm(T state, CallbackInfo ci) {
         ArmedEntityRenderStateAccess renderStateAccess = ((ArmedEntityRenderStateAccess)state);
         ItemStack handItem = renderStateAccess.getOffHandStack();
         if(renderStateAccess.isRestrained()) {

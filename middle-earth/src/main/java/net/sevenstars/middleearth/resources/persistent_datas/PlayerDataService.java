@@ -7,6 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProperties;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
@@ -103,8 +104,8 @@ public class PlayerDataService {
             PlayerData data = getPlayerData(player);
             data.assignNewFactionInformation(faction.getId(), spawnId);
 
-            if(DimensionRegistryME.isInMiddleEarth(player.getWorld())){
-                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, getPlayerSpawnData(player, world).getBlockPos(), 0, true);
+            if(DimensionRegistryME.isInMiddleEarth(player.getEntityWorld())){
+                ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, getPlayerSpawnData(player, world).getBlockPos(), 0, 0), true);
                 player.setSpawnPoint(respawn, true);
                 return true;
             }
@@ -166,7 +167,7 @@ public class PlayerDataService {
     private static OriginAggregate getDefaultOriginAggregate(World world){
         return new OriginAggregate(
                 DimensionTypes.OVERWORLD.getValue(),
-                world.getServer().getOverworld().getSpawnPos()
+                world.getServer().getOverworld().getSpawnPoint().getPos()
         );
     }
 

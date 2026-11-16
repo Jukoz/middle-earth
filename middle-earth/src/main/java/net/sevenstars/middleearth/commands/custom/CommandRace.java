@@ -43,7 +43,7 @@ public class CommandRace {
 
         // [SET]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(RACE_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(SET) // With Player Target
@@ -57,7 +57,7 @@ public class CommandRace {
 
         // [RESET]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(RACE_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(RESET) // With Player Target
@@ -70,7 +70,7 @@ public class CommandRace {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity playerSource = context.getSource().getPlayer();
             if(playerSource != null){
-                Race playerRace = PlayerDataService.getPlayerRace(playerSource, playerSource.getWorld());
+                Race playerRace = PlayerDataService.getPlayerRace(playerSource, playerSource.getEntityWorld());
                 if(playerRace != null){
                     MutableText sourceText = Text.translatable("command.%s.race.get.success".formatted(MiddleEarth.MOD_ID),
                             playerRace.getFullName().copyContentOnly().withColor(RACE_COLOR));
@@ -117,7 +117,7 @@ public class CommandRace {
             if(raceId != null && source != null) {
                     PlayerData playerData = StateSaverAndLoader.getPlayerState(source);
                     if(playerData != null){
-                        Race race = RaceLookup.getRace(source.getWorld(), raceId);
+                        Race race = RaceLookup.getRace(source.getEntityWorld(), raceId);
                         if(race != null){
                             RaceUtil.updateRace(source, race, true);
                             MutableText sourceText = Text.translatable("command.%s.race.set.success".formatted(MiddleEarth.MOD_ID),
@@ -141,7 +141,7 @@ public class CommandRace {
         if(raceId != null && targetPlayer != null) {
             PlayerData playerData = StateSaverAndLoader.getPlayerState(targetPlayer);
             if(playerData != null){
-                Race race = RaceLookup.getRace(targetPlayer.getWorld(), raceId);
+                Race race = RaceLookup.getRace(targetPlayer.getEntityWorld(), raceId);
                 if(race != null){
                     RaceUtil.updateRace(targetPlayer, race, true);
                     MutableText targetText = Text.translatable("command.%s.race.set.success".formatted(MiddleEarth.MOD_ID),

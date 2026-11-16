@@ -63,7 +63,7 @@ public class BroadcastData {
         int distanceToBroadcast =  getBroadcastMessageDistance().orElse(200);
         List<ServerPlayerEntity> playerNearby = new ArrayList<>();
         for(ServerPlayerEntity player : world.getPlayers()) {
-            if(pos.isWithinDistance(player.getPos(), distanceToBroadcast))
+            if(pos.isWithinDistance(player.getEntityPos(), distanceToBroadcast))
                 playerNearby.add(player);
         }
         for(ServerPlayerEntity player : playerNearby){

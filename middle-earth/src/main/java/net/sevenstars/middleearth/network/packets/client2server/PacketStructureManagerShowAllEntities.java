@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.network.packets.client2server;
 
+import net.minecraft.command.DefaultPermissions;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
@@ -38,11 +39,11 @@ public class PacketStructureManagerShowAllEntities extends ClientToServerPacket<
     @Override
     public void process(ServerPacketContext context) {
         try{
-            MinecraftServer server = context.player().getServer();
+            MinecraftServer server = context.player().getEntityWorld().getServer();
             server.execute(() -> {
-                if(!context.player().hasPermissionLevel(2))
+                if(!context.player().getPermissions().hasPermission(DefaultPermissions.GAMEMASTERS))
                     return;
-                if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
+                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
                     blockEntity.showAllEntities();
                 }
             });

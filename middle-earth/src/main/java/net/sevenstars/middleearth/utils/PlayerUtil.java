@@ -26,7 +26,7 @@ import java.util.List;
 public class PlayerUtil {
     public static boolean isAgainstWall(PlayerEntity entity) {
         Box boundingBox = entity.getBoundingBox();
-        World world = entity.getWorld();
+        World world = entity.getEntityWorld();
         double testMovementAmount = 0.0001;
 
         Vec3d testMovement = new Vec3d(testMovementAmount, 0.0, testMovementAmount);
@@ -56,7 +56,7 @@ public class PlayerUtil {
     public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){
         PlayerData data = StateSaverAndLoader.getPlayerState(entity);
         if(data != null && data.getRace() != null){
-            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            Race race = RaceLookup.getRace(entity.getEntityWorld(), data.getRace());
             if(race != null){
                 RaceType raceType = race.getRaceType();
                 return raceType == type;
@@ -68,7 +68,7 @@ public class PlayerUtil {
     public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull List<RaceType> types){
         PlayerData data = StateSaverAndLoader.getPlayerState(entity);
         if(data != null && data.getRace() != null){
-            Race race = RaceLookup.getRace(entity.getWorld(), data.getRace());
+            Race race = RaceLookup.getRace(entity.getEntityWorld(), data.getRace());
             if(race != null){
                 RaceType raceType = race.getRaceType();
                 return types.contains(raceType);
@@ -81,7 +81,7 @@ public class PlayerUtil {
         PlayerData data = StateSaverAndLoader.getPlayerState(entity);
         if(data != null && data.getFaction() != null){
             try {
-                return FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+                return FactionLookup.getFactionById(entity.getEntityWorld(), data.getFaction());
             } catch (FactionIdentifierException e) {
                 return null;
             }
@@ -92,7 +92,7 @@ public class PlayerUtil {
         PlayerData data = StateSaverAndLoader.getPlayerState(entity);
         if(data != null && data.getFaction() != null && data.getSpawn() != null){
             try {
-                Faction faction = FactionLookup.getFactionById(entity.getWorld(), data.getFaction());
+                Faction faction = FactionLookup.getFactionById(entity.getEntityWorld(), data.getFaction());
                 return faction.getSpawnData().findSpawn(data.getSpawn());
             } catch (FactionIdentifierException e) {
                 return null;

@@ -52,7 +52,7 @@ public class PacketForceOnboardingScreen extends ServerToClientPacket<PacketForc
             delay = 0;
 
         PlayerEntity player = context.player();
-        var controller = new OnboardingFactionScreenController(player.getWorld(), delay, AttributePoolElement.obtainAttributeList(attributeList));
+        var controller = new OnboardingFactionScreenController(player.getEntityWorld(), delay, AttributePoolElement.obtainAttributeList(attributeList));
         controller.open();
     }
 }

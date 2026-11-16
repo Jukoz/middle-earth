@@ -61,7 +61,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (entity != null) {
             ItemStack leggings = this.getEquippedStack(EquipmentSlot.LEGS);
             if(!leggings.isEmpty()) {
-                RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getWorld().getRegistryManager()
+                RegistryEntry<Enchantment> enchantmentRegistryEntry = entity.getEntityWorld().getRegistryManager()
                         .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.STEALTHY_TRAIL).orElseThrow();
                 int level = EnchantmentHelper.getLevel(enchantmentRegistryEntry, leggings);
                 if(level > 0) {
@@ -87,7 +87,7 @@ public abstract class LivingEntityMixin extends Entity {
     public final StatusEffectInstance addStatusEffect(StatusEffectInstance effect) {
         if(effect.getEffectType().value().getCategory().equals(StatusEffectCategory.HARMFUL)) {
             float ailmentLevel = 0;
-            World world = this.getWorld();
+            World world = this.getEntityWorld();
             ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.HEAD), world);
             ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.CHEST), world);
             ailmentLevel += getAilmentProtectionLevel(this.getEquippedStack(EquipmentSlot.LEGS), world);
@@ -103,8 +103,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", at = @At("TAIL"))
     public final void addStatusEffect(StatusEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
-        if(!this.getWorld().isClient()) {
-            for (ServerPlayerEntity player : ((ServerWorld) this.getWorld()).getPlayers()) {
+        if(!this.getEntityWorld().isClient()) {
+            for (ServerPlayerEntity player : ((ServerWorld) this.getEntityWorld()).getPlayers()) {
                 ServerPlayNetworking.send(player, new PacketLivingEntityData(this.getId(), effect));
             }
         }

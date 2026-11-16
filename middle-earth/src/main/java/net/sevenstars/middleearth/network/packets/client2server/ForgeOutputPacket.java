@@ -67,7 +67,7 @@ public class ForgeOutputPacket extends ClientToServerPacket<ForgeOutputPacket> {
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
                 ForgeBlockEntity.outputItemStack(amount, coordinates, context.player(), mode);
             });

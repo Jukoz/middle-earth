@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.TeleportTarget;
+import net.minecraft.world.WorldProperties;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
@@ -32,6 +33,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Set;
+
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow public MinecraftServer server;
@@ -50,54 +53,66 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 1), cancellable = true)
     public void getRespawnTargetWithBrokenBed(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(DimensionRegistryME.isInMiddleEarth(this.getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld())){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
         }
-        cir.setReturnValue(TeleportTarget.missingSpawnBlock(this.server.getOverworld(), this, postDimensionTransition));
+        cir.setReturnValue(missingSpawnBlock(this.server.getOverworld(), postDimensionTransition));
     }
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 2), cancellable = true)
     public void getRespawnTargetNatural(boolean alive, TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        if(DimensionRegistryME.isInMiddleEarth(this.getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld())){
             if (tryToOverrideSpawn(postDimensionTransition, cir)) return;
             resetSpawn(postDimensionTransition, cir);
             return;
         }
-        cir.setReturnValue(TeleportTarget.missingSpawnBlock(this.server.getOverworld(), this, postDimensionTransition));
+        cir.setReturnValue(missingSpawnBlock(this.server.getOverworld(), postDimensionTransition));
+    }
+
+    @Unique
+    private Vec3d worldSpawnPos(ServerWorld world) {
+        return this.getWorldSpawnPos(world, world.getSpawnPoint().getPos()).toBottomCenterPos();
+    }
+
+    @Unique
+    private TeleportTarget missingSpawnBlock(ServerWorld world, TeleportTarget.PostDimensionTransition postDimensionTransition) {
+        return new TeleportTarget(world, worldSpawnPos(world), Vec3d.ZERO, 0, 0, true, false, Set.of(), postDimensionTransition);
     }
 
     @Unique
     private void resetSpawn(TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir){
-        if(this.getServer() == null) return;
+        if(this.server == null) return;
 
-        PlayerManager manager = this.getServer().getPlayerManager();
+        PlayerManager manager = this.server.getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
-        if(this.getServer() == null) return;
-        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, foundPlayer.getServer().getOverworld().getSpawnPos(), foundPlayer.getServer().getOverworld().getSpawnAngle(), true);
+        if(this.server == null) return;
+        WorldProperties.SpawnPoint worldSpawn = foundPlayer.getEntityWorld().getServer().getOverworld().getSpawnPoint();
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(World.OVERWORLD, worldSpawn.getPos(), worldSpawn.yaw(), 0.0F), true);
         foundPlayer.setSpawnPoint(respawn, true);
 
-        cir.setReturnValue(new TeleportTarget(this.server.getOverworld(), this, postDimensionTransition));
+        ServerWorld overworld = this.server.getOverworld();
+        cir.setReturnValue(new TeleportTarget(overworld, worldSpawnPos(overworld), Vec3d.ZERO, 0, 0, postDimensionTransition));
     }
 
     @Unique
     private boolean tryToOverrideSpawn(TeleportTarget.PostDimensionTransition postDimensionTransition, CallbackInfoReturnable<TeleportTarget> cir) {
-        MinecraftServer server = this.getServer();
+        MinecraftServer server = this.server;
 
         if(server == null) return false;
         PlayerManager manager = server.getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
 
         if(foundPlayer == null) return false;
-        if(DimensionRegistryME.isInMiddleEarth(this.getWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
+        if(DimensionRegistryME.isInMiddleEarth(this.getEntityWorld()) && PlayerDataService.getPlayerSpawnData(foundPlayer, getEntityWorld()) instanceof SpawnData data && data.getIdentifier() != null) {
             BlockPos spawnCoordinates = data.getWorldCoordinateBlockPos();
             if(spawnCoordinates != null){
                 ServerWorld MEWorld = this.server.getWorld(DimensionRegistryME.ME_WORLD_KEY);
                 if(MEWorld != null){
                     Vec3d coordinates = new Vec3d(spawnCoordinates.getX(), spawnCoordinates.getY() + 1, spawnCoordinates.getZ());
 
-                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(DimensionRegistryME.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z),0,true);
+                    ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(DimensionRegistryME.ME_WORLD_KEY, new BlockPos((int) coordinates.x, (int) coordinates.y, (int) coordinates.z), 0, 0), true);
                     foundPlayer.setSpawnPoint(respawn, true);
 
                     cir.setReturnValue(new TeleportTarget(MEWorld, spawnCoordinates.toCenterPos(), Vec3d.ZERO, 0, 0, postDimensionTransition));
@@ -105,10 +120,11 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
         }
-        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(World.OVERWORLD, server.getOverworld().getSpawnPos(), server.getOverworld().getSpawnAngle(), true);
+        WorldProperties.SpawnPoint worldSpawn = server.getOverworld().getSpawnPoint();
+        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(World.OVERWORLD, worldSpawn.getPos(), worldSpawn.yaw(), 0.0F), true);
         foundPlayer.setSpawnPoint(respawn, true);
 
-        cir.setReturnValue(new TeleportTarget(server.getOverworld(), server.getOverworld().getSpawnPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
+        cir.setReturnValue(new TeleportTarget(server.getOverworld(), worldSpawn.getPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
         return false;
     }
 
@@ -135,17 +151,17 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
             return;
         }
 
-        long currentTick = getWorld().getTickOrder();
+        long currentTick = getEntityWorld().getTickOrder();
         if(currentTick % 5 == 0){
-            if(getWorld() == null) return;
-            PlayerData data = StateSaverAndLoader.getPlayerState(getWorld().getPlayerByUuid(getUuid()));
+            if(getEntityWorld() == null) return;
+            PlayerData data = StateSaverAndLoader.getPlayerState(getEntityWorld().getPlayerByUuid(getUuid()));
             if(data == null) return;
 
-            int currentLightLevel = getWorld().getLightLevel(getBlockPos());
+            int currentLightLevel = getEntityWorld().getLightLevel(getBlockPos());
 
             double delversFearStrenght = getAttributeValue(EntityAttributesME.DELVERS_FEAR_STRENGTH);
 
-            if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getWorld().isSkyVisible(getBlockPos())) {
+            if(delversFearStrenght > 0.0 && currentLightLevel < 3 && !getEntityWorld().isSkyVisible(getBlockPos())) {
                 data.addToDelversFearCountInSeconds();
 
                 if(data.getDelversFearCountInSeconds() > delversFearStrenght){

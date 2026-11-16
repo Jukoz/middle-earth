@@ -64,7 +64,7 @@ public class AnvilIndexPacket extends ClientToServerPacket<AnvilIndexPacket> {
     public void process(ServerPacketContext context) {
         try{
             if(index >= 0) {
-                context.player().getServer().execute(() -> {
+                context.player().getEntityWorld().getServer().execute(() -> {
                     Vec3d coordinates = new Vec3d(x, y, z);
                     ShapingAnvilBlockEntity.updateIndex(index, coordinates, context.player());
                 });

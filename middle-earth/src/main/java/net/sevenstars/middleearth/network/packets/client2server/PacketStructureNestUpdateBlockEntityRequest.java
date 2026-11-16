@@ -69,9 +69,9 @@ public class PacketStructureNestUpdateBlockEntityRequest extends ClientToServerP
     @Override
     public void process(ServerPacketContext context) {
         try{
-            MinecraftServer server = context.player().getServer();
+            MinecraftServer server = context.player().getEntityWorld().getServer();
             server.execute(() -> {
-                if(context.player().getWorld().getBlockEntity(pos) instanceof StructureNestBlockEntity blockEntity){
+                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureNestBlockEntity blockEntity){
                     blockEntity.setStructureManagerId(structureManagerId);
                     blockEntity.setStructureNestId(structureNestId);
                     blockEntity.setSpawnRadius(spawnRadius);

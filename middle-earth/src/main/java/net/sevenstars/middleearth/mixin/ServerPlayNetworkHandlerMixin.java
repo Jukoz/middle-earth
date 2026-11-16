@@ -18,7 +18,7 @@ public class ServerPlayNetworkHandlerMixin {
 
     @Shadow public ServerPlayerEntity player;
 
-    @Inject(method = "onPlayerAction", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 0,
+    @Inject(method = "onPlayerAction", at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 1,
             target = "Lnet/minecraft/server/network/ServerPlayerEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"), cancellable = true)
     public void onPlayerAction(PlayerActionC2SPacket packet, CallbackInfo ci) {
         ItemStack mainHandStack = this.player.getStackInHand(Hand.MAIN_HAND);

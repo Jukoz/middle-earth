@@ -37,7 +37,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     }
 
     // Vanilla only gives the loaded crossbow pose to minecraft:crossbow, not to its subclasses
-    @WrapOperation(method = "getArmPose(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;",
+    @WrapOperation(method = "getArmPose(Lnet/minecraft/entity/PlayerLikeEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))
     private static boolean isAnyCrossbow(ItemStack stack, Item item, Operation<Boolean> original) {
         return original.call(stack, item) || (item == Items.CROSSBOW && stack.getItem() instanceof CrossbowItem);

@@ -37,7 +37,7 @@ public class InscriptionWordUpdatePacket extends ClientToServerPacket<Inscriptio
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 InscriptionTableScreenHandler screenHandler = (InscriptionTableScreenHandler) context.player().currentScreenHandler;
                 screenHandler.updateWords(this.add, this.word, false);
             });

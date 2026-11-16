@@ -20,8 +20,8 @@ public abstract class MinecraftClientMixin {
     @Shadow @Final
     public GameOptions options;
 
-    @Inject(method = "setWorld", at = @At("HEAD"))
-    private void resetGlintInNether(ClientWorld world, CallbackInfo ci) {
+    @Inject(method = "setWorld(Lnet/minecraft/client/world/ClientWorld;Z)V", at = @At("HEAD"))
+    private void resetGlintInNether(ClientWorld world, boolean stopSounds, CallbackInfo ci) {
         if (ClientConfigME.DISABLE_GLINT && world != null && DimensionRegistryME.isInMiddleEarth(world)) {
             this.options.getGlintStrength().setValue(0.0);
         }

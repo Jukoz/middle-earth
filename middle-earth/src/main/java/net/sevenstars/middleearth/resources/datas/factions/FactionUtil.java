@@ -33,7 +33,7 @@ public class FactionUtil {
         if(!assertUpdateFactionValues(player, faction, spawnId))
             return false;
 
-        Faction previousFaction = PlayerDataService.getPlayerFaction(player, player.getWorld());
+        Faction previousFaction = PlayerDataService.getPlayerFaction(player, player.getEntityWorld());
 
         // [CLEAR] If the next faction is null
         if(faction == null){
@@ -51,7 +51,7 @@ public class FactionUtil {
         // [JOIN] Add new affiliation data
         if(spawnId == null)
             spawnId = faction.getSpawnData().getDefaultSpawn();
-        PlayerDataService.setNewFactionInformation(player, player.getWorld(), faction.getId(), spawnId);
+        PlayerDataService.setNewFactionInformation(player, player.getEntityWorld(), faction.getId(), spawnId);
         sendOnJoinCommand(player, faction);
 
         // Send join message to affected player
@@ -68,14 +68,14 @@ public class FactionUtil {
 
         // Verify faction
         // Fetch player datas
-        Faction previousFaction = PlayerDataService.getPlayerFaction(player, player.getWorld());
+        Faction previousFaction = PlayerDataService.getPlayerFaction(player, player.getEntityWorld());
 
         if(previousFaction == null)
             return true;
 
         // If there is no faction update, return true
         if(previousFaction.getId() == faction.getId()) {
-            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.getWorld());
+            SpawnData spawnData = PlayerDataService.getPlayerSpawnData(player, player.getEntityWorld());
             if(spawnData != null && spawnId != spawnData.getIdentifier())
                 throw new IdenticalFactionException();
         };
@@ -127,7 +127,7 @@ public class FactionUtil {
     }
 
     public static void sendOnFactionJoinMessage(PlayerEntity player) {
-        Faction faction = PlayerDataService.getPlayerFaction(player, player.getWorld());
+        Faction faction = PlayerDataService.getPlayerFaction(player, player.getEntityWorld());
         if(faction == null){
             MiddleEarth.LOGGER.logError("Couldn't find faction");
             return;
@@ -145,7 +145,7 @@ public class FactionUtil {
     }
 
     public static boolean clearFaction(ServerPlayerEntity player) throws FactionIdentifierException, NoFactionException {
-        Faction faction = PlayerDataService.getPlayerFaction(player, player.getWorld());
+        Faction faction = PlayerDataService.getPlayerFaction(player, player.getEntityWorld());
         if(faction == null)
             throw new NoFactionException();
         if(PlayerDataService.clearPlayerData(player)){
@@ -165,7 +165,7 @@ public class FactionUtil {
      */
     public static boolean forceTeleportToSpawnMiddleEarthId(ServerPlayerEntity target, Identifier spawnId){
         BlockPos spawnBlockPos = null;
-        spawnBlockPos = getSpawnBlockPos(target.getWorld(), spawnId);
+        spawnBlockPos = getSpawnBlockPos(target.getEntityWorld(), spawnId);
         if(spawnBlockPos == null)
             return false;
         DimensionRegistryME.teleportPlayerToMe(target, new Vec3d(spawnBlockPos.getX(), spawnBlockPos.getY(), spawnBlockPos.getZ()), false, false);

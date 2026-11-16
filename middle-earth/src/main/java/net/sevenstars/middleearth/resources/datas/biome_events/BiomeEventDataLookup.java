@@ -84,7 +84,7 @@ public class BiomeEventDataLookup {
     }
 
     public static void addEntity(LivingEntity entity){
-        if (!entity.getWorld().getRegistryKey().equals(DimensionRegistryME.ME_WORLD_KEY)) {
+        if (!entity.getEntityWorld().getRegistryKey().equals(DimensionRegistryME.ME_WORLD_KEY)) {
             return;
         }
 

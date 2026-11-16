@@ -33,10 +33,10 @@ public class PacketTeleportToCurrentOverworldSpawn extends ClientToServerPacket<
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 RaceUtil.reset(context.player());
 
-                if(DimensionRegistryME.isInMiddleEarth(context.player().getWorld())){
+                if(DimensionRegistryME.isInMiddleEarth(context.player().getEntityWorld())){
                     DimensionRegistryME.teleportPlayerToOverworld(context.player());
                     RaceUtil.reset(context.player());
                     if(ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){

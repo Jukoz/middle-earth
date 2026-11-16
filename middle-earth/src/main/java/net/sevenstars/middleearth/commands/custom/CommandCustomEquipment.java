@@ -41,7 +41,7 @@ public class CommandCustomEquipment {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
 
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
                 .then(literal(EQUIPMENT)
                     .then(literal(BACK_ATTACHMENT)
                         .then(argument(BACK_ATTACHMENT_VALUE, StringArgumentType.string())
@@ -49,7 +49,7 @@ public class CommandCustomEquipment {
                                 .executes(CommandCustomEquipment::setBackAttachment)))));
 
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
                 .then(literal(EQUIPMENT)
                     .then(literal(HELMET_ATTACHMENT)
                         .then(argument(HELMENT_ATTACHMENT_VALUE, StringArgumentType.string())

@@ -63,7 +63,7 @@ public class SpawnEventDataUtil {
                     return true;
             }
             // Same NPC type limit
-            if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
+            if (hasNpcTypeLimit && entity instanceof NpcEntity npc && npcSearchBox.contains(entity.getEntityPos()) && SpawnEventDataUtil.compareId(npc, data.getNpcType(null))) {
                 if(sameNpcTypeSurfaceOnly && !isSurface)
                     return false;
 

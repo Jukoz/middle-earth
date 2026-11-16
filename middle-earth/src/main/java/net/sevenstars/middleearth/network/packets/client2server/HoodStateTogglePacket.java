@@ -35,7 +35,7 @@ public class HoodStateTogglePacket extends ClientToServerPacket<HoodStateToggleP
     @Override
     public void process(ServerPacketContext context) {
         try{
-            Objects.requireNonNull(context.player().getServer()).execute(() -> {
+            Objects.requireNonNull(context.player().getEntityWorld().getServer()).execute(() -> {
                 PlayerEntity player = context.player();
 
                 ItemStack helmet = player.getEquippedStack(EquipmentSlot.HEAD);

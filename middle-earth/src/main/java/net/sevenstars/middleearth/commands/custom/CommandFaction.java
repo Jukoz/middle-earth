@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.commands.custom;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -48,7 +49,7 @@ public class CommandFaction {
 
         // [CLEAR]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(FACTION_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(CLEAR) // With Player Target
@@ -59,7 +60,7 @@ public class CommandFaction {
 
         // [JOIN]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(FACTION_BASE_COMMAND)
                 .then(argument(PLAYER, EntityArgumentType.player())
                     .then(literal(JOIN) // With Player Target
@@ -73,7 +74,7 @@ public class CommandFaction {
 
         // [JOIN + SET SPAWN]
         dispatcher.register((literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))) // Require OP
                 .then((literal(FACTION_BASE_COMMAND))
                     .then(argument(PLAYER, EntityArgumentType.player())
                         .then((literal(JOIN) // With Player Target
@@ -92,7 +93,7 @@ public class CommandFaction {
 
         // [GET BANNER]
         dispatcher.register(literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)) // Require OP
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)) // Require OP
                 .then(literal(FACTION_BASE_COMMAND)
                     .then(literal(BANNER)
                     .then(argument(FACTION_ID, IdentifierArgumentType.identifier())
@@ -106,8 +107,8 @@ public class CommandFaction {
             Identifier factionIdentifier = IdentifierArgumentType.getIdentifier(context, FACTION_ID);;
 
             try{
-                Faction faction = FactionLookup.getFactionById(source.getWorld(), factionIdentifier);
-                source.giveItemStack(faction.getBannerItem(source.getWorld().getRegistryManager()));
+                Faction faction = FactionLookup.getFactionById(source.getEntityWorld(), factionIdentifier);
+                source.giveItemStack(faction.getBannerItem(source.getEntityWorld().getRegistryManager()));
                 MutableText sourceText = Text.translatable("command.%s.faction.banner.success".formatted(MiddleEarth.MOD_ID), faction.getFullName().formatted(Formatting.GOLD));
                 source.sendMessage(sourceText.withColor(ColorsME.SUCCESS.color));
             } catch (FactionIdentifierException e){
@@ -127,7 +128,7 @@ public class CommandFaction {
         if(context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
+                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getEntityWorld());
                 if(currentFaction == null){
                     MutableText sourceText = Text.translatable("command.%s.get.faction.no_faction".formatted(MiddleEarth.MOD_ID));
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));
@@ -145,7 +146,7 @@ public class CommandFaction {
         if(targetedPlayer != null && context.getSource().isExecutedByPlayer()) {
             ServerPlayerEntity source = context.getSource().getPlayer();
             if(source != null){
-                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getWorld());
+                Faction currentFaction = PlayerDataService.getPlayerFaction(source, source.getEntityWorld());
                 if(currentFaction == null){
                     MutableText sourceText = Text.translatable("command.%s.get.player.faction.no_faction".formatted(MiddleEarth.MOD_ID), targetedPlayer.getName());
                     source.sendMessage(sourceText.withColor(ColorsME.WARNING.color));

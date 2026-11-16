@@ -20,7 +20,7 @@ public class CommandDimensionTeleport {
     private static final String LOCATION = "location";
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register((CommandManager.literal(CommandRegistryME.BASE_COMMAND)
-                .requires(source -> source.hasPermissionLevel(2)))
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK)))
                 .then((CommandManager.literal(TP))
                 .then(CommandManager.argument(PLAYER, EntityArgumentType.player())
                 .then(CommandManager.argument(LOCATION, Vec3ArgumentType.vec3())

@@ -66,13 +66,13 @@ public class PacketOnboardingResult extends ServerToClientPacket<PacketOnboardin
         float delay = delayOnTeleportationConfirm;
         if(context.player().isInCreativeMode())
             delay = 0;
-        if(DimensionRegistryME.isInMiddleEarth(context.player().getWorld())){
+        if(DimensionRegistryME.isInMiddleEarth(context.player().getEntityWorld())){
             if(!canReturnToOverworld){
                 return;
             }
             MinecraftClient client = MinecraftClient.getInstance();
             client.setScreen(new ReturnConfirmationScreen(delay));
-        } else if(DimensionRegistryME.isInOverworld(context.player().getWorld())){
+        } else if(DimensionRegistryME.isInOverworld(context.player().getEntityWorld())){
             OnboardingScreenHandler.handle(context, havePlayerData, delay, AttributePoolElement.obtainAttributeList(attributeList));
         }
     }

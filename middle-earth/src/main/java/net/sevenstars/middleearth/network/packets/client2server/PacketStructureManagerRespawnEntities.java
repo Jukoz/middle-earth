@@ -37,9 +37,9 @@ public class PacketStructureManagerRespawnEntities extends ClientToServerPacket<
     @Override
     public void process(ServerPacketContext context) {
         try{
-            MinecraftServer server = context.player().getServer();
+            MinecraftServer server = context.player().getEntityWorld().getServer();
             server.execute(() -> {
-                if(context.player().getWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
+                if(context.player().getEntityWorld().getBlockEntity(pos) instanceof StructureManagerBlockEntity blockEntity){
                     blockEntity.respawnAllEntities();
                 }
             });
