@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.gui.onboarding.onboarding_faction;
 
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BannerPattern;
@@ -427,38 +430,47 @@ public class OnboardingFactionScreen extends Screen {
     }
 
     @Override
-    public void resize(MinecraftClient client, int width, int height) {
-        super.resize(client, width, height);
+    public void resize(int width, int height) {
+        super.resize(width, height);
         controller.screenResize();
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
+        int scanCode = input.scancode();
+        int modifiers = input.modifiers();
         this.elements.mapWidget.keyPressed(keyCode, scanCode, modifiers);
         this.elements.searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         if(keyCode == 340 && modifiers == 1) {
             controller.modifyStateDetailed(true);
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(Click click) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         this.elements.npcPreviewWidget.mouseReleased(mouseX, mouseY, button);
         this.elements.mapWidget.mouseReleased(mouseX, mouseY, button);
         this.elements.searchBarWidget.mouseReleased(mouseX, mouseY, button);
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(click);
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+    public boolean keyReleased(KeyInput input) {
+        int keyCode = input.key();
+        int scanCode = input.scancode();
+        int modifiers = input.modifiers();
         this.elements.npcPreviewWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.mapWidget.keyReleased(keyCode, scanCode, modifiers);
         this.elements.searchBarWidget.keyReleased(keyCode, scanCode, modifiers);
         if(keyCode == 340 && modifiers == 0) {
             controller.modifyStateDetailed(false);
         }
-        return super.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(input);
     }
 
     @Override
@@ -469,16 +481,21 @@ public class OnboardingFactionScreen extends Screen {
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double deltaX, double deltaY) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         this.elements.mapWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         this.elements.searchBarWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(click, deltaX, deltaY);
     }
 
     @Override
-    public boolean charTyped(char chr, int modifiers) {
+    public boolean charTyped(CharInput input) {
+        char chr = (char) input.codepoint();
+        int modifiers = input.modifiers();
         this.elements.searchBarWidget.charTyped(chr, modifiers);
-        return super.charTyped(chr, modifiers);
+        return super.charTyped(input);
     }
 
     @Override

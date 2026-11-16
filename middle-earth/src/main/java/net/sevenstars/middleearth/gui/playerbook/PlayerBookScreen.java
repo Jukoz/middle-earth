@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.playerbook;
 
+import net.minecraft.client.gui.Click;
 import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -124,7 +125,10 @@ public class PlayerBookScreen extends Screen {
 
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         if(currentPage == 0) { // Table of content
             if (button == 0) {
                 int centerX = this.width / 2;
@@ -139,14 +143,14 @@ public class PlayerBookScreen extends Screen {
                         this.currentChapter = chapter.chapter;
                         this.currentPage = 1;
                         updatePageButtons();
-                        this.client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                        this.client.getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                         return true;
                     }
                     index++;
                 }
             }
         }
-        boolean clicked = super.mouseClicked(mouseX, mouseY, button);
+        boolean clicked = super.mouseClicked(click, doubled);
         this.setFocused(null);
         return clicked;
     }

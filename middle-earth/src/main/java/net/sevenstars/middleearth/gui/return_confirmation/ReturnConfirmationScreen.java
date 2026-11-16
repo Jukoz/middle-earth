@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.return_confirmation;
 
+import net.minecraft.client.input.KeyInput;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -95,14 +96,15 @@ public class ReturnConfirmationScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
         // Keybind : Tabulation
         if(keyCode == KeyEvent.VK_CODE_INPUT && !CustomWidget.getFocusEnabled()){
             CustomWidget.enableFocus(true);
             return true;
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {

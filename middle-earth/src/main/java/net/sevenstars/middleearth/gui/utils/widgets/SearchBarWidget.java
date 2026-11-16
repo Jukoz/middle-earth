@@ -1,10 +1,10 @@
 package net.sevenstars.middleearth.gui.utils.widgets;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -329,6 +329,7 @@ public class SearchBarWidget extends CustomWidget {
         if(KEYS_TO_IGNORE.contains(keyCode))
             return false;
         if (searchBarToggle && searchBarToggleButton.isFocused()) {
+            KeyInput keyInput = new KeyInput(keyCode, scanCode, modifiers);
             switch (keyCode) {
                 case 257:
                     triggerSearch();
@@ -340,14 +341,14 @@ public class SearchBarWidget extends CustomWidget {
                     this.erase();
                     return true;
                 default:
-                    if (Screen.isCopy(keyCode)) {
+                    if (keyInput.isCopy()) {
                         MinecraftClient.getInstance().keyboard.setClipboard(searchBarInput);
                         return true;
-                    } else if (Screen.isPaste(keyCode)) {
+                    } else if (keyInput.isPaste()) {
                         this.write(searchBarInput + MinecraftClient.getInstance().keyboard.getClipboard());
                         return true;
                     } else {
-                        if (Screen.isCut(keyCode)) {
+                        if (keyInput.isCut()) {
                             MinecraftClient.getInstance().keyboard.setClipboard(searchBarInput);
                             this.write("");
                             return true;

@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.gui.structuremanager;
 
+import net.minecraft.client.input.CharInput;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
@@ -43,7 +46,7 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     public StructureManagerScreen(StructureManagerScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title);
 
-        World world = playerInventory.player.getWorld();
+        World world = playerInventory.player.getEntityWorld();
 
         this.identifiers = new ArrayList<>();
         for(RegistryKey<StructureManagerData> data : world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).get().getKeys()){
@@ -184,23 +187,32 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
+        int scanCode = input.scancode();
+        int modifiers = input.modifiers();
         this.searchBarWidget.keyPressed(keyCode, scanCode, modifiers);
         if(keyCode <= 90 && keyCode >= 65)
             return true;
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(Click click) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         this.searchBarWidget.mouseReleased(mouseX, mouseY, button);
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(click);
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+    public boolean keyReleased(KeyInput input) {
+        int keyCode = input.key();
+        int scanCode = input.scancode();
+        int modifiers = input.modifiers();
         this.searchBarWidget.keyReleased(keyCode, scanCode, modifiers);
-        return super.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(input);
     }
 
     @Override
@@ -209,15 +221,20 @@ public class StructureManagerScreen extends HandledScreen<StructureManagerScreen
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double deltaX, double deltaY) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         this.searchBarWidget.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(click, deltaX, deltaY);
     }
 
     @Override
-    public boolean charTyped(char chr, int modifiers) {
+    public boolean charTyped(CharInput input) {
+        char chr = (char) input.codepoint();
+        int modifiers = input.modifiers();
         this.searchBarWidget.charTyped(chr, modifiers);
-        return super.charTyped(chr, modifiers);
+        return super.charTyped(input);
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {

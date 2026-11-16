@@ -29,7 +29,7 @@ public class ForgeAlloyingScreenHandler extends ScreenHandler {
         super(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = delegate;
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
         this.pos = BlockPos.ORIGIN;
         int maxItemStack = 64;
         checkSize(inventory, 6);

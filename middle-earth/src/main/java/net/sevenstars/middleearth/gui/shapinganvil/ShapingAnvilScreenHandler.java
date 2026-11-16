@@ -56,7 +56,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = delegate;
         this.pos = BlockPos.ORIGIN;
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
         this.outputStack = ItemStack.EMPTY;
         this.player = playerInventory.player;
 
@@ -70,7 +70,7 @@ public class ShapingAnvilScreenHandler extends ScreenHandler {
             @Override
             public void markDirty() {
                 super.markDirty();
-                if(player.getWorld().isClient()) {
+                if(player.getEntityWorld().isClient()) {
                     clientInputChanged.run();
                 }
                 ShapingAnvilScreenHandler.this.updateStack(ShapingAnvilScreenHandler.this.inventory);

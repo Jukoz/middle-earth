@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.gui.map;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.event.KeyInputHandler;
@@ -60,24 +62,27 @@ public class MapScreenController {
         }
     }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        screen.mapWidget.mouseClicked(mouseX, mouseY, button);
-        if(KeyInputHandler.mapTeleportKey.matchesMouse(button)){
+    public boolean mouseClicked(Click click) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        screen.mapWidget.mouseClicked(mouseX, mouseY, click.button());
+        if(KeyInputHandler.mapTeleportKey.matchesMouse(click)){
             teleportToCursor(mouseX, mouseY);
             return true;
         }
-        if(KeyInputHandler.mapFullscreenToggle.matchesMouse(button)){
+        if(KeyInputHandler.mapFullscreenToggle.matchesMouse(click)){
             screen.isFullscreen = !screen.isFullscreen;
         }
         return true;
     }
 
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers, int mouseX, int mouseY) {
-        if(KeyInputHandler.mapTeleportKey.matchesKey(keyCode, modifiers)){
+    public boolean keyPressed(KeyInput input, int mouseX, int mouseY) {
+        int keyCode = input.key();
+        if(KeyInputHandler.mapTeleportKey.matchesKey(input)){
             teleportToCursor(mouseX, mouseY);
             return true;
         }
-        if(KeyInputHandler.mapFullscreenToggle.matchesKey(keyCode, modifiers)){
+        if(KeyInputHandler.mapFullscreenToggle.matchesKey(input)){
             screen.isFullscreen = !screen.isFullscreen;
         }
         if(keyCode == KeyEvent.VK_CODE_INPUT && !CustomWidget.getFocusEnabled()){

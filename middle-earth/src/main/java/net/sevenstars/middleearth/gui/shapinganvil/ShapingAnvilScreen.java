@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.shapinganvil;
 
+import net.minecraft.client.gui.Click;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
@@ -72,7 +73,9 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
         int i = this.x + 20;
         int j = this.y + 14;
         int k = this.scrollOffset + 12;
@@ -82,7 +85,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
             double d = mouseX - (double)(i + m % 4 * 16);
             double e = mouseY - (double)(j + m / 4 * 18);
             if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
-                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 this.handler.setSelectedRecipe(l);
                 return true;
             }
@@ -95,7 +98,7 @@ public class ShapingAnvilScreen extends HandledScreen<ShapingAnvilScreenHandler>
         }
 
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override

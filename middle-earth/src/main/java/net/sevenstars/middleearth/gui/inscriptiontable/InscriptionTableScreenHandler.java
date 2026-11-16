@@ -113,7 +113,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         });
 
         this.context = context;
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
 
         this.levelCost = Property.create();
         this.addProperty(this.levelCost);

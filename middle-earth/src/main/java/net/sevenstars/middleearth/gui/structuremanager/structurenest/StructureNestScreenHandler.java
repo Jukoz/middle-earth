@@ -21,7 +21,7 @@ public class StructureNestScreenHandler  extends ScreenHandler {
 
     public StructureNestScreenHandler(int syncId, PlayerInventory playerInventory, StructureNestScreenData structureNestScreenData) {
         super(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
         this.data = structureNestScreenData;
         this.blockEntity = (StructureNestBlockEntity) this.world.getBlockEntity(data.getPos());
     }
