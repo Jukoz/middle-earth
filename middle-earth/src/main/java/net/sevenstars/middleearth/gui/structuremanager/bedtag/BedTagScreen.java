@@ -168,6 +168,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
                 choices.add(Choice.header(ui(switch (group) {
                     case COMMON -> "common";
                     case FIGHTERS -> "fighters";
+                    case NOBLES -> "nobles";
                     case OTHER -> "other";
                 })));
             }
@@ -222,10 +223,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return occupant.job().isEmpty() && VILLAGER_NESTS.contains(occupant.nestKind());
     }
 
-    // Named after the job if there is one, otherwise after the nest kind
+    // Named after the job if there is one, otherwise after the nest kind. A captain, a chief and a marshal all do a
+    // lord's job, so nobles go by their nest kind
     private static Text label(BedOccupant occupant) {
         if(isVillager(occupant))
             return ui("villager");
+        if(occupant.group() == BedOccupant.Group.NOBLES)
+            return ChoiceListWidget.readable(occupant.nestKind());
         Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
         return ChoiceListWidget.readable(job != null ? job.getPath() : occupant.nestKind());
     }

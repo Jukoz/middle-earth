@@ -27,6 +27,8 @@ import net.minecraft.item.consume.UseAction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import org.joml.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
@@ -52,6 +54,20 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public final static int LIGHT_LEVEL_EMISSIVE_EYES = 8;
     public final static int BLINKING_INTERVAL = 80;
     public final static int BLINKING_DURATION = 3;
+
+    // One bubble for each thing an npc can say, side by side in the order of NpcEntity.Talk
+    private static final Identifier SPEECH_BUBBLES = Identifier.of(MiddleEarth.MOD_ID, "textures/entity/npc/speech_bubbles.png");
+    private static final int BUBBLES = 4;
+    // In blocks
+    private static final float BUBBLE_SIZE = 0.6f;
+    private static final float BUBBLE_GAP = 0.2f;
+    // A name label is drawn half a block over the head
+    private static final float LABEL_ROOM = 0.6f;
+    private static final float SEATED_DROP = 0.5f;
+    private static final float BUBBLE_DISTANCE = 32f;
+    // In ticks, for a bubble to grow to its size and a gesture to reach its pose
+    private static final float BUBBLE_POP = 3f;
+    public static final float GESTURE_EASE = 4f;
 
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
@@ -148,7 +164,25 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
         ItemStack currentShoes = npcEntity.getEquippedStack(EquipmentSlot.FEET);
         npcEntityRenderState.canShowFeet = currentShoes == null || currentShoes.isEmpty();
-        npcEntityRenderState.LOD = getLOD(npcEntity.getEntityPos());
+        npcEntityRenderState.LOD = getLOD(npcEntity.getPos());
+        npcEntityRenderState.talk = npcEntity.getTalk();
+        npcEntityRenderState.talkAge = npcEntity.getTalkAge(tickDelta);
+        nodHead(npcEntityRenderState);
+    }
+
+    // The head's part in a gesture, in degrees. It's put in the state and not in the model because the hair, ears and
+    // nose are models of their own that each turn by the state's pitch
+    private static void nodHead(NpcEntityRenderState state) {
+        float time = state.talkAge;
+        float ease = Math.min(1f, time / GESTURE_EASE);
+        switch (state.talk) {
+            case NOD -> state.pitch += ease * 14f * Math.max(0f, MathHelper.sin(time * 0.4f));
+            case SAY -> state.pitch += ease * 3f * MathHelper.sin(time * 0.6f);
+            case ASK -> state.pitch -= ease * 7f;
+            case EXCLAIM -> state.pitch -= ease * 9f;
+            case LAUGH -> state.pitch += ease * (5f * MathHelper.sin(time * 1.3f) - 10f);
+            case NONE -> {}
+        }
     }
     // endregion
 
@@ -229,6 +263,26 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         if ((state).displayName != null) {
             this.renderLabelIfPresent(state, matrices, queue, cameraState);
         }
+        if(state.talk.isSpoken() && state.LOD < BUBBLE_DISTANCE)
+            renderBubble(state, matrices, vertexConsumers);
+    }
+
+    // Faces the camera as a name label does, and is lit fully so it reads at night
+    private void renderBubble(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
+        float size = BUBBLE_SIZE * Math.min(1f, state.talkAge / BUBBLE_POP);
+        float half = size / 2f;
+        matrices.push();
+        matrices.translate(0f, state.height + BUBBLE_GAP - (state.hasVehicle ? SEATED_DROP : 0f) + (state.displayName != null ? LABEL_ROOM : 0f), 0f);
+        matrices.multiply(this.dispatcher.getRotation());
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        float left = (state.talk.ordinal() - 1) / (float) BUBBLES;
+        float right = left + 1f / BUBBLES;
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getText(SPEECH_BUBBLES));
+        vertexConsumer.vertex(matrix, -half, 0f, 0f).color(0xFFFFFFFF).texture(left, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        vertexConsumer.vertex(matrix, half, 0f, 0f).color(0xFFFFFFFF).texture(right, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        vertexConsumer.vertex(matrix, half, size, 0f).color(0xFFFFFFFF).texture(right, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        vertexConsumer.vertex(matrix, -half, size, 0f).color(0xFFFFFFFF).texture(left, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        matrices.pop();
     }
 
     private void renderComplexVersion(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, NpcEntityRenderState state) {

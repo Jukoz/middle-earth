@@ -288,7 +288,13 @@ public class NpcRoutineGoal extends Goal {
     private static final int FORAGE_ROAM_ONE_IN = 4;
     private static final int PREY_SEARCH_ONE_IN = 3;
     private static final int HUNT_ROAM_ONE_IN = 4;
-    private static final int GESTURE_ONE_IN = 10;
+    // Chances per goal tick while in company, and how long each lasts in ticks
+    private static final int SPEAK_ONE_IN = 30;
+    private static final int NOD_ONE_IN = 20;
+    private static final int SPEAK_TIME = 40;
+    private static final int SPEAK_TIME_VARIATION = 40;
+    private static final int NOD_TIME = 30;
+    private static final int COMPANION_RECHECK_ONE_IN = 40;
     private static final int FARM_ACT_ONE_IN = 2;
 
     private static final float STORE_SOUND_VOLUME = 0.4f;
@@ -1850,15 +1856,52 @@ public class NpcRoutineGoal extends Goal {
         if(done) {
             finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
-            // Turns to face anyone else standing around
-            companion = RoutineSites.takeEntitySearch(world) ? world.getClosestEntity(NpcEntity.class, COMPANIONS, npc, npc.getX(), npc.getY(), npc.getZ(), npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE)) : null;
+            companion = RoutineSites.takeEntitySearch(world) ? findCompanion(world) : null;
             lookTarget = activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? facingTarget() : null;
         } else {
             lookTarget = companion.getEyePos();
-            // Gestures while talking
-            if(random.nextInt(GESTURE_ONE_IN) == 0)
-                npc.swingHand(Hand.MAIN_HAND);
+            converse(random);
         }
+    }
+
+    // They take turns. One says something while the other listens and nods now and then. Somebody only passing by,
+    // or asleep in the same room, is not spoken to
+    private void converse(Random random) {
+        NpcRoutineGoal other = companion.getRoutineGoal();
+        if(other == null || !other.isInCompany()) {
+            // Somebody who came to sit with it may be nearby by now
+            if(random.nextInt(COMPANION_RECHECK_ONE_IN) == 0)
+                companion = null;
+            return;
+        }
+        if(npc.getTalk() != NpcEntity.Talk.NONE)
+            return;
+        if(companion.getTalk().isSpoken()) {
+            if(random.nextInt(NOD_ONE_IN) == 0)
+                npc.talk(NpcEntity.Talk.NOD, NOD_TIME);
+        } else if(random.nextInt(SPEAK_ONE_IN) == 0) {
+            npc.talk(NpcEntity.Talk.SPOKEN[random.nextInt(NpcEntity.Talk.SPOKEN.length)], SPEAK_TIME + random.nextInt(SPEAK_TIME_VARIATION));
+            // Whoever is spoken to turns to the speaker, so the two look at each other
+            other.companion = npc;
+        }
+    }
+
+    // The nearest of those it's in company with. Failing that, it turns to face anyone else standing around
+    private @Nullable NpcEntity findCompanion(ServerWorld world) {
+        NpcEntity nearest = null;
+        boolean nearestInCompany = false;
+        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE), found -> found != npc && found.isAlive())) {
+            boolean inCompany = other.getRoutineGoal() != null && other.getRoutineGoal().isInCompany();
+            if(nearest == null || inCompany && !nearestInCompany || inCompany == nearestInCompany && npc.squaredDistanceTo(other) < npc.squaredDistanceTo(nearest)) {
+                nearest = other;
+                nearestInCompany = inCompany;
+            }
+        }
+        return nearest;
+    }
+
+    public boolean isInCompany() {
+        return phase == Phase.WORKING && (isSocial(activity) || activity == RoutineData.Activity.COURT);
     }
 
     private void workPost(ServerWorld world, Random random, boolean done, long time) {

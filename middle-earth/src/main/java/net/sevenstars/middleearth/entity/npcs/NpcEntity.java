@@ -133,6 +133,28 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // The id of the npc's job, empty for none. Tracked so the client can show the job in the npc's name
     private static final TrackedData<String> JOB = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> TALK = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    // What an npc in company is doing, shown as a gesture and, for those that say something, a bubble over its head
+    public enum Talk {
+        NONE(false),
+        SAY(true),
+        ASK(true),
+        EXCLAIM(true),
+        LAUGH(true),
+        NOD(false);
+
+        public static final Talk[] SPOKEN = {SAY, SAY, ASK, EXCLAIM, LAUGH};
+        private final boolean spoken;
+
+        Talk(boolean spoken) {
+            this.spoken = spoken;
+        }
+
+        public boolean isSpoken() {
+            return spoken;
+        }
+    }
     private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     static {
@@ -303,6 +325,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Set by initGoals, which the game calls before this class's fields get their initial values. An initializer here would
     // overwrite the goal
     private @Nullable NpcRoutineGoal routineGoal;
+    // Entity age at which it falls silent, on the server, and at which it last changed what it's doing, on the client
+    private int talkUntil;
+    private int talkSince;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
     private final NpcCrossBowAttackGoal<NpcEntity> crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
@@ -351,6 +376,29 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         builder.add(JOB, "");
         builder.add(CROSSBOW_CHARGING, false);
         builder.add(USING_ITEM, 0);
+        builder.add(TALK, 0);
+    }
+
+    @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        super.onTrackedDataSet(data);
+        if(TALK.equals(data))
+            talkSince = age;
+    }
+
+    // It ends by itself, so nothing has to stop it when the npc is called away
+    public void talk(Talk talk, int ticks) {
+        dataTracker.set(TALK, talk.ordinal());
+        talkUntil = age + ticks;
+    }
+
+    public Talk getTalk() {
+        int talk = dataTracker.get(TALK);
+        return talk >= 0 && talk < Talk.values().length ? Talk.values()[talk] : Talk.NONE;
+    }
+
+    public float getTalkAge(float tickDelta) {
+        return age - talkSince + tickDelta;
     }
 
     @Override
@@ -1347,6 +1395,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
+        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || routineGoal == null || !routineGoal.isInCompany()))
+            talk(Talk.NONE, 0);
         if(huntTarget != null)
             tickHunt();
         if(age % HATCH_CHECK_INTERVAL == 0)

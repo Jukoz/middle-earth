@@ -34,6 +34,8 @@ public class NpcJobs {
     private static final int BODYGUARDS = 2;
     private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
     private static final List<String> LORD_NESTS = List.of("lord", "captain", "chief", "chieftain", "marshal");
+    // The knights and veterans who rank above a place's soldiers
+    private static final List<String> ELITE_NESTS = List.of("elite");
     private static final List<String> PRISONER_NESTS = List.of("prisoner", "prisoner_nest", "prisoner_cell", "small_prisoner_cell", "large_prisoner_cell");
     private static final Map<RegistryKey<NpcJob>, NpcJob> JOBS = new LinkedHashMap<>();
     private static final Map<Identifier, NpcJob> JOBS_BY_ID = new HashMap<>();
@@ -108,6 +110,10 @@ public class NpcJobs {
 
     public static boolean isGuardNest(String nestKind) {
         return GUARD_NESTS.contains(nestKind);
+    }
+
+    public static boolean isNobleNest(String nestKind) {
+        return LORD_NESTS.contains(nestKind) || ELITE_NESTS.contains(nestKind);
     }
 
     // Picks the first duty that still has an opening: a guard at each entrance or guard post, bodyguards for the lord,

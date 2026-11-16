@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
 
@@ -53,6 +54,59 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
 
     public void setAngles(NpcEntityRenderState renderState) {
         super.setAngles(renderState);
+        gesture(renderState);
+    }
+
+    // The arms' part in what the npc is saying, in radians. An arm that's aiming, blocking or using something is left
+    // to it. The head's part is in the renderer
+    private void gesture(NpcEntityRenderState state) {
+        float time = state.talkAge;
+        float ease = Math.min(1f, time / NpcEntityRenderer.GESTURE_EASE);
+        boolean right = isFree(state.rightArmPose);
+        boolean left = isFree(state.leftArmPose);
+        switch (state.talk) {
+            // Waves a hand about in front of it
+            case SAY -> {
+                if(right) {
+                    rightArm.pitch = MathHelper.lerp(ease, rightArm.pitch, -1.1f + 0.3f * MathHelper.sin(time * 0.5f));
+                    rightArm.yaw = MathHelper.lerp(ease, rightArm.yaw, -0.35f);
+                }
+            }
+            // Holds both hands out, palms up
+            case ASK -> {
+                float pitch = -0.7f + 0.08f * MathHelper.sin(time * 0.35f);
+                if(right)
+                    pose(rightArm, ease, pitch, 0.45f);
+                if(left)
+                    pose(leftArm, ease, pitch, -0.45f);
+            }
+            // Throws both arms up
+            case EXCLAIM -> {
+                float pitch = -3f + 0.12f * MathHelper.sin(time * 1.1f);
+                if(right)
+                    pose(rightArm, ease, pitch, 0.6f);
+                if(left)
+                    pose(leftArm, ease, pitch, -0.6f);
+            }
+            // Shakes with it
+            case LAUGH -> {
+                float shake = ease * (0.12f * MathHelper.sin(time * 1.3f) - 0.25f);
+                if(right)
+                    rightArm.pitch += shake;
+                if(left)
+                    leftArm.pitch += shake;
+            }
+            case NOD, NONE -> {}
+        }
+    }
+
+    private static boolean isFree(ArmPose pose) {
+        return pose == ArmPose.EMPTY || pose == ArmPose.ITEM;
+    }
+
+    private static void pose(ModelPart arm, float ease, float pitch, float roll) {
+        arm.pitch = MathHelper.lerp(ease, arm.pitch, pitch);
+        arm.roll = MathHelper.lerp(ease, arm.roll, roll);
     }
 
     public void setVisible(boolean visible) {

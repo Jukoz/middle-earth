@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public float widthScale;
@@ -38,6 +39,9 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowBeard;
     public boolean canShowHair;
     public float LOD = 0;
+    public NpcEntity.Talk talk = NpcEntity.Talk.NONE;
+    // In ticks, since it began
+    public float talkAge;
 
     public NpcEntityRenderState() {
         this.simplifiedSkinId = null;

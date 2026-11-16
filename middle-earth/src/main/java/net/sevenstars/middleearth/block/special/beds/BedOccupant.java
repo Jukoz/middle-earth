@@ -34,6 +34,8 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
     public enum Group {
         COMMON,
         FIGHTERS,
+        // Those who rank above the rest: lords, captains and their picked fighters
+        NOBLES,
         OTHER
     }
 
@@ -76,7 +78,8 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                 }
                 String nestKind = BedTag.nestKindOf(nest.getId());
                 Identifier job = nest.getJob().orElse(null);
-                Group group = NpcJobs.PRISONER.getValue().equals(job) ? Group.OTHER : common ? Group.COMMON : Group.FIGHTERS;
+                Group group = NpcJobs.PRISONER.getValue().equals(job) ? Group.OTHER : NpcJobs.isNobleNest(nestKind) ? Group.NOBLES
+                        : common ? Group.COMMON : Group.FIGHTERS;
                 BedOccupant occupant = new BedOccupant(group, place.getId(), nestKind, job == null ? "" : job.toString(), born);
                 // One entry per job, taken from the first nest that gives it. A small cell and a large one both hold a
                 // prisoner

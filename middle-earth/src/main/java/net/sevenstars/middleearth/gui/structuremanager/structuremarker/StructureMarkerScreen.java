@@ -50,6 +50,8 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     // Distance from the top of a list to its label, covering the label, the search box and the gaps between them
     private static final int LIST_HEAD = 30;
     private static final int SEARCH_HEAD = 18;
+    // Lines of description under the lists, for the kinds whose second list leaves no room beside it
+    private static final int ABOUT_LINES = 2;
     // An icon for each kind so it can be recognized at a glance
     private static final Map<MarkerKind, Item> ICONS = Map.of(
             MarkerKind.GUARD_POST, Items.IRON_SWORD,
@@ -94,9 +96,9 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         respawns = data.respawns();
         facing = data.facing();
 
-        listHeight = Math.clamp(height - 150, LEAST_LIST_HEIGHT, MOST_LIST_HEIGHT);
+        listHeight = Math.clamp(height - 162, LEAST_LIST_HEIGHT, MOST_LIST_HEIGHT);
         windowWidth = EditorPanel.PADDING * 2 + KIND_WIDTH + GAP + VALUE_WIDTH;
-        windowHeight = EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + LIST_HEAD + listHeight + GAP + textRenderer.fontHeight + GAP + BUTTON_HEIGHT
+        windowHeight = EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + LIST_HEAD + listHeight + GAP + aboutHeight() + GAP + BUTTON_HEIGHT
                 + EditorPanel.PADDING + EditorPanel.FOOTER_HEIGHT;
         windowX = (width - windowWidth) / 2;
         windowY = (height - windowHeight) / 2;
@@ -115,7 +117,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         valueSearch = addDrawableChild(valueList.newSearchField(textRenderer));
         addDrawableChild(valueList);
 
-        int optionTop = top + listHeight + GAP + textRenderer.fontHeight + GAP;
+        int optionTop = top + listHeight + GAP + aboutHeight() + GAP;
         countX = left + STEP_WIDTH;
         countY = optionTop + (BUTTON_HEIGHT - textRenderer.fontHeight) / 2 + 1;
         minusButton = addDrawableChild(ButtonWidget.builder(Text.literal("-"), button -> count = Math.max(1, count - step())).tooltip(Tooltip.of(ui("count_tip")))
@@ -156,6 +158,10 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
 
     private static MutableText ui(String key, Object... arguments) {
         return Text.translatable("ui.%s.structure_marker.%s".formatted(MiddleEarth.MOD_ID, key), arguments);
+    }
+
+    private int aboutHeight() {
+        return ABOUT_LINES * (textRenderer.fontHeight + 2);
     }
 
     private int step() {
@@ -268,7 +274,10 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         EditorPanel.footer(context, windowX, windowY, windowWidth, windowHeight);
         // A kind with nothing to pick shows its description and a "nothing more to set" note where the second list would be
         if(!spawns) {
-            EditorPanel.well(context, valueList.getX(), kindList.getY(), VALUE_WIDTH, kindList.getHeight());
+            // Down past the lists, into the room the spawning kinds use for their description
+            int wellHeight = kindList.getHeight() + GAP + aboutHeight();
+            EditorPanel.well(context, valueList.getX(), kindList.getY(), VALUE_WIDTH, wellHeight);
+            context.enableScissor(valueList.getX(), kindList.getY(), valueList.getX() + VALUE_WIDTH, kindList.getY() + wellHeight);
             int line = kindList.getY() + GAP;
             for(OrderedText wrapped : textRenderer.wrapLines(ui("about_" + kind.asString()), VALUE_WIDTH - 2 * GAP)) {
                 context.drawTextWithShadow(textRenderer, wrapped, valueList.getX() + GAP, line, EditorPanel.TEXT);
@@ -279,6 +288,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
                 context.drawTextWithShadow(textRenderer, wrapped, valueList.getX() + GAP, line, EditorPanel.MUTED);
                 line += textRenderer.fontHeight + 2;
             }
+            context.disableScissor();
         }
         if(spawns)
             EditorPanel.well(context, countX, minusButton.getY() + 1, COUNT_WIDTH, BUTTON_HEIGHT - 2);
@@ -287,8 +297,13 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         EditorPanel.label(context, textRenderer, ui("kind_label"), kindList.getX(), labelY);
         if(spawns)
             EditorPanel.label(context, textRenderer, ui(kind == MarkerKind.SPAWN_NPC ? "value_people" : "value_animal"), valueList.getX(), labelY);
-        if(spawns)
-            context.drawTextWithShadow(textRenderer, ui("about_" + kind.asString()), kindList.getX(), kindList.getBottom() + GAP, EditorPanel.TEXT);
+        if(spawns) {
+            int line = kindList.getBottom() + GAP;
+            for(OrderedText wrapped : textRenderer.wrapLines(ui("about_" + kind.asString()), windowWidth - 2 * EditorPanel.PADDING)) {
+                context.drawTextWithShadow(textRenderer, wrapped, kindList.getX(), line, EditorPanel.TEXT);
+                line += textRenderer.fontHeight + 2;
+            }
+        }
         if(spawns)
             context.drawCenteredTextWithShadow(textRenderer, Text.literal(Integer.toString(count)), countX + COUNT_WIDTH / 2, countY, EditorPanel.TEXT);
     }
