@@ -55,7 +55,6 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("spider_variants"));
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
 
-    /** Lights carried in the off hand or worn: lanterns, torches, candles, candle helmets. */
     public static final RegistryKey<Registry<HeldLightData>> HELD_LIGHT = RegistryKey.ofRegistry(MiddleEarth.id("held_light"));
 
     public static void register() {

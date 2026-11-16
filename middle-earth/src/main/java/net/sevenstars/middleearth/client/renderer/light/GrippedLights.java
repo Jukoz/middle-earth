@@ -23,40 +23,23 @@ import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-/**
- * Your own off hand in first person, holding a lantern by its handle: while the light is lit, the fist
- * held low at the right of the view (the left, for the left hand) with the forearm coming up to it from the lower
- * corner, the view showing only their upper part; shaded, the arm lowers the light out of view, carried at your
- * side as third person shows it.
- */
+/** First-person off hand gripping a lantern by its handle: raised while lit, lowered out of view while shaded. */
 @Environment(EnvType.CLIENT)
 public final class GrippedLights {
-    /** Where the fist is held while lit (camera space; x mirrored for the left hand). */
     private static final float HOLD_X = 0.74F, HOLD_Y = -0.5F, HOLD_Z = -1.15F;
-    /** The arm's roll about the fist, coming up from the lower corner (degrees; mirrored for the left hand). */
     private static final float ROLL = 45;
-    /** How far the light hangs below the fist, past its grip (camera space). */
     private static final float HANG = 0.14F;
-    /** How far the fist drops while shaded (camera space), taking the light out of view; and how long that takes. */
     private static final float LOWER = 1.3F, LOWER_MS = 300;
-    /** The off hand's raise, from 0 (lowered at the side) to 1 (held up); render thread only. */
     private static float raised = -1;
     private static long raisedAt;
     private static Item raisedItem;
     private GrippedLights() {
     }
 
-    /** Whether this stack is a light carried by its handle along the gaze (lanterns, beam lights). */
     public static boolean gripped(ItemStack stack) {
         return HeldLights.of(true, stack) instanceof HeldLight light && light.toggled() && light.hold() == HeldLight.Hold.GAZE;
     }
 
-    /**
-     * Draws the arm holding {@code stack} and the light from its fist, in place of the item alone, or nothing while
-     * it is lowered out of view. The arm is vanilla's bare arm (swing and equip as vanilla, at its size), rolled
-     * about its fist and moved so the fist is at the hold; the light hangs below the fist and follows it
-     * through a swing.
-     */
     public static void render(HeldItemRenderer renderer, EntityRenderDispatcher dispatcher, AbstractClientPlayerEntity player,
                               Arm arm, float swingProgress, float equipProgress, ItemStack stack, MatrixStack matrices,
                               VertexConsumerProvider consumers, int light) {
@@ -70,7 +53,6 @@ public final class GrippedLights {
         }
         up = up * up * (3 - 2 * up);
 
-        // The hold (in the entry frame), lowered by the raise; vanilla's fist at rest is turned and moved onto it.
         Vector3f restFist = fist(f, slim, 0, equipProgress);
         Vector3f hold = new Vector3f(f * HOLD_X, HOLD_Y - (1 - up) * LOWER + equipProgress * -0.6F, HOLD_Z);
         Quaternionf roll = RotationAxis.POSITIVE_Z.rotationDegrees(f * ROLL);
@@ -92,8 +74,6 @@ public final class GrippedLights {
             matrices.pop();
         }
 
-        // The light, upright, its grip at the fist: its entry's grip (model pixels up from its foot), through its held
-        // model's first-person display (lifted, then scaled about the model's middle).
         HeldLightData data = HeldLights.data(true, stack);
         HeldLightData.Display display = data != null ? data.display() : HeldLightData.Display.DEFAULT;
         float grip = (data != null ? data.grip() : HeldLightData.DEFAULT_GRIP).y();
@@ -105,10 +85,7 @@ public final class GrippedLights {
         matrices.pop();
     }
 
-    /**
-     * The off hand's raise toward held up (lit) or lowered (shaded), eased over {@link #LOWER_MS}; a different light
-     * taken in hand starts where it belongs.
-     */
+    /** Eases the arm between raised (lit) and lowered (shaded) over time. */
     private static float raise(ItemStack stack) {
         float target = HeldLights.isOn(stack) ? 1 : 0;
         long now = Util.getMeasuringTimeMs();
@@ -123,17 +100,15 @@ public final class GrippedLights {
         return raised;
     }
 
-    /** The bare arm's fist, in the frame the arm is posed from. */
+    /** Where the fist ends up under the first-person arm pose. */
     private static Vector3f fist(float f, boolean slim, float swingProgress, float equipProgress) {
         MatrixStack pose = new MatrixStack();
         armPose(pose, f, swingProgress, equipProgress);
-        // The arm's pivot (-5 for the right arm, 2 or 2.5 for slim arms, 0) plus the middle of its hand, two pixels
-        // from the arm's end: the right arm's box spans x -3 to 1 (-2 to 1 slim) about its pivot.
         float fistX = -f * (slim ? 5.5F : 6.0F), fistY = slim ? 10.5F : 10.0F;
         return pose.peek().getPositionMatrix().transformPosition(fistX / 16, fistY / 16, 0, new Vector3f());
     }
 
-    /** Vanilla's bare arm (HeldItemRenderer#renderArmHoldingItem). */
+    /** Vanilla's first-person arm transform, including swing and equip. */
     private static void armPose(MatrixStack matrices, float f, float swingProgress, float equipProgress) {
         float g = MathHelper.sqrt(swingProgress);
         float h = -0.3F * MathHelper.sin(g * MathHelper.PI);

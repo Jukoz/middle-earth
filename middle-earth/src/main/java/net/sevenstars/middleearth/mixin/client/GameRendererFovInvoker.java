@@ -5,7 +5,7 @@ import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-/** The world's and the hand's field of view, which differ, to place things drawn in one where they show in the other. */
+/** Exposes the world and hand field of view. */
 @Mixin(GameRenderer.class)
 public interface GameRendererFovInvoker {
     @Invoker("getFov")

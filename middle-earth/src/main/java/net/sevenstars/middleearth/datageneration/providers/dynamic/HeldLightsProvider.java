@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.concurrent.CompletableFuture;
 
+/** Data generation for Middle-earth's own {@code held_light} entries. */
 public class HeldLightsProvider extends FabricDynamicRegistryProvider {
     public HeldLightsProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);

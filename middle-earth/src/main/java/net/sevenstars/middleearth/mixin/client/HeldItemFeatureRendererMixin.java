@@ -21,11 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Notes where a torch or candle in someone's off hand is drawn on them, for its flame; hangs a shaded lantern
- * there straight down from the fist ({@link HangingLanterns}); and draws a light's held block there in place of its
- * item ({@link HeldBlocks}).
- */
+/** Third person: notes held flame positions, hangs shaded lanterns and draws held blocks. */
 @Mixin(HeldItemFeatureRenderer.class)
 public class HeldItemFeatureRendererMixin {
     @Inject(method = "renderItem", at = @At(value = "INVOKE",

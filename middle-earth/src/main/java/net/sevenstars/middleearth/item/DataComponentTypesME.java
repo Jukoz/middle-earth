@@ -76,7 +76,6 @@ public class DataComponentTypesME {
             "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
     );
 
-    /** Whether a lamp or lantern carried in the off hand is lit (lanterns: lit unless set). */
     public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
             .codec(com.mojang.serialization.Codec.BOOL)
             .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));

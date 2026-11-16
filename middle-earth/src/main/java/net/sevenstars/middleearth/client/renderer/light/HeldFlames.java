@@ -30,26 +30,13 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-/**
- * Flames on torches and candles carried in the off hand: little flames and a wisp of smoke at the tip, where the
- * held model shows it (in your own view and on everyone else), for every client.
- * <p>
- * The tip is found from the matrix the hand item is drawn with, through the same display transform as its held
- * model, as its {@code held_light} entry gives it ({@link HeldLightData}: its grip, display and flames).
- */
+/** Flame and smoke particles at the tip of torches and candles carried in the off hand or worn. */
 @Environment(EnvType.CLIENT)
 public final class HeldFlames {
-    /** How far a held-up light is turned on the arm (degrees on x), as its held model's display has it. */
     private static final float RAISED_ROT = 16;
 
-    /**
-     * How a kind of flame is held, as its held model's display has it: the grip (model pixels, where the fist
-     * closes), the third-person scale, the first-person translation (pixels) and scale; and where its flames are
-     * (model pixels), what they burn with, and whether they are a candle's (smaller).
-     */
     private record Kind(Vector3f grip, float thirdScale, Vector3f firstTranslate, float firstScale, List<Vector3f> flames,
                         ParticleEffect particle, float turn, int tint, boolean small) {
-        /** The flames of a held light's entry, or null if it burns with none. */
         static @Nullable Kind of(@Nullable HeldLightData data) {
             if (data == null || data.flames().isEmpty()) {
                 return null;
@@ -62,34 +49,27 @@ public final class HeldFlames {
                 display.firstScale(), flames.points(), particle, display.turn(), flames.tint().orElse(-1), flames.small());
         }
 
-        /** A flame's place in the hand item's frame, in blocks. */
         Vector3f flame(Vector3f at, boolean firstPerson) {
             if (firstPerson) {
                 Vector3f point = new Vector3f(at).sub(8, 8, 8).mul(firstScale);
                 new Quaternionf().rotationY(turn * MathHelper.RADIANS_PER_DEGREE).transform(point);
                 return point.add(firstTranslate).div(16);
             }
-            // The display brings the grip to the fist: the flame sits where it is from the grip, turned and scaled.
             Vector3f point = new Vector3f(at).sub(grip).mul(thirdScale);
             new Quaternionf().rotationXYZ(RAISED_ROT * MathHelper.RADIANS_PER_DEGREE, turn * MathHelper.RADIANS_PER_DEGREE, 0).transform(point);
             return point.div(16);
         }
     }
 
-    /** How long a noted flame stays good, in ms (it is noted every frame its holder is drawn). */
     private static final long FRESH_MS = 200;
     private static final Random RANDOM = Random.create();
 
-    /** Your own held flame, in the hand's view space; and everyone's (yours too, seen from outside), in the world. */
     private static final List<Vector3f> firstPerson = new ArrayList<>();
     private static long firstPersonNoted;
     private static final Map<ItemStack, Seen> THIRD_PERSON = new WeakHashMap<>();
-    /** Worn lights' flames (the Dwarven Miner Helmet's candles), in the world, by the worn stack. */
     private static final Map<ItemStack, Seen> WORN = new WeakHashMap<>();
-    /** Candles' flames and smoke are a little smaller than a torch's. */
     private static final float CANDLE_PARTICLE_SCALE = 0.75F;
 
-    /** Whether a worn stack has candles that burn on it (a worn {@code held_light} entry with flames). */
     public static boolean hasWornFlames(ItemStack stack) {
         HeldLightData data = HeldLights.wornData(true, stack);
         return data != null && data.flames().isPresent();
@@ -103,10 +83,8 @@ public final class HeldFlames {
 
     public static void register() {
         ClientTickEvents.END_CLIENT_TICK.register(HeldFlames::tick);
-        // The client's held lights: loaded as it joins a world (its tags load then too), forgotten as it leaves.
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> HeldLights.load(handler.getRegistryManager(), true));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> HeldLights.clear(true));
-        // Lights that can be shaded say whether they are lit; with Shift held, how to light or shade them.
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if (HeldLights.of(true, stack) instanceof HeldLight light && light.toggled()) {
                 lines.add(net.minecraft.text.Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit"
@@ -125,7 +103,7 @@ public final class HeldFlames {
         return Kind.of(HeldLights.data(true, stack));
     }
 
-    /** As your own hand items are drawn (first person). */
+    /** Flame tips from the hand matrix through the held model's display transform. */
     public static void noteFirstPerson(ItemStack stack, boolean leftHand, Matrix4f matrix) {
         Kind kind = kind(stack);
         if (kind != null) {
@@ -137,7 +115,6 @@ public final class HeldFlames {
         }
     }
 
-    /** As a player's off-hand item is drawn on them (third person); the matrix is camera-relative, world-turned. */
     public static void noteThirdPerson(ItemStack stack, Matrix4f matrix) {
         Kind kind = kind(stack);
         if (kind != null) {
@@ -151,7 +128,6 @@ public final class HeldFlames {
         }
     }
 
-    /** As a candle helmet is drawn on its wearer; the matrix is its head's, camera-relative, world-turned. */
     public static void noteWorn(ItemStack stack, Matrix4f matrix) {
         HeldLightData data = HeldLights.wornData(true, stack);
         if (data == null || data.flames().isEmpty()) {
@@ -194,7 +170,6 @@ public final class HeldFlames {
                 }
             }
         }
-        // Worn candles burn on whoever wears them, as they are drawn (not on your own head in first person).
         for (net.minecraft.entity.Entity entity : world.getEntities()) {
             if (!(entity instanceof net.minecraft.entity.LivingEntity living) || living.isInvisible() || living.isSpectator()) {
                 continue;
@@ -213,9 +188,7 @@ public final class HeldFlames {
         }
     }
 
-    /** A placed torch's flame and smoke, a little at a time. */
     private static void flicker(ClientWorld world, Vec3d at, Kind kind) {
-        // Drawn straight into the particle manager (to tint and scale them), so the Particles option is honoured here.
         if (MinecraftClient.getInstance().options.getParticles().getValue() == ParticlesMode.MINIMAL) {
             return;
         }

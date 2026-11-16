@@ -16,10 +16,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.sevenstars.middleearth.light.BeamLights;
 
-/**
- * The light where a lamp's beam falls (or round someone carrying a lantern): invisible, untouchable, replaced
- * by anything placed there. It checks every half second that its lamp still shines on it and goes out if not.
- */
+/** Invisible light block placed where held or beam light falls; removes itself once no longer refreshed. */
 public class BeamLightBlock extends Block {
     public static final MapCodec<BeamLightBlock> CODEC = createCodec(BeamLightBlock::new);
     public static final IntProperty LEVEL = Properties.LEVEL_15;
