@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 public class CaveTrollBannerModel extends CaveTrollEntityModel {
     // Pole bases relative to the platform's origin (0.5, -48, 6.5): its top is 1 below it, and the rear corners are 17 to the side and 16 back
     private static final float CORNER_X = 17.0f;
-    private static final float BASE_Y = 1.0f;
+    private static final float BASE_Y = 15.0f;
     private static final float BASE_Z = 16.0f;
     private static final float SCALE = 0.7f;
 
