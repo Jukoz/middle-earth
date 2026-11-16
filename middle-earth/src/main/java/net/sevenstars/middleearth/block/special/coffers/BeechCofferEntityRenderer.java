@@ -9,6 +9,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.state.ChestBlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
@@ -56,8 +59,9 @@ public class BeechCofferEntityRenderer<T extends ChestBlockEntity> extends Chest
     }
 
     @Override
-    public void render(T entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
-        SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, MiddleEarth.idFilePath( "model", "beech_coffer"));
+    public void render(ChestBlockEntityRenderState chestBlockEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
+        /// TODO fixme
+        /*SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, MiddleEarth.idFilePath( "model", "beech_coffer"));
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
         World world = entity.getWorld();
@@ -82,6 +86,6 @@ public class BeechCofferEntityRenderer<T extends ChestBlockEntity> extends Chest
         lid.render(matrices, vertexConsumer, light, overlay);
         body.render(matrices, vertexConsumer, light, overlay);
 
-        matrices.pop();
+        matrices.pop();*/
     }
 }

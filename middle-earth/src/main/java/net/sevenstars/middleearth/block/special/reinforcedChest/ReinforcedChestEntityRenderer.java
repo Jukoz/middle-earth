@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.client.render.block.entity.state.ChestBlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -48,7 +51,9 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
     }
 
     @Override
-    public void render(T entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+    public void render(ChestBlockEntityRenderState chestBlockEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
+        /// TODO fixme
+        /*
         SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
                 Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
@@ -75,6 +80,6 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
         chestLatch.render(matrices, vertexConsumer, light, overlay);
         chestBase.render(matrices, vertexConsumer, light, overlay);
 
-        matrices.pop();
+        matrices.pop();*/
     }
 }

@@ -42,7 +42,7 @@ public class FireOfOrthancBlock extends Block {
             Item item = stack.getItem();
             if (!player.isInCreativeMode()) {
                 if (stack.isOf(Items.FLINT_AND_STEEL)) {
-                    stack.damage(1, player, LivingEntity.getSlotForHand(hand));
+                    stack.damage(1, player, hand.getEquipmentSlot());
                 } else {
                     stack.decrement(1);
                 }

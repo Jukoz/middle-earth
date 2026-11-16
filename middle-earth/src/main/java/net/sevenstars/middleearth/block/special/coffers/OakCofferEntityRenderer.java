@@ -19,6 +19,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
+import net.minecraft.client.render.block.entity.state.ChestBlockEntityRenderState;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
@@ -73,7 +76,9 @@ public class OakCofferEntityRenderer<T extends ChestBlockEntity> extends ChestBl
     }
 
     @Override
-    public void render(T entity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, Vec3d cameraPos) {
+    public void render(ChestBlockEntityRenderState chestBlockEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
+        /// TODO fixme
+        /*
         SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, MiddleEarth.idFilePath( "model", "oak_coffer"));
         VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
 
@@ -98,6 +103,6 @@ public class OakCofferEntityRenderer<T extends ChestBlockEntity> extends ChestBl
         lid.render(matrices, vertexConsumer, light, overlay);
         body.render(matrices, vertexConsumer, light, overlay);
 
-        matrices.pop();
+        matrices.pop();*/
     }
 }

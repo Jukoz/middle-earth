@@ -5,8 +5,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
@@ -28,12 +30,19 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
     }
 
 
+    @Override
+    public void render(FireOfOrthancEntityRenderState renderState, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        super.render(renderState, matrices, queue, cameraState);
+    }
+
+    /// TODO fixme
+    /*
     public void render(FireOfOrthancEntity fireOfOrthancEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
         BlockState blockState = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
         if (blockState.getRenderType() != BlockRenderType.MODEL) {
             return;
         }
-        World world = fireOfOrthancEntity.getWorld();
+        World world = fireOfOrthancEntity.getEntityWorld();
         if (blockState == world.getBlockState(fireOfOrthancEntity.getBlockPos()) || blockState.getRenderType() == BlockRenderType.INVISIBLE) {
             return;
         }
@@ -50,10 +59,10 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
         //TODO to test if this worky
         this.blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, OverlayTexture.DEFAULT_UV);
 
-        /*this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState,
-                blockPos, matrixStack, vertexConsumerProvider.getBuffer(RenderLayers.getMovingBlockLayer(blockState)), false,
-                Random.create(), 0, OverlayTexture.DEFAULT_UV);*/
+        //this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState,
+        //        blockPos, matrixStack, vertexConsumerProvider.getBuffer(RenderLayers.getMovingBlockLayer(blockState)), false,
+        //        Random.create(), 0, OverlayTexture.DEFAULT_UV);
         matrixStack.pop();
         super.render(new FireOfOrthancEntityRenderState(), matrixStack, vertexConsumerProvider, light);
-    }
+    }*/
 }
