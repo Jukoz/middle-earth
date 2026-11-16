@@ -16,6 +16,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Slice;
+import net.minecraft.client.option.AttackIndicator;
+import net.minecraft.client.option.SimpleOption;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
@@ -46,5 +50,17 @@ public abstract class InGameHudMixin {
     @WrapOperation(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/Perspective;isFirstPerson()Z"))
     private boolean showCrosshairOnTroll(Perspective perspective, Operation<Boolean> original) {
         return original.call(perspective) || TrollRiderCamera.isActive(MinecraftClient.getInstance());
+    }
+
+    // The troll's cooldown is long and the crosshair indicator tiny, so a rider always gets the bar beside the hotbar
+    @WrapOperation(method = "renderHotbar",
+            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/GameOptions;getAttackIndicator()Lnet/minecraft/client/option/SimpleOption;")),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;", ordinal = 0))
+    private Object showHotbarCooldownOnTroll(SimpleOption<?> option, Operation<Object> original) {
+        Object value = original.call(option);
+        if(this.client.player != null && this.client.player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == this.client.player) {
+            return AttackIndicator.HOTBAR;
+        }
+        return value;
     }
 }

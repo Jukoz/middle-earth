@@ -11,7 +11,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarthClient;
 import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
@@ -51,7 +50,6 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
             bodyNoLegs.applyTransform(matrices);
             bodyNoLegs.getChild("body_no_limbs").applyTransform(matrices);
             matrices.translate((BASE_X + side * CORNER_X) / 16.0f, BASE_Y / 16.0f, BASE_Z / 16.0f);
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0f)); // Pattern faces the back
             matrices.scale(SCALE, SCALE, SCALE);
 
             VertexConsumer consumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
