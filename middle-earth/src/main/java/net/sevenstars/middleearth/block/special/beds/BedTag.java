@@ -21,15 +21,15 @@ import java.util.TreeMap;
 import java.util.Optional;
 import java.util.TreeSet;
 
-// Who is born in a bed: the kind of person, as the last word of the nest of its structure that spawns them, and the job they
-// take, or none for the routine of the kind. The class is named where one of the nest's own will not do, as for who is
-// held in a cell. Links are what they work at, as offsets from the bed head so that a template
-// stays valid when it is turned. They are used as they are only when manual, otherwise the nearest target is the link.
-// The manager is the one the bed was tied to by hand, an offset as the links are. Without one the bed is born by the nearest
-// manager of its structure. The place is whose people of that kind they are: the bandits of a brigand dungeon, the
-// soldiers of a Rohan village. A bed tagged before places were kept on beds has none, and takes the one its manager was given.
-// The store is the chest or barrel its things are put away in, an offset too, where the builder picked one. Without one
-// it is the nearest
+// Who spawns in a bed. The nest kind is the last word of the structure's nest that spawns them. The job is what they do,
+// or none for the default routine of that kind. The class is only named where the nest's own classes won't do, such as
+// for who is held in a cell. Links are what they work at, stored as offsets from the bed head so a template stays valid
+// when it is rotated. They are used as stored only when manual, otherwise the nearest target is the link.
+// The manager is a leftover: the manager block the builder once tied the bed to, also an offset. Nothing spawns by it
+// any more. The place says whose people these are: the bandits of a brigand dungeon, the soldiers of a Rohan village.
+// A bed tagged before beds stored a place has none, and spawns nobody until it is tagged again.
+// The store is the chest or barrel where the npc puts its things away, also an offset, if the builder picked one.
+// Without one it is the nearest
 public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
                      Optional<Identifier> place, Optional<BlockPos> store) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -46,7 +46,7 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
     private static List<String> nestKinds = null;
     private static Map<Identifier, Identifier> peopleNests = null;
 
-    // Who a kind of nest houses, by the classes of its pools in every structure that has one
+    // Who a kind of nest houses, judged by the classes of its pools in every structure that has one
     public enum Folk {
         COMMON,
         FIGHTERS,
@@ -95,7 +95,7 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return withLinks(List.of(), false);
     }
 
-    // Every kind of person any structure has a nest for
+    // Every kind of person that any structure has a nest for
     public static synchronized List<String> nestKinds() {
         if(nestKinds == null) {
             TreeSet<String> found = new TreeSet<>();
@@ -110,7 +110,7 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return nestKinds;
     }
 
-    // The place of each nest of people there is, by the nest. A spawn marker names its people by such a nest
+    // The place of each people nest, keyed by nest. A spawn marker names its people by such a nest
     public static synchronized Map<Identifier, Identifier> peopleNests() {
         if(peopleNests == null) {
             Map<Identifier, Identifier> found = new TreeMap<>();

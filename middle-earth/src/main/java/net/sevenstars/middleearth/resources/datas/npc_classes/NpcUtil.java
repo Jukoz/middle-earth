@@ -16,7 +16,7 @@ public class NpcUtil {
         ItemStack mainHandItem = data.get(EquipmentSlot.MAINHAND);
         ItemStack offhandItem = data.get(EquipmentSlot.OFFHAND);
 
-        // Nothing is held beside a two handed weapon
+        // Nothing goes in the offhand next to a two-handed weapon
         entity.equipStack(EquipmentSlot.MAINHAND, mainHandItem);
         entity.equipStack(EquipmentSlot.OFFHAND, isTwoHanded(mainHandItem) || isTwoHanded(offhandItem) ? ItemStack.EMPTY : offhandItem);
     }

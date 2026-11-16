@@ -12,7 +12,8 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
-// Opens the doors of the mod on the way through, and shuts them behind. Any block that is an NpcDoor, where the game's own goal knows only its own doors
+// Opens the mod's doors on the way through and shuts them behind. Handles any block that is an NpcDoor, where vanilla's
+// goal only knows vanilla doors
 public class NpcModDoorGoal extends Goal {
     private static final double REACH = 2.5;
     private static final int NODES_AHEAD = 2;
@@ -23,7 +24,7 @@ public class NpcModDoorGoal extends Goal {
     private static final double DOORWAY_REACH = 2;
 
     private final NpcEntity npc;
-    // The part of the door that stays where it is while the rest swings
+    // The part of the door that stays fixed while the rest swings
     private @Nullable BlockPos origin = null;
     private @Nullable BlockPos doorway = null;
     private @Nullable BlockPos leftOpen = null;
@@ -36,7 +37,7 @@ public class NpcModDoorGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        // A door that could not be shut with somebody in the way is shut once they have gone
+        // A door that couldn't be shut because someone was in the way gets shut once they've gone
         if(leftOpen != null && !isBusy(leftOpenDoorway)) {
             origin = leftOpen;
             set(false);
@@ -78,7 +79,7 @@ public class NpcModDoorGoal extends Goal {
         return heldTicks < PASSING_TIME || isBusy(doorway);
     }
 
-    // Anybody at all in the doorway, a player as much as an npc
+    // Anyone in the doorway, player or npc
     private boolean isBusy(BlockPos at) {
         Box around = new Box(at).expand(DOORWAY_REACH, 1, DOORWAY_REACH);
         return !npc.getWorld().getEntitiesByClass(LivingEntity.class, around, LivingEntity::isAlive).isEmpty();

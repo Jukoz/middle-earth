@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-// What somebody is born by and comes back to: a tagged bed, or a marker that spawns people. It keeps who it spawned and
-// when they are due again, and only does so while its chunk is loaded
+// What npcs spawn from and return to: a tagged bed, or a marker that spawns people. It tracks who it spawned and when
+// they are due again, and only does so while its chunk is loaded
 public interface NestHost {
     String NEST_KEY = "MiddleEarthNest";
 
@@ -25,8 +25,8 @@ public interface NestHost {
 
     void setNest(@Nullable SpawnNestManager nest);
 
-    // Saved in a chunk, a block entity has its position in its data. Without one it comes from a template, and who it
-    // remembers were people of the world it was built in
+    // A block entity saved in a chunk has its position in its data. Without one it came from a template, and the people
+    // it remembers belong to the world the template was built in
     static boolean isOfThisWorld(ReadView view) {
         return view.getOptionalInt("x").isPresent();
     }
@@ -39,7 +39,7 @@ public interface NestHost {
         view.putNullable(NEST_KEY, SpawnNestManager.CODEC, nest);
     }
 
-    // Told by the one who died or was taken away, for another to be born in time
+    // Called when an npc dies or is removed, so a replacement can spawn in time
     static void signalGone(World world, @Nullable BlockPos host, LivingEntity entity) {
         if(world.isClient || host == null || !world.isChunkLoaded(host.getX() >> 4, host.getZ() >> 4))
             return;
@@ -52,7 +52,8 @@ public interface NestHost {
         return world.getBlockEntity(pos) instanceof NestHost host && host.getNest() != null;
     }
 
-    // Everybody living in the place the host is of: whoever the beds of its structure spawned, where they are loaded
+    // Everyone living in the host's place, meaning every npc spawned by a tagged bed of its structure. Only beds whose
+    // chunk is loaded are counted
     static Set<UUID> residents(ServerWorld world, BlockPos host) {
         Set<UUID> residents = new HashSet<>();
         RoutineSite site = RoutineSites.forManager(world, host);

@@ -36,9 +36,10 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
-// Says what blocks cannot: where a guard stands, where the lord sits. Builders place it in a template and the generated data
-// of the template keeps it. In a world that has the structure placed, it is gone on its first tick, but for one that spawns:
-// that one stays to see to what it spawned, hidden, and gives way to whatever is built in its place
+// Marks what blocks can't: where a guard stands, where the lord sits. Builders place it in a template and the
+// template's generated data keeps it. When the structure is placed in a world, the marker removes itself on its first
+// tick. The exception is a marker that spawns something. It stays, hidden, to manage what it spawned, and gets replaced
+// by whatever is built in its place
 public class StructureMarkerBlock extends BlockWithEntity implements Waterloggable {
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;

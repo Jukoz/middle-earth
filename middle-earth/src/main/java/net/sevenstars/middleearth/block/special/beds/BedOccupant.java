@@ -27,9 +27,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-// One answer to who lives in a bed, as a builder is asked it: a villager, a baker, a soldier, a prisoner, of one place. Behind
-// it are the nest of the place that spawns such a person and the job they take, which the builder does not have to know
-// about. The classes are who may be born, to show before saving. An empty job is the day the class has by itself
+// One choice for who lives in a bed, as offered to the builder: a villager, a baker, a soldier, a prisoner, for one place.
+// Behind it are the place's nest that spawns that kind of person and the job they take, which the builder doesn't need
+// to know about. The classes are who can spawn, shown before saving. An empty job means the class's own routine
 public record BedOccupant(Group group, Identifier place, String nestKind, String job, List<Identifier> classes) {
     public enum Group {
         COMMON,
@@ -40,7 +40,7 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
     private static final int MAXIMUM_LENGTH = 128;
     private static final int MAXIMUM_CLASSES = 64;
     public static final int MAXIMUM_OCCUPANTS = 2048;
-    // In blocks and in chunks, around a bed that is in no structure being edited, to find what its neighbours are tagged with
+    // In blocks and in chunks, around a bed outside any structure being edited, to find what its neighbours are tagged with
     private static final int NEIGHBOUR_RANGE = 64;
     private static final int NEIGHBOUR_CHUNKS = 4;
 
@@ -53,7 +53,7 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
             BedOccupant::new
     );
 
-    // Everybody each place can house: those it has a nest for, and of its common folk each trade they can take
+    // Everyone each place can house: the kinds it has a nest for, plus each trade its common folk can take
     public static List<BedOccupant> all(ServerWorld world) {
         Registry<NpcClass> classes = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
         List<BedOccupant> occupants = new ArrayList<>();
@@ -64,7 +64,7 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                 if(!nest.isPeople())
                     continue;
                 List<Identifier> born = new ArrayList<>();
-                // A village's nest of common folk has its militia in it too, and is still where its bakers and farmers come from
+                // A village's common folk nest includes its militia too, and is still where its bakers and farmers come from
                 boolean common = false;
                 for(StructureSpawnNestPool pool : nest.getNpcSpawnNestPool()) {
                     Identifier id = pool.getNpcIdentifier().orElse(null);
@@ -78,8 +78,8 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                 Identifier job = nest.getJob().orElse(null);
                 Group group = NpcJobs.PRISONER.getValue().equals(job) ? Group.OTHER : common ? Group.COMMON : Group.FIGHTERS;
                 BedOccupant occupant = new BedOccupant(group, place.getId(), nestKind, job == null ? "" : job.toString(), born);
-                // One answer for each job, whichever of the nests that give it comes first: a small cell and a large one both
-                // hold a prisoner
+                // One entry per job, taken from the first nest that gives it. A small cell and a large one both hold a
+                // prisoner
                 found.putIfAbsent(occupant.job().isEmpty() ? nestKind : occupant.job(), occupant);
                 if(villager == null && group == Group.COMMON && job == null)
                     villager = occupant;
@@ -89,7 +89,7 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                 found.values().forEach(occupant -> offered.add(occupant.job()));
                 for(var key : NpcJobs.all()) {
                     NpcJob job = NpcJobs.get(key.getValue());
-                    // A trade with a day of its own. Herders and travellers get theirs from the party they walk with
+                    // A trade with its own routine. Herders and travellers get theirs from the party they walk with
                     if(job == null || !job.replacesName() || job.routine().isEmpty() || job.routine().get().getEntries().isEmpty() || offered.contains(key.getValue().toString()))
                         continue;
                     found.put(key.getValue().toString(), new BedOccupant(Group.COMMON, place.getId(), villager.nestKind(), key.getValue().toString(), villager.classes()));
@@ -100,8 +100,8 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
         return occupants.size() > MAXIMUM_OCCUPANTS ? occupants.subList(0, MAXIMUM_OCCUPANTS) : occupants;
     }
 
-    // The place a bed not yet given one is most likely of: the one most of its neighbours have, which are the beds of the
-    // structure the builder has loaded or else those near it
+    // The most likely place for a bed that doesn't have one yet: the place most of its neighbours have. The neighbours are
+    // the beds of the structure the builder has loaded, or else the beds near it
     public static Optional<Identifier> likelyPlace(ServerWorld world, BlockPos bed, UUID builder) {
         StructureEditSession session = StructureEditSession.of(builder);
         boolean inSession = session != null && session.getDimension().equals(world.getRegistryKey())

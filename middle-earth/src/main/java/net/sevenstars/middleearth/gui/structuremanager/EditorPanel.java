@@ -7,8 +7,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-// The look the builder's screens share: a framed window with a title bar over the world, which is left in sight behind
-// it, and darker wells that lists and readouts sit in
+// The look shared by the builder's screens: a framed window with a title bar, drawn over the world (which stays
+// visible behind it), and darker wells that hold lists and readouts
 @Environment(value = EnvType.CLIENT)
 public class EditorPanel {
     public static final int PADDING = 6;
@@ -28,7 +28,7 @@ public class EditorPanel {
     private static final int LINE = 0xFF333A45;
     private static final int SHADOW_OFFSET = 3;
 
-    // The window itself, its title on the left of the bar and what it is about on the right
+    // The window, with its title on the left of the title bar and a subject on the right
     public static void window(DrawContext context, TextRenderer textRenderer, int x, int y, int width, int height, Text title, @Nullable Text about) {
         context.fill(x + SHADOW_OFFSET, y + SHADOW_OFFSET, x + width + SHADOW_OFFSET, y + height + SHADOW_OFFSET, SHADOW);
         context.fill(x - 1, y - 1, x + width + 1, y + height + 1, EDGE);
@@ -42,7 +42,7 @@ public class EditorPanel {
             context.drawTextWithShadow(textRenderer, about, x + width - PADDING - textRenderer.getWidth(about), textY, MUTED);
     }
 
-    // The line over the buttons at the foot of a window
+    // The divider line above the buttons at the bottom of a window
     public static void footer(DrawContext context, int x, int y, int width, int height) {
         divider(context, x + 1, y + height - FOOTER_HEIGHT, width - 2);
     }
@@ -56,7 +56,7 @@ public class EditorPanel {
         context.fill(x, y, x + width, y + 1, LINE);
     }
 
-    // The name of a column or a field, small over what it names
+    // A small label drawn above a column or field
     public static void label(DrawContext context, TextRenderer textRenderer, Text text, int x, int y) {
         context.drawTextWithShadow(textRenderer, text, x, y, MUTED);
     }

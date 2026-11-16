@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-// Reads every structure template of the mod when data is generated, for its beds and tags, stations, seats, doors and markers
+// Reads every structure template of the mod when data is generated, picking out beds and tags, stations, seats, doors and markers
 public class StructureFeaturesRegistry {
     private static final String TEMPLATES = "data/" + MiddleEarth.MOD_ID + "/structure";
     private static final String MANAGER_BLOCK = MiddleEarth.MOD_ID + ":structure_manager";
@@ -52,7 +52,7 @@ public class StructureFeaturesRegistry {
     private static final String JIGSAW_BLOCK = "minecraft:jigsaw";
     private static final int MINIMUM_TABLE_SEATS = 2;
 
-    // Keys of a structure template and of its block states
+    // Keys in a structure template and in its block states
     private static final String PALETTE_KEY = "palette";
     private static final String PALETTES_KEY = "palettes";
     private static final String BLOCKS_KEY = "blocks";
@@ -71,10 +71,10 @@ public class StructureFeaturesRegistry {
     private static List<Template> scanned;
 
     // What the scan found in one template, besides the data itself
-    // Managers are those the template has blocks for, which say which structure manager data its beds are born by
+    // Managers are the ones the template has blocks for. They say which structure manager data its beds spawn from
     public record Template(Identifier id, StructureFeatureData data, int beds, int stores, Set<Identifier> pools, Set<String> unresolved,
                            Set<Identifier> managers) {
-        // Nothing in it worth a file
+        // Nothing in it that needs a file
         public boolean isEmpty() {
             return data.beds().isEmpty() && data.tables().isEmpty() && data.stations().isEmpty() && data.seats().isEmpty()
                     && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty() && data.managers().isEmpty();
@@ -88,7 +88,7 @@ public class StructureFeaturesRegistry {
         }
     }
 
-    // Data is built more than once in a run of the generator, the templates are read once
+    // The generator builds data more than once per run, so the templates are only read once
     public static synchronized List<Template> scan() {
         if(scanned != null)
             return scanned;
@@ -113,7 +113,7 @@ public class StructureFeaturesRegistry {
     private static final Map<Identifier, Optional<StructureFeatureData>> LIVE = new ConcurrentHashMap<>();
     private static final Set<Identifier> EDITED = ConcurrentHashMap.newKeySet();
 
-    // A template a builder saved since the game was started is not what the generated data was made from any more
+    // A template saved by a builder since the game started no longer matches the generated data
     public static void edited(Identifier template) {
         EDITED.add(template);
         LIVE.remove(template);
@@ -123,7 +123,7 @@ public class StructureFeaturesRegistry {
         return EDITED.contains(template);
     }
 
-    // What a template holds, read from it as it is now: for one that has no generated data yet, or was changed since
+    // Reads what a template holds right now. For templates with no generated data yet, or changed since it was generated
     public static @Nullable StructureFeatureData live(StructureTemplateManager manager, Identifier template) {
         return LIVE.computeIfAbsent(template, id -> manager.getTemplate(id).map(found -> read(id, found.writeNbt(new NbtCompound())).data())).orElse(null);
     }
@@ -206,7 +206,7 @@ public class StructureFeaturesRegistry {
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos));
         }
-        // What a builder marked off limits is not in the build as far as its people know
+        // Anything a builder marked off limits is treated as not part of the build
         Set<BlockPos> offLimits = new HashSet<>();
         for(StructureFeatureData.Marker marker : markers) {
             if(marker.kind() == MarkerKind.OFF_LIMITS)
@@ -218,19 +218,19 @@ public class StructureFeaturesRegistry {
         tableBlocks.removeIf(offLimits::contains);
         ladders.removeIf(offLimits::contains);
         stations.removeIf(station -> offLimits.contains(station.pos()));
-        // A door is marked on either of its halves
+        // A door can be marked off limits on either of its halves
         doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
         List<List<BlockPos>> tables = tables(tableBlocks, seats);
 
         List<StructureFeatureData.Bed> bedData = new ArrayList<>();
-        // A barrel or a chest where the building has one: what is brought home to a fire goes on it, harvest and all.
-        // Only a camp with nothing else keeps its things by the fire
+        // Use a barrel or chest if the building has one, because anything brought home to a campfire is put on the
+        // fire, harvest included. Only a camp with nothing else keeps its things by the fire
         boolean anyBox = stores.size() > fires.size();
         for(int i = 0; i < beds.size(); i++) {
             BlockPos bed = beds.get(i);
             Optional<BedTag> tag = bedTags.get(i);
-            // Things are put away where the work is done: by the place the bed was linked to, or the one its job will
-            // find. Whoever works at none, or out in the land, keeps them by the bed
+            // Things are put away near where the work is done: the place the bed was linked to, or the one its job will
+            // find. An npc that works at neither, or out in the land, keeps them by the bed
             BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
                     .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, stations, markers))).orElse(bed);
             BlockPos store = null;
@@ -240,7 +240,7 @@ public class StructureFeaturesRegistry {
                 if(store == null || candidate.getSquaredDistance(work) < store.getSquaredDistance(work))
                     store = candidate;
             }
-            // The one its builder picked, while it still stands there
+            // The store the builder picked, as long as it's still there
             BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
             if(picked != null && stores.contains(picked))
                 store = picked;
@@ -272,14 +272,14 @@ public class StructureFeaturesRegistry {
         return Direction.NORTH;
     }
 
-    // Of a door of several blocks, the one the rest are counted from
+    // For a door made of several blocks, the one the others are counted from
     private static boolean isAnchor(Block door, NbtCompound properties) {
         if(properties.getString(HALF_PROPERTY, "").equals(UPPER_HALF))
             return false;
         return !(door instanceof NpcDoor) || properties.getString(PART_PROPERTY, "0").equals("0");
     }
 
-    // Table blocks that touch are one table, and the seats beside it are its places. A table for one is no place to meet
+    // Table blocks that touch form one table, and the seats beside it belong to it. A table with one seat isn't a place to meet
     private static List<List<BlockPos>> tables(Set<BlockPos> tableBlocks, List<BlockPos> seats) {
         List<List<BlockPos>> tables = new ArrayList<>();
         Set<BlockPos> seen = new HashSet<>();

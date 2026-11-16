@@ -45,8 +45,8 @@ public class BiomeEventData {
     private static final int MAXIMUM_PENDING_SPAWNS = 256;
     private static final int DEFAULT_WEIGHT = 1;
     private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
-    // Until when a kind of entity is not tried again in a chunk where it was just refused. Kept for each kind by itself:
-    // npcs that are waiting for the night do not keep the sheep of the place from spawning
+    // The world time until which a kind of entity isn't retried in a chunk where it was just refused. Tracked per kind,
+    // so npcs waiting for night don't stop sheep from spawning there
     private static final HashMap<DisabledSpawn, Long> DISABLED_SPAWNS = new HashMap<>();
     private static final int MAXIMUM_DISABLED_SPAWNS = 4096;
 
@@ -85,8 +85,8 @@ public class BiomeEventData {
     }
 
     public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        // What the spawn check picked for this spot is what gets spawned, instead of rolling again and maybe coming up empty.
-        // Structure events are asked before the biome's, so a pick is only taken by the event that made it
+        // Spawn what the spawn check picked for this spot instead of rolling again and maybe getting nothing.
+        // Structure events are checked before the biome's, so only the event that made a pick can take it
         long spot = entity.getBlockPos().asLong();
         PendingSpawn pending = PENDING_SPAWNS.get(spot);
         WildSpawnEventData spawningData = null;
@@ -147,7 +147,7 @@ public class BiomeEventData {
 
         WildSpawnEventData spawningData = pickWeighted(entityId, world, pos, random);
         if(spawningData == null || spawningData.isDiscarded(random)){
-            // Entries are only looked at again where something tries to spawn, so the ones of chunks left behind pile up
+            // Entries are only revisited where something tries to spawn, so entries for chunks that were left behind pile up
             if(DISABLED_SPAWNS.size() >= MAXIMUM_DISABLED_SPAWNS)
                 DISABLED_SPAWNS.values().removeIf(until -> until <= world.getTime());
             DISABLED_SPAWNS.put(spawn, world.getTime() + CHUNK_DISABLE_TICKS);

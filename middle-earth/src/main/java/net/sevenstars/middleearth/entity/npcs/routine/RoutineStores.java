@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-// Containers, items and station blocks, which take nothing from the goal
+// Helpers for containers, items and station blocks that don't need the goal
 public final class RoutineStores {
     private RoutineStores() {}
 
-    // A double chest is one inventory
+    // Treats a double chest as one inventory
     public static @Nullable Inventory inventoryAt(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if(state.getBlock() instanceof ChestBlock chest)
@@ -36,7 +36,7 @@ public final class RoutineStores {
         return world.getBlockState(pos).contains(BeehiveBlock.HONEY_LEVEL);
     }
 
-    // Raw is what a smoker would cook: meat and fish
+    // Raw food is anything a smoker can cook, like meat and fish
     public static boolean isRawFood(ServerWorld world, ItemStack stack) {
         return !stack.isEmpty() && world.getRecipeManager().getFirstMatch(RecipeType.SMOKING, new SingleStackRecipeInput(stack), world).isPresent();
     }
@@ -55,7 +55,7 @@ public final class RoutineStores {
         return station != null && StationKind.of(Registries.BLOCK.getId(world.getBlockState(station).getBlock()).getPath()) == StationKind.OVEN;
     }
 
-    // One of the first thing in the inventory that will do, taken out of it
+    // Removes one item from the first matching stack in the inventory and returns it
     public static @Nullable Item takeFrom(ServerWorld world, BlockPos place, Predicate<ItemStack> wanted) {
         Inventory inventory = inventoryAt(world, place);
         if(inventory == null)
@@ -72,7 +72,7 @@ public final class RoutineStores {
         return null;
     }
 
-    // The sound of the block itself being worked: hammer on iron at a forge, hay rustling in a stable
+    // The sound of working the block itself, like a hammer on iron at a forge or rustling hay in a stable
     public static SoundEvent workSound(BlockState station) {
         StationKind kind = StationKind.of(Registries.BLOCK.getId(station.getBlock()).getPath());
         if(kind == null)

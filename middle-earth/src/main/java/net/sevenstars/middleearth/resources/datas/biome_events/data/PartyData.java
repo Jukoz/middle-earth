@@ -41,7 +41,7 @@ public class PartyData {
         return new PartyData(List.of(), Optional.empty());
     }
 
-    // What the one who leads the party is: the swineherd of the pigs behind him
+    // Sets the leader's job, such as the swineherd of the pigs behind him
     public PartyData ledBy(RegistryKey<NpcJob> job) {
         this.leaderJob = Optional.of(job.getValue());
         return this;
@@ -61,7 +61,7 @@ public class PartyData {
         return this;
     }
 
-    // A herd driven along by the leader
+    // Animals the leader drives along
     public PartyData addAnimals(EntityType<?> entityType, int minimumAmount, int maximumAmount) {
         this.members.add(new Member(Optional.empty(), Optional.of(Registries.ENTITY_TYPE.getId(entityType)), Optional.empty(), minimumAmount, maximumAmount));
         return this;

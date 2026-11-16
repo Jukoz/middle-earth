@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.block.special.structureManager.marker;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringIdentifiable;
 
-// What a builder wants known about a place that no block can say
+// Marks things about a place that blocks can't express
 public enum MarkerKind implements StringIdentifiable {
     GUARD_POST("guard_post"),
     ENTRANCE("entrance"),
@@ -14,8 +14,8 @@ public enum MarkerKind implements StringIdentifiable {
     SPAWN_NPC("spawn_npc"),
     SPAWN_ANIMAL("spawn_animal"),
     CELL_CORNER("cell_corner"),
-    // What it faces is not for npcs: a door, gate or hatch stays shut, and a seat, a store, a table or a place of work is
-    // left out of what the build is taken to have
+    // Whatever it faces is off limits to npcs. Doors, gates and hatches stay shut, and seats, stores, tables and
+    // workplaces are left out of the build's features
     OFF_LIMITS("off_limits");
 
     public static final Codec<MarkerKind> CODEC = StringIdentifiable.createCodec(MarkerKind::values);

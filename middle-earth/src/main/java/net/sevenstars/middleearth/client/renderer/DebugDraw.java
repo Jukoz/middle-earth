@@ -12,7 +12,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
-// The lines, boxes and labels the debug views of the world are drawn with. Colours are 0xAARRGGBB
+// Draws the lines, boxes and labels for the debug views. Colours are 0xAARRGGBB
 public class DebugDraw {
     private static final double BOX_MARGIN = 0.02;
     private static final double DASH_LENGTH = 0.4;
@@ -21,7 +21,7 @@ public class DebugDraw {
         void draw(MatrixStack matrices, VertexConsumer lines, Vec3d camera);
     }
 
-    // Lines are drawn in world coordinates, which the matrices are moved to the camera for
+    // Lines use world coordinates, so the matrices are translated to the camera first
     public static void lines(WorldRenderContext context, Drawing drawing) {
         MatrixStack matrices = context.matrixStack() == null ? new MatrixStack() : context.matrixStack();
         Vec3d camera = context.camera().getPos();
@@ -35,7 +35,7 @@ public class DebugDraw {
         VertexRendering.drawVector(matrices, lines, new Vector3f((float) from.x, (float) from.y, (float) from.z), to.subtract(from), color);
     }
 
-    // Every other stretch of the line, for what is found by itself rather than said by hand
+    // Draws every other stretch of the line. Used for what was found automatically rather than set by hand
     public static void dashedLine(MatrixStack matrices, VertexConsumer lines, Vec3d from, Vec3d to, int color) {
         Vec3d way = to.subtract(from);
         double length = way.length();
@@ -56,8 +56,8 @@ public class DebugDraw {
         VertexRendering.drawBox(matrices, lines, box, (color >> 16 & 255) / 255f, (color >> 8 & 255) / 255f, (color & 255) / 255f, 1f);
     }
 
-    // Text in the world, drawn with matrices that are not moved to the camera. It shows through blocks, or a wall
-    // beside it would cut it off
+    // Text in the world, drawn with matrices that are not translated to the camera. It draws through blocks so a wall
+    // next to it doesn't cut it off
     public static void label(MatrixStack matrices, VertexConsumerProvider consumers, String text, Vec3d at, int color, float scale) {
         DebugRenderer.drawString(matrices, consumers, text, at.x, at.y, at.z, color, scale, true, 0f, true);
     }

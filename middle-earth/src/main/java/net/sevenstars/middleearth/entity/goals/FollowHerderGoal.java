@@ -11,20 +11,20 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-// Keeps an animal of a herd near the npc that drives it
+// Keeps a herd animal near the npc herding it
 public class FollowHerderGoal extends Goal {
-    // Saved with the animal, so that the herd holds together after a reload
+    // Saved with the animal so the herd stays together after a reload
     private static final String TAG_PREFIX = "middle-earth.herder.";
     private static final double START_DISTANCE = 7;
     private static final double STOP_DISTANCE = 3;
     private static final double LOST_DISTANCE = 48;
-    // In checks, made every other tick
+    // In checks, which run every other tick
     private static final int CHECK_INTERVAL = 20;
     // About a minute without a herder
     private static final int ORPHAN_CHECKS = 30;
     private static final int ORPHAN_PLAYER_RANGE = 32;
     private static final int GOAL_PRIORITY = 2;
-    // Times the normal speed
+    // Multiple of normal speed
     private static final double HERD_SPEED = 1.1;
 
     private final MobEntity animal;
@@ -56,7 +56,7 @@ public class FollowHerderGoal extends Goal {
         });
     }
 
-    // Who drives the animal, null for one that runs wild
+    // The npc herding the animal, or null for a wild one
     public static @Nullable UUID herderOf(Entity animal) {
         for(String tag : animal.getCommandTags()) {
             if(tag.startsWith(TAG_PREFIX)) {
@@ -73,7 +73,7 @@ public class FollowHerderGoal extends Goal {
         animal.addCommandTag(TAG_PREFIX + herder);
     }
 
-    // Re-ties the animals of one herder to another, as when the herder dies
+    // Reassigns one herder's animals to another herder, e.g. when the herder dies
     public static void handOver(ServerWorld world, Entity from, Entity to, double range) {
         UUID fromId = from.getUuid();
         UUID toId = to.getUuid();
@@ -94,7 +94,8 @@ public class FollowHerderGoal extends Goal {
         cooldown = CHECK_INTERVAL;
         target = animal.getWorld().getEntity(herder);
         if(target == null || !target.isAlive()) {
-            // The herder comes and goes with the wild spawns, and its animals must not stay behind for ever
+            // Herders come and go with the wild spawns, so an animal whose herder is gone is removed too rather than
+            // left behind forever
             missingChecks++;
             if(missingChecks >= ORPHAN_CHECKS && !animal.getWorld().isPlayerInRange(animal.getX(), animal.getY(), animal.getZ(), ORPHAN_PLAYER_RANGE))
                 animal.discard();

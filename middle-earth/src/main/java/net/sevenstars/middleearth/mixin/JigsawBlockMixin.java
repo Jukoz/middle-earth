@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(JigsawBlock.class)
 public abstract class JigsawBlockMixin {
-    // Placed facing the builder, as a piston is, where the game faces it away from the block that was clicked
+    // Place the block facing the builder, like a piston. The game faces it away from the clicked block
     @Redirect(method = "getPlacementState", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemPlacementContext;getSide()Lnet/minecraft/util/math/Direction;"))
     private Direction middleEarth$faceTheBuilder(ItemPlacementContext ctx) {
         return ctx.getPlayerLookDirection().getOpposite();

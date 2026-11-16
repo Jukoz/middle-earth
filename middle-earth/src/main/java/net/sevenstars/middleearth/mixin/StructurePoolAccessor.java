@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
 
-// For a builder to put a piece into a pool of the world that is open
+// Lets a builder add a piece to a pool in the currently loaded world
 @Mixin(StructurePool.class)
 public interface StructurePoolAccessor {
     @Accessor("elements")

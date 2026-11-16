@@ -35,15 +35,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-// One question, who lives here, answered from a list of those a place can house. The place is asked first, and comes up
-// as what the beds around this one were given. The nest and the job behind each answer are the server's to know. Only a
-// cell asks one more: who is held in it
+// Asks one question, who lives here, and answers it from a list of the occupants a place can house. The place is
+// chosen first and defaults to what the neighbouring beds were given. The server works out the nest and job behind
+// each answer. Only a cell asks a second question, who is held in it
 @Environment(value = EnvType.CLIENT)
 public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final int PLACE_WIDTH = 108;
     private static final int LIST_WIDTH = 128;
     private static final int CARD_WIDTH = 118;
-    // The lists take what the window leaves them, between these
+    // The lists take whatever height the window leaves, between these limits
     private static final int LEAST_LIST_HEIGHT = 70;
     private static final int MOST_LIST_HEIGHT = 150;
     private static final int ROW_HEIGHT = 14;
@@ -52,15 +52,15 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     private static final int BUTTON_WIDTH = 64;
     private static final int WIDE_BUTTON_WIDTH = 84;
     private static final int BUTTON_HEIGHT = 20;
-    // From the top of a list up to its label: the label, the search box and the gaps between them
+    // Distance from the top of a list to its label, covering the label, the search box and the gaps between them
     private static final int LIST_HEAD = 30;
     private static final int SEARCH_HEAD = 18;
-    // The card that tells of the pick, over the list of who is held in a cell
+    // The card describing the selected occupant, above the list of who is held in a cell
     private static final int HELD_CARD_HEIGHT = 46;
-    // How many of the classes that may be born are named before the rest are left out
+    // How many of the classes that can spawn are named before the rest are left out
     private static final int NAMED_CLASSES = 5;
     private static final List<String> VILLAGER_NESTS = List.of("civilian", "peasant");
-    // The value of the bed's own tag where the place has no such occupant to offer
+    // The value for the bed's existing tag when the place has no matching occupant to offer
     private static final String KEPT = "kept";
     private static final String POOL_SUFFIX = " Pool";
 
@@ -123,7 +123,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             for(Identifier id : ids)
                 classes.add(new Choice(id.toString(), className(id)));
         }
-        // Under the card, with its search box between them
+        // Below the card, with the search box between them
         int classTop = cardTop() + HELD_CARD_HEIGHT + GAP + SEARCH_HEAD;
         classList = new ChoiceListWidget(CARD_WIDTH, top + listHeight - classTop, cardX(), classTop, ROW_HEIGHT);
         classList.setChoices(classes, data.npcClass());
@@ -144,12 +144,12 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return windowX + EditorPanel.PADDING + PLACE_WIDTH + GAP + LIST_WIDTH + GAP;
     }
 
-    // Level with the search boxes of the lists beside it
+    // Lines up with the search boxes of the lists beside it
     private int cardTop() {
         return placeList.getY() - SEARCH_HEAD;
     }
 
-    // The people of the place that is picked, with the bed's own pick among them while that place is still the one it had
+    // The occupants of the selected place. While that place is still the bed's current one, the bed's own pick is among them
     private void showPlace() {
         String place = placeList.selectedValue();
         if(place.equals(shownPlace))
@@ -174,13 +174,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
             choices.add(new Choice(Integer.toString(i), label(occupant), station(occupant), ItemStack.EMPTY));
         }
         String current = place.equals(data.place()) ? currentChoice(data) : data.nestKind().isEmpty() ? "" : KEPT;
-        // A bed tagged with what this place does not offer keeps its tag unless something else is picked
+        // A bed tagged with something this place doesn't offer keeps its tag unless something else is selected
         if(current.equals(KEPT))
             choices.add(new Choice(KEPT, ui("kept", data.nestKind() + (data.job().isEmpty() ? "" : " / " + data.job()))));
         occupantList.setChoices(choices, current);
     }
 
-    // The occupant the bed's tag stands for. A tag with no job is the one its nest gives by itself
+    // The occupant matching the bed's tag. A tag with no job matches the occupant its nest gives by default
     private String currentChoice(BedTagScreenData data) {
         if(data.nestKind().isEmpty())
             return "";
@@ -222,7 +222,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return occupant.job().isEmpty() && VILLAGER_NESTS.contains(occupant.nestKind());
     }
 
-    // By the trade or the duty where there is one, and otherwise by the kind of nest
+    // Named after the job if there is one, otherwise after the nest kind
     private static Text label(BedOccupant occupant) {
         if(isVillager(occupant))
             return ui("villager");
@@ -230,7 +230,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return ChoiceListWidget.readable(job != null ? job.getPath() : occupant.nestKind());
     }
 
-    // Every place is named as the pool of its people, which is one word too many in a narrow list
+    // Every place name ends in "Pool", which is redundant in a narrow list
     private static Text placeName(Identifier id) {
         String name = Text.translatable(id.toTranslationKey("structure_manager_data")).getString();
         return Text.literal(name.endsWith(POOL_SUFFIX) ? name.substring(0, name.length() - POOL_SUFFIX.length()) : name);
@@ -244,8 +244,8 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return Text.translatable("ui.%s.bed_tag.%s".formatted(MiddleEarth.MOD_ID, key), arguments);
     }
 
-    // The block the trade is first of all worked at, said at the end of its row: cook ... campfire. A builder sets down
-    // blocks, and knows nothing of the kinds of station they are sorted into
+    // The block the job is mainly worked at, shown at the end of its row, like cook ... campfire. It shows a block name
+    // because builders place blocks and don't know about station kinds
     private static @Nullable Text station(BedOccupant occupant) {
         Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
         List<StationKind> kinds = job == null ? List.of() : NpcJobs.stationKinds(job);
@@ -261,7 +261,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return blocks;
     }
 
-    // What the pick comes to, under a heading each: who is born in the bed, as what, and where they will work
+    // Describes the selection under a heading each: who spawns in the bed, as what, and where they work
     private void drawCard(DrawContext context, @Nullable BedOccupant occupant, int height) {
         int x = cardX();
         int y = cardTop();
@@ -328,7 +328,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
     }
 
-    // A container screen closes on the inventory key, which is a letter somebody searching wants to type
+    // A container screen closes on the inventory key, which is a letter the player may want to type in a search
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
@@ -342,7 +342,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
+    // A container screen swallows the mouse wheel, so the lists never scrolled. Pass it to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for(ChoiceListWidget list : new ChoiceListWidget[]{placeList, occupantList, classList}) {
@@ -352,7 +352,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
-    // The world is left in sight behind the window: it is the build that is being decided on
+    // Don't dim the world behind the window. The player needs to see the build
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
     }
@@ -361,7 +361,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         showPlace();
         BedOccupant occupant = picked();
-        // Only a cell is asked who is held in it
+        // Only a cell asks who is held in it
         boolean held = occupant != null && occupant.group() == BedOccupant.Group.OTHER;
         classList.visible = held;
         classSearch.visible = held;

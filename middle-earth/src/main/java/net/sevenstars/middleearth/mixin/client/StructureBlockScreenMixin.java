@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// The structure block's screen says nothing of what its buttons and fields are for. Each tells it when pointed at
+// The structure block screen doesn't explain its buttons and fields, so each one gets a tooltip
 @Mixin(StructureBlockScreen.class)
 public abstract class StructureBlockScreenMixin extends Screen {
     @Shadow private StructureBlockMode mode;
@@ -77,7 +77,7 @@ public abstract class StructureBlockScreenMixin extends Screen {
         middleEarth$explainMode();
     }
 
-    // The button that goes from mode to mode is kept in no field of the screen, and tells of the mode it shows
+    // The mode button isn't stored in a field of the screen, so find it among the children. Its tooltip explains the current mode
     private void middleEarth$explainMode() {
         for(Element child : children()) {
             if(child instanceof CyclingButtonWidget<?> button && button.getValue() instanceof StructureBlockMode)

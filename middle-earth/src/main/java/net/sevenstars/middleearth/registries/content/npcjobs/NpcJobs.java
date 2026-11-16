@@ -40,7 +40,7 @@ public class NpcJobs {
     // The last word of a nest's name says who lives there
     private static final Map<String, RegistryKey<NpcJob>> NEST_JOBS = new LinkedHashMap<>();
 
-    // Stays by the beasts once they are brought in, and leaves the life of the place to those who live there
+    // Stays with the animals once they're brought in and leaves the rest of the place's life to its residents
     private static final RoutineData HERDING = RoutineData.create(Period.DAY).timid();
 
     // [HERDERS]
@@ -55,39 +55,39 @@ public class NpcJobs {
     public static final RegistryKey<NpcJob> SMITH = registerForNest("smith", "smith", trade(StationKind.FORGE, StationKind.GRINDSTONE).holding(ToolItemsME.SMITHING_HAMMER));
     public static final RegistryKey<NpcJob> COOK = registerForNest("cook", "cook", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcJob> POTTER = registerForNest("potter", "potter", trade(StationKind.HEARTH));
-    // Fells nothing and sits at no log pile: the logs it cuts from the trees go on the wood pile
+    // Doesn't fell trees or sit at a log pile. The logs it cuts from trees go on the wood pile
     public static final RegistryKey<NpcJob> WOODCUTTER = registerForNest("woodcutter", "lumber", NpcJob.named(RoutineData.create(Period.DAY).timid()
             .add(Activity.CHOP, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_AXE));
     public static final RegistryKey<NpcJob> FISHER = registerForNest("fisher", "fisher",
             NpcJob.named(RoutineData.create(Period.DAY).timid().add(Activity.FISH, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.FISHING_ROD));
-    // Bow or crossbow and a knife for close quarters, and no armour: a hunter is no warrior, and does not run from a fight
+    // Bow or crossbow and a knife for close quarters, and no armour. A hunter isn't a warrior but doesn't run from a fight
     public static final RegistryKey<NpcJob> HUNTER = registerForNest("hunter", "hunter",
             NpcJob.named(RoutineData.create(Period.DAY).add(Activity.HUNT, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1))
                     .holding(Items.BOW).orHolding(Items.CROSSBOW).withSidearm(WeaponItemsME.IRON_DAGGER).withoutArmour());
     public static final RegistryKey<NpcJob> MINER = registerForNest("miner", "miner",
             NpcJob.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_PICKAXE));
-    // Orcs and goblins who live in a place that has no trade for them. They work by shifts, like the guard
+    // Orcs and goblins who live in a place with no trade for them. They work in shifts, like the guard
     public static final RegistryKey<NpcJob> LABOURER = registerForNest("labourer", "labourer",
             NpcJob.named(RoutineData.create(Period.SHIFTS).working(StationKind.FORGE, StationKind.HEARTH, StationKind.WOOD_PILE)
                     .add(Activity.WORK, 2).add(Activity.CHOP, 2).add(Activity.FORAGE, 1)).holding(Items.STONE_PICKAXE));
-    // Only gives the name, the travelling is done by its party
+    // Only gives the name. The travelling is done by its party
     public static final RegistryKey<NpcJob> TRAVELLER = register("traveller", NpcJob.named());
     public static final RegistryKey<NpcJob> BEEKEEPER = registerForNest("beekeeper", "beekeeper", trade(StationKind.HIVE));
     public static final RegistryKey<NpcJob> INNKEEPER = registerForNest("innkeeper", "innkeeper", trade(StationKind.HEARTH, StationKind.OVEN));
     public static final RegistryKey<NpcJob> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade());
 
     // [WARRIORS]
-    // Keeps its own name: a Gondor Soldier on guard is still that. Only for those saved with it, nests hand out the duties below
+    // Keeps the class name, so a Gondor Soldier on guard is still a Gondor Soldier. Only for npcs saved with it, nests assign the duties below
     public static final RegistryKey<NpcJob> GUARD = register("guard", duty(NpcRoutines.GUARD));
     public static final RegistryKey<NpcJob> LORD = registerForNests(LORD_NESTS, "lord", duty(lordRoutine(Period.DAY)));
-    // For the orcs and goblins, whose lords keep the night
+    // For orcs and goblins, whose lords keep to the night
     public static final RegistryKey<NpcJob> NIGHT_LORD = register("night_lord", duty(lordRoutine(Period.NIGHT)));
-    // The duties of a guard nest, chosen when the guard is spawned
+    // The duties of a guard nest, picked when the guard is spawned
     public static final RegistryKey<NpcJob> GATE_GUARD = register("gate_guard", duty(NpcRoutines.GUARD));
     public static final RegistryKey<NpcJob> BODYGUARD = register("bodyguard", duty(RoutineData.create(Period.SHIFTS).add(Activity.FOLLOW, 1)));
     public static final RegistryKey<NpcJob> SENTRY = register("sentry", duty(NpcRoutines.GUARD));
     public static final RegistryKey<NpcJob> PATROL = register("patrol", duty(NpcRoutines.WATCH));
-    // Locked in a cell, with no work and nowhere to go but the bed. A thief in a cell is still a thief
+    // Locked in a cell with no work and nowhere to go except the bed. A thief in a cell is still a thief
     public static final RegistryKey<NpcJob> PRISONER = registerForNests(PRISONER_NESTS, "prisoner", duty(RoutineData.create(Period.DAY)));
 
     public static void bootstrap(Registerable<NpcJob> context) {
@@ -110,8 +110,9 @@ public class NpcJobs {
         return GUARD_NESTS.contains(nestKind);
     }
 
-    // The first duty of the place that has nobody on it: a post at each entrance, bodyguards for the lord, a sentry at each
-    // lookout, and the rounds for the rest. Counted over everybody living in the place, whatever nest they came from
+    // Picks the first duty that still has an opening: a guard at each entrance or guard post, bodyguards for the lord,
+    // a sentry at each lookout, then patrol for everyone else. Counts everybody living in the place, whatever nest
+    // they came from
     public static Identifier guardDuty(RoutineSite site, Iterable<? extends NpcEntity> residents, boolean lordExpected) {
         int gates = 0;
         int bodyguards = 0;
@@ -145,8 +146,7 @@ public class NpcJobs {
         return Optional.ofNullable(job).map(RegistryKey::getValue);
     }
 
-    // A trade is for common folk and a duty for those who fight, and a prisoner has neither. What the nest of that kind
-    // gives by itself always fits
+    // Trades are for common folk and duties for fighters. Prisoners get neither. The job a nest of that kind gives always fits
     public static boolean fits(Identifier job, BedTag.Folk folk, String nestKind) {
         if(forNestKind(nestKind).filter(job::equals).isPresent())
             return true;
@@ -156,7 +156,7 @@ public class NpcJobs {
         return folk == BedTag.Folk.MIXED || found.replacesName() == (folk == BedTag.Folk.COMMON);
     }
 
-    // The kinds of station a job works at. A farmer's is its fields, a woodcutter's the pile its logs go on
+    // The kinds of station a job works at. A farmer works at fields and a woodcutter at the wood pile
     public static List<StationKind> stationKinds(Identifier job) {
         if(FARMER.getValue().equals(job))
             return List.of(StationKind.FIELD);
@@ -166,7 +166,7 @@ public class NpcJobs {
         return found == null || found.routine().isEmpty() ? List.of() : found.routine().get().getStations();
     }
 
-    // The markers that stand for a job's workplace, for the jobs that have no block
+    // The markers that mark a job's workplace, for jobs that have no block
     public static List<MarkerKind> stationMarkers(Identifier job) {
         if(STABLES_MASTER.getValue().equals(job))
             return List.of(MarkerKind.SPAWN_ANIMAL);
@@ -181,7 +181,7 @@ public class NpcJobs {
         return List.of();
     }
 
-    // What a bed tagged with this job works at: the nearest station of its kinds, or else the nearest of its markers
+    // Where a bed tagged with this job works: the nearest station of its kinds, or else the nearest of its markers
     public static @Nullable BlockPos stationFor(Identifier job, BlockPos bed, List<StructureFeatureData.Station> stations, List<StructureFeatureData.Marker> markers) {
         List<StationKind> kinds = stationKinds(job);
         List<MarkerKind> markerKinds = stationMarkers(job);
@@ -208,7 +208,7 @@ public class NpcJobs {
         return key;
     }
 
-    // Most of the day at the trade, with time left to sit down
+    // Mostly working at the trade, with some time left to sit at a table
     private static NpcJob trade(StationKind... stations) {
         return NpcJob.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
     }
@@ -217,7 +217,7 @@ public class NpcJobs {
         return RoutineData.create(period).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.TABLE, 1).add(Activity.VISIT, 1);
     }
 
-    // Keeps the name of the class, as a Gondor Knight on duty is still a knight
+    // Keeps the class name, so a Gondor Knight on duty is still a knight
     private static NpcJob duty(RoutineData routine) {
         return new NpcJob(Optional.of(routine), false, Optional.empty());
     }

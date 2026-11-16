@@ -16,7 +16,7 @@ import java.util.List;
 public class StructureManagerDataPools {
     // In ticks, three days
     public final static int RESPAWN_TICKS = 24000 * 3;
-    // Who is held in a cell unless its bed names somebody else
+    // Who is held in a cell unless the bed names someone else
     private static final List<StructureSpawnNestPool> PRISONERS = List.of(
             new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THIEF),
             new StructureSpawnNestPool(EntitiesME.NPC, 1).SetNpcData(FactionRegistry.BRIGAND, NpcRegistry.BRIGAND_THUG));
@@ -173,8 +173,8 @@ public class StructureManagerDataPools {
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.workers"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntitiesME.NPC, 2).SetNpcData(FactionRegistry.GONDOR, NpcRegistry.GONDOR_PEASANT)
             )),
-            // Its bed is in the cell. With no room to look for one, the cell's bed went to the smith of the militia house, who
-            // was then spawned behind the locked door
+            // The bed is in the cell. This nest used to have a bed search radius of 0 and so never claimed it. The cell's
+            // bed went to the smith of the militia house instead, who then spawned behind the locked door
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.prisoner"), RESPAWN_TICKS, PRISONERS),
             new SpawnNestNodeData(createIdentifier("gondor_lord_nests.stable"), RESPAWN_TICKS, List.of(
                 new StructureSpawnNestPool(EntityType.HORSE, 5).SetFixAmount(1),

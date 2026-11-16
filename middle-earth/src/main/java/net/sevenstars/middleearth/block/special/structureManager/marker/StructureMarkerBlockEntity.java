@@ -42,18 +42,18 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
     private static final String RESPAWNS = "%s.Respawns".formatted(ID);
     public static final int MAXIMUM_VALUE_LENGTH = 128;
     private static final String ANIMALS = "Animals";
-    // In ticks, between the looks a marker that spawns takes at what it spawned
+    // In ticks, between checks of what a spawning marker has spawned
     private static final int SPAWN_CHECK_INTERVAL = 100;
     public static final int MAXIMUM_COUNT = 64;
 
     private MarkerKind kind = MarkerKind.GUARD_POST;
-    // A nest or an entity type for the markers that spawn something
+    // A nest or an entity type, for markers that spawn something
     private String value = "";
     private int count = 1;
     private boolean respawns = false;
     private boolean checked;
     private boolean inStructure;
-    // Who it spawned, of this world only: the people of a spawn_npc marker, the animals of a spawn_animal one
+    // What it spawned, for this world only: the people of a spawn_npc marker, the animals of a spawn_animal marker
     private @Nullable SpawnNestManager nest;
     private @Nullable MarkerAnimals animals;
 
@@ -149,7 +149,7 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-    // The builder's tool draws the marker by its kind, which the client has to know
+    // The builder's tool draws the marker by its kind, so the client needs it
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         return createComponentlessNbt(registries);
@@ -163,7 +163,7 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
             marker.checked = true;
             marker.inStructure = GeneratedStructures.contains(serverWorld, pos);
             if(marker.inStructure && !spawns) {
-                // In a structure that was generated it has done its work, which is in the data of its template
+                // In a generated structure the marker's work is already done, and it's recorded in the template's data
                 serverWorld.setBlockState(pos, state.getFluidState().getBlockState(), Block.NOTIFY_ALL);
                 return;
             }
@@ -174,8 +174,8 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
             marker.spawn(serverWorld);
     }
 
-    // Its people are a nest of as many as it counts, born on it. Its animals are counted by themselves, and come back
-    // only where it says they do
+    // Its people form a nest of as many as the count says, spawned on the marker. Its animals are tracked separately,
+    // and respawn only if the marker says they do
     private void spawn(ServerWorld serverWorld) {
         if(kind == MarkerKind.SPAWN_NPC) {
             SpawnNestNodeData data = StructureManagerService.nestForMarker(serverWorld, value, Optional.empty());
@@ -194,7 +194,7 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
         if(type == null)
             return;
         if(animals == null) {
-            // Tried again once the ground about it is loaded
+            // Try again once the surrounding chunks are loaded
             if(!serverWorld.shouldTickEntityAt(pos))
                 return;
             animals = new MarkerAnimals(pos, List.of(), -1);

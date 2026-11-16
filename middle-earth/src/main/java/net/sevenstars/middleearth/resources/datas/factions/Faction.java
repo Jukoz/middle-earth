@@ -507,7 +507,7 @@ public class Faction {
         return this;
     }
 
-    // How this faction stands with another, null for one it says nothing of
+    // How this faction stands with another. Null if it has no stated affinity toward it
     public @Nullable AffinityLevel affinityToward(Identifier faction) {
         for(InitialDiplomacy diplomacy : initialDiplomacies){
             if(diplomacy.getFactionId().equals(faction))

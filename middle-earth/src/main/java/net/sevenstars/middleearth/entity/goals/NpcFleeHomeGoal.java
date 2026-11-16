@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-// Common folk run home from a fight and call the guards, instead of trading blows
+// Common folk run home from a fight and call the guards instead of fighting back
 public class NpcFleeHomeGoal extends Goal {
     private static final int THREAT_RANGE = 16;
     private static final int SAFE_RANGE = 24;
     private static final int FLEE_DISTANCE = 12;
     private static final int FLEE_HEIGHT = 7;
     private static final double HOME_ANGLE = Math.PI / 2;
-    // In ticks of the goal, which the game gives it every other tick
+    // In goal ticks, and the game ticks the goal every other tick
     private static final int MAXIMUM_TIME = 20 * 15;
     private static final int PATH_INTERVAL = 20;
 
@@ -36,10 +36,10 @@ public class NpcFleeHomeGoal extends Goal {
     @Override
     public boolean canStart() {
         LivingEntity danger = npc.getTarget() != null ? npc.getTarget() : npc.getAttacker();
-        // Game is not a danger
+        // Game animals aren't a danger
         if(danger == null || !danger.isAlive() || danger == npc.getHuntTarget() || !npc.isTimid())
             return false;
-        // A friend's stray blow is not run from
+        // Don't run from a friend's stray hit
         if(NpcRelations.of(npc, danger).isFriendly())
             return false;
         if(npc.squaredDistanceTo(danger) > THREAT_RANGE * THREAT_RANGE || npc.isAtHome())

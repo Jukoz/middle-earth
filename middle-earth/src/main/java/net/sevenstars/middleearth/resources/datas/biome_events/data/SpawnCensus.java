@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-// Who lives where, counted once in a while. Every spawn attempt used to search hundreds of blocks around for its neighbours
+// Counts who lives where, refreshed every so often. Every spawn attempt used to search hundreds of blocks around for neighbours
 public class SpawnCensus {
     // In ticks
     private static final int LIFETIME = 60;
@@ -54,7 +54,7 @@ public class SpawnCensus {
         cells.computeIfAbsent(cell, key -> new ArrayList<>()).add(new Resident(type, npcClass, x, y, z, surface));
     }
 
-    // Counts a spawn that was just let through, so that the next attempts of the same tick see it
+    // Counts a spawn that was just let through, so later attempts in the same tick see it
     public static void expect(ServerWorld world, EntityType<?> type, @Nullable Identifier npcClass, BlockPos pos) {
         of(world).add(type, npcClass, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, SpawnEventDataUtil.isSurface(world, pos));
     }

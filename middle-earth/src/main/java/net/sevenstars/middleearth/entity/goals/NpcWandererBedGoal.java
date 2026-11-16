@@ -15,9 +15,10 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
-// A traveller near a settlement at night lies down in one of its free beds, the ones nobody is born in, and goes on in the morning
+// At night, a traveller near a settlement sleeps in one of its free beds (ones no npc spawns from) and moves on in
+// the morning
 public class NpcWandererBedGoal extends Goal {
-    // Blocks from the middle of the settlement's reach
+    // In blocks, beyond the settlement's extent
     private static final int SEARCH_RANGE = 48;
     private static final int SEARCH_INTERVAL = 40;
     private static final int MAXIMUM_TRIES = 3;
@@ -48,7 +49,7 @@ public class NpcWandererBedGoal extends Goal {
             return false;
         }
         boolean travelling = npc.getPartyLeader() != null || npc.getTravelHeading() != null;
-        // Those who live somewhere have beds of their own, and a raiding party has no mind to sleep in the place it is raiding
+        // Npcs that live somewhere have their own beds, and a raiding party won't sleep in the place it's raiding
         if(!travelling || tries >= MAXIMUM_TRIES || npc.getStructureManagerHostPos() != null || npc.isEvil() || npc.isConfined()
                 || npc.isSleeping() || npc.hasVehicle() || npc.getTarget() != null || world.getTime() < nextSearch)
             return false;
@@ -123,7 +124,7 @@ public class NpcWandererBedGoal extends Goal {
         return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, speed);
     }
 
-    // The goal ends, and the next try is after a pause
+    // Ends the goal. The next try comes after a pause
     private void giveUp() {
         tries++;
         bed = null;

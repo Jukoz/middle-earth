@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-// The sections of a build that stands in the world to be worked on: each is the box a structure block in save mode saves
-// under its name. Nothing else is kept of them, so they are there again whenever the world is, for the game and the
-// server alike
+// The sections of a build placed in the world for editing. Each is the box that a structure block in save mode saves
+// under its name. Nothing else is stored, so they are rebuilt from the world itself, on the client and the server alike
 public class BuildSections {
-    // A structure block stands beside its box, which is no longer than this
+    // A structure block sits next to its box, and a box is never longer than this
     private static final int SEARCH_CHUNKS = (StructureEditing.MAXIMUM_SIZE >> 4) + 2;
 
     public record Section(BlockPos block, String name, BlockBox box) {
@@ -26,7 +25,7 @@ public class BuildSections {
             return (long) box.getBlockCountX() * box.getBlockCountY() * box.getBlockCountZ();
         }
 
-        // Side by side, on top of one another or running through each other
+        // Adjacent, stacked or overlapping
         boolean touches(Section other) {
             return box.expand(1).intersects(other.box);
         }
@@ -54,7 +53,7 @@ public class BuildSections {
         return sections;
     }
 
-    // Where one section lies inside another, as a room in the house it was cut from, the block is of the smaller
+    // When one section lies inside another, like a room in a house, the block belongs to the smaller one
     public static @Nullable Section at(List<Section> sections, BlockPos pos) {
         return sections.stream().filter(section -> section.box().contains(pos)).min(Comparator.comparingLong(Section::volume)).orElse(null);
     }
@@ -67,7 +66,7 @@ public class BuildSections {
         return sections.stream().min(Comparator.comparingDouble(section -> section.box().getCenter().getSquaredDistance(pos))).orElse(null);
     }
 
-    // The sections that make one build with this one: those it touches, and those they touch
+    // The sections that form one build with this one: the ones it touches, and the ones those touch
     public static List<Section> buildOf(List<Section> sections, Section of) {
         List<Section> build = new ArrayList<>();
         List<Section> open = new ArrayList<>();

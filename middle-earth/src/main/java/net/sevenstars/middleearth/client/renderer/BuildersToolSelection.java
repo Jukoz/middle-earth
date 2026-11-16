@@ -29,27 +29,27 @@ import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.network.packets.client2server.PacketBedLinkRequest;
 import org.jetbrains.annotations.Nullable;
 
-// What was picked with a left-click of the builder's tool. A bed, whose links the next left-clicks make and unmake. A
-// plug, whose fits are shown, and which a sneaking left-click on another plug makes ask for that one. A block where two
-// sections meet, which a second left-click makes a pair of plugs. And, begun with a sneaking left-click, the corners of
-// a section
+// What was picked with a left-click of the builder's tool. A bed, whose links the next left-clicks add and remove. A
+// plug, whose compatible plugs are shown, and which a sneaking left-click on another plug makes target that one. A
+// block where two sections meet, which a second left-click turns into a pair of plugs. And the corners of a section,
+// started with a sneaking left-click
 public class BuildersToolSelection {
-    // A held button repeats its click every five ticks, which must not pick and drop the bed again and again
-    // By the clock, not by the game's time, which stands still while a structure is edited
+    // A held button repeats its click every five ticks, which must not pick and drop the bed over and over
+    // Uses wall-clock time because game time is frozen while a structure is being edited
     private static final long REPEAT_MILLIS = 300;
     // How far in front of the builder a corner is set when no block is aimed at
     private static final double AIR_CORNER_DISTANCE = 3;
-    // Across the ground before up and down, where a block has another section on several sides
+    // Horizontal sides come before up and down, for when a block has another section on several sides
     private static final Direction[] SEAM_SIDES = {Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.DOWN, Direction.UP};
 
     private static @Nullable BlockPos selected = null;
-    // The block the bounds of its build are being set from, and the corner that was clicked first
+    // The block whose build the bounds are being set for, and the corner that was clicked first
     private static @Nullable BlockPos boundsAnchor = null;
     private static @Nullable BlockPos boundsFirst = null;
     // The jigsaw block that was picked, and the plugs it could be joined to
     private static @Nullable BlockPos jigsaw = null;
     private static List<BlockPos> jigsawFits = List.of();
-    // The block clicked where two sections meet, and the one beside it in the other section
+    // The block clicked where two sections meet, and the block beside it in the other section
     private static @Nullable BlockPos joinFrom = null;
     private static @Nullable BlockPos joinTo = null;
     private static long lastClick = 0;
@@ -66,8 +66,8 @@ public class BuildersToolSelection {
         return boundsFirst;
     }
 
-    // With no bed picked, a block clicked while sneaking starts the bounds of the build it is in: the next two blocks
-    // clicked are its corners. Clicked while sneaking again before the first of them, it is left as it was
+    // With no bed picked, sneak-clicking a block starts setting the bounds of the build it is in, and the next two
+    // blocks clicked are its corners. Sneak-clicking again before the first corner cancels it
     private static void clickBounds(PlayerEntity player, BlockPos pos, boolean starting) {
         if(boundsAnchor == null) {
             boundsAnchor = pos;
@@ -86,8 +86,8 @@ public class BuildersToolSelection {
         }
     }
 
-    // A piece of a structure that is loaded only has its bounds set. Anywhere else the box may as well be a section of
-    // its own, which the builder is asked to name
+    // A piece of a loaded structure only gets its bounds set. Anywhere else the box can be its own section, and the
+    // builder is asked to name it
     private static void finishBounds(PlayerEntity player, BlockPos anchor, BlockPos first, BlockPos second) {
         MinecraftClient client = MinecraftClient.getInstance();
         StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
@@ -107,8 +107,8 @@ public class BuildersToolSelection {
         return joinTo;
     }
 
-    // A block of one section that has a block of another beside it: clicked once it is shown with what it would be joined
-    // to, and clicked again the two are made plugs. Two blocks of a build are given up for them, so one click is not enough
+    // For a block of one section with a block of another section beside it. The first click shows what it would be joined
+    // to, and a second click turns the two into plugs. That uses up two blocks of the build, so one click isn't enough
     private static void clickSeam(PlayerEntity player, BlockPos pos) {
         if(pos.equals(joinFrom) && joinTo != null) {
             ClientPlayNetworking.send(new PacketSectionJoinRequest(joinFrom, joinTo));
@@ -140,7 +140,7 @@ public class BuildersToolSelection {
         return id == null ? name : id.getPath();
     }
 
-    // A corner of the bounds may be in the air, where there is nothing to click
+    // A corner of the bounds can be in the air, where there is nothing to click
     static BlockPos cornerInAir(PlayerEntity player) {
         return BlockPos.ofFloored(player.getEyePos().add(player.getRotationVec(1f).multiply(AIR_CORNER_DISTANCE)));
     }
@@ -172,7 +172,7 @@ public class BuildersToolSelection {
         joinTo = null;
     }
 
-    // A bed that was picked and then left behind would keep every other bed from being shown
+    // A selected bed that was left behind would stop every other bed from being shown
     static void forgetOutOfRange(PlayerEntity player, int range) {
         if(selected != null && (!player.getBlockPos().isWithinDistance(selected, range) || !(player.getWorld().getBlockState(selected).getBlock() instanceof BedBlock)))
             selected = null;
@@ -186,7 +186,7 @@ public class BuildersToolSelection {
             BuildSections.near(client.world, pos).stream().filter(section -> section.block().equals(pos)).findFirst()
                     .ifPresent(section -> client.setScreen(new BuildSectionScreen(section)));
         };
-        // A click that hits nothing lets go of whatever was picked, unless bounds are being set: then it sets a corner in the air
+        // A click that hits nothing deselects whatever was picked, unless bounds are being set, in which case it sets a corner in the air
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
             if(clickCount == 0 || !BuildersToolRenderer.holdsTool(player) || client.crosshairTarget != null && client.crosshairTarget.getType() != HitResult.Type.MISS)
                 return false;
@@ -238,7 +238,7 @@ public class BuildersToolSelection {
                 return ActionResult.FAIL;
             }
             if(plug) {
-                // Its fits come from the server, which knows the pools. Clicked again, it is let go of
+                // The compatible plugs come from the server, which knows the pools. Clicking the same plug again deselects it
                 boolean again = pos.equals(jigsaw);
                 jigsaw = again ? null : pos.toImmutable();
                 jigsawFits = List.of();

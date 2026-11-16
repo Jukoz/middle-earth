@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import java.util.Optional;
 import java.util.Random;
 
-// One of the kinds of entity a nest can spawn, and how many of it
+// One kind of entity a nest can spawn, and how many
 public class StructureSpawnNestPool {
     public static final Codec<StructureSpawnNestPool> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EntityType.CODEC.fieldOf("entity_type").forGetter(StructureSpawnNestPool::getEntityType),

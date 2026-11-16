@@ -18,9 +18,9 @@ import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 
-// Sets what of a build is saved to the box between two corners. The build is the one the anchor stands in: a piece of the
-// structure the builder has loaded, or a section with a structure block of its own. With a name, the box is made a new
-// section of that name instead, wherever the anchor is
+// Sets the part of a build that is saved to the box between two corners. The build is the one containing the anchor,
+// which is either a piece of the structure the builder has loaded or a section with its own structure block. With a
+// name, the box becomes a new section with that name instead, wherever the anchor is
 public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStructureBoundsRequest> {
     public static final Id<PacketStructureBoundsRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_bounds_request"));
 
@@ -60,7 +60,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getServer().execute(() -> {
-            // The corner clicked last is the one the builder stands at
+            // The last corner clicked is the one the builder is at
             if(!StructureEditing.mayEdit(player, second) || !(player.getWorld() instanceof ServerWorld world))
                 return;
             BlockBox box = BlockBox.create(first, second);
@@ -125,7 +125,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
             BuildSectionEditing.remove(world, whole);
             player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), pathOf(whole.name())), false);
         }
-        // The section it was cut from still saves all of it, this part too, until the rest of it is cut up as well
+        // The section this was cut from still saves this part too, until the rest of that section is cut up as well
         sections.stream().filter(section -> section.box().intersects(box) && !cutUp.contains(section)).findFirst().ifPresent(over ->
                 player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), pathOf(over.name()), over.name()), false));
     }

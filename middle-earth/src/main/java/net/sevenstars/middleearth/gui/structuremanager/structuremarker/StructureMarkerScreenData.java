@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.block.special.structureManager.marker.Structur
 import java.util.List;
 import java.util.TreeSet;
 
-// The lists are sent because the client does not know the nests
+// The lists are sent because the client doesn't know the nests
 public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind kind, String value, int count, boolean respawns,
                                         Direction facing, List<String> nests, List<String> animals) {
     private static final List<EntityType<?>> EXTRA_ANIMALS = List.of(EntityType.HORSE, EntityType.DONKEY, EntityType.MULE, EntityType.LLAMA, EntityType.GOAT);
@@ -40,7 +40,7 @@ public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind 
         return new StructureMarkerScreenData(pos, isNew, kind, value, count, respawns, facing, BedTag.peopleNests().keySet().stream().map(Identifier::toString).toList(), allAnimals());
     }
 
-    // The animals that live in the world, which are the creatures plus the rideable ones that are not
+    // Every animal a marker can spawn: all creature-group entities plus the EXTRA_ANIMALS (mounts and the goat)
     public static synchronized List<String> allAnimals() {
         if(animalIds == null) {
             TreeSet<String> found = new TreeSet<>();

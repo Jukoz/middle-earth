@@ -34,7 +34,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
     );
 
     private final BlockPos pos;
-    // Empty to leave the bed the place it has
+    // Empty to keep the bed's current place
     private final String place;
     private final String nestKind;
     private final String job;
@@ -77,7 +77,7 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
                     StructureEditing.log("bed tag at %s refused: unknown nest kind `%s` or job `%s`".formatted(pos.toShortString(), nestKind, job));
                     return;
                 }
-                // A screen only offers the jobs that fit who lives there, and a made up request is held to the same
+                // The screen only offers jobs that fit who lives there, so a forged request has to meet the same rule
                 if(id != null && !NpcJobs.fits(id, BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind), nestKind)) {
                     StructureEditing.log("bed tag at %s refused: job `%s` does not fit `%s`, who are %s".formatted(pos.toShortString(), job, nestKind,
                             BedTag.folkOf(player.getWorld().getRegistryManager(), nestKind)));

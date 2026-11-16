@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.block.special.beds.BedSpawning;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-// Beds have nothing that ticks. The head of one does, to see to who is born in it
+// Beds don't tick, except the head half, which ticks to handle who spawns in the bed
 @Mixin(BedBlock.class)
 public abstract class BedBlockMixin implements BlockEntityProvider {
     @Override

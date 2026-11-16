@@ -24,7 +24,7 @@ public class WildSpawnEventData {
             .withWeight(2)
             // Can have at most 10 other npcs around 32 blocks
             .withSameEntity(10, 32)
-            // Can have at most 1 npcs of the same class around 64 blocks
+            // At most 1 npc of the same class in a box 64 blocks wide centred on the spawn
             .withSameNpcClass(1, 64)
             // Cannot spawn if there's a structure manager block in a radius of 64 blocks
             .structureManagerRadiusAvoidance(64)
@@ -455,7 +455,7 @@ public class WildSpawnEventData {
         return job;
     }
 
-    // What the one spawned does, given once it is dressed: a peasant who fishes
+    // The job the spawned npc gets once it is dressed, such as a peasant who fishes
     public WildSpawnEventData withJob(RegistryKey<NpcJob> job) {
         this.job = job.getValue();
         return this;
@@ -467,7 +467,7 @@ public class WildSpawnEventData {
         broadcastData.broadcastMessage(world, pos);
     }
 
-    // Split off for the 16-field codec limit, still encoded at the top level
+    // Split off because of the 16-field codec limit. Still encoded at the top level
     private record Extras(Optional<BroadcastData> broadcast, Optional<PartyData> party, Optional<Identifier> job) {
         private static final MapCodec<Extras> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 BroadcastData.CODEC.optionalFieldOf(Fields.BROADCAST).forGetter(Extras::broadcast),

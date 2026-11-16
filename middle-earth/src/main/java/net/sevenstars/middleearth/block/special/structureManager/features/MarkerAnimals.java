@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// The animals one spawn_animal marker put in a place. The entry exists once they were spawned, and is all that keeps them from
-// being spawned again
+// The animals a spawn_animal marker has spawned. The entry exists once they have spawned, and it's all that stops them
+// from being spawned again
 public class MarkerAnimals {
     public static final Codec<MarkerAnimals> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BlockPos.CODEC.fieldOf("pos").forGetter(MarkerAnimals::getPos),
@@ -56,9 +56,9 @@ public class MarkerAnimals {
         }
     }
 
-    // Brings them back to the count after the wait, where the marker says they respawn
+    // Respawns animals up to the count after the wait, for markers set to respawn
     public boolean topUp(ServerWorld world, EntityType<?> type, int count) {
-        // Animals out of the loaded ground are not gone
+        // Animals in unloaded chunks aren't gone
         if(!world.shouldTickEntityAt(pos))
             return false;
         int before = animals.size();

@@ -31,7 +31,7 @@ public class StructureFeaturesProvider extends FabricDynamicRegistryProvider {
     @Override
     public CompletableFuture<?> run(DataWriter writer) {
         return super.run(writer).thenRun(() -> {
-            // The generated data is in the source folder of the module, the report goes to its build folder
+            // The generated data goes in the module's source folder and the report goes in its build folder
             Path report = output.getPath().resolve(REPORT_PATH).normalize();
             try {
                 MiddleEarth.LOGGER.logInfoMsg(StructureFeaturesReport.write(StructureFeaturesRegistry.scan(), report) + ", report in " + report);

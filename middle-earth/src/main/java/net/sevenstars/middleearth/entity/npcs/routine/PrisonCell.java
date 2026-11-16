@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-// The floor of a cell as seen from above: only x and z matter, both ends included
+// The floor of a cell seen from above. Only x and z matter, and both ends are inclusive
 public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
     public static final Codec<PrisonCell> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("min_x").forGetter(PrisonCell::minX),
@@ -23,7 +23,7 @@ public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
         return pos.getX() >= minX && pos.getX() <= maxX && pos.getZ() >= minZ && pos.getZ() <= maxZ;
     }
 
-    // The corners that stand closest to each other belong to the same cell. The last group is short when corners are missing
+    // Corners closest to each other belong to the same cell. The last group is short when corners are missing
     public static List<List<BlockPos>> group(List<BlockPos> corners) {
         List<BlockPos> left = new ArrayList<>(corners);
         List<List<BlockPos>> groups = new ArrayList<>();
@@ -39,7 +39,7 @@ public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
         return groups;
     }
 
-    // Only whole groups of corners make a cell
+    // Groups with fewer than all the corners are skipped
     public static List<PrisonCell> cells(List<BlockPos> corners) {
         List<PrisonCell> cells = new ArrayList<>();
         for(List<BlockPos> group : group(corners)) {

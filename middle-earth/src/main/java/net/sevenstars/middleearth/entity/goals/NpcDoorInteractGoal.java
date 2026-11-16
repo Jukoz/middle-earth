@@ -12,7 +12,7 @@ import net.minecraft.util.math.Box;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
-// Opens a door on the way and shuts it afterwards, but never on somebody else who is still going through
+// Opens a door on the way through and shuts it afterwards, but not while someone else is still going through
 public class NpcDoorInteractGoal extends DoorInteractGoal {
     // In ticks
     private static final int PASSING_TIME = 20;
@@ -33,8 +33,8 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         this.delayedClose = delayedClose;
     }
 
-    // The game measures to a corner of the door, and an npc a little wider than most, pressed against a shutter beside the
-    // doorway, was never near enough to open it. Measured to the middle of the door here
+    // The game measures to a corner of the door, so an npc a little wider than most, pressed against a shutter beside
+    // the doorway, was never near enough to open it. This measures to the middle of the door instead
     @Override
     public boolean canStart() {
         if(!mob.horizontalCollision || !(mob.getNavigation() instanceof MobNavigation navigation))
@@ -62,7 +62,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
             return false;
         if(ticksLeft > 0 && super.shouldContinue())
             return true;
-        // Still squeezing through itself, or others are in the doorway
+        // The npc is still squeezing through, or others are in the doorway
         boolean stillPassing = super.shouldContinue() && mob.squaredDistanceTo(doorPos.getX() + 0.5, mob.getY(), doorPos.getZ() + 0.5) < OWN_REACH * OWN_REACH;
         return stillPassing || doorwayBusy;
     }
@@ -91,7 +91,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         if(heldTicks % DOORWAY_CHECK_INTERVAL == 0) {
             Box doorway = new Box(doorPos).expand(DOORWAY_REACH, 0, DOORWAY_REACH);
             doorwayBusy = !mob.getWorld().getEntitiesByClass(NpcEntity.class, doorway, other -> other != mob && other.isAlive()).isEmpty();
-            // Someone may have shut it in the meantime
+            // Someone else may have shut it in the meantime
             if(!isDoorOpen())
                 setDoorOpen(true);
         }

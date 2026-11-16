@@ -25,7 +25,7 @@ import java.util.Optional;
 
 public class ForageTables {
     private static final Map<RegistryKey<ForageTable>, ForageTable> TABLES = new LinkedHashMap<>();
-    // The kind of land decides, unless the land is one with plants of its own
+    // The kind of land decides what grows, unless the area is a realm with its own plants (the higher priority)
     private static final int LAND = 1;
     private static final int HARSH_LAND = 2;
     private static final int HARSHER_LAND = HARSH_LAND + 1;
@@ -47,13 +47,13 @@ public class ForageTables {
         land("wasteland", ConventionalBiomeTags.IS_WASTELAND, HARSHER_LAND, "thistle", "minecraft:dead_bush", "minecraft:bone");
         land("cave", ConventionalBiomeTags.IS_CAVE, HARSHEST_LAND, "ghostshroom", "white_mushroom", "trumpet_shroom", "tubeshroom", "minecraft:brown_mushroom");
 
-        // Hobbits have a passion for mushrooms, surpassing even the greediest likings of Big People
+        // Hobbits love mushrooms more than any Big Person does
         realm("shire", "minecraft:brown_mushroom", "minecraft:brown_mushroom", "minecraft:red_mushroom", "white_mushroom", "strawberries", "minecraft:apple", "wild_carrot", "wild_onion");
-        // The golden elanor and the pale niphredil of Cerin Amroth, and mallos
+        // The golden elanor and pale niphredil of Cerin Amroth, and mallos
         realm("lothlorien", List.of("lorien_edge"), "elanor", "niphredil", "mallos", "strawberries", "minecraft:sweet_berries");
-        // Evermind grows on the mounds of the kings
+        // Evermind grows on the burial mounds of the kings
         realm("rohan", List.of("the_wold"), "simbelmyne", "wild_wheat", "wild_onion", "wild_carrot", "heather");
-        // Kingsfoil grows wild where the men of the West once dwelt, and Ithilien is a garden gone wild
+        // Kingsfoil grows wild where the Men of the West once lived, and Ithilien is a garden gone wild
         realm("ithilien", "athelas", "lavender", "wild_garlic", "wild_onion", "thistle", "strawberries");
         realm("gondor", List.of("anorien", "lebennin", "lossarnach", "lamedon", "belfalas", "pelennor", "osgiliath"), "athelas", "wild_wheat", "wild_lettuce", "wild_onion", "lavender");
         realm("mirkwood", "minecraft:brown_mushroom", "minecraft:red_mushroom", "ghostshroom", "nettles", "minecraft:stick");
@@ -64,7 +64,7 @@ public class ForageTables {
         TABLES.forEach(context::register);
     }
 
-    // What grows where somebody is foraging. Empty where no table knows the place
+    // The items available where an npc is foraging. Empty if no table covers the biome
     public static List<Item> itemsAt(ServerWorld world, BlockPos pos) {
         Optional<Registry<ForageTable>> tables = world.getRegistryManager().getOptional(DynamicRegistriesME.FORAGE);
         if(tables.isEmpty())
@@ -86,7 +86,7 @@ public class ForageTables {
         realm(name, List.of(), items);
     }
 
-    // The extra words are for biomes of the realm whose ids do not contain its name
+    // otherWords covers biomes of the realm whose ids don't contain its name
     private static void realm(String name, List<String> otherWords, String... items) {
         TABLES.put(key(name), new ForageTable(Optional.empty(), Optional.of(name), items(items), REALM));
         for(String word : otherWords)
@@ -97,7 +97,7 @@ public class ForageTables {
         return RegistryKey.of(DynamicRegistriesME.FORAGE, MiddleEarth.id(name));
     }
 
-    // The mod's own unless a namespace says otherwise
+    // Uses the mod's namespace unless the id has one
     private static List<Item> items(String... ids) {
         List<Item> items = new ArrayList<>();
         for(String id : ids) {

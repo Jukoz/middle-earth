@@ -29,19 +29,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-// What counts as what in a building. The generated data of the structure templates, the block tags the datagen writes
-// for them (middle-earth:build/<kind>) and the survey of a building that has no data all go by these definitions.
-// Tags are not bound while data is generated, which is why each kind is a test on the block
+// What counts as what in a building. The generated structure template data, the block tags the datagen writes for them
+// (middle-earth:build/<kind>) and the survey of a building with no data all use these definitions.
+// Tags aren't bound while data is generated, so each kind is a test on the block
 public enum BuildFeatures implements Predicate<Block> {
-    // The campfire is where a household keeps its food by
+    // A household keeps its food by the campfire
     STORE("store", block -> block instanceof BarrelBlock || block instanceof ChestBlock || block instanceof CampfireBlock),
     SEAT("seat", block -> block instanceof SeatBlock),
-    // Tables to work at, not to sit at, are left out
+    // Work tables are left out. This is for tables to sit at
     TABLE("table", block -> (block instanceof WoodTableBlock || block instanceof StoneTableBlock) && !isWorkTable(block)),
     BED("bed", block -> block instanceof BedBlock),
     FIELD("field", block -> block instanceof FarmlandBlock),
     DOOR("door", block -> block instanceof DoorBlock || block instanceof FenceGateBlock || block instanceof NpcDoor),
-    // Vines are left out, there are too many of them to be a way up
+    // Vines are left out because there are too many of them to count as a way up
     LADDER("ladder", block -> block instanceof LadderBlock || block instanceof ThickLadderBlock || block instanceof ScaffoldingBlock
             || block == DecorativeBlockRegistryME.ROPE || block == DecorativeBlockRegistryME.ROPE_LADDER || block == BlockRegistryME.NET);
 
@@ -71,14 +71,14 @@ public enum BuildFeatures implements Predicate<Block> {
         return WORK_TABLES.stream().anyMatch(path::endsWith);
     }
 
-    // The place of work a block is, by the path of its id so that the wood or stone it is made of does not matter
+    // Which kind of station a block is. Goes by the path of its id, so the wood or stone it's made of doesn't matter
     public static @Nullable StationKind stationOf(Block block) {
         if(FIELD.test(block))
             return StationKind.FIELD;
         return StationKind.of(Registries.BLOCK.getId(block).getPath());
     }
 
-    // Templates of the first version of the mod name their blocks in the namespace "me". Null for a block that is gone
+    // Templates from the first version of the mod name their blocks in the namespace "me". Null if the block no longer exists
     public static @Nullable Block resolve(String name) {
         Identifier id = Identifier.tryParse(name);
         if(id == null)

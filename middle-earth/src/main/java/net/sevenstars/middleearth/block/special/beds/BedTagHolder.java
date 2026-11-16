@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-// A bed that a builder has said who is born in. Kept in the bed's own block entity, so that a structure template saved with the
-// bed has the tag in it
+// A bed the builder has tagged with who spawns in it. Stored in the bed's block entity, so a structure template saved
+// with the bed includes the tag
 public interface BedTagHolder {
     String TAG_KEY = "MiddleEarthBedTag";
 

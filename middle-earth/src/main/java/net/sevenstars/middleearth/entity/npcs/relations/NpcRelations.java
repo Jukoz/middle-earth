@@ -15,7 +15,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
-// The one place that says who an npc counts as an enemy, a friend or neither
+// The single place that decides whether an npc treats someone as an enemy, a friend or neither
 public class NpcRelations {
 
     public static Relation of(NpcEntity npc, Entity other) {
@@ -28,13 +28,13 @@ public class NpcRelations {
         return standing(npc, other);
     }
 
-    // How the npc stands with someone before anything they did to it personally
+    // How the npc sees someone, ignoring anything they've done to it personally
     public static Relation standing(NpcEntity npc, Entity other) {
         if(other == npc)
             return Relation.ALLY;
         if(involvesPrisoner(npc, other))
             return Relation.NEUTRAL;
-        // A mount is on the side of whoever rides it
+        // A mount takes the side of its rider
         Entity rider = other.getControllingPassenger();
         if(rider != null && rider != other)
             return of(npc, rider);
@@ -45,7 +45,7 @@ public class NpcRelations {
         return ofCreature(npc, other);
     }
 
-    // Prisoners are hostile to no one and no one is hostile to them
+    // Prisoners aren't hostile to anyone and no one is hostile to them
     private static boolean involvesPrisoner(NpcEntity npc, Entity other) {
         return npc.isPrisoner() || other instanceof NpcEntity otherNpc && otherNpc.isPrisoner();
     }
@@ -56,7 +56,7 @@ public class NpcRelations {
         PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
         Identifier playerFaction = playerData == null ? null : playerData.getFaction();
         Faction faction = npc.getFaction();
-        // Good folk leave a wanderer who has sworn to no one alone
+        // Good factions leave a player who hasn't joined a faction alone
         if(playerFaction == null)
             return faction != null && faction.getDisposition() == DispositionType.GOOD ? Relation.NEUTRAL : Relation.ENEMY;
         return ofFaction(faction, playerFaction);
@@ -71,7 +71,7 @@ public class NpcRelations {
         return affinity == null ? Relation.NEUTRAL : Relation.of(affinity);
     }
 
-    // The faction's own word first, then what every npc thinks
+    // The faction's creature lists take priority, then the rules every npc shares
     private static Relation ofCreature(NpcEntity npc, Entity other) {
         EntityType<?> type = other.getType();
         Faction faction = npc.getFaction();
@@ -82,7 +82,7 @@ public class NpcRelations {
             if(creatures.isHostile(type))
                 return Relation.ENEMY;
         }
-        // Every monster can't be listed in a tag, so those are known by their class
+        // Not every monster can be listed in a tag, so also go by class
         if(type.isIn(EntityTypeTagsME.NPC_ENEMIES) || other instanceof HostileEntity)
             return Relation.ENEMY;
         return Relation.NEUTRAL;

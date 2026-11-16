@@ -67,7 +67,7 @@ public class LanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
-        // The job takes the place of the noun: Shire Baker, Rohan Herdsman
+        // The job replaces the noun: Shire Baker, Rohan Herdsman
         NpcJobs.all().forEach(job -> {
             String path = job.getValue().getPath();
             translationBuilder.add("npc_role." + MiddleEarth.MOD_ID + "." + path, "%s " + generateName(path));

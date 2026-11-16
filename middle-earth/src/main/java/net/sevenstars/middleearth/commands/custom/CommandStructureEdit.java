@@ -90,7 +90,7 @@ public class CommandStructureEdit {
     private static final String SIZE_Z = "z";
     private static final Vec3i DEFAULT_NEW_SIZE = new Vec3i(16, 8, 16);
     private static final Identifier EMPTY_PLUG = Identifier.ofVanilla("empty");
-    // What the plug turns into where the piece is generated
+    // What the plug turns into when the piece is generated
     private static final String PLUG_FINAL_STATE = "minecraft:air";
     private static final String PROJECTION = "projection";
     private static final String RIGID = "rigid";
@@ -100,22 +100,22 @@ public class CommandStructureEdit {
     private static final String CLEAR = "clear";
     private static final String NEXT = "next";
     private static final String BACK = "back";
-    // Looking down at the bed from where the builder is set beside it
+    // Pitch for looking down at the bed from where the builder is placed beside it
     private static final float BED_VIEW_PITCH = 35;
     private static final String GAP = "gap";
     private static final String EXPAND = "expand";
     private static final String BLOCKS = "blocks";
     private static final int MAXIMUM_EXPANSION = 64;
-    // In degrees up or down from level, past which the builder is taken to mean up or down
+    // In degrees up or down from level. Looking further than this counts as up or down
     private static final float LOOKING_UP = 45;
-    // Blocks between the player and the nearest face of the loaded template
+    // Distance in blocks from the player to the nearest face of the loaded template
     private static final int DISTANCE_IN_FRONT = 3;
-    // The structure block saves from one block above itself, as vanilla's default does
+    // A structure block saves from one block above itself, like vanilla's default
     private static final BlockPos SAVE_OFFSET = new BlockPos(0, 1, 0);
     private static final String SOURCE_RESOURCES = "src/main/resources";
     private static final String SOURCES_PROPERTY = "middleearth.structedit.sources";
 
-    // The bed each builder was last taken to
+    // The last bed each builder was taken to
     private static final Map<UUID, BlockPos> BED_VISITED = new HashMap<>();
 
     private static final SuggestionProvider<ServerCommandSource> TEMPLATES = (context, builder) ->
@@ -211,8 +211,8 @@ public class CommandStructureEdit {
                                 .executes(context -> save(context, identifier(context, TEMPLATE))))));
     }
 
-    // The whole structure, put together from its pieces as the game would from that seed. With no seed, one is rolled and
-    // told, to come back to the same pieces later
+    // The whole structure, put together from its pieces the way the game would from that seed. With no seed, one is rolled
+    // and reported so the same pieces can be loaded again later
     private static int loadStructure(CommandContext<ServerCommandSource> context, boolean spaced, @Nullable Long seed) throws CommandSyntaxException {
         Identifier id = identifier(context, STRUCTURE);
         return loadStructure(context.getSource(), id, spaced, seed != null ? seed : context.getSource().getWorld().getRandom().nextLong());
@@ -244,7 +244,7 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // The same structure of the same seed, the other way
+    // Loads the same structure from the same seed again, in the view that was named
     private static int view(CommandContext<ServerCommandSource> context, boolean spaced) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         StructureEditSession session = StructureEditSession.claim(source.getPlayerOrThrow().getUuid());
@@ -255,7 +255,7 @@ public class CommandStructureEdit {
         return loadStructure(source, session.getStructure(), spaced, session.getSeed());
     }
 
-    // How far apart spaced pieces stand. A structure that is loaded is laid out again with it
+    // How far apart spaced pieces are. A structure loaded spaced is laid out again with the new gap
     private static int gap(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -269,7 +269,7 @@ public class CommandStructureEdit {
         return loadStructure(source, session.getStructure(), true, session.getSeed());
     }
 
-    // Makes the piece the builder stands in, or the nearest, bigger on the side they look to or name
+    // Expands the piece the builder is in, or the nearest one, on the side they're looking at or named
     private static int expand(CommandContext<ServerCommandSource> context, @Nullable Direction named) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -292,8 +292,8 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // A real one, to see what was saved come alive: built from the templates as they are now, but tagged beds and markers
-    // only count once datagen has read them
+    // Generates a real one so you can see the saved templates in action. It's built from the templates as they are now,
+    // but tagged beds and markers only count once datagen has read them
     private static int test(CommandContext<ServerCommandSource> context, @Nullable Long given) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -338,8 +338,8 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // A piece set down by itself is kept by the world under the name of a structure it knows: one named after the folder
-    // the piece is in where there is one, so that it is of the same people, or else the first there is
+    // A piece placed by itself is stored in the world under the name of an existing structure. This picks one named after
+    // the piece's folder if there is one, so the piece belongs to the same people, or else the first structure
     private static @Nullable RegistryEntry<Structure> carrierFor(ServerWorld world, Identifier template) {
         Registry<Structure> structures = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
         String folder = template.getPath().split("/")[0];
@@ -356,7 +356,7 @@ public class CommandStructureEdit {
         return first;
     }
 
-    // Those the builder generated since the game was started, or else the one stood in
+    // The ones the builder has generated since the game started, or else the one they're standing in
     private static int clearTest(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -383,8 +383,8 @@ public class CommandStructureEdit {
                         .executes(context -> setProjection(context, projection, identifier(context, POOL))));
     }
 
-    // How a piece meets the ground is said by the pools that offer it. Changed in those the game has loaded, for what is
-    // generated from now on, and in the mod's own files where the game runs from them, for every world opened after
+    // How a piece meets the ground is set by the pools that offer it. This changes it in the pools the game has loaded, for
+    // what is generated from now on, and in the mod's own files when the game runs from them, for every world opened after
     private static int setProjection(CommandContext<ServerCommandSource> context, StructurePool.Projection projection, @Nullable Identifier pool) {
         ServerCommandSource source = context.getSource();
         Identifier template = identifier(context, TEMPLATE);
@@ -420,9 +420,9 @@ public class CommandStructureEdit {
         return new Vec3i(IntegerArgumentType.getInteger(context, SIZE_X), IntegerArgumentType.getInteger(context, SIZE_Y), IntegerArgumentType.getInteger(context, SIZE_Z));
     }
 
-    // A build that does not exist yet: a structure block set to save a box of that size under that name, in front of the
-    // builder, with whatever stands there left as it is. With a plug, a jigsaw block of the build's own name is set in
-    // the middle of the side the builder stands at, for another piece's plug to take it by
+    // A build that doesn't exist yet: a structure block set to save a box of that size under that name, in front of the
+    // builder. Whatever is already there is left alone. With a plug, a jigsaw block named after the build goes in the
+    // middle of the side the builder stands at, for another piece's plug to target
     private static int create(CommandContext<ServerCommandSource> context, Vec3i size, boolean plug) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -451,7 +451,7 @@ public class CommandStructureEdit {
 
         BlockPos plugPos = null;
         if(plug) {
-            // On the floor of the box, in the middle of the side that faces the builder, and facing out of it
+            // On the floor of the box, in the middle of the side facing the builder, and pointing out of the box
             Direction out = facing.getOpposite();
             int along = (out.getAxis() == Direction.Axis.X ? size.getZ() : size.getX()) / 2;
             plugPos = out.getAxis() == Direction.Axis.X
@@ -478,7 +478,7 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // A name typed without a namespace is one of the mod's, not one of the game's
+    // A name typed without a namespace gets the mod's namespace, not the game's
     private static Identifier identifier(CommandContext<ServerCommandSource> context, String argument) {
         Identifier id = IdentifierArgumentType.getIdentifier(context, argument);
         for(ParsedCommandNode<ServerCommandSource> node : context.getNodes()) {
@@ -488,13 +488,14 @@ public class CommandStructureEdit {
         return id;
     }
 
-    // Another project that runs the mod from its jar has sources of its own beside the game, which are not the mod's
+    // Another project that runs the mod from its jar has its own sources next to the game, and they aren't the mod's
     private static boolean isOwnSources(Path resources) {
         return Files.isDirectory(resources.resolve("data").resolve(MiddleEarth.MOD_ID).resolve("structure"));
     }
 
-    // Where templates and pool files are written besides the world: the mod's own sources in a game that is run from
-    // them, or else the folder the game was started with for it, such as a datapack of the world
+    // Where templates and pool files are written besides the world: the folder given with -Dmiddleearth.structedit.sources
+    // if there is one, such as a datapack of the world, or else the mod's own sources when the game runs from them.
+    // Null if neither
     private static @Nullable Path resources() {
         String named = System.getProperty(SOURCES_PROPERTY);
         if(named != null && !named.isBlank())
@@ -510,7 +511,7 @@ public class CommandStructureEdit {
         return resources;
     }
 
-    // Puts a saved piece into the pools its plugs say it belongs in, and makes the pools its own plugs ask for
+    // Puts a saved piece into the pools its plugs say it belongs in, and creates the pools its own plugs ask for
     private static int pools(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
         Identifier template = identifier(context, TEMPLATE);
@@ -539,8 +540,8 @@ public class CommandStructureEdit {
         }
     }
 
-    // A structure of its own for a piece to start from: the settings of one that is like it, with a pool of that piece
-    // to start with. Where it generates is as the one it was copied from, until its file says otherwise
+    // A new structure for a piece to start from, copying the settings of a similar one and starting with a pool of this
+    // piece. It generates where the copied structure does until its file says otherwise
     private static int newStructure(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
         Identifier name = identifier(context, NAME);
@@ -592,7 +593,7 @@ public class CommandStructureEdit {
 
     private record FoundBed(BlockPos pos, String build) {}
 
-    // Every bed of what the builder has loaded, piece after piece, in an order that stays the same between calls
+    // Every bed in what the builder has loaded, piece by piece, in an order that stays the same between calls
     private static List<FoundBed> bedsOf(ServerWorld world, ServerPlayerEntity player) {
         Map<BlockBox, String> builds = new LinkedHashMap<>();
         StructureEditSession session = StructureEditSession.claim(player.getUuid());
@@ -624,7 +625,7 @@ public class CommandStructureEdit {
         return beds;
     }
 
-    // Takes the builder to the first bed, or from the one last visited to the one after or before it
+    // Takes the builder to the first bed, or with a step, to the bed after or before the one last visited
     private static int beds(CommandContext<ServerCommandSource> context, int step) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -673,7 +674,7 @@ public class CommandStructureEdit {
                 source.sendFeedback(() -> Text.literal("Took away %d generated structure%s and whoever lived there".formatted(tests, tests == 1 ? "" : "s")), false);
                 return 1;
             }
-            // A template loaded by itself stays where it is: only the world is set running again
+            // A template loaded on its own stays where it is. Only the world is set running again
             if(single) {
                 source.sendFeedback(() -> Text.literal("The world runs again. The template stays where it was loaded"), false);
                 return 1;
@@ -710,7 +711,7 @@ public class CommandStructureEdit {
         Identifier id = identifier(context, TEMPLATE);
 
         StructureTemplateManager manager = world.getStructureTemplateManager();
-        // Read it again, in case the file was changed since it was loaded
+        // Read it again in case the file changed since it was loaded
         manager.unloadTemplate(id);
         StructureTemplate template = manager.getTemplate(id).orElse(null);
         if(template == null) {
@@ -741,7 +742,7 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // The build the builder stands in, or else the nearest: all the sections that touch one another
+    // The build the builder stands in, or else the nearest one: all the sections that touch each other
     private static List<BuildSections.Section> sectionsOf(ServerWorld world, ServerPlayerEntity player) {
         List<BuildSections.Section> near = BuildSections.near(world, player.getBlockPos());
         BuildSections.Section own = BuildSections.at(near, player.getBlockPos());
@@ -750,8 +751,9 @@ public class CommandStructureEdit {
         return own == null ? List.of() : BuildSections.buildOf(near, own);
     }
 
-    // With no name, every section of the build the builder stands in or nearest to. With one, the section stood in is
-    // given that name and saved by itself
+    // With no name, the changed pieces of the loaded structure, or with none loaded, every section of the build the
+    // builder is in or nearest to. With a name, the section the builder is in or nearest to is renamed to it and
+    // saved on its own
     private static int save(CommandContext<ServerCommandSource> context, Identifier override) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -796,7 +798,7 @@ public class CommandStructureEdit {
         return saved.size();
     }
 
-    // Once every section is written: a plug that asks for a piece finds it only if it was saved before the pools are made
+    // Runs once every section is written. A plug that asks for a piece can only find it if it was saved before the pools are made
     private static void publish(ServerCommandSource source, List<Identifier> saved) {
         Path resources = resources();
         if(resources == null)
@@ -820,7 +822,7 @@ public class CommandStructureEdit {
                 created.isEmpty() ? "" : ". New pools %s are only seen once the world is opened again".formatted(created))), false);
     }
 
-    // Takes the box of a section away, not what was built in it
+    // Removes only the section's box, not what was built in it
     private static int remove(CommandContext<ServerCommandSource> context, @Nullable Identifier name) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -837,8 +839,8 @@ public class CommandStructureEdit {
         return 1;
     }
 
-    // A file as it lies under the folder of the project, which is all of its path a builder needs. One that is elsewhere
-    // is told whole
+    // A file path relative to the project folder, which is all a builder needs. A file elsewhere is shown with its whole
+    // path
     private static String shown(Path file) {
         Path game = FabricLoader.getInstance().getGameDir().toAbsolutePath().normalize();
         Path project = game.resolve("..").resolve("..").normalize();
@@ -846,7 +848,7 @@ public class CommandStructureEdit {
         return (whole.startsWith(project) ? project.relativize(whole) : whole).toString();
     }
 
-    // In a development run the saved template goes over the one of the mod, for datagen to read
+    // In a development run the saved template is copied over the mod's own one, for datagen to read
     private static void copyToSources(ServerCommandSource source, Identifier id, Path saved) {
         Path resources = resources();
         if(resources == null)

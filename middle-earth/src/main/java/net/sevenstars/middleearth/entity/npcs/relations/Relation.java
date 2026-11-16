@@ -2,15 +2,15 @@ package net.sevenstars.middleearth.entity.npcs.relations;
 
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 
-// How an npc stands with someone, which decides whether it attacks them, leaves them be or comes to their help
+// How an npc sees someone, which decides whether it attacks them, ignores them or comes to their help
 public enum Relation {
     // Attacked on sight
     ENEMY,
-    // Left alone, until they give the npc a grudge
+    // Ignored, until they give the npc a grudge
     NEUTRAL,
-    // Another faction on good terms: never attacked, and helped when attacked
+    // A faction on good terms: never attacked, and helped when attacked
     FRIEND,
-    // Its own side
+    // The npc's own side
     ALLY;
 
     public boolean isFriendly() {

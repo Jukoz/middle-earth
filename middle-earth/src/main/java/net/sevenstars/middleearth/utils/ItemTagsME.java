@@ -39,7 +39,7 @@ public class ItemTagsME {
 
     public static TagKey<Item> BOW = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"));
     public static TagKey<Item> CROSSBOW = TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/crossbow"));
-    // What npcs shoot with, kept at a distance from a foe; anything else in hand is for close quarters
+    // What npcs shoot with, from a distance. Anything else in hand is used for close quarters
     public static TagKey<Item> NPC_RANGED_WEAPONS = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "npc_ranged_weapons"));
 
     public static TagKey<Item> ELK_FOOD = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("elk_food"));

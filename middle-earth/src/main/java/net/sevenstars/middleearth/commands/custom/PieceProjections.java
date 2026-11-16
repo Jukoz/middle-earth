@@ -24,8 +24,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-// How a piece is set on the ground is said by each pool that offers it: as it was built, or every column of it on the
-// ground below. The same template can be the one in one pool and the other in the next
+// Each pool that offers a piece decides how it is placed on the ground: as it was built, or with every column of it
+// projected onto the ground below. The same template can use one in one pool and the other in the next
 public class PieceProjections {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final String ELEMENTS = "elements";
@@ -47,7 +47,7 @@ public class PieceProjections {
         return projections;
     }
 
-    // In the pools the game has loaded, for what is generated from now on. The names of the pools that were changed
+    // Changes the pools the game has loaded, for what is generated from now on. Returns the names of the pools that were changed
     public static List<Identifier> set(Registry<StructurePool> pools, Identifier template, StructurePool.Projection projection, @Nullable Identifier only) {
         List<Identifier> changed = new ArrayList<>();
         for(Identifier id : pools.getIds()) {
@@ -68,7 +68,7 @@ public class PieceProjections {
         return changed;
     }
 
-    // In the pool files of the mod's own sources, for every world opened after. The files that were written
+    // Changes the pool files in the mod's own sources, for every world opened after. Returns the files that were written
     public static List<Path> write(Path resources, Identifier template, StructurePool.Projection projection, @Nullable Identifier only) throws IOException {
         Path data = resources.resolve("data");
         List<Path> written = new ArrayList<>();
@@ -107,7 +107,7 @@ public class PieceProjections {
         return written;
     }
 
-    // An element that is a list of others has one projection for all of them, and they each have theirs
+    // A list element has a projection of its own, and each element inside it has one too
     private static boolean set(JsonObject element, String template, String projection) {
         boolean any = false;
         if(element.has(ELEMENTS) && element.get(ELEMENTS).isJsonArray()) {

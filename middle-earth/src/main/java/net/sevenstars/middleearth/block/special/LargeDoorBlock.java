@@ -274,7 +274,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
         return getOrigin(pos, state);
     }
 
-    // False when something stands where the door would swing to
+    // False when something is blocking the space the door would swing into
     private boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity player) {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
@@ -330,7 +330,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
         return false;
     }
 
-    // The open leaf leaves less room than an npc is wide, as with ordinary doors
+    // An open leaf leaves less room than an npc is wide, same as ordinary doors
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if(state.get(OPEN) && NpcDoor.isNpcPassing(context))

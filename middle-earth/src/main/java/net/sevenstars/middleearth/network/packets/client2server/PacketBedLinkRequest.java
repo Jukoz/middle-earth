@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// Ties a bed to a block, or unties it. The links the bed has before it is first tied by hand are those it finds by itself, which
-// only the client that drew them knows
+// Links a bed to a block, or unlinks it. Before a bed is first linked by hand its links are the ones it finds on its
+// own, and only the client that drew them knows what they are
 public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequest> {
     public static final Id<PacketBedLinkRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "bed_link_request"));
 
@@ -82,8 +82,8 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             }
             BedTag tag = holder.getBedTag();
             BlockPos offset = target.subtract(bed);
-            // A chest or a barrel that is clicked is where the bed's things are put away, until it is clicked again and
-            // the nearest one is. A fire is a place of work first, and is linked as one
+            // Clicking a chest or barrel makes it the bed's store. Clicking it again unlinks it, and the nearest store
+            // is used instead. A fire counts as a place of work rather than a store, and is linked as one
             Block clicked = player.getWorld().getBlockState(target).getBlock();
             if(BuildFeatures.STORE.test(clicked) && BuildFeatures.stationOf(clicked) == null) {
                 boolean untied = tag.store().filter(offset::equals).isPresent();

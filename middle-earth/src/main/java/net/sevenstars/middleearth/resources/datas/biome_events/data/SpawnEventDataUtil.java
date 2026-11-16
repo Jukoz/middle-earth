@@ -13,19 +13,19 @@ import net.sevenstars.middleearth.block.special.structureManager.features.Struct
 import net.sevenstars.middleearth.entity.EntitiesME;
 
 public class SpawnEventDataUtil {
-    // In blocks, the edge of the box searched around the spawn
+    // In blocks, the side length of the box searched around the spawn
     private static final int DEFAULT_SAME_ENTITY_DISTANCE = 256;
     private static final int DEFAULT_SAME_NPC_CLASS_DISTANCE = 128;
     private static final int DEFAULT_SAME_ENTITY_AMOUNT = 10;
     private static final int DEFAULT_SAME_NPC_CLASS_AMOUNT = 5;
     // In blocks
     private static final int DEFAULT_STRUCTURE_MANAGER_CLEARANCE = 64;
-    // In blocks from the heightmap, between which a spawn counts as on the surface
+    // In blocks from the heightmap. A spawn within this range counts as on the surface
     private static final int SURFACE_DEPTH = 1;
     private static final int SURFACE_HEIGHT = 2;
 
     static boolean meetEntityThresholdRequirements(WildSpawnEventData data, World world, BlockPos pos) {
-        // Client worlds never decide a spawn
+        // Client worlds never decide whether something spawns
         if(!(world instanceof ServerWorld serverWorld))
             return true;
         EntityType<?> targetEntityType = Registries.ENTITY_TYPE.get(data.getEntityType());
@@ -39,7 +39,7 @@ public class SpawnEventDataUtil {
         if(targetEntityType != EntitiesME.NPC || data.getNpcClass(null) == null)
             return true;
         int sameNpcClassAmount = data.getSameNpcClassLimitAmount().orElse(DEFAULT_SAME_NPC_CLASS_AMOUNT);
-        // A limit of none still lets the first one in
+        // A limit of 0 still lets the first one spawn
         sameNpcClassAmount = Math.max(sameNpcClassAmount, 1);
         int sameNpcClassDistance = data.getSameNpcClassLimitDistance().orElse(DEFAULT_SAME_NPC_CLASS_DISTANCE);
         boolean sameNpcClassSurfaceOnly = data.getSameNpcClassSurfaceOnly().orElse(false);
@@ -117,7 +117,7 @@ public class SpawnEventDataUtil {
         return true;
     }
 
-    // The cheap tests come first: this is asked for every entry of a biome on every spawn attempt
+    // Cheap tests come first because this is called for every entry of a biome on every spawn attempt
     public static boolean isConsideredForSpawning(WildSpawnEventData data, Identifier id, World world, BlockPos blockPos) {
         return data.getEntityType().equals(id)
                 && meetWorldHeightRequirement(data, blockPos)

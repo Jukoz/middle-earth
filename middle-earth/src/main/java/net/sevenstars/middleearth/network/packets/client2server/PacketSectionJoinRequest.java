@@ -15,8 +15,8 @@ import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
 import net.sevenstars.middleearth.commands.custom.JigsawFits;
 import net.sevenstars.middleearth.network.packets.server2client.PacketJigsawFits;
 
-// Makes the piece of one block ask for the piece of another where they meet: two plugs are tied, or two blocks side by
-// side in two sections are made a pair of plugs
+// Makes the piece of one block target the piece of another where they meet. Either two plugs are linked, or two blocks
+// side by side in two sections become a pair of plugs
 public class PacketSectionJoinRequest extends ClientToServerPacket<PacketSectionJoinRequest> {
     public static final Id<PacketSectionJoinRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "section_join_request"));
 
@@ -48,7 +48,7 @@ public class PacketSectionJoinRequest extends ClientToServerPacket<PacketSection
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getServer().execute(() -> {
-            // The plug clicked last is the one the builder stands at
+            // The last plug clicked is the one the builder is at
             if(!StructureEditing.mayEdit(player, answerer) || !(player.getWorld() instanceof ServerWorld world))
                 return;
             if(BuildSectionEditing.join(world, player, asker, answerer))

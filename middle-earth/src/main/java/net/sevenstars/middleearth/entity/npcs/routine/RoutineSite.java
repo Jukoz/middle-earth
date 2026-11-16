@@ -36,7 +36,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-// The places around one structure, or one patch of wilderness, shared by every npc living there
+// The places around one structure or one patch of wilderness, shared by every npc living there
 public class RoutineSite {
     private static final int[] RADII = {8, 14, 20, 26, 32, 38, 44};
     private static final int SAMPLE_SPACING = 6;
@@ -52,7 +52,7 @@ public class RoutineSite {
         for(int radius : RADII) {
             int amount = Math.max(MINIMUM_SAMPLES_PER_CIRCLE, Math.round(MathHelper.TAU * radius / SAMPLE_SPACING));
             for(int i = 0; i < amount; i++) {
-                // Offset each circle, so that the samples do not line up into spokes
+                // Offset each circle so the samples don't line up into spokes
                 double angle = MathHelper.TAU * i / amount + radius * SAMPLE_TWIST;
                 samples.add(MathHelper.floor(Math.cos(angle) * radius));
                 samples.add(MathHelper.floor(Math.sin(angle) * radius));
@@ -63,18 +63,19 @@ public class RoutineSite {
 
     private static final int MINIMUM_RING_POINTS = 8;
     private static final int MAXIMUM_RING_POINTS = 40;
-    // Short enough for one path from a point of the ring to the next
+    // A household this close to home is the npc's own
     private static final int OWN_HOUSEHOLD = 8;
+    // Short enough for a single path from one ring point to the next
     private static final int RING_SPACING = 14;
-    // Up or down this far is still the same floor
+    // Heights within this many blocks count as the same floor
     private static final int FLOOR_HEIGHT = 3;
-    // A household further up or down than this is not called on
+    // Households further up or down than this aren't visited
     private static final int VISIT_HEIGHT = 16;
-    // A gap this wide between two points of the ring is no stretch of the round
+    // A gap wider than this between two ring points is not walked. The round becomes an arc that ends at the gap
     private static final double ARC_GAP = RING_SPACING * 2.5;
-    // How far outside the outermost buildings the watch walks
+    // How far outside the outermost buildings the watch walks, in blocks
     private static final int OUTLINE_OFFSET = 6;
-    // Outwards first, a point moved inwards ends up between the houses
+    // Try outwards first, because a point moved inwards ends up between the houses
     private static final int[] RING_ADJUSTMENTS = {0, 4, 8, -4};
     private static final int MINIMUM_OUTLINE_CORNERS = 3;
     private static final int MINIMUM_ROUND_POINTS = 3;
@@ -83,7 +84,7 @@ public class RoutineSite {
     private static final int FAR_TABLE_FACTOR = 2;
     private static final int MINIMUM_FREE_SEATS_ALONE = 2;
     private static final int MAXIMUM_SHORES = 8;
-    // Water this many blocks wide behind the spot, or it is a puddle
+    // Minimum width of the water behind the spot, otherwise it's a puddle
     private static final int MINIMUM_WATER_WIDTH = 2;
     private static final int SHORE_SEARCH = 3;
     private static final int SHORE_SPACING = 6;
@@ -92,20 +93,20 @@ public class RoutineSite {
     private static final int GROUND_MINIMUM_RADIUS = 20;
     private static final int MAXIMUM_TREES = 24;
     private static final int TREE_SPACING = 3;
-    // Around each sample, which on its own would hit a trunk now and then
+    // Search radius around each sample, since a single sample would only occasionally hit a trunk
     private static final int TREE_SEARCH = 2;
     private static final int MAXIMUM_TRUNK_HEIGHT = 24;
     private static final int MAXIMUM_HEIGHT_DIFFERENCE = 14;
     private static final int MAXIMUM_SHORE_STEP = 2;
-    // A site this far under the surface is a hall or a cave
+    // A site this far under the surface counts as a hall or a cave
     private static final int ENCLOSED_DEPTH = 16;
     private static final int BUILDING_HEIGHT = 4;
-    // Past the farthest spot, for the flood to find the way round to it
+    // Margin beyond the farthest spot so the flood can find the way around to it
     private static final int FLOOD_MARGIN = 8;
-    // As far down as a step off a bank or a wall is taken, which has to be walked back up some other way
+    // The farthest down the flood steps off a bank or a wall. Getting back up has to happen some other way
     private static final int FLOOD_DROP = 3;
     private static final int GAME_INTERVAL = 20 * 60 * 2;
-    // Past the farthest open ground, as far as a hunter roams from it
+    // Margin beyond the farthest open ground, matching how far a hunter roams from it
     private static final int GAME_MARGIN = 34;
     private static final int GAME_HEIGHT = 24;
 
@@ -120,37 +121,37 @@ public class RoutineSite {
     private final int ringRadius;
     // Half the width of the structure, 0 in the wild
     private final int extent;
-    // Stretches the samples of a large structure out past its edge
+    // Scales the samples of a large structure so they reach past its edge
     private final float sampleScale;
     private final List<BlockBox> buildings = new ArrayList<>();
 
     private final List<BlockPos> shoreStands = new ArrayList<>();
     private final List<BlockPos> shoreWaters = new ArrayList<>();
     private final List<BlockPos> grounds = new ArrayList<>();
-    // The foot of each trunk that carries a crown, the trees to work at
+    // The base of each trunk that carries a crown. These are the trees to work at
     private final List<BlockPos> trees = new ArrayList<>();
     private final List<BlockPos> ring = new ArrayList<>();
-    // Where each point of the ring should be, and the way that leads out of the place from there: x, z, outX, outZ
+    // Where each ring point should be and the direction out of the place from there, as x, z, outX, outZ
     private final List<double[]> ringPlan = new ArrayList<>();
     private List<StructureFeatureData.Bed> beds = List.of();
-    // The beds somebody is born in, each the middle of a household
+    // The beds npcs are born in. Each one marks the middle of a household
     private List<BlockPos> households = List.of();
     private List<BlockPos> stores = List.of();
-    // The seats around each table of the settlement, from the generated data of its templates
+    // The seats around each table in the settlement, taken from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureFeatureData.Station> stations = List.of();
-    // Every seat and door of the settlement, and the markers its builders put down
+    // Every seat and door in the settlement, and the markers its builders placed
     private List<BlockPos> seats = List.of();
     private List<BlockPos> doors = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
     private List<StructureFeatureData.Manager> managers = List.of();
     private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
-    // The factions the structure is tagged as belonging to, by the path of their ids. Empty for a place nobody is named for
+    // The factions the structure is tagged as belonging to, as the paths of their ids. Empty when the place isn't assigned to any faction
     private Set<String> owners = Set.of();
-    // Who stands at which marker, so that two guards never take the same post
-    // Kept apart: a traveller's bed for the night is not given up when its routine lets go of a post
+    // Which npc holds which marker, so two guards never take the same post
     private final Map<BlockPos, UUID> postClaims = new HashMap<>();
+    // Kept separate because a traveller keeps their bed for the night when their routine releases a post
     private final Map<BlockPos, UUID> bedClaims = new HashMap<>();
     private @Nullable List<BlockPos> patrolRoute = null;
 
@@ -158,20 +159,20 @@ public class RoutineSite {
     private int probeY;
     private int cursor = 0;
     private boolean ready;
-    // Where each ring point was planned, so that one found later goes in its place
+    // Where each ring point was planned, so a point found later goes in its place
     private final List<Integer> ringPlanIndex = new ArrayList<>();
-    // Ring points and samples that fell on ground not loaded at the time, looked at again once it is
+    // Ring points and samples that landed on unloaded ground, to be checked again once it loads
     private final List<Integer> missedRing = new ArrayList<>();
     private final List<Integer> missedSamples = new ArrayList<>();
     private boolean patrolArc = false;
     private final Map<BlockPos, Long> hivesEmptied = new HashMap<>();
     private final Map<BlockPos, Integer> hiveLevels = new HashMap<>();
     private List<BlockPos> game = List.of();
-    // Looked for at once the first time, without the gap from the smallest long overflowing
+    // Starts at -GAME_INTERVAL so the first lookup happens immediately, without the gap from Long.MIN_VALUE overflowing
     private long gameSeenAt = -GAME_INTERVAL;
     long lastUsed;
 
-    // ringRadius 0 leaves the site without a patrol ring
+    // A ringRadius of 0 means the site has no patrol ring
     RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
         this.extent = extent;
         this.sampleScale = Math.max(1f, (extent + SAMPLE_MARGIN) / (float) RADII[RADII.length - 1]);
@@ -180,7 +181,7 @@ public class RoutineSite {
         this.surfaceY = world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, centerX, centerZ);
         this.ringRadius = ringRadius;
         if(pieces != null) {
-            // Roads and squares are pieces too, but those can be walked on
+            // Roads and squares are pieces too, but they can be walked on, so they aren't buildings
             for(BlockBox piece : pieces) {
                 if(piece.getBlockCountY() >= BUILDING_HEIGHT)
                     buildings.add(piece);
@@ -188,17 +189,17 @@ public class RoutineSite {
         }
         if(ringRadius > 0)
             planRing(pieces);
-        // Shut in underground, a place has no ground around it to look over
+        // An enclosed place underground has no surrounding ground to look over, so it is ready straight away
         this.ready = enclosed;
     }
 
-    // Far enough under the ground at that spot to be shut in, in a cave or a delving
+    // True when the spot is deep enough under the ground to be enclosed, as in a cave or a delving
     public static boolean isEnclosed(ServerWorld world, int x, int z, int y) {
         return groundY(world, x, z) - y > ENCLOSED_DEPTH;
     }
 
-    // A structure is shut in only if all of it is: one with a way up to the surface has guards and grounds up there. Told by
-    // the structure itself, so that the answer does not turn on who of its people asks first
+    // A structure is enclosed only if all of it is. One with a way up to the surface has guards and grounds up there. This
+    // is decided from the structure itself, so the answer doesn't depend on which npc asks first
     public static boolean isEnclosed(ServerWorld world, BlockBox box) {
         BlockPos center = box.getCenter();
         int[][] spots = {{center.getX(), center.getZ()}, {box.getMinX(), box.getMinZ()}, {box.getMinX(), box.getMaxZ()},
@@ -210,8 +211,8 @@ public class RoutineSite {
         return true;
     }
 
-    // The solid ground, under the water of a lake or the sea and under the leaves of a wood: depth below a water surface
-    // is not depth under the ground
+    // The height of the solid ground, below the water of a lake or the sea and below the leaves of a wood. Depth below a
+    // water surface doesn't count as being under the ground
     private static int groundY(ServerWorld world, int x, int z) {
         return Math.min(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), world.getTopY(Heightmap.Type.OCEAN_FLOOR, x, z));
     }
@@ -249,8 +250,8 @@ public class RoutineSite {
         return shoreWaters.get(index);
     }
 
-    // When the honey was last taken from a hive. One not seen before is reckoned from the honey already in it
-    // Reckoned again where the honey found in it is not what the routine left there
+    // When the honey was last taken from a hive. For a hive not seen before, it's worked out from the honey already in it
+    // It's worked out again when the honey found in the hive isn't what the routine left there
     public long hiveEmptiedAt(BlockPos hive, long time, int levelFound, long filledFor) {
         Integer left = hiveLevels.get(hive);
         if(left == null || left != levelFound)
@@ -271,7 +272,7 @@ public class RoutineSite {
         return grounds;
     }
 
-    // Where game was last seen around the place. It wanders, so it is looked for again now and then
+    // Where game was last seen around the place. It moves around, so it's looked up again every so often
     public List<BlockPos> getGame(ServerWorld world, long time, Predicate<AnimalEntity> prey) {
         if(time - gameSeenAt < GAME_INTERVAL)
             return game;
@@ -290,14 +291,13 @@ public class RoutineSite {
         return faction;
     }
 
-    // The first of its people to live here names the place
-    // The first of its people to start a routine names the place. Where the structure says whose it is, nobody else can:
-    // a prisoner held there does not make it a place of his own people
+    // The first of its people to start a routine here claims the place for their faction. When the structure says whose it
+    // is, no one else can claim it. A prisoner held there doesn't make it a place of his own people
     public void claim(@Nullable Identifier faction) {
         if(this.faction != null || faction == null || ringRadius <= 0)
             return;
         String path = faction.getPath();
-        // longbeards.erebor also lives in the structures of the longbeards
+        // longbeards.erebor also counts as living in longbeards structures
         int split = path.indexOf('.');
         if(owners.isEmpty() || owners.contains(path) || split >= 0 && owners.contains(path.substring(0, split)))
             this.faction = faction;
@@ -320,7 +320,7 @@ public class RoutineSite {
         this.stores = stores;
     }
 
-    // Every bed of the place, those somebody is born in and those that are free
+    // Every bed in the place, both the ones npcs are born in and the free ones
     public List<StructureFeatureData.Bed> getBeds() {
         return beds;
     }
@@ -333,8 +333,8 @@ public class RoutineSite {
         this.households = households;
     }
 
-    // Another household to call on, among those down in the halls for one living there and up in the open for one living
-    // there: the way between is up the stairs of the whole place
+    // Another household to call on. An npc living down in the halls picks one down there and an npc living up in the open
+    // picks one up there, because the way between them is up the stairs of the whole place
     public @Nullable BlockPos pickHousehold(ServerWorld world, BlockPos home, Random random) {
         boolean underground = isEnclosed(world, home.getX(), home.getZ(), home.getY());
         int offset = households.isEmpty() ? 0 : random.nextInt(households.size());
@@ -348,12 +348,12 @@ public class RoutineSite {
         return null;
     }
 
-    // A free seat in the house that is being called on
+    // A free seat in the house being visited
     public @Nullable BlockPos pickSeatNear(ServerWorld world, BlockPos place, int range) {
         return pickSeatNear(world, place, range, null);
     }
 
-    // Another than the one given, for the host to sit with its visitor
+    // A seat other than the one given, so the host can sit with its visitor
     public @Nullable BlockPos pickSeatNear(ServerWorld world, BlockPos place, int range, @Nullable BlockPos besides) {
         BlockPos best = null;
         for(List<BlockPos> table : tables) {
@@ -383,7 +383,7 @@ public class RoutineSite {
         this.managers = managers;
     }
 
-    // Every manager of the structure as its templates have them, loaded or not
+    // Every manager of the structure as its templates define them, loaded or not
     public List<StructureFeatureData.Manager> getManagers() {
         return managers;
     }
@@ -402,7 +402,7 @@ public class RoutineSite {
         return doors;
     }
 
-    // Where they are and which way they face
+    // The positions of the markers and the directions they face
     public List<StructureFeatureData.Marker> getMarkers(MarkerKind kind) {
         List<StructureFeatureData.Marker> found = new ArrayList<>();
         for(StructureFeatureData.Marker marker : markers) {
@@ -431,7 +431,7 @@ public class RoutineSite {
         return fields;
     }
 
-    // The stations of these kinds within range, nearest first
+    // Stations of these kinds within range, nearest first
     public List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near, int range) {
         List<BlockPos> found = new ArrayList<>();
         for(StructureFeatureData.Station station : stations) {
@@ -450,7 +450,7 @@ public class RoutineSite {
         return null;
     }
 
-    // The station of one of these kinds closest to the given place, which is the npc's home
+    // The closest station of one of these kinds to the given place, which is the npc's home
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
         BlockPos best = null;
         for(StructureFeatureData.Station station : stations) {
@@ -466,14 +466,14 @@ public class RoutineSite {
         this.tables = tables;
     }
 
-    // A table on the same floor within range of the given place, or else one twice as far on any floor. In a stronghold a
-    // table two floors up is a long way round by its stairs, and the far tables are further still down its halls
+    // A table on the same floor within range of the given place, or else one up to twice as far away on any floor. In a
+    // stronghold a table two floors up is a long walk around by the stairs, and the far tables are further still by the halls
     public @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range) {
         BlockPos seat = pickSeat(world, random, near, range, true);
         return seat != null ? seat : pickSeat(world, random, near, range * FAR_TABLE_FACTOR, false);
     }
 
-    // A free seat at a table where somebody already sits, or else at any table with room for two
+    // A free seat at a table where someone is already sitting, or else at any table with room for two
     private @Nullable BlockPos pickSeat(ServerWorld world, Random random, BlockPos near, int range, boolean sameFloor) {
         BlockPos alone = null;
         int offset = tables.isEmpty() ? 0 : random.nextInt(tables.size());
@@ -508,7 +508,7 @@ public class RoutineSite {
         return ring;
     }
 
-    // The patrol points the builders marked, walked round in order of their bearing from the middle, or else the outline ring
+    // The patrol points the builders marked, walked in order of their bearing from the middle, or else the outline ring
     public List<BlockPos> getPatrolRoute() {
         if(patrolRoute == null) {
             List<BlockPos> points = new ArrayList<>();
@@ -541,7 +541,7 @@ public class RoutineSite {
         return patrolRoute;
     }
 
-    // The nearest free marker of these kinds to the place given, taken for the npc. One it holds already is its own
+    // Claims the nearest free marker of these kinds to the given place for the npc. A marker it already holds counts as free
     public @Nullable StructureFeatureData.Marker claimPost(ServerWorld world, UUID npc, BlockPos near, MarkerKind... kinds) {
         StructureFeatureData.Marker best = null;
         for(MarkerKind kind : kinds) {
@@ -559,7 +559,8 @@ public class RoutineSite {
         return best;
     }
 
-    // The nearest bed nobody is born in, empty and with floor to get into it from, taken for the traveller. One it holds already is its own
+    // Claims the nearest bed for the traveller. The bed must spawn nobody, be empty and have floor beside it to get in from.
+    // A bed the traveller already holds counts as free
     public @Nullable BlockPos claimFreeBed(ServerWorld world, UUID npc, BlockPos near) {
         List<StructureFeatureData.Bed> candidates = new ArrayList<>();
         for(StructureFeatureData.Bed bed : beds) {
@@ -603,7 +604,7 @@ public class RoutineSite {
         return centerZ;
     }
 
-    // One sample a call, true once there is nothing left to look at
+    // Scans one sample per call. Returns true once there is nothing left to scan
     boolean scanStep(ServerWorld world) {
         if(ready)
             return true;
@@ -629,7 +630,7 @@ public class RoutineSite {
         return false;
     }
 
-    // The ring follows the outline of the settlement. A circle cuts through any place that is not round
+    // The ring follows the outline of the settlement, because a circle cuts through any place that isn't round
     private void planRing(@Nullable List<BlockBox> pieces) {
         List<double[]> outline = pieces == null ? List.of() : outlineOf(pieces);
         if(outline.size() < MINIMUM_OUTLINE_CORNERS) {
@@ -637,7 +638,7 @@ public class RoutineSite {
             return;
         }
         planOutline(outline);
-        // Too small a place to walk around the outside of
+        // The place is too small to walk around the outside of
         if(ringPlan.size() < MINIMUM_RING_POINTS) {
             ringPlan.clear();
             planCircle();
@@ -669,7 +670,7 @@ public class RoutineSite {
                 continue;
             double alongX = (to[0] - from[0]) / length;
             double alongZ = (to[1] - from[1]) / length;
-            // The outline runs counter clockwise, which puts the outside on this hand
+            // The outline runs counterclockwise, so this direction points outwards
             double outX = alongZ;
             double outZ = -alongX;
             double walked = untilNext;
@@ -750,7 +751,7 @@ public class RoutineSite {
         }
     }
 
-    // A log column with leaves on top of it is a tree. Logs of a building or a fence post carry none
+    // A log column with leaves on top is a tree. The logs of a building or a fence post have none
     private void scanTree(ServerWorld world, int x, int z) {
         if(trees.size() >= MAXIMUM_TREES || !world.isChunkLoaded(x >> 4, z >> 4))
             return;
@@ -770,7 +771,7 @@ public class RoutineSite {
         BlockState ground = world.getBlockState(at);
         if(!ground.isSolidBlock(world, at) || !world.getFluidState(at.up()).isEmpty() || !isSpaced(trees, x, z, TREE_SPACING))
             return;
-        // A bush is a log in leaves on every side, with no room to stand and swing at it
+        // A bush is a log with leaves on every side and no room to stand and swing at it
         BlockPos foot = new BlockPos(x, base, z);
         if(NestSurvey.standNextTo(world, foot, foot) == null)
             return;
@@ -782,7 +783,7 @@ public class RoutineSite {
         int towardsZ = Integer.signum(centerZ - waterZ);
         if(towardsX == 0 && towardsZ == 0)
             return;
-        // A puddle is not worth the walk
+        // A puddle isn't worth walking to
         if(classify(world, waterX - towardsX * MINIMUM_WATER_WIDTH, waterZ - towardsZ * MINIMUM_WATER_WIDTH) != WATER)
             return;
 
@@ -802,7 +803,7 @@ public class RoutineSite {
         }
     }
 
-    // Leaves the height of the first free block in probeY
+    // Stores the height of the first free block in probeY
     private int classify(ServerWorld world, int x, int z) {
         if(!world.isChunkLoaded(x >> 4, z >> 4))
             return UNLOADED;
@@ -812,7 +813,7 @@ public class RoutineSite {
         FluidState fluid = below.getFluidState();
         if(!fluid.isEmpty())
             return fluid.isIn(FluidTags.WATER) ? WATER : BLOCKED;
-        // Paths and farmland are not full blocks, but they are ground all the same
+        // Paths and farmland aren't full blocks, but they still count as ground
         boolean ground = below.isSolidBlock(world, probe) || below.isOf(Blocks.DIRT_PATH) || below.isOf(Blocks.FARMLAND);
         if(!ground || below.isIn(BlockTags.LOGS))
             return BLOCKED;
@@ -825,7 +826,7 @@ public class RoutineSite {
         return ready && (!missedRing.isEmpty() || !missedSamples.isEmpty());
     }
 
-    // A place first looked over while part of it was not loaded is filled in once that part is
+    // A place first scanned while part of it was unloaded gets filled in once that part loads
     void retryMissed(ServerWorld world) {
         List<Integer> ringLeft = new ArrayList<>(missedRing);
         List<Integer> samplesLeft = new ArrayList<>(missedSamples);
@@ -845,20 +846,20 @@ public class RoutineSite {
             keepReachable(world);
     }
 
-    // Walked where the builders put it, and not along the outline of the place
+    // Whether the patrol follows the builders' markers instead of the outline of the place
     public boolean hasMarkedRoute() {
         return getMarkers(MarkerKind.PATROL_POINT).size() >= MINIMUM_MARKED_ROUND_POINTS;
     }
 
-    // A round with a long gap in it, where the place runs along a lake or a cliff, is walked there and back
+    // A round with a long gap in it, where the place runs along a lake or a cliff, is walked out and back
     public boolean isPatrolArc() {
         getPatrolRoute();
         return patrolArc;
     }
 
-    // Spots of the ring, the grounds, the trees and the shores that nobody can walk to from the place, across a river or up a
-    // cliff, are left out. The ground is flooded out from the doors of the place a column at a time: a block up at most, a few
-    // down, never into water or onto a roof. With no doors known, every spot is kept
+    // Drops spots of the ring, the grounds, the trees and the shores that nobody can walk to from the place, such as across
+    // a river or up a cliff. The flood spreads from the doors of the place one column at a time, going up at most a block
+    // and down a few, and never into water or onto a roof. With no doors known, every spot is kept
     private void keepReachable(ServerWorld world) {
         if(doors.isEmpty())
             return;
@@ -904,7 +905,7 @@ public class RoutineSite {
             }
         }
         grounds.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
-        // A trunk stands in its own column, and is got to from beside it
+        // A trunk fills its own column, so it's reached from a neighbouring column
         trees.removeIf(tree -> !reached.containsKey(column(tree.getX() + 1, tree.getZ())) && !reached.containsKey(column(tree.getX() - 1, tree.getZ()))
                 && !reached.containsKey(column(tree.getX(), tree.getZ() + 1)) && !reached.containsKey(column(tree.getX(), tree.getZ() - 1)));
         for(int i = shoreStands.size() - 1; i >= 0; i--) {
@@ -920,14 +921,14 @@ public class RoutineSite {
         return ((long) x << 32) | (z & 0xFFFFFFFFL);
     }
 
-    // Crops are no obstacle to the heightmap, so a point of the round or a patch to forage can fall in a field. The fields
-    // are for those who work them. Asks of the ground classify last looked at
+    // Crops don't count in the heightmap, so a point of the round or a patch to forage can land in a field. Fields are for
+    // the npcs who work them. Checks the ground that classify looked at last
     private boolean isField(ServerWorld world) {
         BlockState ground = world.getBlockState(probe);
         return NpcPathNodeMaker.isFarmland(ground);
     }
 
-    // The heightmap puts such a spot on a roof, the yard around the house stays free
+    // The heightmap puts such a spot on a roof, while the yard around the house stays free
     public boolean isBuilding(int x, int y, int z) {
         for(BlockBox box : buildings) {
             if(x >= box.getMinX() && x <= box.getMaxX() && z >= box.getMinZ() && z <= box.getMaxZ() && y - box.getMinY() >= BUILDING_HEIGHT)

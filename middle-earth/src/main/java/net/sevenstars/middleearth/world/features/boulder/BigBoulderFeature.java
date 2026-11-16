@@ -38,8 +38,8 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         StructureWorldAccess structureWorldAccess = context.getWorld();
         Random random = context.getRandom();
 
-        // Boulders are set down after the buildings, and one filled the rooms of a house it was put beside. None goes within a
-        // chunk of a structure
+        // Boulders are placed after the buildings, and one filled the rooms of a house it was placed beside. So none is
+        // placed within a chunk of a structure
         ChunkPos chunk = new ChunkPos(blockPos);
         for(int offsetX = -STRUCTURE_CLEARANCE_CHUNKS; offsetX <= STRUCTURE_CLEARANCE_CHUNKS; offsetX++) {
             for(int offsetZ = -STRUCTURE_CLEARANCE_CHUNKS; offsetZ <= STRUCTURE_CLEARANCE_CHUNKS; offsetZ++) {

@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
 
 import java.util.List;
 
-// What the builder's tool does to a section by its structure block: gives it another name, or takes its box away
+// What the builder's tool does to a section through its structure block: renames it or removes its box
 public class PacketSectionEditRequest extends ClientToServerPacket<PacketSectionEditRequest> {
     public static final Id<PacketSectionEditRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "section_edit_request"));
     public static final int RENAME = 0;

@@ -46,7 +46,7 @@ public class REIClientPluginME implements REIClientPlugin {
     @Override
     public void registerScreens(ScreenRegistry registry) {
         REIClientPlugin.super.registerScreens(registry);
-        // The builder's screens are for tagging beds and placing markers, not for looking up items
+        // These screens are for tagging beds and placing markers, not for looking up items
         registry.registerDecider(new OverlayDecider() {
             @Override
             public <R extends Screen> boolean isHandingScreen(Class<R> screen) {

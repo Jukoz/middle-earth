@@ -51,7 +51,7 @@ public class StructureManagerData {
         return null;
     }
 
-    // The nest of people a bed of this kind is born by. Nests of other beasts and the nests of other managers share their last word
+    // The people nest that beds of this kind spawn from. Animal nests and other managers' nests can share the same last word
     public @Nullable SpawnNestNodeData findPeopleNest(String nestKind) {
         for(SpawnNestNodeData nest : spawnNestNodeData) {
             if(nest.isPeople() && BedTag.nestKindOf(nest.getId()).equals(nestKind))

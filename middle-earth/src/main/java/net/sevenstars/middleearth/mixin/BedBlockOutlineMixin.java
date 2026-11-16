@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// A bed is low, and the builder's tool aimed at the space over it went past to the block behind. With the tool in hand
-// the whole block is the bed
+// A bed is low, so aiming the builder's tool at the space above it hit the block behind instead. While the tool is
+// held, the outline covers the whole block
 @Mixin(BedBlock.class)
 public class BedBlockOutlineMixin {
     @Inject(method = "getOutlineShape", at = @At("HEAD"), cancellable = true)

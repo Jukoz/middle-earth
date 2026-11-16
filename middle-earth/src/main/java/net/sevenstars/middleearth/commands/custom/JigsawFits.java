@@ -24,13 +24,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Which plugs a jigsaw block could be joined to, as the game would join them: a plug that asks for a piece of a pool and
-// names its target fits the plugs of that name on the pieces of that pool, turned to meet it. Looked for among the pieces
-// of the structure the builder has loaded, or with none loaded among the jigsaw blocks nearby, of whatever piece
+// Finds which plugs a jigsaw block could be joined to, the way the game would join them. A plug that asks for a piece
+// from a pool and names a target fits the plugs with that name on the pieces of that pool, rotated to meet it. It
+// searches the pieces of the loaded structure, or for a plug in none of them, the nearby jigsaw blocks of any piece
 public class JigsawFits {
     public static final int MAXIMUM_FITS = 512;
     private static final Identifier EMPTY = Identifier.ofVanilla("empty");
-    // In chunks, around a plug that is in no structure being edited
+    // In chunks, the search radius around a plug that is in no structure being edited
     private static final int NEAR_CHUNKS = 4;
 
     private record Plug(BlockPos pos, @Nullable Identifier template, RegistryKey<StructurePool> pool, Identifier name, Identifier target, Direction facing) {
@@ -56,7 +56,7 @@ public class JigsawFits {
         return fits;
     }
 
-    // The asking plug takes a piece of its pool and joins it by the plug its target names
+    // The asking plug picks a piece from its pool and joins it at the plug its target names
     private static boolean joins(Registry<StructurePool> pools, Plug asking, Plug joined) {
         if(!asking.asks() || joined.name().equals(EMPTY) || !joined.name().equals(asking.target()))
             return false;
@@ -72,7 +72,7 @@ public class JigsawFits {
         return templates;
     }
 
-    // Up meets down. Plugs that face sideways meet whichever way they face, the piece being turned to them
+    // Up meets down. Sideways plugs meet in any horizontal direction, because the piece can be rotated to fit
     private static boolean meets(Direction facing, Direction other) {
         return facing.getAxis().isVertical() ? other == facing.getOpposite() : other.getAxis().isHorizontal();
     }

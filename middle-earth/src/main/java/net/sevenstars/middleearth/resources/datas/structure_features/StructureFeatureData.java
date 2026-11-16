@@ -12,16 +12,17 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import java.util.List;
 import java.util.Optional;
 
-// What one structure template holds that people make use of, worked out from the template when data is generated.
-// Beds are every bed head there is. Positions are those of the template, before it is turned and placed
-// Tables are the seats around one table each, places to sit down together. Seats is every seat there is
-// Stations are the places of work: a forge, an oven, a loom, a plot of field
-// Doors are the lower halves
-// Managers are the structure manager blocks, with the data each one spawns by: whose bed a bed is can then be told without
-// its manager being loaded
+// What one structure template holds that npcs make use of, worked out from the template when data is generated.
+// Beds are every bed head. Positions are those of the template, before it is rotated and placed.
+// Tables are the seats around each table, places to sit down together. Seats is every seat.
+// Stations are the places of work: a forge, an oven, a loom, a plot of field.
+// Doors are the lower halves.
+// Managers are the structure manager blocks, with the data each one spawns from. That way whose bed a bed is can be
+// worked out without loading its manager
 public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, List<Station> stations, List<BlockPos> seats,
                                    List<BlockPos> doors, List<BlockPos> ladders, List<Marker> markers, List<Manager> managers) {
-    // The data is the place a manager was given before beds kept theirs, which those tagged since have no need of
+    // The data is the place a manager was given before beds stored a place of their own. Beds tagged since then don't
+    // need it
     public record Manager(BlockPos pos, Optional<Identifier> data) {
         public static final Codec<Manager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Manager::pos),
@@ -36,7 +37,7 @@ public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, 
         ).apply(instance, Station::new));
     }
 
-    // The value says what to spawn, a nest or an entity type, and the count how many. Animals come back over time only where it respawns
+    // The value says what to spawn, a nest or an entity type, and the count says how many. Animals come back over time only if respawns is set
     public record Marker(MarkerKind kind, BlockPos pos, Direction facing, String value, int count, boolean respawns) {
         public static final Codec<Marker> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 MarkerKind.CODEC.fieldOf("kind").forGetter(Marker::kind),
@@ -52,9 +53,10 @@ public record StructureFeatureData(List<Bed> beds, List<List<BlockPos>> tables, 
         }
     }
 
-    // The tag says who is born in the bed, and a bed with none is free for travellers to sleep in. The store is the barrel or chest
-    // nearest, where what its person brings home is put away. Links are the places the builder tied the bed to, as positions
-    // like the rest, and are the ones to use when manual. The manager is the one the builder tied the bed to, where it was
+    // The tag says who spawns from the bed, and a bed with none is free for travellers to sleep in. The store is where
+    // what its npc brings home is put away: the one the builder picked, or else the one nearest its place of work.
+    // Links are the places the builder tied the bed to, stored as positions like the rest, and are the ones to use
+    // when manual. The manager is the position of the manager block the builder once tied the bed to, if any
     public record Bed(BlockPos pos, Optional<BedTag> tag, Optional<BlockPos> store, List<BlockPos> links, boolean manual, Optional<BlockPos> manager) {
         public static final Codec<Bed> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 BlockPos.CODEC.fieldOf("pos").forGetter(Bed::pos),

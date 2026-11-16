@@ -43,7 +43,7 @@ public class NpcPartySpawner {
                 } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {
                     animal.refreshPositionAndAngles(pos, random.nextFloat() * FULL_TURN, 0);
                     animal.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null);
-                    // Pack animals go laden, and a farm dog is nobody's wolf
+                    // Pack animals carry a chest, and a dog is tamed but has no owner
                     if(animal instanceof AbstractDonkeyEntity donkey)
                         donkey.setHasChest(true);
                     if(animal instanceof WolfEntity dog)

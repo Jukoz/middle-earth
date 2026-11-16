@@ -42,7 +42,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
     private static boolean stackTraceLock = false;
-    // Of the speed of a mount an npc rides: what a horse is held to, and the least any mount keeps
+    // Speed of a mount an npc rides: the fixed speed for a horse, and the minimum for any mount
     @Unique
     private static final float NPC_HORSE_SPEED = 0.5f;
     @Unique
@@ -158,7 +158,8 @@ public abstract class LivingEntityMixin extends Entity {
             return;
         }
         BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
-        // Its nest no longer looks for missing people, and hears of a death from the npc itself
+        // The nest no longer looks for missing people, so an npc that is discarded tells it here. Deaths are reported
+        // from NpcEntity.onDeath
         if(reason == Entity.RemovalReason.DISCARDED && livingEntity instanceof NpcEntity npc && !npc.getWorld().isClient && npc.getStructureManagerHostPos() != null)
             NestHost.signalGone(npc.getWorld(), npc.getStructureManagerHostPos(), npc);
     }

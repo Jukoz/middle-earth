@@ -20,16 +20,16 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class NpcTravelGoal extends WanderAroundFarGoal {
-    // 1 in this many checks, made every other tick
+    // 1 in this many checks, which run every other tick
     private static final int LEADER_REST = 10;
-    // 1 in this many checks as well, a couple of seconds between two strolls
+    // Also 1 in this many checks, which is a couple of seconds between strolls
     private static final int STROLL_PAUSE = 20;
     private static final int STROLL_RETRIES = 3;
     // In path nodes
     private static final int MINIMUM_STROLL = 4;
     private static final int STROLL_RETRY_RANGE = 6;
     private static final int STROLL_RETRY_HEIGHT = 4;
-    // Strolls tried from the same block before the npc is taken to be stuck, about 20 seconds
+    // Strolls tried from the same block before the npc counts as stuck, about 20 seconds
     private static final int STUCK_STROLLS = 5;
     private static final int MAXIMUM_RESCUE_BACK_OFF = 4;
     private static final int RESCUE_CLEAR_DISTANCE = 4;
@@ -46,7 +46,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final int HOME_PULL_HEIGHT = 7;
     private static final int ARRIVAL_DISTANCE = 24;
     private static final int DESTINATION_CHECK_CHANCE = 10;
-    // Two stretches and a bit: far enough to turn before the edge is reached
+    // A bit more than two stretches, far enough ahead to turn before reaching the edge
     private static final int LOOK_AHEAD = 32;
     private static final int TURN_VARIATION = 45;
     private static final float TURN_BACK = 180f;
@@ -57,7 +57,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final double SLOT_SPACING = 1.8;
     private static final int SLOTS = 3;
     private static final double CATCH_UP_DISTANCE = 10;
-    // Times the normal wander speed
+    // Multiples of the normal wander speed
     private static final double FOLLOW_SPEED = 1.15;
     private static final double CATCH_UP_SPEED = 1.4;
     // In checks, 10 a second
@@ -96,7 +96,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         } else if(npc.getTravelHeading() != null && npc.getRandom().nextInt(LEADER_REST) == 0) {
             ignoreChanceOnce();
         } else if(npc.getTravelHeading() == null && npc.getRandom().nextInt(STROLL_PAUSE) == 0) {
-            // People with nothing to do amble about, they do not stand rooted for minutes
+            // Npcs with nothing to do wander around instead of standing in one spot for minutes
             ignoreChanceOnce();
             checkStuck();
         }
@@ -131,7 +131,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         for(float detour : DETOURS) {
             Vec3d ahead = npc.getPos().add(direction(heading + detour).multiply(length));
             Vec3d ground = groundAt(ahead.x, ahead.z);
-            // The border is where the land changes, and that way is not taken
+            // An npc that keeps bounds stays in its biome, so it skips a stretch that ends in a different one
             if(ground != null && npc.keepsBounds() && !npc.getWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getWorld().getBiome(npc.getBlockPos())))
                 continue;
             if(ground != null && Math.abs(ground.y - npc.getY()) <= MAXIMUM_HEIGHT_CHANGE) {
@@ -148,7 +148,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         double moveSpeed = speed * speedFactor;
         boolean moving = npc.getNavigation().startMovingTo(targetX, targetY, targetZ, moveSpeed);
         boolean strolling = npc.getPartyLeader() == null && npc.getTravelHeading() == null;
-        // A path that stops at the nearest wall is no stroll
+        // A path that ends at the nearest wall doesn't count as a stroll
         if(moving && strolling && !isWorthWalking())
             moving = false;
         if(moving) {
@@ -158,12 +158,12 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         }
         if(onStretch && npc.getTravelHeading() != null)
             stretchFailed(npc.getTravelHeading());
-        // The spot behind the leader can be unreachable
+        // The spot behind the leader may be unreachable
         if(leaderPos != null) {
             npc.getNavigation().startMovingTo(leaderPos.x, leaderPos.y, leaderPos.z, moveSpeed);
             return;
         }
-        // Indoors most random spots lie behind a wall, so an idle npc tries a few before it gives up on its stroll
+        // Indoors most random spots are behind a wall, so an idle npc tries a few before giving up on the stroll
         if(strolling) {
             for(int attempt = 0; attempt < STROLL_RETRIES && npc.getWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
                 Vec3d other = nearHome(NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
@@ -174,7 +174,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         }
     }
 
-    // Settled npcs used to stroll out of their village for good
+    // Settled npcs used to wander out of their village and never come back
     private @Nullable Vec3d nearHome(@Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
@@ -183,7 +183,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         return inField(back) ? null : back;
     }
 
-    // Nobody strolls about the crops
+    // Npcs don't stroll through crops
     private boolean inField(@Nullable Vec3d target) {
         if(target == null || npc.isFarming())
             return false;
@@ -195,7 +195,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private float towardsDestination(float heading) {
         BlockPos destination = npc.getTravelDestination();
         if(destination == null) {
-            // Settlements become known as players come by
+            // Settlements only become known as players pass by
             if(!npc.keepsBounds() && npc.getRandom().nextInt(DESTINATION_CHECK_CHANCE) == 0 && npc.getWorld() instanceof ServerWorld world)
                 npc.setTravelDestination(RoutineSites.findDestination(world, npc));
             return heading;
@@ -203,19 +203,19 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         double distanceX = destination.getX() + 0.5 - npc.getX();
         double distanceZ = destination.getZ() + 0.5 - npc.getZ();
         if(distanceX * distanceX + distanceZ * distanceZ < ARRIVAL_DISTANCE * ARRIVAL_DISTANCE) {
-            // Journey's end, the party stays around
+            // The journey is over, so the party stays here
             npc.setTravelDestination(null);
             npc.setTravelHeading(null);
             return heading;
         }
-        // Same as entity yaw: 0 is south, 90 is west
+        // Same as entity yaw. 0 is south, 90 is west
         float towards = (float) (MathHelper.atan2(-distanceX, distanceZ) * MathHelper.DEGREES_PER_RADIAN);
         npc.setTravelHeading(towards);
         return towards;
     }
 
-    // Past the edge of the world that is running nobody sees the journey, and the npc stands frozen where it crossed. One
-    // heading that way turns round and gives up where it was going, for a place it can reach
+    // Past the edge of the ticking world nobody sees the journey, and the npc freezes where it crossed. An npc heading that
+    // way turns around and gives up its destination for one it can reach
     private float awayFromStillWorld(float heading) {
         if(!(npc.getWorld() instanceof ServerWorld world))
             return heading;
@@ -229,11 +229,11 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         return turned;
     }
 
-    // Furniture is a trap: an npc that ends up on a stool or a table finds no path off it, and would stand there for good
+    // Furniture is a trap. An npc that ends up on a stool or a table finds no path off it and would stay there forever
     private void checkStuck() {
         BlockPos pos = npc.getBlockPos();
         if(!pos.equals(lastStrollPos) || npc.isSleeping()) {
-            // Walking well away from where it was freed shows the npc has its feet again
+            // Once the npc has walked well away from where it was freed, it's no longer stuck
             if(rescuedAt != null && !rescuedAt.isWithinDistance(pos, RESCUE_CLEAR_DISTANCE)) {
                 rescuedAt = null;
                 rescues = 0;
@@ -242,8 +242,8 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
             stuckStrolls = 0;
             return;
         }
-        // Every one of these checks comes with a try at a stroll, so the same block again and again means none got anywhere.
-        // Somebody shut in a small room waits longer each time, or it would hop about its cell
+        // Every check comes with a stroll attempt, so the same block over and over means none of them went anywhere.
+        // An npc shut in a small room waits longer each time, or it would keep hopping around its cell
         stuckStrolls++;
         if(stuckStrolls < STUCK_STROLLS << Math.min(rescues, MAXIMUM_RESCUE_BACK_OFF) || !(npc.getWorld() instanceof ServerWorld world))
             return;
@@ -294,7 +294,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         return Vec3d.ofBottomCenter(pos);
     }
 
-    // Same as entity yaw: 0 is south, 90 is west
+    // Same as entity yaw. 0 is south, 90 is west
     private static Vec3d direction(float heading) {
         float radians = heading * MathHelper.RADIANS_PER_DEGREE;
         return new Vec3d(-MathHelper.sin(radians), 0, MathHelper.cos(radians));

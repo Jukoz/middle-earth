@@ -19,9 +19,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
 
-// Asked once two corners were clicked with the builder's tool: whether the box is the new bounds of the section it was
-// started in, or a section of its own under a name. Opened on the structure block of a section instead, it gives the
-// section another name or takes its box away
+// Shown after two corners are clicked with the builder's tool. It asks whether the box becomes the new bounds of the
+// section it was started in or a new named section. Opened on a section's structure block instead, it renames the
+// section or removes its box
 public class BuildSectionScreen extends Screen {
     private static final String KEY = "ui." + MiddleEarth.MOD_ID + ".build_section.";
     private static final int WIDTH = 270;
@@ -38,14 +38,14 @@ public class BuildSectionScreen extends Screen {
     private final BlockPos second;
     // Empty when the box was started outside every section
     private final String current;
-    // The structure block of the section that is there already, when it is that one the screen is of
+    // The structure block of the existing section, when the screen is editing that section
     private final @Nullable BlockPos block;
     private TextFieldWidget name;
     private ButtonWidget create;
     private int windowX;
     private int windowY;
     private int windowHeight;
-    // Why the name that is typed will not do, or what will come of it
+    // Why the typed name can't be used, or what will happen if it's used
     private Text said = Text.empty();
     private boolean wrong;
 
@@ -98,7 +98,7 @@ public class BuildSectionScreen extends Screen {
         update();
     }
 
-    // The mod's own names are shown and typed without its namespace
+    // The mod's own names are shown and typed without the namespace
     private static String shown(String name) {
         Identifier id = Identifier.tryParse(name);
         return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : name;
@@ -108,8 +108,8 @@ public class BuildSectionScreen extends Screen {
         return name.getText().trim().toLowerCase(Locale.ROOT).replace(' ', '_');
     }
 
-    // A new section needs a name that is one, that of no other section here, and not that of the section the box was
-    // started in. What is wrong with the name is said under it
+    // A new section needs a valid name that no other section here uses and that differs from the section the box was
+    // started in. Any problem with the name is shown under the field
     private void update() {
         String typed = typed();
         Identifier id = typed.isEmpty() || typed.endsWith("/") ? null : Identifier.tryParse(typed.contains(":") ? typed : MiddleEarth.MOD_ID + ":" + typed);
@@ -122,7 +122,7 @@ public class BuildSectionScreen extends Screen {
             why = "bad_name";
         else if(client != null && client.world != null && BuildSections.near(client.world, anchor).stream().anyMatch(section -> section.name().equals(id.toString())))
             why = "say_taken";
-        // Not having typed anything yet is nothing wrong
+        // An empty name, or the pre-filled name left unchanged, isn't an error. The builder just hasn't typed yet
         wrong = why != null && !why.equals("say_empty") && !why.equals("say_same") && !why.equals("say_unchanged");
         said = why != null ? Text.translatable(KEY + why, shown(current)) : Text.translatable(KEY + (block == null ? "say_create" : "say_rename"), id.toString());
         create.active = why == null;
@@ -146,7 +146,7 @@ public class BuildSectionScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    // The world is left in sight behind the window: the box that is being named is drawn in it
+    // Don't dim the world behind the window. The box being named is drawn in it
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
     }

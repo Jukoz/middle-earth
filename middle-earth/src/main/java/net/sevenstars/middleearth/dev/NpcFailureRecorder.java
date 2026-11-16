@@ -31,16 +31,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Writes down every distinct task an npc gave up, with what is needed to bring it back:
-// the seed and the place, the npc, what it was after, the path it had, and the blocks around as a structure template.
-// Kept in run/npc-failures/. Also adds /npcpath, which asks an npc's own pathfinder for a way to a block
+// Records every distinct task an npc gave up on, with what's needed to reproduce it. That's the seed and location, the
+// npc, its target, its path and the surrounding blocks as a structure template. Kept in run/npc-failures/. Also adds
+// /npcpath, which asks an npc's own pathfinder for a route to a block
 public final class NpcFailureRecorder {
     private static final Gson GSON = new Gson();
-    // Room around the npc and its target for the way round a building to be in the snapshot too
+    // Margin around the npc and its target so the route around a building is in the snapshot too
     private static final int MARGIN = 12;
     private static final int MAXIMUM_ACROSS = 72;
     private static final int MAXIMUM_HEIGHT = 32;
-    // A target further than this is left out of the snapshot, which is then of the npc's surroundings only
+    // Targets further than this are left out of the snapshot, so it only covers the npc's surroundings
     private static final int TARGET_IN_SNAPSHOT = 48;
     private static final int MAXIMUM_RECORDS = 600;
     private static final int MAXIMUM_NODES = 48;
@@ -63,12 +63,12 @@ public final class NpcFailureRecorder {
         if(!(npc.getWorld() instanceof ServerWorld world) || recorded >= MAXIMUM_RECORDS)
             return;
         BlockPos pos = npc.getBlockPos();
-        // One npc kind giving up one way at one spot is one failure however often it happens
+        // The same npc kind giving up the same way at the same spot counts as one failure, however often it happens
         String key = who + "|" + task + "|" + why.replaceAll("-?\\d+", "#") + "|" + (pos.getX() >> 1) + "," + pos.getY() + "," + (pos.getZ() >> 1);
         if(!SEEN.add(key))
             return;
         recorded++;
-        // The save folder: worlds copied from one another keep the level name of the first
+        // Uses the save folder name because worlds copied from one another keep the first one's level name
         String world_name = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
         String id = "%s-%d-%s".formatted(world_name, world.getTime(), Integer.toHexString(key.hashCode()));
         java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
@@ -157,7 +157,7 @@ public final class NpcFailureRecorder {
         return out;
     }
 
-    // /npcpath <npc> <x y z> [range]: the way the npc's pathfinder finds to a block, node by node
+    // /npcpath <npc> <x y z> [range] prints the route the npc's pathfinder finds to a block, node by node
     public static void registerCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> dispatcher.register(CommandManager.literal("npcpath")
                 .requires(source -> source.hasPermissionLevel(2))

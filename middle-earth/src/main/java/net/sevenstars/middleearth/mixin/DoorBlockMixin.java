@@ -17,8 +17,8 @@ public class DoorBlockMixin extends Block {
         super(settings);
     }
 
-    // Applies to every door of every mod, which is wanted: npcs are to walk through any door they open
-    // An open door leaves a gap of 13 pixels to one side, and an npc is 0.8 blocks wide walking down the middle
+    // This applies to every door from every mod, which is intended because npcs should be able to walk through any door
+    // they open. An open door leaves a gap of 13 pixels to one side, and an npc is 0.8 blocks wide walking down the middle
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if(state.get(DoorBlock.OPEN) && NpcDoor.isNpcPassing(context))

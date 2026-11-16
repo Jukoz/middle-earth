@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class BuilderNoClipMixin {
-    // The game sets this anew on every tick, to whether the player is a spectator
+    // The game resets this every tick to whether the player is a spectator
     @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;noClip:Z", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER))
     private void middleEarth$keepNoClip(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
@@ -18,7 +18,7 @@ public abstract class BuilderNoClipMixin {
             return;
         player.noClip = true;
         player.setOnGround(false);
-        // With nothing to stand on, a builder who stopped flying would fall out of the world
+        // With no ground to stand on, a builder who stopped flying would fall out of the world
         player.getAbilities().flying = true;
     }
 }

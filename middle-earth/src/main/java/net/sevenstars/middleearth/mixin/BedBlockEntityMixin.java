@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-// The beds of vanilla keep the tag a builder gave them, as the beds of the mod do
+// Vanilla beds keep the tag a builder gave them, like the mod's beds do
 @Mixin(BedBlockEntity.class)
 public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagHolder, NestHost {
     @Unique

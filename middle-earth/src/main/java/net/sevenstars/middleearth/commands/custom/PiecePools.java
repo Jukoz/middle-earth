@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// The pools a piece belongs in can be told from plugs alone: a plug that asks for a pool and names its target is asking
-// for every piece that has a plug of that name. So a piece goes into the pools whose askers name one of its own plugs,
-// and a pool one of its own plugs asks for, that does not exist yet, is made of the pieces that answer to it
+// A piece's pools can be worked out from plugs alone. A plug that asks for a pool and names a target is asking for
+// every piece that has a plug with that name. So a piece goes into the pools whose plugs target one of its own plug
+// names, and a pool that one of its own plugs asks for but doesn't exist yet is created from the pieces that answer to it
 public class PiecePools {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final Identifier EMPTY = Identifier.ofVanilla("empty");
@@ -40,11 +40,11 @@ public class PiecePools {
 
     private record Plugs(Set<Identifier> names, Map<Identifier, Set<Identifier>> asked) {}
 
-    // The pools the piece was put into in the world that is open, the pool files that were written, and the pools that
-    // were made new, which the game only sees once the world is opened again
+    // The pools the piece was added to in the open world, the pool files written, and the pools newly created. The game
+    // only sees new pools once the world is opened again
     public record Result(List<Identifier> live, List<Path> written, List<Identifier> created) {}
 
-    // The names its own plugs go by, and for each pool one of them asks for, the names it asks for there
+    // The names of the piece's own plugs, and for each pool one of its plugs asks for, the target names it asks for there
     private static Plugs plugsOf(ServerWorld world, Identifier template) {
         Set<Identifier> names = new LinkedHashSet<>();
         Map<Identifier, Set<Identifier>> asked = new LinkedHashMap<>();
@@ -70,7 +70,7 @@ public class PiecePools {
         return new Plugs(names, asked);
     }
 
-    // The pools the plugs of a piece ask for
+    // The pools the piece's plugs ask for
     public static Set<Identifier> asked(ServerWorld world, Identifier template) {
         return plugsOf(world, template).asked().keySet();
     }
@@ -83,7 +83,7 @@ public class PiecePools {
             plugs.put(id, plugsOf(world, id));
         Plugs own = plugs.computeIfAbsent(template, id -> plugsOf(world, id));
 
-        // Where it belongs: every pool some piece asks for by one of its names
+        // Where it belongs: every pool that some piece asks for by one of its plug names
         Map<Identifier, Set<Identifier>> additions = new LinkedHashMap<>();
         for(Plugs other : plugs.values()) {
             for(Map.Entry<Identifier, Set<Identifier>> asked : other.asked().entrySet()) {
@@ -91,7 +91,7 @@ public class PiecePools {
                     additions.computeIfAbsent(asked.getKey(), key -> new LinkedHashSet<>()).add(template);
             }
         }
-        // What it asks for: a pool that is not there yet is made of the pieces that answer to the name
+        // What it asks for: a pool that doesn't exist yet is created from the pieces that answer to the target name
         List<Identifier> created = new ArrayList<>();
         for(Map.Entry<Identifier, Set<Identifier>> asked : own.asked().entrySet()) {
             if(pools.containsId(asked.getKey()) || Files.isRegularFile(fileOf(resources, asked.getKey())))
@@ -116,7 +116,7 @@ public class PiecePools {
         return new Result(live, written, created);
     }
 
-    // A pool of one piece, for a structure to start from
+    // A pool containing only this piece, for a structure to start from
     public static boolean writeStart(Path resources, Identifier pool, Identifier template) throws IOException {
         return write(fileOf(resources, pool), pool, Set.of(template));
     }
@@ -141,7 +141,7 @@ public class PiecePools {
         return any;
     }
 
-    // Adds what is missing to the file of the pool, or writes one. What a file already says of its pieces is kept
+    // Adds the missing pieces to the pool's file, or writes a new file. Pieces the file already lists are kept
     private static boolean write(Path file, Identifier pool, Set<Identifier> templates) throws IOException {
         JsonObject root = null;
         if(Files.isRegularFile(file)) {

@@ -37,14 +37,14 @@ public class WoodlandRealmNpcClassPool {
     public static final Identifier TOTAL_DAMAGE_MODIFIER = MiddleEarth.id("total_damage");
 
     public final static NpcClass ARTISAN; // Citizen / Artisans
-    public final static NpcClass HUNTER; // Very lightly armored, focusing entities (spiders and deer (cooldown) rather than orcs)
-    public final static NpcClass SENTINEL; // Very light armor, but stealth (stay far from the enemies or unknown, 30-40 blocks)
+    public final static NpcClass HUNTER; // Very lightly armored, targets spiders and deer (cooldown) rather than orcs
+    public final static NpcClass SENTINEL; // Very light armor but stealthy, stays 30-40 blocks away from enemies or anything unknown
     public final static NpcClass RANGER; // Medium armor - ranged
     public final static NpcClass WARRIOR; // Medium armor
-    public final static NpcClass LANCER; // Medium armor - have spears and do charges - riding great horns
+    public final static NpcClass LANCER; // Medium armor, has spears and charges, rides great horns
     public final static NpcClass NIGHTSHADE; // Nightshade armor - Hybrid
     public final static NpcClass ELVEN_KINGS_GUARD; // Heavily armored - spears and shields
-    public final static NpcClass COMMANDER; // Heavily armored, can ride a great horn (depend on context)
+    public final static NpcClass COMMANDER; // Heavily armored, can ride a great horn depending on context
     public final static NpcClass WARDEN_OF_THE_GLADE; // Heavily armored, elite, melee
 
     public static List<NpcRegistry.RegisterableNpcData> fetchAll() {

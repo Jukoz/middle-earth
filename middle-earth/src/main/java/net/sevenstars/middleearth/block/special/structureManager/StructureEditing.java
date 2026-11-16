@@ -11,14 +11,14 @@ import net.sevenstars.middleearth.MiddleEarth;
 public class StructureEditing {
     // In blocks, from the builder to the manager, nest, marker or bed being set up
     public static final int REACH = 8;
-    // In blocks along one side of what is saved as one template. The structure block's own screen cuts a box down to 48
-    // when its Done is pressed, so a bigger one is only to be set with the tool or the command
+    // In blocks along one side of a single saved template. The structure block's own screen clamps a box to 48 when Done
+    // is pressed, so a bigger box can only be set with the tool or the command
     public static final int MAXIMUM_SIZE = 128;
     private static final int OPERATOR_LEVEL = 2;
-    // Set by the game that draws: opens the screen of the section whose structure block was clicked with the tool
+    // Set by the client. Opens the screen of the section whose structure block was clicked with the tool
     public static Consumer<BlockPos> sectionScreen = pos -> {};
 
-    // What builders do to a build goes in the log, to follow a build being worked on and to tell why a click did nothing
+    // Logs what builders do to a build, to follow the work and to explain why a click did nothing
     public static void log(String what) {
         MiddleEarth.LOGGER.logInfoMsg("StructEdit :: " + what);
     }
@@ -27,8 +27,8 @@ public class StructureEditing {
         return player.isCreative();
     }
 
-    // Builders who pass through blocks, to go over a build from inside its walls. Kept here for the game and the server
-    // it runs alike: one that joins a server apart from it is not told, and is pulled back by it
+    // Builders who can pass through blocks, to go over a build from inside its walls. Kept here for the client and the
+    // server it runs alike. A client that joins a separate server isn't told about it, and the server pulls it back
     private static final Set<UUID> NO_CLIP = ConcurrentHashMap.newKeySet();
 
     public static boolean isNoClip(PlayerEntity player) {
@@ -50,7 +50,7 @@ public class StructureEditing {
         return isBuildMode(player) && player.hasPermissionLevel(OPERATOR_LEVEL);
     }
 
-    // Asked again when the request arrives: a screen can be faked, and the block it was opened on can be far away by then
+    // Checked again when the request arrives, because a screen can be faked and the block may be far away by then
     public static boolean mayEdit(PlayerEntity player, BlockPos pos) {
         boolean allowed = isBuilder(player) && isWithinReach(player, pos);
         if(!allowed)

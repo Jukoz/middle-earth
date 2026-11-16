@@ -32,7 +32,7 @@ public class StructureManagerService {
     private static final int SPAWN_ATTEMPTS = 12;
     private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
 
-    // Managers are only taken off the list as their chunks unload, which a stopping server does not wait for
+    // Managers are only removed from the list as their chunks unload, and a stopping server doesn't wait for that
     public static void register() {
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> STRUCTURE_MANAGERS.clear());
     }
@@ -44,7 +44,7 @@ public class StructureManagerService {
         return data.orElse(null);
     }
 
-    // A nest is named for its place, and no two places share one
+    // Nest ids include their place, so no two places share one
     public static @Nullable SpawnNestNodeData findNest(World world, Identifier nestId) {
         Registry<StructureManagerData> places = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_MANAGER_DATA).orElse(null);
         if(places == null)
@@ -57,14 +57,14 @@ public class StructureManagerService {
         return null;
     }
 
-    // The nest a bed's people are of: of its own place, or without one of the place its manager was given
+    // The nest a bed's people belong to: from the bed's own place, or from the manager's place if the bed has none
     public static @Nullable SpawnNestNodeData nestFor(World world, BedTag tag, Optional<Identifier> managerPlace) {
         Identifier place = tag.place().or(() -> managerPlace).orElse(null);
         StructureManagerData data = place == null ? null : getStructureManagerData(world, place);
         return data == null ? null : data.findPeopleNest(tag.nestKind());
     }
 
-    // A spawn marker names a nest whole, or as those placed before did only its kind, which is then of the manager's place
+    // A spawn marker holds a full nest id, or only the nest kind (as older markers do), which is then looked up in the manager's place
     public static @Nullable SpawnNestNodeData nestForMarker(World world, String value, Optional<Identifier> managerPlace) {
         if(value.indexOf(Identifier.NAMESPACE_SEPARATOR) >= 0) {
             Identifier nestId = Identifier.tryParse(value);
@@ -80,7 +80,7 @@ public class StructureManagerService {
         BlockPos chosenBlockPos = null;
         for(BlockPos blockPos : BlockPos.iterateRandomly(random, SPAWN_ATTEMPTS, pos, spawnRadius)){
             blockPos = blockPos.withY(pos.getY());
-            // Air alone is also what the mouth of a well is made of
+            // Air alone isn't enough, since the mouth of a well is air too
             BlockPos below = blockPos.down();
             if(world.getBlockState(blockPos).isAir() && world.getBlockState(blockPos.up()).isAir()
                     && world.getBlockState(below).isSideSolidFullSquare(world, below, Direction.UP)){
@@ -123,7 +123,7 @@ public class StructureManagerService {
         return entity;
     }
 
-    // The beds and markers that people are born by, while they are loaded: where they are, a place is lived in
+    // The beds and markers that spawn people, tracked while they are loaded. Where they are tells us a place is lived in
     public static void registerHost(World world, BlockPos pos) {
         if (world == null || world.isClient())
             return;

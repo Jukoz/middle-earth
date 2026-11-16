@@ -13,13 +13,13 @@ import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
-// Animals as game and stock, which take nothing from the goal
+// Helpers for animals as game and livestock that need no state from the routine goal
 public final class RoutineGame {
     private static final int PEN_REACH = 8;
 
     private RoutineGame() {}
 
-    // Fenced on every side within a few blocks
+    // Fenced in on every side within a few blocks
     public static boolean isPenned(AnimalEntity animal) {
         World world = animal.getWorld();
         BlockPos at = animal.getBlockPos();

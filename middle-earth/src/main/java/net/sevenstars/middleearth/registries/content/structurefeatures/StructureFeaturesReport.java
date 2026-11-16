@@ -39,7 +39,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-// The to-do list of the builders: what each structure lacks for the people in it to live their days, written when data is generated
+// The builders' to-do list: what each structure still lacks for its npcs to live their days. Written when data is generated
 public class StructureFeaturesReport {
     private static final String DATA = "data/" + MiddleEarth.MOD_ID + "/worldgen/";
 
@@ -62,7 +62,7 @@ public class StructureFeaturesReport {
         return report.summary();
     }
 
-    // Which templates each structure is made of: its start pool, and every pool a template of it points to
+    // Which templates each structure is made of: its start pool and every pool its templates point to
     private void readStructures() throws IOException {
         Map<Identifier, List<Identifier>> pools = new HashMap<>();
         Map<String, Identifier> starts = new TreeMap<>();
@@ -119,7 +119,7 @@ public class StructureFeaturesReport {
         return path.substring(0, path.length() - ".json".length());
     }
 
-    // Single elements, and the lists of elements that hold more of them
+    // Single elements, and list elements that hold several of them
     private static void collectLocations(JsonElement json, List<Identifier> into) {
         if(json.isJsonObject()) {
             JsonObject object = json.getAsJsonObject();
@@ -221,7 +221,7 @@ public class StructureFeaturesReport {
         return warnings;
     }
 
-    // Every place a link can sensibly point at
+    // Every position a link can reasonably point at
     private static Set<BlockPos> recognised(StructureFeatureData data) {
         Set<BlockPos> known = new HashSet<>();
         data.stations().forEach(station -> known.add(station.pos()));
@@ -233,7 +233,7 @@ public class StructureFeaturesReport {
         return known;
     }
 
-    // The kinds of person the nests of the managers the structure's templates name have
+    // The kinds of person living in the nests of the managers that the structure's templates name
     private Set<String> nestKindsOf(Set<Identifier> structure) {
         Set<Identifier> managerIds = new TreeSet<>();
         for(Identifier id : structure) {
@@ -253,7 +253,7 @@ public class StructureFeaturesReport {
         return nestKinds;
     }
 
-    // Only the nests of npcs can be spawned by a marker
+    // Of the nests, only npc nests can be spawned by a marker
     private static Set<Identifier> peopleNests() {
         if(peopleNests == null) {
             peopleNests = new TreeSet<>();
@@ -336,7 +336,7 @@ public class StructureFeaturesReport {
         out.append('\n');
     }
 
-    // Templates with something in them, tagged beds, beds, stores, seats, tables, fields, doors, markers
+    // Totals for: templates with content, tagged beds, beds, stores, seats, tables, fields, doors, markers
     private int[] totals(Set<Identifier> structure) {
         int[] sum = new int[9];
         for(Identifier id : structure) {

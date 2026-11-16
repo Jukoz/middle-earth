@@ -17,7 +17,7 @@ public enum StationKind implements StringIdentifiable {
     HAY("hay", "hay_block"),
     GRINDSTONE("grindstone", "grindstone"),
     TARGET("target", "target"),
-    // A plot of the fields, worked where it lies rather than at a bench
+    // A plot of a field, worked where it lies rather than at a bench
     FIELD("field", "farmland");
 
     public static final Codec<StationKind> CODEC = StringIdentifiable.createCodec(StationKind::values);
@@ -29,7 +29,7 @@ public enum StationKind implements StringIdentifiable {
         this.blocks = List.of(blocks);
     }
 
-    // By the path of the block's id, so that the wood or stone it is made of does not matter
+    // Goes by the path of the block's id, so the wood or stone it's made of doesn't matter
     public static StationKind of(String blockPath) {
         for(StationKind kind : values()) {
             for(String block : kind.blocks) {
@@ -40,7 +40,7 @@ public enum StationKind implements StringIdentifiable {
         return null;
     }
 
-    // The blocks that make one, the best known first, for a builder to be told what to set down
+    // The blocks that make this kind of station, best known first, so builders can be told what to place
     public List<String> blocks() {
         return blocks;
     }

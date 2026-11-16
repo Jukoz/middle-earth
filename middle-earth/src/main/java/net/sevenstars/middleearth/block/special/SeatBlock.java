@@ -45,7 +45,7 @@ public class SeatBlock extends Block {
         return state.getBlock() instanceof SeatBlock && !state.get(OCCUPIED) && !world.getBlockState(pos.up()).isOpaque();
     }
 
-    // Sits somebody down who cannot click the seat for himself
+    // Seats an entity that can't click the seat itself
     public static boolean seat(World world, BlockPos pos, Entity sitter) {
         if(world.isClient || !isFree(world, pos) || sitter.hasVehicle())
             return false;

@@ -29,27 +29,27 @@ public class RoutineData {
         HUNT("hunt"),
         FORAGE("forage"),
         PATROL("patrol"),
-        // Calling on another household of the place
+        // Visits another household in the place
         VISIT("visit"),
-        // Sitting down at a table, with whoever else is there
+        // Sits at a table with anyone already there
         TABLE("table"),
-        // At the forge, the oven or whatever else the npc's trade is plied at
+        // Works at the forge, the oven or whatever else the npc's trade uses
         WORK("work"),
-        // Tilling the place's fields, sowing them and bringing in what is ripe
+        // Tills the place's fields, sows them and harvests what's ripe
         FARM("farm"),
-        // Standing guard at the door the npc lives by
+        // Stands guard at the nearest free entrance or guard post marker (lookout for a sentry), or at its nest
         POST("post"),
-        // Going out with one of the place's own who has work beyond its walls
+        // Goes out with a resident who has work beyond the walls
         ESCORT("escort"),
-        // Working at a tree, which is not felled
+        // Works at a tree without felling it
         CHOP("chop"),
-        // Working the rock at a face the builders marked
+        // Works the rock at a face the builders marked
         MINE("mine"),
-        // A lord sitting at its seat, to be seen by those who come to it
+        // A lord sits at its seat where visitors can see it
         COURT("court"),
-        // A lord going round the posts of its guards
+        // A lord goes round the posts of its guards
         INSPECT("inspect"),
-        // A bodyguard staying by its lord
+        // A bodyguard stays by its lord
         FOLLOW("follow");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
@@ -68,14 +68,14 @@ public class RoutineData {
     public enum Period implements StringIdentifiable {
         DAY("day"),
         NIGHT("night"),
-        // Half of them keep the day, the other half the night
+        // Half of them work the day, the other half the night
         SHIFTS("shifts"),
         ALWAYS("always");
 
         public static final Codec<Period> CODEC = StringIdentifiable.createCodec(Period::values);
         // In ticks
         private static final int DAY_LENGTH = 24000;
-        // Dusk and dawn, so that nobody sets out as the light changes
+        // Gaps at dusk and dawn so nobody sets out as the light changes
         private static final int DAY_END = 11500;
         private static final int NIGHT_START = 13000;
         private static final int NIGHT_END = 22500;
@@ -98,7 +98,7 @@ public class RoutineData {
             };
         }
 
-        // The hours spent in bed, which leave some time between work and sleep
+        // The hours spent in bed. They leave some time between work and sleep
         public boolean isResting(long timeOfDay, boolean nightShift) {
             long time = timeOfDay % DAY_LENGTH;
             return switch (this) {
@@ -151,12 +151,12 @@ public class RoutineData {
         return new RoutineData(period, List.of(), List.of(), false, false, List.of());
     }
 
-    // Each of these gives a new routine: the ones in NpcRoutines are shared by many classes
+    // Each of these returns a new routine, because the ones in NpcRoutines are shared by many classes
     public RoutineData add(Activity activity, int weight) {
         return new RoutineData(period, appended(entries, List.of(new Entry(activity, weight))), forage, timid, bounds, stations);
     }
 
-    // What is carried home from foraging, what grows in the land around when left out
+    // Items carried home from foraging. If left out, what grows in the surrounding land is used
     public RoutineData foraging(Item... items) {
         return new RoutineData(period, entries, appended(forage, List.of(items)), timid, bounds, stations);
     }
@@ -166,12 +166,12 @@ public class RoutineData {
         return new RoutineData(period, entries, forage, true, bounds, stations);
     }
 
-    // Travels on for good inside the land it was born in, and seeks no settlement out
+    // Moves on for good within the land it was born in and doesn't seek out a settlement
     public RoutineData keepingBounds() {
         return new RoutineData(period, entries, forage, timid, true, stations);
     }
 
-    // Where the work of this routine is done
+    // The stations where this routine's work is done
     public RoutineData working(StationKind... kinds) {
         return new RoutineData(period, entries, forage, timid, bounds, appended(stations, List.of(kinds)));
     }

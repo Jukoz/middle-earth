@@ -38,7 +38,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     private static final int LEAST_LIST_HEIGHT = 56;
     private static final int MOST_LIST_HEIGHT = 130;
     private static final int ROW_HEIGHT = 14;
-    // Tall enough for the picture of an item
+    // Tall enough for an item icon
     private static final int KIND_ROW_HEIGHT = 18;
     private static final int GAP = 6;
     private static final int BUTTON_WIDTH = 64;
@@ -47,10 +47,10 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     private static final int COUNT_WIDTH = 30;
     private static final int OPTION_WIDTH = 96;
     private static final int BIG_STEP = 8;
-    // From the top of a list up to its label: the label, the search box and the gaps between them
+    // Distance from the top of a list to its label, covering the label, the search box and the gaps between them
     private static final int LIST_HEAD = 30;
     private static final int SEARCH_HEAD = 18;
-    // Something each kind is known by at a glance
+    // An icon for each kind so it can be recognized at a glance
     private static final Map<MarkerKind, Item> ICONS = Map.of(
             MarkerKind.GUARD_POST, Items.IRON_SWORD,
             MarkerKind.ENTRANCE, Items.OAK_DOOR,
@@ -106,7 +106,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         List<Choice> kinds = new ArrayList<>();
         for(MarkerKind kind : MarkerKind.values())
             kinds.add(new Choice(kind.asString(), ChoiceListWidget.readable(kind.asString()), null, new ItemStack(ICONS.getOrDefault(kind, Items.AIR))));
-        // With no search box of its own, it starts level with that of the list beside it
+        // It has no search box of its own, so it starts level with the search box of the list beside it
         kindList = new ChoiceListWidget(KIND_WIDTH, listHeight + SEARCH_HEAD, left, top - SEARCH_HEAD, KIND_ROW_HEIGHT);
         kindList.setChoices(kinds, data.kind().asString());
         addDrawableChild(kindList);
@@ -171,7 +171,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         return MarkerKind.GUARD_POST;
     }
 
-    // What the middle list holds and which options show depend on the kind
+    // The second list's contents and which options are shown depend on the kind
     private void refresh(String current) {
         MarkerKind kind = selectedKind();
         if(kind != shownKind) {
@@ -180,7 +180,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
             if(kind == MarkerKind.SPAWN_NPC) {
                 for(String nest : handler.getData().nests())
                     choices.add(new Choice(nest, nestName(nest)));
-                // One placed before nests were named whole names only a kind, of the place its manager was given
+                // A marker placed before nests had full names stores only a kind, and its place comes from its manager
                 if(!current.isEmpty() && !handler.getData().nests().contains(current))
                     choices.add(new Choice(current, ChoiceListWidget.readable(current)));
             } else if(kind == MarkerKind.SPAWN_ANIMAL) {
@@ -228,7 +228,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
     }
 
-    // A container screen closes on the inventory key, which is a letter somebody searching wants to type
+    // A container screen closes on the inventory key, which is a letter the player may want to type in a search
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
@@ -242,7 +242,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    // A container screen keeps the wheel to itself, and the lists never scrolled. It goes to the list under the mouse
+    // A container screen swallows the mouse wheel, so the lists never scrolled. Pass it to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for(ChoiceListWidget list : new ChoiceListWidget[]{kindList, valueList}) {
@@ -252,7 +252,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
-    // The world is left in sight behind the window: it is the build that is being marked
+    // Don't dim the world behind the window. The player needs to see the build being marked
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
     }
@@ -266,7 +266,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         EditorPanel.window(context, textRenderer, windowX, windowY, windowWidth, windowHeight, ui(data.isNew() ? "title_new" : "title"),
                 ui("about", data.pos().getX(), data.pos().getY(), data.pos().getZ()));
         EditorPanel.footer(context, windowX, windowY, windowWidth, windowHeight);
-        // A kind that asks nothing more leaves the place of the second list to say so
+        // A kind with nothing to pick shows its description and a "nothing more to set" note where the second list would be
         if(!spawns) {
             EditorPanel.well(context, valueList.getX(), kindList.getY(), VALUE_WIDTH, kindList.getHeight());
             int line = kindList.getY() + GAP;
