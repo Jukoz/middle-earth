@@ -50,6 +50,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
+import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreenHandler;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -257,6 +263,39 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         return ActionResult.PASS; // Player is of incompatible race - don't interact
+    }
+
+    // No horse armor: the body slot stays closed, the saddle and the club have their own slots
+    @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return slot != EquipmentSlot.BODY && super.canUseSlot(slot);
+    }
+
+    public SimpleInventory getChestInventory() {
+        return this.items;
+    }
+
+    // The troll has its own screen, with a slot for its club
+    @Override
+    public void openInventory(PlayerEntity player) {
+        if(!this.getWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && this.isTame()) {
+            player.openHandledScreen(new ExtendedScreenHandlerFactory<Integer>() {
+                @Override
+                public Integer getScreenOpeningData(ServerPlayerEntity player) {
+                    return CaveTrollEntity.this.getId();
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    return CaveTrollEntity.this.getDisplayName();
+                }
+
+                @Override
+                public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                    return new CaveTrollScreenHandler(syncId, playerInventory, CaveTrollEntity.this);
+                }
+            });
+        }
     }
 
     @Override
