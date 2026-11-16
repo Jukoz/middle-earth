@@ -70,6 +70,11 @@ public class PiecePools {
         return new Plugs(names, asked);
     }
 
+    // The pools the plugs of a piece ask for
+    public static Set<Identifier> asked(ServerWorld world, Identifier template) {
+        return plugsOf(world, template).asked().keySet();
+    }
+
     public static Result publish(ServerWorld world, Identifier template, Path resources) throws IOException {
         Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
         List<Identifier> templates = world.getStructureTemplateManager().streamTemplates().filter(id -> id.getNamespace().equals(template.getNamespace())).sorted().toList();

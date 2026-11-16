@@ -10,6 +10,7 @@ import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.block.enums.Orientation;
 import net.minecraft.block.enums.StructureBlockMode;
 import net.minecraft.command.argument.BlockArgumentParser;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -28,6 +29,7 @@ import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +42,7 @@ public class BuildSectionEditing {
     // A name typed without a namespace is one of the mod's. Null for one that is no name at all
     public static @Nullable Identifier named(String typed) {
         String name = typed.trim();
-        if(name.isEmpty())
+        if(name.isEmpty() || name.endsWith("/") || name.endsWith(":") || name.contains("//"))
             return null;
         return Identifier.tryParse(name.contains(":") ? name : MiddleEarth.MOD_ID + ":" + name);
     }
@@ -166,21 +168,83 @@ public class BuildSectionEditing {
         if(!(world.getBlockEntity(asker) instanceof JigsawBlockEntity from) || !(world.getBlockEntity(answerer) instanceof JigsawBlockEntity to))
             return refuse(player, "no_section", "no plug could be set at %s or %s".formatted(asker.toShortString(), answerer.toShortString()));
 
+        // A plug that asks for a piece already takes this one for another it may be given there, when its plug has no
+        // name of its own yet: it is named as the plug asked for, and goes into that pool when it is saved
+        boolean another = plugs && !from.getPool().equals(StructurePools.EMPTY) && !from.getTarget().equals(EMPTY) && to.getName().equals(EMPTY);
+        if(another)
+            to.setName(from.getTarget());
         if(to.getName().equals(EMPTY))
             to.setName(freeName(world, answering, answeringBox, answerer));
-        StructurePool offered = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).get(from.getPool());
-        boolean inPool = offered != null && offered.getElementWeights().stream().anyMatch(element -> StructureEditSession.templatesOf(element.getFirst()).contains(answering));
-        if(!inPool)
-            from.setPool(RegistryKey.of(RegistryKeys.TEMPLATE_POOL, answering));
-        from.setTarget(to.getName());
+        if(!to.getName().equals(from.getTarget()) || from.getPool().equals(StructurePools.EMPTY)) {
+            StructurePool offered = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).get(from.getPool());
+            boolean inPool = offered != null && offered.getElementWeights().stream().anyMatch(element -> StructureEditSession.templatesOf(element.getFirst()).contains(answering));
+            if(!inPool)
+                from.setPool(RegistryKey.of(RegistryKeys.TEMPLATE_POOL, answering));
+            from.setTarget(to.getName());
+        }
         for(JigsawBlockEntity changed : List.of(from, to)) {
             changed.markDirty();
             world.updateListeners(changed.getPos(), changed.getCachedState(), changed.getCachedState(), Block.NOTIFY_ALL);
         }
         StructureEditing.log("%s at %s now asks for %s at %s: pool %s, target %s%s".formatted(asking, asker.toShortString(), answering, answerer.toShortString(),
                 from.getPool().getValue(), to.getName(), plugs ? "" : ", both plugs new"));
-        player.sendMessage(Text.translatable("ui.%s.section_join.made".formatted(MiddleEarth.MOD_ID), asking.getPath(), answering.getPath()), true);
+        player.sendMessage(Text.translatable("ui.%s.section_join.%s".formatted(MiddleEarth.MOD_ID, another ? "another" : "made"), asking.getPath(), answering.getPath()), true);
         return true;
+    }
+
+    // Turns a plug back into the block it stands for, and with it the plug it meets, if that one answers or asks for it
+    public static boolean unplug(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
+        if(!(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug))
+            return false;
+        Direction facing = world.getBlockState(pos).get(JigsawBlock.ORIENTATION).getFacing();
+        BlockPos beside = pos.offset(facing);
+        boolean pair = world.getBlockEntity(beside) instanceof JigsawBlockEntity other && world.getBlockState(beside).get(JigsawBlock.ORIENTATION).getFacing() == facing.getOpposite()
+                && (asksFor(plug, other) || asksFor(other, plug));
+        restore(world, pos);
+        if(pair)
+            restore(world, beside);
+        StructureEditing.log("the plug at %s turned back into its block%s".formatted(pos.toShortString(), pair ? ", and the one it met at " + beside.toShortString() : ""));
+        player.sendMessage(Text.translatable("ui.%s.section_join.undone".formatted(MiddleEarth.MOD_ID)), true);
+        return true;
+    }
+
+    private static boolean asksFor(JigsawBlockEntity asker, JigsawBlockEntity answerer) {
+        return !asker.getTarget().equals(EMPTY) && asker.getTarget().equals(answerer.getName());
+    }
+
+    private static void restore(ServerWorld world, BlockPos pos) {
+        if(!(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug))
+            return;
+        BlockState state = Blocks.AIR.getDefaultState();
+        try {
+            state = BlockArgumentParser.block(world.getRegistryManager().getOrThrow(RegistryKeys.BLOCK), plug.getFinalState(), true).blockState();
+        } catch (CommandSyntaxException e) {
+            StructureEditing.log("the plug at %s stands for %s, which is no block: air is set".formatted(pos.toShortString(), plug.getFinalState()));
+        }
+        world.removeBlockEntity(pos);
+        world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+    }
+
+    // A section that smaller sections cover every block of saves nothing they do not, and would only be one piece too
+    // many: the build a builder made whole, once all of it is cut up
+    public static List<BuildSections.Section> cutUp(List<BuildSections.Section> sections) {
+        List<BuildSections.Section> covered = new ArrayList<>();
+        for(BuildSections.Section section : sections) {
+            List<BlockBox> others = sections.stream().filter(other -> other.volume() < section.volume() && other.box().intersects(section.box())).map(BuildSections.Section::box).toList();
+            if(others.isEmpty())
+                continue;
+            BlockBox box = section.box();
+            boolean all = true;
+            for(BlockPos pos : BlockPos.iterate(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())) {
+                if(others.stream().noneMatch(other -> other.contains(pos))) {
+                    all = false;
+                    break;
+                }
+            }
+            if(all)
+                covered.add(section);
+        }
+        return covered;
     }
 
     private static boolean refuse(ServerPlayerEntity player, String why, String logged) {

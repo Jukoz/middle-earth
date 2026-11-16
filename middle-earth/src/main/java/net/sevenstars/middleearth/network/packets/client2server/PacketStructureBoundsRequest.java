@@ -119,8 +119,14 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
         StructureEditSession.beginSingle(world.getServer(), player.getUuid());
         StructureEditing.log("new section %s, %s from %s to %s, structure block at %s".formatted(id, size, first.toShortString(), second.toShortString(), at.toShortString()));
         player.sendMessage(Text.translatable("ui.%s.build_section.made".formatted(MiddleEarth.MOD_ID), id.getPath(), size), true);
-        // The section it was cut from still saves all of it, this part too, until it is made smaller or taken away
-        sections.stream().filter(section -> section.box().intersects(box)).findFirst().ifPresent(over ->
+        List<BuildSections.Section> now = BuildSections.near(world, anchor);
+        List<BuildSections.Section> cutUp = BuildSectionEditing.cutUp(now);
+        for(BuildSections.Section whole : cutUp) {
+            BuildSectionEditing.remove(world, whole);
+            player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), pathOf(whole.name())), false);
+        }
+        // The section it was cut from still saves all of it, this part too, until the rest of it is cut up as well
+        sections.stream().filter(section -> section.box().intersects(box) && !cutUp.contains(section)).findFirst().ifPresent(over ->
                 player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), pathOf(over.name()), over.name()), false));
     }
 

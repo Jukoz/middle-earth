@@ -704,7 +704,7 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_marker.in_use"), "%s is for npcs to use again");
             put(of(LangCategory.UI, "structure_block.name"), "The template this block saves to or loads from, as namespace:folder/name");
             put(of(LangCategory.UI, "structure_block.position"), "Where the box starts, counted in blocks from this structure block. 0 1 0 is the block above it");
-            put(of(LangCategory.UI, "structure_block.size"), "How many blocks the box spans from its start, along X, Y and Z");
+            put(of(LangCategory.UI, "structure_block.size"), "How many blocks the box spans from its start, along X, Y and Z. Done cuts a box of over 48 down to 48: set bigger ones with the builder's tool");
             put(of(LangCategory.UI, "structure_block.integrity"), "How much of the template is placed. 1 places all of it, less leaves blocks out at random");
             put(of(LangCategory.UI, "structure_block.seed"), "Which blocks are left out when integrity is under 1. 0 is different every time");
             put(of(LangCategory.UI, "structure_block.data"), "A label the game's own structures read. This mod does not use it");
@@ -739,9 +739,17 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "build_section.made"), "New section %s, %s");
             put(of(LangCategory.UI, "build_section.bad_name"), "That is no name for a section: small letters, numbers, _ and / only");
             put(of(LangCategory.UI, "build_section.taken"), "There is a template or a section named %s already");
-            put(of(LangCategory.UI, "build_section.overlaps"), "%s still saves these blocks too. Set its bounds smaller, or /structedit remove %s once all of it is cut up");
+            put(of(LangCategory.UI, "build_section.overlaps"), "%s still saves these blocks too, until the rest of it is cut into sections as well. /structedit remove %s takes its box away before that");
+            put(of(LangCategory.UI, "build_section.cut_up"), "All of %s is cut into sections now, and its own box was taken away");
+            put(of(LangCategory.UI, "build_section.rename"), "Give it this name");
+            put(of(LangCategory.UI, "build_section.remove"), "Take its box away, and leave what is built");
+            put(of(LangCategory.UI, "build_section.renamed"), "%s is now named %s");
+            put(of(LangCategory.UI, "build_section.removed"), "%s is no section any more");
             put(of(LangCategory.UI, "section_join.again"), "Left-click it again to make %s ask for %s here. Both blocks become plugs");
             put(of(LangCategory.UI, "section_join.made"), "%s now asks for %s here");
+            put(of(LangCategory.UI, "section_join.another"), "%s may now be given %s here too");
+            put(of(LangCategory.UI, "section_join.undone"), "The plug is the block it stood for again");
+            put(of(LangCategory.UI, "section_join.no_seam"), "No other section is beside this block of %s");
             put(of(LangCategory.UI, "section_join.no_section"), "Both blocks have to be in a section or a piece");
             put(of(LangCategory.UI, "section_join.apart"), "Those blocks are not side by side in two sections");
             put(of(LangCategory.UI, "section_join.holds_data"), "A chest, a bed or the like cannot be made a plug. Pick the blocks beside it");

@@ -113,6 +113,7 @@ public class CommandStructureEdit {
     // The structure block saves from one block above itself, as vanilla's default does
     private static final BlockPos SAVE_OFFSET = new BlockPos(0, 1, 0);
     private static final String SOURCE_RESOURCES = "src/main/resources";
+    private static final String SOURCES_PROPERTY = "middleearth.structedit.sources";
 
     // The bed each builder was last taken to
     private static final Map<UUID, BlockPos> BED_VISITED = new HashMap<>();
@@ -317,8 +318,12 @@ public class CommandStructureEdit {
                 source.sendError(Text.literal("Could not set down the piece " + id));
                 return 0;
             }
-            source.sendFeedback(() -> Text.literal("Set down the piece %s by itself from %d, %d, %d. Its people are born at its beds. /%s %s %s takes it away again".formatted(id,
-                    set.box().getMinX(), set.box().getMinY(), set.box().getMinZ(), COMMAND, TEST, CLEAR)), false);
+            source.sendFeedback(() -> Text.literal("Set down the piece %s from %d, %d, %d%s. Its people are born at its beds. /%s %s %s takes it away again".formatted(id,
+                    set.box().getMinX(), set.box().getMinY(), set.box().getMinZ(), set.pieces() == 1 ? " by itself" : " with what its plugs ask for, %d pieces".formatted(set.pieces()),
+                    COMMAND, TEST, CLEAR)), false);
+            List<Identifier> unread = PiecePools.asked(world, id).stream().filter(pool -> !world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).containsId(pool)).toList();
+            if(!unread.isEmpty())
+                source.sendFeedback(() -> Text.literal("Its plugs ask for pools the game has not read yet, %s: save, leave the world and open it again to see them joined".formatted(unread)), false);
             return 1;
         }
         long seed = given != null ? given : world.getRandom().nextLong();
@@ -396,8 +401,8 @@ public class CommandStructureEdit {
         }
         StructureEditing.log("%s now %s in the pools %s".formatted(template, how, changed));
         source.sendFeedback(() -> Text.literal("%s now %s in %s, for what is generated from now on".formatted(template, how, changed)), false);
-        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !isOwnSources(resources)) {
+        Path resources = resources();
+        if(resources == null) {
             source.sendFeedback(() -> Text.literal("Not written to any file: it lasts until this world is closed"), false);
             return 1;
         }
@@ -488,12 +493,21 @@ public class CommandStructureEdit {
         return Files.isDirectory(resources.resolve("data").resolve(MiddleEarth.MOD_ID).resolve("structure"));
     }
 
-    private static @Nullable Path sources(ServerCommandSource source) {
+    // Where templates and pool files are written besides the world: the mod's own sources in a game that is run from
+    // them, or else the folder the game was started with for it, such as a datapack of the world
+    private static @Nullable Path resources() {
+        String named = System.getProperty(SOURCES_PROPERTY);
+        if(named != null && !named.isBlank())
+            return Path.of(named);
         Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(FabricLoader.getInstance().isDevelopmentEnvironment() && isOwnSources(resources))
-            return resources;
-        source.sendError(Text.literal("Pool and structure files are written to the mod's own sources, which this game does not run from"));
-        return null;
+        return FabricLoader.getInstance().isDevelopmentEnvironment() && isOwnSources(resources) ? resources : null;
+    }
+
+    private static @Nullable Path sources(ServerCommandSource source) {
+        Path resources = resources();
+        if(resources == null)
+            source.sendError(Text.literal("Pool and structure files are written to the mod's own sources, which this game does not run from. Start it with -D%s=<folder> to have them written there".formatted(SOURCES_PROPERTY)));
+        return resources;
     }
 
     // Puts a saved piece into the pools its plugs say it belongs in, and makes the pools its own plugs ask for
@@ -761,6 +775,7 @@ public class CommandStructureEdit {
                 source.sendError(Text.literal("Another section here is named %s already".formatted(override)));
                 return 0;
             }
+            StructureEditing.log("%s is now named %s".formatted(own.name(), override));
             sections = List.of(new BuildSections.Section(own.block(), override.toString(), own.box()));
         }
 
@@ -783,8 +798,8 @@ public class CommandStructureEdit {
 
     // Once every section is written: a plug that asks for a piece finds it only if it was saved before the pools are made
     private static void publish(ServerCommandSource source, List<Identifier> saved) {
-        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !isOwnSources(resources))
+        Path resources = resources();
+        if(resources == null)
             return;
         List<Path> written = new ArrayList<>();
         List<Identifier> created = new ArrayList<>();
@@ -824,10 +839,8 @@ public class CommandStructureEdit {
 
     // In a development run the saved template goes over the one of the mod, for datagen to read
     private static void copyToSources(ServerCommandSource source, Identifier id, Path saved) {
-        if(!FabricLoader.getInstance().isDevelopmentEnvironment())
-            return;
-        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
-        if(!isOwnSources(resources))
+        Path resources = resources();
+        if(resources == null)
             return;
         Path target = resources.resolve("data").resolve(id.getNamespace()).resolve("structure").resolve(id.getPath() + ".nbt");
         try {

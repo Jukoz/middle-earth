@@ -41,6 +41,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
@@ -92,6 +93,11 @@ public class StructureEditSession {
     private static final String START_HEIGHT_KEY = "start_height";
     private static final String PROJECT_TO_HEIGHTMAP_KEY = "project_start_to_heightmap";
     private static final String ABSOLUTE_KEY = "absolute";
+    private static final String START_POOL_KEY = "start_pool";
+    private static final String START_JIGSAW_NAME_KEY = "start_jigsaw_name";
+    private static final String SIZE_KEY = "size";
+    // How many pieces deep a jigsaw structure may be put together
+    private static final int MAXIMUM_DEPTH = 7;
     private static final String PALETTE = "palette";
     private static final String PALETTES = "palettes";
     private static final String BLOCKS = "blocks";
@@ -514,6 +520,9 @@ public class StructureEditSession {
         StructureTemplateManager manager = world.getStructureTemplateManager();
         if(manager.getTemplate(template).isEmpty())
             return null;
+        Generated joined = generateFrom(world, builder, template, carrier, at);
+        if(joined != null)
+            return joined;
         StructurePoolElement element = StructurePoolElement.ofSingle(template.toString()).apply(StructurePool.Projection.RIGID);
         BlockBox box = element.getBoundingBox(manager, at, BlockRotation.NONE);
         ChunkPos chunk = new ChunkPos(at);
@@ -523,6 +532,55 @@ public class StructureEditSession {
         TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), carrier.value(), chunk));
         StructureEditing.log("generated the piece %s by itself in %s, kept as %s".formatted(template, describe(box), carrier.getIdAsString()));
         return new Generated(box, 1);
+    }
+
+    // The piece with all that its plugs ask for, as the game would put them together from the pools it has read: the
+    // structure it is kept as, started from a pool of this piece alone. Null where that structure is not one of jigsaw
+    // pieces, or nothing came of it
+    private static @Nullable Generated generateFrom(ServerWorld world, UUID builder, Identifier template, RegistryEntry<Structure> carrier, BlockPos at) {
+        RegistryOps<JsonElement> ops = world.getRegistryManager().getOps(JsonOps.INSTANCE);
+        JsonElement json = Structure.STRUCTURE_CODEC.encodeStart(ops, carrier.value()).result().orElse(null);
+        if(json == null || !json.isJsonObject() || !json.getAsJsonObject().has(START_POOL_KEY))
+            return null;
+        JsonObject element = new JsonObject();
+        element.addProperty("element_type", "minecraft:single_pool_element");
+        element.addProperty("location", template.toString());
+        element.addProperty("projection", StructurePool.Projection.RIGID.getId());
+        element.addProperty("processors", "minecraft:empty");
+        JsonObject weighted = new JsonObject();
+        weighted.addProperty("weight", 1);
+        weighted.add("element", element);
+        JsonArray elements = new JsonArray();
+        elements.add(weighted);
+        JsonObject pool = new JsonObject();
+        pool.addProperty("fallback", "minecraft:empty");
+        pool.add("elements", elements);
+        JsonObject height = new JsonObject();
+        height.addProperty(ABSOLUTE_KEY, at.getY());
+        JsonObject data = json.getAsJsonObject();
+        data.add(START_POOL_KEY, pool);
+        data.add(START_HEIGHT_KEY, height);
+        data.addProperty(SIZE_KEY, MAXIMUM_DEPTH);
+        data.remove(PROJECT_TO_HEIGHTMAP_KEY);
+        data.remove(START_JIGSAW_NAME_KEY);
+        Structure whole = Structure.STRUCTURE_CODEC.parse(ops, data).result().orElse(null);
+        if(whole == null)
+            return null;
+        ChunkPos chunk = new ChunkPos(at);
+        List<StructurePiece> pieces = assemble(world, carrier, whole, world.getRandom().nextLong(), world, chunk).getChildren();
+        if(pieces.isEmpty())
+            return null;
+        // Told before any is moved: the box of a piece moves with it
+        BlockBox first = pieces.getFirst().getBoundingBox();
+        Vec3i move = new Vec3i(at.getX() - first.getMinX(), at.getY() - first.getMinY(), at.getZ() - first.getMinZ());
+        for(StructurePiece piece : pieces)
+            piece.translate(move.getX(), move.getY(), move.getZ());
+        StructureStart start = new StructureStart(carrier.value(), chunk, 0, new StructurePiecesList(pieces));
+        register(world, carrier.value(), start, chunk);
+        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), carrier.value(), chunk));
+        StructureEditing.log("generated the piece %s with what its plugs ask for, %d pieces in %s, kept as %s".formatted(template, pieces.size(), describe(start.getBoundingBox()), carrier.getIdAsString()));
+        // The box of the start is wider than its pieces where the ground is shaped to it
+        return new Generated(BlockBox.encompass(pieces.stream().map(StructurePiece::getBoundingBox).toList()).orElse(start.getBoundingBox()), pieces.size());
     }
 
     private static void register(ServerWorld world, Structure structure, StructureStart start, ChunkPos chunk) {

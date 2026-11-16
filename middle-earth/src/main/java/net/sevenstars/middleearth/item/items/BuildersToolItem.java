@@ -13,6 +13,10 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.StructureBlockBlockEntity;
+import net.minecraft.block.enums.StructureBlockMode;
+import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -52,7 +56,8 @@ import java.util.ArrayList;
 // store to tie them. With no bed picked, sneak and left-click a block, and then two corners, to set what of its build
 // is saved or to make the box a section of its own under a name. Left-click twice a block where two sections meet to
 // join them there by a pair of plugs. Left-click a plug to see what fits it, and sneak and left-click another to make
-// the first ask for that one.
+// the first ask for that one. Sneak and right-click a plug to turn it back into the block it stands for. Right-click the
+// structure block of a section to name it anew or take its box away.
 // While the tool is held, the client draws what the build's blocks are taken for
 public class BuildersToolItem extends Item {
     // Left-clicks are for picking beds and links, never for breaking blocks
@@ -72,10 +77,26 @@ public class BuildersToolItem extends Item {
                 return ActionResult.PASS;
             BlockState state = world.getBlockState(hit.getBlockPos());
             boolean bed = state.getBlock() instanceof BedBlock;
-            if(world.isClient)
+            // A plug keeps its own screen, unless the builder sneaks: then it is turned back into the block it stands for
+            if(state.isOf(Blocks.JIGSAW) && StructureEditing.isBuildMode(player)) {
+                if(!player.isSneaking())
+                    return ActionResult.PASS;
+                if(player instanceof ServerPlayerEntity serverPlayer && StructureEditing.mayEdit(player, hit.getBlockPos()))
+                    BuildSectionEditing.unplug(serverPlayer.getWorld(), serverPlayer, hit.getBlockPos());
+                return ActionResult.SUCCESS;
+            }
+            // The structure block of a section opens the tool's screen of it instead of its own, which cuts a box down to 48
+            boolean section = state.isOf(Blocks.STRUCTURE_BLOCK) && world.getBlockEntity(hit.getBlockPos()) instanceof StructureBlockBlockEntity block
+                    && block.getMode() == StructureBlockMode.SAVE && block.hasStructureName();
+            if(world.isClient) {
+                if(section && StructureEditing.isBuildMode(player))
+                    StructureEditing.sectionScreen.accept(hit.getBlockPos().toImmutable());
                 return StructureEditing.isBuildMode(player) ? ActionResult.SUCCESS : ActionResult.FAIL;
+            }
             if(!(player instanceof ServerPlayerEntity serverPlayer) || !StructureEditing.isBuilder(player))
                 return ActionResult.FAIL;
+            if(section)
+                return ActionResult.SUCCESS;
             if(!bed) {
                 // What the build is taken to have is put off limits, or back in use, by the click itself. Sneaking, the
                 // click is for a marker of any kind as it is on any other block

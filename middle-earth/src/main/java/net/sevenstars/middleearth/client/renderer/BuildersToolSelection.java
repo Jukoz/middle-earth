@@ -132,6 +132,7 @@ public class BuildersToolSelection {
             player.sendMessage(Text.translatable("ui.%s.section_join.again".formatted(MiddleEarth.MOD_ID), pathOf(own.name()), pathOf(other.name())), true);
             return;
         }
+        player.sendMessage(Text.translatable("ui.%s.section_join.no_seam".formatted(MiddleEarth.MOD_ID), pathOf(own.name())), true);
     }
 
     private static String pathOf(String name) {
@@ -178,6 +179,13 @@ public class BuildersToolSelection {
     }
 
     public static void register() {
+        StructureEditing.sectionScreen = pos -> {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if(client.world == null)
+                return;
+            BuildSections.near(client.world, pos).stream().filter(section -> section.block().equals(pos)).findFirst()
+                    .ifPresent(section -> client.setScreen(new BuildSectionScreen(section)));
+        };
         // A click that hits nothing lets go of whatever was picked, unless bounds are being set: then it sets a corner in the air
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
             if(clickCount == 0 || !BuildersToolRenderer.holdsTool(player) || client.crosshairTarget != null && client.crosshairTarget.getType() != HitResult.Type.MISS)

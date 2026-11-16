@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.block.special.structureManager;
 
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,8 @@ public class StructureEditing {
     // when its Done is pressed, so a bigger one is only to be set with the tool or the command
     public static final int MAXIMUM_SIZE = 128;
     private static final int OPERATOR_LEVEL = 2;
+    // Set by the game that draws: opens the screen of the section whose structure block was clicked with the tool
+    public static Consumer<BlockPos> sectionScreen = pos -> {};
 
     // What builders do to a build goes in the log, to follow a build being worked on and to tell why a click did nothing
     public static void log(String what) {

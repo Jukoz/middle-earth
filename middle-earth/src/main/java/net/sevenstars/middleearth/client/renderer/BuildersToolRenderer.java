@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.JigsawBlockEntity;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -77,6 +79,7 @@ public class BuildersToolRenderer {
     private static final int PIECE = 0xFF40C4FF;
     private static final int BOUNDS = 0xFFFFEB3B;
     private static final int JOIN = 0xFF00E676;
+    private static final Identifier EMPTY_PLUG = Identifier.ofVanilla("empty");
     private static final int[] SECTION_COLORS = {0xFF40C4FF, 0xFFFF8A65, 0xFFB388FF, 0xFFFFD740, 0xFF69F0AE, 0xFFFF80AB, 0xFF84FFFF, 0xFFEEFF41};
     // Out of the white box the game draws of a structure block's own
     private static final double SECTION_MARGIN = 0.03;
@@ -107,6 +110,7 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> plainBeds = new ArrayList<>();
     private static final Set<BlockPos> fields = new HashSet<>();
     private static List<BuildSections.Section> sections = List.of();
+    private static final Map<BlockPos, String> plugs = new HashMap<>();
     private static final Map<BlockPos, List<Box>> PLOTS = new HashMap<>();
     private static Map<Identifier, Set<StructurePool.Projection>> projections = Map.of();
     private static long projectionsReadAt = 0;
@@ -193,6 +197,7 @@ public class BuildersToolRenderer {
         seats.clear();
         tables.clear();
         sections = BuildSections.near(world, from);
+        plugs.clear();
         for(BlockPos pos : BlockPos.iterate(from.add(-RANGE, -RANGE_HEIGHT, -RANGE), from.add(RANGE, RANGE_HEIGHT, RANGE))) {
             BlockState state = world.getBlockState(pos);
             if(state.isAir())
@@ -201,6 +206,11 @@ public class BuildersToolRenderer {
             if(block == DecorativeBlockRegistryME.STRUCTURE_MARKER) {
                 if(world.getBlockEntity(pos) instanceof StructureMarkerBlockEntity marker)
                     markers.add(new StructureFeatureData.Marker(marker.getKind(), pos.toImmutable(), state.get(StructureMarkerBlock.FACING), marker.getValue(), marker.getCount(), marker.getRespawns()));
+                continue;
+            }
+            if(block == Blocks.JIGSAW) {
+                if(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug)
+                    plugs.put(pos.toImmutable(), plugLabel(plug));
                 continue;
             }
             if(block instanceof BedBlock) {
@@ -249,6 +259,20 @@ public class BuildersToolRenderer {
             return null;
         BlockPos aimed = aimedBlock() == null ? BuildersToolSelection.cornerInAir(player) : aimedBlock();
         return first == null ? new Box(aimed) : Box.enclosing(first, aimed);
+    }
+
+    // asks for rohan/village_house / answers as rohan/village_road
+    private static String plugLabel(JigsawBlockEntity plug) {
+        List<String> says = new ArrayList<>();
+        if(!plug.getTarget().equals(EMPTY_PLUG))
+            says.add("asks for " + shortened(plug.getTarget()) + (plug.getPool().getValue().equals(plug.getTarget()) ? "" : " of " + shortened(plug.getPool().getValue())));
+        if(!plug.getName().equals(EMPTY_PLUG))
+            says.add("answers as " + shortened(plug.getName()));
+        return says.isEmpty() ? "plug, not joined" : String.join(" / ", says);
+    }
+
+    private static String shortened(Identifier id) {
+        return id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : id.toString();
     }
 
     // Each section in a colour of its own, which its name keeps
@@ -462,6 +486,8 @@ public class BuildersToolRenderer {
         if(preview != null)
             DebugDraw.label(matrices, consumers, "%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
                     new Vec3d(preview.getCenter().x, preview.maxY + PIECE_LABEL_HEIGHT, preview.getCenter().z), BOUNDS, PIECE_TEXT_SCALE);
+        for(Map.Entry<BlockPos, String> plug : plugs.entrySet())
+            label(matrices, consumers, plug.getValue(), plug.getKey(), PLUG, STATION_TEXT_SCALE);
         for(BuildSections.Section section : sections)
             DebugDraw.label(matrices, consumers, sectionName(section), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
                     section.box().getCenter().getZ() + 0.5), sectionColor(section), PIECE_TEXT_SCALE);

@@ -22,7 +22,7 @@ public class BuildSections {
     private static final int SEARCH_CHUNKS = (StructureEditing.MAXIMUM_SIZE >> 4) + 2;
 
     public record Section(BlockPos block, String name, BlockBox box) {
-        long volume() {
+        public long volume() {
             return (long) box.getBlockCountX() * box.getBlockCountY() * box.getBlockCountZ();
         }
 
