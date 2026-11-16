@@ -6,10 +6,7 @@ import net.sevenstars.middleearth.resources.datas.rings.RingPolarity;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * English text for ring forging (ring metals, polarity bands, ring tooltips), added by the LanguageProvider.
- * The ring item's own name ("Ring") comes from its id like every other Middle-earth entry.
- */
+/** English text for ring forging. */
 public class RingTranslations {
     private static final String ID = MiddleEarth.MOD_ID;
 

@@ -21,12 +21,8 @@ import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
-/**
- * The shapes of the lapidary recipes, in one place: the recipe datagen builds the recipes from them and the Player
- * Book draws its crafting diagrams from them, so the two never disagree.
- */
+/** Shapes of the lapidary recipes, shared by datagen and the Player Book diagrams. */
 public final class LapidaryRecipeLayouts {
-    /** What goes in one square of a recipe. */
     public sealed interface Part permits OfItem, OfTag, Metal {
     }
 
@@ -36,18 +32,15 @@ public final class LapidaryRecipeLayouts {
     public record OfTag(TagKey<Item> tag) implements Part {
     }
 
-    /** A generic rod or plate of one metal: the metal is the item's trim material. */
     public record Metal(Item shape, String metal) implements Part {
     }
 
-    /** One shaped recipe: its art ("masterwork" or "relic"), what it makes and how. */
     public record Layout(String art, Item output, int count, List<String> pattern, Map<Character, Part> key) {
     }
 
     private LapidaryRecipeLayouts() {
     }
 
-    /** The trim that makes a generic rod or plate of {@code metal}. */
     public static ArmorTrim trim(RegistryWrapper.WrapperLookup registries, String metal) {
         boolean vanilla = metal.equals("iron") || metal.equals("gold") || metal.equals("copper");
         RegistryKey<ArmorTrimMaterial> material = RegistryKey.of(RegistryKeys.TRIM_MATERIAL,
@@ -80,13 +73,11 @@ public final class LapidaryRecipeLayouts {
             gemGlass(LapidaryTools.RELIC, ResourceItemsME.BERYL_GLASS, BlockRegistryME.BERYL_BLOCK));
     }
 
-    /** Gem glass: the crystal block among glowstone dust, two pieces. */
     private static Layout gemGlass(LapidaryTools tools, Item glass, ItemConvertible crystal) {
         return new Layout(tools.id(), glass, 2, List.of(" G ", "GBG", " G "),
             Map.of('G', item(Items.GLOWSTONE_DUST), 'B', item(crystal)));
     }
 
-    /** Focusing lenses: the four gem glasses held in loops bent from three rods of the metal. */
     private static Layout lenses(LapidaryTools tools, Item lenses, String metal, List<Layout> glass) {
         return new Layout(tools.id(), lenses, 1, List.of("ARB", " R ", "CRD"), Map.of(
             'A', item(glass.get(0).output()), 'B', item(glass.get(1).output()),
@@ -94,17 +85,14 @@ public final class LapidaryRecipeLayouts {
             'R', metal(ResourceItemsME.ROD, metal)));
     }
 
-    /** The gem glass of a tool set's lenses, in the lenses' order. */
     public static List<Layout> gemGlass(LapidaryTools tools) {
         return tools == LapidaryTools.MASTERWORK ? masterworkGlass() : relicGlass();
     }
 
-    /** Every lapidary recipe of a tier: its gem glass and its four upgrades. */
     public static List<Layout> all(LapidaryTools tools) {
         return tools == LapidaryTools.MASTERWORK ? masterwork() : relic();
     }
 
-    /** The recipe that makes {@code output}, or null. */
     public static Layout of(Item output) {
         for (LapidaryTools tools : LapidaryTools.values()) {
             for (Layout layout : all(tools)) {
@@ -130,7 +118,6 @@ public final class LapidaryRecipeLayouts {
                 'E', metal(ResourceItemsME.ARMOR_PLATE, "gold"), 'S', metal(ResourceItemsME.SHIELD_BORDER, "gold"),
                 'R', metal(ResourceItemsME.ROD, "gold"), 'C', item(Items.CANDLE),
                 'G', item(ResourceItemsME.CITRINE_GLASS))),
-            // A bellows on a steel plate, steel rods for its pipes, and its wooden bucket.
             new Layout(art, ResourceItemsME.STANDARD_PUMP, 1, List.of(" PR", "RLR", "WP "), Map.of(
                 'P', metal(ResourceItemsME.ARMOR_PLATE, "steel"), 'R', metal(ResourceItemsME.ROD, "steel"),
                 'L', item(DecorativeBlockRegistryME.BELLOWS), 'W', item(DecorativeBlockRegistryME.WOODEN_BUCKET))));
@@ -150,7 +137,6 @@ public final class LapidaryRecipeLayouts {
                 'S', metal(ResourceItemsME.SHIELD_BORDER, "mithril"), 'R', metal(ResourceItemsME.ROD, "mithril"),
                 'C', item(DecorativeBlockRegistryME.CANDLE_HOLDER), 'A', item(ResourceItemsME.ADAMANT_GLASS),
                 'E', metal(ResourceItemsME.ARMOR_PLATE, "edhel_steel"))),
-            // The Standard Pump refitted in mithril, its basin a mithril plate.
             new Layout(art, ResourceItemsME.NUMENOREAN_PUMP, 1, List.of(" NR", "RSR", "PN "), Map.of(
                 'N', item(ResourceItemsME.MITHRIL_NUGGET), 'R', metal(ResourceItemsME.ROD, "mithril"),
                 'S', item(ResourceItemsME.STANDARD_PUMP), 'P', metal(ResourceItemsME.ARMOR_PLATE, "mithril"))));

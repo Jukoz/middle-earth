@@ -109,12 +109,10 @@ public class DataComponentTypesME {
             .codec(com.mojang.serialization.Codec.intRange(1, 2))
             .packetCodec(net.minecraft.network.codec.PacketCodecs.VAR_INT));
 
-    /** Which metal a ring is made of (see RingMetalRegistry); picks the ring's palette. */
     public static final ComponentType<RegistryKey<net.sevenstars.middleearth.resources.datas.rings.RingMetal>> RING_METAL = register("ring_metal", builder -> builder
             .codec(RegistryKey.createCodec(DynamicRegistriesME.RING_METAL))
             .packetCodec(RegistryKey.createPacketCodec(DynamicRegistriesME.RING_METAL)));
 
-    /** What a ring has been through so far: purity, shaping, inscribing, polarity, Fea and its gem. */
     public static final ComponentType<RingForgingDataComponent> RING_FORGING = register("ring_forging", builder -> builder
             .codec(RingForgingDataComponent.CODEC)
             .packetCodec(RingForgingDataComponent.PACKET_CODEC));
@@ -123,7 +121,6 @@ public class DataComponentTypesME {
             "broadhoof_goat/variant", builder -> builder.codec(BroadhoofGoatColor.CODEC).packetCodec(BroadhoofGoatColor.PACKET_CODEC)
     );
 
-    /** Whether a lamp or lantern carried in the off hand is lit (lanterns: lit unless set). */
     public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
             .codec(com.mojang.serialization.Codec.BOOL)
             .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));

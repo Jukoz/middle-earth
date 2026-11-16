@@ -25,13 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Where gems hide: each gem lives in the rock beside the clusters of one kind of host ore, in a depth band, and the
- * racial gems only under their people's lands (surface biome tags data/middle-earth/tags/worldgen/biome/gem_region).
- * Gems per chunk (when the chunk has the host ore): sapphire, ruby and beryl 2-3; the regional gems 1-2; adamant
- * 0-1. The features run in the
- * underground decoration step of every cave biome, after the ores they look for.
- */
+/** Where each gem hides: host ore, depth band, gems per chunk and region. */
 public class GemOreFeatureRegistryME {
     private record Placement(GemKind gem, int minY, int maxY, int minPerChunk, int maxPerChunk, String region, List<String> hosts) {
     }
@@ -53,7 +47,6 @@ public class GemOreFeatureRegistryME {
         add("hadorite", new Placement(GemKind.HADORITE, -24, -1, 1, 2, "men", List.of("middle-earth:nurgon_lead_ore")));
         add("opal", new Placement(GemKind.OPAL, -64, -32, 1, 2, "dwarves", List.of("middle-earth:medgon_iron_ore")));
         add("onyx", new Placement(GemKind.ONYX, 42, 59, 1, 2, "morgul", COAL_HOSTS));
-        // The northern strongholds' plain coal is denser than Mordor's ashen coal, so they get a narrower band.
         add("onyx_north", new Placement(GemKind.ONYX, 44, 57, 1, 2, "morgul_north", COAL_HOSTS));
         add("moonstone", new Placement(GemKind.MOONSTONE, 40, 64, 1, 2, "elves", List.of("middle-earth:tin_ore",
                 "middle-earth:limestone_tin_ore", "middle-earth:calcite_tin_ore", "middle-earth:chalk_tin_ore",
@@ -95,12 +88,10 @@ public class GemOreFeatureRegistryME {
                         List.of(net.minecraft.world.gen.placementmodifier.BiomePlacementModifier.of())));
     }
 
-    /** Adds every gem placement to a cave biome, after its ores. */
     public static void addTo(GenerationSettings.LookupBackedBuilder generationSettings) {
         PLACED.values().forEach(key -> generationSettings.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, key));
     }
 
-    /** The placement names, e.g. for a locate command. */
     public static List<String> names() {
         return Arrays.asList(PLACEMENTS.keySet().toArray(String[]::new));
     }

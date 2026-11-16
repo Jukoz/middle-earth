@@ -14,11 +14,7 @@ import net.sevenstars.middleearth.resources.datas.gems.GemType;
 
 import java.util.function.Consumer;
 
-/**
- * A cut gem: one item per cut; the gem type is the {@link DataComponentTypesME#GEM_TYPE} component on the stack.
- * Inscription charges are its durability (max damage = the tier's charges), like the Inscription Table's other
- * catalysts.
- */
+/** A cut gem, one item per cut; its gem type is a component and its charges are durability. */
 public class CutGemItem extends Item {
     private final GemCut cut;
 
@@ -31,7 +27,6 @@ public class CutGemItem extends Item {
         return cut;
     }
 
-    /** "<Cut> Cut <Gem>", e.g. "Asscher Cut Ruby"; "Asscher Cut Gem" without a gem type. */
     @Override
     public Text getName(ItemStack stack) {
         RegistryKey<GemType> gemType = stack.get(DataComponentTypesME.GEM_TYPE);

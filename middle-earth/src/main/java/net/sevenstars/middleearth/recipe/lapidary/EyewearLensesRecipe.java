@@ -10,11 +10,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 
-/**
- * Glasses or a Dwarven Monocle with a set of focusing lenses, anywhere in a crafting grid: the eyewear comes back
- * with the lenses fitted (see {@link LapidaryEyewear}). The lenses are used up. Eyewear with Refined lenses can
- * take Exquisite ones; nothing lower than what is fitted matches.
- */
+/** Fits focusing lenses into glasses or a monocle. */
 public class EyewearLensesRecipe extends SpecialCraftingRecipe {
     public EyewearLensesRecipe(CraftingRecipeCategory category) {
         super(category);

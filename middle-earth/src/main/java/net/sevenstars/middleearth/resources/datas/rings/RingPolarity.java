@@ -4,11 +4,7 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
 
-/**
- * The nine bands of a ring's polarity, from Hallowed (+100) to Twisted (-100). Polarity is set by the catalysts
- * used in refining, the theme it is shaped in and the cut of its gem; what each inscription word does depends on
- * the band the ring sits in.
- */
+/** The nine polarity bands, from Hallowed (+100) to Doom-Wrought (-100). */
 public enum RingPolarity {
     HALLOWED("hallowed", 76, 100, 0xFFF4C2),
     PRESERVING("preserving", 51, 75, 0xE6E9A6),
@@ -35,7 +31,6 @@ public enum RingPolarity {
         this.color = TextColor.fromRgb(color);
     }
 
-    /** The band a polarity value falls in, clamped to -100..100. */
     public static RingPolarity of(int polarity) {
         int value = MathHelper.clamp(polarity, MIN, MAX);
         for (RingPolarity band : values()) {

@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.concurrent.CompletableFuture;
 
+/** Data generation for the built-in ring metals. */
 public class RingMetalsProvider extends FabricDynamicRegistryProvider {
     public RingMetalsProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);

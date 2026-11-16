@@ -13,10 +13,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.light.HeldLights;
 
-/**
- * A focused lamp as an item: placed from the main hand like a lantern; in the off hand it is a hand lamp,
- * and using it there lights or shades it (it never places from the off hand).
- */
+/** Beam lamp item: places from the main hand, toggles as a hand lamp from the off hand. */
 public class BeamLampItem extends BlockItem {
     public BeamLampItem(Block block, Settings settings) {
         super(block, settings);

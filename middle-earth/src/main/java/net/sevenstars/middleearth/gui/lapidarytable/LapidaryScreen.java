@@ -53,31 +53,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
-/**
- * The Lapidary Table screen and the study minigame, Refraction Reading.
- * <p>
- * Left: the board, a stone disc. The gem in the middle, a candle (seen from above) on the inner groove, the
- * Cirth runes on the outer groove and the candle's light traced live through the gem. Right: the paper, gem and
- * notes slots, the Study button and the score on parchment.
- * <p>
- * Controls: drag the candle round its groove (or Left / Right arrow: one step, one move); turn the gem by
- * dragging it, scrolling, A / D or the arrow buttons (one move a step); click a rune while the light is on it
- * to lock it. One candle drag is one move however far it goes.
- * <p>
- * Effects are client-only: flame particles on the candle, a flash and sparks when a rune locks, a flash of the
- * gem and the grade stamped across the board when the study is done.
- * <p>
- * The table's second screen is Faceting: pick a cut of the next tier, press Cut (one water bucket), then grind
- * each facet: hold the mouse on the board or Space to push the grind marker along the bar, against its fall, and
- * keep it inside the drifting zone. The bar runs here; each facet's score goes to the server.
- */
+/** Lapidary Table screen: the Refraction Reading study and the Faceting cut. */
 @Environment(EnvType.CLIENT)
 public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final Identifier BACKGROUND = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_table.png");
-    /**
-     * The Faceting screen in one texture: the screen with the table bare of its fittings, and beside it each fitting's
-     * piece in each tier (where they go: {@link LapidaryBoardSprites}).
-     */
     private static final Identifier BACKGROUND_FACETING = Identifier.of(MiddleEarth.MOD_ID, "textures/gui/lapidary_faceting.png");
     private static final Identifier FLAME = Identifier.ofVanilla("textures/particle/flame.png");
     private static final Identifier SMOKE = Identifier.ofVanilla("textures/particle/generic_0.png");
@@ -88,7 +67,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final int BOARD_X = 84;
     private static final int BOARD_Y = 90;
     private static final float SCALE = 26.0F;
-    /** Where the rune glyphs are drawn: the middle of the brass band (radius 63 to 73 in the texture). */
     private static final double RUNE_DRAW_RADIUS = 68.0;
     private static final int PANEL_X = 164;
 
@@ -100,7 +78,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final int INK_GOOD = 0xFF2F6B1F;
     private static final int INK_BAD = 0xFF9E2B25;
 
-    /** Cirth-like staves, 5 x 7 pixels each, engraved round the brass rim. */
     private static final String[][] RUNES = {
         {"#....", "##...", "#.#..", "#..#.", "#....", "#....", "#...."},
         {"..#..", "..#..", ".###.", "#.#.#", "..#..", "..#..", "..#.."},
@@ -120,20 +97,10 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private ButtonWidget cutButton;
     private final IconButton[] cutChoices = new IconButton[GemCut.values().length];
 
-    // ---- Faceting, client side ----
     private static final long READY_MILLIS = 1000;
-    /**
-     * The marker moves at a steady speed: right while held, back left when let go. It eases into its new
-     * direction within about a tenth of a second (a very mild momentum), so it stops where the player expects.
-     */
     private static final double GRIND_SPEED = 0.5;
-    /** How quickly the marker takes up its new speed: lower makes a short tap a smaller nudge. */
     private static final double RESPONSE = 8.0;
     private static final int BAR_HALF = 50;
-    /**
-     * The board layout of the Faceting background, the table's top seen from above: the wheel's rim showing in
-     * the slot (x RIM_X0..RIM_X1, y RIM_Y0..RIM_Y1), the gem on it, and the gauge plate centred on LAP_X.
-     */
     private static final int LAP_X = 84;
     private static final int RIM_X0 = 78;
     private static final int RIM_X1 = 91;
@@ -141,7 +108,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final int RIM_Y1 = 119;
     private static final int GEM_X = 85;
     private static final int GEM_Y = 71;
-    /** The lens (between the gem and the player): particles passing under it are hidden by it. */
     private static final int LENS_X = 85;
     private static final int LENS_Y = 104;
     private static final int LENS_R = 19;
@@ -149,12 +115,9 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final int BAR_Y = 140;
 
     private enum Phase {
-        /** Waiting for the player to grind the next facet. */
         IDLE,
-        /** A short countdown before the facet starts. */
         READY,
         RUNNING,
-        /** Score sent; waiting for the server to count it. */
         SENT
     }
 
@@ -170,19 +133,13 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private long lastScoreShown;
     private @org.jetbrains.annotations.Nullable GemCut chosenCut;
     private boolean lastCutActive;
-    /** The cut just finished in this screen: its result is shown until the gem is taken. */
     private boolean showResult;
 
-    // ---- The gem being ground: its old and new sprites, pixel by pixel ----
-    /** Each item sprite's 16 x 16 pixels (ARGB), read once from its texture. */
     private final Map<String, int[]> artCache = new HashMap<>();
-    /** How far the gem has turned into its new shape, as last drawn (0-1), to see which pixels just changed. */
     private double lastMorph;
-    /** The gem's turn on the dop, in degrees: each facet turns it on, eased during the countdown. */
     private float gemAngle;
     private float sparkSpawn;
 
-    /** Where the candle and gem are drawn: the player's own moves show at once, before the server echoes them. */
     private int localLamp;
     private int localGem;
     private int pendingTicks;
@@ -197,19 +154,16 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private final Random random = new Random();
     private final long[] lockFlash = new long[LapidaryScreenHandler.MAX_RUNES];
     private long finishFlash;
-    /** The grade goal shown while studying, the one it replaced and when, for the crossfade. */
     private StudyGrade aimGrade;
     private StudyGrade previousAim;
     private long aimChanged;
     private long lastFrame;
     private float flameSpawn;
-    /** Where the light met the ring last frame (relative to the board centre), for its golden motes. */
     private boolean beamHit;
     private int beamHitX;
     private int beamHitY;
     private float beamMoteSpawn;
     private float smokeSpawn;
-    /** How much the whole screen is shrunk to fit the window (1 = full size); see {@link #init()}. */
     private float fit = 1.0F;
 
     public LapidaryScreen(LapidaryScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -224,8 +178,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
 
     @Override
     protected void init() {
-        // The table is bigger than vanilla screens. When it does not fit the window at the current GUI scale,
-        // lay it out in a larger virtual screen and draw that shrunk down, so it always fits whole.
         int realWidth = client.getWindow().getScaledWidth();
         int realHeight = client.getWindow().getScaledHeight();
         fit = Math.min(1.0F, Math.min((float) realWidth / WIDTH, (float) realHeight / HEIGHT));
@@ -237,7 +189,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             .dimensions(x + PANEL_X + 4, y + 44, 72, 18).build());
         turnLeft = addDrawableChild(new ArrowButton(x + PANEL_X + 4, y + 66, 35, 18, true, () -> turnGem(1)));
         turnRight = addDrawableChild(new ArrowButton(x + PANEL_X + 41, y + 66, 35, 18, false, () -> turnGem(-1)));
-        // The two screens of the table, centred in the space left of the inventory.
         int modeX = x + (3 + LapidaryScreenHandler.INVENTORY_X - 1) / 2 - 10;
         readingButton = addDrawableChild(new IconButton(modeX, y + LapidaryScreenHandler.INVENTORY_Y,
             new ItemStack(Items.CANDLE), 0, Text.translatable("gui.middle-earth.lapidary.mode.reading"),
@@ -271,7 +222,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 finishFlash = Util.getMeasuringTimeMs();
             }
             if (state == LapidaryScreenHandler.STATE_STUDYING) {
-                // A new study starts its goal fresh, without fading from the last one.
                 aimGrade = null;
                 previousAim = null;
             }
@@ -304,7 +254,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         updateModeButtons();
     }
 
-    /** Which of the table's two screens shows: the server keeps it, so slots and moves follow. */
     private boolean reading() {
         return !handler.isFaceting();
     }
@@ -316,10 +265,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         click(faceting ? LapidaryScreenHandler.MODE_FACETING : LapidaryScreenHandler.MODE_READING);
     }
 
-    /**
-     * The current screen's button is greyed out; the reading controls only show while reading. The screens
-     * cannot be switched while a game is in progress.
-     */
     private void updateModeButtons() {
         boolean busy = handler.getState() == LapidaryScreenHandler.STATE_STUDYING || handler.isCutActive()
             || phase != Phase.IDLE;
@@ -332,13 +277,10 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         layoutCutChoices();
     }
 
-    // ---- Faceting ----
-
     private @org.jetbrains.annotations.Nullable RegistryKey<GemType> cutGemType() {
         return handler.getCutGem().get(DataComponentTypesME.GEM_TYPE);
     }
 
-    /** The cut choices of the next tier, in a centred row under the Cut button; hidden during a cut. */
     private void layoutCutChoices() {
         int tier = Faceting.nextTier(handler.getCutGem());
         boolean choosing = !reading() && !handler.isCutActive() && tier > 0;
@@ -347,7 +289,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             chosenCut = null;
         }
         RegistryKey<GemType> type = cutGemType();
-        // Buttons side by side (18 px each), centred on the parchment so four still fit inside its border.
         int rowX = x + PANEL_X + 40 - cuts.size() * 18 / 2;
         for (IconButton button : cutChoices) {
             button.visible = false;
@@ -357,7 +298,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             IconButton button = cutChoices[cut.ordinal()];
             button.visible = true;
             button.active = cut != chosenCut;
-            // An even row splits a pixel in the middle (the left half a pixel further left), so it sits centred.
             button.setX(rowX + i * 18 - (cuts.size() % 2 == 0 && i < cuts.size() / 2 ? 1 : 0));
             button.setY(y + 66);
             if (type != null) {
@@ -385,7 +325,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private void facetingTick() {
         boolean active = handler.isCutActive();
         if (lastCutActive && !active) {
-            // The finished gem catches the light.
             for (int i = 0; i < 16; i++) {
                 Particle p = new Particle();
                 float angle = random.nextFloat() * MathHelper.TAU;
@@ -421,7 +360,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             cutButton.active = false;
             cutButton.setTooltip(null);
         } else {
-            // The cut's price in levels is listed on the parchment below; the button only cuts when it can be paid.
             boolean canPay = client != null && client.player != null && LapidaryTableBlockEntity.canPay(client.player, chosenCut);
             cutButton.setMessage(Text.translatable("gui.middle-earth.lapidary.faceting.cut"));
             cutButton.active = handler.hasWater() && canPay;
@@ -429,7 +367,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** How much easier the player's lensed eyewear makes the bar. */
     private double eyewearEase() {
         return client != null && client.player != null
             ? net.sevenstars.middleearth.recipe.lapidary.LapidaryEyewear.ease(client.player) : 0;
@@ -439,7 +376,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return handler.getCutGem().get(DataComponentTypesME.STUDY_GRADE);
     }
 
-    /** Moves the bar on by {@code seconds} of play: the countdown, the marker and the facet's score. */
     private void updateFacet(float seconds) {
         long now = Util.getMeasuringTimeMs();
         if (phase == Phase.READY && now - phaseStart >= READY_MILLIS) {
@@ -472,7 +408,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The Faceting board: the gem large in the middle, its facets as pips, and the grinding bar. */
     private void drawFacetingBoard(DrawContext context) {
         int cx = x + LAP_X;
         long now = Util.getMeasuringTimeMs();
@@ -482,7 +417,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         ItemStack gem = handler.getCutGem();
         RegistryKey<GemType> type = cutGemType();
         boolean active = handler.isCutActive();
-        // The gem keeps its old shape until it is ground: mid-cut it turns into the cut being made.
         ItemStack shown = gem;
         if (type != null && active) {
             shown = ResourceItemsME.cutGem(handler.getCut(), type);
@@ -491,7 +425,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             lastMorph = 0;
             gemAngle = 0;
             if (!shown.isEmpty()) {
-                // Item size, so its pixels match the board's.
                 context.drawItem(shown, x + GEM_X - 8, y + GEM_Y - 8);
             }
             drawParticles(context, x + BOARD_X, y + BOARD_Y);
@@ -508,7 +441,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             drawPip(context, pipsX + i * 11, y + PIPS_Y, i < done ? 0xFFC98A10 : current ? 0xFFFFF2B0 : 0, 0xFF2A1E12);
         }
 
-        // The bar: dark groove, the zone, the marker and how much of the facet is left.
         int left = cx - BAR_HALF;
         int right = cx + BAR_HALF;
         int top = y + BAR_Y;
@@ -541,10 +473,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The lowest y a line of parchment text may start at: the parchment ends at 165. */
     private static final int TEXT_BOTTOM = 156;
 
-    /** Draws wrapped parchment text and returns the y below it; lines past the parchment are left out. */
     private int wrapped(DrawContext context, Text text, int tx, int ty, int color) {
         for (var line : textRenderer.wrapLines(text, 70)) {
             if (ty <= TEXT_BOTTOM) {
@@ -555,13 +485,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return ty;
     }
 
-
-    // ---- The gem being ground ----
-
-    /** Grit on the wheel's rim scrolling down the slot while the wheel turns; fainter where it curves away. */
     private void drawSpinningRim(DrawContext context, long now) {
         int length = RIM_Y1 - RIM_Y0;
-        // The rim runs up the slot: the grit moves up.
         int offset = (int) (length - now * 60 / 1000 % length);
         for (int k = 0; k < 18; k++) {
             int ry = (k * 37 + offset) % length;
@@ -573,7 +498,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** How far the cut has come, 0-1: finished facets plus the one being ground. */
     private double cutProgress() {
         int facets = Faceting.facets(handler.getCut().tier());
         double current = switch (phase) {
@@ -584,18 +508,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return MathHelper.clamp((handler.getFacet() + current) / facets, 0, 1);
     }
 
-    /** When a pixel of the sprite turns into the new shape: the outside goes first, with some scatter. */
     private static double pixelTurn(int px, int py) {
         double hash = MathHelper.fractionalPart(Math.sin(px * 12.9898 + py * 78.233) * 43758.5453);
         double outside = Math.hypot(px - 7.5, py - 7.5) / 10.61;
         return 0.02 + 0.96 * (0.4 * hash + 0.6 * (1 - outside));
     }
 
-    /**
-     * The 16 x 16 ARGB pixels of the sprite an item stack shows, or null if they cannot be read. Found the way
-     * the game does: the item's definition (picking the case for the stack's gem type), its model, the model's
-     * layer0 texture.
-     */
     private int[] art(ItemStack stack) {
         if (stack.isEmpty()) {
             return null;
@@ -629,7 +547,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The model an item definition shows: a plain model, or the case of a select matching {@code when}. */
     private static String findModel(JsonObject node, String when) {
         if (node == null || !node.has("type")) {
             return null;
@@ -654,11 +571,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return null;
     }
 
-    /**
-     * A sprite's pixels. Gem sprites have no file of their own: the block atlas makes them from a grey base and
-     * a palette swap (paletted permutations: "cut_gem/oval" + "_ruby" swaps the colours of gem_palettes/key for
-     * those of gem_palettes/ruby). So a missing sprite is rebuilt the same way.
-     */
     private int[] readSprite(Identifier sprite) throws IOException {
         Identifier file = sprite.withPath(path -> "textures/" + path + ".png");
         if (client.getResourceManager().getResource(file).isPresent()) {
@@ -687,7 +599,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return base;
     }
 
-    /** Every pixel of a small texture, row by row (palettes are one row). */
     private int[] readRow(Identifier file) throws IOException {
         try (InputStream in = client.getResourceManager().open(file); NativeImage image = NativeImage.read(in)) {
             int[] colors = new int[image.getWidth() * image.getHeight()];
@@ -703,7 +614,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private int[] readPixels(Identifier file) throws IOException {
         try (InputStream in = client.getResourceManager().open(file); NativeImage image = NativeImage.read(in)) {
             int[] pixels = new int[256];
-            // Only the first frame of animated sprites (they are as wide as one frame).
             int size = image.getWidth();
             for (int py = 0; py < 16; py++) {
                 for (int px = 0; px < 16; px++) {
@@ -714,10 +624,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /**
-     * The gem on the lap mid-cut: the old sprite turning pixel by pixel into the new cut as the facets are
-     * ground, turned on the dop for each facet. Pixels ground away fly off as dust.
-     */
     private void drawGrindingGem(DrawContext context, ItemStack from, ItemStack to) {
         int[] oldArt = art(from);
         int[] newArt = art(to);
@@ -740,7 +646,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 int color = turned ? newArt[i] : oldArt[i];
                 if (turned && lastMorph < turn && progress > lastMorph && (oldArt[i] >>> 24) > 16
                     && oldArt[i] != newArt[i]) {
-                    // This pixel was just ground away: it flies off as dust.
                     float ox = px - 7.5F;
                     float oy = py - 7.5F;
                     dust(GEM_X - BOARD_X + ox * cos - oy * sin, GEM_Y - BOARD_Y + ox * sin + oy * cos, oldArt[i]);
@@ -754,12 +659,10 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         lastMorph = progress;
     }
 
-    /** A ground-away pixel of the gem, thrown off along the spinning lap. */
     private void dust(float bx, float by, int color) {
         Particle p = new Particle();
         p.px = bx;
         p.py = by;
-        // Seen from above: thrown down the slot the way the rim turns, spreading a little sideways.
         p.vx = (random.nextFloat() * 2 - 1) * 12;
         p.vy = -15 - random.nextFloat() * 30;
         p.life = 0.5F + random.nextFloat() * 0.4F;
@@ -769,12 +672,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         particles.add(p);
     }
 
-    /**
-     * While a facet is ground: the gem turns to its facet during the countdown, and sparks in the gem's colour
-     * and water drops spray from where it meets the lap; more and brighter while the marker is in the zone.
-     */
     private void updateGrinding(float seconds) {
-        // No candle on this screen: its flames must not pile up for the reading board.
         flameSpawn = 0;
         smokeSpawn = 0;
         if (!handler.isCutActive()) {
@@ -799,7 +697,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             boolean water = random.nextFloat() < 0.35F;
             p.px = GEM_X - BOARD_X + random.nextFloat() * 6 - 3;
             p.py = GEM_Y - BOARD_Y - 5;
-            // The rim runs up the slot under the gem, so the spray fans out up the slot, away from the lens.
             p.vx = (random.nextFloat() * 2 - 1) * 18;
             p.vy = -20 - random.nextFloat() * 45;
             p.life = 0.3F + random.nextFloat() * 0.35F;
@@ -808,7 +705,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 p.size1 = 1;
                 p.color = 0xC0BFD8EA;
             } else {
-                // In the zone the wheel bites cleanly: sparkles in the gem's lightest colours among its grit.
                 boolean sparkle = inZone && random.nextBoolean();
                 int[] colors = sparkle ? palette[0] : palette[1];
                 p.size0 = sparkle ? 2 : 1;
@@ -824,9 +720,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** Where the tool set's pump fitting pours onto the wheel (Faceting board texture pixels). */
     private static final int SPOUT_X = 90;
-    /** The slot in the table the wheel turns in (board texture pixels, end exclusive). */
     private static final int SLOT_X0 = 74;
     private static final int SLOT_X1 = 95;
     private static final int SLOT_Y0 = 22;
@@ -834,7 +728,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private static final int SPOUT_Y = 34;
     private float waterSpawn;
 
-    /** The pump wetting the wheel while it grinds: water from the spout onto the rim, carried up the slot by it. */
     private void pumpWater(float seconds) {
         waterSpawn += seconds * 45;
         while (waterSpawn >= 1) {
@@ -842,7 +735,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             Particle p = new Particle();
             p.px = SPOUT_X - BOARD_X;
             p.py = SPOUT_Y - BOARD_Y + random.nextFloat() * 2 - 1;
-            // Out of the spout to the left, falling onto the rim, which carries it up the slot.
             p.vx = -40 - random.nextFloat() * 25;
             p.vy = random.nextFloat() * 4 - 2;
             p.gravity = -120;
@@ -857,10 +749,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
 
     private final Map<int[], int[][]> paletteCache = new java.util.IdentityHashMap<>();
 
-    /**
-     * The gem's own colours, from its sprite: {lightest third (sparkles), the rest (grit)}. Grey stand-ins if the
-     * sprite could not be read.
-     */
     private int[][] gemPalette(int[] art) {
         if (art == null) {
             return new int[][] {{0xFFFFFF, 0xE0E0E0}, {0x9A9A9A, 0x6A6A6A}};
@@ -878,14 +766,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             colors.sort(java.util.Comparator.comparingInt(c -> -((c >> 16 & 0xFF) * 3 + (c >> 8 & 0xFF) * 6 + (c & 0xFF))));
             int light = Math.max(1, colors.size() / 3);
             int[] sparkles = colors.subList(0, light).stream().mapToInt(Integer::intValue).toArray();
-            // The grit leaves out the darkest outline colour unless that is all there is.
             List<Integer> rest = colors.subList(Math.min(light, colors.size() - 1),
                 Math.max(Math.min(light, colors.size() - 1) + 1, colors.size() - 1));
             return new int[][] {sparkles, rest.stream().mapToInt(Integer::intValue).toArray()};
         });
     }
 
-    /** The Faceting side of the parchment: what the gem can become, the cost and the run so far. */
     private void drawFacetingPanel(DrawContext context) {
         int px = PANEL_X + 5;
         int line = 90;
@@ -895,7 +781,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             return;
         }
         if (handler.isCutActive()) {
-            // No cut choices during a cut: the text starts right under the button.
             line = 68;
             GemCut cut = handler.getCut();
             int facets = Faceting.facets(cut.tier());
@@ -937,7 +822,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             Faceting.facets(tier)), px, line, INK_DIM, false);
         line += 12;
         if (chosenCut != null && client != null && client.player != null) {
-            // The cut's price, as the study shows its own: good ink if it can be paid (or in creative), bad if not.
             int cost = LapidaryTableBlockEntity.levelCost(chosenCut);
             boolean canPay = LapidaryTableBlockEntity.canPay(client.player, chosenCut);
             Text costText = Text.translatable(cost == 1 ? "gui.middle-earth.lapidary.xp_cost_one" : "gui.middle-earth.lapidary.xp_cost", cost);
@@ -954,18 +838,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 px, line, INK_BAD, false);
             line += 12;
         }
-        // The bench's limit: a label, then the best quality it allows.
         CraftQuality cap = CraftQuality.of(handler.getBenchCap());
         context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.faceting.cap"), px, line,
             INK_DIM, false);
         context.drawText(textRenderer, Text.translatable(cap.translationKey()), px, line + 10, qualityInk(cap), false);
     }
 
-    /**
-     * The table's fittings over the bare table, each in its tier (the bare table's own when none is fitted): the
-     * wheel, the lenses with the dop stand, the lamp and the pump's spout. Where one lies over another and lets it
-     * show through (the big lens's glass over the wheel, the lamp's light on it), a patch for that pairing follows.
-     */
     private void drawUpgrades(DrawContext context) {
         int wheel = handler.getUpgradeTier(LapidaryTools.Slot.WHEEL);
         int lenses = handler.getUpgradeTier(LapidaryTools.Slot.LENSES);
@@ -984,7 +862,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** One piece of the Faceting texture in its place: {u, v, width, height, screen x, screen y}; null for none. */
     private void drawPiece(DrawContext context, int @org.jetbrains.annotations.Nullable [] piece) {
         if (piece != null) {
             context.drawTexture(RenderPipelines.GUI_TEXTURED, BACKGROUND_FACETING, x + piece[4], y + piece[5],
@@ -992,19 +869,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The water slot's inside rows on the vessel icons: its water rises from the bottom row. */
     private static final int VESSEL_TOP = 4, VESSEL_BOTTOM = 13;
 
-    /**
-     * With a pump fitted the water slot is its fill meter: the pump's vessel (the wooden bucket, or the Relic mithril
-     * basin) cut away to show how much water it holds.
-     */
     private void drawWaterMeter(DrawContext context) {
-        // The vessel and its water in the Faceting texture: Masterwork's, then the Relic's.
         int[] vessel = LapidaryBoardSprites.VESSELS[handler.getPumpTier() == 2 ? 2 : 0];
         int[] water = LapidaryBoardSprites.VESSELS[handler.getPumpTier() == 2 ? 3 : 1];
         int sx = x + LapidaryScreenHandler.FACET_WATER_X, sy = y + LapidaryScreenHandler.GEM_SLOT_Y;
-        // A little smaller than the slot, its drawn pixels centred in it (the bucket is drawn high, the basin low).
         float centreY = handler.getPumpTier() == 2 ? VESSEL_CENTRE_Y_RELIC : VESSEL_CENTRE_Y_MASTERWORK;
         context.getMatrices().pushMatrix();
         context.getMatrices().translate(sx + 8, sy + 8);
@@ -1022,9 +892,7 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.getMatrices().popMatrix();
     }
 
-    /** The vessel icons' size in the water slot. */
     private static final float VESSEL_SCALE = 0.8F;
-    /** The middle of each vessel's drawn pixels, top to bottom: the bucket's rows 0 to 14, the basin's 3 to 14. */
     private static final float VESSEL_CENTRE_Y_MASTERWORK = 7.5F, VESSEL_CENTRE_Y_RELIC = 9F;
 
     private boolean overWaterSlot(int mouseX, int mouseY) {
@@ -1032,7 +900,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return mouseX >= sx && mouseX < sx + 16 && mouseY >= sy && mouseY < sy + 16;
     }
 
-    /** Quality colours dark enough to read on parchment. */
     private static int qualityInk(CraftQuality quality) {
         return switch (quality) {
             case MUNDANE -> 0xFF5E5E5E;
@@ -1079,7 +946,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         playClick(1.4F);
     }
 
-    /** One candle step from the keyboard: a drag of its own, so one move. */
     private void nudgeLamp(int steps) {
         if (!studying()) {
             return;
@@ -1095,8 +961,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, pitch, 0.35F));
     }
 
-    // ---- Drawing ----
-
     @Override
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         context.getMatrices().pushMatrix();
@@ -1110,7 +974,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.getMatrices().pushMatrix();
         context.getMatrices().scale(fit);
         renderFitted(context, (int) (mouseX / fit), (int) (mouseY / fit), deltaTicks);
-        // Tooltips are drawn after the screen; draw them now, at the same scale, so they line up.
         context.renderTooltip();
         context.getMatrices().popMatrix();
     }
@@ -1156,14 +1019,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         if (!reading() && handler.getPumpTier() > 0 && handler.getSlot(3).getStack().isEmpty()) {
             drawWaterMeter(context);
         } else if (!reading() && handler.getSlot(3).getStack().isEmpty()) {
-            // A faint water bucket in the empty water slot.
             context.drawItem(new ItemStack(Items.WATER_BUCKET), x + LapidaryScreenHandler.FACET_WATER_X,
                 y + LapidaryScreenHandler.GEM_SLOT_Y);
             context.fill(x + LapidaryScreenHandler.FACET_WATER_X, y + LapidaryScreenHandler.GEM_SLOT_Y,
                 x + LapidaryScreenHandler.FACET_WATER_X + 16, y + LapidaryScreenHandler.GEM_SLOT_Y + 16, 0xAA8B8B8B);
         }
         if (reading() && handler.getSlot(1).getStack().isEmpty()) {
-            // A faint paper in the empty paper slot.
             context.drawItem(new ItemStack(Items.PAPER), x + LapidaryScreenHandler.PAPER_SLOT_X,
                 y + LapidaryScreenHandler.GEM_SLOT_Y);
             context.fill(x + LapidaryScreenHandler.PAPER_SLOT_X, y + LapidaryScreenHandler.GEM_SLOT_Y,
@@ -1225,7 +1086,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The gem: body, a table facet in the middle, crown facet lines to it and the girdle outline. */
     private static void drawGem(DrawContext context, int cx, int cy, double[][] poly, int color) {
         fillPolygon(context, cx, cy, poly, 1.0, 0xA0000000 | color);
         fillPolygon(context, cx, cy, poly, 0.45, 0x70000000 | lerpColor(color, 0xFFFFFF, 0.45F));
@@ -1243,7 +1103,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The light: full strength from the candle, a little dimmer after every bounce, a spark where it lands. */
     private void drawBeam(DrawContext context, int cx, int cy, RefractionReading.Beam beam, float time) {
         double[] points = beam.points();
         int segment = 0;
@@ -1266,10 +1125,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /**
-     * Where the light meets the ring: a small golden star that breathes, with a faint warm glow behind it.
-     * Kept small so the rune it lights stays readable.
-     */
     private static void drawBeamSpark(DrawContext context, int ex, int ey, float time) {
         float breathe = MathHelper.sin(time * 0.7F) * 0.5F + 0.5F;
         fillCircle(context, ex, ey, 4 + Math.round(breathe), 0x1CFFC94A);
@@ -1286,7 +1141,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.fill(ex, ey, ex + 1, ey + 1, 0xFFFFF6D0);
     }
 
-    /** The runes engraved all round the brass rim, one per slot; always there, lit or not. */
     private void drawRimRunes(DrawContext context) {
         for (int slot = 0; slot < RefractionReading.RUNE_SLOTS; slot++) {
             int[] pos = slotPosition(slot * RefractionReading.RUNE_SLOT_DEGREES);
@@ -1294,13 +1148,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** The light blue the inlaid runes glow with when the light reaches them, and the hovered candle's halo. */
     private static final int COLOR_RUNE_GLOW = 0x8FD4FF;
 
-    /**
-     * A rune the study needs lit: its inlaid script glows a soft light blue so it stands out on the rim. The glow
-     * grows strong and pulses while the light is on it, and stays strongest, steady, inside a gold ring once locked.
-     */
     private void drawRune(DrawContext context, int rune, RefractionReading.Beam beam, float pulse, long now) {
         int[] pos = runePosition(rune);
         boolean locked = handler.isLocked(rune);
@@ -1327,7 +1176,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         drawGlyph(context, glyph, pos[0], pos[1], color, 0x80000000);
     }
 
-    /** A soft glow round a glyph's strokes: each stroke pixel lights the 3 x 3 around it (overlaps add up). */
     private static void drawGlyphGlow(DrawContext context, String[] glyph, int cx, int cy, int color) {
         for (int row = 0; row < glyph.length; row++) {
             for (int col = 0; col < glyph[row].length(); col++) {
@@ -1340,16 +1188,11 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /**
-     * The candle while it can be picked up (hovered or dragged during a study): a light blue outline that
-     * breathes, with sparkles twinkling round it.
-     */
     private static void drawCandleHover(DrawContext context, int fx, int fy, float time) {
         float breathe = 0.5F + 0.5F * MathHelper.sin(time * 0.35F);
         drawCircle(context, fx, fy, 9.5, ((int) (150 + breathe * 90) << 24) | COLOR_RUNE_GLOW);
         drawCircle(context, fx, fy, 10.5, ((int) (50 + breathe * 50) << 24) | COLOR_RUNE_GLOW);
         for (int k = 0; k < 5; k++) {
-            // Each sparkle drifts slowly round the outline and twinkles on its own beat.
             double angle = time * 0.05 + k * MathHelper.TAU / 5;
             float twinkle = MathHelper.sin(time * 0.5F + k * 2.1F);
             if (twinkle < 0.2F) {
@@ -1373,7 +1216,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return RUNES[(slot * 5 + slot / 4) % RUNES.length];
     }
 
-    /** A glyph centred on (cx, cy), with a one-pixel shadow (or highlight, for engraving) down and right. */
     private static void drawGlyph(DrawContext context, String[] glyph, int cx, int cy, int color, int shadow) {
         for (int row = 0; row < glyph.length; row++) {
             for (int col = 0; col < glyph[row].length(); col++) {
@@ -1395,11 +1237,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /**
-     * The light source: a candle seen from above. A brass holder, the wax top with its melted pool, and the
-     * flame: Minecraft's own flame particle sprite, flickering in size and place, with embers and smoke
-     * drifting off it (see {@link #spawnFlame}).
-     */
     private void drawCandle(DrawContext context, int fx, int fy, float time) {
         fillCircle(context, fx + 1, fy + 1, 8, 0x60000000);
         fillCircle(context, fx, fy, 8, 0xFF6B4A22);
@@ -1418,7 +1255,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.fill(fx, fy, fx + 1, fy + 1, 0xFF2A1E14);
     }
 
-    /** The grade, stamped across the board at a slant once the study is done. */
     private void drawStamp(DrawContext context, int cx, int cy, StudyGrade grade, long now) {
         float appear = Math.min(1.0F, (now - finishFlash - 250) / 300.0F);
         if (appear <= 0) {
@@ -1439,8 +1275,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.getMatrices().popMatrix();
     }
 
-    // ---- Particles: flame, smoke and sparks, positions relative to the board centre ----
-
     private static final class Particle {
         float px;
         float py;
@@ -1451,10 +1285,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         float size0;
         float size1;
         int color;
-        /** Null for a solid square of {@link #color} (grinding dust, water drops). */
         Identifier sprite;
         float gravity;
-        /** Water on the wheel: only shown inside the slot the wheel turns in. */
         boolean inSlot;
     }
 
@@ -1493,7 +1325,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** A few golden motes drifting off where the light meets the ring: small, slow and short-lived. */
     private void spawnBeamMotes(float seconds) {
         beamMoteSpawn += seconds * 7;
         while (beamMoteSpawn >= 1) {
@@ -1514,7 +1345,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** Sparks flying out from a point, e.g. a rune as it locks. */
     private void burst(int[] at, int count, int color) {
         for (int i = 0; i < count; i++) {
             Particle p = new Particle();
@@ -1544,7 +1374,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         while (it.hasNext()) {
             Particle p = it.next();
             p.age += seconds;
-            // Pump water rides the rim up the slot and goes down into it with the wheel just before the slot's end.
             if (p.age >= p.life || p.inSlot && p.py + BOARD_Y < SLOT_Y0 + 3) {
                 it.remove();
                 continue;
@@ -1604,12 +1433,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             glyphOffset(-Math.sin(angle))};
     }
 
-    /**
-     * Pixel offset from the board centre for a rune glyph along one axis. The board centre lies between pixels
-     * while a glyph is centred on a pixel, so take half a pixel off before flooring: this centres the glyphs in
-     * the brass band on every side instead of rounding them half a pixel inward at the top and outward at the
-     * bottom.
-     */
     private static int glyphOffset(double direction) {
         return (int) Math.floor(direction * RUNE_DRAW_RADIUS - 0.5);
     }
@@ -1618,8 +1441,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         int[] offset = runeOffset(rune);
         return new int[] {x + BOARD_X + offset[0], y + BOARD_Y + offset[1]};
     }
-
-    // ---- The parchment panel ----
 
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
@@ -1642,7 +1463,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         boolean creative = client.player.isCreative();
         int cost = setup.band().xpLevels();
         boolean affordable = creative || client.player.experienceLevel >= cost;
-        // Cost: the levels a study takes, in ink, shrunk to fit the parchment if need be.
         Text costText = Text.translatable(cost == 1 ? "gui.middle-earth.lapidary.xp_cost_one" : "gui.middle-earth.lapidary.xp_cost", cost);
         float costScale = Math.min(1F, 72F / textRenderer.getWidth(costText));
         context.getMatrices().pushMatrix();
@@ -1652,7 +1472,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         context.getMatrices().popMatrix();
         line += 13;
 
-        // Rune pips: hollow, lit by the light, or locked.
         int state = handler.getState();
         int runes = state == LapidaryScreenHandler.STATE_IDLE ? setup.band().runes() : handler.getRuneCount();
         RefractionReading.Beam beam = state == LapidaryScreenHandler.STATE_STUDYING
@@ -1669,8 +1488,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 px, line, INK, false);
             line += 10;
             if (state == LapidaryScreenHandler.STATE_STUDYING) {
-                // One goal at a time: the best grade still in reach. When the moves pass its limit it fades
-                // out and the next grade down fades in.
                 StudyGrade goal = StudyGrade.fromMovesOverPar(handler.getMoves() - handler.getPar(),
                     handler.getRuneCount());
                 long now = Util.getMeasuringTimeMs();
@@ -1686,7 +1503,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
                 drawGoal(context, aimGrade, px, line, previousAim == null ? 1 : fade);
                 line += 22;
             } else {
-                // Par stays hidden: the grade says how close the player came.
                 line += 2;
                 StudyGrade grade = handler.getLastGrade();
                 if (grade != null) {
@@ -1700,13 +1516,11 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         if (handler.hasNotesWaiting() && state != LapidaryScreenHandler.STATE_STUDYING) {
             drawWrapped(context, Text.translatable("gui.middle-earth.lapidary.take_notes"), px, line, INK_BAD);
         } else if (held != null && state == LapidaryScreenHandler.STATE_IDLE) {
-            // Two lines, so long grade names fit the parchment.
             context.drawText(textRenderer, Text.translatable("gui.middle-earth.lapidary.studied"), px, line, INK_DIM, false);
             context.drawText(textRenderer, Text.translatable(held.translationKey()), px, line + 10, gradeInk(held), false);
         }
     }
 
-    /** A grade goal: its name, and below it the most moves that still earn it. */
     private void drawGoal(DrawContext context, StudyGrade grade, int gx, int gy, float alpha) {
         int a = (int) (alpha * 255);
         if (a < 8) {
@@ -1721,7 +1535,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** A small diamond: filled when lit or locked, hollow otherwise. */
     private static void drawPip(DrawContext context, int cx, int cy, int fill, int outline) {
         for (int dy = -3; dy <= 3; dy++) {
             int half = 3 - Math.abs(dy);
@@ -1733,7 +1546,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** Grade colours dark enough to read on parchment. */
     private static int gradeInk(StudyGrade grade) {
         return switch (grade) {
             case ROUGH_NOTES -> 0xFF5E5E5E;
@@ -1750,8 +1562,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
     private boolean isOverHelp(double mouseX, double mouseY) {
         return mouseX >= x + PANEL_X + 64 && mouseX < x + PANEL_X + 76 && mouseY >= y + 1 && mouseY < y + 14;
     }
-
-    // ---- Input ----
 
     private double boardDistance(double mouseX, double mouseY) {
         return Math.hypot(mouseX - (x + BOARD_X), mouseY - (y + BOARD_Y));
@@ -1899,7 +1709,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
-    /** Snaps the candle to the groove step nearest the mouse; the whole drag counts as one move. */
     private void dragLamp(double mouseX, double mouseY) {
         if (!studying()) {
             draggingLamp = false;
@@ -1914,8 +1723,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             playClick(1.8F);
         }
     }
-
-    // ---- Simple shapes with fills ----
 
     private static void fillCircle(DrawContext context, int cx, int cy, int radius, int color) {
         for (int dy = -radius; dy <= radius; dy++) {
@@ -1934,7 +1741,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** Fills a convex polygon given in board units, scaled by {@code factor}, row by row. */
     private static void fillPolygon(DrawContext context, int cx, int cy, double[][] poly, double factor, int color) {
         double scale = SCALE * factor;
         double top = Double.MAX_VALUE;
@@ -1975,7 +1781,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** Mixes two RGB colours (alpha ignored, result has none). */
     private static int lerpColor(int a, int b, float t) {
         int r = (int) MathHelper.lerp(t, (a >> 16) & 0xFF, (b >> 16) & 0xFF);
         int g = (int) MathHelper.lerp(t, (a >> 8) & 0xFF, (b >> 8) & 0xFF);
@@ -1983,10 +1788,8 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         return (r << 16) | (g << 8) | bl;
     }
 
-    /** A 20x20 button showing an item as its icon; its name shows as a tooltip and is read by the narrator. */
     private static final class IconButton extends ButtonWidget {
         private ItemStack icon;
-        /** Nudges the icon up for item art that does not sit centred in its 16x16 frame. */
         private final int raise;
 
         IconButton(int x, int y, ItemStack icon, int raise, Text name, Runnable onPress) {
@@ -2011,7 +1814,6 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
         }
     }
 
-    /** A gem turn button: a filled arrow sized to the button instead of a text label. */
     private static final class ArrowButton extends ButtonWidget {
         private static final int HEAD = 5;
         private static final int SHAFT = 8;
@@ -2023,14 +1825,12 @@ public class LapidaryScreen extends HandledScreen<LapidaryScreenHandler> {
             this.left = left;
         }
 
-        /** Drawn in the colour the button would give its text, so it greys out the same way. */
         @Override
         public void drawMessage(DrawContext context, TextRenderer textRenderer, int color) {
             int length = HEAD + SHAFT;
             int x0 = getX() + (getWidth() - length) / 2;
             int cy = getY() + getHeight() / 2;
             for (int i = 0; i < length; i++) {
-                // Column i from the tip: the head widens by a pixel each way per column, the shaft is 3 tall.
                 int half = i < HEAD ? i : 1;
                 int column = left ? x0 + i : x0 + length - 1 - i;
                 context.fill(column, cy - half, column + 1, cy + half + 1, color);

@@ -41,36 +41,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 
-/**
- * The Lapidary Table: where raw gems are studied and cut, tier by tier. Two blocks wide: the cutting half
- * ({@link Part#TABLE}, which holds the block entity) with the grinding wheel, crank and lenses, and beside it, away
- * from the crank, the study half ({@link Part#STUDY}) with the reading disc, the candle and the plinth the studied
- * gem sits on. Right-clicking the cutting half opens the screen on Faceting, the study half on the study.
- * <p>
- * Upgrades (lenses, grinding wheel, lamp) go on with a sneaking right-click and come off, one at a time, with a
- * sneaking right-click of an empty hand: lenses first, then the wheel, then the lamp.
- * <p>
- * Plain vanilla rendering, no animation library. The placed halves draw only the bare tables;
- * {@code LapidaryTableRenderer} draws the rest (crank, wheel, lenses, lamp, plinth gem, pump pipe) through
- * {@link #PART} states of this same block that are never placed in the world (blockstates/lapidary_table.json maps
- * them to their models), so no extra model loading is needed.
- */
+/** The two-block Lapidary Table: a cutting half and a study half. */
 public class LapidaryTableBlock extends BlockWithEntity {
     public static final MapCodec<LapidaryTableBlock> CODEC = createCodec(LapidaryTableBlock::new);
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
     public static final BooleanProperty CUTTING = BooleanProperty.of("cutting");
     public static final EnumProperty<Part> PART = EnumProperty.of("part", Part.class);
 
-    /**
-     * Each half's hitbox, as its model is built (drawn facing north, the study half to the east): the joined top
-     * and the two legs at the half's outer end. The crank, wheel, magnifier and the
-     * study top's pedestal and candle stay out of it. Indexed by part, then horizontal facing.
-     */
     private static final VoxelShape[][] SHAPES = new VoxelShape[Part.values().length][4];
-    /**
-     * The study half with a fitted pump's vessel under it (the wooden bucket, or the Relic basin), as their models
-     * are built: the vessel is part of that half, so a water bucket on it fills it and an empty hand opens the study.
-     */
     private static final VoxelShape[] WITH_BUCKET = new VoxelShape[4], WITH_BASIN = new VoxelShape[4];
 
     static {
@@ -86,7 +64,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         }
     }
 
-    /** The boxes (model pixels, facing north) turned to {@code facing}. */
     private static VoxelShape shape(double[][] boxes, Direction facing) {
         VoxelShape shape = VoxelShapes.empty();
         for (double[] b : boxes) {
@@ -107,12 +84,10 @@ public class LapidaryTableBlock extends BlockWithEntity {
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(CUTTING, false).with(PART, Part.TABLE));
     }
 
-    /** Which way the study half stands from the cutting half: away from the crank. */
     public static Direction studySide(Direction facing) {
         return facing.rotateYClockwise();
     }
 
-    /** The cutting half (and its block entity) of the table this half belongs to. */
     public static BlockPos tablePos(BlockState state, BlockPos pos) {
         return state.get(PART) == Part.STUDY ? pos.offset(studySide(state.get(FACING)).getOpposite()) : pos;
     }
@@ -127,7 +102,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         builder.add(FACING, CUTTING, PART);
     }
 
-    /** The front of the table faces the player who placed it; the study half needs room beside it. */
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
         Direction facing = ctx.getHorizontalPlayerFacing().getOpposite();
@@ -150,7 +124,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
     @Override
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos,
                                                    Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        // The two halves stand together: break one and the other goes.
         Direction toStudy = studySide(state.get(FACING));
         Part part = state.get(PART);
         Part other = part == Part.STUDY ? Part.TABLE : Part.STUDY;
@@ -163,7 +136,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        // Broken in creative at the study half, the cutting half goes too but drops nothing.
         if (!world.isClient() && state.get(PART) == Part.STUDY && (player.isCreative() || !player.canHarvest(state))) {
             BlockPos table = tablePos(state, pos);
             BlockState tableState = world.getBlockState(table);
@@ -177,7 +149,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        // The render-only parts are never placed; they take the cutting half's shape.
         Part part = state.get(PART) == Part.STUDY ? Part.STUDY : Part.TABLE;
         int turns = state.get(FACING).getHorizontalQuarterTurns();
         if (part == Part.STUDY && world.getBlockEntity(tablePos(state, pos)) instanceof LapidaryTableBlockEntity table
@@ -191,11 +162,9 @@ public class LapidaryTableBlock extends BlockWithEntity {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient() && world.getBlockEntity(tablePos(state, pos)) instanceof LapidaryTableBlockEntity table) {
             if (player.isSneaking()) {
-                // An empty hand takes an upgrade off: lenses, then the wheel, the lamp, the pump.
                 table.removeUpgrade(player);
                 return ActionResult.SUCCESS;
             }
-            // One player at each half: while someone has this half open, others are told who.
             net.minecraft.server.network.ServerPlayerEntity other = table.otherUser(player, state.get(PART) != Part.STUDY);
             if (other != null) {
                 player.sendMessage(Text.translatable("message.middle-earth.lapidary_table.in_use", other.getDisplayName()), false);
@@ -206,7 +175,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         return ActionResult.SUCCESS;
     }
 
-    /** A water bucket on either half fills a fitted pump's vessel; without a pump the table opens as usual. */
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player,
                                          net.minecraft.util.Hand hand, BlockHitResult hit) {
@@ -255,10 +223,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
-    /**
-     * A sneaking right-click on either half with an upgrade sets it on the table. It has to come before the item's
-     * own use: a sneaking player with something in hand skips the block's, and lamps would just be placed.
-     */
     public static void registerEvents() {
         UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
             ItemStack stack = player.getStackInHand(hand);
@@ -276,10 +240,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         });
     }
 
-    /**
-     * TABLE and STUDY are the two placed halves; the rest exist only so the renderer can draw those models: the
-     * crank, the three grinding wheels, the three sets of lenses, and the foot pump with its bucket or basin.
-     */
     public enum Part implements StringIdentifiable {
         TABLE("table"),
         STUDY("study"),
@@ -290,7 +250,6 @@ public class LapidaryTableBlock extends BlockWithEntity {
         LENS("lens"),
         LENS_REFINED("lens_refined"),
         LENS_EXQUISITE("lens_exquisite"),
-        /** The Refined and Exquisite fan lenses' tinted glass, drawn see-through over their rims. */
         LENS_GLASS_REFINED("lens_glass_refined"),
         LENS_GLASS_EXQUISITE("lens_glass_exquisite"),
         PEDAL_BASE("pedal_base"),

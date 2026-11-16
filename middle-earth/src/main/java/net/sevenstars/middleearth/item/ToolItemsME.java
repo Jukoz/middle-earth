@@ -163,11 +163,9 @@ public class ToolItemsME {
     public static final Item LONGBOTTOM_PIPE = registerItem2dGUI3dPerson("longbottom_pipe",
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
 
-    // ---- Ring forging: one ring item for every metal, filled in as it is forged (see RingItem). ----
     public static final Item RING = registerItem(new RingItem(new Item.Settings().registryKey(BlockRegistryME.keyOfItem("ring"))), "ring");
 
     static {
-        // Example rings at different steps of their forging, until the forging stations make them.
         ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.COPPER, 64, -40));
         ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.IRON, 75, 0));
         ItemGroupsME.TOOLS_CONTENTS.add(ring(RingMetalRegistry.SILVER, 83, 30));
@@ -181,7 +179,6 @@ public class ToolItemsME {
         ItemGroupsME.TOOLS_CONTENTS.add(gemRing(RingMetalRegistry.MITHRIL, 95, 85, GemTypeRegistry.SAPPHIRE, GemCut.BRILLIANT, 94));
     }
 
-    /** A freshly refined ring of the given metal, purity and polarity. */
     public static ItemStack ring(RegistryKey<RingMetal> metal, int purity, int polarity) {
         ItemStack stack = new ItemStack(RING);
         stack.set(DataComponentTypesME.RING_METAL, metal);

@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.recipe.lapidary.LapidaryAdvancementOrder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-/** Lays the Lapidary tab's branches out in a fixed order ({@link LapidaryAdvancementOrder}). */
+/** Keeps the Lapidary advancement tab's branches in a fixed order. */
 @Mixin(AdvancementPositioner.class)
 public class AdvancementPositionerMixin {
     @WrapOperation(method = {"<init>", "findChildrenRecursively"}, at = @At(value = "INVOKE",

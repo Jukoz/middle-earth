@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
 import java.util.concurrent.CompletableFuture;
 
+/** Data generation for the built-in gem types. */
 public class GemTypesProvider extends FabricDynamicRegistryProvider {
     public GemTypesProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);

@@ -407,11 +407,6 @@ public class ItemModelProvider extends FabricModelProvider {
         });
     }
 
-    /**
-     * The ring: its metal's palette (or the heated glow while hot), drawn with a gem setting once a gem is set, and
-     * the gem on top in its gem type's palette. The sprites are paletted permutations in the blocks atlas
-     * ({@code item/ring/ring_<metal>}, {@code item/ring/ring_set_<metal>}, {@code item/ring/gem_<gem>}).
-     */
     private void registerRing(ItemModelGenerator itemModelGenerator) {
         List<SelectItemModel.SwitchCase<RegistryKey<RingMetal>>> metals = new ArrayList<>();
         for (RegistryKey<RingMetal> metal : RingMetalRegistry.ALL) {

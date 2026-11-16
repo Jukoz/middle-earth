@@ -21,10 +21,7 @@ import net.sevenstars.middleearth.resources.datas.rings.RingPolarity;
 
 import java.util.function.Consumer;
 
-/**
- * The Shift details on a ring's tooltip: its quality, purity, polarity, slots, gem and Fëa. Without Shift only a
- * hint is shown.
- */
+/** Ring tooltip details, shown while Shift is held. */
 @Environment(EnvType.CLIENT)
 public final class RingTooltip {
     private static final String TOOLTIP = "tooltip." + MiddleEarth.MOD_ID + ".ring.";

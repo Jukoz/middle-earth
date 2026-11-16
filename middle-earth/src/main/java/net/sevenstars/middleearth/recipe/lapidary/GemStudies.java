@@ -12,11 +12,7 @@ import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Gem Studies: what a study teaches about a gem, the notes it is written into, and the Player Book that keeps
- * them (component {@link DataComponentTypesME#GEM_STUDIES}, bound in by {@link GemStudiesBookRecipe}). The book
- * is a second, in-world record next to the Lapidary advancements.
- */
+/** What each study grade teaches and the Player Book component that keeps it. */
 public final class GemStudies {
     private static final String[] INFO = {"host", "depth", "region", "lore"};
 
@@ -27,17 +23,12 @@ public final class GemStudies {
         return stack.isOf(ResourceItemsME.PLAYER_BOOK);
     }
 
-    /** Notes for a study: the grade's notes item, made of the gem. */
     public static ItemStack notes(RegistryKey<GemType> gem, StudyGrade grade) {
         ItemStack stack = new ItemStack(ResourceItemsME.GEM_NOTES.get(grade));
         stack.set(DataComponentTypesME.GEM_TYPE, gem);
         return stack;
     }
 
-    /**
-     * What a grade teaches about a gem, one line each: host rock, then depth, region and lore.
-     * Gems without a lore line simply have one line fewer at Masterful.
-     */
     public static List<Text> infoLines(RegistryKey<GemType> gem, StudyGrade grade) {
         List<Text> lines = new ArrayList<>();
         String prefix = "gem_info." + gem.getValue().getNamespace() + "." + gem.getValue().getPath() + ".";

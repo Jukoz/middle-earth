@@ -26,14 +26,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
-/**
- * The recipes of the lost lapidary arts: everything on the way to the Masterwork and Relic Lapidary Tools. Their ids
- * are under lapidary/masterwork/ or lapidary/relic/ (see {@link LapidaryKnowledge}): they need
- * the scroll and never unlock by themselves (an impossible criterion), only by reading the scroll.
- * <p>
- * Made from what Middle-earth and vanilla already have: gem glass is the only new material. Metal rods and plates
- * are ME's generic rod and armor plate; the metal is their trim, so the ingredients match the trim component.
- */
+/** Recipes for the lost lapidary arts; locked until learned from a scroll. */
 public class LapidaryRecipeProvider extends FabricRecipeProvider {
     public LapidaryRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -52,7 +45,6 @@ public class LapidaryRecipeProvider extends FabricRecipeProvider {
 
             @Override
             public void generate() {
-                // The Lapidary Table: a lens held between fine gold stands, over a grindstone turned by a crank, on a wooden table.
                 ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.DECORATIONS, net.sevenstars.middleearth.item.DecorativeItemsME.LAPIDARY_TABLE)
                     .pattern("nln")
                     .pattern("gwc")
@@ -89,7 +81,6 @@ public class LapidaryRecipeProvider extends FabricRecipeProvider {
                 return Identifier.of(MiddleEarth.MOD_ID, LapidaryKnowledge.RECIPE_FOLDER + art + "/" + name).toString();
             }
 
-            /** A generic rod or plate of one metal (the metal is its trim material). */
             private Ingredient metal(Item shape, String metalName) {
                 ArmorTrim trim = LapidaryRecipeLayouts.trim(registries, metalName);
                 return DefaultCustomIngredients.components(Ingredient.ofItem(shape),

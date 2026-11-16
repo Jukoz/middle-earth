@@ -11,10 +11,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 
-/**
- * A lantern or lamp carried in the off hand is shaded or lit by using it (when the main hand has nothing to do),
- * instead of being set down. (Beam lights are switched by their own items.)
- */
+/** Using a lantern or lamp from the off hand shades or lights it instead of placing it. */
 public final class LanternToggling {
     private LanternToggling() {
     }

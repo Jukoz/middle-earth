@@ -13,13 +13,11 @@ import net.sevenstars.middleearth.light.BeamLights;
 import net.sevenstars.middleearth.light.LampDazzle;
 import org.jetbrains.annotations.Nullable;
 
-/** Keeps a placed lamp's beam spot lit: re-aims every few ticks, so a block put in the way moves the light. */
+/** Re-aims a placed lamp's beam every few ticks so its light follows blocks put in the way. */
 public class BeamLampBlockEntity extends BlockEntity {
     private static final int AIM_TICKS = 5;
 
-    /** The light this lamp keeps, if any (not saved: it lights again within a few ticks of loading). */
     private @Nullable BlockPos spot;
-    /** The lights it keeps along its beam, where walls are near. */
     private List<BlockPos> path = List.of();
 
     public BeamLampBlockEntity(BlockPos pos, BlockState state) {

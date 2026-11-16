@@ -21,12 +21,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-/**
- * Player Book + any number of gem notes and lapidary scrolls, anywhere in a crafting grid: the book comes back
- * with each gem's entry raised to the best of the notes' grades, and a page for each scroll. The notes and
- * scrolls are used up. The recipe only matches when at least one of them teaches the book something new, so
- * nothing is wasted.
- */
+/** Binds gem notes and lapidary scrolls into the Player Book; only matches if something new is taught. */
 public class GemStudiesBookRecipe extends SpecialCraftingRecipe {
     public GemStudiesBookRecipe(CraftingRecipeCategory category) {
         super(category);

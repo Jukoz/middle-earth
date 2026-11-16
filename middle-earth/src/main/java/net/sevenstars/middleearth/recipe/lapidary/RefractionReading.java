@@ -7,44 +7,23 @@ import java.util.Random;
 
 import net.minecraft.util.Identifier;
 
-/**
- * The geometry of the study minigame, "Refraction Reading". Shared by the server (which owns the game) and the
- * client (which draws the beam live), so both must give the same answers: plain double maths, no randomness
- * outside the seeded {@link Random}s.
- * <p>
- * A gem's outline is a convex polygon of radius 1 around the centre, with its own shape per gem type.
- * A lamp sits on a ring around it and shines at the centre. Light refracts into the gem (Snell's law), bounces
- * inside by total internal reflection while it can, refracts out and lands on the rune ring. The player turns
- * the gem and moves the lamp, both in 15 degree steps, to land the light on each rune and lock it.
- * Moves: each step the gem turns is one move; one drag of the lamp is one move however far it goes, so the
- * player can sweep the lamp to look around and only pays for the gem turns they choose.
- * <p>
- * Coordinates are maths-style: angles counter-clockwise from +x, y up. The screen flips y when drawing.
- */
+/** Geometry of the Refraction Reading study, deterministic so server and client agree. */
 public final class RefractionReading {
-    /** Positions per turn for both the lamp and the gem: 24 steps of 15 degrees. */
     public static final int STEPS = 24;
     public static final double STEP_DEGREES = 360.0 / STEPS;
     public static final double LAMP_RING = 2.1;
-    /** The runes are engraved on the board's brass rim, one slot every {@link #RUNE_SLOT_DEGREES}. */
     public static final double RUNE_RING = 2.65;
     public static final int RUNE_SLOTS = 36;
     public static final int RUNE_SLOT_DEGREES = 360 / RUNE_SLOTS;
-    /** A rune is lit when the light lands within this many degrees of it. */
     public static final double RUNE_TOLERANCE = 4.0;
-    /** Runes are at least this far apart, so one beam never lights two. */
     private static final int RUNE_SPACING = 30;
-    /** Light that bounces this many times inside the gem without escaping counts as trapped. */
     private static final int MAX_SEGMENTS = 16;
     private static final double EPSILON = 1.0E-7;
 
     private RefractionReading() {
     }
 
-    /**
-     * The gem's outline, unrotated: {@code facets} vertices counter-clockwise, all within radius 1.
-     * Each gem type gets its own fixed shape (seeded by its id), stretched a little along a tilted axis.
-     */
+    /** A gem's outline: facet points round a circle, jittered, stretched and tilted per gem (seeded), scaled to radius 1. */
     public static double[][] outline(Identifier gem, int facets) {
         Random random = new Random(gem.toString().hashCode() * 31L + facets);
         double step = 2.0 * Math.PI / facets;
@@ -58,7 +37,6 @@ public final class RefractionReading {
             double angle = i * step + (random.nextDouble() - 0.5) * 0.6 * step;
             double x = Math.cos(angle);
             double y = Math.sin(angle);
-            // Stretch along the tilted axis: rotate by -tilt, scale x, rotate back. Keeps it convex and CCW.
             double u = (x * cosT + y * sinT) * stretch;
             double v = -x * sinT + y * cosT;
             points[i][0] = u * cosT - v * sinT;
@@ -72,7 +50,7 @@ public final class RefractionReading {
         return points;
     }
 
-    /** The outline turned by {@code gemStep} steps counter-clockwise. */
+    /** The outline turned by the gem's rotation step. */
     public static double[][] rotate(double[][] outline, int gemStep) {
         double angle = Math.toRadians(gemStep * STEP_DEGREES);
         double cos = Math.cos(angle);
@@ -85,16 +63,13 @@ public final class RefractionReading {
         return turned;
     }
 
-    /**
-     * The light's path from the lamp. {@code points} holds x, y pairs from the lamp to where it ends;
-     * {@code exitDegrees} is where it lands on the rune ring, or NaN if it is trapped in the gem.
-     */
     public record Beam(double[] points, double exitDegrees) {
         public boolean escaped() {
             return !Double.isNaN(exitDegrees);
         }
     }
 
+    /** Traces the candle's ray through the outline with refraction and internal reflection to where it exits. */
     public static Beam trace(double[][] outline, double index, int lampStep, int gemStep) {
         double[][] poly = rotate(outline, gemStep);
         int n = poly.length;
@@ -131,9 +106,8 @@ public final class RefractionReading {
             }
             if (bestEdge < 0) {
                 if (inside) {
-                    break; // numerical slip at a corner; call it trapped
+                    break;
                 }
-                // Out of the gem: carry on to the rune ring.
                 double b = px * dx + py * dy;
                 double c = px * px + py * py - RUNE_RING * RUNE_RING;
                 double t = -b + Math.sqrt(Math.max(0, b * b - c));
@@ -148,7 +122,6 @@ public final class RefractionReading {
             points.add(px);
             points.add(py);
 
-            // Outward normal of a CCW edge (ex, ey) is (ey, -ex); turn it to face the incoming light.
             double ex = poly[(bestEdge + 1) % n][0] - poly[bestEdge][0];
             double ey = poly[(bestEdge + 1) % n][1] - poly[bestEdge][1];
             double length = Math.hypot(ex, ey);
@@ -162,7 +135,6 @@ public final class RefractionReading {
             double eta = inside ? index : 1.0 / index;
             double k = 1.0 - eta * eta * (1.0 - cosI * cosI);
             if (k < 0) {
-                // Total internal reflection: the light stays in the gem.
                 dx += 2.0 * cosI * nx;
                 dy += 2.0 * cosI * ny;
             } else {
@@ -178,36 +150,23 @@ public final class RefractionReading {
         return new Beam(toArray(points), Double.NaN);
     }
 
-    /** True if light landing at {@code exitDegrees} lights the rune at {@code runeDegrees}. */
     public static boolean lights(double exitDegrees, int runeDegrees) {
         return !Double.isNaN(exitDegrees) && angleBetween(exitDegrees, runeDegrees) <= RUNE_TOLERANCE;
     }
 
-    /** Moves between two lamp or gem positions, the short way round. */
     public static int stepsBetween(int a, int b) {
         int d = Math.floorMod(a - b, STEPS);
         return Math.min(d, STEPS - d);
     }
 
-    /**
-     * One study: where the lamp and gem start, the runes (in whole degrees on the ring) and par, the fewest
-     * moves that light and lock every rune.
-     */
     public record Puzzle(int startLamp, int startGem, int[] runes, int par) {
     }
 
-    /**
-     * Builds a puzzle with {@code runeCount} runes. Every rune is placed where some lamp and gem position
-     * lands the light, so every puzzle can be solved; none is lit at the start.
-     */
     public static Puzzle generate(long seed, double[][] outline, double index, int runeCount) {
         return generate(seed, outline, index, runeCount, false);
     }
 
-    /**
-     * As {@link #generate(long, double[][], double, int)}; with {@code candleRune} (lensed eyewear), the first rune
-     * is one the candle alone can light, with the gem left as it starts.
-     */
+    /** Best of up to 200 seeded tries: runes on reachable beam exits that the starting position does not already light. */
     public static Puzzle generate(long seed, double[][] outline, double index, int runeCount, boolean candleRune) {
         Random random = new Random(seed);
         int states = STEPS * STEPS;
@@ -230,7 +189,6 @@ public final class RefractionReading {
                 if (found == runeCount) {
                     break;
                 }
-                // Runes sit on the rim's engraved slots: use the slot this light lands on, if it is close enough.
                 int angle = Math.floorMod((int) Math.round(exits[state] / RUNE_SLOT_DEGREES) * RUNE_SLOT_DEGREES, 360);
                 if (!lights(exits[state], angle) || lights(exits[start], angle)) {
                     continue;
@@ -253,7 +211,6 @@ public final class RefractionReading {
             if (best == null || puzzle.par() > best.par()) {
                 best = puzzle;
             }
-            // Keep a puzzle that needs some gem turning: more than one move a rune at best.
             if (puzzle.par() > runeCount + 1) {
                 return puzzle;
             }
@@ -264,10 +221,7 @@ public final class RefractionReading {
         return best != null ? best : new Puzzle(0, 0, new int[0], 0);
     }
 
-    /**
-     * Par: the fewest moves (lamp drags and gem steps) from the start that visit, in any order, a position lighting
-     * each rune. A search over (runes locked, last position) pairs, small enough for five runes.
-     */
+    /** Fewest candle and gem moves that light every rune: the puzzle's par. */
     static int par(double[] exits, int start, int[] runes) {
         int count = runes.length;
         int[][] lighting = new int[count][];
@@ -281,7 +235,6 @@ public final class RefractionReading {
             lighting[r] = list.stream().mapToInt(Integer::intValue).toArray();
         }
         int full = (1 << count) - 1;
-        // cost[mask][rune][i]: fewest moves to lock the runes in mask, ending on lighting[rune][i].
         int[][][] cost = new int[full + 1][count][];
         for (int mask = 0; mask <= full; mask++) {
             for (int r = 0; r < count; r++) {
@@ -328,7 +281,6 @@ public final class RefractionReading {
         return par == Integer.MAX_VALUE ? 0 : par;
     }
 
-    /** Moves from one position to another: one lamp drag if the lamp moves, plus each gem step. */
     private static int distance(int a, int b) {
         return (a / STEPS != b / STEPS ? 1 : 0) + stepsBetween(a % STEPS, b % STEPS);
     }

@@ -28,28 +28,16 @@ import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Moving light, done the only way the game allows: invisible {@link BeamLightBlock}s where the light falls,
- * placed on the server so every player sees them. Whoever places one must refresh it; one left unrefreshed for
- * a second removes itself (also after a restart), so nothing is ever left behind.
- */
+/** Server side of moving light: places and refreshes {@link BeamLightBlock}s for held lights and beams. */
 public final class BeamLights {
-    /** Ticks a light may go without a refresh before it goes out. */
     private static final long STALE_TICKS = 20;
-    /**
-     * How the lights change: sent to players, but without the shape updates to the blocks beside them, so a plant
-     * that cannot bear bright light (a mushroom) is not made to check its footing and break.
-     */
     private static final int FLAGS = Block.NOTIFY_LISTENERS | Block.FORCE_STATE;
-    /** Along a beam: a light every this many blocks, where something solid is within {@link #PATH_NEAR} blocks. */
     private static final int PATH_STEP = 2;
     private static final int PATH_NEAR = 3;
-    /** How much dimmer the lights along a beam are than its spot. */
     public static final int PATH_DIMMER = 3;
 
     private static final Map<RegistryKey<World>, Long2LongOpenHashMap> FRESH = new HashMap<>();
     private static final Map<UUID, Held> HELD = new HashMap<>();
-    /** Each carried flame's flicker: its light now, and when it next changes (world time). */
     private static final Map<UUID, long[]> FLICKER = new HashMap<>();
 
     private record Held(RegistryKey<World> world, @Nullable BlockPos spot, @Nullable BlockPos glow, List<BlockPos> path) {
@@ -79,7 +67,6 @@ public final class BeamLights {
         return state.isAir() || state.getBlock() instanceof BeamLightBlock;
     }
 
-    /** Lights {@code pos} at {@code level} (or keeps a brighter light there) and marks it fresh. */
     public static boolean place(ServerWorld world, BlockPos pos, int level) {
         if (!loaded(world, pos)) {
             return false;
@@ -100,10 +87,7 @@ public final class BeamLights {
         return true;
     }
 
-    /**
-     * The most light the lamps' own light blocks can give {@code pos}: each one's level less its distance
-     * (light falls one level a block, at best in a straight run).
-     */
+    /** Brightest lamp light reaching a position, falling off one level per block (Manhattan). */
     public static int lampLightAt(ServerWorld world, BlockPos pos) {
         int best = 0;
         BlockPos.Mutable at = new BlockPos.Mutable();
@@ -121,10 +105,7 @@ public final class BeamLights {
         return best;
     }
 
-    /**
-     * A naked flame's light: a little below its full light, now one level, now another, changing every second
-     * or three (2-3 levels down for a torch, 1 for a weak light like a candle).
-     */
+    /** Flame light dips a level or two below its level, changing every 1-3 seconds. */
     private static int flicker(ServerWorld world, UUID holder, int level) {
         long now = world.getTime();
         long[] state = FLICKER.get(holder);
@@ -136,7 +117,6 @@ public final class BeamLights {
         return (int) state[0];
     }
 
-    /** Lowers one of our lights to {@code level} (placing only ever brightens). */
     private static void dimTo(ServerWorld world, BlockPos pos, int level) {
         BlockState state = world.getBlockState(pos);
         if (state.isOf(DecorativeBlockRegistryME.BEAM_LIGHT) && state.get(BeamLightBlock.LEVEL) > level) {
@@ -144,7 +124,6 @@ public final class BeamLights {
         }
     }
 
-    /** Puts out the light at {@code pos}, if one of ours is there. */
     public static void remove(ServerWorld world, BlockPos pos) {
         fresh(world).remove(pos.asLong());
         if (loaded(world, pos) && world.getBlockState(pos).isOf(DecorativeBlockRegistryME.BEAM_LIGHT)) {
@@ -152,7 +131,6 @@ public final class BeamLights {
         }
     }
 
-    /** Where a beam lands: the hit point, or the end of its reach in the open. */
     public static Vec3d beamEnd(World world, Vec3d from, Vec3d direction, double range) {
         Vec3d to = from.add(direction.multiply(range));
         BlockHitResult hit = world.raycast(new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER,
@@ -160,10 +138,7 @@ public final class BeamLights {
         return hit.getType() == HitResult.Type.MISS ? to : hit.getPos();
     }
 
-    /**
-     * The block a beam lights: the open block just in front of where it lands, stepping back along the beam if
-     * that one is taken. Null if nothing near the end is free or loaded.
-     */
+    /** The open block just before the beam's hit face, where its light goes. */
     public static @Nullable BlockPos beamSpot(World world, Vec3d from, Vec3d direction, double range) {
         if (!loaded(world, BlockPos.ofFloored(from)) || !loaded(world, BlockPos.ofFloored(from.add(direction.multiply(range))))) {
             return null;
@@ -178,10 +153,7 @@ public final class BeamLights {
         return null;
     }
 
-    /**
-     * The open blocks a beam lights on its way, short of its spot: one every {@link #PATH_STEP} blocks, where a
-     * wall, the ground or anything else solid is within {@link #PATH_NEAR} blocks to be lit (none in the open air).
-     */
+    /** Dimmer lights every few blocks along the beam, only where it passes near solid blocks. */
     public static List<BlockPos> beamPath(World world, Vec3d from, Vec3d direction, double range) {
         List<BlockPos> path = new ArrayList<>();
         double length = beamEnd(world, from, direction, range).distanceTo(from);
@@ -207,10 +179,6 @@ public final class BeamLights {
         return false;
     }
 
-    /**
-     * Moves a beam's lights along its way from {@code before} to {@code now}: puts out those it no longer passes
-     * (but not those in {@code keep}, its own other lights), lights the new ones at {@code level}. Returns the lit.
-     */
     public static List<BlockPos> movePath(ServerWorld world, List<BlockPos> before, List<BlockPos> now, int level,
                                           Collection<BlockPos> keep) {
         for (BlockPos pos : before) {
@@ -230,7 +198,6 @@ public final class BeamLights {
         return lit;
     }
 
-    /** Every player's off-hand light: the beam's spot and the glow at the holder, moved as they move. */
     private static void tickPlayers(ServerWorld world) {
         LampDazzle.tick(world);
         boolean ambient = HeldLights.ambientLight(world.getServer());
@@ -279,7 +246,6 @@ public final class BeamLights {
                 List<BlockPos> old = new ArrayList<>(before.path());
                 old.removeIf(pos -> pos.equals(before.spot()) || pos.equals(before.glow()));
                 path = movePath(world, old, path, Math.max(1, spotLevel - PATH_DIMMER), keep);
-                // A light that was this beam's spot and is now on its way dims to the way's light.
                 for (BlockPos pos : path) {
                     if (pos.equals(before.spot())) {
                         dimTo(world, pos, Math.max(1, spotLevel - PATH_DIMMER));

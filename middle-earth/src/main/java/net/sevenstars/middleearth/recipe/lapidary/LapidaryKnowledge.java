@@ -22,20 +22,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * The lost arts of the lapidary: which tool sets a character has learned to make, from the Masterwork and Relic
- * scrolls. Kept on the player (saved, kept through death, synced to that player).
- * <p>
- * Every recipe on the way to a tool set lives under {@code middle-earth:lapidary/<art>/...}: {@code masterwork}
- * and {@code relic} need that scroll, {@code shared} needs either. Those recipes cannot be made without the
- * knowledge (crafting table, crafter, anvil, grindstone), and they never unlock in the recipe book by themselves:
- * reading a scroll unlocks them.
- */
+/** Per-player lapidary tool sets learned from scrolls, gating the lapidary recipes. */
 public final class LapidaryKnowledge {
     public static final String RECIPE_FOLDER = "lapidary/";
     public static final String SHARED = "shared";
 
-    /** The ids of the learned tool sets ("masterwork", "relic"). */
     public static final AttachmentType<List<String>> LEARNED = AttachmentRegistry
         .<List<String>>builder()
         .persistent(Codec.STRING.listOf())
@@ -48,7 +39,6 @@ public final class LapidaryKnowledge {
     }
 
     public static void register() {
-        // Loads the class, which registers the attachment.
     }
 
     public static boolean knows(PlayerEntity player, LapidaryTools tools) {
@@ -56,7 +46,6 @@ public final class LapidaryKnowledge {
         return learned != null && learned.contains(tools.id());
     }
 
-    /** The art a lapidary recipe belongs to ("masterwork", "relic", "shared"), or null for any other recipe. */
     public static @Nullable String art(RegistryKey<Recipe<?>> recipe) {
         Identifier id = recipe.getValue();
         if (!id.getNamespace().equals(MiddleEarth.MOD_ID) || !id.getPath().startsWith(RECIPE_FOLDER)) {
@@ -67,7 +56,6 @@ public final class LapidaryKnowledge {
         return slash < 0 ? null : rest.substring(0, slash);
     }
 
-    /** Whether the player may make this recipe: anything that is not lapidary knowledge, or knowledge they have. */
     public static boolean canMake(@Nullable PlayerEntity player, RegistryKey<Recipe<?>> recipe) {
         String art = art(recipe);
         if (art == null) {
@@ -92,17 +80,10 @@ public final class LapidaryKnowledge {
         return false;
     }
 
-    /** True for recipes that are lapidary knowledge (they may not be made by a crafter, which has no player). */
     public static boolean isLocked(RegistryKey<Recipe<?>> recipe) {
         return art(recipe) != null;
     }
 
-    /**
-     * The player learns a tool set: its recipes (and the shared ones) unlock in their recipe book, and the
-     * advancement is granted.
-     *
-     * @return true if it was new to them
-     */
     public static boolean learn(ServerPlayerEntity player, LapidaryTools tools) {
         boolean known = knows(player, tools);
         if (!known) {
@@ -130,7 +111,6 @@ public final class LapidaryKnowledge {
         return !known;
     }
 
-    /** The tool sets the player has learned. */
     public static Set<LapidaryTools> learned(PlayerEntity player) {
         Set<LapidaryTools> set = EnumSet.noneOf(LapidaryTools.class);
         for (LapidaryTools tools : LapidaryTools.values()) {
@@ -141,7 +121,6 @@ public final class LapidaryKnowledge {
         return set;
     }
 
-    /** Advancement id for a learned tool set, e.g. middle-earth:lapidary/tools/masterwork. */
     public static Identifier advancementId(LapidaryTools tools) {
         return Identifier.of(MiddleEarth.MOD_ID, "lapidary/tools/" + tools.id());
     }

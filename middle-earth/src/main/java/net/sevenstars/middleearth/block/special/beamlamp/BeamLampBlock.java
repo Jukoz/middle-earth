@@ -38,13 +38,7 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * A focused lamp set down as a block: standing, hanging or on a wall like Middle-earth's lanterns, its lens
- * pointing the way the player faced (on a wall, straight out from it). Lit, it glows a little itself and throws
- * a level beam that lights the spot where it lands. Right-click to light it or shade it.
- * <p>
- * Models face north (lens on the north side; a wall lamp's wall is to the south) and turn with {@link #FACING}.
- */
+/** A placed beam lamp (standing, hanging or wall) that throws a level beam where it faces; right-click toggles it. */
 public class BeamLampBlock extends BlockWithEntity implements Waterloggable {
     public static final EnumProperty<BlockFace> FACE = Properties.BLOCK_FACE;
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
@@ -81,7 +75,6 @@ public class BeamLampBlock extends BlockWithEntity implements Waterloggable {
         return BlockRenderType.MODEL;
     }
 
-    /** The side the lamp hangs from or stands on. */
     private static Direction attached(BlockState state) {
         return switch (state.get(FACE)) {
             case FLOOR -> Direction.DOWN;
@@ -167,7 +160,6 @@ public class BeamLampBlock extends BlockWithEntity implements Waterloggable {
         };
     }
 
-    /** Where the light leaves the lens, in world space: the flame's height, at the front of the housing. */
     public static Vec3d lens(BlockPos pos, BlockState state) {
         Direction facing = state.get(FACING);
         BeamLampKind kind = state.getBlock() instanceof BeamLampBlock lamp ? lamp.kind() : BeamLampKind.BULLSEYE;
@@ -178,7 +170,6 @@ public class BeamLampBlock extends BlockWithEntity implements Waterloggable {
             pos.getZ() + 0.5 + facing.getOffsetZ() * out);
     }
 
-    /** The beam's direction: level, out of the lens. */
     public static Vec3d direction(BlockState state) {
         Direction facing = state.get(FACING);
         return new Vec3d(facing.getOffsetX(), 0, facing.getOffsetZ());

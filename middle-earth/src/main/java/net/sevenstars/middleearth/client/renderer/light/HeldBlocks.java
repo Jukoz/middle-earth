@@ -19,23 +19,15 @@ import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-/**
- * A light whose {@code held_light} entry names a {@code held_block}, drawn in the off hand as that block's placed
- * model (lit, or unlit while shaded), in place of the item's own model (a flat sprite, for most lanterns): so a data
- * pack alone gives another mod's lantern a held look. It is shown as Middle-earth's own held models are, by its
- * entry's grip and display, so its flames and first-person grip line up with it.
- */
+/** Draws a held light's {@code held_block} placed model in the off hand in place of its item model. */
 @Environment(EnvType.CLIENT)
 public final class HeldBlocks {
-    /** How far below the fist a lit lantern's grip sits in third person (pixels), as Middle-earth's held lanterns. */
     private static final float LIT_DROP = 1.5F;
-    /** How far a held-up light is turned on the arm (degrees on x), as Middle-earth's held models have it. */
     private static final float RAISED_ROT = 16;
 
     private HeldBlocks() {
     }
 
-    /** The block state to draw for this stack in the hand, or null if its entry names no (known) block. */
     private static @Nullable BlockState state(HeldLightData data, ItemStack stack) {
         if (data.heldBlock().isEmpty()) {
             return null;
@@ -54,11 +46,6 @@ public final class HeldBlocks {
         return state;
     }
 
-    /**
-     * Draws {@code stack}'s held block on a holder's arm (third person), the matrices as the held item feature has
-     * them for the item: its grip brought to the fist, scaled, a held-up light turned on the arm. False if the
-     * stack has no held block (draw the item as usual).
-     */
     public static boolean renderThirdPerson(ItemStack stack, MatrixStack matrices, VertexConsumerProvider consumers, int light) {
         HeldLightData data = HeldLights.data(true, stack);
         BlockState state = data == null ? null : state(data, stack);
@@ -69,7 +56,6 @@ public final class HeldBlocks {
         Vector3f grip = data.grip();
         matrices.push();
         if (data.light().hold() == HeldLight.Hold.GAZE) {
-            // Carried by its handle: lit, its grip a little below the fist; shaded, hanging from it.
             boolean lit = !data.light().toggled() || HeldLights.isOn(stack);
             matrices.translate(0, lit ? -LIT_DROP / 16 : 0, 0);
         } else {
@@ -83,10 +69,6 @@ public final class HeldBlocks {
         return true;
     }
 
-    /**
-     * Draws {@code stack}'s held block in your own off hand (first person), as an item's first-person display
-     * would: lifted, turned and scaled about the model's middle. False if the stack has no held block.
-     */
     public static boolean renderFirstPerson(ItemStack stack, MatrixStack matrices, VertexConsumerProvider consumers, int light) {
         HeldLightData data = HeldLights.data(true, stack);
         BlockState state = data == null ? null : state(data, stack);

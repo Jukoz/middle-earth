@@ -65,7 +65,6 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 }
                 if (net.sevenstars.middleearth.client.renderer.light.HeldFlames.hasWornFlames(stack)
                     && bipedEntityRenderState instanceof net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess access) {
-                    // Where its candles' wicks are drawn on the wearer, for their flames.
                     matrices.push();
                     this.helmetAddonModel.head.applyTransform(matrices);
                     net.sevenstars.middleearth.client.renderer.light.HeldFlames.noteWorn(access.getHeadStackItself(), matrices.peek().getPositionMatrix());

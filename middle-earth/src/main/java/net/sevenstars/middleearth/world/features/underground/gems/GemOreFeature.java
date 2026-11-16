@@ -24,14 +24,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-/**
- * Hides gems in the rock beside host ore clusters. Runs once per chunk after the ores (underground decoration
- * step): finds the host ore blocks in the chunk's y band, groups touching blocks into clusters, rolls how many
- * gems the chunk gets ({@link GemOreFeatureConfig#minPerChunk()} to {@link GemOreFeatureConfig#maxPerChunk()}),
- * and gives that many clusters, one gem each (going round again if there are fewer clusters), a stone block
- * touching the cluster face to face, turned into a gem ore disguised as that very stone. Only plain stone is
- * taken: never a host ore or any other ore, so every gem sits against its vein and is found by mining round it.
- */
+/** Hides gems beside host ore clusters, a set number per chunk. */
 public class GemOreFeature extends Feature<GemOreFeatureConfig> {
     public GemOreFeature() {
         super(GemOreFeatureConfig.CODEC);
@@ -72,7 +65,6 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
         if (wanted <= 0 || hosts.isEmpty()) {
             return false;
         }
-        // The stone round each cluster, clusters in a random order; those with no stone to take are dropped.
         List<List<Long>> rocks = new ArrayList<>();
         for (List<Long> cluster : clusters(hosts)) {
             List<Long> rock = rockAround(world, cluster, hosts, chunk);
@@ -81,8 +73,6 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
             }
         }
         Util.shuffle(rocks, random);
-        // Clusters can share a stone (one block can touch two veins), so a spot is taken once only: a cluster
-        // whose drawn spot has already gone draws again from its other stones.
         Set<Long> taken = new HashSet<>();
         int placed = 0;
         while (placed < wanted && !rocks.isEmpty()) {
@@ -96,10 +86,6 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
         return placed > 0;
     }
 
-    /**
-     * Turns one of {@code rock}'s stones into a gem ore disguised as it, drawing at random until one can be taken
-     * (not already taken, and still a stone a gem can look like). Drawn stones leave {@code rock} either way.
-     */
     private static boolean placeOne(StructureWorldAccess world, List<Long> rock, Set<Long> taken,
                                     GemOreFeatureConfig config, Random random) {
         while (!rock.isEmpty()) {
@@ -120,7 +106,6 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
         return false;
     }
 
-    /** Region gems: check the surface biome in the middle of the chunk (underground is cave biomes). */
     private static boolean surfaceInRegion(StructureWorldAccess world, ChunkPos chunk, GemOreFeatureConfig config) {
         int x = chunk.getCenterX();
         int z = chunk.getCenterZ();
@@ -128,7 +113,7 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
         return world.getBiome(new BlockPos(x, surfaceY, z)).isIn(config.region().get());
     }
 
-    /** Touching host blocks (including diagonals) form one cluster. */
+    /** Groups touching host ore blocks into clusters. */
     private static List<List<Long>> clusters(Set<Long> hosts) {
         List<List<Long>> clusters = new ArrayList<>();
         Set<Long> seen = new HashSet<>();
@@ -159,10 +144,7 @@ public class GemOreFeature extends Feature<GemOreFeatureConfig> {
         return clusters;
     }
 
-    /**
-     * The stone blocks touching a cluster face to face, inside this chunk: only stones a gem ore can disguise
-     * itself as (see {@link GemOreStone}), so the gem looks exactly like the block it took the place of.
-     */
+    /** Stone blocks touching a cluster, inside the chunk, that a gem can replace. */
     private static List<Long> rockAround(StructureWorldAccess world, List<Long> cluster, Set<Long> hosts, ChunkPos chunk) {
         Set<Long> rock = new LinkedHashSet<>();
         BlockPos.Mutable next = new BlockPos.Mutable();

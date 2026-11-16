@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** A crafter has no one who learned the lost arts: it cannot make lapidary knowledge recipes. */
+/** Crafters cannot make lapidary knowledge recipes. */
 @Mixin(CrafterBlock.class)
 public abstract class LapidaryCrafterMixin {
     @Inject(method = "getCraftingRecipe", at = @At("RETURN"), cancellable = true)

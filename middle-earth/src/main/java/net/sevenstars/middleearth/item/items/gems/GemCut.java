@@ -2,10 +2,7 @@ package net.sevenstars.middleearth.item.items.gems;
 
 import net.sevenstars.middleearth.MiddleEarth;
 
-/**
- * Sind's 16 cuts in 5 tiers. Within a tier the cut only changes the look; the tier sets the Inscription Table
- * words and charges.
- */
+/** The 16 cuts in 5 tiers; the tier sets inscription words and charges. */
 public enum GemCut {
     ROUND("round", 1),
     SPHERE("sphere", 1),
@@ -24,7 +21,6 @@ public enum GemCut {
     RADIANT("radiant", 5),
     BRIOLETTE("briolette", 5);
 
-    /** Inscription charges per tier: T1-T5 = 4, 8, 16, 32, 64. */
     private static final int[] CHARGES_BY_TIER = {4, 8, 16, 32, 64};
 
     private final String name;

@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * The order of the Lapidary tab's branches, top to bottom: one chain per gem, in the gem types' order, then the lost
- * arts' scrolls (Masterwork, then Relic) at the bottom. The game keeps an advancement's children in no fixed order,
- * so without this the branches would land anywhere, and differently from one launch to the next.
- */
+/** Fixed top-to-bottom order of the Lapidary advancement tab's branches. */
 public final class LapidaryAdvancementOrder {
     private static final Identifier ROOT = MiddleEarth.id("lapidary/root");
     private static final String TOOLS = "tools";
@@ -21,7 +17,6 @@ public final class LapidaryAdvancementOrder {
     private LapidaryAdvancementOrder() {
     }
 
-    /** {@code children} of {@code parent}, put in order if {@code parent} is the Lapidary root; else as they are. */
     public static Iterable<PlacedAdvancement> children(PlacedAdvancement parent, Iterable<PlacedAdvancement> children) {
         if (!ROOT.equals(parent.getAdvancementEntry().id())) {
             return children;
@@ -33,7 +28,6 @@ public final class LapidaryAdvancementOrder {
         return sorted;
     }
 
-    /** A branch's place: the gems in their order, anything else after them, the lost arts last in their own order. */
     private static int rank(Identifier id) {
         String[] parts = id.getPath().split("/");
         int gems = GemTypeRegistry.ALL.size();

@@ -13,10 +13,7 @@ import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * The built-in ring metals (Rings thread): the five metals a ring can be refined from, and how many inscription
- * slots each gives.
- */
+/** The built-in ring metals and their slot counts. */
 public class RingMetalRegistry {
     private static final RegistryKey<Registry<RingMetal>> RING_METAL_KEY = DynamicRegistriesME.RING_METAL;
 
@@ -26,7 +23,6 @@ public class RingMetalRegistry {
     public static final RegistryKey<RingMetal> GOLD = of("gold");
     public static final RegistryKey<RingMetal> MITHRIL = of("mithril");
 
-    /** Built-in ring metals, in creative tab order. */
     public static final List<RegistryKey<RingMetal>> ALL = List.of(COPPER, IRON, SILVER, GOLD, MITHRIL);
 
     public static void bootstrap(Registerable<RingMetal> context) {
@@ -51,7 +47,6 @@ public class RingMetalRegistry {
         return DynamicRegistriesME.of(RING_METAL_KEY, MiddleEarth.id(name));
     }
 
-    /** Looks a ring metal up in the synced registry; empty if the lookup or entry is missing. */
     public static Optional<RingMetal> get(RegistryWrapper.WrapperLookup lookup, RegistryKey<RingMetal> key) {
         if (lookup == null || key == null) {
             return Optional.empty();
@@ -63,7 +58,6 @@ public class RingMetalRegistry {
         return key.getValue().toTranslationKey("ring_metal");
     }
 
-    /** The metal's short name, e.g. "gold". */
     public static String name(RegistryKey<RingMetal> key) {
         return key.getValue().getPath();
     }

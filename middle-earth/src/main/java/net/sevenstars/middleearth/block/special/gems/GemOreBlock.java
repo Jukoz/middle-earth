@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.block.special.gems;
 
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.light.BeamLitBlock;
@@ -20,23 +19,12 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-/**
- * A gem hidden in the rock. It looks exactly like the stone named by {@link #STONE} and mines at that
- * stone's speed; the only tell is a glint of sparks in the gem's colour on its open faces.
- * Drops its raw gem (loot table, Fortune applies; Silk Touch also gives the raw gem) and 3-7 XP.
- * Needs an iron pickaxe or better (block tags).
- */
+/** A gem hidden in rock: looks and mines like its host stone, with only a coloured glint as a tell. */
 public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock {
     public static final MapCodec<GemOreBlock> CODEC = createCodec(GemOreBlock::new);
     public static final EnumProperty<GemKind> GEM = EnumProperty.of("gem", GemKind.class);
     public static final EnumProperty<GemOreStone> STONE = EnumProperty.of("stone", GemOreStone.class);
 
-    /**
-     * Glint tuning. Sparks on an open face come with the light falling on it (none in pitch dark, most in full
-     * light: about one a second) and are as bright as that light, up to a lantern's (15). A lamp's beam on the
-     * gem adds a quarter again. (The client gives each block a display tick about every two seconds; a beam
-     * that lands on a gem gleams it every tick.)
-     */
     private static final float SPARKS_PER_TICK_AT_FULL_LIGHT = 2.0F;
     private static final float GLEAM_SHARE = 0.25F;
     private static final float DISPLAY_TICKS_PER_SECOND = 0.46F;
@@ -58,7 +46,6 @@ public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock
         builder.add(GEM, STONE);
     }
 
-    /** Mine at the disguise stone's speed so the block doesn't give itself away. */
     @Override
     protected float calcBlockBreakingDelta(BlockState state, PlayerEntity player, BlockView world, BlockPos pos) {
         BlockState disguise = state.get(STONE).block().getDefaultState();
@@ -76,18 +63,12 @@ public class GemOreBlock extends ExperienceDroppingBlock implements BeamLitBlock
         glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT);
     }
 
-    /** A lamp's beam falling on the gem (called on the client each tick it does): a few sparks more. */
     @Override
     @Environment(EnvType.CLIENT)
     public void onBeamLit(World world, BlockPos pos, BlockState state, Random random) {
         glint(world, pos, state, random, SPARKS_PER_TICK_AT_FULL_LIGHT * GLEAM_SHARE * DISPLAY_TICKS_PER_SECOND / 20);
     }
 
-    /**
-     * Client only (sparks are particles), so the server's copy of this block never names the particle code.
-     * Sparks in the gem's colours just off every open face (placed as redstone ore's are): on average
-     * {@code atFullLight} a face in full light, fewer and dimmer as the light there falls.
-     */
     @Environment(EnvType.CLIENT)
     private static void glint(World world, BlockPos pos, BlockState state, Random random, float atFullLight) {
         if (!world.isClient) {

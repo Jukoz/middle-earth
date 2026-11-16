@@ -8,7 +8,7 @@ import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-/** Lapidary knowledge recipes give no result to a player who has not learned them from a scroll. */
+/** Lapidary knowledge recipes give nothing to players who have not learned them. */
 @Mixin(CraftingResultInventory.class)
 public abstract class LapidaryCraftingResultMixin implements RecipeUnlocker {
     @Override

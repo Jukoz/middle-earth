@@ -14,11 +14,7 @@ import net.sevenstars.middleearth.resources.datas.gems.GemType;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * The built-in gem types: one gem per general aspect plus one per people (team roster, Gem Cutting thread).
- * Inscription words follow the Inscription Table's existing pools for now: attack = the old ruby words,
- * defense = sapphire, speed = adamant, utility = vanilla emerald.
- */
+/** The built-in gem types. */
 public class GemTypeRegistry {
     private static final RegistryKey<Registry<GemType>> GEM_TYPE_KEY = DynamicRegistriesME.GEM_TYPE;
 
@@ -31,7 +27,6 @@ public class GemTypeRegistry {
     public static final RegistryKey<GemType> ONYX = of("onyx");
     public static final RegistryKey<GemType> MOONSTONE = of("moonstone");
 
-    /** Built-in gem types, in creative tab order. */
     public static final List<RegistryKey<GemType>> ALL =
             List.of(ADAMANT, RUBY, SAPPHIRE, BERYL, HADORITE, OPAL, ONYX, MOONSTONE);
 
@@ -47,7 +42,6 @@ public class GemTypeRegistry {
         register(context, lookup, SAPPHIRE, gem(GemAspect.DEFENSE, 0x328ECD, DEFENSE_WORDS, 1));
         register(context, lookup, BERYL, gem(GemAspect.UTILITY, 0x1FAE62, UTILITY_WORDS, 1));
         register(context, lookup, HADORITE, gem(GemAspect.MEN, 0x9A74F2, UTILITY_WORDS, 2));
-        // Opal's play of colour: its ore sparks lilac, blue and white (from its palette).
         register(context, lookup, OPAL, gem(GemAspect.DWARVES, 0x8FD3F0, DEFENSE_WORDS, 2, 0xE58FC4, 0x8FD3F0, 0xFFFAF0));
         register(context, lookup, ONYX, gem(GemAspect.MORGUL, 0x6E6E78, ATTACK_WORDS, 2));
         register(context, lookup, MOONSTONE, gem(GemAspect.ELVES, 0xA6CDF8, SPEED_WORDS, 2));
@@ -67,7 +61,6 @@ public class GemTypeRegistry {
         return DynamicRegistriesME.of(GEM_TYPE_KEY, MiddleEarth.id(name));
     }
 
-    /** Looks a gem type up in the synced registry; empty if the lookup or entry is missing. */
     public static Optional<GemType> get(RegistryWrapper.WrapperLookup lookup, RegistryKey<GemType> key) {
         if (lookup == null || key == null) {
             return Optional.empty();
@@ -79,7 +72,6 @@ public class GemTypeRegistry {
         return key.getValue().toTranslationKey("gem_type");
     }
 
-    /** The gem's short name, e.g. "ruby". */
     public static String name(RegistryKey<GemType> key) {
         return key.getValue().getPath();
     }

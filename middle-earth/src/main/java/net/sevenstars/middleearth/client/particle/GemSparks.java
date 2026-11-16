@@ -6,7 +6,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.particle.ParticleTypes;
 
-/** The glint of a hidden gem: the small spark particle, tinted the gem's colour. Client only. */
+/** Spark particle tinted to a gem's colour. */
 @Environment(EnvType.CLIENT)
 public final class GemSparks {
     private GemSparks() {

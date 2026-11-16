@@ -731,7 +731,6 @@ public class RegistriesME {
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
 
-        // A hot ring is quenched like any other hot metal; a cold one does nothing.
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ToolItemsME.RING, COOL_DOWN_METAL);
     }
 

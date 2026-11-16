@@ -8,10 +8,7 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
 import net.sevenstars.middleearth.resources.datas.gems.GemType;
 
-/**
- * The built-in gem types as an enum, for places that need a fixed set (block state property, feature config).
- * Each maps to its {@link GemTypeRegistry} key.
- */
+/** Built-in gem types as a fixed enum for block states and feature configs. */
 public enum GemKind implements StringIdentifiable {
     ADAMANT(GemTypeRegistry.ADAMANT),
     RUBY(GemTypeRegistry.RUBY),

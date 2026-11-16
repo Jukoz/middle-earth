@@ -5,10 +5,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * English text for the gem rework (gem types, aspects, cuts, gem tooltips), added by the LanguageProvider.
- * Item and block names come from their ids like every other Middle-earth entry.
- */
+/** English text for the gem rework. */
 public class GemTranslations {
     private static final String ID = MiddleEarth.MOD_ID;
 
@@ -57,7 +54,6 @@ public class GemTranslations {
         put("gem_cut." + ID + ".briolette", "Briolette");
     }
 
-    // Lapidary Table, gem studies, Gem Studies chapter and Lapidary advancements (generated from the playground).
     static {
         put("study_grade.middle-earth.rough_notes", "Rough Notes");
         put("study_grade.middle-earth.careful", "Careful");
@@ -194,11 +190,9 @@ public class GemTranslations {
         put("advancement.middle-earth.lapidary.tools.masterwork.description", "Read the Lost Master's Study of Gems");
         put("advancement.middle-earth.lapidary.tools.relic", "Of the Gwaith-i-Mirdain");
         put("advancement.middle-earth.lapidary.tools.relic.description", "Read the Ancient Eregion Gemcraft Folio");
-        // The focused lamps as blocks, and as off-hand lamps.
         put("block.middle-earth.citrine_bullseye_lamp", "Citrine Bullseye Lamp");
         put("block.middle-earth.mirdain_beam_lamp", "Mirdain Beam Lamp");
         put("block.middle-earth.beam_light", "Beam Light");
-        // Lapidary arts item names: from their ids, with a few overrides.
         java.util.Map<String, String> lapidaryNames = java.util.Map.of("numenorean_pump", "Númenórean Pump", "masterwork_lapidary_scroll", "Lost Master's Study of Gems", "relic_lapidary_scroll", "Ancient Eregion Gemcraft Folio");
         for (net.minecraft.item.Item item : net.sevenstars.middleearth.item.ResourceItemsME.LAPIDARY_ITEMS) {
             String path = net.minecraft.registry.Registries.ITEM.getId(item).getPath();

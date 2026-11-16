@@ -20,11 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Notes where your own off-hand lamp or flame is drawn, so its beam leaves the lens you see and its flame burns at the
- * tip; draws your off hand gripping a lantern by its handle ({@link GrippedLights}); and draws an
- * off-hand light's held block in place of its item ({@link HeldBlocks}).
- */
+/** First person: notes the lens and flame positions, grips lanterns and draws held blocks. */
 @Mixin(HeldItemRenderer.class)
 public class HeldItemRendererBeamMixin {
     @Shadow
@@ -43,10 +39,6 @@ public class HeldItemRendererBeamMixin {
         }
     }
 
-    /**
-     * A lantern in the off hand is drawn held by its handle in your fist, with your arm. Left to vanilla
-     * while invisible (it draws no arm then) or looking through a spyglass (it draws nothing then).
-     */
     @Inject(at = @At("HEAD"), method = "renderFirstPersonItem", cancellable = true)
     private void middleearth$gripLight(AbstractClientPlayerEntity player, float tickProgress, float pitch, Hand hand,
                                        float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices,

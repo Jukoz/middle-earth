@@ -19,11 +19,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-/**
- * A scroll of lost lapidary knowledge. Reading it (use) teaches the player to make that tool set and everything
- * on the way to it; the scroll is not used up, so it can be passed on, or bound into the Player Book's Gem
- * Studies to keep the page.
- */
+/** A reusable scroll that teaches a lapidary tool set when read. */
 public class LapidaryScrollItem extends Item {
     private final LapidaryTools tools;
 

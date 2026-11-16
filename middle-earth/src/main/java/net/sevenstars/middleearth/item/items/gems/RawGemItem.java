@@ -12,11 +12,7 @@ import net.sevenstars.middleearth.recipe.lapidary.StudyGrade;
 
 import java.util.function.Consumer;
 
-/**
- * A raw, uncut gem as it drops from the gem ore. One item per gem type (it carries its
- * {@link DataComponentTypesME#GEM_TYPE} by default), so raw gems of a type stack.
- * Counts as tier 1 as an Inscription Table catalyst.
- */
+/** An uncut gem, one item per gem type; a tier 1 inscription catalyst. */
 public class RawGemItem extends Item {
     public RawGemItem(Settings settings) {
         super(settings);
@@ -35,12 +31,7 @@ public class RawGemItem extends Item {
                 .formatted(Formatting.DARK_GRAY));
     }
 
-    /**
-     * Shared gem tooltip lines. What the player knows (the aspect, the study notes) lives on the client player,
-     * so the client fills in {@link #details}; on a dedicated server it stays a no-op.
-     */
     public static final class GemTooltips {
-        /** Writes the details shown while Shift is held, or the "hold Shift" hint; set by the client. */
         public static Details details = (stack, tooltip, extra) -> {
         };
 

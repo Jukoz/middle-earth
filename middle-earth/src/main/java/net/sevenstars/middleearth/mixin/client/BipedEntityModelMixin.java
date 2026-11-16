@@ -57,13 +57,9 @@ public class BipedEntityModelMixin {
         middleearth$lowerLantern(state, armPose, false);
     }
 
-    /** How far the arm is raised for a light held up before the holder: a little short of level (level is half pi). */
     private static final float RAISED_ARM_PITCH = -1.3F;
 
-    /**
-     * A light in the off hand is carried up: a lantern or beam light out before the face, the arm along the gaze;
-     * a torch, candle or lamp held up before the holder, a little below level, turning half as far as the head.
-     */
+    /** Raises the off arm for a held light: along the gaze, or held up a little below level. */
     private void middleearth$raiseLamp(BipedEntityRenderState state, boolean rightArm) {
         ArmedEntityRenderStateAccess access = (ArmedEntityRenderStateAccess) state;
         ItemStack offHand = access.getOffHandStack();
@@ -82,10 +78,7 @@ public class BipedEntityModelMixin {
         arm.roll = 0.0F;
     }
 
-    /**
-     * A shaded lantern in the off hand is carried at the side: the arm hangs down (without the bend forward of an
-     * item held up), swinging as it walks, and the lantern hangs from the fist ({@link HangingLanterns}).
-     */
+    /** Lowers the off arm for a shaded lantern, which hangs from the fist. */
     private void middleearth$lowerLantern(BipedEntityRenderState state, BipedEntityModel.ArmPose armPose, boolean rightArm) {
         ArmedEntityRenderStateAccess access = (ArmedEntityRenderStateAccess) state;
         boolean offHandRight = state.mainArm == Arm.LEFT;

@@ -4,14 +4,7 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.sevenstars.middleearth.MiddleEarth;
 
-/**
- * The quality grade of anything crafted, from a hidden quality value (0-100): gems cut at the lapidary table
- * (component {@link net.sevenstars.middleearth.item.DataComponentTypesME#GEM_QUALITY}), forged rings, and later every
- * other craft, each with its own impacts. For cut gems, each grade above Mundane adds to the inscription charges.
- * <p>
- * Legendary is hidden: it is never advertised, and only a finished ring of a flawless 100 reaches it (see
- * {@link #of(int, boolean)}). Everything else stops at Relic, up to 100.
- */
+/** Quality grades for crafted items; the hidden Legendary grade is only for flawless finished rings. */
 public enum CraftQuality {
     MUNDANE("mundane", 0, 0.0, TextColor.fromFormatting(Formatting.GRAY), false),
     FINE("fine", 40, 0.2, TextColor.fromFormatting(Formatting.GREEN), false),
@@ -34,12 +27,10 @@ public enum CraftQuality {
         this.hidden = hidden;
     }
 
-    /** The grade of a quality value, never a hidden one. */
     public static CraftQuality of(int value) {
         return of(value, false);
     }
 
-    /** The grade of a quality value; hidden grades only when {@code allowHidden} (a finished ring). */
     public static CraftQuality of(int value, boolean allowHidden) {
         CraftQuality quality = MUNDANE;
         for (CraftQuality level : values()) {
@@ -50,12 +41,10 @@ public enum CraftQuality {
         return quality;
     }
 
-    /** The lowest quality value of this level. */
     public int minValue() {
         return minValue;
     }
 
-    /** The highest quality value of this level; hidden grades don't cut a visible one short. */
     public int maxValue() {
         for (int i = ordinal() + 1; i < values().length; i++) {
             if (!values()[i].hidden) {
@@ -65,7 +54,6 @@ public enum CraftQuality {
         return 100;
     }
 
-    /** Charges of a cut gem of this quality: the tier's base charges plus the bonus, rounded down. */
     public int charges(int baseCharges) {
         return (int) Math.floor(baseCharges * (1.0 + chargeBonus));
     }

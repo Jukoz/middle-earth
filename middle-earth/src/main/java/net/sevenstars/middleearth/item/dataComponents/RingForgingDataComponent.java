@@ -13,20 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * What a ring has been through so far, filled in step by step as it is forged: refined (its purity, which is also
- * its refining quality), shaped, inscribed, and adorned with a gem. Its metal is the
- * {@link net.sevenstars.middleearth.item.DataComponentTypesME#RING_METAL} component and a set gem's type the
- * {@link net.sevenstars.middleearth.item.DataComponentTypesME#GEM_TYPE} component, so the item model can pick its
- * palettes from them.
- *
- * @param purity      how pure the refined metal is, 0-100; the quality of the refining step
- * @param shaping     the quality of the shaping step, 0-100, once shaped
- * @param inscription the quality of the inscribing step, 0-100, once inscribed
- * @param polarity    from Hallowed (+100) to Twisted (-100), see {@link RingPolarity}
- * @param fea         the Fea (experience levels) poured into the ring so far
- * @param gem         the gem set into it, if any
- */
+/** A ring's forging progress: purity, step qualities, polarity, Fëa and its set gem. */
 public record RingForgingDataComponent(int purity, Optional<Integer> shaping, Optional<Integer> inscription,
                                        int polarity, int fea, Optional<Gem> gem) {
     private static final Codec<Integer> PERCENT = Codec.intRange(0, 100);
@@ -55,15 +42,11 @@ public record RingForgingDataComponent(int purity, Optional<Integer> shaping, Op
         fea = Math.max(0, fea);
     }
 
-    /** A freshly refined ring: only its purity and the polarity its catalysts gave it. */
     public static RingForgingDataComponent refined(int purity, int polarity, int fea) {
         return new RingForgingDataComponent(purity, Optional.empty(), Optional.empty(), polarity, fea, Optional.empty());
     }
 
-    /**
-     * The ring's quality, 0-100: the average of every step done so far (refining, shaping, inscribing) and of its
-     * gem's quality if it has one.
-     */
+    /** Average of purity and every step quality reached so far. */
     public int quality() {
         int sum = purity;
         int count = 1;
@@ -80,12 +63,10 @@ public record RingForgingDataComponent(int purity, Optional<Integer> shaping, Op
         return RingPolarity.of(polarity);
     }
 
-    /** The share (0-100) of the ring's power that goes to its curses rather than its inscriptions: 100 - quality. */
     public int cursePotency() {
         return 100 - quality();
     }
 
-    /** How many of the ring's inscription slots are taken so far (a set gem takes one). */
     public int slotsUsed() {
         return gem.isPresent() ? 1 : 0;
     }
@@ -100,10 +81,6 @@ public record RingForgingDataComponent(int purity, Optional<Integer> shaping, Op
                 Optional.of(setGem));
     }
 
-    /**
-     * A gem set into a ring: its cut and how well it was cut. Its gem type is the ring's
-     * {@link net.sevenstars.middleearth.item.DataComponentTypesME#GEM_TYPE} component.
-     */
     public record Gem(GemCut cut, int quality) {
         private static final Codec<GemCut> CUT_CODEC = Codec.STRING.comapFlatMap(
                 id -> Arrays.stream(GemCut.values()).filter(cut -> cut.id().equals(id)).findFirst()

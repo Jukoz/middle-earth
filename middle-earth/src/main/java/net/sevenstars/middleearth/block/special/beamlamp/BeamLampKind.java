@@ -3,24 +3,17 @@ package net.sevenstars.middleearth.block.special.beamlamp;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 
-/**
- * The two focused lamps of the lapidary arts, set down: how far their beams reach, how bright and in what colour, and
- * where their lenses are. Carried, they are held lights like any other (data/middle-earth/middle-earth/held_light).
- */
+/** The two lapidary beam lamps placed as blocks: range, brightness, colour and lens position. */
 public enum BeamLampKind {
-    /** Masterwork: gold, through citrine. */
     BULLSEYE(24, 12, 0xFFD98A, 4, 3, 4, 6),
-    /** Relic: mithril, cool blue-white. */
     MIRDAIN(36, 15, 0xD6E8FF, 7, 2, 5, 6);
 
-    /** The light round a placed lamp itself. */
     public static final int GLOW = 8;
 
     private final int range;
     private final int spotLevel;
     private final int color;
 
-    /** Where the lens sits on the model, in pixels: height above the block's base and distance out from its centre. */
     private final double lensHeight;
     private final double lensOut;
     private final double lensHeightWall;
@@ -60,7 +53,6 @@ public enum BeamLampKind {
         return spotLevel;
     }
 
-    /** The beam's RGB. */
     public int color() {
         return color;
     }

@@ -18,17 +18,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
-/**
- * Config for one gem's ore placement.
- *
- * @param gem     the gem to hide
- * @param targets host ore blocks whose clusters can hold the gem
- * @param minY    lowest y (inclusive)
- * @param maxY    highest y (inclusive)
- * @param minPerChunk fewest gems a chunk gets (if it has host ore in the band to hide them by)
- * @param maxPerChunk most gems a chunk gets; each chunk rolls between the two
- * @param region      if set, the SURFACE biome above the chunk must be in this tag (underground is cave biomes)
- */
+/** Placement settings for one gem's ore. */
 public record GemOreFeatureConfig(GemKind gem, List<Block> targets, int minY, int maxY, int minPerChunk, int maxPerChunk,
                                   Optional<TagKey<Biome>> region) implements FeatureConfig {
     public static final Codec<GemOreFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
