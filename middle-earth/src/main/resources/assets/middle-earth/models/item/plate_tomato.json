@@ -1,7 +1,8 @@
 {
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "middle-earth:item/plate_tomato"
+		"0": "middle-earth:item/plate_tomato",
+		"particle": "middle-earth:item/plate_tomato"
 	},
 	"elements": [
 		{

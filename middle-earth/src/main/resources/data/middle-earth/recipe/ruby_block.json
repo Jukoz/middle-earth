@@ -8,14 +8,10 @@
   ],
   "key": {
     "R": {
-      "fabric:type": "fabric:difference",
+      "fabric:type": "fabric:components",
       "base": "middle-earth:ruby",
-      "subtracted": {
-        "fabric:type": "fabric:components",
-        "base":  "middle-earth:ruby",
-        "components": {
-          "minecraft:max_damage": 2
-        }
+      "components": {
+        "!minecraft:max_damage": {}
       }
     }
   },

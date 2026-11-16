@@ -1,7 +1,8 @@
 {
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "middle-earth:item/plate_melon_slice"
+		"0": "middle-earth:item/plate_melon_slice",
+		"particle": "middle-earth:item/plate_melon_slice"
 	},
 	"elements": [
 		{

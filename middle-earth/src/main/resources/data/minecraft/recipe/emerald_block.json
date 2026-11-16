@@ -8,14 +8,10 @@
   ],
   "key": {
     "R": {
-      "fabric:type": "fabric:difference",
+      "fabric:type": "fabric:components",
       "base": "minecraft:emerald",
-      "subtracted": {
-        "fabric:type": "fabric:components",
-        "base":  "minecraft:emerald",
-        "components": {
-          "minecraft:max_damage": 2
-        }
+      "components": {
+        "!minecraft:max_damage": {}
       }
     }
   },
