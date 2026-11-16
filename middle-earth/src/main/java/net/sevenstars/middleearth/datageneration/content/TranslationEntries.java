@@ -822,7 +822,7 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "search.screen_click_button"), "Screen Click Button");
 
 
-            put(of(LangCategory.KEY, "category", MiddleEarth.MOD_ID), "Middle-earth");
+            put(of(LangCategory.KEY, "category." + MiddleEarth.MOD_ID, "me"), "Middle-earth");
             put(of(LangCategory.KEY, "hood_state_toggle"), "Toggle Worn Hood state");
             put(of(LangCategory.KEY, "map_teleport"), "Map Teleport");
             put(of(LangCategory.KEY, "map_fullscreen_toggle"), "Toggle Map Fullscreen");

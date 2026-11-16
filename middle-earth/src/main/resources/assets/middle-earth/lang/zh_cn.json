@@ -14617,7 +14617,7 @@
   "item_group.middle-earth.spawn_egg_items": "中洲刷怪蛋",
 
   "__COMMENT__": "快捷键 - key",
-  "key.category.middle-earth": "中洲",
+  "key.category.middle-earth.me": "中洲",
   "key.middle-earth.hood_state_toggle": "切换兜帽状态",
   "key.middle-earth.map_teleport": "在地图界面中传送",
   "key.middle-earth.map_fullscreen_toggle": "切换地图全屏显示",

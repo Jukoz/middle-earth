@@ -98,7 +98,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))
                 .toArray(Item[]::new);
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(meleeWeapons);
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/melee_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sweeping"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sharp_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
