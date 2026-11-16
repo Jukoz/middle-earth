@@ -4467,12 +4467,10 @@ public class BiomesME {
 
         SpawnSettingsBuilderME.addNpcs(spawnSettings);
 
-        Biome biome = (new Biome.Builder())
+        Biome biome = biomeColorsDTO.createBiomeBuilder()
                 .precipitation(precipitation)
                 .temperature(temperature)
                 .downfall(0.5F)
-                .effects(biomeColorsDTO.createEffects()
-                        .build())
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())
                 .build();

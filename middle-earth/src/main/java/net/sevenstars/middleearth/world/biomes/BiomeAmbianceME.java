@@ -8,12 +8,17 @@ import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.ColorHelper;
+import net.minecraft.world.attribute.AmbientParticle;
+import net.minecraft.world.attribute.AmbientSounds;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.BiomeParticleConfig;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 // The mood of a biome. Each biome picks one of the shared moods below where it is defined,
 // and can change a single part of it for itself: MIRKWOOD.withFog(0.05f, 0.45f)
@@ -152,16 +157,18 @@ public final class BiomeAmbianceME {
     }
 
     // The fog distance is not part of the biome file, the fog mixin reads it through of()
-    public void applyTo(BiomeEffects.Builder effects) {
-        effects.skyColor(skyColor).fogColor(fogColor);
+    public void applyTo(Biome.Builder biome) {
+        biome.setEnvironmentAttribute(EnvironmentAttributes.SKY_COLOR_VISUAL, ColorHelper.fullAlpha(skyColor))
+                .setEnvironmentAttribute(EnvironmentAttributes.FOG_COLOR_VISUAL, ColorHelper.fullAlpha(fogColor));
         if(particles != null)
-            effects.particleConfig(new BiomeParticleConfig(particles.particle(), particles.probability()));
+            biome.setEnvironmentAttribute(EnvironmentAttributes.AMBIENT_PARTICLES_VISUAL, AmbientParticle.of(particles.particle(), particles.probability()));
         if(sounds == null) {
-            effects.moodSound(BiomeMoodSound.CAVE);
+            biome.setEnvironmentAttribute(EnvironmentAttributes.AMBIENT_SOUNDS_AUDIO, AmbientSounds.CAVE);
         } else {
-            effects.loopSound(sounds.loop());
-            effects.moodSound(new BiomeMoodSound(sounds.mood(), Sounds.MOOD_TICK_DELAY, Sounds.MOOD_BLOCK_SEARCH_EXTENT, Sounds.MOOD_OFFSET));
-            effects.additionsSound(new BiomeAdditionsSound(sounds.additions(), Sounds.ADDITIONS_TICK_CHANCE));
+            biome.setEnvironmentAttribute(EnvironmentAttributes.AMBIENT_SOUNDS_AUDIO, new AmbientSounds(
+                    Optional.of(sounds.loop()),
+                    Optional.of(new BiomeMoodSound(sounds.mood(), Sounds.MOOD_TICK_DELAY, Sounds.MOOD_BLOCK_SEARCH_EXTENT, Sounds.MOOD_OFFSET)),
+                    List.of(new BiomeAdditionsSound(sounds.additions(), Sounds.ADDITIONS_TICK_CHANCE))));
         }
     }
 

@@ -3,18 +3,20 @@ package net.sevenstars.middleearth.particles.custom;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 
-public class BiomeFogParticle extends SpriteBillboardParticle {
+public class BiomeFogParticle extends BillboardParticle {
 
     private final BlockPos spawnPos;
 
-    BiomeFogParticle(ClientWorld clientWorld, double d, double e, double f, double velocityX, double velocityY, double velocityZ) {
-        super(clientWorld, d, e, f, 0.0, 0.0, 0.0);
+    BiomeFogParticle(ClientWorld clientWorld, double d, double e, double f, double velocityX, double velocityY, double velocityZ, Sprite sprite) {
+        super(clientWorld, d, e, f, 0.0, 0.0, 0.0, sprite);
         this.scale(16.0F);
         this.setAlpha(0.0F);
 
@@ -25,11 +27,13 @@ public class BiomeFogParticle extends SpriteBillboardParticle {
         this.velocityZ = velocityZ;
     }
 
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    @Override
+    protected RenderType getRenderType() {
+        return RenderType.PARTICLE_ATLAS_TRANSLUCENT;
     }
 
-    public int getBrightness(float tint) {
+    @Override
+    protected int getBrightness(float tint) {
         return (int)(255.0F * getFadeAmount(this.getLifetimeProgress((float)this.age + tint), 0.1F, 0.3F));
     }
 
@@ -76,10 +80,9 @@ public class BiomeFogParticle extends SpriteBillboardParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            BiomeFogParticle biomeFogParticle = new BiomeFogParticle(clientWorld, d, e, f, g, h, i);
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random) {
+            BiomeFogParticle biomeFogParticle = new BiomeFogParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider.getSprite(random));
             biomeFogParticle.setMaxAge(clientWorld.random.nextBetween(300, 400));
-            biomeFogParticle.setSprite(this.spriteProvider);
             return biomeFogParticle;
         }
     }
