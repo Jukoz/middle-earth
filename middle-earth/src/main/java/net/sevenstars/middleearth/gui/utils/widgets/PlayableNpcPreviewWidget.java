@@ -5,6 +5,7 @@ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.input.MouseInput;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.entity.EntityRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
@@ -160,6 +161,9 @@ public class PlayableNpcPreviewWidget extends CustomWidget {
         EntityRenderState entityRenderState = entityRenderer.getAndUpdateRenderState(entity, 1.0F);
         NpcEntityRenderState npcEntityRenderState = (NpcEntityRenderState) entityRenderState;
         npcEntityRenderState.LOD = 0;
+        npcEntityRenderState.light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
+        npcEntityRenderState.shadowPieces.clear();
+        npcEntityRenderState.outlineColor = 0;
 
         int entityY = y + 85;
         context.addEntity(npcEntityRenderState, 35f, VECTOR, ENTITY_ROTATION, new Quaternionf(), x - 60, entityY - 200, x + 60, entityY);

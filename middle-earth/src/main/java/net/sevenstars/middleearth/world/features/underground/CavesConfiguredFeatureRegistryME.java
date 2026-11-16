@@ -595,7 +595,7 @@ public class CavesConfiguredFeatureRegistryME {
         var builder = WeightedPool.<BlockState>builder();
         for (int i = 1; i <= 4; ++i) {
             for (Direction direction : Direction.Type.HORIZONTAL) {
-                WeightedPool.<BlockState>builder().add((tiller.getDefaultState()
+                builder.add((tiller.getDefaultState()
                         .with(FlowerbedBlock.FLOWER_AMOUNT, i)).with(FlowerbedBlock.HORIZONTAL_FACING, direction), 1);
             }
         }

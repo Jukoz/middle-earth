@@ -26,6 +26,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class ReinforcedChestBlockEntity extends ChestBlockEntity {
 
     private final ViewerCountManager stateManager = new ViewerCountManager(){
@@ -63,6 +65,32 @@ public class ReinforcedChestBlockEntity extends ChestBlockEntity {
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return GenericContainerScreenHandler.createGeneric9x6(syncId, playerInventory, this);
+    }
+
+    @Override
+    public void onOpen(ContainerUser user) {
+        if (!this.removed && !user.asLivingEntity().isSpectator()) {
+            this.stateManager.openContainer(user.asLivingEntity(), this.getWorld(), this.getPos(), this.getCachedState(), user.getContainerInteractionRange());
+        }
+    }
+
+    @Override
+    public void onClose(ContainerUser user) {
+        if (!this.removed && !user.asLivingEntity().isSpectator()) {
+            this.stateManager.closeContainer(user.asLivingEntity(), this.getWorld(), this.getPos(), this.getCachedState());
+        }
+    }
+
+    @Override
+    public List<ContainerUser> getViewingUsers() {
+        return this.stateManager.getViewingUsers(this.getWorld(), this.getPos());
+    }
+
+    @Override
+    public void onScheduledTick() {
+        if (!this.removed) {
+            this.stateManager.updateViewerCount(this.getWorld(), this.getPos(), this.getCachedState());
+        }
     }
 
     static void playSound(World world, BlockPos pos, BlockState state, SoundEvent soundEvent) {

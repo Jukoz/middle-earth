@@ -6,9 +6,9 @@ repositories {
 dependencies {
     implementation project(path: ':sevenstars-api', configuration: 'dev')
     implementation project(path: ':of-beasts-and-wild-things', configuration: 'dev')
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:20.0.811"
-    modImplementation(include("me.lucko:fabric-permissions-api:0.4.0"))
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:21.11.816"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:21.11.816"
+    modImplementation(include("me.lucko:fabric-permissions-api:0.6.1"))
 }
 
 loom {
@@ -43,5 +43,9 @@ jar {
     zip64 = true
 }
 tasks.withType(Jar).configureEach {
+    zip64 = true
+}
+// remapJar is not a Jar task since Loom 1.17
+tasks.withType(AbstractArchiveTask).configureEach {
     zip64 = true
 }

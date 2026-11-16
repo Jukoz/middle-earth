@@ -95,7 +95,13 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     @Override
     public void updateRenderState(BellowsBlockEntity blockEntity, BellowsBlockEntityRenderState state, float tickProgress, Vec3d cameraPos, ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
         state.pumping = blockEntity.pumping;
-        state.animationProgress = blockEntity.animationProgress;
+        float animationProgress = 0;
+        if (blockEntity.pumping) {
+            animationProgress = blockEntity.animationProgress;
+            if (animationProgress > (float) BellowsBlockEntity.MAX_TICKS / 2) animationProgress = BellowsBlockEntity.MAX_TICKS - animationProgress;
+            animationProgress /= BellowsBlockEntity.MAX_TICKS;
+        }
+        state.animationProgress = animationProgress;
         BlockEntityRenderer.super.updateRenderState(blockEntity, state, tickProgress, cameraPos, crumblingOverlay);
     }
 }

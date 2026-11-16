@@ -34,7 +34,7 @@ public class CommandDimensionTeleport {
 
             ServerPlayerEntity targettedPlayer = EntityArgumentType.getPlayer(context, PLAYER);
 
-            DimensionRegistryME.teleportPlayerToMe(targettedPlayer, coordinates.toCenterPos(), true, true);
+            DimensionRegistryME.teleportPlayerToMe(targettedPlayer, coordinates.toCenterPos(), true, false);
             return 1;
         } catch (Exception e){
             return 0;

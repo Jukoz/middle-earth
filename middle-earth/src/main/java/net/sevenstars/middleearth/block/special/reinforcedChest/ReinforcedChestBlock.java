@@ -18,7 +18,7 @@ import net.minecraft.world.BlockView;
 public class ReinforcedChestBlock extends ChestBlock {
 
     public ReinforcedChestBlock(Settings settings) {
-        super(() -> BlockEntityRegistryME.REINFORCED_CHEST, SoundEvents.BLOCK_COPPER_CHEST_OPEN, SoundEvents.BLOCK_COPPER_CHEST_CLOSE, settings);
+        super(() -> BlockEntityRegistryME.REINFORCED_CHEST, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE, settings);
     }
 
     @Override

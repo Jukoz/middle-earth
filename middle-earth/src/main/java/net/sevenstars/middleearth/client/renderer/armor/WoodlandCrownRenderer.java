@@ -63,11 +63,11 @@ public class WoodlandCrownRenderer implements ArmorRenderer {
 
             texture += ".png";
 
-            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customHelmetModel, state, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customHelmetModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
             if (this.helmetAddonModel != null) {
                 this.helmetAddonModel.setVisible(false);
                 this.helmetAddonModel.head.visible = true;
-                CustomArmorRenderer.renderArmor(matrices, queue, light, stack, this.helmetAddonModel, state, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                CustomArmorRenderer.renderArmor(matrices, queue, light, stack, this.helmetAddonModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
             }
 
             HelmetAttachmentDataComponent hoodDataComponent = stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA);
@@ -86,12 +86,12 @@ public class WoodlandCrownRenderer implements ArmorRenderer {
                 helmetAttachmentModel.head.visible = true;
                 helmetAttachmentModel.hat.visible = true;
                 if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(hoodDataComponent.getHelmetAttachment())) {
-                    HelmetAttachmentRenderer.renderDyeableHelmetAttachment(matrices, queue, light, stack, helmetAttachmentModel, state, textureHelmetAttachment, true);
+                    HelmetAttachmentRenderer.renderDyeableHelmetAttachment(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel, textureHelmetAttachment, true);
                     if (DyeablePiecesME.dyeableHelmetAttachments.get(hoodDataComponent.helmetAttachment())){
-                        CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, Identifier.of(MiddleEarth.MOD_ID, textureHelmetAttachment.getPath().replaceAll(".png", "_overlay.png")));
+                        CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, textureHelmetAttachment.getPath().replaceAll(".png", "_overlay.png")));
                     }
                 } else {
-                    CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, textureHelmetAttachment);
+                    CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel, textureHelmetAttachment);
                 }
             }
         }

@@ -36,7 +36,7 @@ public class LeggingsArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customLeggingsModel, state, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customLeggingsModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
         }
     }
 }

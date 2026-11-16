@@ -67,7 +67,7 @@ public class NpcRangedAttackTask {
     private static boolean isHoldingUsableRangedWeapon(MobEntity mob) {
         return mob.isHolding((stack) -> {
             Item item = stack.getItem();
-            return item instanceof RangedWeaponItem && mob.canUseRangedWeapon(item.getDefaultStack());
+            return item instanceof RangedWeaponItem && mob.canUseRangedWeapon(stack);
         });
     }
 }

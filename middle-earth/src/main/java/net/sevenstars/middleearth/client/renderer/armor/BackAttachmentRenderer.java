@@ -31,7 +31,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
         } else {
             color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
-        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, RenderLayers.armorCutoutNoCull(texture), color);
+        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, null, RenderLayers.armorCutoutNoCull(texture), color);
     }
 
     @Override
@@ -51,10 +51,10 @@ public class BackAttachmentRenderer implements ArmorRenderer {
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(backAttachmentDataComponent.getBackAttachment())) {
                     renderDyeableBackAttachment(matrices, queue, light, stack, backAttachmentModel, state, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"), false);
                     if (DyeablePiecesME.dyeableBackAttachments.get(backAttachmentDataComponent.backAttachment())){
-                        CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, backAttachmentModel, state, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + "_overlay.png"));
+                        CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, backAttachmentModel, state, null, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + "_overlay.png"));
                     }
                 } else {
-                    CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, backAttachmentModel, state, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"));
+                    CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, backAttachmentModel, state, null, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + backAttachmentDataComponent.backAttachment().getName() + ".png"));
                 }
             }
         }
