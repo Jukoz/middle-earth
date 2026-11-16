@@ -14,14 +14,14 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 
-/** The cave troll's inventory: saddle, club (its main hand), banner and, with a chest, the chest slots. Laid out like the horse screen. */
+/** The cave troll's saddle, club, banner and chest slots. */
 public class CaveTrollScreenHandler extends ScreenHandler {
     private static final int EQUIPMENT_SLOTS = 3;
 
     private final CaveTrollEntity troll;
     private final int chestSlots;
 
-    // Client: the troll is looked up from the id the server sent
+    // Client side
     public CaveTrollScreenHandler(int syncId, PlayerInventory playerInventory, int entityId) {
         this(syncId, playerInventory, (CaveTrollEntity)playerInventory.player.getWorld().getEntityById(entityId));
     }

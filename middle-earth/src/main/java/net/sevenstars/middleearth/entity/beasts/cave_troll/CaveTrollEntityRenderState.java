@@ -2,7 +2,9 @@ package net.sevenstars.middleearth.entity.beasts.cave_troll;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ItemModelManager;
+import net.sevenstars.middleearth.client.TrollRiderCamera;
 import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.LivingEntity;
@@ -19,6 +21,7 @@ import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
 public class CaveTrollEntityRenderState extends BeastEntityRenderState {
     public final ItemRenderState handItemState = new ItemRenderState();
     public boolean hasBanner;
+    public boolean fadeBanner;
     public DyeColor bannerColor = DyeColor.WHITE;
     public BannerPatternsComponent bannerPatterns = BannerPatternsComponent.DEFAULT;
 
@@ -36,6 +39,8 @@ public class CaveTrollEntityRenderState extends BeastEntityRenderState {
     public static void updateRenderState(LivingEntity entity, CaveTrollEntityRenderState state, ItemModelManager itemModelManager) {
         ItemStack banner = entity instanceof CaveTrollEntity troll ? troll.getBannerStack() : ItemStack.EMPTY;
         state.hasBanner = !banner.isEmpty();
+        MinecraftClient client = MinecraftClient.getInstance();
+        state.fadeBanner = TrollRiderCamera.isActive(client) && client.getCameraEntity().getVehicle() == entity;
         if(state.hasBanner) {
             DyeColor color = banner.getItem() instanceof BannerItem bannerItem ? bannerItem.getColor() : banner.get(DataComponentTypes.BASE_COLOR);
             state.bannerColor = color != null ? color : DyeColor.WHITE;

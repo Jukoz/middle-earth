@@ -17,8 +17,11 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
 
-/** Draws the banner rig, which hangs off the harness platform bone, see {@link CaveTrollBannerModel}. */
+/** Draws the banners, see {@link CaveTrollBannerModel}. */
 public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
+    // How visible the banners are to a rider in the over the shoulder view
+    private static final float FADED_OPACITY = 0.2f;
+
     private final CaveTrollBannerModel model;
 
     public CaveTrollBannerFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> context, LoadedEntityModels loader) {
@@ -36,20 +39,36 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
         SpriteIdentifier sprite = ModelBaker.BANNER_BASE;
 
         this.model.showPoles();
-        VertexConsumer poleConsumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
-        this.model.render(matrices, poleConsumer, light, OverlayTexture.DEFAULT_UV);
+        if(state.fadeBanner) {
+            this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityTranslucent), light, OverlayTexture.DEFAULT_UV, withOpacity(0xFFFFFFFF, FADED_OPACITY));
+        }
+        else {
+            VertexConsumer poleConsumer = sprite.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(sprite.getAtlasId()), false, false));
+            this.model.render(matrices, poleConsumer, light, OverlayTexture.DEFAULT_UV);
+        }
 
-        // The same layering as the vanilla banner: a plain base, the dyed base, then each pattern in its colour
+        // Same layering as a vanilla banner, minus the plain base when see-through as it would stack up the opacity
         this.model.showFlags();
-        this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, false, false), light, OverlayTexture.DEFAULT_UV);
-        renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.BANNER_BASE, state.bannerColor.getEntityColor());
+        if(!state.fadeBanner) {
+            this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, false, false), light, OverlayTexture.DEFAULT_UV);
+        }
+        renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.BANNER_BASE, state.bannerColor.getEntityColor(), state.fadeBanner);
         for(int i = 0; i < 16 && i < state.bannerPatterns.layers().size(); i++) {
             BannerPatternsComponent.Layer layer = state.bannerPatterns.layers().get(i);
-            renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()), layer.color().getEntityColor());
+            renderLayer(matrices, vertexConsumers, light, TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()), layer.color().getEntityColor(), state.fadeBanner);
         }
     }
 
-    private void renderLayer(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, SpriteIdentifier sprite, int color) {
-        this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline), light, OverlayTexture.DEFAULT_UV, color);
+    private void renderLayer(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, SpriteIdentifier sprite, int color, boolean faded) {
+        if(faded) {
+            this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityTranslucent), light, OverlayTexture.DEFAULT_UV, withOpacity(color, FADED_OPACITY));
+        }
+        else {
+            this.model.render(matrices, sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline), light, OverlayTexture.DEFAULT_UV, color);
+        }
+    }
+
+    private static int withOpacity(int color, float opacity) {
+        return ((int)(opacity * 255.0f) << 24) | (color & 0xFFFFFF);
     }
 }

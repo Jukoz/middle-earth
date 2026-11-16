@@ -10,12 +10,11 @@ import net.minecraft.client.model.TexturedModelData;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 
 /**
- * The troll's own skeleton with a banner pole and flag on each rear corner of the harness platform bone.
- * Because the banners are children of that bone and posed by the same animations as the troll, they move exactly with the harness.
- * Only the banner parts are drawn, and the flags and poles in separate passes as they need different textures.
+ * The troll's skeleton with a banner on each rear corner of the harness platform bone, so the banners move with the harness.
+ * Only the banners are drawn, poles and flags in separate passes as they use different textures.
  */
 public class CaveTrollBannerModel extends CaveTrollEntityModel {
-    // Pole bases relative to the platform's origin (0.5, -48, 6.5): its top is 1 below it, and the rear corners are 17 to the side and 16 back
+    // Pole bases relative to the platform bone's origin
     private static final float CORNER_X = 17.0f;
     private static final float BASE_Y = 15.0f;
     private static final float BASE_Z = 16.0f;
@@ -31,14 +30,14 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
         this.poles = new ModelPart[]{platform.getChild("pole_left"), platform.getChild("pole_right")};
         this.flags = new ModelPart[]{platform.getChild("flag_left"), platform.getChild("flag_right")};
 
-        // The skeleton comes with the whole troll, which the troll's own renderer already draws
+        // The rest of the skeleton is drawn by the troll's own renderer
         for(ModelPart part : root.traverse()) {
             part.visible = false;
         }
         root.visible = true;
         for(ModelPart part : new ModelPart[]{root.getChild("root"), root.getChild("root").getChild("body_no_legs"),
                 root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs"), platform}) {
-            part.visible = true; // These have no boxes of their own, they only carry the pose down to the banners
+            part.visible = true;
         }
         for(ModelPart part : this.poles) {
             part.xScale = part.yScale = part.zScale = SCALE;
@@ -53,7 +52,7 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
         ModelPartData body = modelData.getRoot().getChild("root").getChild("body_no_legs").getChild("body_no_limbs");
         ModelPartData platform = body.addChild("platform", ModelPartBuilder.create(), ModelTransform.origin(0.5F, -48.0F, 6.5F));
 
-        // Same boxes as the held banner, which is the layout of the banner textures
+        // Same boxes as the held banner
         String[] sides = {"left", "right"};
         for(int i = 0; i < 2; i++) {
             ModelTransform base = ModelTransform.origin(i == 0 ? -CORNER_X : CORNER_X, BASE_Y, BASE_Z);

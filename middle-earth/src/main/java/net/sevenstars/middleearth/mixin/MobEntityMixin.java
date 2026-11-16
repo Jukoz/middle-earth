@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(MobEntity.class)
 public class MobEntityMixin {
-    // A rider on a cave troll is well out of reach, so hostile mobs go for the troll they are sitting on instead
+    // A rider is out of reach, so hostile mobs target the troll instead
     @ModifyReturnValue(method = "getTarget", at = @At("RETURN"))
     private LivingEntity targetTrollOverRider(LivingEntity target) {
         Entity self = (Entity)(Object)this;

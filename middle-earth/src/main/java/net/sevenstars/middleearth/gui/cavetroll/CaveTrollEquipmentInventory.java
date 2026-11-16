@@ -6,7 +6,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 
-/** A view of the troll's saddle, club and banner (its body slot, since horse armor is refused), so the screen slots read and write the entity's own equipment. */
+/** The troll's saddle, club and banner (body slot) as an inventory. */
 public class CaveTrollEquipmentInventory implements Inventory {
     public static final int SADDLE = 0;
     public static final int WEAPON = 1;

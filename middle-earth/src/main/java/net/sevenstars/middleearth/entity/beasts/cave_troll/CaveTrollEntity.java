@@ -89,7 +89,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     private static final int DOWNSWING_TICK = 27;
     private static final Identifier RIDER_REACH_ID = MiddleEarth.id("cave_troll_rider_reach");
     private static final double RIDER_REACH_BONUS = 3.0;
-    // Flat damage a player rider adds, the same as Hard difficulty adds (3 * 2), whatever the world difficulty
+    // Flat bonus for a player rider, what Hard adds
     private static final float PLAYER_RIDER_DAMAGE_BONUS = 6.0f;
     private static final int RIDDEN_ABILITY_COOLDOWN = 120;
 
@@ -267,13 +267,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
-    // No horse armor: the body slot stays closed, the saddle and the club have their own slots
+    // No horse armor
     @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return slot != EquipmentSlot.BODY && super.canUseSlot(slot);
     }
 
-    // The banner stands on the back and sits in the body slot, which no horse armor can use
+    // The banner lives in the body slot
     public static boolean isBanner(ItemStack stack) {
         return stack.getItem() instanceof BannerItem || stack.isOf(WeaponItemsME.HELD_BANNER);
     }
@@ -282,7 +282,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return this.getEquippedStack(EquipmentSlot.BODY);
     }
 
-    // The banner is not a normal piece of mob equipment, which only drops by chance, so it is always dropped
+    // Mob equipment only drops by chance, the banner always does
     @Override
     protected void dropInventory(ServerWorld world) {
         super.dropInventory(world);
@@ -297,7 +297,6 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return this.items;
     }
 
-    // The troll has its own screen, with a slot for its club
     @Override
     public void openInventory(PlayerEntity player) {
         if(!this.getWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && this.isTame()) {
@@ -437,7 +436,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
     }
 
-    // The troll swings its club instead of the rider's fist, use its cooldown
+    // The troll swings, so its attack speed sets the cooldown
     public float getRiderSwingCooldownTicks() {
         return (float)(20.0 / this.getAttributeValue(EntityAttributes.ATTACK_SPEED));
     }
@@ -699,7 +698,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
-    // Bonus damage from being ridden: fixed for a player, scaling with world difficulty for an NPC, none when unridden
+    // Fixed for a player rider, scales with difficulty for an NPC rider
     private float riderDamageBonus() {
         if(this.getControllingPassenger() instanceof PlayerEntity) {
             return PLAYER_RIDER_DAMAGE_BONUS;
@@ -707,7 +706,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() * 2 : 0.0f;
     }
 
-    // A player's attack while steered: world difficulty does not scale it, as the rider's hits never do
+    // Player-sourced, so world difficulty does not scale it
     private DamageSource attackSource() {
         if(this.getControllingPassenger() instanceof PlayerEntity rider) {
             return this.getDamageSources().playerAttack(rider);
