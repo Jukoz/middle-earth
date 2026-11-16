@@ -23,6 +23,7 @@
     "FoliagePlacerTypeInvoker",
     "GrassBlockMixin",
     "LivingEntityMixin",
+    "MobEntityMixin",
     "PigEntityMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
