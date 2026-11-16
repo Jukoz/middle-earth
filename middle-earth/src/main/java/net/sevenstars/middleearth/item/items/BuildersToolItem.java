@@ -49,8 +49,10 @@ import java.util.ArrayList;
 // Right-click a bed to say who lives in it. Right-click a block the build is taken to have, such as a seat, a store, a door
 // or a place of work, to put it off limits to npcs, and again to give it back. Right-click anything else, or sneak and
 // right-click, to place or edit a structure marker. Left-click a bed to pick it, and then the blocks it works at or its
-// store to tie them. With no bed picked, sneak and left-click a block of a build, and then two corners, to set what of
-// it is saved.
+// store to tie them. With no bed picked, sneak and left-click a block, and then two corners, to set what of its build
+// is saved or to make the box a section of its own under a name. Left-click twice a block where two sections meet to
+// join them there by a pair of plugs. Left-click a plug to see what fits it, and sneak and left-click another to make
+// the first ask for that one.
 // While the tool is held, the client draws what the build's blocks are taken for
 public class BuildersToolItem extends Item {
     // Left-clicks are for picking beds and links, never for breaking blocks

@@ -9,8 +9,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
-import net.minecraft.block.enums.StructureBlockMode;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -27,14 +25,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.BlockBox;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
+import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.block.Block;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.gen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.world.World;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -79,6 +76,7 @@ public class CommandStructureEdit {
     private static final String SEED = "seed";
     private static final String VIEW = "view";
     private static final String CLOSE = "close";
+    private static final String REMOVE = "remove";
     private static final String BEDS = "beds";
     private static final String NO_CLIP = "noclip";
     private static final String POOLS = "pools";
@@ -94,8 +92,6 @@ public class CommandStructureEdit {
     private static final Identifier EMPTY_PLUG = Identifier.ofVanilla("empty");
     // What the plug turns into where the piece is generated
     private static final String PLUG_FINAL_STATE = "minecraft:air";
-    // The most a structure block's own screen lets a box span
-    private static final int MAXIMUM_NEW_SIZE = 48;
     private static final String PROJECTION = "projection";
     private static final String RIGID = "rigid";
     private static final String TERRAIN_MATCHING = "terrain_matching";
@@ -116,12 +112,8 @@ public class CommandStructureEdit {
     private static final int DISTANCE_IN_FRONT = 3;
     // The structure block saves from one block above itself, as vanilla's default does
     private static final BlockPos SAVE_OFFSET = new BlockPos(0, 1, 0);
-    private static final int NEAREST_SEARCH_RADIUS = 32;
     private static final String SOURCE_RESOURCES = "src/main/resources";
 
-    private record Placed(RegistryKey<World> dimension, BlockPos saveBlock) {}
-
-    private static final Map<UUID, Placed> PLACED = new HashMap<>();
     // The bed each builder was last taken to
     private static final Map<UUID, BlockPos> BED_VISITED = new HashMap<>();
 
@@ -130,6 +122,9 @@ public class CommandStructureEdit {
 
     private static final SuggestionProvider<ServerCommandSource> STRUCTURES = (context, builder) ->
             CommandSource.suggestIdentifiers(context.getSource().getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getIds(), builder);
+
+    private static final SuggestionProvider<ServerCommandSource> SECTIONS = (context, builder) ->
+            CommandSource.suggestMatching(BuildSections.near(context.getSource().getWorld(), BlockPos.ofFloored(context.getSource().getPosition())).stream().map(BuildSections.Section::name), builder);
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal(COMMAND)
@@ -154,6 +149,11 @@ public class CommandStructureEdit {
                         .then(CommandManager.literal(SPACED).executes(context -> view(context, true)))
                         .then(CommandManager.literal(ASSEMBLED).executes(context -> view(context, false))))
                 .then(CommandManager.literal(CLOSE).executes(CommandStructureEdit::close))
+                .then(CommandManager.literal(REMOVE)
+                        .executes(context -> remove(context, null))
+                        .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
+                                .suggests(SECTIONS)
+                                .executes(context -> remove(context, identifier(context, TEMPLATE)))))
                 .then(CommandManager.literal(NO_CLIP).executes(CommandStructureEdit::noClip))
                 .then(CommandManager.literal(POOLS)
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
@@ -170,9 +170,9 @@ public class CommandStructureEdit {
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
                                 .executes(context -> create(context, DEFAULT_NEW_SIZE, false))
                                 .then(CommandManager.literal(PLUG).executes(context -> create(context, DEFAULT_NEW_SIZE, true)))
-                                .then(CommandManager.argument(SIZE_X, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
-                                        .then(CommandManager.argument(SIZE_Y, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
-                                                .then(CommandManager.argument(SIZE_Z, IntegerArgumentType.integer(1, MAXIMUM_NEW_SIZE))
+                                .then(CommandManager.argument(SIZE_X, IntegerArgumentType.integer(1, StructureEditing.MAXIMUM_SIZE))
+                                        .then(CommandManager.argument(SIZE_Y, IntegerArgumentType.integer(1, StructureEditing.MAXIMUM_SIZE))
+                                                .then(CommandManager.argument(SIZE_Z, IntegerArgumentType.integer(1, StructureEditing.MAXIMUM_SIZE))
                                                         .executes(context -> create(context, sizeOf(context), false))
                                                         .then(CommandManager.literal(PLUG).executes(context -> create(context, sizeOf(context), true))))))))
                 .then(CommandManager.literal(PROJECTION)
@@ -439,19 +439,10 @@ public class CommandStructureEdit {
             source.sendError(Text.literal("A box of that size does not fit in the world here"));
             return 0;
         }
-        world.setBlockState(saveBlock, Blocks.STRUCTURE_BLOCK.getDefaultState(), Block.NOTIFY_ALL);
-        if(!(world.getBlockEntity(saveBlock) instanceof StructureBlockBlockEntity structureBlock)) {
+        if(!BuildSectionEditing.place(world, player, id, BlockBox.create(origin, origin.add(size).add(-1, -1, -1)), saveBlock)) {
             source.sendError(Text.literal("Could not place the structure block at " + saveBlock.toShortString()));
             return 0;
         }
-        structureBlock.setMode(StructureBlockMode.SAVE);
-        structureBlock.setTemplateName(id);
-        structureBlock.setOffset(SAVE_OFFSET);
-        structureBlock.setSize(size);
-        structureBlock.setIgnoreEntities(true);
-        structureBlock.setAuthor(player);
-        structureBlock.markDirty();
-        world.updateListeners(saveBlock, world.getBlockState(saveBlock), world.getBlockState(saveBlock), Block.NOTIFY_ALL);
 
         BlockPos plugPos = null;
         if(plug) {
@@ -472,7 +463,6 @@ public class CommandStructureEdit {
                 world.updateListeners(plugPos, world.getBlockState(plugPos), world.getBlockState(plugPos), Block.NOTIFY_ALL);
             }
         }
-        PLACED.put(player.getUuid(), new Placed(world.getRegistryKey(), saveBlock));
         StructureEditSession.beginSingle(world.getServer(), player.getUuid());
         BlockPos placedPlug = plugPos;
         StructureEditing.log("new build %s, %dx%dx%d from %s, structure block at %s%s".formatted(id, size.getX(), size.getY(), size.getZ(), origin.toShortString(),
@@ -596,11 +586,8 @@ public class CommandStructureEdit {
             for(StructureEditSession.Piece piece : session.getPieces())
                 builds.put(piece.box(), piece.template().getPath());
         } else {
-            StructureBlockBlockEntity block = findStructureBlock(world, player);
-            if(block != null) {
-                BlockPos from = block.getPos().add(block.getOffset());
-                builds.put(BlockBox.create(from, from.add(block.getSize()).add(-1, -1, -1)), block.getTemplateName());
-            }
+            for(BuildSections.Section section : sectionsOf(world, player))
+                builds.put(section.box(), section.name());
         }
         List<FoundBed> beds = new ArrayList<>();
         for(Map.Entry<BlockBox, String> build : builds.entrySet()) {
@@ -730,27 +717,27 @@ public class CommandStructureEdit {
         template.place(world, origin, origin, placement, world.getRandom(), Block.NOTIFY_LISTENERS);
 
         BlockPos saveBlock = origin.subtract(SAVE_OFFSET);
-        world.setBlockState(saveBlock, Blocks.STRUCTURE_BLOCK.getDefaultState(), Block.NOTIFY_ALL);
-        if(!(world.getBlockEntity(saveBlock) instanceof StructureBlockBlockEntity structureBlock)) {
+        if(!BuildSectionEditing.place(world, player, id, BlockBox.create(origin, origin.add(size).add(-1, -1, -1)), saveBlock)) {
             source.sendError(Text.literal("Could not place the structure block at " + saveBlock.toShortString()));
             return 0;
         }
-        structureBlock.setMode(StructureBlockMode.SAVE);
-        structureBlock.setTemplateName(id);
-        structureBlock.setOffset(SAVE_OFFSET);
-        structureBlock.setSize(size);
-        structureBlock.setIgnoreEntities(true);
-        structureBlock.setAuthor(player);
-        structureBlock.markDirty();
-        world.updateListeners(saveBlock, world.getBlockState(saveBlock), world.getBlockState(saveBlock), Block.NOTIFY_ALL);
-
-        PLACED.put(player.getUuid(), new Placed(world.getRegistryKey(), saveBlock));
         StructureEditSession.beginSingle(world.getServer(), player.getUuid());
         source.sendFeedback(() -> Text.literal("Loaded %s (%dx%dx%d) from %s. Its structure block is at %s, below the first corner."
                 .formatted(id, size.getX(), size.getY(), size.getZ(), origin.toShortString(), saveBlock.toShortString())), false);
         return 1;
     }
 
+    // The build the builder stands in, or else the nearest: all the sections that touch one another
+    private static List<BuildSections.Section> sectionsOf(ServerWorld world, ServerPlayerEntity player) {
+        List<BuildSections.Section> near = BuildSections.near(world, player.getBlockPos());
+        BuildSections.Section own = BuildSections.at(near, player.getBlockPos());
+        if(own == null)
+            own = BuildSections.nearest(near, player.getBlockPos());
+        return own == null ? List.of() : BuildSections.buildOf(near, own);
+    }
+
+    // With no name, every section of the build the builder stands in or nearest to. With one, the section stood in is
+    // given that name and saved by itself
     private static int save(CommandContext<ServerCommandSource> context, Identifier override) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -760,29 +747,78 @@ public class CommandStructureEdit {
         if(override == null && session != null && session.getDimension().equals(world.getRegistryKey()))
             return saveStructure(source, world, session);
 
-        StructureBlockBlockEntity structureBlock = findStructureBlock(world, player);
-        if(structureBlock == null) {
-            source.sendError(Text.literal("No structure block in save mode was placed by /%s load or is within %d blocks".formatted(COMMAND, NEAREST_SEARCH_RADIUS)));
+        List<BuildSections.Section> sections = sectionsOf(world, player);
+        if(sections.isEmpty()) {
+            source.sendError(Text.literal("No build is near: /%s %s <name> starts one, /%s %s <template> loads one".formatted(COMMAND, NEW, COMMAND, LOAD)));
             return 0;
         }
-        if(override != null)
-            structureBlock.setTemplateName(override);
-        String name = structureBlock.getTemplateName();
-        Identifier id = Identifier.tryParse(name);
-        if(id == null) {
-            source.sendError(Text.literal("The structure block has no valid template name"));
-            return 0;
+        if(override != null) {
+            List<BuildSections.Section> near = BuildSections.near(world, player.getBlockPos());
+            BuildSections.Section own = BuildSections.at(near, player.getBlockPos());
+            if(own == null)
+                own = BuildSections.nearest(near, player.getBlockPos());
+            if(near.stream().anyMatch(section -> section.name().equals(override.toString())) || own == null || !BuildSectionEditing.rename(world, own, override)) {
+                source.sendError(Text.literal("Another section here is named %s already".formatted(override)));
+                return 0;
+            }
+            sections = List.of(new BuildSections.Section(own.block(), override.toString(), own.box()));
         }
 
-        if(!structureBlock.saveStructure(true)) {
-            source.sendError(Text.literal("Saving " + id + " failed, see the log"));
+        List<Identifier> saved = new ArrayList<>();
+        for(BuildSections.Section section : sections) {
+            Identifier id = BuildSectionEditing.save(world, player, section);
+            if(id == null) {
+                source.sendError(Text.literal("Saving %s failed, see the log".formatted(section.name())));
+                continue;
+            }
+            saved.add(id);
+            StructureFeaturesRegistry.edited(id);
+            Path file = world.getStructureTemplateManager().getTemplatePath(id, ".nbt");
+            source.sendFeedback(() -> Text.literal("Saved " + id + " to " + file), false);
+            copyToSources(source, id, file);
+        }
+        publish(source, saved);
+        return saved.size();
+    }
+
+    // Once every section is written: a plug that asks for a piece finds it only if it was saved before the pools are made
+    private static void publish(ServerCommandSource source, List<Identifier> saved) {
+        Path resources = FabricLoader.getInstance().getGameDir().resolve("..").resolve(SOURCE_RESOURCES).normalize();
+        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || !isOwnSources(resources))
+            return;
+        List<Path> written = new ArrayList<>();
+        List<Identifier> created = new ArrayList<>();
+        try {
+            for(Identifier id : saved) {
+                PiecePools.Result result = PiecePools.publish(source.getWorld(), id, resources);
+                result.written().stream().filter(file -> !written.contains(file)).forEach(written::add);
+                result.created().stream().filter(pool -> !created.contains(pool)).forEach(created::add);
+            }
+        } catch (IOException e) {
+            source.sendError(Text.literal("Could not write the pool files: " + e.getMessage()));
+            return;
+        }
+        if(written.isEmpty())
+            return;
+        StructureEditing.log("pools of %s: wrote %s, new %s".formatted(saved, written, created));
+        source.sendFeedback(() -> Text.literal("Wrote %d pool file%s for their plugs%s".formatted(written.size(), written.size() == 1 ? "" : "s",
+                created.isEmpty() ? "" : ". New pools %s are only seen once the world is opened again".formatted(created))), false);
+    }
+
+    // Takes the box of a section away, not what was built in it
+    private static int remove(CommandContext<ServerCommandSource> context, @Nullable Identifier name) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        ServerWorld world = source.getWorld();
+        List<BuildSections.Section> near = BuildSections.near(world, player.getBlockPos());
+        BuildSections.Section section = name == null ? BuildSections.at(near, player.getBlockPos())
+                : near.stream().filter(found -> found.name().equals(name.toString())).findFirst().orElse(null);
+        if(section == null) {
+            source.sendError(Text.literal(name == null ? "You stand in no section. /%s %s <name> takes one away by its name".formatted(COMMAND, REMOVE) : "No section %s is near".formatted(name)));
             return 0;
         }
-        StructureFeaturesRegistry.edited(id);
-        Path saved = world.getStructureTemplateManager().getTemplatePath(id, ".nbt");
-        source.sendFeedback(() -> Text.literal("Saved " + id + " to " + saved), false);
-
-        copyToSources(source, id, saved);
+        BuildSectionEditing.remove(world, section);
+        source.sendFeedback(() -> Text.literal("%s is no section any more. What was built in it stands, and a file it was saved to is kept".formatted(section.name())), false);
         return 1;
     }
 
@@ -801,44 +837,5 @@ public class CommandStructureEdit {
         } catch (IOException e) {
             source.sendError(Text.literal("Could not copy it to " + target + ": " + e.getMessage()));
         }
-    }
-
-    // A template loaded by itself is saved by its structure block, whose box this sets
-    public static @Nullable Identifier resizeLoaded(ServerWorld world, ServerPlayerEntity player, BlockBox box) {
-        StructureBlockBlockEntity block = findStructureBlock(world, player);
-        if(block == null)
-            return null;
-        BlockPos at = block.getPos();
-        block.setOffset(new BlockPos(box.getMinX() - at.getX(), box.getMinY() - at.getY(), box.getMinZ() - at.getZ()));
-        block.setSize(new Vec3i(box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ()));
-        block.markDirty();
-        world.updateListeners(at, world.getBlockState(at), world.getBlockState(at), Block.NOTIFY_ALL);
-        StructureEditing.log("%s given the bounds %s to %s by its structure block at %s".formatted(block.getTemplateName(),
-                new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ()).toShortString(), new BlockPos(box.getMaxX(), box.getMaxY(), box.getMaxZ()).toShortString(), at.toShortString()));
-        return Identifier.tryParse(block.getTemplateName());
-    }
-
-    private static StructureBlockBlockEntity findStructureBlock(ServerWorld world, ServerPlayerEntity player) {
-        Placed placed = PLACED.get(player.getUuid());
-        if(placed != null && placed.dimension().equals(world.getRegistryKey())
-                && world.getBlockEntity(placed.saveBlock()) instanceof StructureBlockBlockEntity block && block.getMode() == StructureBlockMode.SAVE)
-            return block;
-
-        StructureBlockBlockEntity nearest = null;
-        double nearestDistance = Double.MAX_VALUE;
-        BlockPos center = player.getBlockPos();
-        for(BlockPos pos : BlockPos.iterate(center.add(-NEAREST_SEARCH_RADIUS, -NEAREST_SEARCH_RADIUS, -NEAREST_SEARCH_RADIUS),
-                center.add(NEAREST_SEARCH_RADIUS, NEAREST_SEARCH_RADIUS, NEAREST_SEARCH_RADIUS))) {
-            if(!world.isChunkLoaded(pos) || !world.getBlockState(pos).isOf(Blocks.STRUCTURE_BLOCK))
-                continue;
-            if(world.getBlockEntity(pos) instanceof StructureBlockBlockEntity block && block.getMode() == StructureBlockMode.SAVE && block.hasStructureName()) {
-                double distance = pos.getSquaredDistance(center);
-                if(distance < nearestDistance) {
-                    nearestDistance = distance;
-                    nearest = block;
-                }
-            }
-        }
-        return nearest;
     }
 }

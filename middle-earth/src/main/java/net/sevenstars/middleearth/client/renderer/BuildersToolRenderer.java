@@ -23,6 +23,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
@@ -50,7 +51,8 @@ import java.util.Map;
 import java.util.Optional;
 
 // While the builder's tool is held, draws what the blocks around are taken for: tagged beds with who is born in them and the
-// station or marker their job will use, free beds, stations, stores, seats, tables and structure markers
+// station or marker their job will use, free beds, stations, stores, seats, tables and structure markers, and the sections
+// of a build with their names
 public class BuildersToolRenderer {
     // Far enough to find the station a bed will be given, which is looked for within 48 blocks
     private static final int RANGE = 32;
@@ -74,6 +76,10 @@ public class BuildersToolRenderer {
     private static final int MARKER = 0xFFD500F9;
     private static final int PIECE = 0xFF40C4FF;
     private static final int BOUNDS = 0xFFFFEB3B;
+    private static final int JOIN = 0xFF00E676;
+    private static final int[] SECTION_COLORS = {0xFF40C4FF, 0xFFFF8A65, 0xFFB388FF, 0xFFFFD740, 0xFF69F0AE, 0xFFFF80AB, 0xFF84FFFF, 0xFFEEFF41};
+    // Out of the white box the game draws of a structure block's own
+    private static final double SECTION_MARGIN = 0.03;
     private static final int MAXIMUM_PLOT = 4096;
     private static final int PROJECTIONS_MILLIS = 2000;
     private static final int PLUG = 0xFF00E676;
@@ -100,6 +106,7 @@ public class BuildersToolRenderer {
     private static final List<BlockPos> tables = new ArrayList<>();
     private static final List<BlockPos> plainBeds = new ArrayList<>();
     private static final Set<BlockPos> fields = new HashSet<>();
+    private static List<BuildSections.Section> sections = List.of();
     private static final Map<BlockPos, List<Box>> PLOTS = new HashMap<>();
     private static Map<Identifier, Set<StructurePool.Projection>> projections = Map.of();
     private static long projectionsReadAt = 0;
@@ -185,6 +192,7 @@ public class BuildersToolRenderer {
         stores.clear();
         seats.clear();
         tables.clear();
+        sections = BuildSections.near(world, from);
         for(BlockPos pos : BlockPos.iterate(from.add(-RANGE, -RANGE_HEIGHT, -RANGE), from.add(RANGE, RANGE_HEIGHT, RANGE))) {
             BlockState state = world.getBlockState(pos);
             if(state.isAir())
@@ -236,13 +244,33 @@ public class BuildersToolRenderer {
     // The bounds being set: from the corner that was clicked to the block that is looked at, which a click makes the other
     private static @Nullable Box boundsPreview() {
         BlockPos first = BuildersToolSelection.boundsFirst();
-        BlockPos aimed = aimedBlock();
-        if(BuildersToolSelection.boundsAnchor() == null || first == null && aimed == null)
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if(BuildersToolSelection.boundsAnchor() == null || player == null)
             return null;
-        return first == null ? new Box(aimed) : Box.enclosing(first, aimed == null ? first : aimed);
+        BlockPos aimed = aimedBlock() == null ? BuildersToolSelection.cornerInAir(player) : aimedBlock();
+        return first == null ? new Box(aimed) : Box.enclosing(first, aimed);
+    }
+
+    // Each section in a colour of its own, which its name keeps
+    private static int sectionColor(BuildSections.Section section) {
+        return SECTION_COLORS[Math.floorMod(section.name().hashCode(), SECTION_COLORS.length)];
+    }
+
+    private static String sectionName(BuildSections.Section section) {
+        Identifier id = Identifier.tryParse(section.name());
+        return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : section.name();
     }
 
     private static void drawBoxes(MatrixStack matrices, VertexConsumer lines) {
+        for(BuildSections.Section section : sections)
+            DebugDraw.box(matrices, lines, Box.from(section.box()).expand(SECTION_MARGIN), sectionColor(section));
+        BlockPos joinFrom = BuildersToolSelection.joinFrom();
+        BlockPos joinTo = BuildersToolSelection.joinTo();
+        if(joinFrom != null && joinTo != null) {
+            DebugDraw.box(matrices, lines, new Box(joinFrom).expand(SELECTED_MARGIN), JOIN);
+            DebugDraw.box(matrices, lines, new Box(joinTo).expand(SELECTED_MARGIN), JOIN);
+            DebugDraw.line(matrices, lines, Vec3d.ofCenter(joinFrom), Vec3d.ofCenter(joinTo), JOIN);
+        }
         BlockPos plug = BuildersToolSelection.jigsaw();
         if(plug != null) {
             DebugDraw.box(matrices, lines, new Box(plug).expand(SELECTED_MARGIN), PLUG);
@@ -434,6 +462,9 @@ public class BuildersToolRenderer {
         if(preview != null)
             DebugDraw.label(matrices, consumers, "%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
                     new Vec3d(preview.getCenter().x, preview.maxY + PIECE_LABEL_HEIGHT, preview.getCenter().z), BOUNDS, PIECE_TEXT_SCALE);
+        for(BuildSections.Section section : sections)
+            DebugDraw.label(matrices, consumers, sectionName(section), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
+                    section.box().getCenter().getZ() + 0.5), sectionColor(section), PIECE_TEXT_SCALE);
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {
             Bed bed = selectedBed(selected);

@@ -310,6 +310,10 @@ public class StructureEditSession {
         return nearest;
     }
 
+    public @Nullable Piece pieceContaining(BlockPos pos) {
+        return pieces.stream().filter(piece -> piece.box().contains(pos)).findFirst().orElse(null);
+    }
+
     // Makes a piece bigger on one side, to be built into and saved as part of its template. Null when it went well, or else
     // the piece that is in the way
     public @Nullable Piece expand(ServerWorld world, Piece piece, Direction side, int blocks) {

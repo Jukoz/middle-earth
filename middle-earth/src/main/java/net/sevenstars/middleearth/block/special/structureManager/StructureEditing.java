@@ -10,6 +10,9 @@ import net.sevenstars.middleearth.MiddleEarth;
 public class StructureEditing {
     // In blocks, from the builder to the manager, nest, marker or bed being set up
     public static final int REACH = 8;
+    // In blocks along one side of what is saved as one template. The structure block's own screen cuts a box down to 48
+    // when its Done is pressed, so a bigger one is only to be set with the tool or the command
+    public static final int MAXIMUM_SIZE = 128;
     private static final int OPERATOR_LEVEL = 2;
 
     // What builders do to a build goes in the log, to follow a build being worked on and to tell why a click did nothing
