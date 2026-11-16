@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.world.biomes;
 
+import net.minecraft.util.math.ColorHelper;
+import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 
 import java.util.Objects;
@@ -27,13 +30,15 @@ public class BiomeColorsDTO {
         this.foliageColor = foliageColor;
     }
 
-    public BiomeEffects.Builder createEffects() {
-        BiomeEffects.Builder effects = new BiomeEffects.Builder()
-                .waterColor(waterColor)
-                .waterFogColor(waterFogColor)
-                .grassColor(grassColor)
-                .foliageColor(foliageColor);
-        ambiance.applyTo(effects);
-        return effects;
+    public Biome.Builder createBiomeBuilder() {
+        Biome.Builder biome = new Biome.Builder()
+                .effects(new BiomeEffects.Builder()
+                        .waterColor(waterColor)
+                        .grassColor(grassColor)
+                        .foliageColor(foliageColor)
+                        .build())
+                .setEnvironmentAttribute(EnvironmentAttributes.WATER_FOG_COLOR_VISUAL, ColorHelper.fullAlpha(waterFogColor));
+        ambiance.applyTo(biome);
+        return biome;
     }
 }
