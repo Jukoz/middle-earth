@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
@@ -12,7 +13,6 @@ import net.sevenstars.middleearth.block.special.saplings.WeightedSaplingBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
@@ -602,7 +602,7 @@ public class NatureBlockRegistryME {
 
     public static Block registerCrossBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
         Block resultBlock = registerBlock(name, factory, settings, present);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         return resultBlock;
     }
 
@@ -611,7 +611,7 @@ public class NatureBlockRegistryME {
                 AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(BlockRegistryME.keyOfBlock(name)));
         Block resultBlock = Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), saplingBlock);
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
@@ -632,7 +632,7 @@ public class NatureBlockRegistryME {
         TranslationEntries.blockEntries.add(resultBlock);
 
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
@@ -647,7 +647,7 @@ public class NatureBlockRegistryME {
         TranslationEntries.blockEntries.add(resultBlock);
 
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 

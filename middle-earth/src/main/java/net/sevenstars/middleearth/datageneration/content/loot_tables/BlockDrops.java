@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
 
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
@@ -11,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockDrops {
-    public static List<Block> blocks = new ArrayList<>() {
+    public static List<Block> blocks = RegistrationLists.DROPS;
+    static {
+        RegistrationLists.prepend(blocks, new ArrayList<Block>() {
         {
             add(DecorativeBlockRegistryME.SILVER_LANTERN);
             add(DecorativeBlockRegistryME.WALL_SILVER_LANTERN);
@@ -240,5 +243,6 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING);
         }
-    };
+    });
+    }
 }

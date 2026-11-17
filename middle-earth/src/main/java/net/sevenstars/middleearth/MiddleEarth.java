@@ -55,9 +55,12 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
-		// The block registries and the datagen lists they fill reference each other while loading,
-		// so which class loads first decides what those lists see. BlockRegistryME has to be first.
+		// Creative tab order follows the order these classes load in. Loading these four first
+		// keeps the tabs in the order they have always had.
 		BlockRegistryME.registerModBlocks();
+		DecorativeBlockRegistryME.registerModBlocks();
+		StoneBlockSetRegistryME.registerModBlockSets();
+		DecorativeItemsME.registerModItems();
 
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");

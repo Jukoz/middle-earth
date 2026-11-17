@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.block.OxidizablePaneBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
@@ -16,7 +17,6 @@ import net.sevenstars.middleearth.block.special.pointedBlocks.PointedIzherabanBl
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedLimestoneBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -787,7 +787,7 @@ public class BlockRegistryME {
         Block block = (Block)factory.apply(settings.registryKey(keyOfBlock(name)));
         registerBlockItem(name, block);
         if(drop){
-            BlockDrops.blocks.add(block);
+            RegistrationLists.DROPS.add(block);
         }
         group.add(block.asItem().getDefaultStack());
         TranslationEntries.blockEntries.add(block);
@@ -798,7 +798,7 @@ public class BlockRegistryME {
     public static Block registerTablessBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean drop) {
         Block block = factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
         if(drop){
-            BlockDrops.blocks.add(block);
+            RegistrationLists.DROPS.add(block);
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 

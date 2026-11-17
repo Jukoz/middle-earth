@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -11,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleItemModel {
-    public static List<Item> items = new ArrayList<>() {
+    public static List<Item> items = RegistrationLists.SIMPLE_ITEM_MODELS;
+    static {
+        RegistrationLists.prepend(items, new ArrayList<Item>() {
         {
             add(ResourceItemsME.MIDDLE_EARTH_MAP);
 
@@ -196,5 +199,6 @@ public class SimpleItemModel {
             add(BlockRegistryME.MEDIUM_GLOWSTONE_BUD.asItem());
             add(BlockRegistryME.LARGE_GLOWSTONE_BUD.asItem());
         }
-    };
+    });
+    }
 }
