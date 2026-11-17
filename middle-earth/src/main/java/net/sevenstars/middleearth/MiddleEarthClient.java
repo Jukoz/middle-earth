@@ -19,15 +19,13 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.features.smithing.SmithingClient;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.sevenstars.middleearth.block.special.forge.ForgeEntityRenderer;
 import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
-import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
@@ -73,22 +71,17 @@ import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
-import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
-import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.network.ClientNetworkHandlerME;
 import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
-import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
 import net.sevenstars.middleearth.registries.AtlasesME;
 
@@ -118,7 +111,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);
-        BooleanProperties.ID_MAPPER.put(MiddleEarth.id("hot_component"), HotComponentProperty.CODEC);
 
         // Entities
 
@@ -153,18 +145,12 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
-        ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
@@ -175,7 +161,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.WILLOW_COFFER, WillowCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.BELLOWS, BellowsBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.PLATE, PlateEntityRenderer::new);
         BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
@@ -237,10 +222,10 @@ public class MiddleEarthClient implements ClientModInitializer {
             pluginContext.addModel(ExtraModelKey.create(() -> "plate_apple"), SimpleUnbakedExtraModel.blockStateModel(MiddleEarth.idFilePath("item", "plate_apple")));
         });
 
-        ParticleFactoryRegistry.getInstance().register(ParticleTypeRegistryME.ANVIL_SPARK_PARTICLE, AnvilBonkParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
 
         initializeRenderLayerMap();
+        SmithingClient.register();
         BlockColorsME.initializeBlockColors();
     }
 
@@ -680,7 +665,6 @@ public class MiddleEarthClient implements ClientModInitializer {
             BlockRenderLayerMap.putBlock(block.base(), BlockRenderLayer.CUTOUT);
         });
 
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.BELLOWS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(BlockRegistryME.TREATED_WOOD_ROPE_FENCE, BlockRenderLayer.CUTOUT);
 

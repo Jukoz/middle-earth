@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -320,11 +322,11 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.adamant_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.mithril_ore());
 
-        needsStoneTools.add(DecorativeBlockRegistryME.STONE_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL);
+        needsStoneTools.add(SmithingBlocks.STONE_ANVIL);
+        needsIronTools.add(SmithingBlocks.TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.DWARVEN_TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.ELVEN_TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.ORCISH_TREATED_ANVIL);
 
         needsIronTools.add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
 

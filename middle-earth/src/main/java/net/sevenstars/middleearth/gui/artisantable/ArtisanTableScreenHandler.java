@@ -7,7 +7,7 @@ import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
+import net.sevenstars.middleearth.common.recipe.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.ArtisanDataComponent;

@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.features.smithing.Smithing;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.config.ClientConfigME;
@@ -90,6 +91,7 @@ public class MiddleEarth implements ModInitializer {
 		NatureBlockItemsME.registerModItems();
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
+		Smithing.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

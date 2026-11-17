@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -66,7 +68,7 @@ public class MineableAxe {
 
             add(BlockRegistryME.TREATED_WOOD_ROPE_FENCE);
 
-            add(DecorativeBlockRegistryME.BELLOWS);
+            add(SmithingBlocks.BELLOWS);
 
             add(DecorativeBlockRegistryME.TREATED_WOOD_LADDER);
             add(DecorativeBlockRegistryME.TREATED_WOOD_STOOL);

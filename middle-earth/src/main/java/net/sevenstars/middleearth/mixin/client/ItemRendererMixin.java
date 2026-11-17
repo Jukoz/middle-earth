@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.mixin.client;
 
-import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.ItemStack;

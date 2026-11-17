@@ -18,8 +18,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class OldSkullBlock extends BlockWithEntity {

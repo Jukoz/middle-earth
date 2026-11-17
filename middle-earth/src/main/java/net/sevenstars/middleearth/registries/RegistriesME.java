@@ -33,7 +33,7 @@ import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;

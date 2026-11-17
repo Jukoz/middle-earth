@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -71,7 +73,7 @@ public class EreborNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(ToolItemsME.BRONZE_PICKAXE))
                                 .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
-                                .add(WeightedItemData.create(ToolItemsME.DWARVEN_SMITHING_HAMMER))
+                                .add(WeightedItemData.create(SmithingItems.DWARVEN_SMITHING_HAMMER))
                                 .add(WeightedItemData.create(Items.IRON_PICKAXE))
                                 .add(WeightedItemData.create(WeaponItemsME.EREBOR_DAGGER))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
