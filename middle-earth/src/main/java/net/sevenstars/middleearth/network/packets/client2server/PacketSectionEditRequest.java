@@ -22,12 +22,11 @@ public class PacketSectionEditRequest extends ClientToServerPacket<PacketSection
     public static final Id<PacketSectionEditRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "section_edit_request"));
     public static final int RENAME = 0;
     public static final int REMOVE = 1;
-    private static final int MAXIMUM_NAME_LENGTH = 128;
 
     public static final PacketCodec<RegistryByteBuf, PacketSectionEditRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.VAR_INT, p -> p.what,
-            PacketCodecs.string(MAXIMUM_NAME_LENGTH), p -> p.name,
+            PacketCodecs.string(BuildSections.MAXIMUM_NAME_LENGTH), p -> p.name,
             PacketSectionEditRequest::new
     );
 

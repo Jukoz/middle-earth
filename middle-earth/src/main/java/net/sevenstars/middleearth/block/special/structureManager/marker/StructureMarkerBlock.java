@@ -15,6 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -59,7 +60,7 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(world.isClient)
             return ActionResult.SUCCESS;
-        if(state.get(HIDDEN) || !player.isCreative() || !player.isCreativeLevelTwoOp())
+        if(state.get(HIDDEN) || !StructureEditing.isBuilder(player))
             return ActionResult.FAIL;
         NamedScreenHandlerFactory factory = state.createScreenHandlerFactory(world, pos);
         if(factory != null)

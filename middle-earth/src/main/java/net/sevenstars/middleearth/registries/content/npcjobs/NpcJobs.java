@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.registries.content.npcjobs;
 
 import net.minecraft.item.Items;
-import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
@@ -10,16 +9,18 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.item.ToolItemsME;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.registries.content.npcclasses.NpcRoutines;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData.Activity;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData.Period;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -31,6 +32,7 @@ import java.util.Optional;
 public class NpcJobs {
     // In blocks
     private static final int BED_STATION_RANGE = 48;
+
     private static final int BODYGUARDS = 2;
     private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
     private static final List<String> LORD_NESTS = List.of("lord", "captain", "chief", "chieftain", "marshal");
@@ -79,7 +81,7 @@ public class NpcJobs {
     public static final RegistryKey<NpcJob> STABLES_MASTER = registerForNest("stables_master", "stables_master", trade());
 
     // [WARRIORS]
-    // Keeps the class name, so a Gondor Soldier on guard is still a Gondor Soldier. Only for npcs saved with it, nests assign the duties below
+    // Only for npcs saved with it. Nests assign the duties below
     public static final RegistryKey<NpcJob> GUARD = register("guard", duty(NpcRoutines.GUARD));
     public static final RegistryKey<NpcJob> LORD = registerForNests(LORD_NESTS, "lord", duty(lordRoutine(Period.DAY)));
     // For orcs and goblins, whose lords keep to the night
@@ -100,6 +102,7 @@ public class NpcJobs {
         return JOBS.keySet();
     }
 
+    // The built-in definitions only, not what a datapack overrides
     public static @Nullable NpcJob get(Identifier id) {
         return JOBS_BY_ID.get(id);
     }
@@ -193,17 +196,21 @@ public class NpcJobs {
         List<MarkerKind> markerKinds = stationMarkers(job);
         BlockPos best = null;
         for(StructureFeatureData.Station station : stations) {
-            if(kinds.contains(station.kind()) && station.pos().isWithinDistance(bed, BED_STATION_RANGE)
-                    && (best == null || station.pos().getSquaredDistance(bed) < best.getSquaredDistance(bed)))
-                best = station.pos();
+            if(kinds.contains(station.kind()))
+                best = nearer(best, station.pos(), bed);
         }
         if(best != null || markerKinds.isEmpty())
             return best;
         for(StructureFeatureData.Marker marker : markers) {
-            if(markerKinds.contains(marker.kind()) && marker.pos().isWithinDistance(bed, BED_STATION_RANGE)
-                    && (best == null || marker.pos().getSquaredDistance(bed) < best.getSquaredDistance(bed)))
-                best = marker.pos();
+            if(markerKinds.contains(marker.kind()))
+                best = nearer(best, marker.pos(), bed);
         }
+        return best;
+    }
+
+    private static @Nullable BlockPos nearer(@Nullable BlockPos best, BlockPos candidate, BlockPos bed) {
+        if(candidate.isWithinDistance(bed, BED_STATION_RANGE) && (best == null || candidate.getSquaredDistance(bed) < best.getSquaredDistance(bed)))
+            return candidate;
         return best;
     }
 

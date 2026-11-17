@@ -7,6 +7,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -16,6 +17,7 @@ import net.sevenstars.middleearth.network.packets.client2server.PacketStructureB
 import net.sevenstars.middleearth.network.packets.client2server.PacketSectionEditRequest;
 import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.Locale;
 
@@ -31,7 +33,6 @@ public class BuildSectionScreen extends Screen {
     private static final int WIDE_BUTTON_WIDTH = 84;
     private static final int GAP = 6;
     private static final int LINE_GAP = 3;
-    private static final int MAXIMUM_NAME_LENGTH = 100;
 
     private final BlockPos anchor;
     private final BlockPos first;
@@ -77,14 +78,14 @@ public class BuildSectionScreen extends Screen {
         int right = windowX + WIDTH - EditorPanel.PADDING;
         int fieldTop = windowY + EditorPanel.TITLE_HEIGHT + 1 + EditorPanel.PADDING + textRenderer.fontHeight + LINE_GAP;
         name = addDrawableChild(new TextFieldWidget(textRenderer, left, fieldTop, WIDTH - 2 * EditorPanel.PADDING, FIELD_HEIGHT, Text.translatable(KEY + "name")));
-        name.setMaxLength(MAXIMUM_NAME_LENGTH);
-        name.setText(shown(current));
+        name.setMaxLength(BuildSections.MAXIMUM_NAME_LENGTH);
+        name.setText(BuildSections.shortName(current));
         name.setChangedListener(typed -> update());
         int buttonTop = windowY + windowHeight - EditorPanel.FOOTER_HEIGHT + (EditorPanel.FOOTER_HEIGHT - BUTTON_HEIGHT) / 2 + 1;
         create = addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + (block == null ? "create" : "rename")), button -> send(typed()))
                 .tooltip(Tooltip.of(Text.translatable(KEY + (block == null ? "create_tip" : "rename_tip"))))
                 .dimensions(right - WIDE_BUTTON_WIDTH, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
-        addDrawableChild(ButtonWidget.builder(Text.translatable("gui.cancel"), button -> close())
+        addDrawableChild(ButtonWidget.builder(ScreenTexts.CANCEL, button -> close())
                 .dimensions(right - WIDE_BUTTON_WIDTH - GAP - BUTTON_WIDTH, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         if(block != null)
             addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "remove"), button -> {
@@ -93,15 +94,9 @@ public class BuildSectionScreen extends Screen {
             }).tooltip(Tooltip.of(Text.translatable(KEY + "remove_tip"))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
         else if(!current.isEmpty())
             addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "resize"), button -> send(""))
-                    .tooltip(Tooltip.of(Text.translatable(KEY + "resize_tip", shown(current)))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
+                    .tooltip(Tooltip.of(Text.translatable(KEY + "resize_tip", BuildSections.shortName(current)))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
         setInitialFocus(name);
         update();
-    }
-
-    // The mod's own names are shown and typed without the namespace
-    private static String shown(String name) {
-        Identifier id = Identifier.tryParse(name);
-        return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : name;
     }
 
     private String typed() {
@@ -116,7 +111,7 @@ public class BuildSectionScreen extends Screen {
         String why = null;
         if(typed.isEmpty())
             why = "say_empty";
-        else if(typed.equals(shown(current)))
+        else if(typed.equals(BuildSections.shortName(current)))
             why = block == null ? "say_same" : "say_unchanged";
         else if(id == null)
             why = "bad_name";
@@ -124,7 +119,7 @@ public class BuildSectionScreen extends Screen {
             why = "say_taken";
         // An empty name, or the pre-filled name left unchanged, isn't an error. The builder just hasn't typed yet
         wrong = why != null && !why.equals("say_empty") && !why.equals("say_same") && !why.equals("say_unchanged");
-        said = why != null ? Text.translatable(KEY + why, shown(current)) : Text.translatable(KEY + (block == null ? "say_create" : "say_rename"), id.toString());
+        said = why != null ? Text.translatable(KEY + why, BuildSections.shortName(current)) : Text.translatable(KEY + (block == null ? "say_create" : "say_rename"), id.toString());
         create.active = why == null;
         name.setEditableColor(wrong ? EditorPanel.WARNING : EditorPanel.TEXT);
     }
@@ -139,7 +134,7 @@ public class BuildSectionScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if((keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) && create.active) {
+        if((keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) && create.active) {
             send(typed());
             return true;
         }

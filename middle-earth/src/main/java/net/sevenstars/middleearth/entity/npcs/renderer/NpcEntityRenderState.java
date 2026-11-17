@@ -7,7 +7,6 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 public class NpcEntityRenderState extends BipedEntityRenderState {
     public float widthScale;
 
-
     public Identifier simplifiedSkinId;
     public Identifier simplifiedEarId;
     public Identifier simplifiedNoseId;

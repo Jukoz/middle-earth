@@ -1,55 +1,56 @@
 package net.sevenstars.middleearth.item.items;
 
-import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
-import net.sevenstars.middleearth.commands.custom.StructureEditSession;
-import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
-import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
-import net.minecraft.util.math.Direction;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.block.Block;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.StructureBlockBlockEntity;
-import net.minecraft.block.enums.StructureBlockMode;
-import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
 import net.minecraft.block.enums.BedPart;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.enums.StructureBlockMode;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.minecraft.state.property.Properties;
+import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.beds.BedOccupant;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
+import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
+import net.sevenstars.middleearth.commands.custom.StructureEditSession;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenHandler;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
-import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
-import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenHandler;
+import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.util.Identifier;
-import java.util.ArrayList;
+
 // Right-click a bed to choose who lives in it. Right-click a block the build treats as a feature, such as a seat, a
 // store, a door or a place of work, to make it off limits to npcs, and right-click it again to undo that. Right-click
 // anything else, or sneak and right-click, to place or edit a structure marker. Left-click a bed to select it, then
@@ -70,10 +71,14 @@ public class BuildersToolItem extends Item {
         super(settings);
     }
 
+    public static boolean isHeldBy(PlayerEntity player) {
+        return player.getMainHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL) || player.getOffHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL);
+    }
+
     // A bed handles right-clicks itself before the item gets a chance, so the tool has to take the click first
     public static void register() {
         UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
-            if(!player.getMainHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL) && !player.getOffHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL))
+            if(!isHeldBy(player))
                 return ActionResult.PASS;
             BlockState state = world.getBlockState(hit.getBlockPos());
             boolean bed = state.getBlock() instanceof BedBlock;

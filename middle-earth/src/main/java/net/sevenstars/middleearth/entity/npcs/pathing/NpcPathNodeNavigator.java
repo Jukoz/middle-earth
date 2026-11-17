@@ -21,8 +21,8 @@ import java.util.Optional;
 import java.util.Set;
 
 // The game's search with one difference. The game writes a node's walked length before checking whether the newly found
-// route to it is better, so a longer route could overwrite a shorter one, and a node near the start could be dropped for
-// being past the longest allowed path. Which nodes got dropped depended on the order the search visited them in
+// route to it is better, so a longer route can overwrite a shorter one and a node near the start can be dropped for being
+// past the longest allowed path, depending on the order the search visits nodes in
 public class NpcPathNodeNavigator extends PathNodeNavigator {
     // Same weighting the game uses for the distance still to go against the distance walked
     private static final float HEURISTIC_WEIGHT = 1.5f;
@@ -66,7 +66,6 @@ public class NpcPathNodeNavigator extends PathNodeNavigator {
         start.penalizedPathLength = 0;
         start.distanceToNearestTarget = distances(start, goals);
         start.heapWeight = start.distanceToNearestTarget;
-        heap.clear();
         heap.push(start);
         Set<TargetPathNode> reached = new HashSet<>();
         int visited = 0;

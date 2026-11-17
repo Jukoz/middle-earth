@@ -42,6 +42,7 @@ public class BiomeEventData {
     // In ticks
     private static final int PENDING_SPAWN_LIFETIME = 40;
     private static final int CHUNK_DISABLE_TICKS = 20 * 5;
+
     private static final int MAXIMUM_PENDING_SPAWNS = 256;
     private static final int DEFAULT_WEIGHT = 1;
     private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
@@ -161,6 +162,12 @@ public class BiomeEventData {
         }
         SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcClass(null) : null, pos);
         return true;
+    }
+
+    // The times are world times, which a different save starts over
+    public static void clearSpawns() {
+        PENDING_SPAWNS.clear();
+        DISABLED_SPAWNS.clear();
     }
 
     public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job) {}

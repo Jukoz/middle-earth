@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.UUID;
 
-// Keeps a herd animal near the npc herding it
 public class FollowHerderGoal extends Goal {
     // Saved with the animal so the herd stays together after a reload
     private static final String TAG_PREFIX = "middle-earth.herder.";
@@ -45,14 +44,9 @@ public class FollowHerderGoal extends Goal {
         ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if(!(entity instanceof MobEntity mob))
                 return;
-            for(String tag : mob.getCommandTags()) {
-                if(tag.startsWith(TAG_PREFIX)) {
-                    try {
-                        mob.goalSelector.add(GOAL_PRIORITY, new FollowHerderGoal(mob, UUID.fromString(tag.substring(TAG_PREFIX.length())), HERD_SPEED));
-                    } catch (IllegalArgumentException ignored) {}
-                    return;
-                }
-            }
+            UUID herder = herderOf(mob);
+            if(herder != null)
+                mob.goalSelector.add(GOAL_PRIORITY, new FollowHerderGoal(mob, herder, HERD_SPEED));
         });
     }
 
@@ -97,7 +91,8 @@ public class FollowHerderGoal extends Goal {
             // Herders come and go with the wild spawns, so an animal whose herder is gone is removed too rather than
             // left behind forever
             missingChecks++;
-            if(missingChecks >= ORPHAN_CHECKS && !animal.getWorld().isPlayerInRange(animal.getX(), animal.getY(), animal.getZ(), ORPHAN_PLAYER_RANGE))
+            if(missingChecks >= ORPHAN_CHECKS && !animal.getWorld().isPlayerInRange(animal.getX(), animal.getY(), animal.getZ(), ORPHAN_PLAYER_RANGE)
+                    && !animal.isLeashed() && !animal.hasPassengers() && !animal.hasCustomName())
                 animal.discard();
             return false;
         }

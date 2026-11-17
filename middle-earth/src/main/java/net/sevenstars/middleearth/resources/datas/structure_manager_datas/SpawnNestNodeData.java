@@ -2,14 +2,14 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.registry.RegistryKey;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import java.util.Random;
 
 // One nest of a place: who spawns there, and how long after the last of them is gone they come back

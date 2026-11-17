@@ -2,21 +2,22 @@ package net.sevenstars.middleearth.network.packets.client2server;
 
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
-import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
-import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
-import net.minecraft.network.codec.PacketCodecs;
-import java.util.List;
-import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
+import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
+import net.sevenstars.middleearth.commands.custom.StructureEditSession;
+
+import java.util.List;
 
 // Sets the part of a build that is saved to the box between two corners. The build is the one containing the anchor,
 // which is either a piece of the structure the builder has loaded or a section with its own structure block. With a
@@ -24,13 +25,12 @@ import net.sevenstars.api.network.packets.ClientToServerPacket;
 public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStructureBoundsRequest> {
     public static final Id<PacketStructureBoundsRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_bounds_request"));
 
-    private static final int MAXIMUM_NAME_LENGTH = 128;
 
     public static final PacketCodec<RegistryByteBuf, PacketStructureBoundsRequest> CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, p -> p.anchor,
             BlockPos.PACKET_CODEC, p -> p.first,
             BlockPos.PACKET_CODEC, p -> p.second,
-            PacketCodecs.string(MAXIMUM_NAME_LENGTH), p -> p.name,
+            PacketCodecs.string(BuildSections.MAXIMUM_NAME_LENGTH), p -> p.name,
             PacketStructureBoundsRequest::new
     );
 
@@ -96,7 +96,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
                 player.sendMessage(Text.translatable("ui.%s.structure_bounds.no_build".formatted(MiddleEarth.MOD_ID)), true);
                 return;
             }
-            player.sendMessage(Text.translatable("ui.%s.structure_bounds.set".formatted(MiddleEarth.MOD_ID), pathOf(section.name()), size), true);
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.set".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(section.name()), size), true);
         });
     }
 
@@ -123,15 +123,10 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
         List<BuildSections.Section> cutUp = BuildSectionEditing.cutUp(now);
         for(BuildSections.Section whole : cutUp) {
             BuildSectionEditing.remove(world, whole);
-            player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), pathOf(whole.name())), false);
+            player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(whole.name())), false);
         }
         // The section this was cut from still saves this part too, until the rest of that section is cut up as well
         sections.stream().filter(section -> section.box().intersects(box) && !cutUp.contains(section)).findFirst().ifPresent(over ->
-                player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), pathOf(over.name()), over.name()), false));
-    }
-
-    private static String pathOf(String name) {
-        Identifier id = Identifier.tryParse(name);
-        return id == null ? name : id.getPath();
+                player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(over.name()), over.name()), false));
     }
 }

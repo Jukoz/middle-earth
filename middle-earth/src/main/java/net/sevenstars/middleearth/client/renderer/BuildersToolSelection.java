@@ -15,9 +15,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.sevenstars.middleearth.network.packets.client2server.PacketStructureBoundsRequest;
 import net.sevenstars.middleearth.network.packets.client2server.PacketSectionJoinRequest;
 import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
+import net.sevenstars.middleearth.item.items.BuildersToolItem;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.middleearth.gui.structuremanager.buildsection.BuildSectionScreen;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.text.Text;
@@ -34,8 +34,8 @@ import org.jetbrains.annotations.Nullable;
 // block where two sections meet, which a second left-click turns into a pair of plugs. And the corners of a section,
 // started with a sneaking left-click
 public class BuildersToolSelection {
-    // A held button repeats its click every five ticks, which must not pick and drop the bed over and over
-    // Uses wall-clock time because game time is frozen while a structure is being edited
+    // A held button repeats its click every five ticks, which must not pick and drop the bed over and over. Wall-clock
+    // time, because game time is frozen while a structure is being edited
     private static final long REPEAT_MILLIS = 300;
     // How far in front of the builder a corner is set when no block is aimed at
     private static final double AIR_CORNER_DISTANCE = 3;
@@ -129,15 +129,10 @@ public class BuildersToolSelection {
                 continue;
             joinFrom = pos;
             joinTo = beside;
-            player.sendMessage(Text.translatable("ui.%s.section_join.again".formatted(MiddleEarth.MOD_ID), pathOf(own.name()), pathOf(other.name())), true);
+            player.sendMessage(Text.translatable("ui.%s.section_join.again".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(own.name()), BuildSections.pathOf(other.name())), true);
             return;
         }
-        player.sendMessage(Text.translatable("ui.%s.section_join.no_seam".formatted(MiddleEarth.MOD_ID), pathOf(own.name())), true);
-    }
-
-    private static String pathOf(String name) {
-        Identifier id = Identifier.tryParse(name);
-        return id == null ? name : id.getPath();
+        player.sendMessage(Text.translatable("ui.%s.section_join.no_seam".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(own.name())), true);
     }
 
     // A corner of the bounds can be in the air, where there is nothing to click
@@ -188,7 +183,7 @@ public class BuildersToolSelection {
         };
         // A click that hits nothing deselects whatever was picked, unless bounds are being set, in which case it sets a corner in the air
         ClientPreAttackCallback.EVENT.register((client, player, clickCount) -> {
-            if(clickCount == 0 || !BuildersToolRenderer.holdsTool(player) || client.crosshairTarget != null && client.crosshairTarget.getType() != HitResult.Type.MISS)
+            if(clickCount == 0 || !BuildersToolItem.isHeldBy(player) || client.crosshairTarget != null && client.crosshairTarget.getType() != HitResult.Type.MISS)
                 return false;
             if(boundsAnchor == null) {
                 unselect();
@@ -202,7 +197,7 @@ public class BuildersToolSelection {
             return true;
         });
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            if(!world.isClient || !BuildersToolRenderer.holdsTool(player))
+            if(!world.isClient || !BuildersToolItem.isHeldBy(player))
                 return ActionResult.PASS;
             // The tool never breaks anything, whatever is clicked
             if(!StructureEditing.isBuildMode(player))

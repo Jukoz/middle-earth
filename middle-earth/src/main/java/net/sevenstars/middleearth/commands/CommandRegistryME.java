@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.commands;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.sevenstars.middleearth.commands.custom.*;
+import net.sevenstars.middleearth.dev.NpcDebug;
+import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 
 public class CommandRegistryME {
     public static String BASE_COMMAND = "middle_earth";
@@ -19,5 +21,8 @@ public class CommandRegistryME {
         CommandRegistrationCallback.EVENT.register(CommandInformation::register);
         CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
         CommandRegistrationCallback.EVENT.register(CommandStructureEdit::register);
+
+        if(NpcDebug.ENABLED)
+            NpcFailureRecorder.register();
     }
 }

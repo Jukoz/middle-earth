@@ -2,11 +2,11 @@ package net.sevenstars.middleearth.client.renderer;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.block.BedBlock;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.JigsawBlockEntity;
-import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CampfireBlock;
+import net.minecraft.block.entity.JigsawBlockEntity;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,49 +14,48 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
-import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
+import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
-import net.sevenstars.middleearth.item.DecorativeItemsME;
+import net.sevenstars.middleearth.commands.custom.PieceProjections;
+import net.sevenstars.middleearth.commands.custom.StructureEditSession;
+import net.sevenstars.middleearth.item.items.BuildersToolItem;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
-
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import net.minecraft.util.math.Direction;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.registry.RegistryKeys;
-import net.sevenstars.middleearth.commands.custom.PieceProjections;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 // Draws what the nearby blocks count as while the builder's tool is held: tagged beds with who spawns in them and the
 // station or marker their job will use, free beds, stations, stores, seats, tables and structure markers, and the
 // sections of a build with their names
 public class BuildersToolRenderer {
-    // Wide enough to find the station a bed will be assigned, which is searched for within 48 blocks
+    // Stations are searched for within 48 blocks of a bed, so a bed near the edge of the scan can show as having no station
     private static final int RANGE = 32;
     private static final int RANGE_HEIGHT = 16;
     // Uses wall-clock time because game time is frozen while a structure is being edited
@@ -123,7 +122,7 @@ public class BuildersToolRenderer {
         WorldRenderEvents.AFTER_ENTITIES.register(context -> {
             MinecraftClient client = MinecraftClient.getInstance();
             PlayerEntity player = client.player;
-            if(player == null || client.world == null || !holdsTool(player))
+            if(player == null || client.world == null || !BuildersToolItem.isHeldBy(player))
                 return;
             try {
                 scan(client.world, player.getBlockPos());
@@ -176,10 +175,6 @@ public class BuildersToolRenderer {
         if(!of.contains(StructurePool.Projection.TERRAIN_MATCHING))
             return "";
         return of.size() > 1 ? " (follows the ground in some pools)" : " (follows the ground)";
-    }
-
-    static boolean holdsTool(PlayerEntity player) {
-        return player.getMainHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL) || player.getOffHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL);
     }
 
     private static void scan(ClientWorld world, BlockPos from) {
@@ -273,17 +268,12 @@ public class BuildersToolRenderer {
     }
 
     private static String shortened(Identifier id) {
-        return id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : id.toString();
+        return BuildSections.shortName(id.toString());
     }
 
     // Each section gets its own colour, picked from its name so it stays the same
     private static int sectionColor(BuildSections.Section section) {
         return SECTION_COLORS[Math.floorMod(section.name().hashCode(), SECTION_COLORS.length)];
-    }
-
-    private static String sectionName(BuildSections.Section section) {
-        Identifier id = Identifier.tryParse(section.name());
-        return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : section.name();
     }
 
     private static void drawBoxes(MatrixStack matrices, VertexConsumer lines) {
@@ -491,7 +481,7 @@ public class BuildersToolRenderer {
         for(Map.Entry<BlockPos, String> plug : plugs.entrySet())
             label(matrices, consumers, plug.getValue(), plug.getKey(), PLUG, STATION_TEXT_SCALE);
         for(BuildSections.Section section : sections)
-            DebugDraw.label(matrices, consumers, sectionName(section), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
+            DebugDraw.label(matrices, consumers, BuildSections.shortName(section.name()), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
                     section.box().getCenter().getZ() + 0.5), sectionColor(section), PIECE_TEXT_SCALE);
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {

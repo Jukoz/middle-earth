@@ -39,9 +39,9 @@ public class NpcDebugRenderer {
     private static final double DIRECTION_LENGTH = 24;
     private static final double END_BOX_SIZE = 0.4;
     private static final double RING_HEIGHT = 0.3;
+    private static final double PREY_HEIGHT = 0.5;
 
     public static void register() {
-        NpcFailureRecorder.registerCommand();
         WorldRenderEvents.AFTER_ENTITIES.register(context -> {
             try {
                 float tickProgress = context.tickCounter().getTickProgress(false);
@@ -73,12 +73,9 @@ public class NpcDebugRenderer {
                 int color = switch (routine.debugActivity()) {
                     case FISH -> FISH;
                     case HUNT -> HUNT;
-                    case FORAGE -> FORAGE;
-                    case PATROL -> PATROL;
-                    case VISIT, TABLE -> MEET;
-                    case WORK, FARM, CHOP, MINE -> FORAGE;
-                    case POST, ESCORT, INSPECT, FOLLOW -> PATROL;
-                    case COURT -> MEET;
+                    case FORAGE, WORK, FARM, CHOP, MINE -> FORAGE;
+                    case PATROL, POST, ESCORT, INSPECT, FOLLOW -> PATROL;
+                    case VISIT, TABLE, COURT -> MEET;
                 };
                 if(routine.debugActivity() == RoutineData.Activity.PATROL)
                     drawRing(matrices, lines, routine.debugRing(), routine.debugRingIndex());
@@ -100,7 +97,7 @@ public class NpcDebugRenderer {
             }
             LivingEntity prey = npc.getHuntTarget() != null ? npc.getHuntTarget() : npc.getTarget();
             if(prey != null)
-                DebugDraw.line(matrices, lines, chest, prey.getPos().add(0, prey.getHeight() * 0.5, 0), HUNT);
+                DebugDraw.line(matrices, lines, chest, prey.getPos().add(0, prey.getHeight() * PREY_HEIGHT, 0), HUNT);
             if(npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof LivingEntity leader)
                 DebugDraw.line(matrices, lines, chest, leader.getPos().add(0, leader.getHeight() * CHEST_HEIGHT, 0), LEADER);
             if(npc.getTravelDestination() != null) {

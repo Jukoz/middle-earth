@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.resources.datas.npc_classes.data;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringIdentifiable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public enum StationKind implements StringIdentifiable {
     }
 
     // Goes by the path of the block's id, so the wood or stone it's made of doesn't matter
-    public static StationKind of(String blockPath) {
+    public static @Nullable StationKind of(String blockPath) {
         for(StationKind kind : values()) {
             for(String block : kind.blocks) {
                 if(blockPath.equals(block) || blockPath.endsWith("_" + block))

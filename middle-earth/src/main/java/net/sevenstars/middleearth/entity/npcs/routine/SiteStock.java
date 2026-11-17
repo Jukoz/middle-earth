@@ -19,7 +19,6 @@ import java.util.function.Predicate;
 public final class SiteStock {
     // In ticks. A count this old is taken again, so somebody may find a store emptied since and has to check on arrival
     private static final int FRESH_FOR = 100;
-    private static final int ANYWHERE = 1 << 20;
 
     public record Holding(BlockPos place, Item item, int count) {}
 
@@ -64,7 +63,7 @@ public final class SiteStock {
         stale = false;
         countedAt = time;
         List<BlockPos> places = new ArrayList<>(site.getStores());
-        for(BlockPos pile : site.stationsNear(List.of(StationKind.WOOD_PILE), new BlockPos(site.getCenterX(), site.getSurfaceY(), site.getCenterZ()), ANYWHERE)) {
+        for(BlockPos pile : site.stationsOf(StationKind.WOOD_PILE)) {
             if(!places.contains(pile))
                 places.add(pile);
         }

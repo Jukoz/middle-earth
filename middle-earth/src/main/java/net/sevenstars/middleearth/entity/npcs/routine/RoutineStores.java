@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-// Helpers for containers, items and station blocks that don't need the goal
+// Containers, items and station blocks
 public final class RoutineStores {
     private RoutineStores() {}
 
@@ -35,7 +35,11 @@ public final class RoutineStores {
     }
 
     public static boolean isOven(ServerWorld world, @Nullable BlockPos station) {
-        return station != null && StationKind.of(Registries.BLOCK.getId(world.getBlockState(station).getBlock()).getPath()) == StationKind.OVEN;
+        return station != null && kindOf(world.getBlockState(station)) == StationKind.OVEN;
+    }
+
+    private static @Nullable StationKind kindOf(BlockState state) {
+        return StationKind.of(Registries.BLOCK.getId(state.getBlock()).getPath());
     }
 
     // Removes one item from the first matching stack in the inventory and returns it
@@ -71,7 +75,7 @@ public final class RoutineStores {
 
     // The sound of working the block itself, like a hammer on iron at a forge or rustling hay in a stable
     public static SoundEvent workSound(BlockState station) {
-        StationKind kind = StationKind.of(Registries.BLOCK.getId(station.getBlock()).getPath());
+        StationKind kind = kindOf(station);
         if(kind == null)
             return station.getSoundGroup().getHitSound();
         return switch (kind) {

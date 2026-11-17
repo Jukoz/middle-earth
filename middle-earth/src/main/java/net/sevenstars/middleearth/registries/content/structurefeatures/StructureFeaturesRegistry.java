@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.registries.content.structurefeatures;
 
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.CampfireBlock;
@@ -11,31 +10,33 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtSizeTracker;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.structure.StructureTemplateManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.structure.StructureTemplateManager;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
-import org.jetbrains.annotations.Nullable;
-import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
-import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 // Reads every structure template of the mod when data is generated, picking out beds and tags, stations, seats, doors and markers
@@ -69,10 +70,12 @@ public class StructureFeaturesRegistry {
     private static final String UPPER_HALF = "upper";
 
     private static List<Template> scanned;
+    private static final Map<Identifier, Optional<StructureFeatureData>> LIVE = new ConcurrentHashMap<>();
+    private static final Set<Identifier> EDITED = ConcurrentHashMap.newKeySet();
 
     // What the scan found in one template, besides the data itself
     // Managers are the ones the template has blocks for. They say which structure manager data its beds spawn from
-    public record Template(Identifier id, StructureFeatureData data, int beds, int stores, Set<Identifier> pools, Set<String> unresolved,
+    public record Template(Identifier id, StructureFeatureData data, int stores, Set<Identifier> pools, Set<String> unresolved,
                            Set<Identifier> managers) {
         // Nothing in it that needs a file
         public boolean isEmpty() {
@@ -110,13 +113,15 @@ public class StructureFeaturesRegistry {
         return scanned;
     }
 
-    private static final Map<Identifier, Optional<StructureFeatureData>> LIVE = new ConcurrentHashMap<>();
-    private static final Set<Identifier> EDITED = ConcurrentHashMap.newKeySet();
-
     // A template saved by a builder since the game started no longer matches the generated data
     public static void edited(Identifier template) {
         EDITED.add(template);
         LIVE.remove(template);
+    }
+
+    // What was read from one world's own templates doesn't hold for the next
+    public static void clearLive() {
+        LIVE.clear();
     }
 
     public static boolean isEdited(Identifier template) {
@@ -206,7 +211,7 @@ public class StructureFeaturesRegistry {
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos));
         }
-        // Anything a builder marked off limits is treated as not part of the build
+        // Stores, seats, tables, ladders, stations and doors a builder marked off limits are left out
         Set<BlockPos> offLimits = new HashSet<>();
         for(StructureFeatureData.Marker marker : markers) {
             if(marker.kind() == MarkerKind.OFF_LIMITS)
@@ -248,7 +253,7 @@ public class StructureFeaturesRegistry {
             bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false),
                     tag.flatMap(BedTag::manager).map(bed::add)));
         }
-        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers, managers), beds.size(), stores.size(), pools, unresolved, managerIds);
+        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers, managers), stores.size(), pools, unresolved, managerIds);
     }
 
     private static Optional<BedTag> tagOf(NbtCompound tag) {

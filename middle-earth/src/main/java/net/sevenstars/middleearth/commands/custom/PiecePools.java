@@ -33,12 +33,12 @@ import java.util.Set;
 // every piece that has a plug with that name. So a piece goes into the pools whose plugs target one of its own plug
 // names, and a pool that one of its own plugs asks for but doesn't exist yet is created from the pieces that answer to it
 public class PiecePools {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final Identifier EMPTY = Identifier.ofVanilla("empty");
+    static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    static final Identifier EMPTY = Identifier.ofVanilla("empty");
     private static final String JIGSAW = "minecraft:jigsaw";
     private static final int DEFAULT_WEIGHT = 1;
 
-    private record Plugs(Set<Identifier> names, Map<Identifier, Set<Identifier>> asked) {}
+    record Plugs(Set<Identifier> names, Map<Identifier, Set<Identifier>> asked) {}
 
     // The pools the piece was added to in the open world, the pool files written, and the pools newly created. The game
     // only sees new pools once the world is opened again
@@ -75,12 +75,20 @@ public class PiecePools {
         return plugsOf(world, template).asked().keySet();
     }
 
-    public static Result publish(ServerWorld world, Identifier template, Path resources) throws IOException {
-        Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
-        List<Identifier> templates = world.getStructureTemplateManager().streamTemplates().filter(id -> id.getNamespace().equals(template.getNamespace())).sorted().toList();
+    // The plugs of every template in a namespace
+    static Map<Identifier, Plugs> plugsIn(ServerWorld world, String namespace) {
         Map<Identifier, Plugs> plugs = new LinkedHashMap<>();
-        for(Identifier id : templates)
+        for(Identifier id : world.getStructureTemplateManager().streamTemplates().filter(id -> id.getNamespace().equals(namespace)).sorted().toList())
             plugs.put(id, plugsOf(world, id));
+        return plugs;
+    }
+
+    public static Result publish(ServerWorld world, Identifier template, Path resources) throws IOException {
+        return publish(world, template, resources, plugsIn(world, template.getNamespace()));
+    }
+
+    static Result publish(ServerWorld world, Identifier template, Path resources, Map<Identifier, Plugs> plugs) throws IOException {
+        Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
         Plugs own = plugs.computeIfAbsent(template, id -> plugsOf(world, id));
 
         // Where it belongs: every pool that some piece asks for by one of its plug names
@@ -121,8 +129,29 @@ public class PiecePools {
         return write(fileOf(resources, pool), pool, Set.of(template));
     }
 
-    static Path fileOf(Path resources, Identifier pool) {
-        return resources.resolve("data").resolve(pool.getNamespace()).resolve("worldgen").resolve("template_pool").resolve(pool.getPath() + ".json");
+    static Path fileOf(Path resources, Identifier pool) throws IOException {
+        return within(resources, resources.resolve("data").resolve(pool.getNamespace()).resolve("worldgen").resolve("template_pool").resolve(pool.getPath() + ".json"));
+    }
+
+    // An identifier path may hold "..", which must not lead out of the folder files are written to
+    static Path within(Path resources, Path file) throws IOException {
+        Path normalized = file.toAbsolutePath().normalize();
+        if(!normalized.startsWith(resources.toAbsolutePath().normalize()))
+            throw new IOException(file + " is outside " + resources);
+        return normalized;
+    }
+
+    // A pool entry offering a template alone, at the weight pools give pieces by default
+    static JsonObject elementOf(Identifier template) {
+        JsonObject element = new JsonObject();
+        element.addProperty("element_type", "minecraft:single_pool_element");
+        element.addProperty("location", template.toString());
+        element.addProperty("projection", StructurePool.Projection.RIGID.getId());
+        element.addProperty("processors", EMPTY.toString());
+        JsonObject entry = new JsonObject();
+        entry.addProperty("weight", DEFAULT_WEIGHT);
+        entry.add("element", element);
+        return entry;
     }
 
     private static boolean addLive(StructurePool pool, Set<Identifier> templates) {
@@ -171,15 +200,7 @@ public class PiecePools {
         for(Identifier template : templates) {
             if(listed.contains(template.toString()))
                 continue;
-            JsonObject element = new JsonObject();
-            element.addProperty("element_type", "minecraft:single_pool_element");
-            element.addProperty("location", template.toString());
-            element.addProperty("projection", StructurePool.Projection.RIGID.getId());
-            element.addProperty("processors", EMPTY.toString());
-            JsonObject entry = new JsonObject();
-            entry.addProperty("weight", DEFAULT_WEIGHT);
-            entry.add("element", element);
-            elements.add(entry);
+            elements.add(elementOf(template));
             any = true;
         }
         if(!any)

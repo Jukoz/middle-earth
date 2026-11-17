@@ -21,15 +21,10 @@ import java.util.TreeMap;
 import java.util.Optional;
 import java.util.TreeSet;
 
-// Who spawns in a bed. The nest kind is the last word of the structure's nest that spawns them. The job is what they do,
-// or none for the default routine of that kind. The class is only named where the nest's own classes won't do, such as
-// for who is held in a cell. Links are what they work at, stored as offsets from the bed head so a template stays valid
-// when it is rotated. They are used as stored only when manual, otherwise the nearest target is the link.
-// The manager is a leftover: the manager block the builder once tied the bed to, also an offset. Nothing spawns by it
-// any more. The place says whose people these are: the bandits of a brigand dungeon, the soldiers of a Rohan village.
-// A bed tagged before beds stored a place has none, and spawns nobody until it is tagged again.
-// The store is the chest or barrel where the npc puts its things away, also an offset, if the builder picked one.
-// Without one it is the nearest
+// Who spawns in a bed. The nest kind is the last word of the nest's id. An empty job means that kind's default routine.
+// The class is only set where the nest's own classes won't do, such as who is held in a cell. Links and store are
+// offsets from the bed head, so a rotated template stays valid; links count only when manual, otherwise the nearest
+// target is used. A bed with no place spawns nobody. The manager offset is unused and kept only so old templates load
 public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
                      Optional<Identifier> place, Optional<BlockPos> store) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(

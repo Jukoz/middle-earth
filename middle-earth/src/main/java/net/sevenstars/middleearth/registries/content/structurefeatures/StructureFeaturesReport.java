@@ -4,21 +4,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
-import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
-import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry.Template;
+import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -29,9 +30,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,10 +44,9 @@ import java.util.stream.Stream;
 public class StructureFeaturesReport {
     private static final String DATA = "data/" + MiddleEarth.MOD_ID + "/worldgen/";
 
-    private static Set<Identifier> peopleNests = null;
-
     private final Map<Identifier, Template> templates = new LinkedHashMap<>();
     private final Map<String, Set<Identifier>> structures = new TreeMap<>();
+    private final Map<String, Warnings> warnings = new LinkedHashMap<>();
 
     private StructureFeaturesReport(List<Template> scanned) {
         for(Template template : scanned)
@@ -123,8 +123,11 @@ public class StructureFeaturesReport {
     private static void collectLocations(JsonElement json, List<Identifier> into) {
         if(json.isJsonObject()) {
             JsonObject object = json.getAsJsonObject();
-            if(object.has("location") && object.get("location").isJsonPrimitive())
-                into.add(Identifier.tryParse(object.get("location").getAsString()));
+            if(object.has("location") && object.get("location").isJsonPrimitive()) {
+                Identifier location = Identifier.tryParse(object.get("location").getAsString());
+                if(location != null)
+                    into.add(location);
+            }
             object.entrySet().forEach(entry -> collectLocations(entry.getValue(), into));
         } else if(json.isJsonArray()) {
             for(JsonElement element : (JsonArray) json)
@@ -155,11 +158,7 @@ public class StructureFeaturesReport {
         }
         Warnings warnings = new Warnings();
         Set<String> nestKinds = nestKindsOf(structure);
-        Set<Identifier> managers = new TreeSet<>();
-        for(Identifier id : structure) {
-            if(templates.containsKey(id))
-                managers.addAll(templates.get(id).managers());
-        }
+        Set<Identifier> managers = managerIdsOf(structure);
         for(Identifier id : structure) {
             Template template = templates.get(id);
             if(template == null)
@@ -233,38 +232,29 @@ public class StructureFeaturesReport {
         return known;
     }
 
-    // The kinds of person living in the nests of the managers that the structure's templates name
-    private Set<String> nestKindsOf(Set<Identifier> structure) {
+    private Set<Identifier> managerIdsOf(Set<Identifier> structure) {
         Set<Identifier> managerIds = new TreeSet<>();
         for(Identifier id : structure) {
             Template template = templates.get(id);
             if(template != null)
                 managerIds.addAll(template.managers());
         }
+        return managerIds;
+    }
+
+    // The kinds of person living in the nests of the managers that the structure's templates name
+    private Set<String> nestKindsOf(Set<Identifier> structure) {
+        Set<Identifier> managerIds = managerIdsOf(structure);
         Set<String> nestKinds = new TreeSet<>();
         for(StructureManagerData manager : StructureManagerDataPools.all()) {
             if(!managerIds.contains(manager.getId()))
                 continue;
             for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
-                if(peopleNests().contains(nest.getId()))
+                if(nest.isPeople())
                     nestKinds.add(BedTag.nestKindOf(nest.getId()));
             }
         }
         return nestKinds;
-    }
-
-    // Of the nests, only npc nests can be spawned by a marker
-    private static Set<Identifier> peopleNests() {
-        if(peopleNests == null) {
-            peopleNests = new TreeSet<>();
-            for(StructureManagerData manager : StructureManagerDataPools.all()) {
-                for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
-                    if(nest.isPeople())
-                        peopleNests.add(nest.getId());
-                }
-            }
-        }
-        return peopleNests;
     }
 
     private static String at(BlockPos pos) {
@@ -277,22 +267,25 @@ public class StructureFeaturesReport {
         out.append("Written by the data generator from the structure templates. What a structure lacks is listed under its name.\n");
         out.append("Kinds are defined in `BuildFeatures`. Add what is missing to the template and generate again. Markers (`middle-earth:structure_marker`) say what blocks cannot.\n\n");
 
-        Map<String, Warnings> warnings = new LinkedHashMap<>();
-        structures.forEach((name, reached) -> warnings.put(name, warningsOf(reached)));
+        Map<String, Totals> totals = new LinkedHashMap<>();
+        structures.forEach((name, reached) -> {
+            warnings.put(name, warningsOf(reached));
+            totals.put(name, totalsOf(reached));
+        });
 
         out.append("## Overview\n\n");
         out.append("| structure | templates | tagged beds | beds | stores | seats | tables | fields | doors | markers | warnings |\n");
         out.append("|---|---|---|---|---|---|---|---|---|---|---|\n");
         structures.forEach((name, reached) -> {
-            int[] sum = totals(reached);
-            out.append("| %s | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d |\n".formatted(name, sum[0], sum[1], sum[2], sum[3], sum[4], sum[5], sum[6], sum[7], sum[8], warnings.get(name).total()));
+            Totals sum = totals.get(name);
+            out.append("| %s | %d | %d | %d | %d | %d | %d | %d | %d | %d | %d |\n".formatted(name, sum.templates, sum.taggedBeds, sum.beds, sum.stores, sum.seats, sum.tables, sum.fields, sum.doors, sum.markers, warnings.get(name).total()));
         });
 
         for(Map.Entry<String, Set<Identifier>> structure : structures.entrySet()) {
             Warnings found = warnings.get(structure.getKey());
             out.append("\n## ").append(structure.getKey()).append("\n\n");
-            int[] sum = totals(structure.getValue());
-            out.append("%d templates with features, %d tagged beds, %d beds, %d stores, %d seats, %d tables, %d fields, %d doors, %d markers".formatted(sum[0], sum[1], sum[2], sum[3], sum[4], sum[5], sum[6], sum[7], sum[8]));
+            Totals sum = totals.get(structure.getKey());
+            out.append("%d templates with features, %d tagged beds, %d beds, %d stores, %d seats, %d tables, %d fields, %d doors, %d markers".formatted(sum.templates, sum.taggedBeds, sum.beds, sum.stores, sum.seats, sum.tables, sum.fields, sum.doors, sum.markers));
             Map<MarkerKind, Integer> byKind = new EnumMap<>(MarkerKind.class);
             for(Identifier id : structure.getValue()) {
                 if(templates.containsKey(id))
@@ -336,23 +329,26 @@ public class StructureFeaturesReport {
         out.append('\n');
     }
 
-    // Totals for: templates with content, tagged beds, beds, stores, seats, tables, fields, doors, markers
-    private int[] totals(Set<Identifier> structure) {
-        int[] sum = new int[9];
+    private static class Totals {
+        int templates, taggedBeds, beds, stores, seats, tables, fields, doors, markers;
+    }
+
+    private Totals totalsOf(Set<Identifier> structure) {
+        Totals sum = new Totals();
         for(Identifier id : structure) {
             Template template = templates.get(id);
             if(template == null || template.isEmpty())
                 continue;
             StructureFeatureData data = template.data();
-            sum[0]++;
-            sum[1] += (int) data.beds().stream().filter(bed -> bed.tag().isPresent()).count();
-            sum[2] += template.beds();
-            sum[3] += template.stores();
-            sum[4] += data.seats().size();
-            sum[5] += data.tables().size();
-            sum[6] += (int) data.stations().stream().filter(station -> station.kind() == StationKind.FIELD).count();
-            sum[7] += data.doors().size();
-            sum[8] += data.markers().size();
+            sum.templates++;
+            sum.taggedBeds += (int) data.beds().stream().filter(bed -> bed.tag().isPresent()).count();
+            sum.beds += data.beds().size();
+            sum.stores += template.stores();
+            sum.seats += data.seats().size();
+            sum.tables += data.tables().size();
+            sum.fields += (int) data.stations().stream().filter(station -> station.kind() == StationKind.FIELD).count();
+            sum.doors += data.doors().size();
+            sum.markers += data.markers().size();
         }
         return sum;
     }
@@ -367,15 +363,15 @@ public class StructureFeaturesReport {
                 tagged += bed.tag().isPresent() ? 1 : 0;
                 noStore += bed.tag().isPresent() && bed.store().isEmpty() ? 1 : 0;
             }
-            beds += template.beds();
+            beds += data.beds().size();
             stores += template.stores();
             seats += data.seats().size();
             doors += data.doors().size();
             markers += data.markers().size();
             fields += (int) data.stations().stream().filter(station -> station.kind() == StationKind.FIELD).count();
         }
-        for(Set<Identifier> structure : structures.values())
-            warned += warningsOf(structure).total();
+        for(Warnings found : warnings.values())
+            warned += found.total();
         return "Structure features: %d templates with features, %d tagged beds (%d without a store), %d beds, %d stores, %d seats, %d doors, %d field blocks, %d markers, %d warnings in %d structures"
                 .formatted(files, tagged, noStore, beds, stores, seats, doors, fields, markers, warned, structures.size());
     }

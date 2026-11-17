@@ -25,6 +25,7 @@ public class NpcCrossBowAttackGoal<T extends NpcEntity & RangedAttackMob & Cross
     private static final int SEEING_TICKS = 5;
     private static final int CHARGED_HOLD = 30;
     private static final int CHARGED_HOLD_VARIATION = 15;
+
     private static final double CHARGED_SPEED_FACTOR = 0.5;
     private static final float LOOK_ANGLE = 30.0F;
     private final T actor;

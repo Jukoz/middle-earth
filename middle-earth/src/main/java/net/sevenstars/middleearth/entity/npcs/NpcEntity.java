@@ -57,7 +57,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
-import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -95,6 +94,7 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +135,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> TALK = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
+    private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    static {
+        NPC_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
+        NPC_INITIALIZATION_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
+        NPC_TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
+    }
+
     // What an npc in company is doing, shown as a gesture and, for those that say something, a bubble over its head
     public enum Talk {
         NONE(false),
@@ -144,7 +152,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         LAUGH(true),
         NOD(false);
 
-        public static final Talk[] SPOKEN = {SAY, SAY, ASK, EXCLAIM, LAUGH};
+        // SAY twice, so plain talk is the most common
+        public static final List<Talk> SPOKEN = List.of(SAY, SAY, ASK, EXCLAIM, LAUGH);
+        private static final Talk[] VALUES = values();
         private final boolean spoken;
 
         Talk(boolean spoken) {
@@ -154,13 +164,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         public boolean isSpoken() {
             return spoken;
         }
-    }
-    private static final TrackedData<Boolean> CROSSBOW_CHARGING = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-
-    static {
-        NPC_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_DATA);
-        NPC_INITIALIZATION_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_INITIALIZATION_DATA);
-        NPC_TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
     }
 
     // Maximum body width whatever the scale, a little less than the room a board leaves in its block
@@ -181,7 +184,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final double FOLLOW_RANGE = 32.0;
     private static final float LOOK_RANGE = 8.0F;
 
-    // Alarm: who gets called and from how far
+    // Guards that must be around for a timid npc to run for them instead of fighting
     private static final int GUARDS_TO_FLEE = 3;
 
     // In blocks
@@ -286,6 +289,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private @Nullable ItemStack routineStowedItem = null;
     private boolean routineStowedMainHand = false;
     private @Nullable Vec3d sleptFrom = null;
+    // Entity age at which it falls silent, on the server, and at which it last changed what it's doing, on the client
+    private int talkUntil;
+    private int talkSince;
 
     // Prison
     // Where a prisoner is held. A prisoner outside it is free
@@ -306,7 +312,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private int huntEndAge = 0;
 
     // Doors
-    private @Nullable BlockPos openedHatch = null;
+    private final Set<BlockPos> openedHatches = new HashSet<>();
     private boolean passingDoor = false;
 
     // Caches
@@ -325,9 +331,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Set by initGoals, which the game calls before this class's fields get their initial values. An initializer here would
     // overwrite the goal
     private @Nullable NpcRoutineGoal routineGoal;
-    // Entity age at which it falls silent, on the server, and at which it last changed what it's doing, on the client
-    private int talkUntil;
-    private int talkSince;
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
     private final NpcCrossBowAttackGoal<NpcEntity> crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
@@ -394,7 +397,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     public Talk getTalk() {
         int talk = dataTracker.get(TALK);
-        return talk >= 0 && talk < Talk.values().length ? Talk.values()[talk] : Talk.NONE;
+        return talk >= 0 && talk < Talk.VALUES.length ? Talk.VALUES[talk] : Talk.NONE;
     }
 
     public float getTalkAge(float tickDelta) {
@@ -462,8 +465,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return new NpcNavigation(this, world);
     }
 
-    // Tall elves used to be wider than the space beside a ladder or an open shutter, so they caught on every board in
-    // their halls
+    // Capped so tall elves fit beside a ladder or an open shutter. Any wider and they catch on every board in their halls
     @Override
     protected EntityDimensions getBaseDimensions(EntityPose pose) {
         EntityDimensions base = super.getBaseDimensions(pose);
@@ -524,11 +526,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
         this.store = view.read(KeyStrings.STORE, BlockPos.CODEC).orElse(null);
         this.links = view.read(KeyStrings.LINKS, BlockPos.CODEC.listOf()).orElse(List.of());
-        // The routine isn't saved, so its prop gets put away again
         this.routineStowedItem = view.read(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC).orElse(null);
         this.confiscatedMain = view.read(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.confiscatedOff = view.read(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
+        // The routine isn't saved, so its prop gets put away again
         clearRoutineProp();
 
         Identifier savedClass = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
@@ -638,7 +640,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(factionId == null)
             return null;
         // Called for every npc in sight when looking for enemies, and a registry lookup is too slow for that
-        if(factionId == cachedFactionId)
+        if(factionId.equals(cachedFactionId))
             return cachedFaction;
         try {
             cachedFaction = FactionLookup.getFactionById(getWorld(), factionId);
@@ -717,7 +719,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.dataTracker.set(JOB, job == null ? "" : job.toString());
     }
 
-    // Called once, after the class gear is on. A job that replaces the name swaps whatever is in the hand for its tool
+    // Called after the class gear is on. A job that replaces the name swaps whatever is in the hand for its tool
     public void takeJob(Identifier job) {
         setJob(job);
         if(isPrisoner()) {
@@ -972,7 +974,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.prisonCell = prisonCell;
     }
 
-    // A prisoner with a cell is confined to it
     public boolean isConfined() {
         return prisonCell != null && isPrisoner();
     }
@@ -1127,16 +1128,16 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // Everyone who could come to help: the npcs nearby and everyone living in the same place
     private Set<NpcEntity> neighbours(ServerWorld world) {
-        Set<NpcEntity> guards = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
+        Set<NpcEntity> neighbours = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
         BlockPos structureManagerPos = getStructureManagerHostPos();
         // Reading a block entity in an unloaded chunk would load the chunk
         if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)) {
             for(UUID owner : NestHost.residents(world, structureManagerPos)) {
                 if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
-                    guards.add(resident);
+                    neighbours.add(resident);
             }
         }
-        return guards;
+        return neighbours;
     }
 
     // Sends the fighters after whatever frightened this npc. That's the fighters within earshot, plus those with a bed in
@@ -1424,12 +1425,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // Opens the gate or trapdoor of a loft the path leads through, and closes it again once the npc is past
     private void tickHatch(ServerWorld world) {
-        if(openedHatch != null && !openedHatch.isWithinDistance(getPos(), HATCH_CLOSE_DISTANCE)) {
-            BlockState opened = world.isChunkLoaded(openedHatch.getX() >> 4, openedHatch.getZ() >> 4) ? world.getBlockState(openedHatch) : null;
-            if(opened != null && NpcPathNodeMaker.isHatch(opened) && opened.get(Properties.OPEN))
-                world.setBlockState(openedHatch, opened.with(Properties.OPEN, false));
-            openedHatch = null;
-        }
+        openedHatches.removeIf(hatch -> {
+            if(hatch.isWithinDistance(getPos(), HATCH_CLOSE_DISTANCE))
+                return false;
+            closeHatch(world, hatch);
+            return true;
+        });
         Path path = getNavigation().getCurrentPath();
         if(path == null || path.isFinished())
             return;
@@ -1441,10 +1442,18 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 BlockState state = world.getBlockState(pos);
                 if(NpcPathNodeMaker.isHatch(state) && !state.get(Properties.OPEN) && NpcDoor.opensFor(world, pos, state, this)) {
                     world.setBlockState(pos, state.with(Properties.OPEN, true));
-                    openedHatch = pos;
+                    openedHatches.add(pos);
                 }
             }
         }
+    }
+
+    private void closeHatch(ServerWorld world, BlockPos hatch) {
+        if(!world.isChunkLoaded(hatch.getX() >> 4, hatch.getZ() >> 4))
+            return;
+        BlockState opened = world.getBlockState(hatch);
+        if(NpcPathNodeMaker.isHatch(opened) && opened.get(Properties.OPEN))
+            world.setBlockState(hatch, opened.with(Properties.OPEN, false));
     }
 
     private void climbOutOfWater() {
@@ -1551,7 +1560,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         super.onDeath(source);
     }
 
-    // A dead leader can't lead, so the next in line takes over the party and the way it was going
+    // The first follower found takes over the party and the way it was going
     private void handOverParty(ServerWorld world) {
         NpcEntity heir = null;
         for(NpcEntity follower : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(PARTY_RANGE), other -> other.isAlive() && getUuid().equals(other.getPartyLeader()))) {
@@ -1568,8 +1577,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             FollowHerderGoal.handOver(world, this, heir, PARTY_RANGE);
     }
 
-    private boolean canDropLoot(DamageSource damageSource, boolean causedByPlayer){
-        if(!causedByPlayer || damageSource == null || !(damageSource.getAttacker() instanceof PlayerEntity player))
+    private boolean canDropLoot(DamageSource damageSource){
+        if(damageSource == null || !(damageSource.getAttacker() instanceof PlayerEntity player))
             return false;
         PlayerData data = StateSaverAndLoader.getPlayerState(player);
         if(data == null || data.getFaction() == null)
@@ -1583,7 +1592,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void drop(ServerWorld world, DamageSource damageSource) {
-        if(!canDropLoot(damageSource, damageSource.getAttacker() != null && damageSource.getAttacker().isPlayer()))
+        if(!canDropLoot(damageSource))
             return;
         super.drop(world, damageSource);
     }

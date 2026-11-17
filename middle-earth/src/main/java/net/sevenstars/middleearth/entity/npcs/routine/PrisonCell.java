@@ -39,7 +39,6 @@ public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
         return groups;
     }
 
-    // Groups with fewer than all the corners are skipped
     public static List<PrisonCell> cells(List<BlockPos> corners) {
         List<PrisonCell> cells = new ArrayList<>();
         for(List<BlockPos> group : group(corners)) {

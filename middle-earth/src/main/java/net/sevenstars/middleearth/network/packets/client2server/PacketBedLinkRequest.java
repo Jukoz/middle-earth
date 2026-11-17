@@ -102,8 +102,13 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                 }
             }
             boolean unlinked = links.remove(offset);
-            if(!unlinked)
+            if(!unlinked) {
+                if(links.size() >= MAXIMUM_LINKS) {
+                    StructureEditing.log("link of bed %s to %s refused: the bed already has %d links".formatted(bed.toShortString(), target.toShortString(), MAXIMUM_LINKS));
+                    return;
+                }
                 links.add(offset);
+            }
             holder.setBedTag(tag.withLinks(links, true));
             StructureEditing.log("bed %s %s %s (%s), %d links by hand now".formatted(bed.toShortString(), unlinked ? "unlinked from" : "linked to", target.toShortString(),
                     player.getWorld().getBlockState(target).getBlock().getName().getString(), links.size()));

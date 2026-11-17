@@ -40,7 +40,7 @@ public class NpcPartySpawner {
                     member.job().ifPresent(follower::takeJob);
                     follower.setPartyLeader(leader.getUuid());
                     world.spawnEntity(follower);
-                } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.get(member.entityType().get()).create(world, SpawnReason.EVENT) instanceof MobEntity animal) {
+                } else if(member.entityType().isPresent() && Registries.ENTITY_TYPE.getOptionalValue(member.entityType().get()).map(type -> type.create(world, SpawnReason.EVENT)).orElse(null) instanceof MobEntity animal) {
                     animal.refreshPositionAndAngles(pos, random.nextFloat() * FULL_TURN, 0);
                     animal.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null);
                     // Pack animals carry a chest, and a dog is tamed but has no owner

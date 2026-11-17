@@ -14,7 +14,7 @@ import java.util.Optional;
 
 // What one structure template holds that npcs make use of, worked out from the template when data is generated.
 // Beds are every bed head. Positions are those of the template, before it is rotated and placed.
-// Tables are the seats around each table, places to sit down together. Seats is every seat.
+// Tables are the seats around each table, places to sit down together.
 // Stations are the places of work: a forge, an oven, a loom, a plot of field.
 // Doors are the lower halves.
 // Managers are the structure manager blocks, with the data each one spawns from. That way whose bed a bed is can be

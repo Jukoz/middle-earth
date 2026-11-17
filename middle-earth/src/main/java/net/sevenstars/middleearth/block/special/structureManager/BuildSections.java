@@ -3,11 +3,13 @@ package net.sevenstars.middleearth.block.special.structureManager;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.block.enums.StructureBlockMode;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
+import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.List;
 // The sections of a build placed in the world for editing. Each is the box that a structure block in save mode saves
 // under its name. Nothing else is stored, so they are rebuilt from the world itself, on the client and the server alike
 public class BuildSections {
+    public static final int MAXIMUM_NAME_LENGTH = 128;
     // A structure block sits next to its box, and a box is never longer than this
     private static final int SEARCH_CHUNKS = (StructureEditing.MAXIMUM_SIZE >> 4) + 2;
 
@@ -29,6 +32,18 @@ public class BuildSections {
         boolean touches(Section other) {
             return box.expand(1).intersects(other.box);
         }
+    }
+
+    // The part of a section's or template's name after its namespace
+    public static String pathOf(String name) {
+        Identifier id = Identifier.tryParse(name);
+        return id == null ? name : id.getPath();
+    }
+
+    // The mod's own names are shown without the namespace
+    public static String shortName(String name) {
+        Identifier id = Identifier.tryParse(name);
+        return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : name;
     }
 
     public static List<Section> near(World world, BlockPos pos) {

@@ -28,12 +28,12 @@ import java.util.function.Predicate;
 // What each trade makes out of what the others bring in. Every input here is something a farmer, forager, fisher,
 // hunter or miner carries home, so the trades live off each other's work
 public final class TradeRecipes {
-    public record Recipe(Set<Item> inputs, int count, Item output) {}
+    private record Recipe(Set<Item> inputs, int count, Item output) {}
 
     // One job to do: take this many of the input from the place and make the output of them
     public record Order(BlockPos from, Item input, int count, Item output) {}
 
-    // A trade without its inputs has nothing to do, unless it's lenient. A smith with no ore still has tools to mend
+    // A trade without its inputs has nothing to do, unless it's lenient. A smith with no ore still has tools to mend.
     // Cooking is a furnace recipe type whose recipes count for the trade too, for inputs of that kind only
     private record Trade(List<Recipe> recipes, @Nullable RecipeType<? extends AbstractCookingRecipe> cooking, Predicate<ItemStack> cookable, boolean lenient) {}
 
@@ -73,7 +73,7 @@ public final class TradeRecipes {
         TRADES.put(job.getValue(), trade);
     }
 
-    public static boolean worksFromStock(@Nullable Identifier job) {
+    private static boolean worksFromStock(@Nullable Identifier job) {
         return job != null && TRADES.containsKey(job);
     }
 

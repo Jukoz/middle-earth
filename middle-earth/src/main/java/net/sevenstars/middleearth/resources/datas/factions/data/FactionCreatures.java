@@ -7,6 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -55,10 +56,14 @@ public class FactionCreatures {
 
         Matcher(List<String> entries) {
             for(String entry : entries) {
-                if(entry.startsWith(TAG_PREFIX))
-                    tags.add(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(entry.substring(TAG_PREFIX.length()))));
+                boolean tag = entry.startsWith(TAG_PREFIX);
+                Identifier id = Identifier.tryParse(tag ? entry.substring(TAG_PREFIX.length()) : entry);
+                if(id == null)
+                    MiddleEarth.LOGGER.logError("Faction creatures can't use '" + entry + "', it is not a valid identifier");
+                else if(tag)
+                    tags.add(TagKey.of(RegistryKeys.ENTITY_TYPE, id));
                 else
-                    ids.add(Identifier.of(entry));
+                    ids.add(id);
             }
         }
 

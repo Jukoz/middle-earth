@@ -34,10 +34,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Makes, resizes, removes and saves the sections of a build, and joins sections to each other with plugs
 public class BuildSectionEditing {
-    private static final Identifier EMPTY = Identifier.ofVanilla("empty");
-    private static final String AIR = "minecraft:air";
+    static final String AIR = "minecraft:air";
 
     // A name typed without a namespace gets the mod's namespace. Null if it isn't a valid name
     public static @Nullable Identifier named(String typed) {
@@ -93,7 +91,7 @@ public class BuildSectionEditing {
         if(!(world.getBlockEntity(section.block()) instanceof StructureBlockBlockEntity block))
             return false;
         setBox(world, block, box);
-        StructureEditing.log("%s given the bounds %s where it had %s, by its structure block at %s".formatted(section.name(), describe(box), describe(section.box()), section.block().toShortString()));
+        StructureEditing.log("%s given the bounds %s where it had %s, by its structure block at %s".formatted(section.name(), StructureEditSession.describe(box), StructureEditSession.describe(section.box()), section.block().toShortString()));
         return true;
     }
 
@@ -121,7 +119,7 @@ public class BuildSectionEditing {
         if(id == null || !StructureBlockBlockEntity.saveStructure(world, id, new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ()),
                 new Vec3i(box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ()), false, player.getName().getString(), true, List.of(Blocks.STRUCTURE_BLOCK)))
             return null;
-        StructureEditing.log("saved the section %s, %s".formatted(id, describe(box)));
+        StructureEditing.log("saved the section %s, %s".formatted(id, StructureEditSession.describe(box)));
         return id;
     }
 
@@ -171,10 +169,10 @@ public class BuildSectionEditing {
         // When both blocks were already plugs, the asking plug already has a pool and a target, and this plug has no
         // name yet, this piece is another one the asker may be given there. This plug gets the name the asker
         // targets, and the piece goes into that pool when it is saved
-        boolean another = plugs && !from.getPool().equals(StructurePools.EMPTY) && !from.getTarget().equals(EMPTY) && to.getName().equals(EMPTY);
+        boolean another = plugs && !from.getPool().equals(StructurePools.EMPTY) && !from.getTarget().equals(PiecePools.EMPTY) && to.getName().equals(PiecePools.EMPTY);
         if(another)
             to.setName(from.getTarget());
-        if(to.getName().equals(EMPTY))
+        if(to.getName().equals(PiecePools.EMPTY))
             to.setName(freeName(world, answering, answeringBox, answerer));
         if(!to.getName().equals(from.getTarget()) || from.getPool().equals(StructurePools.EMPTY)) {
             StructurePool offered = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL).get(from.getPool());
@@ -210,7 +208,7 @@ public class BuildSectionEditing {
     }
 
     private static boolean asksFor(JigsawBlockEntity asker, JigsawBlockEntity answerer) {
-        return !asker.getTarget().equals(EMPTY) && asker.getTarget().equals(answerer.getName());
+        return !asker.getTarget().equals(PiecePools.EMPTY) && asker.getTarget().equals(answerer.getName());
     }
 
     private static void restore(ServerWorld world, BlockPos pos) {
@@ -268,8 +266,8 @@ public class BuildSectionEditing {
         world.setBlockState(pos, Blocks.JIGSAW.getDefaultState().with(JigsawBlock.ORIENTATION, Orientation.byDirections(facing, top)), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         if(!(world.getBlockEntity(pos) instanceof JigsawBlockEntity jigsaw))
             return;
-        jigsaw.setName(EMPTY);
-        jigsaw.setTarget(EMPTY);
+        jigsaw.setName(PiecePools.EMPTY);
+        jigsaw.setTarget(PiecePools.EMPTY);
         jigsaw.setPool(StructurePools.EMPTY);
         jigsaw.setFinalState(before.isAir() || before.isOf(Blocks.STRUCTURE_VOID) ? AIR : BlockArgumentParser.stringifyBlockState(before));
         jigsaw.setJoint(facing.getAxis().isVertical() ? JigsawBlockEntity.Joint.ALIGNED : JigsawBlockEntity.Joint.ROLLABLE);
@@ -293,9 +291,5 @@ public class BuildSectionEditing {
         for(int number = 2; taken.contains(name); number++)
             name = Identifier.of(template.getNamespace(), template.getPath() + "_" + number);
         return name;
-    }
-
-    private static String describe(BlockBox box) {
-        return "%d,%d,%d to %d,%d,%d".formatted(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ());
     }
 }

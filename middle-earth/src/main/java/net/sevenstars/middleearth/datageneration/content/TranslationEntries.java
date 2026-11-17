@@ -811,7 +811,6 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "choice_list.empty"), "Nothing to pick");
             put(of(LangCategory.UI, "choice_list.no_match"), "Nothing by that name");
             put(of(LangCategory.UI, "bed_tag.nobody_born"), "Nobody is born here. Travellers may sleep in it");
-            put(of(LangCategory.UI, "bed_tag.works_by_hand"), "Works at the places it was linked to by hand");
             put(of(LangCategory.UI, "bed_tag.kept"), "As it is tagged now: %s");
             put(of(LangCategory.UI, "bed_tag.from_nest"), "One of the nest");
             put(of(LangCategory.UI, "choice_list.search"), "Search");

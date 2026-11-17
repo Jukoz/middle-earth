@@ -21,6 +21,7 @@ public class NpcModDoorGoal extends Goal {
     // In ticks
     private static final int PASSING_TIME = 30;
     private static final int MAXIMUM_HOLD_TIME = 20 * 8;
+
     private static final double DOORWAY_REACH = 2;
 
     private final NpcEntity npc;
@@ -38,7 +39,7 @@ public class NpcModDoorGoal extends Goal {
     @Override
     public boolean canStart() {
         // A door that couldn't be shut because someone was in the way gets shut once they've gone
-        if(leftOpen != null && !isBusy(leftOpenDoorway)) {
+        if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(leftOpenDoorway)) {
             origin = leftOpen;
             set(false);
             origin = null;

@@ -28,7 +28,7 @@ public class NpcRelations {
         return standing(npc, other);
     }
 
-    // How the npc sees someone, ignoring anything they've done to it personally
+    // How the npc sees someone by faction and kind. Its own grudges are left out, except those against a mount's rider
     public static Relation standing(NpcEntity npc, Entity other) {
         if(other == npc)
             return Relation.ALLY;

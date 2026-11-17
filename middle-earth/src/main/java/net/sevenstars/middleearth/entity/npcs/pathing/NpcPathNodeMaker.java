@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathContext;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.ai.pathing.PathNodeType;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.property.Properties;
@@ -30,8 +31,8 @@ import net.sevenstars.middleearth.block.special.plants.ToughBerryBushBlock;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 
-// Land pathfinding doesn't know about ladders, so a mob only ever ends up on one by accident. This adds the way up
-// and down them
+// Land pathfinding for npcs. The game's own doesn't know about ladders, the mod's doors, open trapdoors or furniture, and
+// walks mobs into pits they can't get out of
 public class NpcPathNodeMaker extends LandPathNodeMaker {
     // Makes a walk on the flat beat a climb of the same length
     private static final float CLIMB_PENALTY = 1f;
@@ -56,7 +57,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     // The most the feet can rise in one step up. This is the game's own limit, a little under the height of a jump
     private static final double MAXIMUM_RISE = 1.125;
     // How far across its block a board has to lie to count as being on the far side
-    private static final double FAR_HALF = 0.5;
+    static final double FAR_HALF = 0.5;
     private static final int BODY_BLOCKS = 2;
     // Blocks to the side of where the step came down that still count as next to it
     private static final int BESIDE_DISTANCE = 1;
@@ -78,6 +79,18 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
         return super.getStart();
     }
 
+    // The game calls this outside a search, when entity isn't set
+    @Override
+    public PathNodeType getDefaultNodeType(MobEntity mob, BlockPos pos) {
+        MobEntity before = entity;
+        entity = mob;
+        try {
+            return super.getDefaultNodeType(mob, pos);
+        } finally {
+            entity = before;
+        }
+    }
+
     // The game doesn't recognise the mod's doors as doors and sees a wall when one is shut
     @Override
     public PathNodeType getDefaultNodeType(PathContext context, int x, int y, int z) {
@@ -97,13 +110,12 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             return PathNodeType.DAMAGE_OTHER;
         // The game treats any trapdoor as something to stand on at its own height. An open one is a board at the side of an
         // empty block, so it's only a floor where there is one below it, and you can't stand on top of it
-        BlockState below = context.getBlockState(new BlockPos(x, y - 1, z));
-        if(isOpenBoard(state)) {
-            BlockPos under = new BlockPos(x, y - 1, z);
-            return !below.getCollisionShape(context.getWorld(), under).isEmpty() && !isOpenBoard(below) ? PathNodeType.WALKABLE : PathNodeType.OPEN;
-        }
+        BlockState below = context.getBlockState(probe.set(x, y - 1, z));
+        if(isOpenBoard(state))
+            return !below.getCollisionShape(context.getWorld(), probe).isEmpty() && !isOpenBoard(below) ? PathNodeType.WALKABLE : PathNodeType.OPEN;
         if(state.isAir() && isOpenBoard(below))
             return PathNodeType.OPEN;
+        probe.set(x, y, z);
         // A trapdoor shut against the top of a doorway as its lintel leaves room for a body below it. Steps where the feet
         // would be inside it are removed again in removeFeetUnderLintels
         if(isOverhead(context, state, x, y, z))
@@ -363,10 +375,9 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
 
     // A shape high up in its block, with room for a head underneath
     private boolean isOverhead(PathContext context, BlockState state, int x, int y, int z) {
-        if(state.isAir() || isLeftToTheGame(state))
+        if(isLeftToTheGame(state))
             return false;
-        BlockPos.Mutable at = new BlockPos.Mutable(x, y, z);
-        VoxelShape shape = state.getCollisionShape(context.getWorld(), at);
+        VoxelShape shape = state.getCollisionShape(context.getWorld(), probe.set(x, y, z));
         return !shape.isEmpty() && shape.getMin(Direction.Axis.Y) >= headroom();
     }
 
@@ -484,7 +495,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
 
     // Where the feet are when standing at a node: on whatever lies low in its block, or else on the block below. With
     // nothing solid below (a swimmer or someone on a ladder) the feet are in the node's own block. Counting from a block
-    // lower made the step out of the water onto the bank look like two blocks, so only routes through the water were left
+    // lower would make the step out of the water onto the bank look like two blocks
     private double feetAt(int x, int y, int z) {
         VoxelShape inside = context.getBlockState(probe.set(x, y, z)).getCollisionShape(context.getWorld(), probe);
         if(!inside.isEmpty() && inside.getMax(Direction.Axis.Y) < 1)
@@ -566,7 +577,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
             return false;
         if(state.getBlock() instanceof NpcDoor door)
             return !door.isOpen(state);
-        return state.contains(Properties.OPEN) && !state.get(Properties.OPEN);
+        return !state.get(Properties.OPEN);
     }
 
     public static boolean isFarmland(BlockState state) {

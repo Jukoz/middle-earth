@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class StructureEditing {
-    // In blocks, from the builder to the manager, nest, marker or bed being set up
+    // In blocks, from the builder to the marker, bed, plug or section block being edited
     public static final int REACH = 8;
     // In blocks along one side of a single saved template. The structure block's own screen clamps a box to 48 when Done
     // is pressed, so a bigger box can only be set with the tool or the command

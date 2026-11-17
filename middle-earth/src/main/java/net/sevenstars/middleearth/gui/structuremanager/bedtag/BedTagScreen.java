@@ -346,7 +346,7 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    // A container screen swallows the mouse wheel, so the lists never scrolled. Pass it to the list under the mouse
+    // A container screen swallows the mouse wheel, so it's passed to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for(ChoiceListWidget list : new ChoiceListWidget[]{placeList, occupantList, classList}) {

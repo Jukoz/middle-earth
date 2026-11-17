@@ -36,8 +36,8 @@ public class NpcNavigation extends MobNavigation {
         super(mob, world);
     }
 
-    // Searches don't follow paths longer than this (the follow range by default). At 32 blocks, the route around a house
-    // to its door, or up the back stairs to a loft, was longer than any path the search would consider
+    // Searches don't follow paths longer than this (the follow range by default). The route around a house to its door,
+    // or up the back stairs to a loft, is longer than the default 32 blocks
     @Override
     protected @Nullable Path findPathToAny(Set<BlockPos> positions, int range, boolean useHeadPos, int distance, float followRange) {
         // A search with more nodes, such as the walk to bed, is also allowed a longer path
@@ -46,7 +46,7 @@ public class NpcNavigation extends MobNavigation {
     }
 
     // The game moves the target up when it sits in a block it considers solid. The spot to stand at beside a bed can be
-    // in the block of an open trapdoor, which isn't really solid, but the search went for the block above it
+    // in the block of an open trapdoor, which isn't really solid, so search for that block itself
     @Override
     public @Nullable Path findPathTo(BlockPos target, int distance) {
         // Reading the block state in an unloaded chunk would load it
@@ -61,12 +61,13 @@ public class NpcNavigation extends MobNavigation {
     // walked a stretch at a time. Null when no path reaches the target
     public @Nullable Path plan(BlockPos target) {
         planning = true;
+        float before = searchMultiplier;
         setRangeMultiplier(PLAN_SEARCH);
         try {
             Path path = findPathTo(target, 1);
             return path != null && path.reachesTarget() ? path : null;
         } finally {
-            resetRangeMultiplier();
+            setRangeMultiplier(before);
             planning = false;
         }
     }
@@ -123,9 +124,9 @@ public class NpcNavigation extends MobNavigation {
         for(VoxelShape shape : new VoxelShape[]{low, high}) {
             if(shape.isEmpty())
                 continue;
-            if(shape.getMin(axis) <= 0 && shape.getMax(axis) < 0.5)
+            if(shape.getMin(axis) <= 0 && shape.getMax(axis) < NpcPathNodeMaker.FAR_HALF)
                 from = Math.max(from, shape.getMax(axis));
-            else if(shape.getMax(axis) >= 1 && shape.getMin(axis) > 0.5)
+            else if(shape.getMax(axis) >= 1 && shape.getMin(axis) > NpcPathNodeMaker.FAR_HALF)
                 to = Math.min(to, shape.getMin(axis));
         }
         return (from + to) / 2;

@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -21,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,8 +71,8 @@ public final class NpcFailureRecorder {
             return;
         recorded++;
         // Uses the save folder name because worlds copied from one another keep the first one's level name
-        String world_name = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
-        String id = "%s-%d-%s".formatted(world_name, world.getTime(), Integer.toHexString(key.hashCode()));
+        String worldName = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
+        String id = "%s-%d-%s".formatted(worldName, world.getTime(), Integer.toHexString(key.hashCode()));
         java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
 
         BlockPos other = target != null && target.isWithinDistance(pos, TARGET_IN_SNAPSHOT) ? target : pos;
@@ -84,7 +86,7 @@ public final class NpcFailureRecorder {
 
         JsonObject out = new JsonObject();
         out.addProperty("id", id);
-        out.addProperty("world", world_name);
+        out.addProperty("world", worldName);
         out.addProperty("seed", world.getSeed());
         out.addProperty("dimension", world.getRegistryKey().getValue().toString());
         out.addProperty("gameTime", world.getTime());
@@ -143,7 +145,8 @@ public final class NpcFailureRecorder {
             template.saveFromWorld(world, origin, new Vec3i(sizeX, sizeY, sizeZ), false, List.of());
             NbtIo.writeCompressed(template.writeNbt(new NbtCompound()), dir.resolve(id + SNAPSHOT_EXTENSION));
             Files.writeString(dir.resolve(FAILURES_FILE), GSON.toJson(out) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch(IOException ignored) {
+        } catch(IOException e) {
+            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not write the failure " + id, e);
         }
     }
 
@@ -157,8 +160,12 @@ public final class NpcFailureRecorder {
         return out;
     }
 
-    // /npcpath <npc> <x y z> [range] prints the route the npc's pathfinder finds to a block, node by node
-    public static void registerCommand() {
+    // /npcpath <npc> <x y z> [range] [range multiplier] prints the route the npc's pathfinder finds to a block, node by node
+    public static void register() {
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            SEEN.clear();
+            recorded = 0;
+        });
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> dispatcher.register(CommandManager.literal("npcpath")
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.argument("npc", EntityArgumentType.entity())

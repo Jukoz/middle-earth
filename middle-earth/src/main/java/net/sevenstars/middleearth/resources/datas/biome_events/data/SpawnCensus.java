@@ -18,10 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-// Counts who lives where, refreshed every so often. Every spawn attempt used to search hundreds of blocks around for neighbours
+// Counts who lives where, refreshed every so often, so a spawn attempt doesn't search hundreds of blocks around for neighbours
 public class SpawnCensus {
     // In ticks
     private static final int LIFETIME = 60;
+
+    // Cells are 64 blocks wide
     private static final int CELL_SHIFT = 6;
 
     private static final Map<World, SpawnCensus> WORLDS = new WeakHashMap<>();

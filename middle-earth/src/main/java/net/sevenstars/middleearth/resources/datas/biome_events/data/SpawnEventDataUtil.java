@@ -95,10 +95,6 @@ public class SpawnEventDataUtil {
         return isSurface(pos, surfaceY(world, pos));
     }
 
-    public static boolean isUnderground(World world, BlockPos pos) {
-        return isUnderground(pos, surfaceY(world, pos));
-    }
-
     static boolean meetNightTimeRequirement(WildSpawnEventData data, World world) {
         boolean requireNight = data.getNightRequirement().orElse(false);
         return !requireNight || world.isNight();

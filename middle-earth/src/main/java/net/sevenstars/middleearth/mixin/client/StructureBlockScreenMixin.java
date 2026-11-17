@@ -14,6 +14,7 @@ import net.minecraft.util.BlockMirror;
 import net.sevenstars.middleearth.MiddleEarth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -78,6 +79,7 @@ public abstract class StructureBlockScreenMixin extends Screen {
     }
 
     // The mode button isn't stored in a field of the screen, so find it among the children. Its tooltip explains the current mode
+    @Unique
     private void middleEarth$explainMode() {
         for(Element child : children()) {
             if(child instanceof CyclingButtonWidget<?> button && button.getValue() instanceof StructureBlockMode)
@@ -85,6 +87,7 @@ public abstract class StructureBlockScreenMixin extends Screen {
         }
     }
 
+    @Unique
     private static void middleEarth$explain(ClickableWidget widget, String key) {
         if(widget != null)
             widget.setTooltip(Tooltip.of(Text.translatable("ui.%s.structure_block.%s".formatted(MiddleEarth.MOD_ID, key))));

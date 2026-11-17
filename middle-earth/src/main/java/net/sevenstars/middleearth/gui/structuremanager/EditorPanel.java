@@ -56,7 +56,6 @@ public class EditorPanel {
         context.fill(x, y, x + width, y + 1, LINE);
     }
 
-    // A small label drawn above a column or field
     public static void label(DrawContext context, TextRenderer textRenderer, Text text, int x, int y) {
         context.drawTextWithShadow(textRenderer, text, x, y, MUTED);
     }

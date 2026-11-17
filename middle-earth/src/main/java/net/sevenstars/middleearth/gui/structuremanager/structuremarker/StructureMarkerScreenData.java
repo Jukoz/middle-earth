@@ -26,7 +26,7 @@ public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind 
     public static final PacketCodec<RegistryByteBuf, StructureMarkerScreenData> PACKET_CODEC = PacketCodec.tuple(
             BlockPos.PACKET_CODEC, StructureMarkerScreenData::pos,
             PacketCodecs.BOOLEAN, StructureMarkerScreenData::isNew,
-            PacketCodecs.indexed(index -> MarkerKind.values()[index], MarkerKind::ordinal), StructureMarkerScreenData::kind,
+            MarkerKind.PACKET_CODEC, StructureMarkerScreenData::kind,
             PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH), StructureMarkerScreenData::value,
             PacketCodecs.VAR_INT, StructureMarkerScreenData::count,
             PacketCodecs.BOOLEAN, StructureMarkerScreenData::respawns,

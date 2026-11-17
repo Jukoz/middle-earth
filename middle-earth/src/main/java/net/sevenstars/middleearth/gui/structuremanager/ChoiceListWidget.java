@@ -58,8 +58,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         setX(x);
     }
 
-    // The game's lists make rows 220 wide, centered. That's wider than these narrow side-by-side lists, so the rows
-    // spilled out on both sides and the scroll bar ended up in the next list. Rows fill the list instead
+    // The game's lists make rows 220 wide and centered, wider than these narrow side-by-side lists, so rows fill the list instead
     @Override
     public int getRowWidth() {
         return width - SCROLLBAR_ROOM;
@@ -200,7 +199,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
             int textY = y + (entryHeight - textRenderer.fontHeight) / 2 + 1;
             int right = getScrollbarX() - TEXT_INDENT;
             if(choice.header()) {
-                // Draw a line from the end of the header text to the end of the row
                 context.drawTextWithShadow(textRenderer, choice.label(), x, textY, HEADER_COLOR);
                 int from = x + textRenderer.getWidth(choice.label()) + TEXT_INDENT;
                 if(from < right)

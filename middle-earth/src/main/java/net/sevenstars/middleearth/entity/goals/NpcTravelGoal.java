@@ -29,7 +29,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final int MINIMUM_STROLL = 4;
     private static final int STROLL_RETRY_RANGE = 6;
     private static final int STROLL_RETRY_HEIGHT = 4;
-    // Strolls tried from the same block before the npc counts as stuck, about 20 seconds
+    // Strolls tried from the same block before the npc counts as stuck, about 10 seconds
     private static final int STUCK_STROLLS = 5;
     private static final int MAXIMUM_RESCUE_BACK_OFF = 4;
     private static final int RESCUE_CLEAR_DISTANCE = 4;
@@ -65,7 +65,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
     private final NpcEntity npc;
     private int failures = 0;
-    private int leaderMissingTicks = 0;
+    private int leaderMissingChecks = 0;
     private @Nullable Vec3d leaderPos = null;
     private @Nullable BlockPos lastStrollPos = null;
     private int stuckStrolls = 0;
@@ -174,7 +174,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         }
     }
 
-    // Settled npcs used to wander out of their village and never come back
+    // Keeps settled npcs from wandering out of their village for good
     private @Nullable Vec3d nearHome(@Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
@@ -302,11 +302,11 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
     private @Nullable LivingEntity findLeader() {
         if(npc.getWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive()) {
-            leaderMissingTicks = 0;
+            leaderMissingChecks = 0;
             return leader;
         }
-        leaderMissingTicks++;
-        if(leaderMissingTicks >= LEADER_MISSING_DELAY)
+        leaderMissingChecks++;
+        if(leaderMissingChecks >= LEADER_MISSING_DELAY)
             npc.setPartyLeader(null);
         return null;
     }

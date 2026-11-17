@@ -205,11 +205,11 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     }
 
     private Text respawnsText() {
-        return Text.translatable("ui.%s.structure_marker.respawns".formatted(MiddleEarth.MOD_ID), respawns ? ScreenTexts.ON : ScreenTexts.OFF);
+        return ui("respawns", respawns ? ScreenTexts.ON : ScreenTexts.OFF);
     }
 
     private Text facingText() {
-        return Text.translatable("ui.%s.structure_marker.facing".formatted(MiddleEarth.MOD_ID), ChoiceListWidget.readable(facing.asString()));
+        return ui("facing", ChoiceListWidget.readable(facing.asString()));
     }
 
     // Brigand dungeon: bandit
@@ -248,7 +248,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    // A container screen swallows the mouse wheel, so the lists never scrolled. Pass it to the list under the mouse
+    // A container screen swallows the mouse wheel, so it's passed to the list under the mouse
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         for(ChoiceListWidget list : new ChoiceListWidget[]{kindList, valueList}) {

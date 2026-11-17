@@ -1,7 +1,5 @@
 package net.sevenstars.middleearth.commands.custom;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,7 +25,6 @@ import java.util.stream.Stream;
 // Each pool that offers a piece decides how it is placed on the ground: as it was built, or with every column of it
 // projected onto the ground below. The same template can use one in one pool and the other in the next
 public class PieceProjections {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final String ELEMENTS = "elements";
     private static final String ELEMENT = "element";
     private static final String LOCATION = "location";
@@ -86,7 +83,7 @@ public class PieceProjections {
                 continue;
             JsonObject pool;
             try {
-                JsonElement parsed = GSON.fromJson(Files.readString(file, StandardCharsets.UTF_8), JsonElement.class);
+                JsonElement parsed = PiecePools.GSON.fromJson(Files.readString(file, StandardCharsets.UTF_8), JsonElement.class);
                 if(parsed == null || !parsed.isJsonObject())
                     continue;
                 pool = parsed.getAsJsonObject();
@@ -100,7 +97,7 @@ public class PieceProjections {
                     any |= set(entry.getAsJsonObject().getAsJsonObject(ELEMENT), template.toString(), projection.getId());
             }
             if(any) {
-                Files.writeString(file, GSON.toJson(pool), StandardCharsets.UTF_8);
+                Files.writeString(file, PiecePools.GSON.toJson(pool), StandardCharsets.UTF_8);
                 written.add(file);
             }
         }

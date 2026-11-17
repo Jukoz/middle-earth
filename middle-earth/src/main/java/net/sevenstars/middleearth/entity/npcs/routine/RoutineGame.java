@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import net.sevenstars.of_beasts_and_wild_things.entity.EntitiesWT;
 import net.sevenstars.of_beasts_and_wild_things.item.ItemsWT;
 
-// Helpers for animals as game and livestock that need no state from the routine goal
+// Animals as game and livestock
 public final class RoutineGame {
     private static final int PEN_REACH = 8;
 
@@ -56,7 +56,6 @@ public final class RoutineGame {
     }
 
     public static boolean isHorseLike(EntityType<?> type) {
-        return type == EntityType.HORSE || type == EntityType.DONKEY || type == EntityType.MULE || type == EntityType.SKELETON_HORSE
-                || type == EntityType.ZOMBIE_HORSE || Registries.ENTITY_TYPE.getId(type).getPath().contains("horse");
+        return type == EntityType.DONKEY || type == EntityType.MULE || Registries.ENTITY_TYPE.getId(type).getPath().contains("horse");
     }
 }

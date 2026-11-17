@@ -13,9 +13,9 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
+import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 import java.util.Optional;
 
@@ -438,7 +438,7 @@ public class WildSpawnEventData {
         return Optional.ofNullable(partyData);
     }
 
-    public PartyData getParty() {
+    public @Nullable PartyData getParty() {
         return partyData;
     }
 

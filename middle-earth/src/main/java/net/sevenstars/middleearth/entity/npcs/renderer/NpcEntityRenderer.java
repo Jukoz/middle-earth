@@ -68,6 +68,8 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     // In ticks, for a bubble to grow to its size and a gesture to reach its pose
     private static final float BUBBLE_POP = 3f;
     public static final float GESTURE_EASE = 4f;
+    // Laughter's shake, in radians of phase per tick, for the head and the arms alike
+    public static final float LAUGH_SHAKE_SPEED = 1.3f;
 
 
     public NpcEntityRenderer(EntityRendererFactory.Context context) {
@@ -107,7 +109,6 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public void updateRenderState(NpcEntity npcEntity, NpcEntityRenderState npcEntityRenderState, float tickDelta) {
         if(!npcEntity.getEntityWorld().isClient())
             return;
-
 
         super.updateRenderState(npcEntity, npcEntityRenderState, tickDelta);
         NpcTextureData npcTextureData = npcEntity.retrieveNpcTextureData();
@@ -180,7 +181,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             case SAY -> state.pitch += ease * 3f * MathHelper.sin(time * 0.6f);
             case ASK -> state.pitch -= ease * 7f;
             case EXCLAIM -> state.pitch -= ease * 9f;
-            case LAUGH -> state.pitch += ease * (5f * MathHelper.sin(time * 1.3f) - 10f);
+            case LAUGH -> state.pitch += ease * (5f * MathHelper.sin(time * LAUGH_SHAKE_SPEED) - 10f);
             case NONE -> {}
         }
     }

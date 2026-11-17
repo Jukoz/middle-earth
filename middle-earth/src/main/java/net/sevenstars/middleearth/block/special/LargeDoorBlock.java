@@ -275,7 +275,7 @@ public class LargeDoorBlock extends Block implements NpcDoor {
     }
 
     // False when something is blocking the space the door would swing into
-    private boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity player) {
+    private boolean toggle(BlockState state, World world, BlockPos pos, @Nullable Entity opener) {
         BlockPos blockPos = getOrigin(pos, state);
         BlockPos blockPos1 = blockPos;
 
@@ -323,8 +323,8 @@ public class LargeDoorBlock extends Block implements NpcDoor {
                     }
                 }
             }
-            this.playOpenCloseSound(player, world, pos, !state.get(OPEN));
-            world.emitGameEvent(player, !this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+            this.playOpenCloseSound(opener, world, pos, !state.get(OPEN));
+            world.emitGameEvent(opener, !this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
             return true;
         }
         return false;

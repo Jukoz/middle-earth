@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.commands.custom;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -75,13 +76,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 // A whole structure laid out for its builder, as the game would assemble it from its jigsaw pieces. Assembled, it
 // stands as it would in the world and is only for looking at. Spaced, the pieces are set apart, each whole in its
 // own box, and changes to one are saved back to the template of that piece
 public class StructureEditSession {
     // In blocks. The gap left between spaced pieces unless the builder asks for another
-    public static final int DEFAULT_GAP = 4;
+    private static final int DEFAULT_GAP = 4;
     public static final int MAXIMUM_GAP = 64;
     private static final double FIRST_SPREAD = 1.5;
     private static final double SPREAD_STEP = 0.25;
@@ -94,7 +98,7 @@ public class StructureEditSession {
     private static final String START_HEIGHT_KEY = "start_height";
     private static final String PROJECT_TO_HEIGHTMAP_KEY = "project_start_to_heightmap";
     private static final String ABSOLUTE_KEY = "absolute";
-    private static final String START_POOL_KEY = "start_pool";
+    static final String START_POOL_KEY = "start_pool";
     private static final String START_JIGSAW_NAME_KEY = "start_jigsaw_name";
     private static final String SIZE_KEY = "size";
     // How many pieces deep a jigsaw structure may be assembled
@@ -112,7 +116,7 @@ public class StructureEditSession {
 
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
     // Sessions read back with the world that no builder has claimed yet
-    private static final Set<UUID> RESTORED = new HashSet<>();
+    private static final Set<UUID> RESTORED = ConcurrentHashMap.newKeySet();
     private static final Set<UUID> SINGLES = new HashSet<>();
     private static final String FILE = "data/middle-earth_structure_editing.nbt";
     private static final String SESSIONS_KEY = "sessions";
@@ -129,7 +133,9 @@ public class StructureEditSession {
     private static final String BOX = "box";
     private static final String LOADED = "loaded";
 
-    private static final Map<UUID, StructureEditSession> SESSIONS = new HashMap<>();
+    private static final Map<UUID, StructureEditSession> SESSIONS = new ConcurrentHashMap<>();
+    // Whether the world was frozen here, and so is for this class to set running again
+    private static boolean froze;
 
     // The corner the template was placed from, and the blocks it had when it was loaded, used to tell what has changed since
     public record Piece(Identifier template, BlockPos origin, BlockRotation rotation, BlockBox box, NbtCompound loaded) {}
@@ -141,7 +147,8 @@ public class StructureEditSession {
     private final long seed;
     private final boolean spaced;
     private final int gap;
-    private final List<Piece> pieces;
+    // Replaced as a whole on every change, because the render thread reads it
+    private volatile List<Piece> pieces;
 
     private StructureEditSession(RegistryKey<World> dimension, Identifier structure, long seed, boolean spaced, int gap, List<Piece> pieces) {
         this.gap = gap;
@@ -149,14 +156,14 @@ public class StructureEditSession {
         this.structure = structure;
         this.seed = seed;
         this.spaced = spaced;
-        this.pieces = pieces;
+        this.pieces = List.copyOf(pieces);
     }
 
     // The builder's own session, or else the one restored with the world that nobody has claimed yet. A game run from the
     // workspace gives its player a different name, and so a different id, every time
     public static @Nullable StructureEditSession of(UUID builder) {
         StructureEditSession own = SESSIONS.get(builder);
-        if(own != null || RESTORED.size() != 1)
+        if(own != null || !FabricLoader.getInstance().isDevelopmentEnvironment() || RESTORED.size() != 1)
             return own;
         return SESSIONS.get(RESTORED.iterator().next());
     }
@@ -186,6 +193,9 @@ public class StructureEditSession {
             RESTORED.clear();
             SINGLES.clear();
             TESTS.clear();
+            GAPS.clear();
+            froze = false;
+            CommandStructureEdit.forgetBeds();
             StructureEditing.clearNoClip();
         });
     }
@@ -236,29 +246,33 @@ public class StructureEditSession {
         try {
             NbtCompound root = NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes());
             for(NbtElement element : root.getListOrEmpty(SESSIONS_KEY)) {
-                if(!(element instanceof NbtCompound stored))
-                    continue;
-                Identifier dimension = Identifier.tryParse(stored.getString(DIMENSION, ""));
-                Identifier structure = Identifier.tryParse(stored.getString(STRUCTURE, ""));
-                if(dimension == null || structure == null)
-                    continue;
-                List<Piece> pieces = new ArrayList<>();
-                for(NbtElement pieceElement : stored.getListOrEmpty(PIECES)) {
-                    if(!(pieceElement instanceof NbtCompound storedPiece))
+                try {
+                    if(!(element instanceof NbtCompound stored))
                         continue;
-                    Identifier template = Identifier.tryParse(storedPiece.getString(TEMPLATE, ""));
-                    int[] origin = storedPiece.getIntArray(ORIGIN).orElse(new int[0]);
-                    int[] box = storedPiece.getIntArray(BOX).orElse(new int[0]);
-                    if(template == null || origin.length != 3 || box.length != 6)
+                    Identifier dimension = Identifier.tryParse(stored.getString(DIMENSION, ""));
+                    Identifier structure = Identifier.tryParse(stored.getString(STRUCTURE, ""));
+                    if(dimension == null || structure == null)
                         continue;
-                    pieces.add(new Piece(template, new BlockPos(origin[0], origin[1], origin[2]), BlockRotation.valueOf(storedPiece.getString(ROTATION, BlockRotation.NONE.name())),
-                            new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), withoutSeeds(storedPiece.getCompoundOrEmpty(LOADED))));
+                    List<Piece> pieces = new ArrayList<>();
+                    for(NbtElement pieceElement : stored.getListOrEmpty(PIECES)) {
+                        if(!(pieceElement instanceof NbtCompound storedPiece))
+                            continue;
+                        Identifier template = Identifier.tryParse(storedPiece.getString(TEMPLATE, ""));
+                        int[] origin = storedPiece.getIntArray(ORIGIN).orElse(new int[0]);
+                        int[] box = storedPiece.getIntArray(BOX).orElse(new int[0]);
+                        if(template == null || origin.length != 3 || box.length != 6)
+                            continue;
+                        pieces.add(new Piece(template, new BlockPos(origin[0], origin[1], origin[2]), BlockRotation.valueOf(storedPiece.getString(ROTATION, BlockRotation.NONE.name())),
+                                new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), withoutSeeds(storedPiece.getCompoundOrEmpty(LOADED))));
+                    }
+                    UUID builder = UUID.fromString(stored.getString(BUILDER, ""));
+                    SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),
+                            stored.getBoolean(SPACED, true), stored.getInt(GAP, DEFAULT_GAP), pieces));
+                    RESTORED.add(builder);
+                    StructureEditing.log("%s came back with the world: %d pieces, %s".formatted(structure, pieces.size(), stored.getBoolean(SPACED, true) ? "spaced" : "assembled"));
+                } catch (IllegalArgumentException e) {
+                    MiddleEarth.LOGGER.logError("StructureEditSession :: could not read a structure that was loaded in this world", e);
                 }
-                UUID builder = UUID.fromString(stored.getString(BUILDER, ""));
-                SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),
-                        stored.getBoolean(SPACED, true), stored.getInt(GAP, DEFAULT_GAP), pieces));
-                RESTORED.add(builder);
-                StructureEditing.log("%s came back with the world: %d pieces, %s".formatted(structure, pieces.size(), stored.getBoolean(SPACED, true) ? "spaced" : "assembled"));
             }
         } catch (IOException | IllegalArgumentException e) {
             MiddleEarth.LOGGER.logError("StructureEditSession :: could not read the structures that were loaded in this world", e);
@@ -279,17 +293,22 @@ public class StructureEditSession {
     }
 
     // While pieces are in the world to be edited, the world is frozen: nothing grows, flows, burns or wakes up in them, so
-    // what is saved is what the builder made. Builders can still move and build. A frozen game isn't saved with the world,
-    // so this is applied again when the server starts
+    // what is saved is what the builder made. Builders can still move and build. A game frozen by someone else is left
+    // frozen. A frozen game isn't saved with the world, so only loaded structures are frozen again when the server starts
     private static void pause(MinecraftServer server) {
         boolean editing = !SINGLES.isEmpty() || SESSIONS.values().stream().anyMatch(session -> session.spaced);
-        if(server.getTickManager().isFrozen() == editing)
-            return;
-        server.getTickManager().setFrozen(editing);
-        StructureEditing.log(editing ? "the world stands still while pieces are edited" : "the world runs again");
+        if(editing && !server.getTickManager().isFrozen()) {
+            server.getTickManager().setFrozen(true);
+            froze = true;
+            StructureEditing.log("the world stands still while pieces are edited");
+        } else if(!editing && froze) {
+            server.getTickManager().setFrozen(false);
+            froze = false;
+            StructureEditing.log("the world runs again");
+        }
     }
 
-    public static int gapOf(UUID builder) {
+    private static int gapOf(UUID builder) {
         return GAPS.getOrDefault(builder, DEFAULT_GAP);
     }
 
@@ -340,7 +359,7 @@ public class StructureEditSession {
             if(!box.contains(pos) && world.isInBuildLimit(pos))
                 world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         }
-        pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
+        replace(piece, new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
         store(world.getServer());
         StructureEditing.log("%s made bigger to the %s by %d: %s where it was %s".formatted(piece.template(), side.asString(), blocks, describe(grown), describe(box)));
         return null;
@@ -360,10 +379,16 @@ public class StructureEditSession {
             if(!box.contains(pos) && world.isInBuildLimit(pos) && world.getBlockState(pos).isAir())
                 world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         }
-        pieces.set(pieces.indexOf(piece), new Piece(piece.template(), originOf(resized, piece.rotation()), piece.rotation(), resized, piece.loaded()));
+        replace(piece, new Piece(piece.template(), originOf(resized, piece.rotation()), piece.rotation(), resized, piece.loaded()));
         store(world.getServer());
         StructureEditing.log("%s given the bounds %s where it had %s".formatted(piece.template(), describe(resized), describe(box)));
         return null;
+    }
+
+    private void replace(Piece old, Piece replacement) {
+        List<Piece> changed = new ArrayList<>(pieces);
+        changed.set(changed.indexOf(old), replacement);
+        pieces = List.copyOf(changed);
     }
 
     // The corner of its box that a rotated template is placed from
@@ -414,7 +439,7 @@ public class StructureEditSession {
     }
 
     // Null when the structure can't be put together from that seed, or none of its pieces comes from a template
-    public static @Nullable StructureEditSession load(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, Identifier id, long seed, boolean spaced, BlockPos corner) {
+    public static @Nullable StructureEditSession load(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, Identifier id, long seed, boolean spaced, Function<Vec3i, BlockPos> cornerFor) {
         StructureStart start = assemble(world, structure, structure.value(), seed, world, ASSEMBLY_CHUNK);
         // A structure that goes underground is cut short where the ground is thin, as in a flat world. Use whichever version
         // gives more pieces to edit
@@ -446,6 +471,7 @@ public class StructureEditSession {
         int gap = gapOf(builder);
         List<Piece> placed = spaced ? spread(assembled, gap) : assembled;
         BlockBox whole = boundsOf(placed);
+        BlockPos corner = cornerFor.apply(new Vec3i(whole.getBlockCountX(), whole.getBlockCountY(), whole.getBlockCountZ()));
         Vec3i move = new Vec3i(corner.getX() - whole.getMinX(), corner.getY() - whole.getMinY(), corner.getZ() - whole.getMinZ());
         List<Piece> pieces = new ArrayList<>();
         for(Piece piece : placed)
@@ -482,6 +508,14 @@ public class StructureEditSession {
 
     private static final Map<UUID, List<Test>> TESTS = new HashMap<>();
 
+    private static void remember(UUID builder, ServerWorld world, Structure structure, ChunkPos chunk) {
+        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), structure, chunk));
+    }
+
+    static Stream<ChunkPos> chunksOf(BlockBox box) {
+        return ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4));
+    }
+
     // The structure as the game would generate it, at the builder, and registered with the world as a structure: its
     // managers wake up, its people are born and its markers are gone. Placing it with a command would only set
     // blocks. A structure the ground would cut short is placed whole at the builder's height instead of on the ground
@@ -510,8 +544,8 @@ public class StructureEditSession {
             return null;
         }
         BlockBox box = start.getBoundingBox();
-        register(world, structure.value(), start, chunk);
-        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), structure.value(), chunk));
+        placeAsStructure(world, structure.value(), start, chunk);
+        remember(builder, world, structure.value(), chunk);
         StructureEditing.log("generated %s from the seed %d: %d pieces in %s".formatted(structure.getIdAsString(), seed, start.getChildren().size(), describe(box)));
         return new Generated(box, start.getChildren().size());
     }
@@ -531,8 +565,8 @@ public class StructureEditSession {
         ChunkPos chunk = new ChunkPos(at);
         StructureStart start = new StructureStart(carrier.value(), chunk, 0, new StructurePiecesList(List.of(
                 new PoolStructurePiece(manager, element, at, 0, BlockRotation.NONE, box, StructureLiquidSettings.IGNORE_WATERLOGGING))));
-        register(world, carrier.value(), start, chunk);
-        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), carrier.value(), chunk));
+        placeAsStructure(world, carrier.value(), start, chunk);
+        remember(builder, world, carrier.value(), chunk);
         StructureEditing.log("generated the piece %s by itself in %s, kept as %s".formatted(template, describe(box), carrier.getIdAsString()));
         return new Generated(box, 1);
     }
@@ -545,18 +579,10 @@ public class StructureEditSession {
         JsonElement json = Structure.STRUCTURE_CODEC.encodeStart(ops, carrier.value()).result().orElse(null);
         if(json == null || !json.isJsonObject() || !json.getAsJsonObject().has(START_POOL_KEY))
             return null;
-        JsonObject element = new JsonObject();
-        element.addProperty("element_type", "minecraft:single_pool_element");
-        element.addProperty("location", template.toString());
-        element.addProperty("projection", StructurePool.Projection.RIGID.getId());
-        element.addProperty("processors", "minecraft:empty");
-        JsonObject weighted = new JsonObject();
-        weighted.addProperty("weight", 1);
-        weighted.add("element", element);
         JsonArray elements = new JsonArray();
-        elements.add(weighted);
+        elements.add(PiecePools.elementOf(template));
         JsonObject pool = new JsonObject();
-        pool.addProperty("fallback", "minecraft:empty");
+        pool.addProperty("fallback", PiecePools.EMPTY.toString());
         pool.add("elements", elements);
         JsonObject height = new JsonObject();
         height.addProperty(ABSOLUTE_KEY, at.getY());
@@ -579,16 +605,16 @@ public class StructureEditSession {
         for(StructurePiece piece : pieces)
             piece.translate(move.getX(), move.getY(), move.getZ());
         StructureStart start = new StructureStart(carrier.value(), chunk, 0, new StructurePiecesList(pieces));
-        register(world, carrier.value(), start, chunk);
-        TESTS.computeIfAbsent(builder, key -> new ArrayList<>()).add(new Test(world.getRegistryKey(), carrier.value(), chunk));
+        placeAsStructure(world, carrier.value(), start, chunk);
+        remember(builder, world, carrier.value(), chunk);
         StructureEditing.log("generated the piece %s with what its plugs ask for, %d pieces in %s, kept as %s".formatted(template, pieces.size(), describe(start.getBoundingBox()), carrier.getIdAsString()));
         // The box of the start is wider than its pieces where the ground is shaped to it
         return new Generated(BlockBox.encompass(pieces.stream().map(StructurePiece::getBoundingBox).toList()).orElse(start.getBoundingBox()), pieces.size());
     }
 
-    private static void register(ServerWorld world, Structure structure, StructureStart start, ChunkPos chunk) {
+    private static void placeAsStructure(ServerWorld world, Structure structure, StructureStart start, ChunkPos chunk) {
         BlockBox box = start.getBoundingBox();
-        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+        chunksOf(box).forEach(in -> {
             start.place(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
                     new BlockBox(in.getStartX(), world.getBottomY(), in.getStartZ(), in.getEndX(), world.getTopYInclusive() + 1, in.getEndZ()), in);
             world.getStructureAccessor().addStructureReference(ChunkSectionPos.from(in, 0), structure, chunk.toLong(), world.getChunk(in.x, in.z));
@@ -628,7 +654,7 @@ public class StructureEditSession {
             return false;
         BlockBox box = start.getBoundingBox();
         Set<UUID> residents = new HashSet<>();
-        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+        chunksOf(box).forEach(in -> {
             for(BlockEntity blockEntity : world.getChunk(in.x, in.z).getBlockEntities().values()) {
                 if(blockEntity instanceof NestHost host && host.getNest() != null && box.contains(blockEntity.getPos()))
                     residents.addAll(host.getNest().getEntityUuids());
@@ -644,7 +670,7 @@ public class StructureEditSession {
             entity.discard();
         for(StructurePiece piece : start.getChildren())
             fill(world, piece.getBoundingBox(), Blocks.AIR.getDefaultState());
-        ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(in -> {
+        chunksOf(box).forEach(in -> {
             Chunk within = world.getChunk(in.x, in.z);
             within.getStructureReferences(structure).remove(chunk.toLong());
             within.markNeedsSaving();
@@ -687,12 +713,15 @@ public class StructureEditSession {
     // Removes the pieces of the builder's structure from the world again
     public static boolean close(ServerWorld world, UUID builder) {
         StructureEditSession session = claim(builder);
-        if(session == null || !session.dimension.equals(world.getRegistryKey()))
+        if(session == null)
+            return false;
+        ServerWorld held = session.dimension.equals(world.getRegistryKey()) ? world : world.getServer().getWorld(session.dimension);
+        if(held == null)
             return false;
         SESSIONS.remove(builder);
         StructureEditing.log("closed %s, %d pieces taken out of the world".formatted(session.structure, session.pieces.size()));
         for(Piece piece : session.pieces)
-            fill(world, piece.box(), Blocks.AIR.getDefaultState());
+            fill(held, piece.box(), Blocks.AIR.getDefaultState());
         store(world.getServer());
         pause(world.getServer());
         return true;
@@ -736,11 +765,13 @@ public class StructureEditSession {
         }
         // What was saved is the baseline for later changes. The other pieces of a template that was written are updated to
         // match it, or the old one would be saved over it next time
-        for(int i = 0; i < pieces.size(); i++) {
-            Piece piece = pieces.get(i);
+        List<Piece> updated = new ArrayList<>(pieces);
+        for(int i = 0; i < updated.size(); i++) {
+            Piece piece = updated.get(i);
             if(written.contains(piece.template()))
-                pieces.set(i, place(world, piece, true));
+                updated.set(i, place(world, piece, true));
         }
+        pieces = List.copyOf(updated);
         store(world.getServer());
         StructureEditing.log("saved %s: wrote %s, left unwritten for differing copies %s, %d pieces unchanged".formatted(structure, written, conflicts,
                 pieces.stream().filter(piece -> !changed.containsKey(piece.template())).count()));
@@ -760,7 +791,7 @@ public class StructureEditSession {
         return template.calculateBoundingBox(origin, rotation, BlockPos.ORIGIN, BlockMirror.NONE);
     }
 
-    private static String describe(BlockBox box) {
+    static String describe(BlockBox box) {
         return "%d,%d,%d to %d,%d,%d".formatted(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ());
     }
 
@@ -883,7 +914,7 @@ public class StructureEditSession {
         }
     }
 
-    // For a session stored back when loot seeds were still read along with the rest
+    // Takes the loot seeds out of a stored template, because a piece is read from the world without them
     private static NbtCompound withoutSeeds(NbtCompound template) {
         NbtList blocks = template.getListOrEmpty(BLOCKS);
         for(int i = 0; i < blocks.size(); i++)

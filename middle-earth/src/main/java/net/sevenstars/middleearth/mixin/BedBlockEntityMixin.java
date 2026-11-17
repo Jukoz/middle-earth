@@ -22,9 +22,9 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(BedBlockEntity.class)
 public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagHolder, NestHost {
     @Unique
-    private @Nullable BedTag middleearth$tag;
+    private @Nullable BedTag middleEarth$tag;
     @Unique
-    private @Nullable SpawnNestManager middleearth$nest;
+    private @Nullable SpawnNestManager middleEarth$nest;
 
     public BedBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -32,23 +32,23 @@ public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagH
 
     @Override
     public @Nullable BedTag getBedTag() {
-        return middleearth$tag;
+        return middleEarth$tag;
     }
 
     @Override
     public void setBedTag(@Nullable BedTag tag) {
-        middleearth$tag = tag;
+        middleEarth$tag = tag;
         BedTagHolder.markChanged(this);
     }
 
     @Override
     public @Nullable SpawnNestManager getNest() {
-        return middleearth$nest;
+        return middleEarth$nest;
     }
 
     @Override
     public void setNest(@Nullable SpawnNestManager nest) {
-        middleearth$nest = nest;
+        middleEarth$nest = nest;
     }
 
     @Override
@@ -60,15 +60,15 @@ public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagH
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
-        middleearth$tag = BedTagHolder.load(view);
-        middleearth$nest = NestHost.load(view);
+        middleEarth$tag = BedTagHolder.load(view);
+        middleEarth$nest = NestHost.load(view);
     }
 
     @Override
     protected void writeData(WriteView view) {
         super.writeData(view);
-        BedTagHolder.save(view, middleearth$tag);
-        NestHost.save(view, middleearth$nest);
+        BedTagHolder.save(view, middleEarth$tag);
+        NestHost.save(view, middleEarth$nest);
     }
 
     @Override

@@ -18,11 +18,13 @@ import java.util.List;
 // At night, a traveller near a settlement sleeps in one of its free beds (ones no npc spawns from) and moves on in
 // the morning
 public class NpcWandererBedGoal extends Goal {
+    private static final int MAXIMUM_TRIES = 3;
     // In blocks, beyond the settlement's extent
     private static final int SEARCH_RANGE = 48;
+    // In ticks
     private static final int SEARCH_INTERVAL = 40;
-    private static final int MAXIMUM_TRIES = 3;
     private static final int WALK_LIMIT = 20 * 30;
+
     private static final double BED_REACH = 2.5;
     private static final double BED_HEIGHT_REACH = 2;
 

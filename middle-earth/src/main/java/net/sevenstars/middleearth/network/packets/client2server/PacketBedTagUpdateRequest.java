@@ -1,23 +1,26 @@
 package net.sevenstars.middleearth.network.packets.client2server;
 
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BedPart;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
-import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-
+import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
+
 import java.util.Optional;
 
 public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTagUpdateRequest> {
@@ -66,7 +69,9 @@ public class PacketBedTagUpdateRequest extends ClientToServerPacket<PacketBedTag
         player.getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, pos))
                 return;
-            if(!(player.getWorld().getBlockEntity(pos) instanceof BedTagHolder holder)) {
+            BlockState state = player.getWorld().getBlockState(pos);
+            if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD
+                    || !(player.getWorld().getBlockEntity(pos) instanceof BedTagHolder holder)) {
                 StructureEditing.log("bed tag at %s refused: no bed head there".formatted(pos.toShortString()));
                 return;
             }

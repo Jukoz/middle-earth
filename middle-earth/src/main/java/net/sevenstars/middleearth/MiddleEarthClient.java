@@ -44,6 +44,8 @@ import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.RoundShieldEntityModel;
+import net.sevenstars.middleearth.client.renderer.BuildersToolRenderer;
+import net.sevenstars.middleearth.client.renderer.BuildersToolSelection;
 import net.sevenstars.middleearth.client.renderer.armor.*;
 import net.sevenstars.middleearth.client.renderer.handheld.HeaterShieldModelRenderer;
 import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
@@ -51,6 +53,8 @@ import net.sevenstars.middleearth.client.renderer.handheld.KiteShieldModelRender
 import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRenderer;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
+import net.sevenstars.middleearth.dev.NpcDebug;
+import net.sevenstars.middleearth.dev.NpcDebugRenderer;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityModelsME;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
@@ -77,6 +81,7 @@ import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
@@ -109,10 +114,10 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        if(net.sevenstars.middleearth.dev.NpcDebug.ENABLED)
-            net.sevenstars.middleearth.dev.NpcDebugRenderer.register();
-        net.sevenstars.middleearth.client.renderer.BuildersToolRenderer.register();
-        net.sevenstars.middleearth.client.renderer.BuildersToolSelection.register();
+        if(NpcDebug.ENABLED)
+            NpcDebugRenderer.register();
+        BuildersToolRenderer.register();
+        BuildersToolSelection.register();
         AtlasesME.registerAtlas();
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
@@ -161,7 +166,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MARKER_SCREEN_HANDLER, StructureMarkerScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.BED_TAG_SCREEN_HANDLER, net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.BED_TAG_SCREEN_HANDLER, BedTagScreen::new);
 
         BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);

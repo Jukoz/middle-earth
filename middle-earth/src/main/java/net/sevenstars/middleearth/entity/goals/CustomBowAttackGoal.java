@@ -21,6 +21,7 @@ public class CustomBowAttackGoal<T extends PathAwareEntity & RangedAttackMob> ex
     private static final int LOST_SIGHT_TICKS = -60;
     private static final int BOW_DRAW_TICKS = 20;
     private static final int LONGBOW_DRAW_TICKS = 30;
+
     private static final double STRAFE_FLIP_CHANCE = 0.3;
     private static final float BACK_AWAY_FRACTION = 0.75F;
     private static final float APPROACH_FRACTION = 0.25F;

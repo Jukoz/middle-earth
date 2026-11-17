@@ -45,18 +45,23 @@ public class SeatBlock extends Block {
         return state.getBlock() instanceof SeatBlock && !state.get(OCCUPIED) && !world.getBlockState(pos.up()).isOpaque();
     }
 
-    // Seats an entity that can't click the seat itself
-    public static boolean seat(World world, BlockPos pos, Entity sitter) {
-        if(world.isClient || !isFree(world, pos) || sitter.hasVehicle())
-            return false;
-        BlockState state = world.getBlockState(pos);
-        float yaw = state.get(FACING).getOpposite().getPositiveHorizontalDegrees();
+    private static SeatEntity newSeat(World world, BlockPos pos, float yaw) {
         SeatEntity seat = new SeatEntity(EntitiesME.SEAT_ENTITY, world);
         seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
         seat.setNoGravity(true);
         seat.setSilent(true);
         seat.setInvisible(true);
         seat.setInvulnerable(true);
+        return seat;
+    }
+
+    // Seats an entity that can't click the seat itself
+    public static boolean seat(World world, BlockPos pos, Entity sitter) {
+        if(world.isClient || !isFree(world, pos) || sitter.hasVehicle())
+            return false;
+        BlockState state = world.getBlockState(pos);
+        float yaw = state.get(FACING).getOpposite().getPositiveHorizontalDegrees();
+        SeatEntity seat = newSeat(world, pos, yaw);
         if(!world.spawnEntity(seat))
             return false;
         if(!sitter.startRiding(seat, true)) {
@@ -74,13 +79,7 @@ public class SeatBlock extends Block {
         eulerAngles = quaternion.getEulerAnglesXYZ(eulerAngles);
         float yaw = (float) Math.atan2(eulerAngles.x, eulerAngles.z);
 
-        SeatEntity seat = new SeatEntity(EntitiesME.SEAT_ENTITY, world);
-        seat.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-        seat.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, yaw, 0);
-        seat.setNoGravity(true);
-        seat.setSilent(true);
-        seat.setInvisible(true);
-        seat.setInvulnerable(true);
+        SeatEntity seat = newSeat(world, pos, yaw);
 
         if(world.isClient()) {
             return ActionResult.CONSUME;

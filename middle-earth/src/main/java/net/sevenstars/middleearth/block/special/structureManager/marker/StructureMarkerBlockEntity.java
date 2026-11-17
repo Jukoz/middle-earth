@@ -1,23 +1,15 @@
 package net.sevenstars.middleearth.block.special.structureManager.marker;
 
-import java.util.Optional;
-import java.util.List;
-import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registries;
-import net.minecraft.entity.EntityType;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
-import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
-import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,14 +17,23 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.structureManager.GeneratedStructures;
+import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
+import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenHandler;
+import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<StructureMarkerScreenData>, NestHost {
     private static final String ID = "structure_marker";

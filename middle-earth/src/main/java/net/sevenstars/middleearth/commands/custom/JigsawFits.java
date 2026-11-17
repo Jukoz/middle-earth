@@ -13,7 +13,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePools;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
@@ -29,7 +28,6 @@ import java.util.Set;
 // searches the pieces of the loaded structure, or for a plug in none of them, the nearby jigsaw blocks of any piece
 public class JigsawFits {
     public static final int MAXIMUM_FITS = 512;
-    private static final Identifier EMPTY = Identifier.ofVanilla("empty");
     // In chunks, the search radius around a plug that is in no structure being edited
     private static final int NEAR_CHUNKS = 4;
 
@@ -41,13 +39,13 @@ public class JigsawFits {
 
     public static List<BlockPos> of(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
         StructureEditSession session = StructureEditSession.claim(player.getUuid());
-        List<StructureEditSession.Piece> pieces = session == null || !session.getDimension().equals(world.getRegistryKey()) ? List.of() : session.getPieces();
-        Plug clicked = plugAt(world, pos, pieces);
+        StructureEditSession edited = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session;
+        Plug clicked = plugAt(world, pos, edited);
         if(clicked == null)
             return List.of();
         Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
         List<BlockPos> fits = new ArrayList<>();
-        for(Plug other : plugs(world, pos, pieces)) {
+        for(Plug other : plugs(world, pos, edited)) {
             if(other.pos().equals(pos) || !meets(clicked.facing(), other.facing()))
                 continue;
             if((joins(pools, clicked, other) || joins(pools, other, clicked)) && fits.size() < MAXIMUM_FITS)
@@ -58,7 +56,7 @@ public class JigsawFits {
 
     // The asking plug picks a piece from its pool and joins it at the plug its target names
     private static boolean joins(Registry<StructurePool> pools, Plug asking, Plug joined) {
-        if(!asking.asks() || joined.name().equals(EMPTY) || !joined.name().equals(asking.target()))
+        if(!asking.asks() || joined.name().equals(PiecePools.EMPTY) || !joined.name().equals(asking.target()))
             return false;
         if(joined.template() == null)
             return true;
@@ -77,27 +75,22 @@ public class JigsawFits {
         return facing.getAxis().isVertical() ? other == facing.getOpposite() : other.getAxis().isHorizontal();
     }
 
-    private static @Nullable Plug plugAt(ServerWorld world, BlockPos pos, List<StructureEditSession.Piece> pieces) {
+    private static @Nullable Plug plugAt(ServerWorld world, BlockPos pos, @Nullable StructureEditSession edited) {
         BlockState state = world.getBlockState(pos);
         if(!state.isOf(Blocks.JIGSAW) || !(world.getBlockEntity(pos) instanceof JigsawBlockEntity jigsaw))
             return null;
-        Identifier template = null;
-        for(StructureEditSession.Piece piece : pieces) {
-            if(piece.box().contains(pos))
-                template = piece.template();
-        }
+        StructureEditSession.Piece piece = edited == null ? null : edited.pieceContaining(pos);
+        Identifier template = piece == null ? null : piece.template();
         return new Plug(pos.toImmutable(), template, jigsaw.getPool(), jigsaw.getName(), jigsaw.getTarget(), state.get(JigsawBlock.ORIENTATION).getFacing());
     }
 
-    private static List<Plug> plugs(ServerWorld world, BlockPos around, List<StructureEditSession.Piece> pieces) {
+    private static List<Plug> plugs(ServerWorld world, BlockPos around, @Nullable StructureEditSession edited) {
         Set<ChunkPos> chunks = new HashSet<>();
-        if(pieces.stream().anyMatch(piece -> piece.box().contains(around))) {
-            for(StructureEditSession.Piece piece : pieces) {
-                BlockBox box = piece.box();
-                ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4)).forEach(chunks::add);
-            }
+        if(edited != null && edited.pieceContaining(around) != null) {
+            for(StructureEditSession.Piece piece : edited.getPieces())
+                StructureEditSession.chunksOf(piece.box()).forEach(chunks::add);
         } else {
-            pieces = List.of();
+            edited = null;
             ChunkPos.stream(new ChunkPos(around), NEAR_CHUNKS).forEach(chunks::add);
         }
         List<Plug> plugs = new ArrayList<>();
@@ -105,8 +98,8 @@ public class JigsawFits {
             if(!world.isChunkLoaded(chunk.x, chunk.z))
                 continue;
             for(BlockEntity blockEntity : world.getChunk(chunk.x, chunk.z).getBlockEntities().values()) {
-                Plug plug = blockEntity instanceof JigsawBlockEntity ? plugAt(world, blockEntity.getPos(), pieces) : null;
-                if(plug != null && (pieces.isEmpty() || plug.template() != null))
+                Plug plug = blockEntity instanceof JigsawBlockEntity ? plugAt(world, blockEntity.getPos(), edited) : null;
+                if(plug != null && (edited == null || plug.template() != null))
                     plugs.add(plug);
             }
         }

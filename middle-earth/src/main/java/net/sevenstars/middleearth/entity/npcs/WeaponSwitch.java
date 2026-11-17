@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.utils.ItemTagsME;
 
 // An npc holding a ranged weapon in one hand and a melee weapon in the other shoots from afar, swaps to the melee
 // weapon when a foe gets close, and swaps back once the foe moves off. The middle-earth:npc_ranged_weapons tag decides
-// which weapons are ranged, so a new kind only needs adding to the tag
+// which weapons count as ranged for swapping. The attack goal still comes from the bow and crossbow tags
 public final class WeaponSwitch {
     // In blocks. The two distances differ so an npc with a foe at the edge doesn't swap back and forth
     private static final double CLOSE_QUARTERS = 3.5;

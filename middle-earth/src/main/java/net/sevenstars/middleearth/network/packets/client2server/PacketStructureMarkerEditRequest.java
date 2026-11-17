@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -18,6 +17,7 @@ import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlock;
 import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
@@ -29,7 +29,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
             BlockPos.PACKET_CODEC, p -> p.pos,
             PacketCodecs.BOOLEAN, p -> p.isNew,
             PacketCodecs.BOOLEAN, p -> p.remove,
-            PacketCodecs.indexed(index -> MarkerKind.values()[index], MarkerKind::ordinal), p -> p.kind,
+            MarkerKind.PACKET_CODEC, p -> p.kind,
             PacketCodecs.string(StructureMarkerBlockEntity.MAXIMUM_VALUE_LENGTH), p -> p.value,
             PacketCodecs.VAR_INT, p -> p.count,
             PacketCodecs.BOOLEAN, p -> p.respawns,
@@ -119,8 +119,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
             return BedTag.nestKinds().contains(value) || nest != null && BedTag.peopleNests().containsKey(nest);
         }
         if(kind == MarkerKind.SPAWN_ANIMAL) {
-            Identifier id = Identifier.tryParse(value);
-            return id != null && Registries.ENTITY_TYPE.containsId(id);
+            return StructureMarkerScreenData.allAnimals().contains(value);
         }
         return true;
     }

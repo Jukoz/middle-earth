@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.registries;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKey;
@@ -86,6 +87,11 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
 
         DynamicRegistries.registerSynced(SPIDER_VARIANTS, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
+
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            BiomeEventData.clearSpawns();
+            StructureFeaturesRegistry.clearLive();
+        });
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {

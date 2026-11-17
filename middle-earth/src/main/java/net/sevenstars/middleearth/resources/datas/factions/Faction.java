@@ -29,7 +29,6 @@ import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import org.jetbrains.annotations.Nullable;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
@@ -41,6 +40,7 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClassLookup;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 

@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
-import net.minecraft.entity.Entity;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -13,7 +12,6 @@ import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
@@ -137,10 +135,6 @@ public class SpawnNestManager {
         return capacity > 0;
     }
 
-    public @Nullable BlockPos getBed() {
-        return bed;
-    }
-
     public Optional<Identifier> getBedJob() {
         return bedJob;
     }
@@ -161,20 +155,6 @@ public class SpawnNestManager {
         }
         return true;
     }
-    public void removeEntity(World world, UUID uuid){
-        if(world.isClient() || !this.entities.contains(uuid))
-            return;
-        this.entities.remove(uuid);
-        if(this.entities.isEmpty()){
-            beginRespawnSequence(world);
-        }
-    }
-
-    private boolean housesPeople(World world) {
-        SpawnNestNodeData data = StructureManagerService.findNest(world, id);
-        return data != null && data.isPeople();
-    }
-
     private void beginRespawnSequence(World world) {
         this.respawnEventTriggerTick = world.getTime();
     }
@@ -187,22 +167,6 @@ public class SpawnNestManager {
         if(canRespawn(currentTick)){
             respawnAll(world, sourcePos);
         }
-    }
-
-    public void doWellnessCheck(World world, BlockPos sourcePos) {
-        // An npc that can't be found may just be in unloaded chunks. Dropping it here would give its bed to a new npc
-        // while it still sleeps there. Deaths and removals are reported to the nest instead (NpcEntity.onDeath,
-        // LivingEntityMixin.onRemove)
-        if(housesPeople(world))
-            return;
-        List<UUID> toRemove = new ArrayList<>();
-        for (UUID uuid : entities){
-            var entity = world.getEntity(uuid);
-            if(entity == null || !entity.isAlive())
-                toRemove.add(uuid);
-        }
-        for (UUID uuid : toRemove)
-            removeEntity(world, uuid);
     }
 
     private void respawnAll(ServerWorld world, BlockPos structureManagerPos) {
@@ -272,16 +236,5 @@ public class SpawnNestManager {
             return false;
         return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty()
                 || !site.getMarkers(MarkerKind.LOOKOUT).isEmpty());
-    }
-
-    public void forceRespawn(ServerWorld world, BlockPos structureManagerPos) {
-        for(var uuid : getEntityUuids()){
-            if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
-                livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
-                MiddleEarth.LOGGER.logDebugMsg("Removed %s".formatted(uuid));
-            }
-        }
-        entities = new ArrayList<>();
-        respawnAll(world, structureManagerPos);
     }
 }

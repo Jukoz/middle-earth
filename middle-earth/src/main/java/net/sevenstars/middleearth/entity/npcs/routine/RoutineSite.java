@@ -29,6 +29,7 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,11 +142,10 @@ public class RoutineSite {
     // The seats around each table in the settlement, taken from the generated data of its templates
     private List<List<BlockPos>> tables = List.of();
     private List<StructureFeatureData.Station> stations = List.of();
-    // Every seat and door in the settlement, and the markers its builders placed
     private List<BlockPos> seats = List.of();
     private List<BlockPos> doors = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
-    private List<StructureFeatureData.Manager> managers = List.of();
+    private Map<MarkerKind, List<StructureFeatureData.Marker>> markersByKind = Map.of();
     private @Nullable List<PrisonCell> cells = null;
     private @Nullable Identifier faction = null;
     // The factions the structure is tagged as belonging to, as the paths of their ids. Empty when the place isn't assigned to any faction
@@ -171,7 +171,7 @@ public class RoutineSite {
     private List<BlockPos> game = List.of();
     // Starts at -GAME_INTERVAL so the first lookup happens immediately, without the gap from Long.MIN_VALUE overflowing
     private long gameSeenAt = -GAME_INTERVAL;
-    long lastUsed;
+    private long lastUsed;
 
     // A ringRadius of 0 means the site has no patrol ring
     RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
@@ -222,6 +222,10 @@ public class RoutineSite {
         lastUsed = time;
     }
 
+    long getLastUsed() {
+        return lastUsed;
+    }
+
     public boolean isReady() {
         return ready;
     }
@@ -230,7 +234,7 @@ public class RoutineSite {
         return switch (activity) {
             case FISH -> !shoreStands.isEmpty();
             case HUNT, FORAGE -> !grounds.isEmpty();
-            case PATROL -> getPatrolRoute().size() >= MINIMUM_ROUND_POINTS || !getMarkers(MarkerKind.PATROL_POINT).isEmpty() && getPatrolRoute().size() >= MINIMUM_MARKED_ROUND_POINTS;
+            case PATROL -> getPatrolRoute().size() >= MINIMUM_ROUND_POINTS || hasMarkedRoute();
             case COURT -> !getMarkers(MarkerKind.LORD_SEAT).isEmpty() || !tables.isEmpty();
             case INSPECT -> !getMarkers(MarkerKind.GUARD_POST).isEmpty() || !getMarkers(MarkerKind.ENTRANCE).isEmpty() || ring.size() >= MINIMUM_ROUND_POINTS;
             case VISIT -> households.size() >= MINIMUM_HOUSEHOLDS_TO_VISIT;
@@ -251,7 +255,7 @@ public class RoutineSite {
         return shoreWaters.get(index);
     }
 
-    // When the honey was last taken from a hive. For a hive not seen before, it's worked out from the honey already in it
+    // When the honey was last taken from a hive. For a hive not seen before, it's worked out from the honey already in it.
     // It's worked out again when the honey found in the hive isn't what the routine left there
     public long hiveEmptiedAt(BlockPos hive, long time, int levelFound, long filledFor) {
         Integer left = hiveLevels.get(hive);
@@ -298,9 +302,8 @@ public class RoutineSite {
         if(this.faction != null || faction == null || ringRadius <= 0)
             return;
         String path = faction.getPath();
-        // longbeards.erebor also counts as living in longbeards structures
-        int split = path.indexOf('.');
-        if(owners.isEmpty() || owners.contains(path) || split >= 0 && owners.contains(path.substring(0, split)))
+        String parent = RoutineSites.parentFaction(path);
+        if(owners.isEmpty() || owners.contains(path) || parent != null && owners.contains(parent))
             this.faction = faction;
     }
 
@@ -312,11 +315,11 @@ public class RoutineSite {
         return surfaceY;
     }
 
-    // The barrels and chests the households keep their things in
     public SiteStock getStock() {
         return stock;
     }
 
+    // The barrels and chests the households keep their things in
     public List<BlockPos> getStores() {
         return stores;
     }
@@ -384,17 +387,12 @@ public class RoutineSite {
         this.doors = doors;
     }
 
-    void setManagers(List<StructureFeatureData.Manager> managers) {
-        this.managers = managers;
-    }
-
-    // Every manager of the structure as its templates define them, loaded or not
-    public List<StructureFeatureData.Manager> getManagers() {
-        return managers;
-    }
-
     void setMarkers(List<StructureFeatureData.Marker> markers) {
         this.markers = markers;
+        Map<MarkerKind, List<StructureFeatureData.Marker>> grouped = new EnumMap<>(MarkerKind.class);
+        for(StructureFeatureData.Marker marker : markers)
+            grouped.computeIfAbsent(marker.kind(), kind -> new ArrayList<>()).add(marker);
+        this.markersByKind = grouped;
         this.patrolRoute = null;
         this.cells = null;
     }
@@ -407,14 +405,8 @@ public class RoutineSite {
         return doors;
     }
 
-    // The positions of the markers and the directions they face
     public List<StructureFeatureData.Marker> getMarkers(MarkerKind kind) {
-        List<StructureFeatureData.Marker> found = new ArrayList<>();
-        for(StructureFeatureData.Marker marker : markers) {
-            if(marker.kind() == kind)
-                found.add(marker);
-        }
-        return found;
+        return markersByKind.getOrDefault(kind, List.of());
     }
 
     public @Nullable PrisonCell findCell(BlockPos pos) {
@@ -428,12 +420,16 @@ public class RoutineSite {
     }
 
     public List<BlockPos> getFields(BlockPos near, int range) {
-        List<BlockPos> fields = new ArrayList<>();
+        return stationsNear(List.of(StationKind.FIELD), near, range);
+    }
+
+    public List<BlockPos> stationsOf(StationKind kind) {
+        List<BlockPos> found = new ArrayList<>();
         for(StructureFeatureData.Station station : stations) {
-            if(station.kind() == StationKind.FIELD && station.pos().isWithinDistance(near, range))
-                fields.add(station.pos());
+            if(station.kind() == kind)
+                found.add(station.pos());
         }
-        return fields;
+        return found;
     }
 
     // Stations of these kinds within range, nearest first
@@ -455,16 +451,9 @@ public class RoutineSite {
         return null;
     }
 
-    // The closest station of one of these kinds to the given place, which is the npc's home
     public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
-        BlockPos best = null;
-        for(StructureFeatureData.Station station : stations) {
-            if(!kinds.contains(station.kind()) || !station.pos().isWithinDistance(near, range))
-                continue;
-            if(best == null || station.pos().getSquaredDistance(near) < best.getSquaredDistance(near))
-                best = station.pos();
-        }
-        return best;
+        List<BlockPos> found = stationsNear(kinds, near, range);
+        return found.isEmpty() ? null : found.getFirst();
     }
 
     void setTables(List<List<BlockPos>> tables) {
@@ -551,9 +540,7 @@ public class RoutineSite {
         StructureFeatureData.Marker best = null;
         for(MarkerKind kind : kinds) {
             for(StructureFeatureData.Marker marker : getMarkers(kind)) {
-                UUID holder = postClaims.get(marker.pos());
-                boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
-                if(free && (best == null || marker.pos().getSquaredDistance(near) < best.pos().getSquaredDistance(near)))
+                if(isFree(world, postClaims.get(marker.pos()), npc) && (best == null || marker.pos().getSquaredDistance(near) < best.pos().getSquaredDistance(near)))
                     best = marker;
             }
         }
@@ -578,15 +565,17 @@ public class RoutineSite {
             if(!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4))
                 continue;
             BlockState state = world.getBlockState(pos);
-            UUID holder = bedClaims.get(pos);
-            boolean free = holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
-            if(!free || !(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED) || NestSurvey.standFor(world, pos) == null)
+            if(!isFree(world, bedClaims.get(pos), npc) || !(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED) || NestSurvey.standFor(world, pos) == null)
                 continue;
             bedClaims.values().removeIf(npc::equals);
             bedClaims.put(pos, npc);
             return pos;
         }
         return null;
+    }
+
+    private static boolean isFree(ServerWorld world, @Nullable UUID holder, UUID npc) {
+        return holder == null || holder.equals(npc) || !(world.getEntity(holder) instanceof NpcEntity holding && holding.isAlive());
     }
 
     public void releasePost(UUID npc) {
@@ -758,7 +747,7 @@ public class RoutineSite {
 
     // A log column with leaves on top is a tree. The logs of a building or a fence post have none
     private void scanTree(ServerWorld world, int x, int z) {
-        if(trees.size() >= MAXIMUM_TREES || !world.isChunkLoaded(x >> 4, z >> 4))
+        if(trees.size() >= MAXIMUM_TREES || !isAroundLoaded(world, x, z))
             return;
         int top = world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) - 1;
         BlockPos.Mutable at = new BlockPos.Mutable(x, top, z);
@@ -781,6 +770,12 @@ public class RoutineSite {
         if(NestSurvey.standNextTo(world, foot, foot) == null)
             return;
         trees.add(foot);
+    }
+
+    // The neighbouring columns are read too, which would load a chunk at the edge of the loaded ones
+    private static boolean isAroundLoaded(ServerWorld world, int x, int z) {
+        return world.isChunkLoaded((x - 1) >> 4, (z - 1) >> 4) && world.isChunkLoaded((x + 1) >> 4, (z - 1) >> 4)
+                && world.isChunkLoaded((x - 1) >> 4, (z + 1) >> 4) && world.isChunkLoaded((x + 1) >> 4, (z + 1) >> 4);
     }
 
     private void scanShore(ServerWorld world, int waterX, int waterZ, int waterY) {
@@ -866,6 +861,7 @@ public class RoutineSite {
     // a river or up a cliff. The flood spreads from the doors of the place one column at a time, going up at most a block
     // and down a few, and never into water or onto a roof. With no doors known, every spot is kept
     private void keepReachable(ServerWorld world) {
+        patrolRoute = null;
         if(doors.isEmpty())
             return;
         int bound = 0;
@@ -919,7 +915,6 @@ public class RoutineSite {
                 shoreWaters.remove(i);
             }
         }
-        patrolRoute = null;
     }
 
     private static long column(int x, int z) {

@@ -11,6 +11,9 @@ import net.minecraft.util.math.MathHelper;
 import java.util.List;
 
 public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
+    // In radians, how far apart the arms are held
+    private static final float ASK_ARM_SPREAD = 0.45f;
+    private static final float EXCLAIM_ARM_SPREAD = 0.6f;
     private static final String LEFT_SLEEVE = "left_sleeve";
     private static final String RIGHT_SLEEVE = "right_sleeve";
     private static final String LEFT_PANTS = "left_pants";
@@ -76,21 +79,21 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
             case ASK -> {
                 float pitch = -0.7f + 0.08f * MathHelper.sin(time * 0.35f);
                 if(right)
-                    pose(rightArm, ease, pitch, 0.45f);
+                    pose(rightArm, ease, pitch, ASK_ARM_SPREAD);
                 if(left)
-                    pose(leftArm, ease, pitch, -0.45f);
+                    pose(leftArm, ease, pitch, -ASK_ARM_SPREAD);
             }
             // Throws both arms up
             case EXCLAIM -> {
                 float pitch = -3f + 0.12f * MathHelper.sin(time * 1.1f);
                 if(right)
-                    pose(rightArm, ease, pitch, 0.6f);
+                    pose(rightArm, ease, pitch, EXCLAIM_ARM_SPREAD);
                 if(left)
-                    pose(leftArm, ease, pitch, -0.6f);
+                    pose(leftArm, ease, pitch, -EXCLAIM_ARM_SPREAD);
             }
             // Shakes with it
             case LAUGH -> {
-                float shake = ease * (0.12f * MathHelper.sin(time * 1.3f) - 0.25f);
+                float shake = ease * (0.12f * MathHelper.sin(time * NpcEntityRenderer.LAUGH_SHAKE_SPEED) - 0.25f);
                 if(right)
                     rightArm.pitch += shake;
                 if(left)

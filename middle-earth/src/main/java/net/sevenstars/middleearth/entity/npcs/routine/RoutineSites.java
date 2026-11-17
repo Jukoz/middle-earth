@@ -46,7 +46,7 @@ public class RoutineSites {
     private static final int SCAN_STEPS = 8;
     private static final int ROUTINE_STARTS = 1;
     private static final int PATH_REQUESTS = 3;
-    private static final int PREY_SEARCHES = 1;
+    private static final int ENTITY_SEARCHES = 1;
 
     private static final int WILD_CELL_SIZE = 48;
     private static final int DESTINATION_RANGE = 320;
@@ -70,6 +70,13 @@ public class RoutineSites {
     private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
 
     private static class WorldSites {
+        final Long2ObjectOpenHashMap<RoutineSite> sites = new Long2ObjectOpenHashMap<>();
+        final ArrayDeque<RoutineSite> scanning = new ArrayDeque<>();
+        long budgetTick = -1;
+        int starts;
+        int paths;
+        int entitySearches;
+
         // The blocks off_limits markers face, plus the block above each one for the upper half of a door
         private final LongOpenHashSet noEntry = new LongOpenHashSet();
 
@@ -94,20 +101,13 @@ public class RoutineSites {
             }
         }
 
-        final Long2ObjectOpenHashMap<RoutineSite> sites = new Long2ObjectOpenHashMap<>();
-        final ArrayDeque<RoutineSite> scanning = new ArrayDeque<>();
-        long budgetTick = -1;
-        int starts;
-        int paths;
-        int searches;
-
         void refresh(long time) {
             if(budgetTick == time)
                 return;
             budgetTick = time;
             starts = ROUTINE_STARTS;
             paths = PATH_REQUESTS;
-            searches = PREY_SEARCHES;
+            entitySearches = ENTITY_SEARCHES;
         }
     }
 
@@ -133,17 +133,16 @@ public class RoutineSites {
         }
 
         long time = world.getTime();
+        if(time % CLEANUP_INTERVAL == 0)
+            sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().getLastUsed() > UNUSED_LIFETIME);
         if(time % RETRY_INTERVAL == 0) {
             // A structure's site is stored under the key of each of its managers as well as its own key
             for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {
                 if(site.hasMissed())
                     site.retryMissed(world);
             }
-        }
-        if(time % CLEANUP_INTERVAL == 0)
-            sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().lastUsed > UNUSED_LIFETIME);
-        if(time % RETRY_INTERVAL == 0)
             sites.listNoEntry(world);
+        }
     }
 
     // Drops everything computed for a world, so it gets recomputed after a structure is added or removed
@@ -177,9 +176,9 @@ public class RoutineSites {
     // One budget shared by the searches for prey, for company at a table and for someone to escort
     public static boolean takeEntitySearch(ServerWorld world) {
         WorldSites sites = of(world);
-        if(sites.searches <= 0)
+        if(sites.entitySearches <= 0)
             return false;
-        sites.searches--;
+        sites.entitySearches--;
         return true;
     }
 
@@ -250,7 +249,7 @@ public class RoutineSites {
                 return null;
             sites.sites.put(key, site);
         }
-        site.lastUsed = world.getTime();
+        site.touch(world.getTime());
         return site;
     }
 
@@ -264,7 +263,7 @@ public class RoutineSites {
         if(start != null) {
             RoutineSite site = forStructure(world, sites, start);
             if(site != null)
-                site.lastUsed = world.getTime();
+                site.touch(world.getTime());
             return site;
         }
 
@@ -279,13 +278,13 @@ public class RoutineSites {
         long wildKey = BlockPos.asLong(cellX, underground ? UNDERGROUND_KEY_Y : WILD_KEY_Y, cellZ);
         RoutineSite site = sites.sites.get(wildKey);
         if(site != null) {
-            site.lastUsed = world.getTime();
+            site.touch(world.getTime());
             return site;
         }
 
         site = create(world, sites, centerX, centerZ, underground, 0, 0, null);
         sites.sites.put(wildKey, site);
-        site.lastUsed = world.getTime();
+        site.touch(world.getTime());
         return site;
     }
 
@@ -306,7 +305,7 @@ public class RoutineSites {
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
         int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, extent, pieces);
-        placesOf(world, start, site);
+        placesOf(world, sites, start, site);
         site.setOwners(world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure()).streamTags()
                 .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
                 .map(tag -> tag.id().getPath().substring(FACTION_TAG_PREFIX.length())).collect(Collectors.toSet()));
@@ -315,7 +314,7 @@ public class RoutineSites {
     }
 
     // Collects the generated data for the pieces this settlement is made of
-    private static void placesOf(ServerWorld world, StructureStart start, RoutineSite site) {
+    private static void placesOf(ServerWorld world, WorldSites sites, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
         List<StructureFeatureData.Station> stations = new ArrayList<>();
         List<StructureFeatureData.Bed> beds = new ArrayList<>();
@@ -324,7 +323,6 @@ public class RoutineSites {
         List<BlockPos> seats = new ArrayList<>();
         List<BlockPos> doors = new ArrayList<>();
         List<StructureFeatureData.Marker> markers = new ArrayList<>();
-        List<StructureFeatureData.Manager> managers = new ArrayList<>();
         Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
         if(registry.isEmpty())
             return;
@@ -351,8 +349,6 @@ public class RoutineSites {
             }
             for(StructureFeatureData.Station station : data.stations())
                 stations.add(new StructureFeatureData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
-            for(StructureFeatureData.Manager manager : data.managers())
-                managers.add(new StructureFeatureData.Manager(NestSurvey.placedAt(placed, manager.pos()), manager.data()));
             for(BlockPos seat : data.seats())
                 seats.add(NestSurvey.placedAt(placed, seat));
             for(BlockPos door : data.doors())
@@ -369,8 +365,7 @@ public class RoutineSites {
         site.setSeats(seats);
         site.setDoors(doors);
         site.setMarkers(markers);
-        site.setManagers(managers);
-        of(world).listNoEntry(world, site);
+        sites.listNoEntry(world, site);
     }
 
     private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
@@ -383,9 +378,8 @@ public class RoutineSites {
     private static @Nullable StructureStart findFactionStructure(ServerWorld world, BlockPos pos, Identifier factionId) {
         Registry<Structure> structures = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
         TagKey<Structure> tag = factionTag(factionId.getPath());
-        // longbeards.erebor also lives in longbeards structures
-        int split = factionId.getPath().indexOf('.');
-        TagKey<Structure> parentTag = split < 0 ? null : factionTag(factionId.getPath().substring(0, split));
+        String parent = parentFaction(factionId.getPath());
+        TagKey<Structure> parentTag = parent == null ? null : factionTag(parent);
 
         // A chunk only knows the structures that reach into it, so check the surrounding chunks too
         ChunkPos center = new ChunkPos(pos);
@@ -402,6 +396,12 @@ public class RoutineSites {
             }
         }
         return null;
+    }
+
+    // longbeards.erebor also counts as longbeards. Null when the faction has no parent
+    static @Nullable String parentFaction(String path) {
+        int split = path.indexOf('.');
+        return split < 0 ? null : path.substring(0, split);
     }
 
     private static TagKey<Structure> factionTag(String faction) {

@@ -18,6 +18,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
     private static final int PASSING_TIME = 20;
     private static final int MAXIMUM_HOLD_TIME = 20 * 10;
     private static final int DOORWAY_CHECK_INTERVAL = 5;
+
     private static final int NODES_AHEAD = 2;
     private static final double DOORWAY_REACH = 1.25;
     private static final double OWN_REACH = 2;
@@ -33,8 +34,8 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         this.delayedClose = delayedClose;
     }
 
-    // The game measures to a corner of the door, so an npc a little wider than most, pressed against a shutter beside
-    // the doorway, was never near enough to open it. This measures to the middle of the door instead
+    // The game measures to a corner of the door, which an npc a little wider than most, pressed against a shutter beside
+    // the doorway, is never near enough to. This measures to the middle of the door instead
     @Override
     public boolean canStart() {
         if(!mob.horizontalCollision || !(mob.getNavigation() instanceof MobNavigation navigation))

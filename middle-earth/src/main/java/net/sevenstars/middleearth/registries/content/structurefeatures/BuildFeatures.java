@@ -47,12 +47,10 @@ public enum BuildFeatures implements Predicate<Block> {
 
     private static final List<String> WORK_TABLES = List.of("crafting_table", "cartography_table", "smithing_table", "fletching_table", "enchanting_table", "artisan_table");
 
-    private final String name;
     private final Predicate<Block> test;
     private final TagKey<Block> tag;
 
     BuildFeatures(String name, Predicate<Block> test) {
-        this.name = name;
         this.test = test;
         this.tag = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("build/" + name));
     }
@@ -71,7 +69,6 @@ public enum BuildFeatures implements Predicate<Block> {
         return WORK_TABLES.stream().anyMatch(path::endsWith);
     }
 
-    // Which kind of station a block is. Goes by the path of its id, so the wood or stone it's made of doesn't matter
     public static @Nullable StationKind stationOf(Block block) {
         if(FIELD.test(block))
             return StationKind.FIELD;

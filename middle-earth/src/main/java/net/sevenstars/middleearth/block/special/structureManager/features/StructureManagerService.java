@@ -30,11 +30,11 @@ import java.util.Set;
 
 public class StructureManagerService {
     private static final int SPAWN_ATTEMPTS = 12;
-    private static final Map<RegistryKey<World>, Set<BlockPos>> STRUCTURE_MANAGERS = new HashMap<>();
+    private static final Map<RegistryKey<World>, Set<BlockPos>> HOSTS = new HashMap<>();
 
-    // Managers are only removed from the list as their chunks unload, and a stopping server doesn't wait for that
+    // Hosts are only removed as their chunks unload, and a stopping server doesn't wait for that
     public static void register() {
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> STRUCTURE_MANAGERS.clear());
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> HOSTS.clear());
     }
 
     public static StructureManagerData getStructureManagerData(World world, Identifier structureManagerDataId){
@@ -95,8 +95,6 @@ public class StructureManagerService {
 
     public static @Nullable LivingEntity spawnNpcAt(ServerWorld world, Identifier npcClass, BlockPos pos) {
         NpcEntity npc = new NpcEntityBuilder(world, pos).withNpcClass(npcClass).build();
-        if(npc == null)
-            return null;
         world.spawnEntity(npc);
         return npc;
     }
@@ -117,8 +115,6 @@ public class StructureManagerService {
                 mob.initialize(world, world.getLocalDifficulty(chosenBlockPos), SpawnReason.STRUCTURE, null);
             entity.setPosition(chosenBlockPos.toCenterPos());
         }
-        if(entity == null)
-            return null;
         world.spawnEntity(entity);
         return entity;
     }
@@ -127,33 +123,33 @@ public class StructureManagerService {
     public static void registerHost(World world, BlockPos pos) {
         if (world == null || world.isClient())
             return;
-        STRUCTURE_MANAGERS.computeIfAbsent(world.getRegistryKey(), key -> new HashSet<>())
+        HOSTS.computeIfAbsent(world.getRegistryKey(), key -> new HashSet<>())
                           .add(pos.toImmutable());
     }
 
     public static void unregisterHost(@Nullable World world, BlockPos pos) {
         if (world == null || world.isClient())
             return;
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
-        if (managers == null)
+        Set<BlockPos> hosts = HOSTS.get(world.getRegistryKey());
+        if (hosts == null)
             return;
 
-        managers.remove(pos);
-        if (managers.isEmpty())
-            STRUCTURE_MANAGERS.remove(world.getRegistryKey());
+        hosts.remove(pos);
+        if (hosts.isEmpty())
+            HOSTS.remove(world.getRegistryKey());
     }
 
     public static boolean isClose(World world, BlockPos pos, int radius) {
-        Set<BlockPos> managers = STRUCTURE_MANAGERS.get(world.getRegistryKey());
+        Set<BlockPos> hosts = HOSTS.get(world.getRegistryKey());
 
-        if (managers == null) {
+        if (hosts == null) {
             return false;
         }
 
         int radiusSquared = radius * radius;
 
-        for (BlockPos managerPos : managers) {
-            if (managerPos.getSquaredDistance(pos) <= radiusSquared) {
+        for (BlockPos hostPos : hosts) {
+            if (hostPos.getSquaredDistance(pos) <= radiusSquared) {
                 return true;
             }
         }
