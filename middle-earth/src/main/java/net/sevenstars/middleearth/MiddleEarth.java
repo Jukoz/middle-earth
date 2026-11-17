@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.features.smithing.Smithing;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.config.ClientConfigME;
@@ -54,6 +55,10 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
+		// The block registries and the datagen lists they fill reference each other while loading,
+		// so which class loads first decides what those lists see. BlockRegistryME has to be first.
+		BlockRegistryME.registerModBlocks();
+
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
@@ -86,6 +91,7 @@ public class MiddleEarth implements ModInitializer {
 		NatureBlockItemsME.registerModItems();
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
+		Smithing.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 
@@ -95,6 +101,7 @@ public class MiddleEarth implements ModInitializer {
 		RegistriesME.registerToolTipAppenders();
 		RegistriesME.registerFlammableBlocks();
 		RegistriesME.registerTillableBlocks();
+		RegistriesME.registerShovelPaths();
 		RegistriesME.registerAgingCopperBlocks();
 		RegistriesME.registerComposterBlocks();
 		RegistriesME.registerBedPointsOfInterest();

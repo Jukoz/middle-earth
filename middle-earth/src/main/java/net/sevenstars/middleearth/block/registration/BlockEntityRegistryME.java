@@ -5,15 +5,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntity;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
-import net.sevenstars.middleearth.block.special.forge.ForgeBlockEntity;
 import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
-import net.sevenstars.middleearth.block.special.shapingAnvil.ShapingAnvilBlockEntity;
-import net.sevenstars.middleearth.block.special.shapingAnvil.stoneanvil.StoneAnvilBlockEntity;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
@@ -25,15 +21,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 public class BlockEntityRegistryME {
-    public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
-            DecorativeBlockRegistryME.FORGE);
-    public static BlockEntityType<StoneAnvilBlockEntity> STONE_ANVIL = register("stone_anvil", StoneAnvilBlockEntity::new,
-            DecorativeBlockRegistryME.STONE_ANVIL);
-    public static BlockEntityType<ShapingAnvilBlockEntity> TREATED_ANVIL = register("treated_anvil", ShapingAnvilBlockEntity::new,
-            DecorativeBlockRegistryME.TREATED_ANVIL,
-            DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL,
-            DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL,
-            DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL);
     public static BlockEntityType<StructureManagerBlockEntity> STRUCTURE_MANAGER = register("structure_manager", StructureManagerBlockEntity::new,
             DecorativeBlockRegistryME.STRUCTURE_MANAGER,
             DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER);
@@ -57,8 +44,6 @@ public class BlockEntityRegistryME {
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             DecorativeBlockRegistryME.REINFORCED_CHEST);
-    public static BlockEntityType<BellowsBlockEntity> BELLOWS = register("bellows", BellowsBlockEntity::new,
-            DecorativeBlockRegistryME.BELLOWS);
     /*public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
             ModDecorativeBlocks.CERAMIC_CROCKPOT,
             ModDecorativeBlocks.CROCKPOT);*/
@@ -102,13 +87,16 @@ public class BlockEntityRegistryME {
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.GRAY_FAT_POT);
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.POT_OF_GOLD);
 
+        BlockEntityType.LECTERN.addSupportedBlock(DecorativeBlockRegistryME.STONE_LECTERN);
+        BlockEntityType.CHISELED_BOOKSHELF.addSupportedBlock(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
+
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(DecorativeBlockRegistryME.BRIGAND_TRIAL_SPAWNER);
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(DecorativeBlockRegistryME.SPIDER_TRIAL_SPAWNER);
         BlockEntityType.VAULT.addSupportedBlock(DecorativeBlockRegistryME.BRIGAND_VAULT);
         BlockEntityType.VAULT.addSupportedBlock(DecorativeBlockRegistryME.SPIDER_VAULT);
     }
 
-    private static <T extends BlockEntity> BlockEntityType<T> register(String name,
+    public static <T extends BlockEntity> BlockEntityType<T> register(String name,
                                                                        FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
                                                                        Block... blocks) {
         Identifier id = Identifier.of(MiddleEarth.MOD_ID, name);

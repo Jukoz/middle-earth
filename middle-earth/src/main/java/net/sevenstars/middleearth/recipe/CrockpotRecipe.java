@@ -13,7 +13,7 @@ import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
+import net.sevenstars.middleearth.common.recipe.MultipleStackRecipeInput;
 
 import java.util.List;
 

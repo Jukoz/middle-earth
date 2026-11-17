@@ -32,7 +32,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlock;
+import net.sevenstars.middleearth.features.smithing.block.bellows.BellowsBlock;
 import org.jetbrains.annotations.Nullable;
 
 public class CrockpotBlock extends BlockWithEntity {

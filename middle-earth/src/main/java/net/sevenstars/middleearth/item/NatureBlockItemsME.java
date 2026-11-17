@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.ItemRegistrar;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -40,11 +41,7 @@ public class NatureBlockItemsME {
             (settings) -> new PlaceableOnWaterItem(NatureBlockRegistryME.FLOATING_ICE, settings), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
-        ItemGroupsME.NATURE_BLOCKS_CONTENTS.add(item.getDefaultStack());
-        TranslationEntries.itemEntries.add(item);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return ItemRegistrar.register(name, factory, settings, ItemGroupsME.NATURE_BLOCKS_CONTENTS);
     }
 
     public static void registerModItems() {

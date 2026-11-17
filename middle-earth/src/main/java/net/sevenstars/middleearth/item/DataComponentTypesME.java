@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.features.smithing.item.TemperatureDataComponent;
+
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatColor;
 import net.sevenstars.middleearth.item.dataComponents.*;

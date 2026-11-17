@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Block;
@@ -24,8 +28,8 @@ import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
 import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
-import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.smithing.datagen.AlloyRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.smithing.datagen.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
 import net.sevenstars.middleearth.utils.ItemTagsME;
@@ -1162,12 +1166,12 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 createMeltBulkRecipe(exporter, Items.NETHERITE_INGOT, "netherite");
 
-                createAnvilRecipe(exporter, BlockRegistryME.STEEL_BLOCK.asItem(), ResourceItemsME.STEEL_INGOT, DecorativeItemsME.TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.KHAZAD_STEEL_BLOCK.asItem(), ResourceItemsME.KHAZAD_STEEL_INGOT, DecorativeItemsME.DWARVEN_TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.EDHEL_STEEL_BLOCK.asItem(), ResourceItemsME.EDHEL_STEEL_INGOT, DecorativeItemsME.ELVEN_TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.BURZUM_STEEL_BLOCK.asItem(), ResourceItemsME.BURZUM_STEEL_INGOT, DecorativeItemsME.ORCISH_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.STEEL_BLOCK.asItem(), ResourceItemsME.STEEL_INGOT, SmithingItems.TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.KHAZAD_STEEL_BLOCK.asItem(), ResourceItemsME.KHAZAD_STEEL_INGOT, SmithingItems.DWARVEN_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.EDHEL_STEEL_BLOCK.asItem(), ResourceItemsME.EDHEL_STEEL_INGOT, SmithingItems.ELVEN_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.BURZUM_STEEL_BLOCK.asItem(), ResourceItemsME.BURZUM_STEEL_INGOT, SmithingItems.ORCISH_TREATED_ANVIL);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.BELLOWS, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, SmithingItems.BELLOWS, 1)
                         .pattern(" PS")
                         .pattern("PFF")
                         .pattern("TPS")
@@ -2658,7 +2662,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBannerPatternRecipe(exporter, Items.BONE_BLOCK, ResourceItemsME.GOBLIN_SKULL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.SKELETON_SKULL, ResourceItemsME.SCREECHING_SKULL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.WHITE_DYE, ResourceItemsME.ISENGARD_BANNER_PATTERN);
-                createBannerPatternRecipe(exporter, ToolItemsME.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, SmithingItems.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ResourceItemsME.BRONZE_INGOT, ResourceItemsME.BELL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.GOLD_NUGGET, ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.SPIDER_EYE, ResourceItemsME.SPIDER_BANNER_PATTERN);
@@ -3236,29 +3240,29 @@ public class RecipeProvider extends FabricRecipeProvider {
                 switch (ingots) {
                     case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount, 0)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + input.id().getPath())));
                     case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + input.id().getPath())));
                     case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3, 0)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + input.id().getPath())));
                     case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_4_" + input.id().getPath())));
                 }
             }

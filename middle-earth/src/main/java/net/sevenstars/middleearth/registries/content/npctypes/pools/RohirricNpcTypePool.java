@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npctypes.pools;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -67,7 +69,7 @@ public class RohirricNpcTypePool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.STONE_AXE))
                                 .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
-                                .add(WeightedItemData.create(ToolItemsME.SMITHING_HAMMER))
+                                .add(WeightedItemData.create(SmithingItems.SMITHING_HAMMER))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
         ), NpcRegistry.COMMON_NPC_ATTRIBUTES , CombatArchetypePool.DEFAULT, NpcLoot.FROM_1_TO_4);

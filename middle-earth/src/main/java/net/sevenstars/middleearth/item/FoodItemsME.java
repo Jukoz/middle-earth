@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.ItemRegistrar;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponents;
@@ -128,11 +129,7 @@ public class FoodItemsME {
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
-        ItemGroupsME.FOOD_CONTENTS.add(item.getDefaultStack());
-        TranslationEntries.itemEntries.add(item);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return ItemRegistrar.register(name, factory, settings, ItemGroupsME.FOOD_CONTENTS);
     }
 
     public static void registerModItems() {

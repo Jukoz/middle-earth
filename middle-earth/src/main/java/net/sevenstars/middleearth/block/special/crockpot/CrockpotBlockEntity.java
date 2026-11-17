@@ -33,7 +33,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.forge.MultipleStackRecipeInput;
+import net.sevenstars.middleearth.common.recipe.MultipleStackRecipeInput;
 import net.sevenstars.middleearth.recipe.CrockpotRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 import org.jetbrains.annotations.Nullable;

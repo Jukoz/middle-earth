@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.compat;
 
+import net.sevenstars.middleearth.features.smithing.SmithingRecipes;
+
 import dev.architectury.utils.GameInstance;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
@@ -10,8 +12,8 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.RecipeEntry;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
-import net.sevenstars.middleearth.compat.forge.AlloyingDisplay;
-import net.sevenstars.middleearth.recipe.AlloyingRecipe;
+import net.sevenstars.middleearth.features.smithing.compat.AlloyingDisplay;
+import net.sevenstars.middleearth.features.smithing.recipe.AlloyingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 
@@ -40,7 +42,7 @@ public class REICommonPluginME implements REICommonPlugin {
             registry.add(new ArtisanTableDisplay(inputs, List.of(EntryIngredients.of(artisanRecipe.getOutput())), artisanRecipe.category));
         }
 
-        Collection<RecipeEntry<AlloyingRecipe>> alloyRecipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(RecipesME.FORGE);
+        Collection<RecipeEntry<AlloyingRecipe>> alloyRecipeEntryList = GameInstance.getServer().getRecipeManager().getAllOfType(SmithingRecipes.FORGE);
         for(RecipeEntry<AlloyingRecipe> recipeEntry : alloyRecipeEntryList) {
             AlloyingRecipe alloyRecipe = recipeEntry.value();
             if(!alloyRecipe.output.contains("nugget")) {
