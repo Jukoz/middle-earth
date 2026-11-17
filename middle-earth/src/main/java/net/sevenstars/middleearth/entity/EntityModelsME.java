@@ -1,12 +1,20 @@
 package net.sevenstars.middleearth.entity;
 
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.sevenstars.middleearth.features.smithing.block.bellows.BellowsBlockEntityRenderer;
-import net.sevenstars.middleearth.block.special.coffers.*;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;

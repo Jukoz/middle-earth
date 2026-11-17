@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries;
 
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
 import net.sevenstars.middleearth.features.cooking.CookingItems;
 
 import net.sevenstars.middleearth.mixin.ShovelItemAccessor;
@@ -171,7 +173,7 @@ public class RegistriesME {
 
         FlammableBlockRegistry.getDefaultInstance().add(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING, 60, 60);
 
-        FlammableBlockRegistry.getDefaultInstance().add(DecorativeBlockRegistryME.WOOD_PILE, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(StorageBlocks.WOOD_PILE, 5, 5);
 
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.LEBETHRON_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.BERRY_HOLLY_LEAVES, 30, 60);
@@ -370,7 +372,7 @@ public class RegistriesME {
             builder.add(NatureBlockRegistryME.TAN_SHRUB, 100);
 
             builder.add(DecorativeBlockRegistryME.ROPE, 150);
-            builder.add(DecorativeBlockRegistryME.WOOD_PILE, 200);
+            builder.add(StorageBlocks.WOOD_PILE, 200);
 
             builder.add(BlockRegistryME.WHITE_WOOL_SLAB, 50);
             builder.add(BlockRegistryME.ORANGE_WOOL_SLAB, 50);

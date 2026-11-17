@@ -5,7 +5,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.features.cooking.block.crockpot.CrockpotScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
-import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
+import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreenHandler;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,8 +19,6 @@ import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNe
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
 
 public class ScreenHandlerRegistryME {
-    public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER
-            = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
     
 
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER
@@ -37,7 +35,6 @@ public class ScreenHandlerRegistryME {
 
 
     public static void registerAllScreenHandlers() {
-        register("wood_pile", WOOD_PILE_SCREEN_HANDLER);
         register("artisan_table", ARTISAN_SCREEN_HANDLER);
         register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);

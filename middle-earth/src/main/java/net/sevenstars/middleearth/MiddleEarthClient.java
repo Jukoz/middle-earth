@@ -1,5 +1,17 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.storage.StorageClient;
+
+
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+
 import net.sevenstars.middleearth.features.cooking.CookingClient;
 
 
@@ -24,11 +36,10 @@ import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.features.smithing.SmithingClient;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.features.cooking.block.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
@@ -77,7 +88,7 @@ import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
-import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
+import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -150,19 +161,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.FIR_COFFER, FirCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.BEECH_COFFER, BeechCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.CHESTNUT_COFFER, ChestnutCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.OAK_COFFER, OakCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.WILLOW_COFFER, WillowCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
         BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
@@ -229,6 +230,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         initializeRenderLayerMap();
         SmithingClient.register();
         CookingClient.register();
+        StorageClient.register();
         BlockColorsME.initializeBlockColors();
     }
 

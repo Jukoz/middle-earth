@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.storage.Storage;
+
 import net.sevenstars.middleearth.features.cooking.Cooking;
 
 import net.fabricmc.api.ModInitializer;
@@ -98,6 +100,7 @@ public class MiddleEarth implements ModInitializer {
 		DecorativeBlockRegistryME.registerModBlocks();
 		Smithing.register();
 		Cooking.register();
+		Storage.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

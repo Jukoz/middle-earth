@@ -1,19 +1,29 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferBlockEntity;
+
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
-import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.features.cooking.block.plate.PlateBlockEntity;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
-import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
-import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlockEntity;
+import net.sevenstars.middleearth.features.storage.block.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -29,26 +39,13 @@ public class BlockEntityRegistryME {
     public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
             DecorativeBlockRegistryME.STRUCTURE_NEST);
 
-    public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = register("larch_coffer", LarchCofferBlockEntity::new, DecorativeBlockRegistryME.LARCH_COFFER);
-    public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = register("pine_coffer", PineCofferBlockEntity::new, DecorativeBlockRegistryME.PINE_COFFER);
-    public static BlockEntityType<SpruceCofferBlockEntity> SPRUCE_COFFER = register("spruce_coffer", SpruceCofferBlockEntity::new, DecorativeBlockRegistryME.SPRUCE_COFFER);
-    public static BlockEntityType<FirCofferBlockEntity> FIR_COFFER = register("fir_coffer", FirCofferBlockEntity::new, DecorativeBlockRegistryME.FIR_COFFER);
-    public static BlockEntityType<BeechCofferBlockEntity> BEECH_COFFER = register("beech_coffer", BeechCofferBlockEntity::new, DecorativeBlockRegistryME.BEECH_COFFER);
-    public static BlockEntityType<ChestnutCofferBlockEntity> CHESTNUT_COFFER = register("chestnut_coffer", ChestnutCofferBlockEntity::new, DecorativeBlockRegistryME.CHESTNUT_COFFER);
-    public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = register("oak_coffer", OakCofferBlockEntity::new, DecorativeBlockRegistryME.OAK_COFFER);
-    public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = register("willow_coffer", WillowCofferBlockEntity::new, DecorativeBlockRegistryME.WILLOW_COFFER);
 
     public static BlockEntityType<OldSkullBlockEntity> OLD_SKULL = register("old_skull", OldSkullBlockEntity::new, DecorativeBlockRegistryME.OLD_SKULL);
 
-    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, DecorativeBlockRegistryME.SACK);
 
-    public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
-            DecorativeBlockRegistryME.REINFORCED_CHEST);
     /*public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
             ModDecorativeBlocks.CERAMIC_CROCKPOT,
             ModDecorativeBlocks.CROCKPOT);*/
-    public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
-            DecorativeBlockRegistryME.WOOD_PILE);
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER = register("big_brazier", BrazierBlockEntity::new,
             DecorativeBlockRegistryME.BIG_BRAZIER);
     public static BlockEntityType<SmallBrazierBlockEntity> SMALL_BRAZIER = register("small_brazier", SmallBrazierBlockEntity::new,
@@ -69,8 +66,8 @@ public class BlockEntityRegistryME {
             DecorativeBlockRegistryME.STRAW_BED);
 
     public static void registerBlockEntities() {
-        BlockEntityType.BARREL.addSupportedBlock(DecorativeBlockRegistryME.SMALL_CRATE);
-        BlockEntityType.BARREL.addSupportedBlock(DecorativeBlockRegistryME.THIN_BARREL);
+        BlockEntityType.BARREL.addSupportedBlock(StorageBlocks.SMALL_CRATE);
+        BlockEntityType.BARREL.addSupportedBlock(StorageBlocks.THIN_BARREL);
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.AMPHORA);
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.BROWN_AMPHORA);
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.BROWN_JUG);

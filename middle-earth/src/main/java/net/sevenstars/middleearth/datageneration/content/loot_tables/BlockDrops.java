@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
 import net.sevenstars.middleearth.features.cooking.CookingBlocks;
 
 import net.sevenstars.middleearth.common.registration.RegistrationLists;
@@ -32,7 +34,7 @@ public class BlockDrops {
             add(DecorativeBlockRegistryME.WALL_LEAD_LANTERN);
             add(DecorativeBlockRegistryME.CRYSTAL_LAMP);
             add(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP);
-            add(DecorativeBlockRegistryME.WOOD_PILE);
+            add(StorageBlocks.WOOD_PILE);
             add(DecorativeBlockRegistryME.ORCISH_DRUM);
             add(DecorativeBlockRegistryME.FIRE_OF_ORTHANC);
             add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
@@ -158,15 +160,15 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
 
-            add(DecorativeBlockRegistryME.LARCH_COFFER);
-            add(DecorativeBlockRegistryME.PINE_COFFER);
-            add(DecorativeBlockRegistryME.SPRUCE_COFFER);
-            add(DecorativeBlockRegistryME.FIR_COFFER);
-            add(DecorativeBlockRegistryME.BEECH_COFFER);
-            add(DecorativeBlockRegistryME.CHESTNUT_COFFER);
-            add(DecorativeBlockRegistryME.OAK_COFFER);
-            add(DecorativeBlockRegistryME.WILLOW_COFFER);
-            add(DecorativeBlockRegistryME.REINFORCED_CHEST);
+            add(StorageBlocks.LARCH_COFFER);
+            add(StorageBlocks.PINE_COFFER);
+            add(StorageBlocks.SPRUCE_COFFER);
+            add(StorageBlocks.FIR_COFFER);
+            add(StorageBlocks.BEECH_COFFER);
+            add(StorageBlocks.CHESTNUT_COFFER);
+            add(StorageBlocks.OAK_COFFER);
+            add(StorageBlocks.WILLOW_COFFER);
+            add(StorageBlocks.REINFORCED_CHEST);
 
             add(DecorativeBlockRegistryME.STONE_LECTERN);
             add(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
@@ -235,8 +237,8 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.ROPE_LADDER);
 
-            add(DecorativeBlockRegistryME.THIN_BARREL);
-            add(DecorativeBlockRegistryME.SMALL_CRATE);
+            add(StorageBlocks.THIN_BARREL);
+            add(StorageBlocks.SMALL_CRATE);
 
             add(DecorativeBlockRegistryME.GOLDEN_CHALICE);
 
