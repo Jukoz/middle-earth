@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.network;
 
+import net.sevenstars.middleearth.features.artisan.network.ArtisanRecipePacket;
+
+import net.sevenstars.middleearth.features.inscription.network.InscriptionEnchantInfoPacket;
+
 import net.sevenstars.middleearth.features.smithing.network.ShapingAnvilRecipePacket;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

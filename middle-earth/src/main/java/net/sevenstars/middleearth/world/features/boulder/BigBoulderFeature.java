@@ -1,9 +1,11 @@
 package net.sevenstars.middleearth.world.features.boulder;
 
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -123,6 +125,6 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
                 StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.SPAWNER);
         CANNOT_REPLACE_BLOCKS = ImmutableList.of(Blocks.BEDROCK, StoneBlockSetRegistryME.NURGON_SET.cobblestoneBlocks.base(),
                 StoneBlockSetRegistryME.MEDGON_SET.smoothBlocks.base(), Blocks.CHEST, Blocks.BARREL, Blocks.SPAWNER, DecorativeBlockRegistryME.STRUCTURE_MANAGER,
-                DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, DecorativeBlockRegistryME.STRUCTURE_NEST, DecorativeBlockRegistryME.THIN_BARREL, DecorativeBlockRegistryME.SMALL_CRATE);
+                DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, DecorativeBlockRegistryME.STRUCTURE_NEST, StorageBlocks.THIN_BARREL, StorageBlocks.SMALL_CRATE);
     }
 }

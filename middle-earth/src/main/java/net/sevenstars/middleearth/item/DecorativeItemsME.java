@@ -57,12 +57,6 @@ public class DecorativeItemsME {
     public static final Item REINFORCED_SCAFFOLDING = registerItem("reinforced_scaffolding",
             (settings) -> new ReinforcedScaffoldingItem(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING, settings), new Item.Settings());
 
-    public static final Item ARTISAN_TABLE = registerItem("artisan_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ARTISAN_TABLE, settings), new Item.Settings());
-    public static final Item ORCISH_ARTISAN_TABLE = registerItem("orcish_artisan_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE, settings), new Item.Settings());
-    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());
@@ -80,39 +74,8 @@ public class DecorativeItemsME {
     public static final Item SPIDER_VAULT = registerItem("spider_vault",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.SPIDER_VAULT, settings), new Item.Settings());
 
-    public static final Item SMALL_CRATE = registerItem("small_crate",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SMALL_CRATE, settings), new Item.Settings());
-    public static final Item THIN_BARREL = registerItem("thin_barrel",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.THIN_BARREL, settings), new Item.Settings());
-    public static final Item LARCH_COFFER = registerItem("larch_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.LARCH_COFFER, settings), new Item.Settings());
-    public static final Item PINE_COFFER = registerItem("pine_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.PINE_COFFER, settings), new Item.Settings());
-    public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SPRUCE_COFFER, settings), new Item.Settings());
-    public static final Item FIR_COFFER = registerItem("fir_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.FIR_COFFER, settings), new Item.Settings());
-    public static final Item BEECH_COFFER = registerItem("beech_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.BEECH_COFFER, settings), new Item.Settings());
-    public static final Item CHESTNUT_COFFER = registerItem("chestnut_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.CHESTNUT_COFFER, settings), new Item.Settings());
-    public static final Item OAK_COFFER = registerItem("oak_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.OAK_COFFER, settings), new Item.Settings());
-    public static final Item WILLOW_COFFER = registerItem("willow_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.WILLOW_COFFER, settings), new Item.Settings());
-    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.REINFORCED_CHEST, settings), new Item.Settings());
     // A full sack can't go in a bundle or another container, like a shulker box
-    public static final Item SACK = registerItem("sack",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SACK, settings) {
-                @Override
-                public boolean canBeNested() {
-                    return false;
-                }
-            }, new Item.Settings().maxCount(1));
 
-    public static final Item WOOD_PILE = registerItem("wood_pile",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.WOOD_PILE, settings), new Item.Settings());
 
     public static final Item BASALT_STATUE = registerItem("basalt_statue",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.BASALT_STATUE, settings), new Item.Settings()

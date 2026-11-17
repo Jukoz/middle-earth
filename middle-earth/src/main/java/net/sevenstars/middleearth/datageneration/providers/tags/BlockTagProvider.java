@@ -1,5 +1,13 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
+
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
 import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -17,7 +25,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.utils.BlockTagsME;
@@ -330,8 +338,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsIronTools.add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
 
-        needsIronTools.add(DecorativeBlockRegistryME.REINFORCED_CHEST);
-        mineableAxe.add(DecorativeBlockRegistryME.REINFORCED_CHEST);
+        needsIronTools.add(StorageBlocks.REINFORCED_CHEST);
+        mineableAxe.add(StorageBlocks.REINFORCED_CHEST);
 
         needsDiamondTools.add(DecorativeBlockRegistryME.FIRE_OF_ORTHANC);
 
@@ -415,10 +423,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineablePickaxe.add(BlockRegistryME.EMBERS);
 
-        mineableAxe.add(DecorativeBlockRegistryME.WOOD_PILE);
-        mineableAxe.add(DecorativeBlockRegistryME.ARTISAN_TABLE);
-        mineableAxe.add(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE);
-        mineableAxe.add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        mineableAxe.add(StorageBlocks.WOOD_PILE);
+        mineableAxe.add(ArtisanBlocks.ARTISAN_TABLE);
+        mineableAxe.add(ArtisanBlocks.ORCISH_ARTISAN_TABLE);
+        mineableAxe.add(InscriptionBlocks.INSCRIPTION_TABLE);
 
         mineablePickaxe.add(BlockRegistryME.BRICK_VERTICAL_SLAB);
         mineablePickaxe.add(BlockRegistryME.MUD_BRICK_VERTICAL_SLAB);

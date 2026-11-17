@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.item.Item;
@@ -13,7 +14,6 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Bows;
 import net.sevenstars.middleearth.datageneration.content.tags.Crossbows;
-import net.sevenstars.middleearth.datageneration.content.tags.WeaponEnchants;
 import net.sevenstars.middleearth.item.dataComponents.FactionDataComponent;
 import net.sevenstars.middleearth.item.items.HeldBannerItem;
 import net.sevenstars.middleearth.item.items.shields.ArtefactCustomShieldItem;
@@ -1199,15 +1199,15 @@ public class WeaponItemsME {
 
     private static Item registerItem(Item item, String name){
         TranslationEntries.itemEntries.add(item);
-        WeaponEnchants.weapons.add(item);
+        RegistrationLists.WEAPONS.add(item);
         if (item instanceof CustomLongswordWeaponItem || item instanceof CustomSwordWeaponItem){
-            WeaponEnchants.swords.add(item);
+            RegistrationLists.SWORDS.add(item);
         } else if (item instanceof CustomDaggerWeaponItem){
-            WeaponEnchants.daggers.add(item);
+            RegistrationLists.DAGGERS.add(item);
         } else if (item instanceof CustomAxeWeaponItem){
-            WeaponEnchants.axes.add(item);
+            RegistrationLists.AXES.add(item);
         } else if (item instanceof CustomSpearWeaponItem){
-            WeaponEnchants.sharpWeapons.add(item);
+            RegistrationLists.SHARP_WEAPONS.add(item);
         }
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, BlockRegistryME.keyOfItem(name), item);

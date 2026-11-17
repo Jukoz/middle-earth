@@ -1,5 +1,29 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.artisan.ArtisanClient;
+
+
+import net.sevenstars.middleearth.features.inscription.InscriptionClient;
+
+
+import net.sevenstars.middleearth.features.storage.StorageClient;
+
+
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+
+import net.sevenstars.middleearth.features.cooking.CookingClient;
+
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
@@ -21,11 +45,10 @@ import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.features.smithing.SmithingClient;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
+import net.sevenstars.middleearth.features.cooking.block.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
@@ -70,11 +93,11 @@ import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
-import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
+import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -145,24 +168,11 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.FIR_COFFER, FirCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.BEECH_COFFER, BeechCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.CHESTNUT_COFFER, ChestnutCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.OAK_COFFER, OakCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.WILLOW_COFFER, WillowCofferEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.PLATE, PlateEntityRenderer::new);
         BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
@@ -226,6 +236,10 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         initializeRenderLayerMap();
         SmithingClient.register();
+        CookingClient.register();
+        StorageClient.register();
+        InscriptionClient.register();
+        ArtisanClient.register();
         BlockColorsME.initializeBlockColors();
     }
 
@@ -371,13 +385,9 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(BlockRegistryME.PEBBLED_GRASS_STAIRS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.INSCRIPTION_TABLE, BlockRenderLayer.CUTOUT);
 
         /*BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);*/
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CERAMIC_PLATE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ROTTEN_PLATE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SILVER_PLATE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.TAPPER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_LIMESTONE, BlockRenderLayer.CUTOUT);
@@ -646,7 +656,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.GILDED_WALL_SCONCE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORCISH_WALL_SCONCE, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STONE_LECTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF, BlockRenderLayer.CUTOUT);

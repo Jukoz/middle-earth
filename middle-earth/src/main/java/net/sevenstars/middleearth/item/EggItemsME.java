@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
@@ -8,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
@@ -54,7 +54,7 @@ public class EggItemsME {
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.SPAWN_EGGS_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         TranslationEntries.itemEntries.add(item);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
         return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);

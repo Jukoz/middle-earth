@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.DyedColorComponent;
 import net.minecraft.item.Item;
@@ -11,7 +12,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
-import net.sevenstars.middleearth.datageneration.content.models.SimpleItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.ArmorTags;
 import net.sevenstars.middleearth.item.dataComponents.ArmorTierDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
@@ -2093,7 +2093,7 @@ public class EquipmentItemsME {
     private static Item registerHelmetAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         helmetAttachments.add(item);
         return registerItem(item, name);
     }
@@ -2109,7 +2109,7 @@ public class EquipmentItemsME {
     private static Item registerBackAttachment(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         backAttachments.add(item);
         return registerItem(item, name);
     }
@@ -2125,7 +2125,7 @@ public class EquipmentItemsME {
     private static Item registerGeneratedItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         return registerItem(item, name);
     }
 
@@ -2146,7 +2146,7 @@ public class EquipmentItemsME {
     private static Item registerArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         switch (item){
             case CustomHelmetItem helmetItem -> armorPiecesListHelmets.add(helmetItem);
             case CustomChestplateItem chestplateItem -> armorPiecesListChestplates.add(chestplateItem);
@@ -2160,7 +2160,7 @@ public class EquipmentItemsME {
     private static Item registerCustomModelArmorPiece(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
         ItemGroupsME.EQUIPMENT_CONTENTS.add(item.getDefaultStack());
-        SimpleItemModel.items.add(item);
+        RegistrationLists.SIMPLE_ITEM_MODELS.add(item);
         return registerItem(item, name);
     }
 

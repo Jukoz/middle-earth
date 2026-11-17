@@ -1,27 +1,38 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.features.storage.block.CrateBlock;
+import net.sevenstars.middleearth.features.storage.block.ThinBarrelBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferBlock;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferBlock;
+
+import net.sevenstars.middleearth.common.registration.BlockRegistrar;
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneBlock;
 import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWallBlock;
-import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
+import net.sevenstars.middleearth.features.artisan.block.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.candles.*;
-import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
 import net.sevenstars.middleearth.block.special.curtains.SmallCurtainsBlock;
 import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancBlock;
-import net.sevenstars.middleearth.block.special.inscriptiontable.InscriptionTableblock;
-import net.sevenstars.middleearth.block.special.plate.PlateBlock;
+import net.sevenstars.middleearth.features.inscription.block.InscriptionTableblock;
+import net.sevenstars.middleearth.features.cooking.block.plate.PlateBlock;
 import net.sevenstars.middleearth.block.special.pots.AmphoraBlock;
 import net.sevenstars.middleearth.block.special.pots.FatPotBlock;
 import net.sevenstars.middleearth.block.special.pots.JarBlock;
 import net.sevenstars.middleearth.block.special.pots.JugBlock;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlock;
-import net.sevenstars.middleearth.block.special.sack.SackBlock;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestBlock;
+import net.sevenstars.middleearth.features.storage.block.sack.SackBlock;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlock;
 import net.sevenstars.middleearth.block.special.statues.FlipStatueBlock;
 import net.sevenstars.middleearth.block.special.statues.StatueBlock;
@@ -31,7 +42,7 @@ import net.sevenstars.middleearth.block.special.toggeable_lights.*;
 import net.sevenstars.middleearth.block.special.torches.METorchBlock;
 import net.sevenstars.middleearth.block.special.torches.MEWallTorchBlock;
 import net.sevenstars.middleearth.block.special.torches.OrcSconceBlock;
-import net.sevenstars.middleearth.block.special.wood_pile.WoodPileBlock;
+import net.sevenstars.middleearth.features.storage.block.wood_pile.WoodPileBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;
@@ -85,12 +96,6 @@ public class DecorativeBlockRegistryME {
     public static final Block WALL_TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern_wall",
             WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
-    public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
-            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
-    public static final Block ORCISH_ARTISAN_TABLE = registerBlock("orcish_artisan_table",
-            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
-    public static final Block INSCRIPTION_TABLE = registerBlock("inscription_table",
-            InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
@@ -108,42 +113,6 @@ public class DecorativeBlockRegistryME {
     public static final Block SPIDER_VAULT = registerBlock("spider_vault",
             VaultBlock::new, AbstractBlock.Settings.copy(Blocks.VAULT).nonOpaque());
 
-    public static final Block SMALL_CRATE = registerBlock("small_crate",
-            CrateBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block THIN_BARREL = registerBlock("thin_barrel",
-            ThinBarrelBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block LARCH_COFFER = registerBlock("larch_coffer",
-            LarchCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block PINE_COFFER = registerBlock("pine_coffer",
-            PineCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block SPRUCE_COFFER = registerBlock("spruce_coffer",
-            SpruceCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block FIR_COFFER = registerBlock("fir_coffer",
-            FirCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block BEECH_COFFER = registerBlock("beech_coffer",
-            BeechCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block CHESTNUT_COFFER = registerBlock("chestnut_coffer",
-            ChestnutCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block OAK_COFFER = registerBlock("oak_coffer",
-            OakCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block WILLOW_COFFER = registerBlock("willow_coffer",
-            WillowCofferBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
-            ReinforcedChestBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).instrument(NoteBlockInstrument.BASS).strength(5.0f).sounds(BlockSoundGroup.WOOD).nonOpaque().requiresTool());
-
-    public static final Block SACK = registerBlock("sack",
-            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
-
-    public static final Block WOOD_PILE = registerBlock("wood_pile",
-            WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 
     public static final Block OLD_SKULL = registerBlockWithItem("old_skull",
             OldSkullBlock::new, AbstractBlock.Settings.copy(Blocks.SKELETON_SKULL).nonOpaque().sounds(BlockSoundGroup.BONE));
@@ -209,12 +178,6 @@ public class DecorativeBlockRegistryME {
     public static final Block TORCH_OF_ORTHANC = registerBlock("torch_of_orthanc",
             (settings) -> new TorchOfOrthancBlock(settings, ParticleTypes.FLAME), AbstractBlock.Settings.copy(Blocks.TORCH).luminance(createLightLevelFromLitBlockState(15)).nonOpaque().requiresTool());
 
-    public static final Block CERAMIC_PLATE = registerBlockWithItem("ceramic_plate",
-            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.STONE_PRESSURE_PLATE).breakInstantly());
-    public static final Block ROTTEN_PLATE = registerBlockWithItem("rotten_plate",
-            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE).breakInstantly());
-    public static final Block SILVER_PLATE = registerBlockWithItem("silver_plate",
-            PlateBlock::new, AbstractBlock.Settings.copy(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE).breakInstantly());
     public static final Block TAPPER = registerBlock("tapper",
             TapperBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_WOOD).breakInstantly().nonOpaque());
 
@@ -753,9 +716,7 @@ public class DecorativeBlockRegistryME {
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
+        return BlockRegistrar.register(name, factory, settings);
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
@@ -763,12 +724,7 @@ public class DecorativeBlockRegistryME {
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, Item.Settings itemSettings) {
-        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        BlockRegistryME.registerBlockItem(name, block, itemSettings);
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
-        TranslationEntries.blockEntries.add(block);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
+        return BlockRegistrar.registerWithItem(name, factory, settings, itemSettings, ItemGroupsME.DECORATIVES_BLOCKS_CONTENT);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {

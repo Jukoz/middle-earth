@@ -1,5 +1,19 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.farming.Farming;
+
+import net.sevenstars.middleearth.features.artisan.Artisan;
+
+import net.sevenstars.middleearth.features.inscription.Inscription;
+
+import net.sevenstars.middleearth.features.storage.Storage;
+
+import net.sevenstars.middleearth.features.cooking.Cooking;
+
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
@@ -26,7 +40,7 @@ import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 import net.sevenstars.middleearth.recipe.RecipesME;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -55,9 +69,12 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
-		// The block registries and the datagen lists they fill reference each other while loading,
-		// so which class loads first decides what those lists see. BlockRegistryME has to be first.
+		// Creative tab order follows the order these classes load in, so these four load first, in this order.
+		// Items registered by a feature class come after everything else in their tab.
 		BlockRegistryME.registerModBlocks();
+		DecorativeBlockRegistryME.registerModBlocks();
+		StoneBlockSetRegistryME.registerModBlockSets();
+		DecorativeItemsME.registerModItems();
 
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
@@ -92,6 +109,11 @@ public class MiddleEarth implements ModInitializer {
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
 		Smithing.register();
+		Cooking.register();
+		Storage.register();
+		Inscription.register();
+		Artisan.register();
+		Farming.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

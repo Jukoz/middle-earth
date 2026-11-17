@@ -1,5 +1,12 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.cooking.CookingBlocks;
+
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
 
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
@@ -11,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockDrops {
-    public static List<Block> blocks = new ArrayList<>() {
+    public static List<Block> blocks = RegistrationLists.DROPS;
+    static {
+        RegistrationLists.prepend(blocks, new ArrayList<Block>() {
         {
             add(DecorativeBlockRegistryME.SILVER_LANTERN);
             add(DecorativeBlockRegistryME.WALL_SILVER_LANTERN);
@@ -27,14 +36,14 @@ public class BlockDrops {
             add(DecorativeBlockRegistryME.WALL_LEAD_LANTERN);
             add(DecorativeBlockRegistryME.CRYSTAL_LAMP);
             add(DecorativeBlockRegistryME.WALL_CRYSTAL_LAMP);
-            add(DecorativeBlockRegistryME.WOOD_PILE);
+            add(StorageBlocks.WOOD_PILE);
             add(DecorativeBlockRegistryME.ORCISH_DRUM);
             add(DecorativeBlockRegistryME.FIRE_OF_ORTHANC);
             add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
 
-            add(DecorativeBlockRegistryME.CERAMIC_PLATE);
-            add(DecorativeBlockRegistryME.ROTTEN_PLATE);
-            add(DecorativeBlockRegistryME.SILVER_PLATE);
+            add(CookingBlocks.CERAMIC_PLATE);
+            add(CookingBlocks.ROTTEN_PLATE);
+            add(CookingBlocks.SILVER_PLATE);
             add(BlockRegistryME.TREATED_WOOD_ROPE_FENCE);
 
             add(DecorativeBlockRegistryME.TAPPER);
@@ -151,17 +160,17 @@ public class BlockDrops {
             add(NatureBlockRegistryME.SILVER_MAPLE_SAPLING);
             add(NatureBlockRegistryME.WHITE_PALM_SAPLING);
 
-            add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+            add(InscriptionBlocks.INSCRIPTION_TABLE);
 
-            add(DecorativeBlockRegistryME.LARCH_COFFER);
-            add(DecorativeBlockRegistryME.PINE_COFFER);
-            add(DecorativeBlockRegistryME.SPRUCE_COFFER);
-            add(DecorativeBlockRegistryME.FIR_COFFER);
-            add(DecorativeBlockRegistryME.BEECH_COFFER);
-            add(DecorativeBlockRegistryME.CHESTNUT_COFFER);
-            add(DecorativeBlockRegistryME.OAK_COFFER);
-            add(DecorativeBlockRegistryME.WILLOW_COFFER);
-            add(DecorativeBlockRegistryME.REINFORCED_CHEST);
+            add(StorageBlocks.LARCH_COFFER);
+            add(StorageBlocks.PINE_COFFER);
+            add(StorageBlocks.SPRUCE_COFFER);
+            add(StorageBlocks.FIR_COFFER);
+            add(StorageBlocks.BEECH_COFFER);
+            add(StorageBlocks.CHESTNUT_COFFER);
+            add(StorageBlocks.OAK_COFFER);
+            add(StorageBlocks.WILLOW_COFFER);
+            add(StorageBlocks.REINFORCED_CHEST);
 
             add(DecorativeBlockRegistryME.STONE_LECTERN);
             add(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
@@ -230,8 +239,8 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.ROPE_LADDER);
 
-            add(DecorativeBlockRegistryME.THIN_BARREL);
-            add(DecorativeBlockRegistryME.SMALL_CRATE);
+            add(StorageBlocks.THIN_BARREL);
+            add(StorageBlocks.SMALL_CRATE);
 
             add(DecorativeBlockRegistryME.GOLDEN_CHALICE);
 
@@ -240,5 +249,6 @@ public class BlockDrops {
 
             add(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING);
         }
-    };
+    });
+    }
 }
