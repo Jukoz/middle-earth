@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.block.special.pointedBlocks;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
@@ -35,7 +36,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -350,21 +350,21 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
         place(world, blockPos, Direction.UP, Thickness.TIP_MERGE);
     }
 
-    public static void createParticle(World world, BlockPos pos, BlockState state) {
-        getFluid(world, pos, state).ifPresent((fluid) -> {
-            createParticle(world, pos, state, fluid.fluid);
-        });
-    }
-
     private static void createParticle(World world, BlockPos pos, BlockState state, Fluid fluid) {
         Vec3d vec3d = state.getModelOffset(pos);
-        double d = 0.0625;
         double e = (double)pos.getX() + 0.5 + vec3d.x;
         double f = (double)pos.getY() + DOWN_TIP_Y - 0.0625;
         double g = (double)pos.getZ() + 0.5 + vec3d.z;
-        Fluid fluid2 = getDripFluid(world, fluid, pos);
-        ParticleEffect particleEffect = fluid2.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+        ParticleEffect particleEffect = getParticleEffect(world, fluid, pos);
         world.addParticleClient(particleEffect, e, f, g, 0.0, 0.0, 0.0);
+    }
+
+    private static ParticleEffect getParticleEffect(World world, Fluid fluid, BlockPos pos) {
+        if (fluid.matchesType(Fluids.EMPTY)) {
+            return world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.DEFAULT_DRIPSTONE_PARTICLE_VISUAL, pos);
+        } else {
+            return fluid.isIn(FluidTags.LAVA) ? ParticleTypes.DRIPPING_DRIPSTONE_LAVA : ParticleTypes.DRIPPING_DRIPSTONE_WATER;
+        }
     }
 
     @Nullable
@@ -510,7 +510,7 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
             BlockPos blockPos = posx.up();
             BlockState blockState = world.getBlockState(blockPos);
             Object fluid;
-            if (blockState.isOf(Blocks.MUD) && !world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, blockPos)) {
+            if (blockState.isOf(Blocks.MUD) && !(Boolean)world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, blockPos)) {
                 fluid = Fluids.WATER;
             } else {
                 fluid = world.getFluidState(blockPos).getFluid();
@@ -526,14 +526,6 @@ public class PointedDolomiteBlock extends Block implements Falling, Waterloggabl
 
     private static boolean canGrow(BlockState dripstoneBlockState, BlockState waterState) {
         return dripstoneBlockState.isOf(StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base()) && waterState.isOf(Blocks.WATER) && waterState.getFluidState().isStill();
-    }
-
-    private static Fluid getDripFluid(World world, Fluid fluid, BlockPos pos) {
-        if (fluid.matchesType(Fluids.EMPTY)) {
-            return world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.WATER_EVAPORATES_GAMEPLAY, pos) ? Fluids.LAVA : Fluids.WATER;
-        } else {
-            return fluid;
-        }
     }
 
     private static Optional<BlockPos> searchInDirection(WorldAccess world, BlockPos pos, Direction.AxisDirection direction, BiPredicate<BlockPos, BlockState> continuePredicate, Predicate<BlockState> stopPredicate, int range) {
