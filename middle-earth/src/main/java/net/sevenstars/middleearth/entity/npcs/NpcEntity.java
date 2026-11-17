@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -17,7 +18,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -146,6 +146,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         NPC_TEXTURE_DATA = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistryME.NPC_TEXTURE_DATA);
     }
 
+    public enum AttackType {
+        MELEE,
+        BOW,
+        CROSSBOW
+    }
+
     // What an npc in company is doing, shown as a gesture and, for those that say something, a bubble over its head
     public enum Talk {
         NONE(false),
@@ -196,15 +202,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Common folk help a neighbour who is close by, not one across the village
     private static final int HELP_RANGE = 16;
 
-    // Speeds, as multiples of the npc's walking speed
-    private static final double BOW_ATTACK_SPEED = 1.0;
-    private static final double MELEE_ATTACK_SPEED = 1.2;
     // An npc already rising faster than this is on its way out of the water and isn't lifted again
     private static final double CLIMBING_OUT = 0.1;
 
     // Combat and reach
     private static final double BASE_ATTACK_DAMAGE = 1.0;
-    private static final int ATTACK_PRIORITY = 4;
     private static final float KNOCKBACK_SCALE = 0.5f;
     private static final double KNOCKBACK_SELF_SLOWDOWN = 0.6;
     // In ticks, from the last blow. Vanilla forgets an attacker after 5 seconds, which would end a fight with someone
@@ -222,10 +224,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // In ticks
     private static final int BOW_ATTACK_INTERVAL = 20;
     private static final int BOW_ATTACK_INTERVAL_HARD = 30;
-
-    // In blocks
-    private static final float BOW_ATTACK_RANGE = 16.0F;
-    private static final float CROSSBOW_ATTACK_RANGE = 11.0F;
     // An npc's arrow leaves at BASE_ARROW_SPEED times the weapon's power, in blocks a tick. A fully drawn vanilla bow
     // shoots at 3
     private static final float BASE_ARROW_SPEED = 1.6F;
@@ -324,25 +322,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private int managerCheckAge = 0;
     private boolean dataInitialized = false;
 
-    // Goals
-    // The one of the three attack goals below that fits the weapon in hand
-    private @Nullable Goal attackGoal = null;
+    // Routine and attack
     private final NpcRoutine dayRoutine = new NpcRoutine(this, NpcBrain.WALK_SPEED);
-    private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
-    private final NpcCrossBowAttackGoal<NpcEntity> crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
-    private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
-        @Override
-        public void stop() {
-            super.stop();
-            NpcEntity.this.setAttacking(false);
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            NpcEntity.this.setAttacking(true);
-        }
-    };
+    // What the weapon in hand was last set up for, which is how the npc fights
+    private AttackType attackType = AttackType.MELEE;
+    private int bowAttackInterval = BOW_ATTACK_INTERVAL;
 
     // [CONSTRUCTION AND REGISTRATION]
     public NpcEntity(EntityType<NpcEntity> entityType, World world) {
@@ -402,49 +386,46 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return age - talkSince + tickDelta;
     }
 
-    @Override
-    protected void initGoals() {
-        // Common folk strike back unless they have run for the guards. At home there's nowhere left to run, so the npc calls
-        // the guards from where it stands and fights
-        this.targetSelector.add(1, new RevengeGoal(this) {
-            @Override
-            public boolean canStart() {
-                LivingEntity attacker = getAttacker();
-                if(isTimid() && attacker != null && !NpcRelations.of(NpcEntity.this, attacker).isFriendly()) {
-                    if(isAtHome())
-                        callGuardsOnce(attacker);
-                    else if(fleesFrom(attacker))
-                        return false;
-                }
-                return super.canStart();
-            }
-        });
-        this.targetSelector.add(3, new NpcTargetEnemyGoal(this));
+    public AttackType getAttackType() {
+        return attackType;
+    }
+
+    public int getBowAttackInterval() {
+        return bowAttackInterval;
     }
 
     public void updateAttackType() {
         if (this.getEntityWorld() == null || this.getEntityWorld().isClient())
             return;
         ItemStack itemStack = this.getMainHandStack();
-        Goal wanted = this.meleeAttackGoal;
+        AttackType wanted = AttackType.MELEE;
         if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
             boolean hard = this.getEntityWorld().getDifficulty() == Difficulty.HARD;
-            this.bowAttackGoal.setAttackInterval(hard ? BOW_ATTACK_INTERVAL_HARD : BOW_ATTACK_INTERVAL);
-            wanted = this.bowAttackGoal;
+            this.bowAttackInterval = hard ? BOW_ATTACK_INTERVAL_HARD : BOW_ATTACK_INTERVAL;
+            wanted = AttackType.BOW;
         } else if (itemStack.isOf(Items.CROSSBOW) || itemStack.isIn(ItemTagsME.CROSSBOW)) {
-            wanted = this.crossBowAttackGoal;
+            wanted = AttackType.CROSSBOW;
         }
-        if(wanted == this.attackGoal)
+        if(wanted == this.attackType)
             return;
-        // Removing a running goal stops it, and the crossbow goal drops its target when it stops. Restore the target so the
-        // fight continues with the other weapon
+        // Ending the attack that is going on drops the target if it is the crossbow's. Restore the target so the fight
+        // continues with the other weapon
         LivingEntity target = getTarget();
-        if(this.attackGoal != null)
-            this.goalSelector.remove(this.attackGoal);
-        this.attackGoal = wanted;
-        this.goalSelector.add(ATTACK_PRIORITY, wanted);
+        NpcBrain.stopAttack(this);
+        this.attackType = wanted;
         if(target != null && target.isAlive() && getTarget() == null)
             setTarget(target);
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return getTargetInBrain();
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity target) {
+        getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
     }
 
     @Override
@@ -1100,7 +1081,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return routineHome != null && getStructureManagerHostPos() != null && routineHome.isWithinDistance(getEntityPos(), HOME_STAND_RANGE);
     }
 
-    private void callGuardsOnce(LivingEntity threat) {
+    public void callGuardsOnce(LivingEntity threat) {
         if(threat.getUuid().equals(guardsCalledFor))
             return;
         guardsCalledFor = threat.getUuid();
@@ -1191,7 +1172,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return kill;
     }
 
-    // The fighting goals never drop a target on their own
+    // The attack never drops a target on its own
     private void tickHunt() {
         if(huntTarget.isAlive() && age < huntEndAge)
             return;
@@ -1413,7 +1394,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             disarm();
         if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
             tickPrison(world);
-        // The targeting goals never drop a target that was set from outside them. A dead target blocks everything else, and so
+        // The targeting never drops a target that was set from outside it. A dead target blocks everything else, and so
         // does one that is no longer an enemy, such as when the grudge a guard was called out for has expired
         LivingEntity target = getTarget();
         if(target != null && (!target.isAlive() || age % TARGET_CHECK_INTERVAL == 0 && !canTarget(target)))

@@ -168,7 +168,7 @@ public class HuntingActivity extends RoutineActivity {
         return !RoutineGame.isPenned(animal);
     }
 
-    // The fighting goals do the chase, and the npc itself ends it
+    // The fight does the chase, and the npc itself ends it
     public boolean finishHunt(ServerWorld world) {
         if(npc.getHuntTarget() != null)
             return false;
