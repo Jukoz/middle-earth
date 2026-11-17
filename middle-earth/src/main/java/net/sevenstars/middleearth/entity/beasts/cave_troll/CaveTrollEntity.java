@@ -50,6 +50,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.profiler.Profilers;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
+import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreenHandler;
+import net.minecraft.item.BannerItem;
+import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -81,10 +89,11 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     private static final int DOWNSWING_TICK = 27;
     private static final Identifier RIDER_REACH_ID = MiddleEarth.id("cave_troll_rider_reach");
     private static final double RIDER_REACH_BONUS = 3.0;
-    // Ticks between swings: the interval of the brain's MeleeAttackTask, so a ridden troll swings as often as an unridden one
-    private static final float SWING_COOLDOWN_TICKS = 30.0f;
+    // Flat bonus for a player rider, what Hard adds
+    private static final float PLAYER_RIDER_DAMAGE_BONUS = 6.0f;
     private static final int RIDDEN_ABILITY_COOLDOWN = 120;
 
+    private static final double MAX_CHARGE_SPEED = 0.6; // Blocks per tick at the end of a charge
     private static final double SMASH_REACH = 2.5;
     private static final double SMASH_RADIUS = 5.0;
     private static final double SMASH_HEIGHT = 1.5;
@@ -137,7 +146,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 .add(EntityAttributes.MAX_HEALTH, 160.0)
                 .add(EntityAttributes.ARMOR, 10.0)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(EntityAttributes.ATTACK_SPEED, 0.65)
+                .add(EntityAttributes.ATTACK_SPEED, 0.4)
                 .add(EntityAttributes.FOLLOW_RANGE, 28.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 10.0)
                 .add(EntityAttributes.STEP_HEIGHT, 1.25)
@@ -259,6 +268,58 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         return ActionResult.PASS; // Player is of incompatible race - don't interact
     }
 
+    // No horse armor
+    @Override
+    public boolean canUseSlot(EquipmentSlot slot) {
+        return slot != EquipmentSlot.BODY && super.canUseSlot(slot);
+    }
+
+    // The banner lives in the body slot
+    public static boolean isBanner(ItemStack stack) {
+        return stack.getItem() instanceof BannerItem || stack.isOf(WeaponItemsME.HELD_BANNER);
+    }
+
+    public ItemStack getBannerStack() {
+        return this.getEquippedStack(EquipmentSlot.BODY);
+    }
+
+    // Mob equipment only drops by chance, the banner always does
+    @Override
+    protected void dropInventory(ServerWorld world) {
+        super.dropInventory(world);
+        ItemStack banner = this.getBannerStack();
+        if(!banner.isEmpty()) {
+            this.dropStack(world, banner.copy());
+            this.equipStack(EquipmentSlot.BODY, ItemStack.EMPTY);
+        }
+    }
+
+    public SimpleInventory getChestInventory() {
+        return this.items;
+    }
+
+    @Override
+    public void openInventory(PlayerEntity player) {
+        if(!this.getWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && this.isTame()) {
+            player.openHandledScreen(new ExtendedScreenHandlerFactory<Integer>() {
+                @Override
+                public Integer getScreenOpeningData(ServerPlayerEntity player) {
+                    return CaveTrollEntity.this.getId();
+                }
+
+                @Override
+                public Text getDisplayName() {
+                    return CaveTrollEntity.this.getDisplayName();
+                }
+
+                @Override
+                public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                    return new CaveTrollScreenHandler(syncId, playerInventory, CaveTrollEntity.this);
+                }
+            });
+        }
+    }
+
     @Override
     public boolean canBeLeashed() {
         return false;
@@ -376,9 +437,9 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
     }
 
-    // The troll swings its club instead of the rider's fist
+    // The troll swings, so its attack speed sets the cooldown
     public float getRiderSwingCooldownTicks() {
-        return SWING_COOLDOWN_TICKS;
+        return (float)(20.0 / this.getAttributeValue(EntityAttributes.ATTACK_SPEED));
     }
 
     public void riderSwing(ServerWorld world, PlayerEntity rider, Entity target) {
@@ -390,7 +451,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         rider.resetLastAttackedTicks();
         this.swingHand(Hand.MAIN_HAND);
 
-        float damage = (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * (0.2f + charge * charge * 0.8f);
+        float damage = (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * (0.2f + charge * charge * 0.8f) + PLAYER_RIDER_DAMAGE_BONUS;
         if(target.damage(world, this.getDamageSources().playerAttack(rider), damage) && target instanceof LivingEntity living) {
             knockAway(living, charge * charge);
         }
@@ -611,7 +672,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
         Vec3d direction = Vec3d.ZERO;
         LivingEntity target = this.getTarget();
-        int difficulty = this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() : 0;
+        float riderBonus = riderDamageBonus();
 
         if(!this.isTame() && !this.getWorld().isClient) { // Charge Attack for wild Troll
             if(target != null) { // Has attack target memory
@@ -628,14 +689,39 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         for(Entity entity : entities) { // Check through all nearby entities
             if(entity != this.getOwner() && !this.getPassengerList().contains(entity)) { // Exclude passengers and owner
                 if(getWorld() instanceof ServerWorld serverWorld) {
-                    if(entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 10.0f + difficulty * 2) && entity instanceof LivingEntity living) {
+                    if(entity.damage(serverWorld, attackSource(), 10.0f + riderBonus) && entity instanceof LivingEntity living) {
                         knockAway(living, 1.5);
                     }
                 }
 
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+    }
+
+    // Starts as a stumble and eases into a run, so the speed rises with the square of the charge's progress
+    @Override
+    public void setChargeVelocity(Vec3d direction) {
+        double progress = MathHelper.clamp(1.0 - (double)(this.chargeTimeout - (maxChargeCooldown() - chargeDuration())) / chargeDuration(), 0.0, 1.0);
+        this.setVelocity(direction
+                .getHorizontal().normalize()
+                .multiply(MAX_CHARGE_SPEED * progress * progress)
+                .add(0, this.getVelocity().y, 0));
+    }
+
+    // Fixed for a player rider, scales with difficulty for an NPC rider
+    private float riderDamageBonus() {
+        if(this.getControllingPassenger() instanceof PlayerEntity) {
+            return PLAYER_RIDER_DAMAGE_BONUS;
+        }
+        return this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() * 2 : 0.0f;
+    }
+
+    // Player-sourced, so world difficulty does not scale it
+    private DamageSource attackSource() {
+        if(this.getControllingPassenger() instanceof PlayerEntity rider) {
+            return this.getDamageSources().playerAttack(rider);
+        }
+        return this.getDamageSources().mobAttack(this);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
@@ -648,16 +734,16 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
         List<Entity> entities = this.getWorld().getOtherEntities(this, box);
         World world = this.getWorld();
-        int difficulty = this.hasControllingPassenger() ? world.getDifficulty().getId() : 0;
+        float riderBonus = riderDamageBonus();
 
         if(world instanceof ServerWorld serverWorld) {
             double baseDamage = this.getAttributeBaseValue(EntityAttributes.ATTACK_DAMAGE);
             float charge = strength / 100f;
-            float damage = (float)((baseDamage + weaponDamage) * (0.4f + 0.6f * charge)) + difficulty * 2;
+            float damage = (float)((baseDamage + weaponDamage) * (0.4f + 0.6f * charge)) + riderBonus;
 
             for(Entity entity : entities) {
                 if(this.isValidTarget(entity) && isWithinSmashRadius(entity.getBoundingBox(), impact)) {
-                    if(entity.damage(serverWorld, this.getDamageSources().mobAttack(this), damage) && entity instanceof LivingEntity living) {
+                    if(entity.damage(serverWorld, attackSource(), damage) && entity instanceof LivingEntity living) {
                         knockAway(living, impact, 0.6 + 0.8 * charge);
                     }
                 }

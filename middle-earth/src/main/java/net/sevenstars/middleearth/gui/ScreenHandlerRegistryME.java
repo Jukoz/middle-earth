@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreenHandler;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreenHandler;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
@@ -46,6 +47,9 @@ public class ScreenHandlerRegistryME {
             = new ExtendedScreenHandlerType<>(StructureNestScreenHandler::new, StructureNestScreenData.PACKET_CODEC.cast());
 
 
+    public static final ScreenHandlerType<CaveTrollScreenHandler> CAVE_TROLL_SCREEN_HANDLER
+            = new ExtendedScreenHandlerType<>(CaveTrollScreenHandler::new, PacketCodecs.VAR_INT.cast());
+
     public static void registerAllScreenHandlers() {
         register("wood_pile", WOOD_PILE_SCREEN_HANDLER);
         register("forge_alloying", FORGE_ALLOYING_SCREEN_HANDLER);
@@ -55,6 +59,7 @@ public class ScreenHandlerRegistryME {
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
         register("crockpot",CROCKPOT_SCREEN_HANDLER );
+        register("cave_troll", CAVE_TROLL_SCREEN_HANDLER);
     }
 
     private static void register(String name, ScreenHandlerType handlerType) {
