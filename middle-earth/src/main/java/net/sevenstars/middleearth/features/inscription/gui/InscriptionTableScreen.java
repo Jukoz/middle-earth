@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.inscriptiontable;
+package net.sevenstars.middleearth.features.inscription.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,8 +21,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.network.packets.client2server.InscriptionConfirmationPacket;
-import net.sevenstars.middleearth.network.packets.client2server.InscriptionWordUpdatePacket;
+import net.sevenstars.middleearth.features.inscription.network.InscriptionConfirmationPacket;
+import net.sevenstars.middleearth.features.inscription.network.InscriptionWordUpdatePacket;
 
 import java.util.ArrayList;
 import java.util.Iterator;

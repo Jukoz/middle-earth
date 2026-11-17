@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.datageneration.providers.recipes;
+package net.sevenstars.middleearth.features.inscription.datagen;
+
+import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.recipe.RecipeExporter;
@@ -14,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.datageneration.custom.InscriptionRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.inscription.datagen.InscriptionRecipeJsonBuilder;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;

@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionRecipe;
 
 import java.util.function.Supplier;
 
@@ -35,7 +35,6 @@ public class RecipesME {
         return () -> object;
     }
 
-    public static RecipeType<InscriptionRecipe> INSCRIPTION_TABLE;
 
     public static void registerRecipes() {
         //Registry.register(Registries.RECIPE_SERIALIZER,
@@ -44,13 +43,6 @@ public class RecipesME {
         //ARTISAN_TABLE = Registry.register(Registries.RECIPE_TYPE,
         //        MiddleEarth.of(ArtisanRecipe.Type.ID),
         //        ArtisanRecipe.Type.INSTANCE);
-
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(InscriptionRecipe.Serializer.ID),
-                InscriptionRecipe.Serializer.INSTANCE);
-        INSCRIPTION_TABLE = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(InscriptionRecipe.Type.ID),
-                InscriptionRecipe.Type.INSTANCE);
 
     }
 

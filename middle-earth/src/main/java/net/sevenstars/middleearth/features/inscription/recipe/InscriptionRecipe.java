@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.recipe.inscription;
+package net.sevenstars.middleearth.features.inscription.recipe;
+
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -16,7 +18,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class InscriptionRecipe implements Recipe<SingleStackRecipeInput> {
     }
 
     public ItemStack createIcon() {
-        return new ItemStack(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        return new ItemStack(InscriptionBlocks.INSCRIPTION_TABLE);
     }
 
     @Override

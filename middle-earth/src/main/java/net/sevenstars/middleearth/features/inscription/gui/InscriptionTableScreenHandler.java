@@ -1,4 +1,8 @@
-package net.sevenstars.middleearth.gui.inscriptiontable;
+package net.sevenstars.middleearth.features.inscription.gui;
+
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
+import net.sevenstars.middleearth.features.inscription.InscriptionRecipes;
+import net.sevenstars.middleearth.features.inscription.InscriptionScreenHandlers;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.DataComponentTypes;
@@ -26,13 +30,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.ToolItemsME;
-import net.sevenstars.middleearth.network.packets.server2client.InscriptionEnchantInfoPacket;
-import net.sevenstars.middleearth.recipe.RecipesME;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.features.inscription.network.InscriptionEnchantInfoPacket;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionRecipe;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionWordBank;
 import net.sevenstars.middleearth.sound.SoundsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
@@ -61,7 +62,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public InscriptionTableScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
-        super(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, syncId);
+        super(InscriptionScreenHandlers.INSCRIPTION_SCREEN_HANDLER, syncId);
 
         this.outputRecipes = new ArrayList<>();
         this.selectedWords = new ArrayList<>();
@@ -147,7 +148,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        return canUse(this.context, player, InscriptionBlocks.INSCRIPTION_TABLE);
     }
 
     public List<String> getWords(){
@@ -220,7 +221,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             availableWords = new byte[words.size() + 1];
             words.add(word);
             ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-            List<RecipeEntry<InscriptionRecipe>> availableRecipes = serverRecipeManager.getAllOfType(RecipesME.INSCRIPTION_TABLE)
+            List<RecipeEntry<InscriptionRecipe>> availableRecipes = serverRecipeManager.getAllOfType(InscriptionRecipes.INSCRIPTION_TABLE)
                     .stream().filter((inscriptionRecipeRecipeEntry -> {
                             if(!isAcceptableItem(inscriptionRecipeRecipeEntry.value().enchant, input.getStack(2))) return false;
                             if(selectedWords.isEmpty()) return true;
@@ -266,7 +267,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
              if (!this.world.isClient()){
                 updateWords(false, "", true);
                 ServerRecipeManager serverRecipeManager = (ServerRecipeManager) this.world.getRecipeManager();
-                this.outputRecipes = serverRecipeManager.getAllMatches(RecipesME.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
+                this.outputRecipes = serverRecipeManager.getAllMatches(InscriptionRecipes.INSCRIPTION_TABLE, new SingleStackRecipeInput(inputChisel), this.world).toList();
              }
         } else {
             updateWords(false, "", true);
@@ -349,7 +350,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
     }
 
     public ScreenHandlerType<?> getType() {
-        return ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER;
+        return InscriptionScreenHandlers.INSCRIPTION_SCREEN_HANDLER;
     }
 
     public ItemStack quickMove(PlayerEntity player, int slot) {

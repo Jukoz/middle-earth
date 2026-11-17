@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.inscriptiontable;
+package net.sevenstars.middleearth.features.inscription.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
@@ -15,7 +15,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class InscriptionTableblock extends HorizontalFacingBlock {

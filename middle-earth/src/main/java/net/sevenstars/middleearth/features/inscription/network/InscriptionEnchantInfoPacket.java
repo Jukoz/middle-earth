@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.network.packets.server2client;
+package net.sevenstars.middleearth.features.inscription.network;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,8 +7,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreenHandler;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 

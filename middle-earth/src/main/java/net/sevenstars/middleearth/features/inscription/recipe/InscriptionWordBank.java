@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.recipe.inscription;
+package net.sevenstars.middleearth.features.inscription.recipe;
 
 import com.google.common.collect.ArrayListMultimap;
 import net.minecraft.item.Item;

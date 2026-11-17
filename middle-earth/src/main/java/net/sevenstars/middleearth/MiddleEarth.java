@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.inscription.Inscription;
+
 import net.sevenstars.middleearth.features.storage.Storage;
 
 import net.sevenstars.middleearth.features.cooking.Cooking;
@@ -30,7 +32,7 @@ import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 import net.sevenstars.middleearth.recipe.RecipesME;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -101,6 +103,7 @@ public class MiddleEarth implements ModInitializer {
 		Smithing.register();
 		Cooking.register();
 		Storage.register();
+		Inscription.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

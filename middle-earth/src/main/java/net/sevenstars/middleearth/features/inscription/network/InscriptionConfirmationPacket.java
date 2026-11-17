@@ -1,9 +1,9 @@
-package net.sevenstars.middleearth.network.packets.client2server;
+package net.sevenstars.middleearth.features.inscription.network;
 
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreenHandler;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 

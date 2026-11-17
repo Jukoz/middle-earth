@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration.custom;
+package net.sevenstars.middleearth.features.inscription.datagen;
 
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
@@ -18,7 +18,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.ToolItemsME;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;

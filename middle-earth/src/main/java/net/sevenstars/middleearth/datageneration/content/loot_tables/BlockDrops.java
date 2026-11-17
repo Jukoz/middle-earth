@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
+
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
 
 import net.sevenstars.middleearth.features.cooking.CookingBlocks;
@@ -158,7 +160,7 @@ public class BlockDrops {
             add(NatureBlockRegistryME.SILVER_MAPLE_SAPLING);
             add(NatureBlockRegistryME.WHITE_PALM_SAPLING);
 
-            add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+            add(InscriptionBlocks.INSCRIPTION_TABLE);
 
             add(StorageBlocks.LARCH_COFFER);
             add(StorageBlocks.PINE_COFFER);

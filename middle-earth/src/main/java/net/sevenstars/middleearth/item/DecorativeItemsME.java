@@ -61,8 +61,6 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(DecorativeBlockRegistryME.ARTISAN_TABLE, settings), new Item.Settings());
     public static final Item ORCISH_ARTISAN_TABLE = registerItem("orcish_artisan_table",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE, settings), new Item.Settings());
-    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());

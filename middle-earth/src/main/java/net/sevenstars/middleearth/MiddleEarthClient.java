@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.inscription.InscriptionClient;
+
+
 import net.sevenstars.middleearth.features.storage.StorageClient;
 
 
@@ -85,7 +88,7 @@ import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
@@ -160,7 +163,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
@@ -231,6 +233,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         SmithingClient.register();
         CookingClient.register();
         StorageClient.register();
+        InscriptionClient.register();
         BlockColorsME.initializeBlockColors();
     }
 
@@ -376,7 +379,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(BlockRegistryME.PEBBLED_GRASS_STAIRS, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.FIRE_OF_ORTHANC, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.INSCRIPTION_TABLE, BlockRenderLayer.CUTOUT);
 
         /*BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);*/

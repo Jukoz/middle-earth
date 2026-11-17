@@ -13,7 +13,7 @@ import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreenHandler;
+import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenData;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreenHandler;
@@ -24,8 +24,6 @@ public class ScreenHandlerRegistryME {
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new, PacketCodecs.STRING.cast());
 
-    public static ScreenHandlerType<InscriptionTableScreenHandler> INSCRIPTION_SCREEN_HANDLER
-            = new ScreenHandlerType<>(InscriptionTableScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
 
     public static final ScreenHandlerType<StructureManagerScreenHandler> STRUCTURE_MANAGER_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(StructureManagerScreenHandler::new, StructureManagerScreenData.PACKET_CODEC.cast());
@@ -36,7 +34,6 @@ public class ScreenHandlerRegistryME {
 
     public static void registerAllScreenHandlers() {
         register("artisan_table", ARTISAN_SCREEN_HANDLER);
-        register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
     }
