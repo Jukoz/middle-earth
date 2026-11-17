@@ -67,7 +67,7 @@ public class NpcDebugRenderer {
             Vec3d chest = feet.add(0, seen.getHeight() * CHEST_HEIGHT, 0);
             drawPath(npc, feet);
             NpcRoutine routine = npc.getDayRoutine();
-            if(routine != null && routine.debugActive()) {
+            if(routine.debugActive()) {
                 int color = switch (routine.debugActivity()) {
                     case FISH -> FISH;
                     case HUNT -> HUNT;

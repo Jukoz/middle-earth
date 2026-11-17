@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.routine.activity;
+package net.sevenstars.middleearth.entity.npcs.routine;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -6,16 +6,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
+import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 
 import java.util.List;
 
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.ROUTINE_TIME_LIMIT;
 import static net.sevenstars.middleearth.entity.npcs.routine.RoutineWalker.MAXIMUM_HEIGHT_CHANGE;
 
-public class PatrolActivity extends RoutineActivity {
+class PatrolActivity extends RoutineActivity {
     private static final int WATCH_TIME = 20 * 3;
     private static final int WATCH_TIME_VARIATION = 20 * 4;
 
@@ -23,20 +22,20 @@ public class PatrolActivity extends RoutineActivity {
     // A rider's round is this much further out than the one on foot
     private static final int RIDER_MARGIN = 18;
 
-    public int ringIndex = 0;
+    int ringIndex = 0;
     private int ringStep = 1;
-    public int ringLeft = 0;
-    public int laps = 0;
+    private int ringLeft = 0;
+    private int laps = 0;
 
-    public PatrolActivity(NpcRoutine engine) {
-        super(engine);
+    PatrolActivity(NpcRoutine routine) {
+        super(routine);
     }
 
     @Override
-    public boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
-        List<BlockPos> route = engine.site.getPatrolRoute();
+    boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        List<BlockPos> route = routine.site.getPatrolRoute();
         if(route.size() < MINIMUM_ROUTE_POINTS)
-            return engine.cannotStart(picked, "no round to walk in this build");
+            return routine.cannotStart(picked, "no round to walk in this build");
         ringIndex = 0;
         for(int i = 1; i < route.size(); i++) {
             if(route.get(i).getSquaredDistance(npc.getBlockPos()) < route.get(ringIndex).getSquaredDistance(npc.getBlockPos()))
@@ -45,46 +44,46 @@ public class PatrolActivity extends RoutineActivity {
         laps = 0;
         ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
         ringLeft = route.size();
-        engine.spot = routePoint(world, route.get(ringIndex));
+        routine.spot = routePoint(world, route.get(ringIndex));
         return true;
     }
 
     @Override
-    public void arrive(ServerWorld world, Random random, long time) {
-        engine.phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
+    void arrive(ServerWorld world, Random random, long time) {
+        routine.phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
         // Watches the land outside, with the place for a rider being further out than the ring
-        double awayX = npc.getX() - engine.site.getCenterX();
-        double awayZ = npc.getZ() - engine.site.getCenterZ();
-        engine.lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+        double awayX = npc.getX() - routine.site.getCenterX();
+        double awayZ = npc.getZ() - routine.site.getCenterZ();
+        routine.lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
     }
 
     @Override
-    public void work(ServerWorld world, Random random, boolean done, long time) {
+    void work(ServerWorld world, Random random, boolean done, long time) {
         if(!done)
             return;
         ringLeft--;
         // The watch walks its rounds until the shift is over, rather than cross the middle of the place to go home after each.
         // With nobody about to see it, the round ends, as every other routine does
-        if(!engine.onDuty(world) || !engine.isWatched(world)) {
-            if(engine.onDuty(world))
-                engine.abandoned("cut its round short, no player near");
-            engine.startReturn(world);
+        if(!routine.onDuty(world) || !routine.isWatched(world)) {
+            if(routine.onDuty(world))
+                routine.abandoned("cut its round short, no player near");
+            routine.startReturn(world);
         } else {
             if(ringLeft <= 0) {
-                ringLeft = engine.site.getPatrolRoute().size();
+                ringLeft = routine.site.getPatrolRoute().size();
                 laps++;
             }
-            engine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
+            routine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
             nextWaypoint();
         }
     }
 
     // Riders go round further out, where a horse has room to go
     private BlockPos routePoint(ServerWorld world, BlockPos point) {
-        if(!engine.walker.riding() || engine.site.hasMarkedRoute())
+        if(!routine.walker.riding() || routine.site.hasMarkedRoute())
             return point;
-        double outX = point.getX() - engine.site.getCenterX();
-        double outZ = point.getZ() - engine.site.getCenterZ();
+        double outX = point.getX() - routine.site.getCenterX();
+        double outZ = point.getZ() - routine.site.getCenterZ();
         double length = Math.hypot(outX, outZ);
         if(length < 1)
             return point;
@@ -93,25 +92,34 @@ public class PatrolActivity extends RoutineActivity {
         if(!world.isChunkLoaded(x >> 4, z >> 4))
             return point;
         BlockPos ground = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-        boolean open = Math.abs(ground.getY() - point.getY()) <= MAXIMUM_HEIGHT_CHANGE && world.getFluidState(ground.down()).isEmpty() && !engine.site.isBuilding(x, ground.getY(), z);
+        boolean open = Math.abs(ground.getY() - point.getY()) <= MAXIMUM_HEIGHT_CHANGE && world.getFluidState(ground.down()).isEmpty() && !routine.site.isBuilding(x, ground.getY(), z);
         return open ? ground : point;
     }
 
-    public void nextWaypoint() {
-        List<BlockPos> ring = engine.site.getPatrolRoute();
+    boolean canSkipStretch() {
+        return ringLeft > 1 && (laps > 0 || ringLeft < routine.site.getPatrolRoute().size());
+    }
+
+    void skipStretch() {
+        ringLeft--;
+        nextWaypoint();
+    }
+
+    private void nextWaypoint() {
+        List<BlockPos> ring = routine.site.getPatrolRoute();
         int next = ringIndex + ringStep;
         // Turns back at the ends of a round broken by a lake or a cliff
-        if(engine.site.isPatrolArc() && (next < 0 || next >= ring.size())) {
+        if(routine.site.isPatrolArc() && (next < 0 || next >= ring.size())) {
             ringStep = -ringStep;
             next = ringIndex + ringStep;
         }
         ringIndex = Math.floorMod(next, ring.size());
-        engine.spot = npc.getEntityWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
-        engine.lookTarget = null;
-        engine.phase = Phase.GOING;
-        engine.walker.resetWalk();
-        engine.thinkCooldown = 0;
+        routine.spot = npc.getEntityWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
+        routine.lookTarget = null;
+        routine.phase = Phase.GOING;
+        routine.walker.resetWalk();
+        routine.thinkCooldown = 0;
         // Dusk and dawn can fall in the middle of a round
-        engine.showProp();
+        routine.showProp();
     }
 }

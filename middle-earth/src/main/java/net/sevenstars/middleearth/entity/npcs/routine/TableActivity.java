@@ -1,19 +1,17 @@
-package net.sevenstars.middleearth.entity.npcs.routine.activity;
+package net.sevenstars.middleearth.entity.npcs.routine;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.special.SeatBlock;
-import net.sevenstars.middleearth.entity.seat.SeatEntity;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST_VARIATION;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded;
 
-public class TableActivity extends RoutineActivity {
+class TableActivity extends RoutineActivity {
     // Tables within this distance of home are preferred over ones further away
     private static final int TABLE_RANGE = 40;
 
@@ -51,17 +49,17 @@ public class TableActivity extends RoutineActivity {
     private static final int COMPANION_RECHECK_ONE_IN = 40;
 
     // The seat at its own table that a visitor asked it to take, while it comes home for the visit
-    public @Nullable BlockPos hostingAt = null;
+    @Nullable BlockPos hostingAt = null;
     // The household the pick found somebody in, which the visit goes to
-    public @Nullable BlockPos visitHousehold = null;
-    public @Nullable NpcEntity companion = null;
+    @Nullable BlockPos visitHousehold = null;
+    @Nullable NpcEntity companion = null;
 
-    public TableActivity(NpcRoutine engine) {
-        super(engine);
+    TableActivity(NpcRoutine routine) {
+        super(routine);
     }
 
     @Override
-    public boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+    boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(picked == RoutineData.Activity.VISIT)
             return beginVisit(world, picked, home);
         if(picked == RoutineData.Activity.TABLE)
@@ -72,66 +70,66 @@ public class TableActivity extends RoutineActivity {
 
     private boolean beginVisit(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(hostingAt != null) {
-            engine.meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
-            BlockPos beside = engine.meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
-            engine.spot = engine.meetSeat != null ? engine.standAt(world, engine.meetSeat) : beside != null ? beside : hostingAt;
-            engine.did("visit", "comes home to have a visitor over at " + engine.spot.toShortString());
+            routine.meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
+            BlockPos beside = routine.meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
+            routine.spot = routine.meetSeat != null ? routine.standAt(world, routine.meetSeat) : beside != null ? beside : hostingAt;
+            routine.did("visit", "comes home to have a visitor over at " + routine.spot.toShortString());
             hostingAt = null;
             return true;
         }
         BlockPos household = visitHousehold != null ? visitHousehold : householdToVisit(world, home);
         visitHousehold = null;
         if(household == null)
-            return engine.cannotStart(picked, "no other household to call on");
+            return routine.cannotStart(picked, "no other household to call on");
         // A visit is to somebody, so the household is invited to its own table
         List<NpcEntity> hosts = hostsAt(world, household);
         // To the table if there's room at it, otherwise just inside the door
-        engine.meetSeat = engine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
-        BlockPos hostSeat = engine.meetSeat == null ? null : engine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE, engine.meetSeat);
+        routine.meetSeat = routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
+        BlockPos hostSeat = routine.meetSeat == null ? null : routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE, routine.meetSeat);
         for(NpcEntity host : hosts)
             host.invite(hostSeat != null ? hostSeat : household, world.getTime() + INVITATION_TIME);
-        if(engine.meetSeat != null) {
-            engine.spot = engine.standAt(world, engine.meetSeat);
+        if(routine.meetSeat != null) {
+            routine.spot = routine.standAt(world, routine.meetSeat);
         } else {
             BlockPos beside = NestSurvey.standNextTo(world, household, npc.getBlockPos());
-            engine.spot = beside != null ? beside : household;
+            routine.spot = beside != null ? beside : household;
         }
         return true;
     }
 
     private boolean beginTable(ServerWorld world, RoutineData.Activity picked, BlockPos home, Random random) {
-        engine.meetSeat = engine.site.pickSeat(world, random, home, TABLE_RANGE);
-        if(engine.meetSeat == null)
-            return engine.cannotStart(picked, "no free seat at any table");
-        engine.spot = engine.standAt(world, engine.meetSeat);
+        routine.meetSeat = routine.site.pickSeat(world, random, home, TABLE_RANGE);
+        if(routine.meetSeat == null)
+            return routine.cannotStart(picked, "no free seat at any table");
+        routine.spot = routine.standAt(world, routine.meetSeat);
         return true;
     }
 
     private void beginCourt(ServerWorld world) {
         StructureFeatureData.Marker seatMarker = null;
-        for(StructureFeatureData.Marker marker : engine.site.getMarkers(MarkerKind.LORD_SEAT)) {
+        for(StructureFeatureData.Marker marker : routine.site.getMarkers(MarkerKind.LORD_SEAT)) {
             if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
                 seatMarker = marker;
         }
         // The marker is beside the seat
         BlockPos seat = null;
-        for(BlockPos candidate : engine.site.getSeats()) {
+        for(BlockPos candidate : routine.site.getSeats()) {
             if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
                     && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
                 seat = candidate;
         }
-        engine.facing = seatMarker.facing();
+        routine.facing = seatMarker.facing();
         if(seat != null) {
-            engine.meetSeat = seat;
-            engine.spot = engine.standAt(world, seat);
+            routine.meetSeat = seat;
+            routine.spot = routine.standAt(world, seat);
         } else {
-            engine.spot = seatMarker.pos();
+            routine.spot = seatMarker.pos();
         }
     }
 
     @Override
-    public void arrive(ServerWorld world, Random random, long time) {
-        if(engine.activity == RoutineData.Activity.COURT)
+    void arrive(ServerWorld world, Random random, long time) {
+        if(routine.activity == RoutineData.Activity.COURT)
             arriveCourt(world, random, time);
         else
             arriveVisitOrTable(world, random, time);
@@ -139,29 +137,29 @@ public class TableActivity extends RoutineActivity {
 
     private void arriveVisitOrTable(ServerWorld world, Random random, long time) {
         // Somebody quicker may have taken the seat. The table is still the place to be
-        boolean seated = engine.sitting.sitDown(world);
-        engine.phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
+        boolean seated = routine.sitting.sitDown(world);
+        routine.phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
         companion = null;
-        engine.meetSeat = null;
+        routine.meetSeat = null;
     }
 
     private void arriveCourt(ServerWorld world, Random random, long time) {
-        boolean seated = engine.sitting.sitDown(world);
-        engine.phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
-        engine.did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
+        boolean seated = routine.sitting.sitDown(world);
+        routine.phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
+        routine.did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
         companion = null;
-        engine.meetSeat = null;
+        routine.meetSeat = null;
     }
 
     @Override
-    public void work(ServerWorld world, Random random, boolean done, long time) {
+    void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
-            engine.finish(world, REST + random.nextInt(REST_VARIATION));
+            routine.finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
             companion = RoutineSites.takeEntitySearch(world) ? findCompanion(world) : null;
-            engine.lookTarget = engine.activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? engine.facingTarget() : null;
+            routine.lookTarget = routine.activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? routine.facingTarget() : null;
         } else {
-            engine.lookTarget = companion.getEyePos();
+            routine.lookTarget = companion.getEyePos();
             converse(random);
         }
     }
@@ -170,7 +168,7 @@ public class TableActivity extends RoutineActivity {
     // or asleep in the same room, is not spoken to
     private void converse(Random random) {
         NpcRoutine other = companion.getDayRoutine();
-        if(other == null || !other.isInCompany()) {
+        if(!other.isInCompany()) {
             // Somebody who came to sit with it may be nearby by now
             if(random.nextInt(COMPANION_RECHECK_ONE_IN) == 0)
                 companion = null;
@@ -188,7 +186,7 @@ public class TableActivity extends RoutineActivity {
         }
     }
 
-    public void turnTo(NpcEntity speaker) {
+    void turnTo(NpcEntity speaker) {
         companion = speaker;
     }
 
@@ -197,7 +195,7 @@ public class TableActivity extends RoutineActivity {
         NpcEntity nearest = null;
         boolean nearestInCompany = false;
         for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(COMPANION_RANGE, COMPANION_HEIGHT_RANGE, COMPANION_RANGE), found -> found != npc && found.isAlive() && npc.getVisibilityCache().canSee(found))) {
-            boolean inCompany = other.getDayRoutine() != null && other.getDayRoutine().isInCompany();
+            boolean inCompany = other.getDayRoutine().isInCompany();
             if(nearest == null || inCompany && !nearestInCompany || inCompany == nearestInCompany && npc.squaredDistanceTo(other) < npc.squaredDistanceTo(nearest)) {
                 nearest = other;
                 nearestInCompany = inCompany;
@@ -207,9 +205,9 @@ public class TableActivity extends RoutineActivity {
     }
 
     // Of a few households tried, picks one with somebody in it to call on. Nobody visits an empty house
-    public @Nullable BlockPos householdToVisit(ServerWorld world, BlockPos home) {
+    @Nullable BlockPos householdToVisit(ServerWorld world, BlockPos home) {
         for(int attempt = 0; attempt < VISIT_TRIES; attempt++) {
-            BlockPos household = engine.site.pickHousehold(world, home, npc.getRandom());
+            BlockPos household = routine.site.pickHousehold(world, home, npc.getRandom());
             if(household == null)
                 return null;
             if(!hostsAt(world, household).isEmpty())

@@ -8,18 +8,18 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.Heightmap;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.pathing.NpcNavigation;
+import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,8 +32,8 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isUnderC
 import static net.sevenstars.middleearth.entity.npcs.routine.RoutineReturn.STORE_REACH;
 
 // Gets the npc where it is going, a stretch at a time
-public class RoutineWalker {
-    public static final double ARRIVAL_DISTANCE = 2.5;
+class RoutineWalker {
+    static final double ARRIVAL_DISTANCE = 2.5;
     private static final int HOME_DISTANCE = 12;
     // Multiplier on how many nodes a path search may visit when heading to bed
     private static final float BED_SEARCH = 4;
@@ -64,7 +64,7 @@ public class RoutineWalker {
     private static final float[] AROUND_LEFT = {90, 60, 120};
     private static final float[] AROUND_RIGHT = {-90, -60, -120};
     private static final int AROUND_LENGTH = 8;
-    public static final int MAXIMUM_HEIGHT_CHANGE = 8;
+    static final int MAXIMUM_HEIGHT_CHANGE = 8;
     private static final int MAXIMUM_LEGS = 30;
     private static final int MAXIMUM_FAILURES = 3;
     private static final int MINIMUM_PROGRESS = 2;
@@ -75,11 +75,11 @@ public class RoutineWalker {
     private static final int STEP_OFF_RADIUS = 3;
     private static final int STEP_OFF_DEPTH = 3;
 
-    private final NpcRoutine engine;
+    private final NpcRoutine routine;
     private final NpcEntity npc;
 
-    public int legs = 0;
-    public int failures = 0;
+    int legs = 0;
+    int failures = 0;
     // Where the path of the last stretch was to end, when it led all the way there
     private @Nullable BlockPos lastLegEnd = null;
     private double bestLegDistance = Double.MAX_VALUE;
@@ -95,33 +95,33 @@ public class RoutineWalker {
     private int watchedNode = 0;
     private double watchedDistance = 0;
     private int watchedThinks = 0;
-    public boolean steppedOff = false;
+    boolean steppedOff = false;
 
-    public RoutineWalker(NpcRoutine engine) {
-        this.engine = engine;
-        this.npc = engine.npc;
+    RoutineWalker(NpcRoutine routine) {
+        this.routine = routine;
+        this.npc = routine.npc;
     }
 
-    public void travel(ServerWorld world, @Nullable BlockPos target) {
+    void travel(ServerWorld world, @Nullable BlockPos target) {
         if(target == null) {
-            engine.abandoned("has no home to go back to");
-            engine.finish(world, REST);
+            routine.abandoned("has no home to go back to");
+            routine.finish(world, REST);
             return;
         }
         // The usual distance reaches through a wall, so a store on its far side would be filled from the street
-        boolean storing = engine.phase == Phase.RETURNING && !engine.toBed && engine.carried != null && engine.dropOff() != null;
-        boolean sitting = engine.phase == Phase.GOING && engine.meetSeat != null;
-        boolean working = engine.phase == Phase.GOING && engine.activity == RoutineData.Activity.WORK;
+        boolean storing = routine.phase == Phase.RETURNING && !routine.toBed && routine.carried != null && routine.dropOff() != null;
+        boolean sitting = routine.phase == Phase.GOING && routine.meetSeat != null;
+        boolean working = routine.phase == Phase.GOING && routine.activity == RoutineData.Activity.WORK;
         // Close enough to a bed means able to see it, not a step away through the wall
-        BlockPos bed = engine.phase == Phase.RETURNING && engine.toBed ? engine.beds.freeBed(world) : null;
+        BlockPos bed = routine.phase == Phase.RETURNING && routine.toBed ? routine.beds.freeBed(world) : null;
         boolean bedding = bed != null;
-        BlockPos store = engine.dropOff();
-        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && engine.canSee(world, store);
+        BlockPos store = routine.dropOff();
+        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && routine.canSee(world, store);
         // A seat boxed in by other seats and a table can only be reached from a corner, a little further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
-        if(target.isWithinDistance(mover().getEntityPos(), arrival) && (!bedding || engine.beds.canSeeBed(world, bed)) && (!working || engine.station.workTarget() == null || engine.canSee(world, engine.station.workTarget()))
-                && atStore && (!sitting || engine.canSee(world, engine.meetSeat))) {
-            engine.arrive(world);
+        if(target.isWithinDistance(mover().getEntityPos(), arrival) && (!bedding || routine.beds.canSeeBed(world, bed)) && (!working || routine.station.workTarget() == null || routine.canSee(world, routine.station.workTarget()))
+                && atStore && (!sitting || routine.canSee(world, routine.meetSeat))) {
+            routine.arrive(world);
             return;
         }
         // A path that can't be followed keeps the navigation busy without the npc getting anywhere
@@ -129,12 +129,12 @@ public class RoutineWalker {
             watchedThinks = 0;
         } else if(++watchedThinks >= WATCH_THINKS) {
             watchedThinks = 0;
-            engine.debug.debugWhy("STALL", world, target, null);
+            routine.debug.debugWhy("STALL", world, target, null);
             String heldUp = heldUpAt(world);
             mover().getNavigation().stop();
             failures++;
             if(failures >= MAXIMUM_FAILURES) {
-                engine.giveUp(world, "stuck on the way to " + target.toShortString() + heldUp);
+                routine.giveUp(world, "stuck on the way to " + target.toShortString() + heldUp);
                 return;
             }
         }
@@ -156,8 +156,8 @@ public class RoutineWalker {
             idleLegs = 0;
         }
         boolean stalled = legs > 1 && !improved && lastLegMoved && (!walkedLeg || ++idleLegs > IDLE_LEGS);
-        if(stalled && engine.phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || engine.beds.isInReach(bed) && engine.beds.canSeeBed(world, bed)) && atStore) {
-            engine.arrive(world);
+        if(stalled && routine.phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || routine.beds.isInReach(bed) && routine.beds.canSeeBed(world, bed)) && atStore) {
+            routine.arrive(world);
             return;
         }
         // A walk under cover that has gone wrong once gets its whole route planned and is walked by stretches. With no
@@ -171,21 +171,21 @@ public class RoutineWalker {
         // up a stair round the back of the house is a long way round, longer than the usual search looks
         if(bedding)
             mover().getNavigation().setRangeMultiplier(BED_SEARCH);
-        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working || storing ? 0 : 1, engine.speed);
+        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working || storing ? 0 : 1, routine.speed);
         mover().getNavigation().resetRangeMultiplier();
         Path leg = mover().getNavigation().getCurrentPath();
         lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
         lastLegMoved = moving;
         if(!moving && stepOff(world))
             return;
-        if(!moving || stalled) engine.debug.debugWhy(moving ? "NOPROGRESS" : "NOPATH", world, target, destination);
+        if(!moving || stalled) routine.debug.debugWhy(moving ? "NOPROGRESS" : "NOPATH", world, target, destination);
         if(moving && !stalled) {
             failures = 0;
             return;
         }
         failures++;
         if(legs > MAXIMUM_LEGS || failures >= MAXIMUM_FAILURES)
-            engine.giveUp(world, (legs > MAXIMUM_LEGS ? "too far, " + legs + " stretches without arriving at " : moving ? "got no nearer to " : "no path to ") + target.toShortString());
+            routine.giveUp(world, (legs > MAXIMUM_LEGS ? "too far, " + legs + " stretches without arriving at " : moving ? "got no nearer to " : "no path to ") + target.toShortString());
     }
 
     private boolean planWay(ServerWorld world, BlockPos target, boolean covered) {
@@ -199,7 +199,7 @@ public class RoutineWalker {
                     planned = false;
                     return true;
                 }
-                engine.giveUp(world, "no way at all to " + target.toShortString());
+                routine.giveUp(world, "no way at all to " + target.toShortString());
                 return true;
             }
             waypoints = new ArrayList<>();
@@ -241,7 +241,7 @@ public class RoutineWalker {
         BlockPos floor = NestSurvey.freeFloorNear(world, npc.getBlockPos(), STEP_OFF_RADIUS, STEP_OFF_DEPTH);
         if(floor == null)
             return false;
-        engine.did(engine.activity.asString(), "stepped off a spot no path starts from, to " + floor.toShortString());
+        routine.did(routine.activity.asString(), "stepped off a spot no path starts from, to " + floor.toShortString());
         npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
         return true;
     }
@@ -270,11 +270,11 @@ public class RoutineWalker {
     // looked at as well, because the nearest door to a room upstairs may be inside the house, with the way into the
     // house round the far side
     private @Nullable BlockPos doorTowards(BlockPos target, MobEntity mover) {
-        if(engine.site == null)
+        if(routine.site == null)
             return null;
         int reach = triedDoors.isEmpty() ? DOOR_REACH : FAR_DOOR_REACH;
         BlockPos best = null;
-        for(BlockPos door : engine.site.getDoors()) {
+        for(BlockPos door : routine.site.getDoors()) {
             if(triedDoors.contains(door) || !door.isWithinDistance(target, reach) || door.isWithinDistance(mover.getEntityPos(), AT_DOOR))
                 continue;
             if(best == null || door.getSquaredDistance(target) < best.getSquaredDistance(target))
@@ -323,7 +323,7 @@ public class RoutineWalker {
             if(!world.isChunkLoaded(x >> 4, z >> 4))
                 continue;
             BlockPos ground = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-            if(Math.abs(ground.getY() - mover.getY()) > MAXIMUM_HEIGHT_CHANGE || (engine.site != null && engine.site.isBuilding(x, ground.getY(), z)))
+            if(Math.abs(ground.getY() - mover.getY()) > MAXIMUM_HEIGHT_CHANGE || (routine.site != null && routine.site.isBuilding(x, ground.getY(), z)))
                 continue;
             if(world.getFluidState(ground.down()).isEmpty() && SpawnUtil.canSpawn(ground, world, SpawnReason.EVENT))
                 return Vec3d.ofBottomCenter(ground);
@@ -333,23 +333,23 @@ public class RoutineWalker {
     }
 
     // The npc is on its own mount, and the mount's legs do the walking
-    public boolean riding() {
+    boolean riding() {
         NpcClass npcClass = npc.getNpcClass();
         return npcClass != null && npcClass.hasMount() && npc.getVehicle() instanceof MobEntity mount && mount.getFirstPassenger() == npc;
     }
 
     // Whatever does the walking. For a rider that's the mount
-    public MobEntity mover() {
+    MobEntity mover() {
         return riding() && npc.getVehicle() instanceof MobEntity mount ? mount : npc;
     }
 
-    public void stopMoving() {
+    void stopMoving() {
         npc.getNavigation().stop();
         if(npc.getVehicle() instanceof MobEntity mount)
             mount.getNavigation().stop();
     }
 
-    public void resetLegs() {
+    void resetLegs() {
         legs = 0;
         lastLegEnd = null;
         bestLegDistance = Double.MAX_VALUE;
@@ -363,17 +363,17 @@ public class RoutineWalker {
         watchedThinks = 0;
     }
 
-    public void resetWalk() {
+    void resetWalk() {
         resetLegs();
         steppedOff = false;
         failures = 0;
     }
 
     // Each walk is judged separately: its stretches, the doors tried and the planned route
-    public void newWalk(ServerWorld world) {
-        engine.lookTarget = null;
+    void newWalk(ServerWorld world) {
+        routine.lookTarget = null;
         resetWalk();
-        engine.thinkCooldown = 0;
-        engine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
+        routine.thinkCooldown = 0;
+        routine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
     }
 }

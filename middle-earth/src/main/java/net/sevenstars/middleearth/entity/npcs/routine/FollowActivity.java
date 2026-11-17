@@ -1,19 +1,18 @@
-package net.sevenstars.middleearth.entity.npcs.routine.activity;
+package net.sevenstars.middleearth.entity.npcs.routine;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.sevenstars.middleearth.entity.seat.SeatEntity;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
+import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -23,7 +22,7 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.ROUTINE_
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded;
 import static net.sevenstars.middleearth.entity.npcs.routine.RoutineWalker.ARRIVAL_DISTANCE;
 
-public class FollowActivity extends RoutineActivity {
+class FollowActivity extends RoutineActivity {
     private static final int LORD_SEARCH_DELAY = 20 * 5;
 
     private static final double FOLLOW_NEAR = 3.5;
@@ -44,12 +43,12 @@ public class FollowActivity extends RoutineActivity {
     private long lordSearchAt = 0;
     private int followCheck = 0;
 
-    public FollowActivity(NpcRoutine engine) {
-        super(engine);
+    FollowActivity(NpcRoutine routine) {
+        super(routine);
     }
 
     @Override
-    public boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+    boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         beginFollow(world);
         return true;
     }
@@ -57,24 +56,24 @@ public class FollowActivity extends RoutineActivity {
     private void beginFollow(ServerWorld world) {
         NpcEntity lord = findLord(world);
         BlockPos stand = lord == null ? null : followSpot(world, lord);
-        engine.spot = stand != null ? stand : npc.getBlockPos();
+        routine.spot = stand != null ? stand : npc.getBlockPos();
         followCheck = FOLLOW_REPATH;
     }
 
     @Override
-    public void arrive(ServerWorld world, Random random, long time) {
-        engine.phaseEnd = time;
+    void arrive(ServerWorld world, Random random, long time) {
+        routine.phaseEnd = time;
     }
 
     // The lord of the place is whichever of its people holds the job. Found once, then looked up by id
-    public @Nullable NpcEntity findLord(ServerWorld world) {
+    @Nullable NpcEntity findLord(ServerWorld world) {
         if(lordId != null && world.getEntity(lordId) instanceof NpcEntity known && known.isAlive())
             return known;
         lordId = null;
         if(world.getTime() < lordSearchAt)
             return null;
         lordSearchAt = world.getTime() + LORD_SEARCH_DELAY;
-        int reach = (engine.site == null ? 0 : engine.site.getExtent()) + LORD_SEARCH_RANGE;
+        int reach = (routine.site == null ? 0 : routine.site.getExtent()) + LORD_SEARCH_RANGE;
         NpcEntity nearest = null;
         for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(reach, LORD_HEIGHT_RANGE, reach),
                 other -> other != npc && other.isAlive() && NpcJobs.isLord(other.getJobId()) && Objects.equals(npc.getFactionIdentifier(), other.getFactionIdentifier()))) {
@@ -89,16 +88,16 @@ public class FollowActivity extends RoutineActivity {
     // Where a bodyguard should be. That's a post while the lord sits at court, otherwise a few blocks off the lord.
     // Null when it's already there
     private @Nullable BlockPos followSpot(ServerWorld world, NpcEntity lord) {
-        engine.facing = null;
-        if(lord.getVehicle() instanceof SeatEntity && engine.site != null) {
+        routine.facing = null;
+        if(lord.getVehicle() instanceof SeatEntity && routine.site != null) {
             StructureFeatureData.Marker post = null;
-            for(StructureFeatureData.Marker marker : engine.site.getMarkers(MarkerKind.GUARD_POST)) {
+            for(StructureFeatureData.Marker marker : routine.site.getMarkers(MarkerKind.GUARD_POST)) {
                 if(marker.pos().isWithinDistance(lord.getBlockPos(), FOLLOW_POST_RANGE)
                         && (post == null || marker.pos().getSquaredDistance(lord.getBlockPos()) < post.pos().getSquaredDistance(lord.getBlockPos())))
                     post = marker;
             }
             if(post != null) {
-                engine.facing = post.facing();
+                routine.facing = post.facing();
                 return npc.getBlockPos().isWithinDistance(post.pos(), ARRIVAL_DISTANCE) ? null : post.pos();
             }
         }
@@ -118,55 +117,55 @@ public class FollowActivity extends RoutineActivity {
     }
 
     // While walking after the lord, who has moved on since the walk began. False once there's nowhere left to walk to
-    public boolean following(ServerWorld world) {
+    boolean following(ServerWorld world) {
         if(--followCheck > 0)
             return true;
         followCheck = FOLLOW_REPATH;
         NpcEntity lord = findLord(world);
         if(lord == null) {
-            engine.abandoned("lost its lord");
-            engine.finish(world, REST);
+            routine.abandoned("lost its lord");
+            routine.finish(world, REST);
             return false;
         }
         BlockPos stand = followSpot(world, lord);
         if(stand == null) {
-            engine.arrive(world);
+            routine.arrive(world);
             return false;
         }
-        if(!stand.isWithinDistance(engine.spot, FOLLOW_SPOT_SHIFT))
-            engine.walker.resetLegs();
-        engine.walker.steppedOff = false;
-        engine.spot = stand;
+        if(!stand.isWithinDistance(routine.spot, FOLLOW_SPOT_SHIFT))
+            routine.walker.resetLegs();
+        routine.walker.steppedOff = false;
+        routine.spot = stand;
         return true;
     }
 
     @Override
-    public void work(ServerWorld world, Random random, boolean done, long time) {
-        engine.deadline = time + ROUTINE_TIME_LIMIT;
-        if(!engine.onDuty(world) || !engine.isWatched(world)) {
-            engine.startReturn(world);
+    void work(ServerWorld world, Random random, boolean done, long time) {
+        routine.deadline = time + ROUTINE_TIME_LIMIT;
+        if(!routine.onDuty(world) || !routine.isWatched(world)) {
+            routine.startReturn(world);
             return;
         }
         NpcEntity lord = findLord(world);
         if(lord == null) {
-            engine.abandoned("lost its lord");
-            engine.finish(world, REST);
+            routine.abandoned("lost its lord");
+            routine.finish(world, REST);
             return;
         }
         BlockPos stand = followSpot(world, lord);
         if(stand != null) {
-            engine.spot = stand;
-            engine.phase = Phase.GOING;
-            engine.walker.resetWalk();
+            routine.spot = stand;
+            routine.phase = Phase.GOING;
+            routine.walker.resetWalk();
             followCheck = FOLLOW_REPATH;
             return;
         }
         // Looks the way the post does, otherwise outwards from the lord
-        engine.lookTarget = engine.facingTarget();
-        if(engine.lookTarget == null) {
+        routine.lookTarget = routine.facingTarget();
+        if(routine.lookTarget == null) {
             Vec3d away = npc.getEntityPos().subtract(lord.getEntityPos()).multiply(1, 0, 1);
-            engine.lookTarget = away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
+            routine.lookTarget = away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
         }
-        engine.showProp();
+        routine.showProp();
     }
 }

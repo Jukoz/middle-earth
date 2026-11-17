@@ -1,47 +1,33 @@
 package net.sevenstars.middleearth.entity.npcs.routine;
 
-import net.minecraft.registry.tag.ItemTags;
-import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.FishingRodItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.registry.Registries;
-import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
-import net.sevenstars.middleearth.entity.seat.SeatEntity;
+import net.minecraft.world.RaycastContext;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.dev.NpcDebug;
 import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.ChoppingActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.EscortActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.FarmingActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.FishingActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.FollowActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.ForagingActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.HuntingActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.InspectActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.MiningActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.PatrolActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.PostActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.RoutineActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.StationActivity;
-import net.sevenstars.middleearth.entity.npcs.routine.activity.TableActivity;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -53,9 +39,9 @@ import java.util.Set;
 
 // Runs an npc's day: out to its task, home with what it got, and to bed at night
 public class NpcRoutine {
-    public enum Phase { NONE, GOING, WORKING, HUNTING, RETURNING, SLEEPING }
+    enum Phase { NONE, GOING, WORKING, HUNTING, RETURNING, SLEEPING }
 
-    // Delays are in checks, which run every other tick
+    // Delays are in think ticks
     private static final int IDLE_DELAY = 100;
     private static final int IDLE_DELAY_VARIATION = 60;
     private static final int WAITING_DELAY = 10;
@@ -63,18 +49,18 @@ public class NpcRoutine {
     private static final int FIRST_CHECK_DELAY = 20;
     private static final int FIRST_CHECK_ID_FACTOR = 31;
     private static final int FIRST_CHECK_SPREAD = 300;
-    // Goal ticks between two looks at the world, 10 a second
+    // In think ticks, so 10 looks at the world a second
     private static final int THINK_INTERVAL = 5;
 
     // Test runs widen it, so one player covers a whole village
     private static final int PLAYER_RANGE = Integer.getInteger("me.routineRange", 48);
-    public static final int SPOT_RANGE = 64;
+    static final int SPOT_RANGE = 64;
     private static final int WILD_HOME_RANGE = 64;
     // A settled npc further from home than this walks back first
     private static final int STRAY_DISTANCE = 24;
     private static final int DRIFT_DISTANCE = 48;
     // How far to look for a floor with a line of sight to a store that has no floor beside it
-    public static final int STORE_STAND_RADIUS = 2;
+    static final int STORE_STAND_RADIUS = 2;
     // Just inside the face of a block, so a ray aimed there ends inside the block
     private static final double FACE_INSET = 0.49;
     private static final double HALF_BLOCK = 0.5;
@@ -82,19 +68,19 @@ public class NpcRoutine {
     // Blocks above the feet, beyond which a place counts as indoors or underground
     private static final int COVER_HEIGHT = 2;
     // How long a failed task is put on hold. Each failure in a row holds it longer, up to three times as long
-    public static final int HOLD = 20 * 120;
-    public static final int MAXIMUM_STRIKES = 3;
+    static final int HOLD = 20 * 120;
+    static final int MAXIMUM_STRIKES = 3;
     // How many times another task is tried when the one picked can't be started
     private static final int PICK_ATTEMPTS = 3;
 
     // In ticks
-    public static final int ROUTINE_TIME_LIMIT = 20 * 60 * 5;
-    public static final int REST = 20 * 20;
-    public static final int REST_VARIATION = 20 * 40;
-    public static final int NOTHING_TO_DO_REST = 20 * 120;
+    static final int ROUTINE_TIME_LIMIT = 20 * 60 * 5;
+    static final int REST = 20 * 20;
+    static final int REST_VARIATION = 20 * 40;
+    static final int NOTHING_TO_DO_REST = 20 * 120;
 
-    // A hive fills over a day, and its honey is collected once it has been full for another
-    public static final long DAY = 24000;
+    // In ticks
+    static final long DAY = 24000;
     // Time of day
     private static final int DUSK = 12500;
     private static final int DAWN = 23500;
@@ -103,22 +89,22 @@ public class NpcRoutine {
 
     private static final int LOOK_DISTANCE = 5;
 
-    public final NpcEntity npc;
-    public final double speed;
+    final NpcEntity npc;
+    final double speed;
 
     private int delay;
-    public int thinkCooldown = 0;
-    public Phase phase = Phase.NONE;
-    public RoutineData.Activity activity = RoutineData.Activity.PATROL;
-    public @Nullable RoutineSite site = null;
-    public BlockPos spot = BlockPos.ORIGIN;
-    public @Nullable Vec3d lookTarget = null;
-    public @Nullable Item carried = null;
-    public long phaseEnd = 0;
-    public long deadline = 0;
+    int thinkCooldown = 0;
+    Phase phase = Phase.NONE;
+    RoutineData.Activity activity = RoutineData.Activity.PATROL;
+    @Nullable RoutineSite site = null;
+    BlockPos spot = BlockPos.ORIGIN;
+    @Nullable Vec3d lookTarget = null;
+    @Nullable Item carried = null;
+    long phaseEnd = 0;
+    long deadline = 0;
     private long restUntil = 0;
     // Where what is carried goes when it isn't the household's store, e.g. a woodcutter's logs go on the wood pile
-    public @Nullable BlockPos dropOff = null;
+    @Nullable BlockPos dropOff = null;
     private String interruptedBy = "";
     // Grows each time a routine has to be abandoned, so an npc with no way out stops trying
     private final Map<RoutineData.Activity, Long> heldUntil = new EnumMap<>(RoutineData.Activity.class);
@@ -126,49 +112,37 @@ public class NpcRoutine {
     private final Set<String> notedFallbacks = new HashSet<>();
     // The way home and the way to bed are held back the same way once they fail
     private long homeHeldUntil = 0;
-    public int homeStrikes = 0;
+    int homeStrikes = 0;
     // Set once the current task has been given up, so it isn't also counted as finished
-    public boolean failed = false;
+    boolean failed = false;
     private boolean ownsRod = false;
-    public boolean toBed = false;
-    public @Nullable BlockPos meetSeat = null;
-    public int carriedCount = 1;
+    boolean toBed = false;
+    @Nullable BlockPos meetSeat = null;
+    int carriedCount = 1;
     // Heading back with no task, after straying or at the end of the day
-    public boolean homeward = false;
+    boolean homeward = false;
     // The direction the marker of the post, seat or stop being visited faces
-    public @Nullable Direction facing = null;
+    @Nullable Direction facing = null;
 
-    public final RoutineWalker walker;
-    public final RoutineBed beds;
-    public final RoutineDebug debug;
-    public final RoutineReturn returnTrip;
-    public final RoutineSeat sitting;
-    public final FishingActivity fishing;
-    public final HuntingActivity hunting;
-    public final ForagingActivity foraging;
-    public final TableActivity table;
-    public final StationActivity station;
-    public final FarmingActivity farming;
-    public final ChoppingActivity chopping;
-    public final MiningActivity mining;
-    public final PostActivity post;
-    public final PatrolActivity patrol;
-    public final InspectActivity inspect;
-    public final FollowActivity follow;
-    public final EscortActivity escort;
+    final RoutineWalker walker;
+    final RoutineBed beds;
+    final RoutineDebug debug;
+    private final RoutineReturn returnTrip;
+    final RoutineSeat sitting;
+    private final FishingActivity fishing;
+    private final HuntingActivity hunting;
+    private final ForagingActivity foraging;
+    final TableActivity table;
+    final StationActivity station;
+    final FarmingActivity farming;
+    private final ChoppingActivity chopping;
+    private final MiningActivity mining;
+    private final PostActivity post;
+    final PatrolActivity patrol;
+    private final InspectActivity inspect;
+    private final FollowActivity follow;
+    final EscortActivity escort;
     private final Map<RoutineData.Activity, RoutineActivity> activities = new EnumMap<>(RoutineData.Activity.class);
-
-    public String phaseName() {
-        return phase.name();
-    }
-
-    public RoutineData.Activity getActivity() {
-        return activity;
-    }
-
-    public BlockPos getSpot() {
-        return spot;
-    }
 
     public String debugLabel() {
         return debug.debugLabel();
@@ -222,7 +196,6 @@ public class NpcRoutine {
         activities.put(RoutineData.Activity.PATROL, patrol);
         activities.put(RoutineData.Activity.INSPECT, inspect);
         activities.put(RoutineData.Activity.FOLLOW, follow);
-        activities.put(RoutineData.Activity.ESCORT, escort);
     }
 
     public boolean canStart() {
@@ -440,7 +413,7 @@ public class NpcRoutine {
     }
 
     // Each failure in a row holds the task longer, so the npc spends the time on its other tasks
-    public void hold(RoutineData.Activity activity, long time) {
+    void hold(RoutineData.Activity activity, long time) {
         int count = Math.min(strikes.getOrDefault(activity, 0) + 1, MAXIMUM_STRIKES);
         strikes.put(activity, count);
         heldUntil.put(activity, time + (long) HOLD * count);
@@ -461,7 +434,7 @@ public class NpcRoutine {
     }
 
     // Routines only run where a player is near enough to see them
-    public boolean isWatched(ServerWorld world) {
+    boolean isWatched(ServerWorld world) {
         // isPlayerInRange ignores spectators, and the test harness watches as one
         if(NpcDebug.ENABLED && world.getPlayers().stream().anyMatch(player -> player.squaredDistanceTo(npc) < PLAYER_RANGE * PLAYER_RANGE))
             return true;
@@ -497,9 +470,8 @@ public class NpcRoutine {
         carried = null;
         carriedCount = 1;
         facing = null;
-        boolean sentry = NpcJobs.SENTRY.getValue().equals(npc.getJobId());
         // Falls back to another duty when the build lacks what this one needs
-        if(picked == RoutineData.Activity.POST && sentry && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
+        if(picked == RoutineData.Activity.POST && isSentry() && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
             fallsBack(picked, "no lookout marked in this build, patrols instead");
             picked = RoutineData.Activity.PATROL;
         }
@@ -526,8 +498,12 @@ public class NpcRoutine {
         return true;
     }
 
+    boolean isSentry() {
+        return NpcJobs.SENTRY.getValue().equals(npc.getJobId());
+    }
+
     public boolean shouldContinue() {
-        // Goals keep running for a sleeping mob, so this one has to keep it in bed
+        // A sleeping npc is still ticked, so the routine has to be what keeps it in bed
         if(phase == Phase.SLEEPING)
             return npc.isSleeping() && npc.getTarget() == null;
         return (phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING)
@@ -561,7 +537,7 @@ public class NpcRoutine {
                     : Registries.ENTITY_TYPE.getId(foe.getType()).getPath();
             // A task resumed after the fight isn't one given up. It only counts as given up if the npc has to leave it
             interruptedBy = foe != null ? "interrupted by a fight with " + foeName
-                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !walker.riding() ? "interrupted, it is riding" : "interrupted by another goal, such as fleeing";
+                    : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !walker.riding() ? "interrupted, it is riding" : "interrupted by something else, such as fleeing";
             BlockPos pos = npc.getBlockPos();
             MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s paused %s (%s) at %d,%d,%d: %s".formatted(who(), activity.asString(),
                     phase.name().toLowerCase(), pos.getX(), pos.getY(), pos.getZ(), interruptedBy));
@@ -611,15 +587,15 @@ public class NpcRoutine {
     }
 
     // Every task given up before it was done goes in the debug log with its reason, to find where npcs' days go wrong
-    public void abandoned(String why) {
+    void abandoned(String why) {
         abandoned(toBed ? "bed" : homeward ? "home" : activity.asString(), why);
     }
 
-    public void abandoned(RoutineData.Activity what, String why) {
+    void abandoned(RoutineData.Activity what, String why) {
         abandoned(what.asString(), why);
     }
 
-    public void abandoned(String what, String why) {
+    void abandoned(String what, String why) {
         failed = true;
         BlockPos pos = npc.getBlockPos();
         MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s gave up %s (%s) at %d,%d,%d: %s%s".formatted(who(), what,
@@ -629,11 +605,11 @@ public class NpcRoutine {
     }
 
     // What the build lacks, so the npc does something else in its place. Not a task given up, and noted once
-    public void fallsBack(RoutineData.Activity what, String why) {
+    void fallsBack(RoutineData.Activity what, String why) {
         fallsBack(what.asString(), why);
     }
 
-    public void fallsBack(String what, String why) {
+    void fallsBack(String what, String why) {
         if(!notedFallbacks.add(what + ": " + why))
             return;
         BlockPos pos = npc.getBlockPos();
@@ -651,11 +627,11 @@ public class NpcRoutine {
     }
 
     // Every task done is in the log too, to count what the npcs get done
-    public void did(String what) {
+    void did(String what) {
         did(activity.asString(), what);
     }
 
-    public void did(String task, String what) {
+    void did(String task, String what) {
         BlockPos pos = npc.getBlockPos();
         MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s did %s at %d,%d,%d: %s".formatted(who(), task, pos.getX(), pos.getY(), pos.getZ(), what));
     }
@@ -665,33 +641,28 @@ public class NpcRoutine {
         return (npcClass == null ? "npc" : npcClass.getId().getPath()) + (npc.getJobId() == null ? "" : " [" + npc.getJobId().getPath() + "]");
     }
 
-    public static String itemName(Item item) {
+    static String itemName(Item item) {
         return Registries.ITEM.getId(item).getPath();
     }
 
-    public boolean cannotStart(RoutineData.Activity what, String why) {
+    boolean cannotStart(RoutineData.Activity what, String why) {
         abandoned(what, "could not start, " + why);
         hold(what, npc.getEntityWorld().getTime());
         return false;
     }
 
-    public static boolean isLoaded(ServerWorld world, BlockPos pos) {
+    static boolean isLoaded(ServerWorld world, BlockPos pos) {
         return world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
     }
 
-    public static boolean isUnderCover(ServerWorld world, BlockPos pos) {
+    static boolean isUnderCover(ServerWorld world, BlockPos pos) {
         return isLoaded(world, pos) && world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) > pos.getY() + COVER_HEIGHT;
     }
 
-    public void giveUp(ServerWorld world, String why) {
+    void giveUp(ServerWorld world, String why) {
         debug.debugWhy("GIVEUP", world, null, null);
-        if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && !inspect.stops.isEmpty()) {
-            abandoned("skipped a post, " + why);
-            // The skip is in the log. The rest of the round still runs
-            failed = false;
-            inspect.nextStop(world.getTime());
+        if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && inspect.skipStop(world, why))
             return;
-        }
         if(phase == Phase.RETURNING && toBed) {
             // Stopped short, but near enough to lie down after all
             BlockPos bed = beds.freeBed(world);
@@ -700,13 +671,12 @@ public class NpcRoutine {
             beds.goToBed(world);
             return;
         }
-        boolean walkedSome = activity == RoutineData.Activity.PATROL && patrol.ringLeft > 1 && (patrol.laps > 0 || patrol.ringLeft < site.getPatrolRoute().size());
-        abandoned((phase != Phase.RETURNING && walkedSome ? "skipped a stretch of its round, " : "") + why);
-        if(phase != Phase.RETURNING && walkedSome) {
+        boolean skipsStretch = phase != Phase.RETURNING && activity == RoutineData.Activity.PATROL && patrol.canSkipStretch();
+        abandoned((skipsStretch ? "skipped a stretch of its round, " : "") + why);
+        if(skipsStretch) {
             // A blocked stretch of the round is skipped, and the rest of it still runs
             failed = false;
-            patrol.ringLeft--;
-            patrol.nextWaypoint();
+            patrol.skipStretch();
             return;
         }
         if(phase == Phase.RETURNING) {
@@ -720,7 +690,7 @@ public class NpcRoutine {
         }
     }
 
-    public void arrive(ServerWorld world) {
+    void arrive(ServerWorld world) {
         Random random = npc.getRandom();
         long time = world.getTime();
         walker.stopMoving();
@@ -742,7 +712,7 @@ public class NpcRoutine {
         activities.get(activity).work(world, random, done, time);
     }
 
-    public void turnTo(NpcEntity speaker) {
+    void turnTo(NpcEntity speaker) {
         table.turnTo(speaker);
     }
 
@@ -750,12 +720,12 @@ public class NpcRoutine {
         return phase == Phase.WORKING && (isSocial(activity) || activity == RoutineData.Activity.COURT);
     }
 
-    public boolean onDuty(ServerWorld world) {
+    boolean onDuty(ServerWorld world) {
         RoutineData routine = npc.getRoutine();
         return routine != null && routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
     }
 
-    public @Nullable Vec3d facingTarget() {
+    @Nullable Vec3d facingTarget() {
         return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * LOOK_DISTANCE, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * LOOK_DISTANCE);
     }
 
@@ -764,7 +734,7 @@ public class NpcRoutine {
         return activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.INSPECT;
     }
 
-    public void startReturn(ServerWorld world) {
+    void startReturn(ServerWorld world) {
         sitting.standUp();
         meetSeat = null;
         if(site != null)
@@ -774,13 +744,13 @@ public class NpcRoutine {
         showProp();
     }
 
-    public @Nullable BlockPos dropOff() {
+    @Nullable BlockPos dropOff() {
         return dropOff != null ? dropOff : npc.getStore();
     }
 
     // The floor beside a block. A seat on a bench between the table, a wall and the next seat has none, and is reached
     // across the next seat, from a floor a step further off that can see it
-    public BlockPos standAt(ServerWorld world, BlockPos block) {
+    BlockPos standAt(ServerWorld world, BlockPos block) {
         BlockPos stand = NestSurvey.standNextTo(world, block, npc.getBlockPos());
         if(stand == null)
             stand = NestSurvey.standInSight(world, block, npc.getBlockPos(), STORE_STAND_RADIUS);
@@ -789,7 +759,7 @@ public class NpcRoutine {
 
     // Aimed at the side of the block facing the npc. From eye height, a ray to the middle of a block a step away
     // crosses the block above it, which hides a forge under a stone hood
-    public boolean canSee(ServerWorld world, BlockPos block) {
+    boolean canSee(ServerWorld world, BlockPos block) {
         Vec3d eye = npc.getEyePos();
         Vec3d middle = Vec3d.ofCenter(block);
         // Every side facing the npc is tried, because from a corner one of them is behind the next block
@@ -813,7 +783,7 @@ public class NpcRoutine {
         return activity == RoutineData.Activity.VISIT || activity == RoutineData.Activity.TABLE;
     }
 
-    public void finish(ServerWorld world, int rest) {
+    void finish(ServerWorld world, int rest) {
         // Logs the tasks seen through to the end, to set against the ones given up
         if(phase != Phase.NONE && !failed) {
             // Only a task seen through clears what went wrong before. A hunter that found nothing again keeps away
@@ -833,13 +803,8 @@ public class NpcRoutine {
         toBed = false;
         phase = Phase.NONE;
         dropOff = null;
-        station.fetchFrom = null;
-        station.order = null;
         carriedCount = 1;
-        station.stationStand = null;
-        station.fuelFrom = null;
-        station.logInHand = null;
-        station.workAnimal = null;
+        station.clear();
         npc.setOnOuting(false);
         npc.setFarming(false);
         carried = null;
@@ -855,7 +820,7 @@ public class NpcRoutine {
         return time >= DUSK && time < DAWN;
     }
 
-    public void showProp() {
+    void showProp() {
         Item prop = null;
         if(phase == Phase.RETURNING)
             prop = carried;

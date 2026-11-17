@@ -1,23 +1,21 @@
-package net.sevenstars.middleearth.entity.npcs.routine.activity;
+package net.sevenstars.middleearth.entity.npcs.routine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
 import net.minecraft.block.FarmlandBlock;
-import net.minecraft.world.WorldEvents;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.math.random.Random;
-import net.sevenstars.middleearth.entity.npcs.routine.FarmPlots;
+import net.minecraft.world.WorldEvents;
+import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.Phase;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +24,9 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST_VARIATION;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.itemName;
-import static net.sevenstars.middleearth.entity.npcs.routine.activity.StationActivity.WORK_RANGE;
+import static net.sevenstars.middleearth.entity.npcs.routine.StationActivity.WORK_RANGE;
 
-public class FarmingActivity extends RoutineActivity {
+class FarmingActivity extends RoutineActivity {
     private static final int FARMING_TIME = 20 * 90;
     private static final int FARMING_TIME_VARIATION = 20 * 60;
 
@@ -39,36 +37,36 @@ public class FarmingActivity extends RoutineActivity {
 
     private static final int FARM_ACT_ONE_IN = 2;
 
-    public @Nullable BlockPos fieldCell = null;
+    @Nullable BlockPos fieldCell = null;
     private long farmingEnd = 0;
     // Plots found to be behind a fence or a wall from where they were to be worked. Skipped until it next sets out to farm
     private final Set<BlockPos> hiddenPlots = new HashSet<>();
 
-    public FarmingActivity(NpcRoutine engine) {
-        super(engine);
+    FarmingActivity(NpcRoutine routine) {
+        super(routine);
     }
 
     @Override
-    public boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+    boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         Random random = npc.getRandom();
         hiddenPlots.clear();
         fieldCell = nextFieldCell(world, home, npc.getBlockPos());
         if(fieldCell == null)
-            return engine.cannotStart(picked, "no field near home needs work");
-        engine.spot = fieldCell.up();
+            return routine.cannotStart(picked, "no field near home needs work");
+        routine.spot = fieldCell.up();
         farmingEnd = world.getTime() + FARMING_TIME + random.nextInt(FARMING_TIME_VARIATION);
         return true;
     }
 
     @Override
-    public void arrive(ServerWorld world, Random random, long time) {
+    void arrive(ServerWorld world, Random random, long time) {
         // Walking on to the next plot is still the same day in the fields
-        engine.phaseEnd = farmingEnd;
+        routine.phaseEnd = farmingEnd;
     }
 
     // One plot at a time. Does whatever the plot in reach needs, then moves on to the next one that needs anything
     @Override
-    public void work(ServerWorld world, Random random, boolean done, long time) {
+    void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
             endFarming(world);
             return;
@@ -76,7 +74,7 @@ public class FarmingActivity extends RoutineActivity {
         if(npc.getRandom().nextInt(FARM_ACT_ONE_IN) != 0)
             return;
         if(fieldCell != null && fieldCell.isWithinDistance(npc.getEntityPos(), FIELD_REACH)) {
-            if(!engine.canSee(world, fieldCell.up()))
+            if(!routine.canSee(world, fieldCell.up()))
                 hiddenPlots.add(fieldCell);
             else if(tend(world, fieldCell))
                 return;
@@ -86,26 +84,26 @@ public class FarmingActivity extends RoutineActivity {
         if(fieldCell == null) {
             endFarming(world);
         } else if(!fieldCell.isWithinDistance(npc.getEntityPos(), FIELD_REACH)) {
-            engine.spot = fieldCell.up();
-            engine.phase = Phase.GOING;
-            engine.walker.resetWalk();
+            routine.spot = fieldCell.up();
+            routine.phase = Phase.GOING;
+            routine.walker.resetWalk();
         }
     }
 
     // The harvest is taken home to the store
     private void endFarming(ServerWorld world) {
         fieldCell = null;
-        if(engine.carried != null)
-            engine.startReturn(world);
+        if(routine.carried != null)
+            routine.startReturn(world);
         else
-            engine.finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
+            routine.finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
     }
 
     // The plots of the place's fields are known from its buildings. Finds the nearest one that needs anything done
     private @Nullable BlockPos nextFieldCell(ServerWorld world, BlockPos home, BlockPos from) {
         BlockPos best = null;
         boolean bestLinked = false;
-        for(BlockPos cell : engine.site.getFields(home, WORK_RANGE)) {
+        for(BlockPos cell : routine.site.getFields(home, WORK_RANGE)) {
             if(hiddenPlots.contains(cell) || !isLoaded(world, cell) || !FarmPlots.needsWork(world, cell))
                 continue;
             boolean linked = isByLinkedField(cell);
@@ -126,8 +124,8 @@ public class FarmingActivity extends RoutineActivity {
     }
 
     // While the crops are growing, nobody needs to work the fields
-    public boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
-        for(BlockPos cell : engine.site.getFields(home, WORK_RANGE)) {
+    boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
+        for(BlockPos cell : routine.site.getFields(home, WORK_RANGE)) {
             if(isLoaded(world, cell) && FarmPlots.needsWork(world, cell))
                 return true;
         }
@@ -146,15 +144,15 @@ public class FarmingActivity extends RoutineActivity {
                 world.breakBlock(up, false);
             world.setBlockState(cell, Blocks.FARMLAND.getDefaultState());
             world.playSound(null, cell, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1f, 1f);
-            engine.did("tilled the plot at " + cell.toShortString());
+            routine.did("tilled the plot at " + cell.toShortString());
         } else if(above.isAir()) {
             Block sown = FarmPlots.cropFor(world, cell);
             world.setBlockState(up, sown.getDefaultState());
             world.playSound(null, up, SoundEvents.ITEM_CROP_PLANT, SoundCategory.BLOCKS, 1f, 1f);
-            engine.did("sowed " + Registries.BLOCK.getId(sown).getPath() + " at " + cell.toShortString());
+            routine.did("sowed " + Registries.BLOCK.getId(sown).getPath() + " at " + cell.toShortString());
         } else if(above.getBlock() instanceof CropBlock crop && crop.isMature(above)) {
-            engine.carried = FarmPlots.harvestOf(world, up, above);
-            engine.did("harvested " + itemName(engine.carried) + " at " + cell.toShortString());
+            routine.carried = FarmPlots.harvestOf(world, up, above);
+            routine.did("harvested " + itemName(routine.carried) + " at " + cell.toShortString());
             world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, up, Block.getRawIdFromState(above));
             world.setBlockState(up, crop.withAge(0));
         } else {
