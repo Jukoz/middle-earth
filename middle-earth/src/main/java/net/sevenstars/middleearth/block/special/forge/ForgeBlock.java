@@ -31,6 +31,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
 public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -97,27 +99,27 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
 
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient()) {
-            ForgePart forgePart = (ForgePart)state.get(PART);
-            ForgePart forgePartOpposite = (ForgePart)state.get(PART).getOpposite(state.get(PART));
-            BlockPos blockPos;
-            if(forgePart == ForgePart.BOTTOM){
-                blockPos = pos.add(0,1,0);
-            } else {
-                blockPos = pos.add(0,-1,0);
-            }
-            BlockState blockState = world.getBlockState(blockPos);
-            if (blockState.isOf(this) && blockState.get(PART) == forgePartOpposite) {
-                if (forgePart == ForgePart.BOTTOM) {
-                    // The loot table only drops the forge from its top half
-                    world.breakBlock(blockPos, !player.isCreative() && player.canHarvest(blockState), player);
-                } else {
-                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-                    world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
-                }
+        if (!world.isClient() && state.get(PART) == ForgePart.BOTTOM) {
+            BlockPos topPos = pos.up();
+            BlockState topState = world.getBlockState(topPos);
+            if (topState.isOf(this) && topState.get(PART) == ForgePart.TOP) {
+                // The loot table only drops the forge from its top half, so break it here with the player's drop rules.
+                // Breaking the top needs nothing extra: the bottom follows through getStateForNeighborUpdate.
+                world.breakBlock(topPos, !player.isCreative() && player.canHarvest(topState), player);
             }
         }
         return super.onBreak(world, pos, state, player);
+    }
+
+    // Covers every way a half can go that isn't a player breaking it (commands, pistons, explosions, replacing).
+    @Override
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        ForgePart part = state.get(PART);
+        Direction otherHalf = part == ForgePart.BOTTOM ? Direction.UP : Direction.DOWN;
+        if (direction == otherHalf && !(neighborState.isOf(this) && neighborState.get(PART) != part)) {
+            return Blocks.AIR.getDefaultState();
+        }
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
