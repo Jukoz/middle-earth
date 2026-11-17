@@ -49,13 +49,9 @@ public class WeaponItemsME {
     //region GENERIC
     public static final Item WOODEN_DAGGER = registerItemWithModel("wooden_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings(), false);
-    public static final Item WOODEN_SPEAR = registerItemWithSpearModel("wooden_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.WOOD, settings), new Item.Settings());
 
     public static final Item STONE_DAGGER = registerItemWithModel("stone_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.STONE, settings), new Item.Settings(), false);
-    public static final Item STONE_SPEAR = registerItemWithSpearModel("stone_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.STONE, settings), new Item.Settings());
 
     public static final Item BONE_CLEAVER = registerItemWithModel("bone_cleaver",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BONE, settings), new Item.Settings(), true);
@@ -66,14 +62,20 @@ public class WeaponItemsME {
     public static final Item BONE_AXE = registerItemWithModel("bone_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BONE, settings), new Item.Settings(), true);
     public static final Item BONE_SPEAR = registerItemWithSpearModel("bone_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BONE, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BONE, settings.spear(ToolMaterialsME.BONE,
+                    0.65F, 0.7F, 0.75F, 5.0F,
+                    14.0F, 10.0F, 5.1F, 15.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item BRONZE_SWORD = registerItemWithModel("bronze_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BRONZE, settings), new Item.Settings(), true);
     public static final Item BRONZE_DAGGER = registerItemWithModel("bronze_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BRONZE, settings), new Item.Settings(), false);
     public static final Item BRONZE_SPEAR = registerItemWithSpearModel("bronze_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BRONZE, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BRONZE, settings.spear(ToolMaterialsME.BRONZE,
+                    0.85F, 0.82F, 0.65F, 4.0F,
+                    9.0F, 8.25F, 5.1F, 12.5F, 4.6F)),
+            new Item.Settings());
 
     public static final Item CRUDE_FALCHION = registerItemWithModel("crude_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings(), true);
@@ -82,47 +84,53 @@ public class WeaponItemsME {
     public static final Item CRUDE_DAGGER = registerItemWithModel("crude_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings(), false);
     public static final Item CRUDE_SPEAR = registerItemWithSpearModel("crude_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings());
-
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings.spear(ToolMaterialsME.CRUDE,
+                    0.85F, 0.82F, 0.65F, 4.0F,
+                    9.0F, 8.25F, 5.1F, 12.5F, 4.6F)),
+            new Item.Settings());
     public static final Item IRON_DAGGER = registerItemWithModel("iron_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.IRON, settings), new Item.Settings(), false);
-    public static final Item IRON_SPEAR = registerItemWithSpearModel("iron_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.IRON, settings), new Item.Settings());
 
     public static final Item GOLDEN_DAGGER = registerItemWithModel("golden_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings(), false);
-    public static final Item GOLDEN_SPEAR = registerItemWithSpearModel("golden_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.GOLD, settings), new Item.Settings());
 
     public static final Item STEEL_SWORD = registerItemWithModel("steel_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings(), true);
     public static final Item STEEL_SPEAR = registerItemWithSpearModel("steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item BURZUM_STEEL_SWORD = registerItemWithModel("burzum_steel_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings(), true);
     public static final Item BURZUM_STEEL_SPEAR = registerItemWithSpearModel("burzum_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item EDHEL_STEEL_SWORD = registerItemWithModel("edhel_steel_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings), new Item.Settings(), true);
     public static final Item EDHEL_STEEL_SPEAR = registerItemWithSpearModel("edhel_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings.spear(ToolMaterialsME.EDHEL_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item KHAZAD_STEEL_SWORD = registerItemWithModel("khazad_steel_sword",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings(), true);
     public static final Item KHAZAD_STEEL_SPEAR = registerItemWithSpearModel("khazad_steel_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings.spear(ToolMaterialsME.KHAZAD_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item DIAMOND_DAGGER = registerItemWithModel("diamond_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings(), false);
-    public static final Item DIAMOND_SPEAR = registerItemWithSpearModel("diamond_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.DIAMOND, settings), new Item.Settings());
 
     public static final Item NETHERITE_DAGGER = registerItemWithModel("netherite_dagger",
             (settings) -> new CustomDaggerWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings(), false);
-    public static final Item NETHERITE_SPEAR = registerItemWithSpearModel("netherite_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterial.NETHERITE, settings), new Item.Settings());
 
     public static final Item WEAVER_STING = registerItemWithModel("weaver_sting",
             (settings) -> new WeaverStingItem(ToolMaterialsME.WEAVER_STING, settings), new Item.Settings().rarity(Rarity.EPIC), false);
@@ -151,8 +159,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_SPEAR = registerItemWithSpearModel("gondorian_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_BOW = registerBowItem("gondorian_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -174,16 +184,20 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)), true);
     public static final Item GONDORIAN_NOBLE_SPEAR = registerItemWithSpearModel("gondorian_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_NOBLE_LONGBOW = registerBigBowItem("gondorian_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_FOUNTAIN_GUARD_SPEAR = registerItemWithSpearModel("gondorian_fountain_guard_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GONDOR)));
 
     public static final Item GONDORIAN_SHIELD = registerShield("gondorian_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.MEDIUM_SHIELD,  settings), new Item.Settings()
@@ -222,8 +236,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_SPEAR = registerItemWithSpearModel("rohirric_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_BOW = registerBigBowItem("rohirric_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -245,8 +261,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)), true);
     public static final Item ROHIRRIC_NOBLE_SPEAR = registerItemWithSpearModel("rohirric_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ROHAN)));
 
     public static final Item ROHIRRIC_NOBLE_BOW = registerBigBowItem("rohirric_noble_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
@@ -295,8 +313,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_SPEAR = registerItemWithSpearModel("dalish_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_LONGBOW = registerBigBowItem("dalish_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.LONGBOW, settings), new Item.Settings()
@@ -315,8 +335,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_NOBLE_SPEAR = registerItemWithSpearModel("dalish_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_NOBLE_LONGBOW = registerBigBowItem("dalish_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
@@ -338,8 +360,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)), true);
     public static final Item DALISH_HEYDAY_SPEAR = registerItemWithSpearModel("dalish_heyday_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.DALE)));
 
     public static final Item DALISH_HEYDAY_LONGBOW = registerBigBowItem("dalish_heyday_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
@@ -392,8 +416,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_SPEAR = registerItemWithSpearModel("lorien_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings.spear(ToolMaterialsME.EDHEL_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_BOW = registerBigBowItem("lorien_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -415,8 +441,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)), true);
     public static final Item LORIEN_NOBLE_SPEAR = registerItemWithSpearModel("lorien_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings.spear(ToolMaterialsME.EDHEL_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LOTHLORIEN)));
 
     public static final Item LORIEN_NOBLE_LONGBOW = registerBigBowItem("lorien_noble_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
@@ -453,8 +481,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)), true);
     public static final Item WOODLAND_REALM_SPEAR = registerItemWithSpearModel("woodland_realm_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings.spear(ToolMaterialsME.EDHEL_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_BOW = registerBigBowItem("woodland_realm_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
@@ -475,8 +505,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)), true);
     public static final Item WOODLAND_REALM_NOBLE_SPEAR = registerItemWithSpearModel("woodland_realm_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL,  settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.EDHEL_STEEL, settings.spear(ToolMaterialsME.EDHEL_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
     public static final Item WOODLAND_REALM_NOBLE_BOW = registerBigBowItem("woodland_realm_noble_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.WOODLAND_REALM)));
@@ -539,8 +571,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_SPEAR = registerItemWithSpearModel("erebor_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings.spear(ToolMaterialsME.KHAZAD_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_BOW = registerBigBowItem("erebor_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -562,8 +596,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)), true);
     public static final Item EREBOR_NOBLE_SPEAR = registerItemWithSpearModel("erebor_noble_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.KHAZAD_STEEL, settings.spear(ToolMaterialsME.KHAZAD_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.LONGBEARDS_EREBOR)));
 
     public static final Item EREBOR_NOBLE_BOW = registerBigBowItem("erebor_noble_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.NOBLE_BOW, settings), new Item.Settings()
@@ -620,7 +656,10 @@ public class WeaponItemsME {
     public static final Item ORC_AXE = registerItemWithModel("orc_axe",
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings(), true);
     public static final Item ORC_SPEAR = registerItemWithSpearModel("orc_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings());
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings());
 
     public static final Item ORCISH_BOW = registerBigBowItem("orcish_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
@@ -653,8 +692,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_SPEAR = registerItemWithSpearModel("mordor_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_BOW = registerBigBowItem("mordor_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings());
@@ -672,8 +713,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item MORDOR_ELITE_SPEAR = registerItemWithSpearModel("mordor_elite_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_ELITE_LONGBOW = registerBigBowItem("mordor_elite_longbow",
             (settings) -> new CustomLongbowWeaponItem(RangedWeaponTypesME.NOBLE_LONGBOW, settings), new Item.Settings()
@@ -692,8 +735,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)), true);
     public static final Item BLACK_NUMENOREAN_SPEAR = registerItemWithSpearModel("black_numenorean_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORDOR)));
 
     public static final Item MORDOR_WOODEN_SHIELD = registerShield("mordor_wooden_shield",
             (settings) -> new CustomShieldItem(ShieldTypesME.LIGHT_SHIELD, settings), new Item.Settings()
@@ -794,8 +839,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item ISENGARD_ORC_SPEAR = registerItemWithSpearModel("isengard_orc_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_FALCHION = registerItemWithModel("uruk_hai_falchion",
             (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
@@ -810,8 +857,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)), true);
     public static final Item URUK_HAI_SPEAR = registerItemWithSpearModel("uruk_hai_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.ISENGARD)));
 
     public static final Item URUK_HAI_BOW = registerBigBowItem("uruk_hai_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -870,11 +919,15 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)), true);
     public static final Item GUNDABAD_SPEAR = registerItemWithSpearModel("gundabad_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
     public static final Item GUNDABAD_ELITE_SPEAR = registerItemWithSpearModel("gundabad_elite_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.HOBGOBLIN_TRIBES)));
 
     public static final Item GUNDABAD_BOW = registerBigBowItem("gundabad_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -911,20 +964,22 @@ public class WeaponItemsME {
 
     //region MORIA GOBS
     public static final Item MORIA_GOBLIN_FALCHION = registerItemWithModel("moria_goblin_falchion",
-            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+            (settings) -> new CustomSwordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_HOOKBLADE = registerItemWithModel("moria_goblin_hookblade",
-            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+            (settings) -> new CustomLongswordWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_SHANK = registerItemWithModel("moria_goblin_shank",
-            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+            (settings) -> new CustomDaggerWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), false);
     public static final Item MORIA_GOBLIN_HOOKAXE = registerItemWithModel("moria_goblin_hookaxe",
-            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
+            (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)), true);
     public static final Item MORIA_GOBLIN_SPEAR = registerItemWithSpearModel("moria_goblin_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.BURZUM_STEEL, settings.spear(ToolMaterialsME.BURZUM_STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.MORIA)));
 
     public static final Item MORIA_GOBLIN_BOW = registerBigBowItem("moria_goblin_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -953,8 +1008,10 @@ public class WeaponItemsME {
             (settings) -> new CustomAxeWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
                     .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)), true);
     public static final Item GOBLIN_TOWN_SPEAR = registerItemWithSpearModel("goblin_town_spear",
-            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings), new Item.Settings()
-                    .component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
+            (settings) -> new CustomSpearWeaponItem(ToolMaterialsME.CRUDE, settings.spear(ToolMaterialsME.CRUDE,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypesME.FACTION_DATA, new FactionDataComponent(FactionRegistry.GOBLIN_TOWN)));
 
     public static final Item GOBLIN_TOWN_BOW = registerBigBowItem("goblin_town_bow",
             (settings) -> new CustomBowWeaponItem(RangedWeaponTypesME.BOW, settings), new Item.Settings()
@@ -1035,15 +1092,20 @@ public class WeaponItemsME {
                     .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("sting")), false);
 
     public static final Item AEGLOS = registerItemWithSpearModel("aeglos",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC)
-                    .component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings.spear(ToolMaterialsME.STEEL,
+                    1.05F, 1.075F, 0.5F, 3.0F,
+                    7.5F, 6.5F, 5.1F, 10.0F, 4.6F)),
+            new Item.Settings().component(DataComponentTypes.LORE, ArtefactUtils.getArtefactLore("aeglos")));
 
     public static final Item GUARDIAN_OF_THE_GREENWOOD_STAFF = registerItemWithModel("guardian_of_the_greenwood_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings),
+            new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item KEEPER_OF_ORTHANC_STAFF = registerItemWithModel("keeper_of_orthanc_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings),
+            new Item.Settings().rarity(Rarity.EPIC), true);
     public static final Item WANDERER_STAFF = registerItemWithModel("wanderer_staff",
-            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings), new Item.Settings().rarity(Rarity.EPIC), true);
+            (settings) -> new ArtefactCustomSpearWeaponItem(ToolMaterialsME.STEEL, settings),
+            new Item.Settings().rarity(Rarity.EPIC), true);
 
     public static final Item ANORTHANN = registerShield("anorthann",
             (settings) -> new ArtefactCustomShieldItem(ShieldTypesME.HEAVY_SHIELD, settings), new Item.Settings().rarity(Rarity.EPIC)

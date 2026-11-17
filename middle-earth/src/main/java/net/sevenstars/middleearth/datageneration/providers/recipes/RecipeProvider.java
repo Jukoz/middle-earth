@@ -942,10 +942,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDaggerRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), WeaponItemsME.STONE_DAGGER);
                 createDaggerRecipe(exporter, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_DAGGER);
 
-                createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")), WeaponItemsME.WOODEN_SPEAR);
-                createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), WeaponItemsME.STONE_SPEAR);
-                createSpearRecipe(exporter, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_SPEAR);
-
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.BRONZE_INGOT, ToolItemsME.BRONZE_PICKAXE, ToolItemsME.BRONZE_AXE, ToolItemsME.BRONZE_SHOVEL, ToolItemsME.BRONZE_HOE);
 
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.CRUDE_INGOT, ToolItemsME.CRUDE_PICKAXE, ToolItemsME.CRUDE_AXE, ToolItemsME.CRUDE_SHOVEL, ToolItemsME.CRUDE_HOE);
