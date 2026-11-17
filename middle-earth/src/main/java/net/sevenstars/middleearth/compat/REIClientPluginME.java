@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.compat;
 
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -11,11 +13,11 @@ import net.fabricmc.api.Environment;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableCategory;
 import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
-import net.sevenstars.middleearth.compat.forge.AlloyingCategory;
-import net.sevenstars.middleearth.compat.forge.AlloyingDisplay;
+import net.sevenstars.middleearth.features.smithing.compat.AlloyingCategory;
+import net.sevenstars.middleearth.features.smithing.compat.AlloyingDisplay;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
-import net.sevenstars.middleearth.recipe.AlloyingRecipe;
+import net.sevenstars.middleearth.features.smithing.gui.forge.ForgeAlloyingScreen;
+import net.sevenstars.middleearth.features.smithing.recipe.AlloyingRecipe;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 
 @Environment(EnvType.CLIENT)
@@ -26,7 +28,7 @@ public class REIClientPluginME implements REIClientPlugin {
         registry.add(new ArtisanTableCategory());
         registry.add(new AlloyingCategory());
         registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE));
-        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.FORGE));
+        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(SmithingBlocks.FORGE));
     }
 
     @Override

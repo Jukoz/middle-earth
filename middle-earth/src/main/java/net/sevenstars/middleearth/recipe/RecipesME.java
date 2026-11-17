@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.recipe;
 
+
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -34,24 +35,8 @@ public class RecipesME {
 
     public static RecipeType<InscriptionRecipe> INSCRIPTION_TABLE;
     public static RecipeType<CrockpotRecipe> CROCKPOT;
-    public static RecipeType<AnvilShapingRecipe> ANVIL_SHAPING;
-    public static RecipeType<AlloyingRecipe> FORGE;
 
     public static void registerRecipes() {
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(AlloyingRecipe.Serializer.ID),
-                AlloyingRecipe.Serializer.INSTANCE);
-        FORGE = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(AlloyingRecipe.Type.ID),
-                AlloyingRecipe.Type.INSTANCE);
-
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(AnvilShapingRecipe.Serializer.ID),
-                AnvilShapingRecipe.Serializer.INSTANCE);
-        ANVIL_SHAPING = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(AnvilShapingRecipe.Type.ID),
-                AnvilShapingRecipe.Type.INSTANCE);
-
         //Registry.register(Registries.RECIPE_SERIALIZER,
         //        MiddleEarth.of(ArtisanRecipe.Serializer.ID),
         //        ArtisanRecipe.Serializer.INSTANCE);

@@ -21,7 +21,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
-import net.sevenstars.middleearth.block.special.forge.MetalTypes;
+import net.sevenstars.middleearth.common.metal.MetalTypes;
 import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;

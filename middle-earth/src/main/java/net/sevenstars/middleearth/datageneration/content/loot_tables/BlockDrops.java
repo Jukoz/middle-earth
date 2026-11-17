@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -178,13 +180,13 @@ public class BlockDrops {
             add(DecorativeBlockRegistryME.CRUDE_ROD);
             add(DecorativeBlockRegistryME.TREATED_STEEL_ROD);
 
-            add(DecorativeBlockRegistryME.STONE_ANVIL);
-            add(DecorativeBlockRegistryME.TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL);
+            add(SmithingBlocks.STONE_ANVIL);
+            add(SmithingBlocks.TREATED_ANVIL);
+            add(SmithingBlocks.DWARVEN_TREATED_ANVIL);
+            add(SmithingBlocks.ELVEN_TREATED_ANVIL);
+            add(SmithingBlocks.ORCISH_TREATED_ANVIL);
 
-            add(DecorativeBlockRegistryME.BELLOWS);
+            add(SmithingBlocks.BELLOWS);
 
             add(DecorativeBlockRegistryME.TREATED_WOOD_LADDER);
             add(DecorativeBlockRegistryME.TREATED_WOOD_STOOL);

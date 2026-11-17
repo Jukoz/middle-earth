@@ -13,7 +13,6 @@ import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleHandheldItemModel;
 import net.sevenstars.middleearth.item.items.PipeItem;
-import net.sevenstars.middleearth.item.items.SmithingHammerItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.item.utils.ToolMaterialsME;
@@ -35,39 +34,6 @@ public class ToolItemsME {
     private static final float IRON_ATTACK_SPEED = -2.5f;
     private static final float IRON_AXE_ATTACK_SPEED = -3.1f;
     private static final float IRON_HOE_ATTACK_SPEED = -2f;
-
-    public static List<Item> smithingHammers = new ArrayList<>();
-
-    public static final Item COPPER_SMITHING_HAMMER = registerSmithingHammerItem("copper_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.COPPER_HAMMER, -3.5f), new Item.Settings().enchantable(8));
-    public static final Item BRONZE_SMITHING_HAMMER = registerSmithingHammerItem("bronze_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BRONZE_HAMMER, -3.35f), new Item.Settings().enchantable(10));
-    public static final Item CRUDE_SMITHING_HAMMER = registerSmithingHammerItem("crude_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.CRUDE_HAMMER, -3.35f), new Item.Settings().enchantable(10));
-
-    public static final Item SMITHING_HAMMER = registerSmithingHammerItem("smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.STEEL_HAMMER, -3.2f), new Item.Settings().enchantable(12));
-    public static final Item NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.NOBLE_STEEL_HAMMER, -3.0f), new Item.Settings().enchantable(15));
-
-    public static final Item DWARVEN_SMITHING_HAMMER = registerSmithingHammerItem("dwarven_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_STEEL_HAMMER, -3.2f), new Item.Settings().enchantable(12));
-    public static final Item DWARVEN_NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("dwarven_noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.KHAZAD_NOBLE_STEEL_HAMMER, -3.0f), new Item.Settings().enchantable(15));
-
-    public static final Item ELVEN_SMITHING_HAMMER = registerSmithingHammerItem("elven_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_STEEL_HAMMER, -3.2f), new Item.Settings().enchantable(12));
-    public static final Item ELVEN_NOBLE_SMITHING_HAMMER = registerSmithingHammerItem("elven_noble_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.EDHEL_NOBLE_STEEL_HAMMER, -3.0f), new Item.Settings().enchantable(15));
-
-    public static final Item ORCISH_SMITHING_HAMMER = registerSmithingHammerItem("orcish_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_STEEL_HAMMER, -3.2f), new Item.Settings().enchantable(12));
-    public static final Item ORCISH_ELITE_SMITHING_HAMMER = registerSmithingHammerItem("orcish_elite_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.BURZUM_NOBLE_STEEL_HAMMER, -3.0f), new Item.Settings().enchantable(15));
-
-    public static final Item MITHRIL_SMITHING_HAMMER = registerSmithingHammerItem("mithril_smithing_hammer",
-            (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Settings().enchantable(20)
-                    .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
     public static final Item IRON_CHISEL = registerItemHandheld("iron_chisel",
             Item::new, new Item.Settings().maxCount(1).repairable(ItemTags.IRON_TOOL_MATERIALS)
@@ -161,12 +127,6 @@ public class ToolItemsME {
         ItemGroupsME.TOOLS_CONTENTS.add(item.getDefaultStack());
         SimpleHandheldItemModel.items.add(item);
         return registerItem(item, name);
-    }
-
-    private static Item registerSmithingHammerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = registerItemHandheld(name, factory, settings);
-        smithingHammers.add(item);
-        return item;
     }
 
     private static Item registerItemDualModel(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

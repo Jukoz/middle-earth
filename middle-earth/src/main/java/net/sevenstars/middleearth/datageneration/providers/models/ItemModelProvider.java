@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.models;
 
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
+
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
@@ -30,7 +32,7 @@ import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomDaggerWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
-import net.sevenstars.middleearth.item.items.weapons.HotComponentProperty;
+import net.sevenstars.middleearth.features.smithing.item.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
