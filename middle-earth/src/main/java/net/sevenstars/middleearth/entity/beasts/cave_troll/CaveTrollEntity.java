@@ -28,7 +28,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -180,8 +179,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     private boolean isAffectedByDaylight() {
-        if (!this.getEntityWorld().isClient()
-                && this.getEntityWorld().getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.MONSTERS_BURN_GAMEPLAY, this.getEntityPos())) {
+        if (this.getEntityWorld().getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.MONSTERS_BURN_GAMEPLAY, this.getEntityPos())) {
             float f = this.getBrightnessAtEyes();
             BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
             boolean bl = this.isTouchingWaterOrRain() || this.inPowderSnow || this.wasInPowderSnow;

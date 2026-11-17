@@ -647,6 +647,9 @@ public class TranslationEntries {
             put(of(LangCategory.COMMAND, "back_attachment.wrong_item"), "Wrong Item type. Take a Middle-earth Mod chestplate in your main hand to apply a Back Attachment.");
             put(of(LangCategory.COMMAND, "helmet_attachment.wrong_item"), "Wrong Item type. Take a Middle-earth Mod helmet in your main hand to apply a Helmet Attachment.");
 
+            put(of(LangCategory.COMMAND, "locate_biome.not_in_middle_earth"), "This only works in Middle-earth.");
+            put(of(LangCategory.COMMAND, "locate_biome.not_on_map"), "%s is not on the Middle-earth map (it comes from height, water or caves). Use /locate biome instead.");
+
             put(of(LangCategory.ALERT, "large_door.blocked"), "Something seems to prevent the door from moving.");
 
             put(of(LangCategory.ALERT, "hood_down"), "Hood down.");

@@ -107,13 +107,15 @@ public class MapBiomeLocator {
         long plainDistance = Long.MAX_VALUE;
         BlockPos plain = null;
         for (int ring = 0; ring <= maxRing; ring++) {
-            // nothing on this ring or past it can be closer
+            // nothing on this ring or past it can be closer. A plain match alone still lets the
+            // search go on to twice its distance, looking for a spot that passes matchesAround.
             long ringDistance = (long) Math.max(0, ring - 1) * (long) ratioX;
-            if (best != null && ringDistance * ringDistance > bestDistance) break;
+            long limit = best != null ? bestDistance : plain != null ? 4 * plainDistance : Long.MAX_VALUE;
+            if (ringDistance * ringDistance > limit) break;
 
             for (int dx = -ring; dx <= ring; dx++) {
                 int step = (dx == -ring || dx == ring) ? 1 : 2 * ring;
-                for (int dz = -ring; dz <= ring; dz += Math.max(1, step)) {
+                for (int dz = -ring; dz <= ring; dz += step) {
                     int px = originPixelX + dx;
                     int pz = originPixelZ + dz;
                     if (!nearCandidate(candidate, px, pz)) continue;
@@ -142,9 +144,8 @@ public class MapBiomeLocator {
     }
 
     // F3 and /execute blend each lookup with the neighbouring 4-block biome cells, so a spot only
-    // reads as the target once its neighbours are the target too
+    // reads as the target once its neighbours are the target too. The centre is already checked.
     private static boolean matchesAround(RegistryKey<Biome> target, int x, int z, BiFunction<Integer, Integer, RegistryKey<Biome>> realBiome) {
-        if (!target.equals(realBiome.apply(x, z))) return false;
         for (int dx = -4; dx <= 4; dx += 4) {
             for (int dz = -4; dz <= 4; dz += 4) {
                 if ((dx != 0 || dz != 0) && !target.equals(realBiome.apply(x + dx, z + dz))) return false;

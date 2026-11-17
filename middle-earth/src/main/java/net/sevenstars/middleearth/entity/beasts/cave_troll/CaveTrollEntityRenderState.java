@@ -7,6 +7,7 @@ import net.minecraft.client.render.item.ItemRenderState;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemDisplayContext;
+import net.minecraft.text.Text;
 import net.minecraft.util.Arm;
 import net.sevenstars.middleearth.entity.beasts.BeastEntityRenderState;
 
@@ -16,6 +17,7 @@ public class CaveTrollEntityRenderState extends BeastEntityRenderState {
 
     public CaveTrollVariant variant = CaveTrollVariant.GREEN;
     public boolean isEnraged = false;
+    public Text customName;
     public AnimationState chaseAnimationState = new AnimationState();
     public AnimationState scavengingAnimationState = new AnimationState();
     public AnimationState startSleepingAnimationState = new AnimationState();

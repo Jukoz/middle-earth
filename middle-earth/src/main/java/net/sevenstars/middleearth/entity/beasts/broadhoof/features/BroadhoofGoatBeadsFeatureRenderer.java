@@ -1,8 +1,6 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof.features;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;

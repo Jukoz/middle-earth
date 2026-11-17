@@ -14,6 +14,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
@@ -35,8 +36,6 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
     @Override
     public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
-        EntityModel<NpcEntityRenderState> entityModel = hairModel;
-
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier hairAddonTextureId = (isSimplified) ? state.simplifiedHairAddonId : MiddleEarth.appendPrefix(state.hairAddonId, AtlasesME.HAIR_PREFIX);
         Identifier beardAddonTextureId =  (isSimplified) ? null : MiddleEarth.appendPrefix(state.beardAddonId, AtlasesME.HAIR_PREFIX);
@@ -50,23 +49,16 @@ public class HairFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         if(hairAddonTextureId == null && beardAddonTextureId == null){
             return;
         }
-        entityModel.setAngles(state);
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
 
         if(hairAddonTextureId != null && state.canShowHair){
             Sprite sprite = characterTexturesAtlas.getSprite(hairAddonTextureId);
-            renderModel(sprite, matrices, queue, state, light, overlay);
+            RenderUtil.renderModel(hairModel, state, matrices, queue, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, sprite);
         }
         if(beardAddonTextureId != null && state.canShowBeard){
             Sprite sprite = characterTexturesAtlas.getSprite(beardAddonTextureId);
-            renderModel(sprite, matrices, queue, state, light, overlay);
-        }
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, OrderedRenderCommandQueue queue, NpcEntityRenderState state, int light, int overlay){
-        if(sprite != null){
-            queue.submitModel(hairModel, state, matrices, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, -1, sprite, state.outlineColor, null);
+            RenderUtil.renderModel(hairModel, state, matrices, queue, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, sprite);
         }
     }
 

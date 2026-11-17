@@ -1,11 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntityRenderState;
@@ -22,6 +18,7 @@ import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.dataComponents.MountArmorAddonComponent;
 
 public class WargArmorFrontSkullFeatureRenderer extends FeatureRenderer<WargEntityRenderState, WargModel> {
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_addons.png");
     private final WargArmorTopAddonsModel model;
 
     public WargArmorFrontSkullFeatureRenderer(FeatureRendererContext<WargEntityRenderState, WargModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
@@ -36,7 +33,7 @@ public class WargArmorFrontSkullFeatureRenderer extends FeatureRenderer<WargEnti
         MountArmorAddonComponent component = itemStack.get(DataComponentTypesME.MOUNT_ARMOR_DATA);
 
         if(component != null && component.topArmorAddon() && itemStack.isOf(EquipmentItemsME.WARG_MORDOR_PLATE_ARMOR)) {
-            RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, "textures/entities/warg/feature/warg_armor_addons.png"), itemStack.hasGlint(), light);
+            RenderUtil.renderArmorTexture(model, state, matrices, queue, TEXTURE, itemStack.hasGlint(), light);
         }
     }
 }

@@ -34,7 +34,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Set;
 
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin extends PlayerEntity {
@@ -60,7 +59,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
             resetSpawn(postDimensionTransition, cir);
             return;
         }
-        cir.setReturnValue(missingSpawnBlock(this.server.getOverworld(), postDimensionTransition));
+        cir.setReturnValue(TeleportTarget.missingSpawnBlock((ServerPlayerEntity) (Object) this, postDimensionTransition));
     }
 
     @Inject(method = "getRespawnTarget", at = @At(value = "RETURN", ordinal = 2), cancellable = true)
@@ -70,17 +69,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
             resetSpawn(postDimensionTransition, cir);
             return;
         }
-        cir.setReturnValue(missingSpawnBlock(this.server.getOverworld(), postDimensionTransition));
-    }
-
-    @Unique
-    private Vec3d worldSpawnPos(ServerWorld world) {
-        return this.getWorldSpawnPos(world, world.getSpawnPoint().getPos()).toBottomCenterPos();
-    }
-
-    @Unique
-    private TeleportTarget missingSpawnBlock(ServerWorld world, TeleportTarget.PostDimensionTransition postDimensionTransition) {
-        return new TeleportTarget(world, worldSpawnPos(world), Vec3d.ZERO, 0, 0, true, false, Set.of(), postDimensionTransition);
+        cir.setReturnValue(TeleportTarget.missingSpawnBlock((ServerPlayerEntity) (Object) this, postDimensionTransition));
     }
 
     @Unique
@@ -89,13 +78,13 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
 
         PlayerManager manager = this.server.getPlayerManager();
         ServerPlayerEntity foundPlayer = manager.getPlayer(this.getUuid());
-        if(this.server == null) return;
-        WorldProperties.SpawnPoint worldSpawn = foundPlayer.getEntityWorld().getServer().getOverworld().getSpawnPoint();
-        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(World.OVERWORLD, worldSpawn.getPos(), worldSpawn.yaw(), 0.0F), true);
-        foundPlayer.setSpawnPoint(respawn, true);
+        if(foundPlayer == null) return;
+        ServerWorld spawnWorld = this.server.getSpawnWorld();
+        WorldProperties.SpawnPoint worldSpawn = spawnWorld.getSpawnPoint();
+        foundPlayer.setSpawnPoint(new ServerPlayerEntity.Respawn(worldSpawn, true), true);
 
-        ServerWorld overworld = this.server.getOverworld();
-        cir.setReturnValue(new TeleportTarget(overworld, worldSpawnPos(overworld), Vec3d.ZERO, 0, 0, postDimensionTransition));
+        Vec3d spawnPos = this.getWorldSpawnPos(spawnWorld, worldSpawn.getPos()).toBottomCenterPos();
+        cir.setReturnValue(new TeleportTarget(spawnWorld, spawnPos, Vec3d.ZERO, worldSpawn.yaw(), worldSpawn.pitch(), postDimensionTransition));
     }
 
     @Unique
@@ -122,11 +111,11 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
         }
-        WorldProperties.SpawnPoint worldSpawn = server.getOverworld().getSpawnPoint();
-        ServerPlayerEntity.Respawn respawn = new ServerPlayerEntity.Respawn(WorldProperties.SpawnPoint.create(World.OVERWORLD, worldSpawn.getPos(), worldSpawn.yaw(), 0.0F), true);
-        foundPlayer.setSpawnPoint(respawn, true);
+        ServerWorld spawnWorld = server.getSpawnWorld();
+        WorldProperties.SpawnPoint worldSpawn = spawnWorld.getSpawnPoint();
+        foundPlayer.setSpawnPoint(new ServerPlayerEntity.Respawn(worldSpawn, true), true);
 
-        cir.setReturnValue(new TeleportTarget(server.getOverworld(), worldSpawn.getPos().toCenterPos(), Vec3d.ZERO, 0, 0,postDimensionTransition));
+        cir.setReturnValue(new TeleportTarget(spawnWorld, worldSpawn.getPos().toCenterPos(), Vec3d.ZERO, worldSpawn.yaw(), worldSpawn.pitch(), postDimensionTransition));
         return false;
     }
 
@@ -153,7 +142,7 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
             return;
         }
 
-        long currentTick = getEntityWorld().getTickOrder();
+        long currentTick = getEntityWorld().getTime();
         if(currentTick % 5 == 0){
             if(getEntityWorld() == null) return;
             PlayerData data = StateSaverAndLoader.getPlayerState(getEntityWorld().getPlayerByUuid(getUuid()));

@@ -31,7 +31,7 @@ public class BackAttachmentRenderer implements ArmorRenderer {
         } else {
             color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
-        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, null, RenderLayers.armorCutoutNoCull(texture), color);
+        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, null, RenderLayers.armorCutoutNoCull(texture), color, 0);
     }
 
     @Override

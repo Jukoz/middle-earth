@@ -60,7 +60,6 @@ public class MapBasedBiomePool {
 
     public static void loadBiomes() {
         biomeHashMap = new HashMap<>();
-        biomesById = null;
 
         SubBiomes.loadSubBiomes();
         defaultBiome = new MapBasedCustomBiome(BiomeKeyRegistryME.OCEAN, -35, BiomeDataConfigsME.oceanModifier);
@@ -421,25 +420,21 @@ public class MapBasedBiomePool {
         deadMarshesBiomes.add(BiomeKeyRegistryME.DEAD_MARSHES);
 
         mangrovePondBiomes.add(BiomeKeyRegistryME.ETHIR_ANDUIN);
-    }
-    private static volatile Map<Identifier, MapBasedCustomBiome> biomesById;
 
-    // Same pick as the old stream: the first value in biomeHashMap order wins for a shared id
-    private static Map<Identifier, MapBasedCustomBiome> getBiomesById() {
-        if (biomesById == null) {
-            Map<Identifier, MapBasedCustomBiome> map = new HashMap<>();
-            for (MapBasedCustomBiome biome : biomeHashMap.values()) {
-                map.putIfAbsent(biome.getBiomeKey().getValue(), biome);
-            }
-            biomesById = map;
+        // several colours share an id; the first in biomeHashMap order wins
+        Map<Identifier, MapBasedCustomBiome> byId = new HashMap<>();
+        for (MapBasedCustomBiome biome : biomeHashMap.values()) {
+            byId.putIfAbsent(biome.getBiomeKey().getValue(), biome);
         }
-        return biomesById;
+        biomesById = byId;
     }
+
+    private static Map<Identifier, MapBasedCustomBiome> biomesById = Map.of();
 
     public static MapBasedCustomBiome getBiome(RegistryEntry<Biome> biome, int posX, int posZ) {
         MapBasedCustomBiome foundBiome = null;
         if(biome.getKey().isPresent()){
-            foundBiome = getBiomesById().getOrDefault(biome.getKey().get().getValue(), defaultBiome);
+            foundBiome = biomesById.getOrDefault(biome.getKey().get().getValue(), defaultBiome);
         }
 
         if(foundBiome != null){

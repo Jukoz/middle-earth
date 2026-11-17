@@ -43,7 +43,6 @@ public class ItemGroupsUtil {
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(null, true);
 

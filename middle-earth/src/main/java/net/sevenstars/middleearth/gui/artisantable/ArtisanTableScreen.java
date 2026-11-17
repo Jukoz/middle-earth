@@ -16,6 +16,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.Click;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -285,7 +286,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
     private EntityRenderState armorStandRenderState() {
         EntityRenderer<? super ArmorStandEntity, ?> renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(this.armorStand);
         EntityRenderState state = renderer.getAndUpdateRenderState(this.armorStand, 1.0F);
-        state.light = 15728880;
+        state.light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
         state.shadowPieces.clear();
         state.outlineColor = 0;
         return state;

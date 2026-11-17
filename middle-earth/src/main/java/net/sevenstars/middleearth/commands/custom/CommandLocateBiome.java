@@ -24,6 +24,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.MapBiomeSuggestionProvider;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
@@ -36,9 +37,9 @@ public class CommandLocateBiome {
     private static final DynamicCommandExceptionType NOT_FOUND = new DynamicCommandExceptionType(
             id -> Text.translatable("commands.locate.biome.not_found", id));
     private static final DynamicCommandExceptionType NOT_ON_MAP = new DynamicCommandExceptionType(
-            id -> Text.literal("%s is not on the Middle-earth map (it comes from height, water or caves). Use /locate biome instead.".formatted(id)));
+            id -> Text.translatable("command.%s.locate_biome.not_on_map".formatted(MiddleEarth.MOD_ID), id));
     private static final SimpleCommandExceptionType NOT_IN_MIDDLE_EARTH = new SimpleCommandExceptionType(
-            Text.literal("This only works in Middle-earth."));
+            Text.translatable("command.%s.locate_biome.not_in_middle_earth".formatted(MiddleEarth.MOD_ID)));
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(CommandManager.literal(CommandRegistryME.BASE_COMMAND)
@@ -71,7 +72,6 @@ public class CommandLocateBiome {
 
         int distance = MathHelper.floor(Math.hypot(found.getX() - origin.getX(), found.getZ() - origin.getZ()));
 
-        // Y stays ~ since the ground height would load the map regions
         Text coordinates = Texts.bracketed(Text.translatable("chat.coordinates", found.getX(), "~", found.getZ()))
                 .styled(style -> style.withColor(Formatting.GREEN)
                         .withClickEvent(new ClickEvent.SuggestCommand("/tp @s " + found.getX() + " ~ " + found.getZ()))

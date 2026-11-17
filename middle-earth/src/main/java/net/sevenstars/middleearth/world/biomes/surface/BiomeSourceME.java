@@ -121,7 +121,7 @@ public class BiomeSourceME extends BiomeSource {
     }
 
     private static final int COLUMN_CACHE_SIZE = 256;
-    private final ThreadLocal<Column[]> columnCache = ThreadLocal.withInitial(() -> new Column[COLUMN_CACHE_SIZE]);
+    private static final ThreadLocal<Column[]> columnCache = ThreadLocal.withInitial(() -> new Column[COLUMN_CACHE_SIZE]);
 
     private Column getColumn(int i, int k) {
         long seed = MiddleEarthHeightMap.getSeed();

@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,19 +12,15 @@ import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 
 public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEntity, FireOfOrthancEntityRenderState> {
-    private final BlockRenderManager blockRenderManager;
-
     public FireOfOrthancEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
         this.shadowRadius = 0.5F;
-        this.blockRenderManager = ctx.getBlockRenderManager();
     }
 
     @Override
     public FireOfOrthancEntityRenderState createRenderState() {
         return new FireOfOrthancEntityRenderState();
     }
-
 
     @Override
     public void updateRenderState(FireOfOrthancEntity entity, FireOfOrthancEntityRenderState state, float tickProgress) {
@@ -37,7 +32,6 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
 
     @Override
     public void render(FireOfOrthancEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        BlockState blockState = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
         if (!state.visible) {
             return;
         }
@@ -50,7 +44,7 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
 
         matrixStack.translate(-0.5, 0.0, -0.5);
 
-        queue.submitBlock(matrixStack, blockState, state.light, OverlayTexture.DEFAULT_UV, state.outlineColor);
+        queue.submitBlock(matrixStack, DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState(), state.light, OverlayTexture.DEFAULT_UV, state.outlineColor);
         matrixStack.pop();
         super.render(state, matrixStack, queue, cameraState);
     }

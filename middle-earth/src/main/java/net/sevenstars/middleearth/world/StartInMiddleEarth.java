@@ -30,7 +30,7 @@ public class StartInMiddleEarth {
     public static final Identifier PRESET_ID = Identifier.of(MiddleEarth.MOD_ID, "middle_earth");
     public static final RegistryKey<WorldPreset> PRESET_KEY = RegistryKey.of(RegistryKeys.WORLD_PRESET, PRESET_ID);
 
-    public static GameRule<Boolean> RULE;
+    private static GameRule<Boolean> RULE;
 
     private static final Map<UUID, HeldPosition> awaitingPlayers = new HashMap<>();
 

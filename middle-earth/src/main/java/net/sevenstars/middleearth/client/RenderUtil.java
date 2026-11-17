@@ -46,14 +46,20 @@ public final class RenderUtil {
 
     public static <S extends EntityRenderState> void renderArmorTexture(Model<? super S> model, S state, MatrixStack matrices,
                                           OrderedRenderCommandQueue queue, Identifier texture, boolean glint, int light) {
-        renderArmorTexture(model, state, matrices, queue, texture, glint, light, -1);
+        renderArmorTexture(model, state, matrices, queue, texture, glint, light, -1, 0);
     }
 
     public static <S extends EntityRenderState> void renderArmorTexture(Model<? super S> model, S state, MatrixStack matrices,
                                           OrderedRenderCommandQueue queue, Identifier texture, boolean glint, int light, int color) {
-        queue.submitModel(model, state, matrices, RenderLayers.armorCutoutNoCull(texture), light, OverlayTexture.DEFAULT_UV, color, null, state.outlineColor, null);
+        renderArmorTexture(model, state, matrices, queue, texture, glint, light, color, 0);
+    }
+
+    // Opaque commands within one batch are not drawn in submission order, so a layer that must cover another goes on a later batch
+    public static <S extends EntityRenderState> void renderArmorTexture(Model<? super S> model, S state, MatrixStack matrices,
+                                          OrderedRenderCommandQueue queue, Identifier texture, boolean glint, int light, int color, int batch) {
+        queue.getBatchingQueue(batch).submitModel(model, state, matrices, RenderLayers.armorCutoutNoCull(texture), light, OverlayTexture.DEFAULT_UV, color, null, state.outlineColor, null);
         if (glint) {
-            queue.submitModel(model, state, matrices, RenderLayers.armorEntityGlint(), light, OverlayTexture.DEFAULT_UV, -1, null, 0, null);
+            queue.getBatchingQueue(batch).submitModel(model, state, matrices, RenderLayers.armorEntityGlint(), light, OverlayTexture.DEFAULT_UV, -1, null, 0, null);
         }
     }
 

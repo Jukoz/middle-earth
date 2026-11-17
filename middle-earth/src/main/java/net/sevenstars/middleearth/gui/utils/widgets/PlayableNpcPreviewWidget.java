@@ -21,7 +21,6 @@ import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderState;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,6 +13,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
@@ -36,8 +37,6 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.appendPrefix(state.earId, AtlasesME.SKIN_PREFIX);
 
-        earModel.setAngles(state);
-
         if(!state.canShowEars)
             return;
 
@@ -45,17 +44,11 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
         if(earId != null){
             Sprite sprite = characterTexturesAtlas.getSprite(earId);
-            renderModel(sprite, matrices, queue, state, light, overlay);
+            RenderUtil.renderModel(earModel, state, matrices, queue, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, sprite);
         }
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, OrderedRenderCommandQueue queue, NpcEntityRenderState state, int light, int overlay){
-        if(sprite != null){
-            queue.submitModel(earModel, state, matrices, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, -1, sprite, state.outlineColor, null);
-        }
     }
 }

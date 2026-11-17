@@ -1,11 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof.features;
 
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -19,6 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.client.RenderUtil;
 
 public class BroadhoofGoatSaddleFeatureRenderer extends FeatureRenderer<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> {
+    private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/broadhoof_goat/feature/broadhoof_goat_saddle.png");
     private final BroadhoofGoatSaddleModel model;
 
     public BroadhoofGoatSaddleFeatureRenderer(FeatureRendererContext<BroadhoofGoatEntityRenderState, BroadhoofGoatModel> context, LoadedEntityModels loader, EquipmentRenderer equipmentRenderer) {
@@ -31,7 +28,7 @@ public class BroadhoofGoatSaddleFeatureRenderer extends FeatureRenderer<Broadhoo
     public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, BroadhoofGoatEntityRenderState state, float limbAngle, float limbDistance) {
         ItemStack itemStack = state.saddle;
         if(!itemStack.isEmpty()) {
-            RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, "textures/entities/broadhoof_goat/feature/broadhoof_goat_saddle.png"), itemStack.hasGlint(), light);
+            RenderUtil.renderArmorTexture(model, state, matrices, queue, TEXTURE, itemStack.hasGlint(), light);
         }
     }
 }

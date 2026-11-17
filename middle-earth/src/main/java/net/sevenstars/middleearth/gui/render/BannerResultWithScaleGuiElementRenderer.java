@@ -4,8 +4,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.gui.render.SpecialGuiElementRenderer;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.DiffuseLighting;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -19,6 +20,9 @@ import net.sevenstars.middleearth.gui.render.states.BannerResultWithScaleGuiElem
 
 @Environment(EnvType.CLIENT)
 public class BannerResultWithScaleGuiElementRenderer extends InstancedGuiElementRenderer<BannerResultWithScaleGuiElementRenderState> {
+    private ModelPart cachedFlag;
+    private Model.SinglePartModel flagModel;
+
     public BannerResultWithScaleGuiElementRenderer(VertexConsumerProvider.Immediate immediate) {
         super(immediate);
     }
@@ -27,7 +31,11 @@ public class BannerResultWithScaleGuiElementRenderer extends InstancedGuiElement
         return BannerResultWithScaleGuiElementRenderState.class;
     }
 
-    protected void render(BannerResultWithScaleGuiElementRenderState bannerResultWithStateGuiElementRenderState, MatrixStack matrixStack) {
+    protected void render(BannerResultWithScaleGuiElementRenderState state, MatrixStack matrixStack) {
+        if (cachedFlag != state.flag()) {
+            cachedFlag = state.flag();
+            flagModel = new Model.SinglePartModel(cachedFlag, RenderLayers::entitySolid);
+        }
         MinecraftClient.getInstance().gameRenderer.getDiffuseLighting().setShaderLights(DiffuseLighting.Type.ITEMS_FLAT);
         matrixStack.translate(0.0F, 0.25F, 0.0F);
         RenderDispatcher renderDispatcher = MinecraftClient.getInstance().gameRenderer.getEntityRenderDispatcher();
@@ -36,14 +44,14 @@ public class BannerResultWithScaleGuiElementRenderer extends InstancedGuiElement
                 MinecraftClient.getInstance().getAtlasManager(),
                 matrixStack,
                 queue,
-                15728880,
+                LightmapTextureManager.MAX_LIGHT_COORDINATE,
                 OverlayTexture.DEFAULT_UV,
-                new Model.SinglePartModel(bannerResultWithStateGuiElementRenderState.flag(), RenderLayers::entitySolid),
+                flagModel,
                 Unit.INSTANCE,
                 ModelBaker.BANNER_BASE,
                 true,
-                bannerResultWithStateGuiElementRenderState.baseColor(),
-                bannerResultWithStateGuiElementRenderState.resultBannerPatterns(),
+                state.baseColor(),
+                state.resultBannerPatterns(),
                 false,
                 null,
                 0);

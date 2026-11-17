@@ -46,7 +46,6 @@ public class NpcSpawnEggHelper {
         ItemStack itemStack = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(npcType.getId(), false);
 

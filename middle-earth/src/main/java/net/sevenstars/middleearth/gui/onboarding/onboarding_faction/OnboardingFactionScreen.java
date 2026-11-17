@@ -6,7 +6,6 @@ import net.minecraft.client.input.KeyInput;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.DrawContext;

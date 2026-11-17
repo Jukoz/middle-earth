@@ -1,9 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.warg.features;
 
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.entity.beasts.warg.WargModel;
 
 public class WargSaddleModel extends WargModel {
@@ -32,6 +30,15 @@ public class WargSaddleModel extends WargModel {
         this.rightFrontLeg = upperBody.getChild("right_front_leg");
         this.leftFrontLeg = upperBody.getChild("left_front_leg");
         this.backBody = body.getChild("back_body");
+
+        // Only the saddle is drawn
+        this.bodyFur.visible = false;
+        this.mainBody.visible = false;
+        this.head.visible = false;
+        this.waitTail.visible = false;
+        this.rightFrontLeg.visible = false;
+        this.leftFrontLeg.visible = false;
+        this.backBody.visible = false;
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -48,36 +55,5 @@ public class WargSaddleModel extends WargModel {
         saddle.addChild("saddle_addons", ModelPartBuilder.create(), ModelTransform.origin(-6.0F, -2.0F, 2.0F));
 
         return TexturedModelData.of(modelData, 128, 128);
-    }
-
-    public void renderSaddle(MatrixStack matrices, VertexConsumer vertices, int light, int overlay) {
-        boolean bodyFurVisible = this.bodyFur.visible;
-        boolean mainBodyVisible = this.mainBody.visible;
-        boolean headVisible = this.head.visible;
-        boolean waitTailVisible = this.waitTail.visible;
-        boolean rightFrontLegVisible = this.rightFrontLeg.visible;
-        boolean leftFrontLegVisible = this.leftFrontLeg.visible;
-        boolean backBodyVisible = this.backBody.visible;
-
-        this.bodyFur.visible = false;
-        this.mainBody.visible = false;
-        this.head.visible = false;
-        this.waitTail.visible = false;
-        this.rightFrontLeg.visible = false;
-        this.leftFrontLeg.visible = false;
-        this.backBody.visible = false;
-
-        try {
-            super.render(matrices, vertices, light, overlay);
-        }
-        finally {
-            this.bodyFur.visible = bodyFurVisible;
-            this.mainBody.visible = mainBodyVisible;
-            this.head.visible = headVisible;
-            this.waitTail.visible = waitTailVisible;
-            this.rightFrontLeg.visible = rightFrontLegVisible;
-            this.leftFrontLeg.visible = leftFrontLegVisible;
-            this.backBody.visible = backBodyVisible;
-        }
     }
 }

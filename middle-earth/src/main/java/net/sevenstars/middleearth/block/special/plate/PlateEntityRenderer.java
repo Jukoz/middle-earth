@@ -20,7 +20,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(value= EnvType.CLIENT)
@@ -40,7 +39,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
     public void updateRenderState(PlateBlockEntity entity, State state, float tickProgress, Vec3d cameraPos,
                                   ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlay) {
         BlockEntityRenderer.super.updateRenderState(entity, state, tickProgress, cameraPos, crumblingOverlay);
-        state.facing = entity.getCachedState().get(ForgeBlock.FACING);
+        state.facing = entity.getCachedState().get(PlateBlock.FACING);
         state.is3D = false;
 
         ItemStack stack = entity.getStack();

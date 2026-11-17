@@ -1,15 +1,10 @@
 package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 
-import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.sevenstars.middleearth.client.RenderUtil;
 import net.minecraft.component.DataComponentTypes;
@@ -42,10 +37,10 @@ public class GreatHornArmorFeatureRenderer extends FeatureRenderer<GreatHornEnti
             String path = "textures/entities/great_horn/feature/" + equippableComponent.assetId().get().getValue().getPath() + ".png";
             if(itemStack.isIn(ItemTags.DYEABLE)){
                 int color = DyedColorComponent.getColor(itemStack, DyedColorComponent.DEFAULT_COLOR);
-                RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, path), itemStack.hasGlint(), light, color);
+                RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, path), itemStack.hasGlint(), light, color, 0);
                 if(DyeablePiecesME.dyeablePieces.getOrDefault(itemStack.getItem(), false)) {
                     RenderUtil.renderArmorTexture(model, state, matrices, queue,
-                            Identifier.of(MiddleEarth.MOD_ID, path.replaceAll(".png", "_overlay.png")), itemStack.hasGlint(), light);
+                            Identifier.of(MiddleEarth.MOD_ID, path.replaceAll(".png", "_overlay.png")), itemStack.hasGlint(), light, -1, 1);
                 }
             } else {
                 RenderUtil.renderArmorTexture(model, state, matrices, queue, Identifier.of(MiddleEarth.MOD_ID, path), itemStack.hasGlint(), light);

@@ -14,6 +14,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
@@ -37,8 +38,6 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier feetId =  (isSimplified) ? state.simplifiedFeetId : MiddleEarth.appendPrefix(state.feetId, AtlasesME.SKIN_PREFIX);
 
-        feetModel.setAngles(state);
-
         if(!state.canShowFeet)
             return;
 
@@ -47,17 +46,11 @@ public class FeetFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, N
 
         if(feetId != null){
             Sprite sprite = characterTexturesAtlas.getSprite(feetId);
-            renderModel(sprite, matrices, queue, state, light, overlay);
+            RenderUtil.renderModel(feetModel, state, matrices, queue, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, sprite);
         }
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, OrderedRenderCommandQueue queue, NpcEntityRenderState state, int light, int overlay){
-        if(sprite != null){
-            queue.submitModel(feetModel, state, matrices, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, -1, sprite, state.outlineColor, null);
-        }
     }
 }

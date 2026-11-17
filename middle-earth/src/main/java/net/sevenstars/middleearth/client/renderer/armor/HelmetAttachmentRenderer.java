@@ -14,7 +14,6 @@ import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -35,7 +34,7 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
         } else {
             color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
-        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, contextModel, RenderLayers.armorCutoutNoCull(texture), color);
+        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, contextModel, RenderLayers.armorCutoutNoCull(texture), color, 0);
     }
 
     @Override

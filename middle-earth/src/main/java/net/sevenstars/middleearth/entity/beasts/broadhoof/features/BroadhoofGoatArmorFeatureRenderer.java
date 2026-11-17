@@ -31,7 +31,6 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
         ItemStack itemStack = state.armor;
         EquippableComponent equippableComponent = (EquippableComponent)itemStack.get(DataComponentTypes.EQUIPPABLE);
         if (equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
-            model.setAngles(state);
             this.equipmentRenderer.render(EquipmentModel.LayerType.HORSE_BODY, (RegistryKey)equippableComponent.assetId().get(), model, state, itemStack, matrices, queue, light, state.outlineColor);
         }
     }

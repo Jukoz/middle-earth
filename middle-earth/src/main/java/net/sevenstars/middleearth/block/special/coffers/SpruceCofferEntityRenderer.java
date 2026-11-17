@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.block.special.coffers;
 
-import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
@@ -16,12 +15,12 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 
 public class SpruceCofferEntityRenderer<T extends ChestBlockEntity> extends ChestBlockEntityRenderer<T> {
+    private static final SpriteIdentifier TEXTURE = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, MiddleEarth.idFilePath("model", "spruce_coffer"));
     private static final String BASE = "bottom";
     private static final String LID = "lid";
 
@@ -63,9 +62,8 @@ public class SpruceCofferEntityRenderer<T extends ChestBlockEntity> extends Ches
 
     @Override
     public void render(ChestBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE, MiddleEarth.idFilePath("model", "spruce_coffer"));
-        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayers::entityCutout);
-        Sprite sprite = spriteHolder.getSprite(spriteIdentifier);
+        RenderLayer renderLayer = TEXTURE.getRenderLayer(RenderLayers::entityCutout);
+        Sprite sprite = spriteHolder.getSprite(TEXTURE);
 
         float g = state.lidAnimationProgress;
         g = 1.0F - g;

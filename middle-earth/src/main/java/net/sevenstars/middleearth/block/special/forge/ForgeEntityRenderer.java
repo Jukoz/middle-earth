@@ -39,7 +39,7 @@ public class ForgeEntityRenderer implements BlockEntityRenderer<ForgeBlockEntity
         BlockEntityRenderer.super.updateRenderState(entity, state, tickProgress, cameraPos, crumblingOverlay);
         state.facing = entity.getCachedState().get(ForgeBlock.FACING);
         this.itemModelManager.clearAndUpdate(state.item, entity.getRenderStack(entity), ItemDisplayContext.FIXED, entity.getWorld(), null, 1);
-        // The ingot lies on top of the forge, so it takes the light of the block in front of it
+        // The ingot lies on top of the forge, so it takes the light of the block in front of it and one up
         state.itemLight = entity.getWorld() == null ? LightmapTextureManager.MAX_LIGHT_COORDINATE
                 : getLightLevel(entity.getWorld(), entity.getPos(), state.facing);
     }

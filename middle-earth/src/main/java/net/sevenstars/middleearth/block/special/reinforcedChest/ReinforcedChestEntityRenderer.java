@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.block.special.reinforcedChest;
 import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
-import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.OverlayTexture;
@@ -26,6 +25,8 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private static final String LATCH = "lock";
+    private static final SpriteIdentifier TEXTURE = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
+            Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
     private final SpriteHolder spriteHolder;
     private final ReinforcedChestModel model;
 
@@ -49,10 +50,8 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
 
     @Override
     public void render(ChestBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
-        RenderLayer renderLayer = spriteIdentifier.getRenderLayer(RenderLayers::entityCutout);
-        Sprite sprite = spriteHolder.getSprite(spriteIdentifier);
+        RenderLayer renderLayer = TEXTURE.getRenderLayer(RenderLayers::entityCutout);
+        Sprite sprite = spriteHolder.getSprite(TEXTURE);
 
         float g = state.lidAnimationProgress;
         g = 1.0F - g;

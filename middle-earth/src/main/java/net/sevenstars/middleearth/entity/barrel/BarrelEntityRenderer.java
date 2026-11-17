@@ -55,7 +55,7 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
 
         matrices.translate(0f, -1.4f, 0f);
         queue.submitModelPart(modelPart, matrices, RenderLayers.entityCutout(TEXTURE), state.light, OverlayTexture.DEFAULT_UV, null, false, false, -1, null, state.outlineColor);
-        this.renderWaterMask(state, matrices, queue, state.light);
+        this.renderWaterMask(state, matrices, queue);
         matrices.pop();
     }
 
@@ -71,9 +71,9 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         boatEntityRenderState.rightPaddleAngle = barrelEntity.lerpPaddlePhase(1, f);
     }
 
-    protected void renderWaterMask(BoatEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, int light) {
+    protected void renderWaterMask(BoatEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue) {
         if (!state.submergedInWater) {
-            queue.submitModel(this.waterMaskModel, Unit.INSTANCE, matrices, this.waterMaskModel.getLayer(TEXTURE), light, OverlayTexture.DEFAULT_UV, state.outlineColor, null);
+            queue.submitModel(this.waterMaskModel, Unit.INSTANCE, matrices, this.waterMaskModel.getLayer(TEXTURE), state.light, OverlayTexture.DEFAULT_UV, state.outlineColor, null);
         }
 
     }
