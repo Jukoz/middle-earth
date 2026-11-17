@@ -54,6 +54,10 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
+		// The block registries and the datagen lists they fill reference each other while loading,
+		// so which class loads first decides what those lists see. BlockRegistryME has to be first.
+		BlockRegistryME.registerModBlocks();
+
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
@@ -95,6 +99,7 @@ public class MiddleEarth implements ModInitializer {
 		RegistriesME.registerToolTipAppenders();
 		RegistriesME.registerFlammableBlocks();
 		RegistriesME.registerTillableBlocks();
+		RegistriesME.registerShovelPaths();
 		RegistriesME.registerAgingCopperBlocks();
 		RegistriesME.registerComposterBlocks();
 		RegistriesME.registerBedPointsOfInterest();

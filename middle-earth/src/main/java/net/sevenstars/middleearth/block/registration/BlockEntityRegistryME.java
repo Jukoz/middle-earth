@@ -102,6 +102,9 @@ public class BlockEntityRegistryME {
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.GRAY_FAT_POT);
         BlockEntityType.DECORATED_POT.addSupportedBlock(DecorativeBlockRegistryME.POT_OF_GOLD);
 
+        BlockEntityType.LECTERN.addSupportedBlock(DecorativeBlockRegistryME.STONE_LECTERN);
+        BlockEntityType.CHISELED_BOOKSHELF.addSupportedBlock(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF);
+
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(DecorativeBlockRegistryME.BRIGAND_TRIAL_SPAWNER);
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(DecorativeBlockRegistryME.SPIDER_TRIAL_SPAWNER);
         BlockEntityType.VAULT.addSupportedBlock(DecorativeBlockRegistryME.BRIGAND_VAULT);

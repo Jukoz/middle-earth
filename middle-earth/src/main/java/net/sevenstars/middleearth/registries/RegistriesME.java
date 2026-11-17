@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.registries;
 
+import net.sevenstars.middleearth.mixin.ShovelItemAccessor;
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
 import net.minecraft.block.BedBlock;
@@ -183,6 +184,30 @@ public class RegistriesME {
         LeavesSets.getWoodSetLeaves().forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
+    }
+
+    public static void registerShovelPaths() {
+        Map<Block, BlockState> pathStates = ShovelItemAccessor.getPathStates();
+        pathStates.put(BlockRegistryME.DRY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.CHALKSOIL_GRASS_BLOCK, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_CHALKSOIL, BlockRegistryME.CHALKSOIL_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.LOAM_GRASS_BLOCK, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_LOAM, BlockRegistryME.LOAM_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.PEAT_GRASS_BLOCK, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_PEAT, BlockRegistryME.PEAT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.SILT_GRASS_BLOCK, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.COARSE_SILT, BlockRegistryME.SILT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.DIRTY_ROOTS, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.GRASSY_DIRT, Blocks.DIRT_PATH.getDefaultState());
+        pathStates.put(BlockRegistryME.TURF, Blocks.DIRT_PATH.getDefaultState());
     }
 
     public static void registerTillableBlocks() {
