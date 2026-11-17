@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.artisantable;
+package net.sevenstars.middleearth.features.artisan.block;
 
 import net.minecraft.util.StringIdentifiable;
 

@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.compat.artisantable;
+package net.sevenstars.middleearth.features.artisan.compat;
+
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -13,9 +15,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
-import net.sevenstars.middleearth.gui.artisantable.InputType;
+import net.sevenstars.middleearth.features.artisan.gui.InputType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ArtisanTableCategory implements DisplayCategory<ArtisanTableDisplay
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE.asItem().getDefaultStack());
+        return EntryStacks.of(ArtisanBlocks.ARTISAN_TABLE.asItem().getDefaultStack());
     }
 
     @Override

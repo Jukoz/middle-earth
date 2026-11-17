@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
+
 import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
 
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
@@ -420,8 +422,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         mineablePickaxe.add(BlockRegistryME.EMBERS);
 
         mineableAxe.add(StorageBlocks.WOOD_PILE);
-        mineableAxe.add(DecorativeBlockRegistryME.ARTISAN_TABLE);
-        mineableAxe.add(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE);
+        mineableAxe.add(ArtisanBlocks.ARTISAN_TABLE);
+        mineableAxe.add(ArtisanBlocks.ORCISH_ARTISAN_TABLE);
         mineableAxe.add(InscriptionBlocks.INSCRIPTION_TABLE);
 
         mineablePickaxe.add(BlockRegistryME.BRICK_VERTICAL_SLAB);

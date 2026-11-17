@@ -11,10 +11,10 @@ import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.RecipeEntry;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
+import net.sevenstars.middleearth.features.artisan.compat.ArtisanTableDisplay;
 import net.sevenstars.middleearth.features.smithing.compat.AlloyingDisplay;
 import net.sevenstars.middleearth.features.smithing.recipe.AlloyingRecipe;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.recipe.RecipesME;
 
 import java.util.Collection;

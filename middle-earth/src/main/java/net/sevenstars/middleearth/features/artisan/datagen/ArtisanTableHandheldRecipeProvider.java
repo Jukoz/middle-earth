@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.datageneration.providers.recipes;
+package net.sevenstars.middleearth.features.artisan.datagen;
+
+import net.sevenstars.middleearth.datageneration.providers.recipes.RecipeProvider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
@@ -25,7 +27,7 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.common.metal.MetalTypes;
-import net.sevenstars.middleearth.datageneration.custom.ArtisanTableRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.artisan.datagen.ArtisanTableRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;

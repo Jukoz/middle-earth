@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.network.packets.server2client;
+package net.sevenstars.middleearth.features.artisan.network;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,8 +8,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreenHandler;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 

@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.artisan.ArtisanClient;
+
+
 import net.sevenstars.middleearth.features.inscription.InscriptionClient;
 
 
@@ -87,7 +90,7 @@ import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
 import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
@@ -162,7 +165,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 
@@ -234,6 +236,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         CookingClient.register();
         StorageClient.register();
         InscriptionClient.register();
+        ArtisanClient.register();
         BlockColorsME.initializeBlockColors();
     }
 
@@ -650,7 +653,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.GILDED_WALL_SCONCE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORCISH_WALL_SCONCE, BlockRenderLayer.CUTOUT);
 
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STONE_LECTERN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CHISELED_DOLOMITE_BOOKSHELF, BlockRenderLayer.CUTOUT);

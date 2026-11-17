@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.artisantable;
+package net.sevenstars.middleearth.features.artisan.gui;
 
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;

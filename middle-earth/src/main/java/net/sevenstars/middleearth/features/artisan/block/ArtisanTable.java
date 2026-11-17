@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.artisantable;
+package net.sevenstars.middleearth.features.artisan.block;
 
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 import org.jetbrains.annotations.Nullable;

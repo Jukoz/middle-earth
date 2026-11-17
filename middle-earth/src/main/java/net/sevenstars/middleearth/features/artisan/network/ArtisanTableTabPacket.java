@@ -1,7 +1,7 @@
-package net.sevenstars.middleearth.network.packets.client2server;
+package net.sevenstars.middleearth.features.artisan.network;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreenHandler;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
 import net.minecraft.network.RegistryByteBuf;

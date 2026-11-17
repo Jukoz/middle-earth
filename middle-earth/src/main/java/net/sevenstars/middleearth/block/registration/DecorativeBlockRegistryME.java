@@ -17,7 +17,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
 import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneBlock;
 import net.sevenstars.middleearth.block.special.artefact.arkenstone.ArkenstoneWallBlock;
-import net.sevenstars.middleearth.block.special.artisantable.ArtisanTable;
+import net.sevenstars.middleearth.features.artisan.block.ArtisanTable;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
 import net.sevenstars.middleearth.block.special.candles.*;
 import net.sevenstars.middleearth.block.special.curtains.CurtainsBlock;
@@ -96,10 +96,6 @@ public class DecorativeBlockRegistryME {
     public static final Block WALL_TREATED_STEEL_LANTERN = registerBlock("treated_steel_lantern_wall",
             WallShireLanternBlock::new, AbstractBlock.Settings.create().luminance(createLightLevelFromLitBlockState(15)).strength(1.0f).sounds(BlockSoundGroup.LANTERN));
 
-    public static final Block ARTISAN_TABLE = registerBlock("artisan_table",
-            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
-    public static final Block ORCISH_ARTISAN_TABLE = registerBlock("orcish_artisan_table",
-            ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
 
     public static final Block STRUCTURE_MANAGER = registerBlock("structure_manager",
             StructureManagerBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());

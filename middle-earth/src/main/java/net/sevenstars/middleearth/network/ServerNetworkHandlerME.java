@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.network;
 
+import net.sevenstars.middleearth.features.artisan.network.ArtisanIndexPacket;
+import net.sevenstars.middleearth.features.artisan.network.ArtisanRecipePacket;
+import net.sevenstars.middleearth.features.artisan.network.ArtisanTableTabPacket;
+
 import net.sevenstars.middleearth.features.inscription.network.InscriptionConfirmationPacket;
 import net.sevenstars.middleearth.features.inscription.network.InscriptionEnchantInfoPacket;
 import net.sevenstars.middleearth.features.inscription.network.InscriptionWordUpdatePacket;

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.datageneration.custom;
+package net.sevenstars.middleearth.features.artisan.datagen;
 
 import net.fabricmc.fabric.impl.recipe.ingredient.builtin.ComponentsIngredient;
 import net.minecraft.data.recipe.CraftingRecipeJsonBuilder;
@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.Registries;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;

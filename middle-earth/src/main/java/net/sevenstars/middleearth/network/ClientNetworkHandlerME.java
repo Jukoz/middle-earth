@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.network;
 
+import net.sevenstars.middleearth.features.artisan.network.ArtisanRecipePacket;
+
 import net.sevenstars.middleearth.features.inscription.network.InscriptionEnchantInfoPacket;
 
 import net.sevenstars.middleearth.features.smithing.network.ShapingAnvilRecipePacket;

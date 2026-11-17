@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.artisantable;
+package net.sevenstars.middleearth.features.artisan.gui;
 
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.minecraft.inventory.Inventory;

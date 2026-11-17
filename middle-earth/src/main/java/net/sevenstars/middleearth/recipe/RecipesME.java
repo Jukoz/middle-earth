@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
+
 import net.sevenstars.middleearth.features.cooking.recipe.CrockpotRecipe;
 
 

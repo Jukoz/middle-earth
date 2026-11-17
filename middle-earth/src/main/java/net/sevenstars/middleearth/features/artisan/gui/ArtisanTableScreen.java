@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.gui.artisantable;
+package net.sevenstars.middleearth.features.artisan.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ToolItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
-import net.sevenstars.middleearth.network.packets.client2server.ArtisanTableTabPacket;
+import net.sevenstars.middleearth.features.artisan.network.ArtisanTableTabPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

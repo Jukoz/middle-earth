@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.compat.artisantable;
+package net.sevenstars.middleearth.features.artisan.compat;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,9 +17,9 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.compat.REICommonPluginME;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableInputsShape;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableInputsShape;
 import net.sevenstars.middleearth.mixin.ComponentsIngredientMixin;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
