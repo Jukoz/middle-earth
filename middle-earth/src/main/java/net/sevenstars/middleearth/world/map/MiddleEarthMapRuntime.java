@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MiddleEarthMapRuntime {
     Map<Vector2i, MiddleEarthMapRegion> regions;
@@ -26,8 +28,9 @@ public class MiddleEarthMapRuntime {
     private BufferedImage edgeImage;
     private MiddleEarthMapUtils middleEarthMapUtils;
 
-    private int latestValidationTick = 0;
-    private int currentValidationBlockCount = 0;
+    private volatile int latestValidationTick = 0;
+    private final AtomicInteger currentValidationBlockCount = new AtomicInteger();
+    private final AtomicBoolean purging = new AtomicBoolean();
 
     public static synchronized MiddleEarthMapRuntime getInstance()
     {
@@ -107,24 +110,27 @@ public class MiddleEarthMapRuntime {
 
     private void purgeRegions() {
         // Block delay
-        currentValidationBlockCount ++;
-        if(currentValidationBlockCount < MiddleEarthMapConfigs.BIOME_VALIDATION_BLOCK_DELAY) return;
-        currentValidationBlockCount = 0;
+        if(currentValidationBlockCount.incrementAndGet() < MiddleEarthMapConfigs.BIOME_VALIDATION_BLOCK_DELAY) return;
+        currentValidationBlockCount.set(0);
 
         // Tick delay
         int serverTick = middleEarthMapUtils.getTick();
         if(serverTick - latestValidationTick < MiddleEarthMapConfigs.BIOME_VALIDATION_TICK_DELAY) return;
-        latestValidationTick = serverTick;
-
-        // Create purge array
-        List<Vector2i> toPurge = new ArrayList<>();
-        List<Vector2i> playerCoordinates = new ArrayList<>();
-        for(ServerPlayerEntity player : middleEarthMapUtils.getPlayers()){
-            playerCoordinates.add(new Vector2i(player.getBlockX(), player.getBlockZ()));
-        }
+        // several world generation threads can get here at once, only one of them purges
+        if(!purging.compareAndSet(false, true)) return;
 
         try{
-            middleEarthMapUtils.getPlayers();
+            latestValidationTick = serverTick;
+
+            // Create purge array
+            List<Vector2i> toPurge = new ArrayList<>();
+            List<Vector2i> playerCoordinates = new ArrayList<>();
+            // the player list belongs to the server thread, so copy it before reading
+            for(ServerPlayerEntity player : new ArrayList<>(middleEarthMapUtils.getPlayers())){
+                if(player == null) continue;
+                playerCoordinates.add(new Vector2i(player.getBlockX(), player.getBlockZ()));
+            }
+
             regions.forEach((key, value) -> {
                 boolean hasPlayerInRange = false;
                 for(Vector2i coordinate : playerCoordinates){
@@ -144,6 +150,8 @@ public class MiddleEarthMapRuntime {
             }
         } catch(Exception exception){
             MiddleEarth.LOGGER.logError("%s : %s".formatted(toString(), exception.getMessage()));
+        } finally {
+            purging.set(false);
         }
     }
 }
