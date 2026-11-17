@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
+
+import net.sevenstars.middleearth.features.cooking.recipe.CrockpotRecipe;
+
 
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -7,7 +11,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionRecipe;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionRecipe;
 
 import java.util.function.Supplier;
 
@@ -33,8 +37,6 @@ public class RecipesME {
         return () -> object;
     }
 
-    public static RecipeType<InscriptionRecipe> INSCRIPTION_TABLE;
-    public static RecipeType<CrockpotRecipe> CROCKPOT;
 
     public static void registerRecipes() {
         //Registry.register(Registries.RECIPE_SERIALIZER,
@@ -44,19 +46,6 @@ public class RecipesME {
         //        MiddleEarth.of(ArtisanRecipe.Type.ID),
         //        ArtisanRecipe.Type.INSTANCE);
 
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(InscriptionRecipe.Serializer.ID),
-                InscriptionRecipe.Serializer.INSTANCE);
-        INSCRIPTION_TABLE = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(InscriptionRecipe.Type.ID),
-                InscriptionRecipe.Type.INSTANCE);
-
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(CrockpotRecipe.Serializer.ID),
-                CrockpotRecipe.Serializer.INSTANCE);
-        CROCKPOT = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(CrockpotRecipe.Type.ID),
-                CrockpotRecipe.Type.INSTANCE);
     }
 
     static <T extends Recipe<?>> RecipeType<T> register(final String id) {

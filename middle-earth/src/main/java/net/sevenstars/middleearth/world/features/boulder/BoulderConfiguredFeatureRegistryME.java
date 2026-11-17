@@ -4,7 +4,7 @@ import net.minecraft.util.collection.WeightedPool;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.world.gen.FeatureRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

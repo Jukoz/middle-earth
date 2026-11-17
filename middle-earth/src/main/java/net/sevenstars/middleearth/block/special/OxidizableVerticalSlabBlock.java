@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special;
 
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Oxidizable;
 import net.minecraft.server.world.ServerWorld;

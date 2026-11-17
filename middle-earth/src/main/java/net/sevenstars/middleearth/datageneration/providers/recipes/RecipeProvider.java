@@ -1,5 +1,15 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.cooking.CookingBlocks;
+
 import net.sevenstars.middleearth.features.smithing.SmithingItems;
 
 import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
@@ -22,11 +32,11 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.features.smithing.datagen.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.features.smithing.datagen.AnvilShapingRecipeJsonBuilder;
@@ -1047,12 +1057,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region SEEDS
-                createSeedsRecipe(exporter, FoodItemsME.TOMATO, ResourceItemsME.TOMATO_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, ResourceItemsME.BELL_PEPPER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, ResourceItemsME.CUCUMBER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, ResourceItemsME.LETTUCE_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, ResourceItemsME.PIPEWEED_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.FLAX, ResourceItemsME.FLAX_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.TOMATO, FarmingItems.TOMATO_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, FarmingItems.BELL_PEPPER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, FarmingItems.CUCUMBER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, FarmingItems.LETTUCE_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, FarmingItems.PIPEWEED_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.FLAX, FarmingItems.FLAX_SEEDS);
                 //endregion
 
                 //region FOOD
@@ -1130,7 +1140,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(Items.CHICKEN)
                         .input(Items.WHEAT)
                         .input(Items.EGG)
-                        .input(FoodItemsME.GARLIC)
+                        .input(FarmingItems.GARLIC)
                         .criterion(hasItem(ResourceItemsME.PTEROSAUR_NUGGET),
                                 conditionsFromItem(ResourceItemsME.PTEROSAUR_NUGGET))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "chicken_nugget" + "_from_alloying")));
@@ -1662,19 +1672,19 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, DecorativeBlockRegistryME.TUFF_STATUE);
                 createStatueRecipe(exporter, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.wall(), DecorativeBlockRegistryME.ZIGILABAN_STATUE);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CERAMIC_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.CERAMIC_PLATE, 1)
                         .pattern("BB")
                         .input('B', Items.BRICK)
                         .criterion(hasItem(Items.BRICK),
                                 conditionsFromItem(Items.BRICK))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.ROTTEN_PLATE, 4)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.ROTTEN_PLATE, 4)
                         .pattern("RR")
                         .input('R', WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log())
                         .criterion(hasItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()),
                                 conditionsFromItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SILVER_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.SILVER_PLATE, 1)
                         .pattern("SS")
                         .input('S', ResourceItemsME.SILVER_INGOT)
                         .criterion(hasItem(ResourceItemsME.SILVER_INGOT),
@@ -2526,7 +2536,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.BOOK))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SMALL_CRATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SMALL_CRATE, 1)
                         .pattern("SSS")
                         .pattern("PPP")
                         .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
@@ -2535,7 +2545,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_PLANKS))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.THIN_BARREL, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.THIN_BARREL, 1)
                         .pattern("VSV")
                         .pattern("V V")
                         .pattern("VSV")
@@ -2545,7 +2555,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_SLAB))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.LARCH_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.LARCH_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2554,7 +2564,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.PINE_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.PINE_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2563,7 +2573,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.PINE_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SPRUCE_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SPRUCE_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2572,7 +2582,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Blocks.SPRUCE_PLANKS),
                                 conditionsFromItem(Blocks.SPRUCE_PLANKS))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.FIR_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.FIR_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2581,7 +2591,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.BEECH_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.BEECH_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2590,7 +2600,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.BEECH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.BEECH_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CHESTNUT_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.CHESTNUT_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2599,7 +2609,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.CHESTNUT_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.CHESTNUT_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.OAK_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.OAK_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2608,7 +2618,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.OAK_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.OAK_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.WILLOW_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.WILLOW_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2618,7 +2628,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(WoodBlockSetRegistryME.WILLOW_SET.planksBlocks.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SACK, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SACK, 1)
                         .pattern("C C")
                         .pattern("CRC")
                         .pattern("CCC")

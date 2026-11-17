@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.gui.playerbook;
 
+import net.sevenstars.middleearth.features.inscription.InscriptionItems;
+
 import net.sevenstars.middleearth.features.smithing.SmithingItems;
 
 import net.minecraft.client.gui.Click;
@@ -52,7 +54,7 @@ public class PlayerBookScreen extends Screen {
         chapters = List.of(new Chapter("playerbook.chapter_getting_started", PlayerBookChapters.GETTING_STARTED, ResourceItemsME.STARLIGHT_PHIAL),
                 new Chapter("playerbook.chapter_mining", PlayerBookChapters.MINING, ToolItemsME.STEEL_PICKAXE),
                 new Chapter("playerbook.chapter_smithing", PlayerBookChapters.SMITHING, SmithingItems.SMITHING_HAMMER),
-                new Chapter("playerbook.chapter_enchanting", PlayerBookChapters.ENCHANTING, DecorativeItemsME.INSCRIPTION_TABLE),
+                new Chapter("playerbook.chapter_enchanting", PlayerBookChapters.ENCHANTING, InscriptionItems.INSCRIPTION_TABLE),
                 new Chapter("playerbook.chapter_mounts", PlayerBookChapters.MOUNTS, EggItemsME.WARG_SPAWN_EGG),
                 new Chapter("playerbook.chapter_dungeons", PlayerBookChapters.DUNGEONS, DecorativeItemsME.SPIDER_TRIAL_SPAWNER.asItem()));
     }

@@ -52,7 +52,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "middle-earth:iron_spear",
+          "name": "minecraft:iron_spear",
           "weight": 2,
 		  "functions": [
             {

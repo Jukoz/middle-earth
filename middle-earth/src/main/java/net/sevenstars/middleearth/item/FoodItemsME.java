@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.features.farming.FarmingBlocks;
+
 import net.sevenstars.middleearth.common.registration.ItemRegistrar;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
@@ -9,7 +11,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.consume.RemoveEffectsConsumeEffect;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.items.OrcishFoodItem;
@@ -74,21 +75,10 @@ public class FoodItemsME {
     public static final Item CUCUMBER = registerItem("cucumber",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).build()));
-    public static final Item GARLIC = registerItem("garlic",
-            (settings) -> new BlockItem(NatureBlockRegistryME.GARLIC_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
-    public static final Item LEEK = registerItem("leek",
-            (settings) -> new BlockItem(NatureBlockRegistryME.LEEK_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
     public static final Item LETTUCE = registerItem("lettuce",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build()));
-    public static final Item ONION = registerItem("onion",
-            (settings) -> new BlockItem(NatureBlockRegistryME.ONION_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
 
-    public static final Item LAYERED_CAKE = registerItem("layered_cake",
-            (settings) -> new BlockItem(BlockRegistryME.LAYERED_CAKE, settings),new Item.Settings().maxCount(1));
     public static final Item BERRY_PIE = registerItem("berry_pie",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.5f).build()));

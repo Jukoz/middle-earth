@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

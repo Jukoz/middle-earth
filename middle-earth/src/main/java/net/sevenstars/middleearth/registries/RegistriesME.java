@@ -1,5 +1,11 @@
 package net.sevenstars.middleearth.registries;
 
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.cooking.CookingItems;
+
 import net.sevenstars.middleearth.mixin.ShovelItemAccessor;
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
@@ -31,7 +37,7 @@ import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
@@ -169,7 +175,7 @@ public class RegistriesME {
 
         FlammableBlockRegistry.getDefaultInstance().add(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING, 60, 60);
 
-        FlammableBlockRegistry.getDefaultInstance().add(DecorativeBlockRegistryME.WOOD_PILE, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(StorageBlocks.WOOD_PILE, 5, 5);
 
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.LEBETHRON_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.BERRY_HOLLY_LEAVES, 30, 60);
@@ -368,7 +374,7 @@ public class RegistriesME {
             builder.add(NatureBlockRegistryME.TAN_SHRUB, 100);
 
             builder.add(DecorativeBlockRegistryME.ROPE, 150);
-            builder.add(DecorativeBlockRegistryME.WOOD_PILE, 200);
+            builder.add(StorageBlocks.WOOD_PILE, 200);
 
             builder.add(BlockRegistryME.WHITE_WOOL_SLAB, 50);
             builder.add(BlockRegistryME.ORANGE_WOOL_SLAB, 50);
@@ -686,12 +692,12 @@ public class RegistriesME {
         registry.add(FoodItemsME.TOMATO, 0.5F);
         registry.add(FoodItemsME.BELL_PEPPER, 0.5F);
         registry.add(FoodItemsME.CUCUMBER, 0.5F);
-        registry.add(FoodItemsME.GARLIC, 0.5F);
-        registry.add(FoodItemsME.LEEK, 0.5F);
+        registry.add(FarmingItems.GARLIC, 0.5F);
+        registry.add(FarmingItems.LEEK, 0.5F);
         registry.add(FoodItemsME.LETTUCE, 0.5F);
-        registry.add(FoodItemsME.ONION, 0.5F);
+        registry.add(FarmingItems.ONION, 0.5F);
 
-        registry.add(FoodItemsME.LAYERED_CAKE, 1.0F);
+        registry.add(CookingItems.LAYERED_CAKE, 1.0F);
         registry.add(FoodItemsME.BERRY_PIE, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SKEWER, 1.0F);
         registry.add(FoodItemsME.VEGETABLE_SOUP, 1.0F);
@@ -705,12 +711,12 @@ public class RegistriesME {
         registry.add(ResourceItemsME.DRIED_PIPEWEED, 0.3F);
         registry.add(ResourceItemsME.PINECONE, 0.3F);
 
-        registry.add(ResourceItemsME.BELL_PEPPER_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.CUCUMBER_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.FLAX_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.LETTUCE_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.TOMATO_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.PIPEWEED_SEEDS, 0.3F);
+        registry.add(FarmingItems.BELL_PEPPER_SEEDS, 0.3F);
+        registry.add(FarmingItems.CUCUMBER_SEEDS, 0.3F);
+        registry.add(FarmingItems.FLAX_SEEDS, 0.3F);
+        registry.add(FarmingItems.LETTUCE_SEEDS, 0.3F);
+        registry.add(FarmingItems.TOMATO_SEEDS, 0.3F);
+        registry.add(FarmingItems.PIPEWEED_SEEDS, 0.3F);
     }
 
     public static void registerLandPathNodeTypesBlocks() {

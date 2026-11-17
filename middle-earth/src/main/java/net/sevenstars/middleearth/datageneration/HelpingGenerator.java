@@ -1,16 +1,20 @@
 package net.sevenstars.middleearth.datageneration;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.*;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.StoneBlockTypes;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;

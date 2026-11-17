@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.block.special.plants;
 
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.minecraft.block.*;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;

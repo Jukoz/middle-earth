@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
@@ -25,7 +27,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.BlockDrops;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.CropDrops;
 import net.sevenstars.middleearth.datageneration.content.loot_tables.LeavesDrops;

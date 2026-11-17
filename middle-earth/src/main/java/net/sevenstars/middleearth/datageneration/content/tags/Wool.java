@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.datageneration.content.tags;
 
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;

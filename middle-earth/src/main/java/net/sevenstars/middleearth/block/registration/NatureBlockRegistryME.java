@@ -1,9 +1,19 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.features.farming.block.crop.BellpepperCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.CucumberCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.FlaxCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.GarlicCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LeekCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LettuceCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.OnionCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.PipeweedCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.TomatoCropBlock;
+
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
-import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.block.special.hangingstuff.CustomHangingBlock;
 import net.sevenstars.middleearth.block.special.hangingstuff.HangingCobwebBlock;
 import net.sevenstars.middleearth.block.special.plants.*;
@@ -12,7 +22,6 @@ import net.sevenstars.middleearth.block.special.saplings.WeightedSaplingBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggBlock;
 import net.sevenstars.middleearth.block.special.shelobiteeggs.ShelobiteLarvaEggHangingBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
-import net.sevenstars.middleearth.datageneration.content.models.TintableCrossModel;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
@@ -35,7 +44,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME.LEAVES_STRENGTH;
+import static net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME.LEAVES_STRENGTH;
 
 public class NatureBlockRegistryME {
 
@@ -553,24 +562,6 @@ public class NatureBlockRegistryME {
     public static final Block WILD_BEETROOT = registerBlock("wild_beetroot",
             WildCropBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
 
-    public static final Block TOMATO_CROP = registerBlock("tomato_crop",
-            TomatoCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block BELL_PEPPER_CROP = registerBlock("bell_pepper_crop",
-            BellpepperCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block CUCUMBER_CROP = registerBlock("cucumber_crop",
-            CucumberCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block FLAX_CROP = registerBlock("flax_crop",
-            FlaxCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block GARLIC_CROP = registerBlock("garlic_crop",
-            GarlicCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block LEEK_CROP = registerBlock("leek_crop",
-            LeekCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block LETTUCE_CROP = registerBlock("lettuce_crop",
-            LettuceCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block ONION_CROP = registerBlock("onion_crop",
-            OnionCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block PIPEWEED_CROP = registerBlock("pipeweed_crop",
-            PipeweedCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
 
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             MangroveRootsBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_ROOTS), true);
@@ -602,7 +593,7 @@ public class NatureBlockRegistryME {
 
     public static Block registerCrossBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean present) {
         Block resultBlock = registerBlock(name, factory, settings, present);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         return resultBlock;
     }
 
@@ -611,7 +602,7 @@ public class NatureBlockRegistryME {
                 AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(BlockRegistryME.keyOfBlock(name)));
         Block resultBlock = Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), saplingBlock);
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
 
         TranslationEntries.blockEntries.add(resultBlock);
@@ -632,7 +623,7 @@ public class NatureBlockRegistryME {
         TranslationEntries.blockEntries.add(resultBlock);
 
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 
@@ -647,7 +638,7 @@ public class NatureBlockRegistryME {
         TranslationEntries.blockEntries.add(resultBlock);
 
         registerBlockItem(name, resultBlock);
-        TintableCrossModel.notTintedBlocks.add(resultBlock);
+        RegistrationLists.NOT_TINTED_CROSS.add(resultBlock);
         Saplings.saplings.add(resultBlock);
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
 

@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.compat;
 
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
+
 import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
 
 import me.shedaniel.math.Rectangle;
@@ -10,15 +12,14 @@ import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.compat.artisantable.ArtisanTableCategory;
-import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
+import net.sevenstars.middleearth.features.artisan.compat.ArtisanTableCategory;
+import net.sevenstars.middleearth.features.artisan.compat.ArtisanTableDisplay;
 import net.sevenstars.middleearth.features.smithing.compat.AlloyingCategory;
 import net.sevenstars.middleearth.features.smithing.compat.AlloyingDisplay;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
 import net.sevenstars.middleearth.features.smithing.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.features.smithing.recipe.AlloyingRecipe;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
 
 @Environment(EnvType.CLIENT)
 public class REIClientPluginME implements REIClientPlugin {
@@ -27,7 +28,7 @@ public class REIClientPluginME implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new ArtisanTableCategory());
         registry.add(new AlloyingCategory());
-        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE));
+        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(ArtisanBlocks.ARTISAN_TABLE));
         registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(SmithingBlocks.FORGE));
     }
 

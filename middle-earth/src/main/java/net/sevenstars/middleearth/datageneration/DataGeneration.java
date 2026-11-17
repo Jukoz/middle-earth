@@ -1,5 +1,11 @@
 package net.sevenstars.middleearth.datageneration;
 
+import net.sevenstars.middleearth.features.artisan.datagen.ArtisanTableArmorRecipeProvider;
+import net.sevenstars.middleearth.features.artisan.datagen.ArtisanTableGenericArmorRecipeProvider;
+import net.sevenstars.middleearth.features.artisan.datagen.ArtisanTableHandheldRecipeProvider;
+
+import net.sevenstars.middleearth.features.inscription.datagen.InscriptionRecipeProvider;
+
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
