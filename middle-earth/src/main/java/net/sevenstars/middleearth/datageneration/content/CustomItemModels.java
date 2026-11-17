@@ -8,6 +8,9 @@ import net.minecraft.util.Identifier;
 import java.util.Optional;
 
 public class CustomItemModels {
+    public static final Model SPEAR_IN_HAND = new Model(Optional.of(
+            MiddleEarth.id("item/spear_in_hand")), Optional.empty(), TextureKey.LAYER0);
+
     public static final Model BIG_WEAPON = new Model(Optional.of(
             MiddleEarth.id("item/big_weapon")), Optional.empty(), TextureKey.LAYER0);
     public static final Model BIG_WEAPON_STAFF = new Model(Optional.of(

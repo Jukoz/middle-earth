@@ -95,6 +95,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
         // Bows, crossbows and shields are registered as weapons too, but melee enchantments don't belong on them
         Item[] meleeWeapons = WeaponEnchants.weapons.stream()
                 .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))

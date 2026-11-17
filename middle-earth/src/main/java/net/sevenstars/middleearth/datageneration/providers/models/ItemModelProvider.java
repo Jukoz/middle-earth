@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.providers.models;
 
+import net.minecraft.client.item.ItemAsset;
 import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -293,12 +294,13 @@ public class ItemModelProvider extends FabricModelProvider {
     }
 
     public final void registerSpearModels(ItemModelGenerator itemModelGenerator, Item item) {
-        ItemModel.Unbaked unbakedHand = ItemModels.basic(ModelIds.getItemModelId(item));
+        ItemModel.Unbaked unbakedHand = ItemModels.basic(itemModelGenerator.upload(item, CustomItemModels.SPEAR_IN_HAND));
         ItemModel.Unbaked unbakedInventory = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_inventory", Models.GENERATED));
-        ItemModel.Unbaked unbakedHolding = ItemModels.basic(ModelIds.getItemModelId(item).withSuffixedPath("_holding"));
 
         itemModelGenerator.output.accept(item, ItemModels.select(new DisplayContextProperty(), unbakedHand,
-                ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND, ItemDisplayContext.FIXED), unbakedInventory)));
+                ItemModels.switchCase(List.of(ItemDisplayContext.GUI, ItemDisplayContext.GROUND,
+                        ItemDisplayContext.FIXED, ItemDisplayContext.ON_SHELF), unbakedInventory)),
+                new ItemAsset.Properties(true, false, 1.95f));
     }
 
     public final void registerShield(ItemModelGenerator itemModelGenerator, Item item) {
