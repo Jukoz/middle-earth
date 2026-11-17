@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.crockpot;
+package net.sevenstars.middleearth.features.cooking.block.crockpot;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

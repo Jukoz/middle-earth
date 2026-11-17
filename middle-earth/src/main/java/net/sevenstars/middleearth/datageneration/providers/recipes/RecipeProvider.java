@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.cooking.CookingBlocks;
+
 import net.sevenstars.middleearth.features.smithing.SmithingItems;
 
 import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
@@ -1666,19 +1668,19 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, DecorativeBlockRegistryME.TUFF_STATUE);
                 createStatueRecipe(exporter, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.wall(), DecorativeBlockRegistryME.ZIGILABAN_STATUE);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CERAMIC_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.CERAMIC_PLATE, 1)
                         .pattern("BB")
                         .input('B', Items.BRICK)
                         .criterion(hasItem(Items.BRICK),
                                 conditionsFromItem(Items.BRICK))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.ROTTEN_PLATE, 4)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.ROTTEN_PLATE, 4)
                         .pattern("RR")
                         .input('R', WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log())
                         .criterion(hasItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()),
                                 conditionsFromItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SILVER_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.SILVER_PLATE, 1)
                         .pattern("SS")
                         .input('S', ResourceItemsME.SILVER_INGOT)
                         .criterion(hasItem(ResourceItemsME.SILVER_INGOT),

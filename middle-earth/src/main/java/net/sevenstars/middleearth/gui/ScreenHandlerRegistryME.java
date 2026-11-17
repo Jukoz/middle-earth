@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.gui;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.crockpot.CrockpotScreenHandler;
+import net.sevenstars.middleearth.features.cooking.block.crockpot.CrockpotScreenHandler;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreenHandler;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreenHandler;
@@ -22,8 +22,6 @@ public class ScreenHandlerRegistryME {
     public static ScreenHandlerType<WoodPileScreenHandler> WOOD_PILE_SCREEN_HANDLER
             = new ScreenHandlerType<>(WoodPileScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
     
-    public static final ScreenHandlerType<CrockpotScreenHandler> CROCKPOT_SCREEN_HANDLER
-            = new ExtendedScreenHandlerType<>(CrockpotScreenHandler::new, BlockPos.PACKET_CODEC.cast());
 
     public static ScreenHandlerType<ArtisanTableScreenHandler> ARTISAN_SCREEN_HANDLER
             = new ExtendedScreenHandlerType<>(ArtisanTableScreenHandler::new, PacketCodecs.STRING.cast());
@@ -44,7 +42,6 @@ public class ScreenHandlerRegistryME {
         register("inscription_table", INSCRIPTION_SCREEN_HANDLER);
         register("structure_manager", STRUCTURE_MANAGER_SCREEN_HANDLER);
         register("structure_nest", STRUCTURE_NEST_SCREEN_HANDLER);
-        register("crockpot",CROCKPOT_SCREEN_HANDLER );
     }
 
     private static void register(String name, ScreenHandlerType handlerType) {

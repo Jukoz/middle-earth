@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
+import net.sevenstars.middleearth.features.cooking.CookingBlocks;
+
 import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
 
@@ -35,9 +37,9 @@ public class BlockDrops {
             add(DecorativeBlockRegistryME.FIRE_OF_ORTHANC);
             add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
 
-            add(DecorativeBlockRegistryME.CERAMIC_PLATE);
-            add(DecorativeBlockRegistryME.ROTTEN_PLATE);
-            add(DecorativeBlockRegistryME.SILVER_PLATE);
+            add(CookingBlocks.CERAMIC_PLATE);
+            add(CookingBlocks.ROTTEN_PLATE);
+            add(CookingBlocks.SILVER_PLATE);
             add(BlockRegistryME.TREATED_WOOD_ROPE_FENCE);
 
             add(DecorativeBlockRegistryME.TAPPER);

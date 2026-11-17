@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.crockpot;
+package net.sevenstars.middleearth.features.cooking.block.crockpot;
 
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;

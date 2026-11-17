@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.recipe;
+package net.sevenstars.middleearth.features.cooking.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

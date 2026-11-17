@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special;
+package net.sevenstars.middleearth.features.cooking.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;

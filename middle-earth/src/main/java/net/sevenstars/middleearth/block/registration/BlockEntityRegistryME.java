@@ -7,7 +7,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlockEntity;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fireBlocks.*;
-import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
+import net.sevenstars.middleearth.features.cooking.block.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.block.special.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
@@ -47,8 +47,6 @@ public class BlockEntityRegistryME {
     /*public static BlockEntityType<CrockpotBlockEntity> CROCKPOT = register("crockpot", CrockpotBlockEntity::new,
             ModDecorativeBlocks.CERAMIC_CROCKPOT,
             ModDecorativeBlocks.CROCKPOT);*/
-    public static BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new,
-            DecorativeBlockRegistryME.SILVER_PLATE, DecorativeBlockRegistryME.CERAMIC_PLATE, DecorativeBlockRegistryME.ROTTEN_PLATE);
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = register("wood_pile", WoodPileBlockEntity::new,
             DecorativeBlockRegistryME.WOOD_PILE);
     public static BlockEntityType<BrazierBlockEntity> BIG_BRAZIER = register("big_brazier", BrazierBlockEntity::new,

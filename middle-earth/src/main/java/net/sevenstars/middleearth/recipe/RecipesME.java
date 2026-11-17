@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.recipe;
 
+import net.sevenstars.middleearth.features.cooking.recipe.CrockpotRecipe;
+
 
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -34,7 +36,6 @@ public class RecipesME {
     }
 
     public static RecipeType<InscriptionRecipe> INSCRIPTION_TABLE;
-    public static RecipeType<CrockpotRecipe> CROCKPOT;
 
     public static void registerRecipes() {
         //Registry.register(Registries.RECIPE_SERIALIZER,
@@ -51,12 +52,6 @@ public class RecipesME {
                 MiddleEarth.id(InscriptionRecipe.Type.ID),
                 InscriptionRecipe.Type.INSTANCE);
 
-        Registry.register(Registries.RECIPE_SERIALIZER,
-                MiddleEarth.id(CrockpotRecipe.Serializer.ID),
-                CrockpotRecipe.Serializer.INSTANCE);
-        CROCKPOT = Registry.register(Registries.RECIPE_TYPE,
-                MiddleEarth.id(CrockpotRecipe.Type.ID),
-                CrockpotRecipe.Type.INSTANCE);
     }
 
     static <T extends Recipe<?>> RecipeType<T> register(final String id) {

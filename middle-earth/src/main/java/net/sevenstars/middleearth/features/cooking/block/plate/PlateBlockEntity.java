@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.block.special.plate;
+package net.sevenstars.middleearth.features.cooking.block.plate;
+
+import net.sevenstars.middleearth.features.cooking.CookingBlockEntities;
 
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -21,7 +23,6 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
 public class PlateBlockEntity extends BlockEntity implements SingleStackInventory.SingleStackBlockEntityInventory {
@@ -31,7 +32,7 @@ public class PlateBlockEntity extends BlockEntity implements SingleStackInventor
     private boolean blockPlaced = false;
 
     public PlateBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistryME.PLATE, pos, state);
+        super(CookingBlockEntities.PLATE, pos, state);
     }
 
     @Override

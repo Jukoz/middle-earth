@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.block.special.crockpot;
+package net.sevenstars.middleearth.features.cooking.block.crockpot;
+
+import net.sevenstars.middleearth.features.cooking.CookingRecipes;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -34,8 +36,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.common.recipe.MultipleStackRecipeInput;
-import net.sevenstars.middleearth.recipe.CrockpotRecipe;
-import net.sevenstars.middleearth.recipe.RecipesME;
+import net.sevenstars.middleearth.features.cooking.recipe.CrockpotRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class CrockpotBlockEntity extends BlockEntity implements ExtendedScreenHa
                 return 1;
             }
         };
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(RecipesME.CROCKPOT);
+        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(CookingRecipes.CROCKPOT);
         this.liquidTopLevel = liquidTopLevel;
         random = Random.create();
     }

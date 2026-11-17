@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
+import net.sevenstars.middleearth.features.cooking.CookingItems;
+
 import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
@@ -78,7 +80,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
-            add(FoodItemsME.LAYERED_CAKE);
+            add(CookingItems.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);

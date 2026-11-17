@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.cooking.CookingClient;
+
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
@@ -23,7 +26,7 @@ import net.sevenstars.middleearth.features.smithing.SmithingClient;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.coffers.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.sevenstars.middleearth.block.special.plate.PlateEntityRenderer;
+import net.sevenstars.middleearth.features.cooking.block.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
 import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
@@ -162,7 +165,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.REINFORCED_CHEST, ReinforcedChestEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
-        BlockEntityRendererFactories.register(BlockEntityRegistryME.PLATE, PlateEntityRenderer::new);
         BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
@@ -226,6 +228,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         initializeRenderLayerMap();
         SmithingClient.register();
+        CookingClient.register();
         BlockColorsME.initializeBlockColors();
     }
 
@@ -375,9 +378,6 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         /*BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CERAMIC_CROCKPOT, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(ModDecorativeBlocks.CROCKPOT, BlockRenderLayer.CUTOUT);*/
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.CERAMIC_PLATE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ROTTEN_PLATE, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.SILVER_PLATE, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.TAPPER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_LIMESTONE, BlockRenderLayer.CUTOUT);

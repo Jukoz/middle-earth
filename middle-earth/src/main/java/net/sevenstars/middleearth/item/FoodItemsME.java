@@ -87,8 +87,6 @@ public class FoodItemsME {
             (settings) -> new BlockItem(NatureBlockRegistryME.ONION_CROP, settings),new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
 
-    public static final Item LAYERED_CAKE = registerItem("layered_cake",
-            (settings) -> new BlockItem(BlockRegistryME.LAYERED_CAKE, settings),new Item.Settings().maxCount(1));
     public static final Item BERRY_PIE = registerItem("berry_pie",
             Item::new,new Item.Settings().food(
                     new FoodComponent.Builder().nutrition(8).saturationModifier(0.5f).build()));

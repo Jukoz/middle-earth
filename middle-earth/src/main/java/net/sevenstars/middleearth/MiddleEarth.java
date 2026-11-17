@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.cooking.Cooking;
+
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
@@ -95,6 +97,7 @@ public class MiddleEarth implements ModInitializer {
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
 		Smithing.register();
+		Cooking.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

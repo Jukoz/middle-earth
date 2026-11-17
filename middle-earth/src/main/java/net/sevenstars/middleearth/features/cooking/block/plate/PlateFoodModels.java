@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.plate;
+package net.sevenstars.middleearth.features.cooking.block.plate;
 
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;

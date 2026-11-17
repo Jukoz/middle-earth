@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.block.special.crockpot;
+package net.sevenstars.middleearth.features.cooking.block.crockpot;
+
+import net.sevenstars.middleearth.features.cooking.CookingScreenHandlers;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +12,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 
 public class CrockpotScreenHandler extends ScreenHandler {
     final Inventory inventory;
@@ -24,7 +25,7 @@ public class CrockpotScreenHandler extends ScreenHandler {
 
     public CrockpotScreenHandler(int syncId, PlayerInventory playerInventory,
                                  Inventory inventory, PropertyDelegate propertyDelegate) {
-        super(ScreenHandlerRegistryME.CROCKPOT_SCREEN_HANDLER, syncId);
+        super(CookingScreenHandlers.CROCKPOT_SCREEN_HANDLER, syncId);
         this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
         this.pos = BlockPos.ORIGIN;
