@@ -6,6 +6,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
@@ -73,6 +74,9 @@ public class NpcRelations {
 
     // The faction's creature lists take priority, then the rules every npc shares
     private static Relation ofCreature(NpcEntity npc, Entity other) {
+        // A wild cave troll attacks every npc, whoever keeps trolls
+        if(other instanceof CaveTrollEntity caveTroll && !caveTroll.isTame())
+            return Relation.ENEMY;
         EntityType<?> type = other.getType();
         Faction faction = npc.getFaction();
         if(faction != null) {
