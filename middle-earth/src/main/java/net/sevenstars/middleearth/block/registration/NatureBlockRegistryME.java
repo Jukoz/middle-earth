@@ -1,10 +1,19 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.features.farming.block.crop.BellpepperCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.CucumberCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.FlaxCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.GarlicCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LeekCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LettuceCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.OnionCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.PipeweedCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.TomatoCropBlock;
+
 import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
-import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.block.special.hangingstuff.CustomHangingBlock;
 import net.sevenstars.middleearth.block.special.hangingstuff.HangingCobwebBlock;
 import net.sevenstars.middleearth.block.special.plants.*;
@@ -553,24 +562,6 @@ public class NatureBlockRegistryME {
     public static final Block WILD_BEETROOT = registerBlock("wild_beetroot",
             WildCropBlock::new, AbstractBlock.Settings.copy(Blocks.SHORT_GRASS).sounds(BlockSoundGroup.CROP), true);
 
-    public static final Block TOMATO_CROP = registerBlock("tomato_crop",
-            TomatoCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block BELL_PEPPER_CROP = registerBlock("bell_pepper_crop",
-            BellpepperCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block CUCUMBER_CROP = registerBlock("cucumber_crop",
-            CucumberCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block FLAX_CROP = registerBlock("flax_crop",
-            FlaxCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block GARLIC_CROP = registerBlock("garlic_crop",
-            GarlicCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block LEEK_CROP = registerBlock("leek_crop",
-            LeekCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block LETTUCE_CROP = registerBlock("lettuce_crop",
-            LettuceCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block ONION_CROP = registerBlock("onion_crop",
-            OnionCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-    public static final Block PIPEWEED_CROP = registerBlock("pipeweed_crop",
-            PipeweedCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
 
     public static final Block MIRKWOOD_ROOTS = registerBlock("mirkwood_roots",
             MangroveRootsBlock::new, AbstractBlock.Settings.copy(Blocks.MANGROVE_ROOTS), true);

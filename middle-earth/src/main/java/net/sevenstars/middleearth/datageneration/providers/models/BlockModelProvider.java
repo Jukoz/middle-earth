@@ -1,5 +1,15 @@
 package net.sevenstars.middleearth.datageneration.providers.models;
 
+import net.sevenstars.middleearth.features.farming.FarmingBlocks;
+
+import net.sevenstars.middleearth.features.farming.block.crop.BellpepperCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.CucumberCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.FlaxCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.GarlicCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LeekCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.LettuceCropBlock;
+import net.sevenstars.middleearth.features.farming.block.crop.OnionCropBlock;
+
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -24,7 +34,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
-import net.sevenstars.middleearth.block.special.crop.*;
 import net.sevenstars.middleearth.block.special.doors.*;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
@@ -718,13 +727,13 @@ public class BlockModelProvider extends FabricModelProvider {
         });
 
         // Crops
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.GARLIC_CROP, GarlicCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
-        blockStateModelGenerator.registerCrop(NatureBlockRegistryME.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.BELL_PEPPER_CROP, BellpepperCropBlock.AGE, 0, 1, 2, 3, 4);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.CUCUMBER_CROP, CucumberCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.FLAX_CROP, FlaxCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.GARLIC_CROP, GarlicCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.LEEK_CROP, LeekCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.LETTUCE_CROP, LettuceCropBlock.AGE, 0, 1, 2, 3);
+        blockStateModelGenerator.registerCrop(FarmingBlocks.ONION_CROP, OnionCropBlock.AGE, 0, 1, 2, 3);
 
         //CLUSTERS
         blockStateModelGenerator.registerAmethyst(BlockRegistryME.GLOWSTONE_CLUSTER);

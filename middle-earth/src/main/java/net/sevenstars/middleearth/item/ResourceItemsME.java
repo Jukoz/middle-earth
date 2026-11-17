@@ -1,12 +1,13 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.features.farming.FarmingBlocks;
+
 import net.sevenstars.middleearth.features.smithing.item.SmithingMaterialItem;
 
 import net.sevenstars.middleearth.common.registration.ItemRegistrar;
 import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
-import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.block.special.CustomWaterloggableTallPlantBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -160,23 +161,23 @@ public class ResourceItemsME {
     public static final Item FLAX = registerItem("flax",
             Item::new, new Item.Settings());
     public static final Item FLAX_SEEDS = registerItem("flax_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.FLAX_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.FLAX_CROP, settings), new Item.Settings());
     public static final Item PIPEWEED = registerItem("pipeweed",
             Item::new, new Item.Settings());
     public static final Item DRIED_PIPEWEED = registerItem("dried_pipeweed",
             Item::new, new Item.Settings());
     public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.PIPEWEED_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.PIPEWEED_CROP, settings), new Item.Settings());
 
 
     public static final Item TOMATO_SEEDS = registerItem("tomato_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.TOMATO_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.TOMATO_CROP, settings), new Item.Settings());
     public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.BELL_PEPPER_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.BELL_PEPPER_CROP, settings), new Item.Settings());
     public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.CUCUMBER_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.CUCUMBER_CROP, settings), new Item.Settings());
     public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds",
-            (settings) -> new BlockItem(NatureBlockRegistryME.LETTUCE_CROP, settings), new Item.Settings());
+            (settings) -> new BlockItem(FarmingBlocks.LETTUCE_CROP, settings), new Item.Settings());
 
     public static final Item FUR = registerItem("fur",
             Item::new, new Item.Settings());
