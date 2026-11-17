@@ -32,6 +32,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
@@ -59,7 +60,7 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.*;
+import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
 import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
@@ -323,7 +324,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private boolean dataInitialized = false;
 
     // Routine and attack
-    private final NpcRoutine dayRoutine = new NpcRoutine(this, NpcBrain.WALK_SPEED);
+    // Built when first asked for, which only a server needs
+    private @Nullable NpcRoutine dayRoutine = null;
     // What the weapon in hand was last set up for, which is how the npc fights
     private AttackType attackType = AttackType.MELEE;
     private int bowAttackInterval = BOW_ATTACK_INTERVAL;
@@ -399,7 +401,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             return;
         ItemStack itemStack = this.getMainHandStack();
         AttackType wanted = AttackType.MELEE;
-        if (itemStack.isOf(Items.BOW) || itemStack.isIn(ItemTagsME.BOW)) {
+        if (itemStack.getItem() instanceof BowItem) {
             boolean hard = this.getEntityWorld().getDifficulty() == Difficulty.HARD;
             this.bowAttackInterval = hard ? BOW_ATTACK_INTERVAL_HARD : BOW_ATTACK_INTERVAL;
             wanted = AttackType.BOW;
@@ -433,9 +435,13 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return NpcBrain.createProfile();
     }
 
+    // Also called when saved data with a brain is read into a live npc, and by the constructor, when there is no brain yet
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return NpcBrain.create(createBrainProfile().deserialize(dynamic));
+        Brain<NpcEntity> replaced = getBrain();
+        if(replaced != null && getEntityWorld() instanceof ServerWorld world)
+            replaced.stopAllTasks(world, this);
+        return NpcBrain.create(createBrainProfile().deserialize(dynamic), getEntityWorld());
     }
 
     @Override
@@ -753,6 +759,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public NpcRoutine getDayRoutine() {
+        if(dayRoutine == null)
+            dayRoutine = new NpcRoutine(this, NpcBrain.WALK_SPEED);
         return dayRoutine;
     }
 
@@ -1383,7 +1391,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         // Sleeping npcs are ticked too, as the routine keeps them in bed
         NpcBrain.updateActivities(this);
         getBrain().tick(world, this);
-        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || !dayRoutine.isInCompany()))
+        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || !getDayRoutine().isInCompany()))
             talk(Talk.NONE, 0);
         if(huntTarget != null)
             tickHunt();

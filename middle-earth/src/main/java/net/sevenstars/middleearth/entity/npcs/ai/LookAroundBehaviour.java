@@ -1,9 +1,8 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
-public class LookAroundBehaviour extends IdleBehaviour {
-    private static final float CHANCE = 0.02F;
+final class LookAroundBehaviour extends Behaviour {
     private static final int LOOK_TIME = 20;
     private static final int LOOK_TIME_VARIATION = 20;
 
@@ -12,22 +11,22 @@ public class LookAroundBehaviour extends IdleBehaviour {
     // In ticks
     private int lookTime;
 
-    public LookAroundBehaviour() {
-        super(7, true, true);
+    LookAroundBehaviour() {
+        super(LOOK_PRIORITY, MOVE | LOOK);
     }
 
     @Override
-    public boolean canStart(NpcEntity npc) {
-        return npc.getRandom().nextFloat() < CHANCE;
+    boolean canStart(NpcEntity npc) {
+        return npc.getRandom().nextFloat() < LOOK_CHANCE;
     }
 
     @Override
-    public boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         return lookTime >= 0;
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         double angle = Math.PI * 2 * npc.getRandom().nextDouble();
         deltaX = Math.cos(angle);
         deltaZ = Math.sin(angle);
@@ -35,12 +34,12 @@ public class LookAroundBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public boolean runsEveryTick() {
+    boolean runsEveryTick() {
         return true;
     }
 
     @Override
-    public void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         lookTime--;
         npc.getLookControl().lookAt(npc.getX() + deltaX, npc.getEyeY(), npc.getZ() + deltaZ);
     }

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
@@ -6,7 +6,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +15,7 @@ import java.util.List;
 
 // At night, a traveller near a settlement sleeps in one of its free beds (ones no npc spawns from) and moves on in
 // the morning
-public class WandererBedBehaviour extends IdleBehaviour {
+final class WandererBedBehaviour extends Behaviour {
     private static final int MAXIMUM_TRIES = 3;
     // In blocks, beyond the settlement's extent
     private static final int SEARCH_RANGE = 48;
@@ -33,12 +32,12 @@ public class WandererBedBehaviour extends IdleBehaviour {
     private long nextSearch = 0;
     private long walkDeadline = 0;
 
-    public WandererBedBehaviour() {
-        super(5, true, true);
+    WandererBedBehaviour() {
+        super(WANDERER_BED_PRIORITY, MOVE | LOOK);
     }
 
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
         if(!world.isNight()) {
@@ -69,14 +68,14 @@ public class WandererBedBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         walkDeadline = npc.getEntityWorld().getTime() + WALK_LIMIT;
         if(!walkToBed(npc))
             giveUp();
     }
 
     @Override
-    public boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         if(bed == null || !npc.getEntityWorld().isNight() || npc.getTarget() != null)
             return false;
         if(npc.isSleeping())
@@ -85,7 +84,7 @@ public class WandererBedBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         if(bed == null || npc.isSleeping() || !(npc.getEntityWorld() instanceof ServerWorld world))
             return;
         double distanceX = bed.getX() + 0.5 - npc.getX();
@@ -104,7 +103,7 @@ public class WandererBedBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         if(npc.isSleeping())
             npc.wakeUp();
         npc.getNavigation().stop();

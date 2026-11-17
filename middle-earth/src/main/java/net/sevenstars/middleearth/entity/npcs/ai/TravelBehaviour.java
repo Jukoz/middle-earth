@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
@@ -14,16 +14,15 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
-public class TravelBehaviour extends IdleBehaviour {
-    // 1 in this many checks, which run every other tick
+final class TravelBehaviour extends Behaviour {
+    // 1 in this many think ticks
     private static final int LEADER_REST = 10;
-    // Also 1 in this many checks, which is a couple of seconds between strolls
+    // Also 1 in this many think ticks, which is a couple of seconds between strolls
     private static final int STROLL_PAUSE = 20;
     private static final int STROLL_RETRIES = 3;
     // In path nodes
@@ -42,7 +41,8 @@ public class TravelBehaviour extends IdleBehaviour {
     private static final float[] DETOURS = {0, 20, -20, 40, -40, 60, -60};
     private static final int MAXIMUM_HEIGHT_CHANGE = 8;
     private static final int MAXIMUM_FAILURES = 3;
-    private static final int WANDER_RANGE = 20;
+    // In blocks from home, beyond which a stroll by a settled npc is turned back
+    private static final int HOME_LEASH = 20;
     private static final int HOME_PULL_RANGE = 10;
     private static final int HOME_PULL_HEIGHT = 7;
     private static final int ARRIVAL_DISTANCE = 24;
@@ -53,13 +53,14 @@ public class TravelBehaviour extends IdleBehaviour {
     private static final float TURN_BACK = 180f;
     private static final float TURN_ASIDE = 90f;
 
-    // The chance of walking is 1 in 120 server ticks, so 1 in this many checks
+    // The chance of walking is 1 in 120 server ticks, so 1 in this many think ticks
     private static final int WANDER_CHANCE = 60;
     private static final int DESPAWN_COUNTER = 100;
-    private static final int WANDER_RANGE_NEAR = 10;
-    private static final int WATER_WANDER_RANGE = 15;
+    // In blocks, how far around itself a stroll is looked for
+    private static final int STROLL_RADIUS = 10;
+    private static final int WATER_STROLL_RADIUS = 15;
     private static final int WANDER_HEIGHT = 7;
-    // The chance, per check, of a plain nearby target instead of a fuzzy one
+    // The chance, per think tick, of a plain nearby target instead of a fuzzy one
     private static final float FAR_PROBABILITY = 0.001F;
 
     private static final double SLOT_REACHED = 2.5;
@@ -70,13 +71,13 @@ public class TravelBehaviour extends IdleBehaviour {
     // Multiples of the normal wander speed
     private static final double FOLLOW_SPEED = 1.15;
     private static final double CATCH_UP_SPEED = 1.4;
-    // In checks, 10 a second
+    // In think ticks, 10 a second
     private static final int LEADER_MISSING_DELAY = 10 * 30;
 
-    // Where the walk is headed, and whether the next check skips the chance of staying put
     private double targetX;
     private double targetY;
     private double targetZ;
+    // Set when the next think tick has to walk, whatever the chance of staying put
     private boolean ignoreChance = false;
     private int failures = 0;
     private int leaderMissingChecks = 0;
@@ -88,12 +89,12 @@ public class TravelBehaviour extends IdleBehaviour {
     private double speedFactor = 1;
     private boolean onStretch = false;
 
-    public TravelBehaviour() {
-        super(6, true, false);
+    TravelBehaviour() {
+        super(TRAVEL_PRIORITY, MOVE);
     }
 
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         if(npc.isConfined())
             return false;
         if(npc.hasVehicle())
@@ -117,12 +118,12 @@ public class TravelBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         return !npc.getNavigation().isIdle() && !npc.hasControllingPassenger();
     }
 
     @Override
-    public void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         npc.getNavigation().stop();
     }
 
@@ -147,12 +148,12 @@ public class TravelBehaviour extends IdleBehaviour {
 
     private @Nullable Vec3d wanderTarget(NpcEntity npc) {
         if(npc.isTouchingWater()) {
-            Vec3d target = FuzzyTargeting.find(npc, WATER_WANDER_RANGE, WANDER_HEIGHT);
-            return target == null ? NoPenaltyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT) : target;
+            Vec3d target = FuzzyTargeting.find(npc, WATER_STROLL_RADIUS, WANDER_HEIGHT);
+            return target == null ? NoPenaltyTargeting.find(npc, STROLL_RADIUS, WANDER_HEIGHT) : target;
         }
         if(npc.getRandom().nextFloat() >= FAR_PROBABILITY)
-            return FuzzyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT);
-        return NoPenaltyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT);
+            return FuzzyTargeting.find(npc, STROLL_RADIUS, WANDER_HEIGHT);
+        return NoPenaltyTargeting.find(npc, STROLL_RADIUS, WANDER_HEIGHT);
     }
 
     private @Nullable Vec3d findTarget(NpcEntity npc) {
@@ -195,7 +196,7 @@ public class TravelBehaviour extends IdleBehaviour {
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         double moveSpeed = NpcBrain.WALK_SPEED * speedFactor;
         boolean moving = npc.getNavigation().startMovingTo(targetX, targetY, targetZ, moveSpeed);
         boolean strolling = npc.getPartyLeader() == null && npc.getTravelHeading() == null;
@@ -228,7 +229,7 @@ public class TravelBehaviour extends IdleBehaviour {
     // Keeps settled npcs from wandering out of their village for good
     private @Nullable Vec3d nearHome(NpcEntity npc, @Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
-        if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
+        if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, HOME_LEASH))
             return inField(npc, target) ? null : target;
         Vec3d back = NoPenaltyTargeting.findTo(npc, HOME_PULL_RANGE, HOME_PULL_HEIGHT, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
         return inField(npc, back) ? null : back;
@@ -293,7 +294,7 @@ public class TravelBehaviour extends IdleBehaviour {
             stuckStrolls = 0;
             return;
         }
-        // Every check comes with a stroll attempt, so the same block over and over means none of them went anywhere.
+        // Every think tick comes with a stroll attempt, so the same block over and over means none of them went anywhere.
         // An npc shut in a small room waits longer each time, or it would keep hopping around its cell
         stuckStrolls++;
         if(stuckStrolls < STUCK_STROLLS << Math.min(rescues, MAXIMUM_RESCUE_BACK_OFF) || !(npc.getEntityWorld() instanceof ServerWorld world))

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
 // Opens a door on the way through and shuts it afterwards, but not while someone else is still going through
-public class NpcDoorTask extends NpcTask {
+final class DoorBehaviour extends Behaviour {
     // In ticks
     private static final int PASSING_TIME = 20;
     private static final int MAXIMUM_HOLD_TIME = 20 * 10;
@@ -28,14 +28,14 @@ public class NpcDoorTask extends NpcTask {
     private int heldTicks;
     private boolean doorwayBusy;
 
-    public NpcDoorTask() {
-        super(null);
+    DoorBehaviour() {
+        super(NONE);
     }
 
-    // The game measures to a corner of the door, which an npc a little wider than most, pressed against a shutter beside
-    // the doorway, is never near enough to. This measures to the middle of the door instead
+    // Measures to the middle of the door and not a corner of it, which an npc a little wider than most, pressed against a
+    // shutter beside the doorway, is never near enough to
     @Override
-    protected boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         if(!npc.horizontalCollision || !(npc.getNavigation() instanceof MobNavigation navigation))
             return false;
         Path path = navigation.getCurrentPath();
@@ -56,7 +56,7 @@ public class NpcDoorTask extends NpcTask {
     }
 
     @Override
-    protected boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         if(heldTicks >= MAXIMUM_HOLD_TIME)
             return false;
         if(ticksLeft > 0)
@@ -67,7 +67,7 @@ public class NpcDoorTask extends NpcTask {
     }
 
     @Override
-    protected void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         ticksLeft = PASSING_TIME;
         heldTicks = 0;
         doorwayBusy = false;
@@ -76,13 +76,13 @@ public class NpcDoorTask extends NpcTask {
     }
 
     @Override
-    protected void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         setDoorOpen(npc, false);
         npc.setPassingDoor(false);
     }
 
     @Override
-    protected void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         ticksLeft--;
         heldTicks++;
         if(heldTicks % DOORWAY_CHECK_INTERVAL == 0) {
@@ -95,7 +95,7 @@ public class NpcDoorTask extends NpcTask {
     }
 
     @Override
-    protected boolean runsEveryTick() {
+    boolean runsEveryTick() {
         return true;
     }
 

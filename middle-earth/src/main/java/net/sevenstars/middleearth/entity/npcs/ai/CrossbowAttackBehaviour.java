@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.attack;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
@@ -11,10 +11,9 @@ import net.minecraft.item.Items;
 import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
-public class CrossbowAttackBehaviour extends AttackBehaviour {
+final class CrossbowAttackBehaviour extends AttackBehaviour {
     private static final UniformIntProvider COOLDOWN_RANGE = TimeHelper.betweenSeconds(1, 2);
     private static final int USING_ITEM_FLAG = 1;
     // In ticks
@@ -35,8 +34,12 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
     private int cooldown;
     private int useTicks;
 
+    CrossbowAttackBehaviour() {
+        super(NpcEntity.AttackType.CROSSBOW);
+    }
+
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canAttack(NpcEntity npc) {
         return hasAliveTarget(npc) && isEntityHoldingCrossbow(npc);
     }
 
@@ -46,8 +49,8 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public boolean shouldContinue(NpcEntity npc) {
-        return hasAliveTarget(npc) && (canStart(npc) || !npc.getNavigation().isIdle()) && isEntityHoldingCrossbow(npc);
+    boolean shouldContinue(NpcEntity npc) {
+        return canStart(npc);
     }
 
     private boolean hasAliveTarget(NpcEntity npc) {
@@ -55,12 +58,12 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         useTicks = 0;
     }
 
     @Override
-    public void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         npc.setAttacking(false);
         npc.setTarget(null);
         seeingTargetTicker = 0;
@@ -72,7 +75,7 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         LivingEntity livingEntity = npc.getTarget();
         if (livingEntity != null) {
             boolean canSee = npc.getVisibilityCache().canSee(livingEntity);
@@ -89,8 +92,8 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
             }
 
             double distance = npc.squaredDistanceTo(livingEntity);
-            boolean inRange = (distance > SQUARED_RANGE || seeingTargetTicker < SEEING_TICKS) && chargedTicksLeft == 0;
-            if (inRange) {
+            boolean approaching = (distance > SQUARED_RANGE || seeingTargetTicker < SEEING_TICKS) && chargedTicksLeft == 0;
+            if (approaching) {
                 cooldown--;
                 if (cooldown <= 0) {
                     npc.getNavigation().startMovingTo(livingEntity, isUncharged() ? NpcBrain.BOW_ATTACK_SPEED : NpcBrain.BOW_ATTACK_SPEED * CHARGED_SPEED_FACTOR);
@@ -103,7 +106,7 @@ public class CrossbowAttackBehaviour extends AttackBehaviour {
 
             npc.getLookControl().lookAt(livingEntity, LOOK_ANGLE, LOOK_ANGLE);
             if (stage == Stage.UNCHARGED) {
-                if (!inRange) {
+                if (!approaching) {
                     npc.setCurrentHand(ProjectileUtil.getHandPossiblyHolding(npc, Items.CROSSBOW));
                     stage = Stage.CHARGING;
                     npc.setCharging(true);

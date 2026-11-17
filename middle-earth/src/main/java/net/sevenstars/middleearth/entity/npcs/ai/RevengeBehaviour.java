@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.target;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -8,7 +8,7 @@ import net.minecraft.world.rule.GameRules;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
 
-public class RevengeBehaviour extends TargetBehaviour {
+final class RevengeBehaviour extends TargetBehaviour {
     // In ticks. Someone who hit the npc is followed for longer than a stranger
     private static final int LOST_SIGHT_TICKS = 300;
 
@@ -16,12 +16,12 @@ public class RevengeBehaviour extends TargetBehaviour {
 
     private int lastAttackedTime = 0;
 
-    public RevengeBehaviour() {
-        super(1, LOST_SIGHT_TICKS);
+    RevengeBehaviour() {
+        super(REVENGE_PRIORITY, LOST_SIGHT_TICKS);
     }
 
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         LivingEntity attacker = npc.getAttacker();
         // Common folk strike back unless they have run for the guards. At home there's nowhere left to run, so the npc calls
         // the guards from where it stands and fights
@@ -41,7 +41,7 @@ public class RevengeBehaviour extends TargetBehaviour {
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         npc.setTarget(npc.getAttacker());
         remembered = npc.getTarget();
         lastAttackedTime = npc.getLastAttackedTime();

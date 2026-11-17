@@ -1,10 +1,9 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.target;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
@@ -12,32 +11,31 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 // Looks for anyone the npc counts as an enemy. NpcRelations decides who that is through canTarget
-public class EnemyBehaviour extends TargetBehaviour {
-    // Only 1 in this many ticks actually looks for a target. The checks come every other tick
-    private static final int SEARCH_CHANCE = 10;
+final class EnemyBehaviour extends TargetBehaviour {
+    // Only 1 in this many think ticks looks for a target
+    private static final int SEARCH_CHECKS = 5;
     private static final int LOST_SIGHT_TICKS = 60;
 
-    private final int reciprocalChance = MathHelper.ceilDiv(SEARCH_CHANCE, 2);
     private @Nullable TargetPredicate predicate = null;
     private @Nullable LivingEntity found = null;
 
-    public EnemyBehaviour() {
-        super(3, LOST_SIGHT_TICKS);
+    EnemyBehaviour() {
+        super(ENEMY_PRIORITY, LOST_SIGHT_TICKS);
     }
 
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         // Timid npcs only go after their game and run from everything else
         if(npc.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL || npc.isTimid())
             return false;
-        if(npc.getRandom().nextInt(reciprocalChance) != 0)
+        if(npc.getRandom().nextInt(SEARCH_CHECKS) != 0)
             return false;
         find(npc);
         return found != null;
     }
 
     @Override
-    public void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         npc.setTarget(found);
         super.start(npc);
     }

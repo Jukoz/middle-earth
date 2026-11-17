@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.attack;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.Path;
@@ -6,10 +6,11 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import org.jetbrains.annotations.Nullable;
 
-public class MeleeAttackBehaviour extends AttackBehaviour {
+final class MeleeAttackBehaviour extends AttackBehaviour {
+    // As a multiple of the npc's walking speed
+    private static final double MELEE_ATTACK_SPEED = 1.2;
     // In ticks
     private static final int ATTACK_INTERVAL = 20;
     // The least time between one look for a path to start on and the next
@@ -36,8 +37,12 @@ public class MeleeAttackBehaviour extends AttackBehaviour {
     private int cooldown;
     private long lastUpdateTime = 0;
 
+    MeleeAttackBehaviour() {
+        super(NpcEntity.AttackType.MELEE);
+    }
+
     @Override
-    public boolean canStart(NpcEntity npc) {
+    boolean canAttack(NpcEntity npc) {
         long time = npc.getEntityWorld().getTime();
         if(time - lastUpdateTime < PATH_INTERVAL)
             return false;
@@ -54,7 +59,7 @@ public class MeleeAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
         if(target == null)
             return false;
@@ -64,15 +69,15 @@ public class MeleeAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public void start(NpcEntity npc) {
-        npc.getNavigation().startMovingAlong(path, NpcBrain.MELEE_ATTACK_SPEED);
+    void start(NpcEntity npc) {
+        npc.getNavigation().startMovingAlong(path, MELEE_ATTACK_SPEED);
         npc.setAttacking(true);
         updateCountdown = 0;
         cooldown = 0;
     }
 
     @Override
-    public void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
         if(!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(target))
             npc.setTarget(null);
@@ -81,7 +86,7 @@ public class MeleeAttackBehaviour extends AttackBehaviour {
     }
 
     @Override
-    public void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
         if(target == null)
             return;
@@ -99,7 +104,7 @@ public class MeleeAttackBehaviour extends AttackBehaviour {
                 updateCountdown += FAR_DELAY;
             else if(distance > NEAR_DISTANCE)
                 updateCountdown += NEAR_DELAY;
-            if(!npc.getNavigation().startMovingTo(target, NpcBrain.MELEE_ATTACK_SPEED))
+            if(!npc.getNavigation().startMovingTo(target, MELEE_ATTACK_SPEED))
                 updateCountdown += NO_PATH_DELAY;
         }
         cooldown = Math.max(cooldown - 1, 0);

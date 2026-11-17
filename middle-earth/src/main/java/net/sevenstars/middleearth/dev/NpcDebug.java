@@ -1,11 +1,9 @@
 package net.sevenstars.middleearth.dev;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.task.NpcFleeTask;
-import net.sevenstars.middleearth.entity.npcs.ai.task.NpcIdleTask;
+import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
 // For working on npc routines: shows what each npc is doing over its head, draws its walks in the world, shows why it does
@@ -34,26 +32,18 @@ public class NpcDebug {
     }
 
     private static String doing(NpcEntity npc) {
-        boolean flee = false, routine = false, travel = false;
-        for(Task<? super NpcEntity> task : npc.getBrain().getRunningTasks()) {
-            if(task instanceof NpcFleeTask) flee = true;
-            if(task instanceof NpcIdleTask idle) {
-                routine = idle.isRoutineRunning();
-                travel = idle.isTravelRunning();
-            }
-        }
         LivingEntity target = npc.getTarget();
         if(npc.isSleeping())
             return "sleeping";
-        if(flee)
+        if(NpcBrain.isFleeing(npc))
             return "fleeing home";
         if(npc.getHuntTarget() != null)
             return "hunting " + npc.getHuntTarget().getType().getName().getString();
         if(target != null)
             return "fighting " + target.getType().getName().getString();
-        if(routine)
+        if(NpcBrain.isRoutineRunning(npc))
             return npc.getDayRoutine().debugLabel();
-        if(travel)
+        if(NpcBrain.isTravelling(npc))
             return npc.isEscorting() ? "escorting" : npc.getPartyLeader() != null ? "following party leader"
                     : npc.getTravelDestination() != null || npc.getTravelHeading() != null ? "travelling" : "wandering";
         if(npc.isRestTime())

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task.target;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -7,32 +7,25 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
-// A way of picking a target and sticking with it. NpcTargetTask runs one at a time, and a behaviour with a lower priority
-// number takes over from one with a higher number. Stopping one drops the target
-public abstract class TargetBehaviour {
-    private final int priority;
-    // In ticks, which are counted in goal ticks
+// A way of picking a target and sticking with it. Stopping one drops the target
+abstract class TargetBehaviour extends Behaviour {
+    // In ticks, though the sight is only checked on think ticks
     private final int lostSightTicks;
     private int timeWithoutSight = 0;
     // What it fell back on when the npc's own target was cleared from elsewhere
-    protected @Nullable LivingEntity remembered = null;
+    @Nullable LivingEntity remembered = null;
 
-    protected TargetBehaviour(int priority, int lostSightTicks) {
-        this.priority = priority;
+    TargetBehaviour(int priority, int lostSightTicks) {
+        super(priority, TARGET);
         this.lostSightTicks = lostSightTicks;
     }
 
-    public int priority() {
-        return priority;
-    }
-
-    protected static double followRange(NpcEntity npc) {
+    static double followRange(NpcEntity npc) {
         return npc.getAttributeValue(EntityAttributes.FOLLOW_RANGE);
     }
 
-    public abstract boolean canStart(NpcEntity npc);
-
-    public boolean shouldContinue(NpcEntity npc) {
+    @Override
+    boolean shouldContinue(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
         if(target == null)
             target = remembered;
@@ -55,11 +48,13 @@ public abstract class TargetBehaviour {
         return true;
     }
 
-    public void start(NpcEntity npc) {
+    @Override
+    void start(NpcEntity npc) {
         timeWithoutSight = 0;
     }
 
-    public void stop(NpcEntity npc) {
+    @Override
+    void stop(NpcEntity npc) {
         npc.setTarget(null);
         remembered = null;
     }

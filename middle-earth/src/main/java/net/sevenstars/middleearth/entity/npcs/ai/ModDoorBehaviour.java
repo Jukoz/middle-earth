@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.entity.npcs.ai.task;
+package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -11,9 +11,8 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
-// Opens the mod's doors on the way through and shuts them behind. Handles any block that is an NpcDoor, where vanilla's
-// door only knows vanilla doors
-public class NpcModDoorTask extends NpcTask {
+// Opens the mod's doors, any block that is an NpcDoor, on the way through and shuts them behind
+final class ModDoorBehaviour extends Behaviour {
     private static final double REACH = 2.5;
     private static final int NODES_AHEAD = 2;
     private static final int DOOR_HEIGHT = 2;
@@ -30,12 +29,12 @@ public class NpcModDoorTask extends NpcTask {
     private @Nullable BlockPos leftOpenDoorway = null;
     private int heldTicks;
 
-    public NpcModDoorTask() {
-        super(null);
+    ModDoorBehaviour() {
+        super(NONE);
     }
 
     @Override
-    protected boolean canStart(NpcEntity npc) {
+    boolean canStart(NpcEntity npc) {
         // A door that couldn't be shut because someone was in the way gets shut once they've gone
         if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(npc, leftOpenDoorway)) {
             origin = leftOpen;
@@ -66,13 +65,13 @@ public class NpcModDoorTask extends NpcTask {
     }
 
     @Override
-    protected void start(NpcEntity npc) {
+    void start(NpcEntity npc) {
         heldTicks = 0;
         set(npc, true);
     }
 
     @Override
-    protected boolean shouldContinue(NpcEntity npc) {
+    boolean shouldContinue(NpcEntity npc) {
         if(doorway == null || heldTicks >= MAXIMUM_HOLD_TIME)
             return false;
         return heldTicks < PASSING_TIME || isBusy(npc, doorway);
@@ -85,17 +84,17 @@ public class NpcModDoorTask extends NpcTask {
     }
 
     @Override
-    protected boolean runsEveryTick() {
+    boolean runsEveryTick() {
         return true;
     }
 
     @Override
-    protected void tick(NpcEntity npc) {
+    void tick(NpcEntity npc) {
         heldTicks++;
     }
 
     @Override
-    protected void stop(NpcEntity npc) {
+    void stop(NpcEntity npc) {
         if(doorway != null && isBusy(npc, doorway)) {
             leftOpen = origin;
             leftOpenDoorway = doorway;
