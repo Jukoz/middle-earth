@@ -160,24 +160,11 @@ public class ResourceItemsME {
 
     public static final Item FLAX = registerItem("flax",
             Item::new, new Item.Settings());
-    public static final Item FLAX_SEEDS = registerItem("flax_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.FLAX_CROP, settings), new Item.Settings());
     public static final Item PIPEWEED = registerItem("pipeweed",
             Item::new, new Item.Settings());
     public static final Item DRIED_PIPEWEED = registerItem("dried_pipeweed",
             Item::new, new Item.Settings());
-    public static final Item PIPEWEED_SEEDS = registerItem("pipeweed_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.PIPEWEED_CROP, settings), new Item.Settings());
 
-
-    public static final Item TOMATO_SEEDS = registerItem("tomato_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.TOMATO_CROP, settings), new Item.Settings());
-    public static final Item BELL_PEPPER_SEEDS = registerItem("bell_pepper_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.BELL_PEPPER_CROP, settings), new Item.Settings());
-    public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.CUCUMBER_CROP, settings), new Item.Settings());
-    public static final Item LETTUCE_SEEDS = registerItem("lettuce_seeds",
-            (settings) -> new BlockItem(FarmingBlocks.LETTUCE_CROP, settings), new Item.Settings());
 
     public static final Item FUR = registerItem("fur",
             Item::new, new Item.Settings());

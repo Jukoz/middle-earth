@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.farming.block.crop;
 
-import net.sevenstars.middleearth.item.ResourceItemsME;
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -17,7 +18,7 @@ public class BellpepperCropBlock extends CropBlock {
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return ResourceItemsME.BELL_PEPPER_SEEDS;
+        return FarmingItems.BELL_PEPPER_SEEDS;
     }
 
     @Override

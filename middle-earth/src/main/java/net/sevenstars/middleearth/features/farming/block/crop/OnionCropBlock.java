@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.farming.block.crop;
 
-import net.sevenstars.middleearth.item.FoodItemsME;
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
@@ -17,7 +18,7 @@ public class OnionCropBlock extends CropBlock {
     }
     @Override
     protected ItemConvertible getSeedsItem() {
-        return FoodItemsME.ONION;
+        return FarmingItems.ONION;
     }
 
     @Override

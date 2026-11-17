@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
 
 import net.sevenstars.middleearth.features.cooking.CookingBlocks;
@@ -1055,12 +1057,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region SEEDS
-                createSeedsRecipe(exporter, FoodItemsME.TOMATO, ResourceItemsME.TOMATO_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, ResourceItemsME.BELL_PEPPER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, ResourceItemsME.CUCUMBER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, ResourceItemsME.LETTUCE_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, ResourceItemsME.PIPEWEED_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.FLAX, ResourceItemsME.FLAX_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.TOMATO, FarmingItems.TOMATO_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, FarmingItems.BELL_PEPPER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, FarmingItems.CUCUMBER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, FarmingItems.LETTUCE_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, FarmingItems.PIPEWEED_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.FLAX, FarmingItems.FLAX_SEEDS);
                 //endregion
 
                 //region FOOD
@@ -1138,7 +1140,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(Items.CHICKEN)
                         .input(Items.WHEAT)
                         .input(Items.EGG)
-                        .input(FoodItemsME.GARLIC)
+                        .input(FarmingItems.GARLIC)
                         .criterion(hasItem(ResourceItemsME.PTEROSAUR_NUGGET),
                                 conditionsFromItem(ResourceItemsME.PTEROSAUR_NUGGET))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "chicken_nugget" + "_from_alloying")));

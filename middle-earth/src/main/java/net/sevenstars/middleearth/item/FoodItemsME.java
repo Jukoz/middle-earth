@@ -75,18 +75,9 @@ public class FoodItemsME {
     public static final Item CUCUMBER = registerItem("cucumber",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(4).saturationModifier(0.3f).build()));
-    public static final Item GARLIC = registerItem("garlic",
-            (settings) -> new BlockItem(FarmingBlocks.GARLIC_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
-    public static final Item LEEK = registerItem("leek",
-            (settings) -> new BlockItem(FarmingBlocks.LEEK_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
     public static final Item LETTUCE = registerItem("lettuce",
             Item::new,new Item.Settings()
                     .food(new FoodComponent.Builder().nutrition(3).saturationModifier(0.3f).build()));
-    public static final Item ONION = registerItem("onion",
-            (settings) -> new BlockItem(FarmingBlocks.ONION_CROP, settings),new Item.Settings()
-                    .food(new FoodComponent.Builder().nutrition(2).saturationModifier(0.2f).build()));
 
     public static final Item BERRY_PIE = registerItem("berry_pie",
             Item::new,new Item.Settings().food(

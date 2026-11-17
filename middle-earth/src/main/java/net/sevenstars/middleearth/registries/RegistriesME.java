@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries;
 
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
 
 import net.sevenstars.middleearth.features.cooking.CookingItems;
@@ -691,10 +693,10 @@ public class RegistriesME {
         registry.add(FoodItemsME.TOMATO, 0.5F);
         registry.add(FoodItemsME.BELL_PEPPER, 0.5F);
         registry.add(FoodItemsME.CUCUMBER, 0.5F);
-        registry.add(FoodItemsME.GARLIC, 0.5F);
-        registry.add(FoodItemsME.LEEK, 0.5F);
+        registry.add(FarmingItems.GARLIC, 0.5F);
+        registry.add(FarmingItems.LEEK, 0.5F);
         registry.add(FoodItemsME.LETTUCE, 0.5F);
-        registry.add(FoodItemsME.ONION, 0.5F);
+        registry.add(FarmingItems.ONION, 0.5F);
 
         registry.add(CookingItems.LAYERED_CAKE, 1.0F);
         registry.add(FoodItemsME.BERRY_PIE, 1.0F);
@@ -710,12 +712,12 @@ public class RegistriesME {
         registry.add(ResourceItemsME.DRIED_PIPEWEED, 0.3F);
         registry.add(ResourceItemsME.PINECONE, 0.3F);
 
-        registry.add(ResourceItemsME.BELL_PEPPER_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.CUCUMBER_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.FLAX_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.LETTUCE_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.TOMATO_SEEDS, 0.3F);
-        registry.add(ResourceItemsME.PIPEWEED_SEEDS, 0.3F);
+        registry.add(FarmingItems.BELL_PEPPER_SEEDS, 0.3F);
+        registry.add(FarmingItems.CUCUMBER_SEEDS, 0.3F);
+        registry.add(FarmingItems.FLAX_SEEDS, 0.3F);
+        registry.add(FarmingItems.LETTUCE_SEEDS, 0.3F);
+        registry.add(FarmingItems.TOMATO_SEEDS, 0.3F);
+        registry.add(FarmingItems.PIPEWEED_SEEDS, 0.3F);
     }
 
     public static void registerLandPathNodeTypesBlocks() {
