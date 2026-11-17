@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,10 @@ public class MapBasedBiomePool {
         if(biomeHashMap.containsKey(new Color(rgb)))
             return biomeHashMap.get(new Color(rgb));
         throw new RuntimeException("MeBiomes::No registered biome has %s for color".formatted(rgb));
+    }
+
+    public static Map<Color, MapBasedCustomBiome> getMapBiomes() {
+        return Collections.unmodifiableMap(biomeHashMap);
     }
 
     public static void loadBiomes() {
