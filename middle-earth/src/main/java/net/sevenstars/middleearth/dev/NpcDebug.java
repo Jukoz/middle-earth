@@ -54,7 +54,7 @@ public class NpcDebug {
         if(target != null)
             return "fighting " + target.getType().getName().getString();
         if(routine && routineGoal != null)
-            return routineGoal.debugLabel();
+            return routineGoal.getRoutine().debugLabel();
         if(travel)
             return npc.isEscorting() ? "escorting" : npc.getPartyLeader() != null ? "following party leader"
                     : npc.getTravelDestination() != null || npc.getTravelHeading() != null ? "travelling" : "wandering";

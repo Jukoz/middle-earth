@@ -66,6 +66,7 @@ import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
+import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
 import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
@@ -771,6 +772,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return routineGoal;
     }
 
+    public @Nullable NpcRoutine getDayRoutine() {
+        return routineGoal == null ? null : routineGoal.getRoutine();
+    }
+
     public boolean isTimid() {
         RoutineData routine = getRoutine();
         return routine != null && routine.isTimid();
@@ -1395,7 +1400,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
-        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || routineGoal == null || !routineGoal.isInCompany()))
+        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || routineGoal == null || !routineGoal.getRoutine().isInCompany()))
             talk(Talk.NONE, 0);
         if(huntTarget != null)
             tickHunt();

@@ -12,8 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.client.renderer.DebugDraw;
-import net.sevenstars.middleearth.entity.goals.NpcRoutineGoal;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public class NpcDebugRenderer {
             Vec3d feet = seen.getLerpedPos(tickProgress).add(0, FEET_OFFSET, 0);
             Vec3d chest = feet.add(0, seen.getHeight() * CHEST_HEIGHT, 0);
             drawPath(npc, feet);
-            NpcRoutineGoal routine = npc.getRoutineGoal();
+            NpcRoutine routine = npc.getDayRoutine();
             if(routine != null && routine.debugActive()) {
                 int color = switch (routine.debugActivity()) {
                     case FISH -> FISH;
