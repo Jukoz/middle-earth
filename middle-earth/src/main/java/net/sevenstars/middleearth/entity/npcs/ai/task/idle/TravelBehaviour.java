@@ -1,11 +1,11 @@
-package net.sevenstars.middleearth.entity.goals;
+package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -14,12 +14,13 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.utils.BlockTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
-public class NpcTravelGoal extends WanderAroundFarGoal {
+public class TravelBehaviour extends IdleBehaviour {
     // 1 in this many checks, which run every other tick
     private static final int LEADER_REST = 10;
     // Also 1 in this many checks, which is a couple of seconds between strolls
@@ -52,6 +53,15 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private static final float TURN_BACK = 180f;
     private static final float TURN_ASIDE = 90f;
 
+    // The chance of walking is 1 in 120 server ticks, so 1 in this many checks
+    private static final int WANDER_CHANCE = 60;
+    private static final int DESPAWN_COUNTER = 100;
+    private static final int WANDER_RANGE_NEAR = 10;
+    private static final int WATER_WANDER_RANGE = 15;
+    private static final int WANDER_HEIGHT = 7;
+    // The chance, per check, of a plain nearby target instead of a fuzzy one
+    private static final float FAR_PROBABILITY = 0.001F;
+
     private static final double SLOT_REACHED = 2.5;
     private static final double FOLLOW_GAP = 2.5;
     private static final double SLOT_SPACING = 1.8;
@@ -63,7 +73,11 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     // In checks, 10 a second
     private static final int LEADER_MISSING_DELAY = 10 * 30;
 
-    private final NpcEntity npc;
+    // Where the walk is headed, and whether the next check skips the chance of staying put
+    private double targetX;
+    private double targetY;
+    private double targetZ;
+    private boolean ignoreChance = false;
     private int failures = 0;
     private int leaderMissingChecks = 0;
     private @Nullable Vec3d leaderPos = null;
@@ -74,63 +88,100 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private double speedFactor = 1;
     private boolean onStretch = false;
 
-    public NpcTravelGoal(NpcEntity npc, double speed) {
-        super(npc, speed);
-        this.npc = npc;
+    public TravelBehaviour() {
+        super(6, true, false);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canStart(NpcEntity npc) {
         if(npc.isConfined())
             return false;
         if(npc.hasVehicle())
-            return super.canStart();
+            return wanderStart(npc);
 
         if(npc.getPartyLeader() != null) {
-            LivingEntity leader = findLeader();
+            LivingEntity leader = findLeader(npc);
             if(leader == null)
-                return super.canStart();
-            if(npc.getEntityPos().squaredDistanceTo(slotBehind(leader)) < SLOT_REACHED * SLOT_REACHED)
+                return wanderStart(npc);
+            if(npc.getEntityPos().squaredDistanceTo(slotBehind(npc, leader)) < SLOT_REACHED * SLOT_REACHED)
                 return false;
-            ignoreChanceOnce();
+            ignoreChance = true;
         } else if(npc.getTravelHeading() != null && npc.getRandom().nextInt(LEADER_REST) == 0) {
-            ignoreChanceOnce();
+            ignoreChance = true;
         } else if(npc.getTravelHeading() == null && npc.getRandom().nextInt(STROLL_PAUSE) == 0) {
             // Npcs with nothing to do wander around instead of standing in one spot for minutes
-            ignoreChanceOnce();
-            checkStuck();
+            ignoreChance = true;
+            checkStuck(npc);
         }
-        return super.canStart();
+        return wanderStart(npc);
     }
 
     @Override
-    protected @Nullable Vec3d getWanderTarget() {
+    public boolean shouldContinue(NpcEntity npc) {
+        return !npc.getNavigation().isIdle() && !npc.hasControllingPassenger();
+    }
+
+    @Override
+    public void stop(NpcEntity npc) {
+        npc.getNavigation().stop();
+    }
+
+    private boolean wanderStart(NpcEntity npc) {
+        if(npc.hasControllingPassenger())
+            return false;
+        if(!ignoreChance) {
+            if(npc.getDespawnCounter() >= DESPAWN_COUNTER)
+                return false;
+            if(npc.getRandom().nextInt(WANDER_CHANCE) != 0)
+                return false;
+        }
+        Vec3d target = findTarget(npc);
+        if(target == null)
+            return false;
+        targetX = target.x;
+        targetY = target.y;
+        targetZ = target.z;
+        ignoreChance = false;
+        return true;
+    }
+
+    private @Nullable Vec3d wanderTarget(NpcEntity npc) {
+        if(npc.isTouchingWater()) {
+            Vec3d target = FuzzyTargeting.find(npc, WATER_WANDER_RANGE, WANDER_HEIGHT);
+            return target == null ? NoPenaltyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT) : target;
+        }
+        if(npc.getRandom().nextFloat() >= FAR_PROBABILITY)
+            return FuzzyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT);
+        return NoPenaltyTargeting.find(npc, WANDER_RANGE_NEAR, WANDER_HEIGHT);
+    }
+
+    private @Nullable Vec3d findTarget(NpcEntity npc) {
         leaderPos = null;
         speedFactor = 1;
         onStretch = false;
         if(npc.hasVehicle())
-            return super.getWanderTarget();
+            return wanderTarget(npc);
 
         if(npc.getPartyLeader() == null && npc.getTravelHeading() == null)
-            return nearHome(super.getWanderTarget());
+            return nearHome(npc, wanderTarget(npc));
 
-        LivingEntity leader = npc.getPartyLeader() == null ? null : findLeader();
+        LivingEntity leader = npc.getPartyLeader() == null ? null : findLeader(npc);
         if(leader != null) {
             leaderPos = leader.getEntityPos();
             speedFactor = npc.squaredDistanceTo(leader) > CATCH_UP_DISTANCE * CATCH_UP_DISTANCE ? CATCH_UP_SPEED : FOLLOW_SPEED;
-            return slotBehind(leader);
+            return slotBehind(npc, leader);
         }
 
         Float heading = npc.getTravelHeading();
         if(heading == null)
-            return super.getWanderTarget();
-        heading = towardsDestination(heading);
-        heading = awayFromStillWorld(heading);
+            return wanderTarget(npc);
+        heading = towardsDestination(npc, heading);
+        heading = awayFromStillWorld(npc, heading);
 
         int length = STRETCH_LENGTH + npc.getRandom().nextBetween(-STRETCH_VARIATION, STRETCH_VARIATION);
         for(float detour : DETOURS) {
             Vec3d ahead = npc.getEntityPos().add(direction(heading + detour).multiply(length));
-            Vec3d ground = groundAt(ahead.x, ahead.z);
+            Vec3d ground = groundAt(npc, ahead.x, ahead.z);
             // An npc that keeps bounds stays in its biome, so it skips a stretch that ends in a different one
             if(ground != null && npc.keepsBounds() && !npc.getEntityWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getEntityWorld().getBiome(npc.getBlockPos())))
                 continue;
@@ -139,17 +190,17 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
                 return ground;
             }
         }
-        stretchFailed(heading);
-        return super.getWanderTarget();
+        stretchFailed(npc, heading);
+        return wanderTarget(npc);
     }
 
     @Override
-    public void start() {
-        double moveSpeed = speed * speedFactor;
+    public void start(NpcEntity npc) {
+        double moveSpeed = NpcBrain.WALK_SPEED * speedFactor;
         boolean moving = npc.getNavigation().startMovingTo(targetX, targetY, targetZ, moveSpeed);
         boolean strolling = npc.getPartyLeader() == null && npc.getTravelHeading() == null;
         // A path that ends at the nearest wall doesn't count as a stroll
-        if(moving && strolling && !isWorthWalking())
+        if(moving && strolling && !isWorthWalking(npc))
             moving = false;
         if(moving) {
             if(onStretch)
@@ -157,7 +208,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
             return;
         }
         if(onStretch && npc.getTravelHeading() != null)
-            stretchFailed(npc.getTravelHeading());
+            stretchFailed(npc, npc.getTravelHeading());
         // The spot behind the leader may be unreachable
         if(leaderPos != null) {
             npc.getNavigation().startMovingTo(leaderPos.x, leaderPos.y, leaderPos.z, moveSpeed);
@@ -166,8 +217,8 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         // Indoors most random spots are behind a wall, so an idle npc tries a few before giving up on the stroll
         if(strolling) {
             for(int attempt = 0; attempt < STROLL_RETRIES && npc.getEntityWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
-                Vec3d other = nearHome(NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
-                if(other != null && npc.getNavigation().startMovingTo(other.x, other.y, other.z, moveSpeed) && isWorthWalking())
+                Vec3d other = nearHome(npc, NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
+                if(other != null && npc.getNavigation().startMovingTo(other.x, other.y, other.z, moveSpeed) && isWorthWalking(npc))
                     return;
             }
             npc.getNavigation().stop();
@@ -175,16 +226,16 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     }
 
     // Keeps settled npcs from wandering out of their village for good
-    private @Nullable Vec3d nearHome(@Nullable Vec3d target) {
+    private @Nullable Vec3d nearHome(NpcEntity npc, @Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, WANDER_RANGE))
-            return inField(target) ? null : target;
+            return inField(npc, target) ? null : target;
         Vec3d back = NoPenaltyTargeting.findTo(npc, HOME_PULL_RANGE, HOME_PULL_HEIGHT, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
-        return inField(back) ? null : back;
+        return inField(npc, back) ? null : back;
     }
 
     // Npcs don't stroll through crops
-    private boolean inField(@Nullable Vec3d target) {
+    private boolean inField(NpcEntity npc, @Nullable Vec3d target) {
         if(target == null || npc.isFarming())
             return false;
         BlockPos floor = BlockPos.ofFloored(target).down();
@@ -192,7 +243,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         return ground.getBlock() instanceof FarmlandBlock || ground.isIn(BlockTagsME.FARMLANDS);
     }
 
-    private float towardsDestination(float heading) {
+    private float towardsDestination(NpcEntity npc, float heading) {
         BlockPos destination = npc.getTravelDestination();
         if(destination == null) {
             // Settlements only become known as players pass by
@@ -216,7 +267,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
     // Past the edge of the ticking world nobody sees the journey, and the npc freezes where it crossed. An npc heading that
     // way turns around and gives up its destination for one it can reach
-    private float awayFromStillWorld(float heading) {
+    private float awayFromStillWorld(NpcEntity npc, float heading) {
         if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return heading;
         Vec3d ahead = npc.getEntityPos().add(direction(heading).multiply(LOOK_AHEAD));
@@ -230,7 +281,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     }
 
     // Furniture is a trap. An npc that ends up on a stool or a table finds no path off it and would stay there forever
-    private void checkStuck() {
+    private void checkStuck(NpcEntity npc) {
         BlockPos pos = npc.getBlockPos();
         if(!pos.equals(lastStrollPos) || npc.isSleeping()) {
             // Once the npc has walked well away from where it was freed, it's no longer stuck
@@ -256,12 +307,12 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
             npc.refreshPositionAndAngles(best.getX() + 0.5, best.getY(), best.getZ() + 0.5, npc.getYaw(), npc.getPitch());
     }
 
-    private boolean isWorthWalking() {
+    private boolean isWorthWalking(NpcEntity npc) {
         Path path = npc.getNavigation().getCurrentPath();
         return path != null && path.reachesTarget() && path.getLength() >= MINIMUM_STROLL;
     }
 
-    private void stretchFailed(float heading) {
+    private void stretchFailed(NpcEntity npc, float heading) {
         failures++;
         if(failures >= MAXIMUM_FAILURES) {
             failures = 0;
@@ -269,17 +320,17 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         }
     }
 
-    private Vec3d slotBehind(LivingEntity leader) {
+    private Vec3d slotBehind(NpcEntity npc, LivingEntity leader) {
         Float leaderHeading = leader instanceof NpcEntity leaderNpc ? leaderNpc.getTravelHeading() : null;
         if(leaderHeading == null)
             return leader.getEntityPos();
         int slot = Math.floorMod(npc.getUuid().hashCode(), SLOTS);
         Vec3d slotPos = leader.getEntityPos().subtract(direction(leaderHeading).multiply(FOLLOW_GAP + slot * SLOT_SPACING));
-        Vec3d ground = groundAt(slotPos.x, slotPos.z);
+        Vec3d ground = groundAt(npc, slotPos.x, slotPos.z);
         return ground != null ? ground : leader.getEntityPos();
     }
 
-    private @Nullable Vec3d groundAt(double x, double z) {
+    private @Nullable Vec3d groundAt(NpcEntity npc, double x, double z) {
         if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return null;
         int blockX = MathHelper.floor(x);
@@ -300,7 +351,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         return new Vec3d(-MathHelper.sin(radians), 0, MathHelper.cos(radians));
     }
 
-    private @Nullable LivingEntity findLeader() {
+    private @Nullable LivingEntity findLeader(NpcEntity npc) {
         if(npc.getEntityWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive()) {
             leaderMissingChecks = 0;
             return leader;

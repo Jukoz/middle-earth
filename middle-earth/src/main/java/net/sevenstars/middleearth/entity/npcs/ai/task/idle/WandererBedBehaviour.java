@@ -1,23 +1,22 @@
-package net.sevenstars.middleearth.entity.goals;
+package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
 
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
-import java.util.EnumSet;
 import java.util.List;
 
 // At night, a traveller near a settlement sleeps in one of its free beds (ones no npc spawns from) and moves on in
 // the morning
-public class NpcWandererBedGoal extends Goal {
+public class WandererBedBehaviour extends IdleBehaviour {
     private static final int MAXIMUM_TRIES = 3;
     // In blocks, beyond the settlement's extent
     private static final int SEARCH_RANGE = 48;
@@ -28,22 +27,18 @@ public class NpcWandererBedGoal extends Goal {
     private static final double BED_REACH = 2.5;
     private static final double BED_HEIGHT_REACH = 2;
 
-    private final NpcEntity npc;
-    private final double speed;
     private @Nullable BlockPos bed = null;
     private @Nullable RoutineSite site = null;
     private int tries = 0;
     private long nextSearch = 0;
     private long walkDeadline = 0;
 
-    public NpcWandererBedGoal(NpcEntity npc, double speed) {
-        this.npc = npc;
-        this.speed = speed;
-        this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+    public WandererBedBehaviour() {
+        super(5, true, true);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canStart(NpcEntity npc) {
         if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
         if(!world.isNight()) {
@@ -74,14 +69,14 @@ public class NpcWandererBedGoal extends Goal {
     }
 
     @Override
-    public void start() {
+    public void start(NpcEntity npc) {
         walkDeadline = npc.getEntityWorld().getTime() + WALK_LIMIT;
-        if(!walkToBed())
+        if(!walkToBed(npc))
             giveUp();
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean shouldContinue(NpcEntity npc) {
         if(bed == null || !npc.getEntityWorld().isNight() || npc.getTarget() != null)
             return false;
         if(npc.isSleeping())
@@ -90,7 +85,7 @@ public class NpcWandererBedGoal extends Goal {
     }
 
     @Override
-    public void tick() {
+    public void tick(NpcEntity npc) {
         if(bed == null || npc.isSleeping() || !(npc.getEntityWorld() instanceof ServerWorld world))
             return;
         double distanceX = bed.getX() + 0.5 - npc.getX();
@@ -103,13 +98,13 @@ public class NpcWandererBedGoal extends Goal {
             }
             npc.getNavigation().stop();
             npc.lieDown(bed);
-        } else if(npc.getNavigation().isIdle() && !walkToBed()) {
+        } else if(npc.getNavigation().isIdle() && !walkToBed(npc)) {
             giveUp();
         }
     }
 
     @Override
-    public void stop() {
+    public void stop(NpcEntity npc) {
         if(npc.isSleeping())
             npc.wakeUp();
         npc.getNavigation().stop();
@@ -119,14 +114,14 @@ public class NpcWandererBedGoal extends Goal {
         bed = null;
     }
 
-    private boolean walkToBed() {
+    private boolean walkToBed(NpcEntity npc) {
         if(bed == null || !(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
         BlockPos stand = NestSurvey.standFor(world, bed);
-        return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, speed);
+        return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, NpcBrain.WALK_SPEED);
     }
 
-    // Ends the goal. The next try comes after a pause
+    // Ends the behaviour. The next try comes after a pause
     private void giveUp() {
         tries++;
         bed = null;

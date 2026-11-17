@@ -1,45 +1,40 @@
-package net.sevenstars.middleearth.entity.goals;
+package net.sevenstars.middleearth.entity.npcs.ai.task;
 
-import net.minecraft.entity.ai.goal.Goal;
+import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 
-import java.util.EnumSet;
-
 // A prisoner has no routine and nowhere to go. It wanders around its cell
-public class NpcPrisonerGoal extends Goal {
-    // In goal ticks, and the game ticks the goal every other tick
+public class NpcPrisonerTask extends NpcTask {
+    // In goal ticks, and the game ticks them every other tick
     private static final int PAUSE = 40;
     private static final int PAUSE_VARIATION = 100;
 
-    private final NpcEntity npc;
-    private final double speed;
     private int pause = 0;
 
-    public NpcPrisonerGoal(NpcEntity npc, double speed) {
-        this.npc = npc;
-        this.speed = speed;
-        this.setControls(EnumSet.of(Control.MOVE));
+    public NpcPrisonerTask() {
+        super(ActivitiesME.CONFINED);
     }
 
     @Override
-    public boolean canStart() {
+    protected boolean canStart(NpcEntity npc) {
         return npc.isConfined() && !npc.isSleeping();
     }
 
     @Override
-    public boolean shouldContinue() {
-        return canStart();
+    protected boolean shouldContinue(NpcEntity npc) {
+        return canStart(npc);
     }
 
     @Override
-    public void tick() {
+    protected void tick(NpcEntity npc) {
         if(--pause > 0 || !npc.getNavigation().isIdle())
             return;
         pause = PAUSE + npc.getRandom().nextInt(PAUSE_VARIATION);
         PrisonCell cell = npc.getPrisonCell();
         int x = npc.getRandom().nextBetween(cell.minX(), cell.maxX());
         int z = npc.getRandom().nextBetween(cell.minZ(), cell.maxZ());
-        npc.getNavigation().startMovingTo(x + 0.5, npc.getY(), z + 0.5, speed);
+        npc.getNavigation().startMovingTo(x + 0.5, npc.getY(), z + 0.5, NpcBrain.PRISONER_SPEED);
     }
 }

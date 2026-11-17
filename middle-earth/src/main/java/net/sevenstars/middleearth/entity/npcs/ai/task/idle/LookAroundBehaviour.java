@@ -1,0 +1,47 @@
+package net.sevenstars.middleearth.entity.npcs.ai.task.idle;
+
+import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+
+public class LookAroundBehaviour extends IdleBehaviour {
+    private static final float CHANCE = 0.02F;
+    private static final int LOOK_TIME = 20;
+    private static final int LOOK_TIME_VARIATION = 20;
+
+    private double deltaX;
+    private double deltaZ;
+    // In ticks
+    private int lookTime;
+
+    public LookAroundBehaviour() {
+        super(7, true, true);
+    }
+
+    @Override
+    public boolean canStart(NpcEntity npc) {
+        return npc.getRandom().nextFloat() < CHANCE;
+    }
+
+    @Override
+    public boolean shouldContinue(NpcEntity npc) {
+        return lookTime >= 0;
+    }
+
+    @Override
+    public void start(NpcEntity npc) {
+        double angle = Math.PI * 2 * npc.getRandom().nextDouble();
+        deltaX = Math.cos(angle);
+        deltaZ = Math.sin(angle);
+        lookTime = LOOK_TIME + npc.getRandom().nextInt(LOOK_TIME_VARIATION);
+    }
+
+    @Override
+    public boolean runsEveryTick() {
+        return true;
+    }
+
+    @Override
+    public void tick(NpcEntity npc) {
+        lookTime--;
+        npc.getLookControl().lookAt(npc.getX() + deltaX, npc.getEyeY(), npc.getZ() + deltaZ);
+    }
+}

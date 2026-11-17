@@ -3,7 +3,9 @@ package net.sevenstars.middleearth.entity.npcs;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.dev.NpcDebug;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.Dynamic;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -60,6 +62,7 @@ import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
 import net.sevenstars.middleearth.entity.goals.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
+import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.entity.npcs.data.NpcData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.data.NpcTextureData;
@@ -182,7 +185,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final int WAKE_RANGE = 16;
     private static final int PARTY_RANGE = 64;
     private static final double FOLLOW_RANGE = 32.0;
-    private static final float LOOK_RANGE = 8.0F;
 
     // Guards that must be around for a timid npc to run for them instead of fighting
     private static final int GUARDS_TO_FLEE = 3;
@@ -195,9 +197,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final int HELP_RANGE = 16;
 
     // Speeds, as multiples of the npc's walking speed
-    private static final double WALK_SPEED = 0.8;
-    private static final double FLEE_SPEED = 1.15;
-    private static final double PRISONER_SPEED = 0.6;
     private static final double BOW_ATTACK_SPEED = 1.0;
     private static final double MELEE_ATTACK_SPEED = 1.2;
     // An npc already rising faster than this is on its way out of the water and isn't lifted again
@@ -328,9 +327,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Goals
     // The one of the three attack goals below that fits the weapon in hand
     private @Nullable Goal attackGoal = null;
-    // Set by initGoals, which the game calls before this class's fields get their initial values. An initializer here would
-    // overwrite the goal
-    private @Nullable NpcRoutineGoal routineGoal;
+    private final NpcRoutine dayRoutine = new NpcRoutine(this, NpcBrain.WALK_SPEED);
     private final CustomBowAttackGoal<NpcEntity> bowAttackGoal = new CustomBowAttackGoal<>(this, BOW_ATTACK_SPEED, BOW_ATTACK_INTERVAL, BOW_ATTACK_RANGE);
     private final NpcCrossBowAttackGoal<NpcEntity> crossBowAttackGoal = new NpcCrossBowAttackGoal<>(this, BOW_ATTACK_SPEED, CROSSBOW_ATTACK_RANGE);
     private final MeleeAttackGoal meleeAttackGoal = new MeleeAttackGoal(this, MELEE_ATTACK_SPEED, false) {
@@ -352,6 +349,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         super(entityType, world);
         this.updateAttackType();
         this.navigation.setCanOpenDoors(true);
+        this.navigation.setCanSwim(true);
         this.moveControl = new NpcMoveControl(this);
         // Vanilla only makes walking through fire costly. Npcs should never walk into fire, a lit campfire or a brazier
         setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1);
@@ -406,15 +404,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(3, new NpcFleeHomeGoal(this, FLEE_SPEED));
-        this.goalSelector.add(4, new NpcPrisonerGoal(this, PRISONER_SPEED));
-        this.routineGoal = new NpcRoutineGoal(this, WALK_SPEED);
-        this.goalSelector.add(5, this.routineGoal);
-        this.goalSelector.add(5, new NpcWandererBedGoal(this, WALK_SPEED));
-        this.goalSelector.add(6, new NpcTravelGoal(this, WALK_SPEED));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, LOOK_RANGE));
-        this.goalSelector.add(7, new LookAroundGoal(this));
         // Common folk strike back unless they have run for the guards. At home there's nowhere left to run, so the npc calls
         // the guards from where it stands and fights
         this.targetSelector.add(1, new RevengeGoal(this) {
@@ -431,8 +420,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             }
         });
         this.targetSelector.add(3, new NpcTargetEnemyGoal(this));
-        this.targetSelector.add(4, new NpcDoorInteractGoal(this, true));
-        this.targetSelector.add(4, new NpcModDoorGoal(this));
     }
 
     public void updateAttackType() {
@@ -458,6 +445,22 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.goalSelector.add(ATTACK_PRIORITY, wanted);
         if(target != null && target.isAlive() && getTarget() == null)
             setTarget(target);
+    }
+
+    @Override
+    protected Brain.Profile<NpcEntity> createBrainProfile() {
+        return NpcBrain.createProfile();
+    }
+
+    @Override
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return NpcBrain.create(createBrainProfile().deserialize(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<NpcEntity> getBrain() {
+        return (Brain<NpcEntity>) super.getBrain();
     }
 
     @Override
@@ -768,12 +771,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return npcClass == null ? null : npcClass.getRoutine();
     }
 
-    public @Nullable NpcRoutineGoal getRoutineGoal() {
-        return routineGoal;
-    }
-
-    public @Nullable NpcRoutine getDayRoutine() {
-        return routineGoal == null ? null : routineGoal.getRoutine();
+    public NpcRoutine getDayRoutine() {
+        return dayRoutine;
     }
 
     public boolean isTimid() {
@@ -1400,7 +1399,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
-        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || routineGoal == null || !routineGoal.getRoutine().isInCompany()))
+        // Sleeping npcs are ticked too, as the routine keeps them in bed
+        NpcBrain.updateActivities(this);
+        getBrain().tick(world, this);
+        if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || !dayRoutine.isInCompany()))
             talk(Talk.NONE, 0);
         if(huntTarget != null)
             tickHunt();

@@ -1,8 +1,7 @@
-package net.sevenstars.middleearth.entity.goals;
+package net.sevenstars.middleearth.entity.npcs.ai.task;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.util.math.BlockPos;
@@ -13,8 +12,8 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
 // Opens the mod's doors on the way through and shuts them behind. Handles any block that is an NpcDoor, where vanilla's
-// goal only knows vanilla doors
-public class NpcModDoorGoal extends Goal {
+// door only knows vanilla doors
+public class NpcModDoorTask extends NpcTask {
     private static final double REACH = 2.5;
     private static final int NODES_AHEAD = 2;
     private static final int DOOR_HEIGHT = 2;
@@ -24,7 +23,6 @@ public class NpcModDoorGoal extends Goal {
 
     private static final double DOORWAY_REACH = 2;
 
-    private final NpcEntity npc;
     // The part of the door that stays fixed while the rest swings
     private @Nullable BlockPos origin = null;
     private @Nullable BlockPos doorway = null;
@@ -32,16 +30,16 @@ public class NpcModDoorGoal extends Goal {
     private @Nullable BlockPos leftOpenDoorway = null;
     private int heldTicks;
 
-    public NpcModDoorGoal(NpcEntity npc) {
-        this.npc = npc;
+    public NpcModDoorTask() {
+        super(null);
     }
 
     @Override
-    public boolean canStart() {
+    protected boolean canStart(NpcEntity npc) {
         // A door that couldn't be shut because someone was in the way gets shut once they've gone
-        if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(leftOpenDoorway)) {
+        if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(npc, leftOpenDoorway)) {
             origin = leftOpen;
-            set(false);
+            set(npc, false);
             origin = null;
             leftOpen = null;
         }
@@ -68,47 +66,47 @@ public class NpcModDoorGoal extends Goal {
     }
 
     @Override
-    public void start() {
+    protected void start(NpcEntity npc) {
         heldTicks = 0;
-        set(true);
+        set(npc, true);
     }
 
     @Override
-    public boolean shouldContinue() {
+    protected boolean shouldContinue(NpcEntity npc) {
         if(doorway == null || heldTicks >= MAXIMUM_HOLD_TIME)
             return false;
-        return heldTicks < PASSING_TIME || isBusy(doorway);
+        return heldTicks < PASSING_TIME || isBusy(npc, doorway);
     }
 
     // Anyone in the doorway, player or npc
-    private boolean isBusy(BlockPos at) {
+    private boolean isBusy(NpcEntity npc, BlockPos at) {
         Box around = new Box(at).expand(DOORWAY_REACH, 1, DOORWAY_REACH);
         return !npc.getEntityWorld().getEntitiesByClass(LivingEntity.class, around, LivingEntity::isAlive).isEmpty();
     }
 
     @Override
-    public boolean shouldRunEveryTick() {
+    protected boolean runsEveryTick() {
         return true;
     }
 
     @Override
-    public void tick() {
+    protected void tick(NpcEntity npc) {
         heldTicks++;
     }
 
     @Override
-    public void stop() {
-        if(doorway != null && isBusy(doorway)) {
+    protected void stop(NpcEntity npc) {
+        if(doorway != null && isBusy(npc, doorway)) {
             leftOpen = origin;
             leftOpenDoorway = doorway;
         } else {
-            set(false);
+            set(npc, false);
         }
         origin = null;
         doorway = null;
     }
 
-    private void set(boolean open) {
+    private void set(NpcEntity npc, boolean open) {
         if(origin == null)
             return;
         BlockState state = npc.getEntityWorld().getBlockState(origin);

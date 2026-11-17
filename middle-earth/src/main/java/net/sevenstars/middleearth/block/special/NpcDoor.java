@@ -12,7 +12,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import org.jetbrains.annotations.Nullable;
 
-// A mod door that npcs walk through. A block that implements this works with npc pathfinding, and NpcModDoorGoal opens
+// A mod door that npcs walk through. A block that implements this works with npc pathfinding, and NpcModDoorTask opens
 // and closes it on the way through, with nothing else to set up. Npcs open every door, vanilla or mod, except the ones
 // a builder marked off limits
 public interface NpcDoor {
