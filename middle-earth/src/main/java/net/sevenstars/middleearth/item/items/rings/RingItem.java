@@ -1,12 +1,15 @@
 package net.sevenstars.middleearth.item.items.rings;
 
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Formatting;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
@@ -18,10 +21,12 @@ import net.sevenstars.middleearth.registries.content.rings.RingThemeRegistry;
 import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
 import net.sevenstars.middleearth.resources.datas.rings.RingWord;
 
+import net.minecraft.world.World;
+
 import java.util.Optional;
 import java.util.function.Consumer;
 
-/** The single ring item, built up through forging; heatable only while bare, inscribable once shaped and quenched. */
+/** The single ring item, built up through forging; heatable only while bare, inscribable once shaped and quenched, worn once finished. */
 public class RingItem extends Item {
     private static final String KEY = "item." + MiddleEarth.MOD_ID + ".ring";
 
@@ -78,6 +83,28 @@ public class RingItem extends Item {
                 .map(theme -> word.isIn(theme.value().words())).orElse(false);
         boolean repeated = word.getKey().map(forging::hasWord).orElse(false);
         return allowed && !repeated && slots >= word.value().minSlots() && slots <= freeSlots(stack, lookup);
+    }
+
+    /** Right-click a finished ring to wear it, swapping with the worn one unless that one is bound. */
+    @Override
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
+        if (!RingSlot.canWear(stack, world.getRegistryManager())) {
+            return ActionResult.PASS;
+        }
+        ItemStack worn = RingSlot.get(user);
+        if (!RingSlot.canRemove(user, worn)) {
+            if (!world.isClient) {
+                RingSlot.bound(user);
+            }
+            return ActionResult.FAIL;
+        }
+        if (!world.isClient) {
+            RingSlot.set(user, stack);
+            user.setStackInHand(hand, worn.copy());
+            RingSlot.playEquipSound(user);
+        }
+        return ActionResult.SUCCESS;
     }
 
     @Override

@@ -128,6 +128,7 @@ public class MiddleEarth implements ModInitializer {
 		LootModifiers.modifyLootTables();
 		net.sevenstars.middleearth.recipe.lapidary.GemKnowledge.register();
 		net.sevenstars.middleearth.recipe.lapidary.LapidaryKnowledge.register();
+		net.sevenstars.middleearth.item.items.rings.RingSlot.register();
 		net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlock.registerEvents();
 		InscriptionWordBank.addWordsToBank();
 		net.sevenstars.middleearth.light.HeldLights.registerDefaults();

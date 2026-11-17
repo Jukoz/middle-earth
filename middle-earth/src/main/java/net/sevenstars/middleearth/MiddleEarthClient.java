@@ -176,6 +176,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         // What the player knows about a gem type, on raw and cut gem tooltips.
         net.sevenstars.middleearth.client.renderer.GemKnowledgeTooltip.register();
         net.sevenstars.middleearth.client.renderer.RingTooltip.register();
+        net.sevenstars.middleearth.client.renderer.rings.RingBandRenderer.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
         net.sevenstars.middleearth.client.renderer.light.LampBeams.register();
         net.sevenstars.middleearth.client.renderer.light.HeldFlames.register();

@@ -44,6 +44,7 @@ public class RingTranslations {
         put("tooltip." + ID + ".ring.theme", "Theme: %s");
         put("tooltip." + ID + ".ring.word", "Inscribed: %s (%s Fëa)");
         put("tooltip." + ID + ".ring.curse", "Curse: %s");
+        put("message." + ID + ".ring.bound", "The ring will not come off.");
 
         put("ring_theme." + ID + ".sindarin", "Sindarin");
         put("ring_theme." + ID + ".khuzdul", "Khuzdul");
