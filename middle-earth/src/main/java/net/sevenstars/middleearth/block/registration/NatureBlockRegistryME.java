@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME.LEAVES_STRENGTH;
+import static net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME.LEAVES_STRENGTH;
 
 public class NatureBlockRegistryME {
 

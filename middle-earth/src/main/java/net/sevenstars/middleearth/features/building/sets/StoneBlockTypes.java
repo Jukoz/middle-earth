@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.utils;
+package net.sevenstars.middleearth.features.building.sets;
 
 public enum StoneBlockTypes {
     BASE_BLOCKS("", ""),

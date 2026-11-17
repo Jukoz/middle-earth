@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.loot_tables;
 
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;

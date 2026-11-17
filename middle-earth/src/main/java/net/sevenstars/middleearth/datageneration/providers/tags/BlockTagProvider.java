@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
 import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
 
 import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
@@ -23,7 +25,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.utils.BlockTagsME;

@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
 import net.sevenstars.middleearth.features.artisan.ArtisanClient;
 
 

@@ -1,4 +1,6 @@
-package net.sevenstars.middleearth.block.registration;
+package net.sevenstars.middleearth.features.building;
+
+import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -13,9 +15,9 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.plants.BerryHollyLeavesBlock;
 import net.sevenstars.middleearth.block.special.plants.CustomLeavesBlock;
-import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
-import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.BlockSetRegistration;
+import net.sevenstars.middleearth.features.building.sets.WoodBlockTypes;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.tags.ModdedStrippedLogs;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static net.sevenstars.middleearth.block.utils.BlockSetRegistration.getVanillaOrCreateNew;
+import static net.sevenstars.middleearth.features.building.sets.BlockSetRegistration.getVanillaOrCreateNew;
 
 public class WoodBlockSetRegistryME {
     public static final float WOOD_STRENGTH = 2.0f;

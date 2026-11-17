@@ -1,11 +1,11 @@
-package net.sevenstars.middleearth.block.registration;
+package net.sevenstars.middleearth.features.building;
 
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
-import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.StoneBlockTypes;
+import net.sevenstars.middleearth.features.building.sets.BlockSetRegistration;
+import net.sevenstars.middleearth.features.building.sets.builders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.StoneBlockTypes;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;

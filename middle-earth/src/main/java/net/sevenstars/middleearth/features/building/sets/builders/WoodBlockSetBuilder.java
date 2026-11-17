@@ -1,11 +1,11 @@
-package net.sevenstars.middleearth.block.utils.setBuilders;
+package net.sevenstars.middleearth.features.building.sets.builders;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.sound.BlockSoundGroup;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.WoodBlockTypes;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.WoodBlockTypes;
 
 import java.util.ArrayList;
 import java.util.List;

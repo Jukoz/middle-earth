@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.world.features.ores;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.world.gen.FeatureRegistryME;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;

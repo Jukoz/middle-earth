@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
 import net.sevenstars.middleearth.features.farming.FarmingItems;
 
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
@@ -28,11 +32,11 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.features.smithing.datagen.AlloyRecipeJsonBuilder;
 import net.sevenstars.middleearth.features.smithing.datagen.AnvilShapingRecipeJsonBuilder;

@@ -32,7 +32,7 @@ import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.utils.noises.BlendedNoise;
 import net.sevenstars.middleearth.utils.noises.SimplexNoise;

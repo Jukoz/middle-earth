@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.registration;
+package net.sevenstars.middleearth.features.building;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
@@ -6,10 +6,10 @@ import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.sound.BlockSoundGroup;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.minecraft.block.*;
-import net.sevenstars.middleearth.block.utils.BlockSetRegistration;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.OxidizableBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.BlockSetRegistration;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.OxidizableBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.ArrayList;

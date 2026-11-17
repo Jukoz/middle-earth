@@ -19,7 +19,7 @@ import net.sevenstars.middleearth.block.special.pointedBlocks.PointedDolomiteBlo
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedGalonnBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedIzherabanBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedLimestoneBlock;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 import net.minecraft.block.*;

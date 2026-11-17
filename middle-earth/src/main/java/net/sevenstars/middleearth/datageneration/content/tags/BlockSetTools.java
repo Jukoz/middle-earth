@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import static net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME.*;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
+import static net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME.*;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
 
 import java.util.IdentityHashMap;
 import java.util.Map;

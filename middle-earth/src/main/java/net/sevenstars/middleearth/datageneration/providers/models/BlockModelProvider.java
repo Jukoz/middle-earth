@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.datageneration.providers.models;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
 import net.sevenstars.middleearth.features.farming.FarmingBlocks;
 
 import net.sevenstars.middleearth.features.farming.block.crop.BellpepperCropBlock;
@@ -35,8 +38,8 @@ import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.special.RocksBlock;
 import net.sevenstars.middleearth.block.special.doors.*;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabShape;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabShape;
 import net.sevenstars.middleearth.datageneration.content.ModelsME;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;

@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.utils;
+package net.sevenstars.middleearth.features.building.sets;
 
 import net.minecraft.block.Block;
 

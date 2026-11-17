@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.special.verticalSlabs;
+package net.sevenstars.middleearth.features.building.block.verticalSlabs;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;

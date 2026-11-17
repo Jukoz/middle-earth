@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Thickness;
 import net.minecraft.entity.Entity;

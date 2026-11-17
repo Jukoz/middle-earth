@@ -1,4 +1,4 @@
-package net.sevenstars.middleearth.block.utils;
+package net.sevenstars.middleearth.features.building.sets;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
@@ -11,8 +11,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.special.*;
-import net.sevenstars.middleearth.block.special.verticalSlabs.TransparentVerticalSlab;
-import net.sevenstars.middleearth.block.special.verticalSlabs.VerticalSlabBlock;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.TransparentVerticalSlab;
+import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
 
 import java.util.List;
