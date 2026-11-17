@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Converts PNG pixel color to a BiomeKey reference.
@@ -54,6 +55,7 @@ public class MapBasedBiomePool {
 
     public static void loadBiomes() {
         biomeHashMap = new HashMap<>();
+        biomesById = null;
 
         SubBiomes.loadSubBiomes();
         defaultBiome = new MapBasedCustomBiome(BiomeKeyRegistryME.OCEAN, -35, BiomeDataConfigsME.oceanModifier);
@@ -415,13 +417,24 @@ public class MapBasedBiomePool {
 
         mangrovePondBiomes.add(BiomeKeyRegistryME.ETHIR_ANDUIN);
     }
+    private static volatile Map<Identifier, MapBasedCustomBiome> biomesById;
+
+    // Same pick as the old stream: the first value in biomeHashMap order wins for a shared id
+    private static Map<Identifier, MapBasedCustomBiome> getBiomesById() {
+        if (biomesById == null) {
+            Map<Identifier, MapBasedCustomBiome> map = new HashMap<>();
+            for (MapBasedCustomBiome biome : biomeHashMap.values()) {
+                map.putIfAbsent(biome.getBiomeKey().getValue(), biome);
+            }
+            biomesById = map;
+        }
+        return biomesById;
+    }
+
     public static MapBasedCustomBiome getBiome(RegistryEntry<Biome> biome, int posX, int posZ) {
         MapBasedCustomBiome foundBiome = null;
         if(biome.getKey().isPresent()){
-            Identifier biomeId = biome.getKey().get().getValue();
-            foundBiome = biomeHashMap.values().stream().filter(
-                    b-> b.getBiomeKey().getValue().equals(biomeId)
-            ).findFirst().orElse(defaultBiome);
+            foundBiome = getBiomesById().getOrDefault(biome.getKey().get().getValue(), defaultBiome);
         }
 
         if(foundBiome != null){
