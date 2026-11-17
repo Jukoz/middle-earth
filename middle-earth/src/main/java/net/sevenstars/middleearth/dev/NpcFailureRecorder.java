@@ -62,7 +62,7 @@ public final class NpcFailureRecorder {
 
     public static void record(NpcEntity npc, String who, String task, String phase, String why, @Nullable BlockPos target,
                               @Nullable BlockPos bed, @Nullable BlockPos home, @Nullable Path path) {
-        if(!(npc.getWorld() instanceof ServerWorld world) || recorded >= MAXIMUM_RECORDS)
+        if(!(npc.getEntityWorld() instanceof ServerWorld world) || recorded >= MAXIMUM_RECORDS)
             return;
         BlockPos pos = npc.getBlockPos();
         // The same npc kind giving up the same way at the same spot counts as one failure, however often it happens
@@ -167,7 +167,7 @@ public final class NpcFailureRecorder {
             recorded = 0;
         });
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> dispatcher.register(CommandManager.literal("npcpath")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
                 .then(CommandManager.argument("npc", EntityArgumentType.entity())
                         .then(CommandManager.argument("to", BlockPosArgumentType.blockPos())
                                 .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"), BlockPosArgumentType.getBlockPos(context, "to"), DEFAULT_RANGE, DEFAULT_BUDGET))

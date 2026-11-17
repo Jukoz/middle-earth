@@ -87,13 +87,13 @@ public class BuildersToolItem extends Item {
                 if(!player.isSneaking())
                     return ActionResult.PASS;
                 if(player instanceof ServerPlayerEntity serverPlayer && StructureEditing.mayEdit(player, hit.getBlockPos()))
-                    BuildSectionEditing.unplug(serverPlayer.getWorld(), serverPlayer, hit.getBlockPos());
+                    BuildSectionEditing.unplug(serverPlayer.getEntityWorld(), serverPlayer, hit.getBlockPos());
                 return ActionResult.SUCCESS;
             }
             // A section's structure block opens the tool's section screen instead of its own, which limits the box to 48
             boolean section = state.isOf(Blocks.STRUCTURE_BLOCK) && world.getBlockEntity(hit.getBlockPos()) instanceof StructureBlockBlockEntity block
                     && block.getMode() == StructureBlockMode.SAVE && block.hasStructureName();
-            if(world.isClient) {
+            if(world.isClient()) {
                 if(section && StructureEditing.isBuildMode(player))
                     StructureEditing.sectionScreen.accept(hit.getBlockPos().toImmutable());
                 return StructureEditing.isBuildMode(player) ? ActionResult.SUCCESS : ActionResult.FAIL;
@@ -129,7 +129,7 @@ public class BuildersToolItem extends Item {
     // Places an off limits marker beside the block, facing it, or removes the one that's already there. The marker has
     // to be in the same piece as the block so it's saved with it
     private static void toggleOffLimits(ServerPlayerEntity player, BlockPos clicked, BlockState state, Direction clickedSide) {
-        ServerWorld world = player.getWorld();
+        ServerWorld world = player.getEntityWorld();
         // A door is marked on its lower half, whichever half was clicked
         BlockPos target = state.contains(Properties.DOUBLE_BLOCK_HALF) && state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? clicked.down() : clicked;
         for(Direction side : Direction.Type.HORIZONTAL) {
@@ -168,11 +168,11 @@ public class BuildersToolItem extends Item {
 
     private static void openMarker(ServerPlayerEntity player, BlockHitResult hit, BlockState state) {
         StructureMarkerScreenData data;
-        if(state.isOf(DecorativeBlockRegistryME.STRUCTURE_MARKER) && player.getWorld().getBlockEntity(hit.getBlockPos()) instanceof StructureMarkerBlockEntity marker) {
+        if(state.isOf(DecorativeBlockRegistryME.STRUCTURE_MARKER) && player.getEntityWorld().getBlockEntity(hit.getBlockPos()) instanceof StructureMarkerBlockEntity marker) {
             data = marker.screenData();
         } else {
             BlockPos pos = hit.getBlockPos().offset(hit.getSide());
-            if(!player.getWorld().getBlockState(pos).isReplaceable()) {
+            if(!player.getEntityWorld().getBlockState(pos).isReplaceable()) {
                 player.sendMessage(Text.translatable("ui.%s.structure_marker.no_room".formatted(MiddleEarth.MOD_ID)), true);
                 return;
             }
@@ -202,10 +202,10 @@ public class BuildersToolItem extends Item {
     private static void open(ServerPlayerEntity player, BlockPos head, @Nullable BedTag tag) {
         Optional<Identifier> place = tag == null ? Optional.empty() : tag.place();
         if(place.isEmpty())
-            place = BedOccupant.likelyPlace(player.getWorld(), head, player.getUuid());
+            place = BedOccupant.likelyPlace(player.getEntityWorld(), head, player.getUuid());
         BedTagScreenData data = new BedTagScreenData(head, place.map(Identifier::toString).orElse(""), tag == null ? "" : tag.nestKind(),
                 tag == null || tag.job().isEmpty() ? "" : tag.job().get().toString(),
-                tag == null || tag.npcClass().isEmpty() ? "" : tag.npcClass().get().toString(), BedOccupant.all(player.getWorld()));
+                tag == null || tag.npcClass().isEmpty() ? "" : tag.npcClass().get().toString(), BedOccupant.all(player.getEntityWorld()));
         player.openHandledScreen(new ExtendedScreenHandlerFactory<BedTagScreenData>() {
             @Override
             public BedTagScreenData getScreenOpeningData(ServerPlayerEntity opener) {

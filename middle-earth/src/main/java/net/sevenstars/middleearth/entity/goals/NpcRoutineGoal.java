@@ -487,7 +487,7 @@ public class NpcRoutineGoal extends Goal {
         if(--delay > 0)
             return false;
         delay = WAITING_DELAY;
-        if(!(npc.getWorld() instanceof ServerWorld world))
+        if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
 
         if(phase == Phase.HUNTING)
@@ -1084,7 +1084,7 @@ public class NpcRoutineGoal extends Goal {
     @Override
     public void start() {
         // Work that a fight or a fright interrupted isn't resumed from wherever the npc ended up. It goes home instead
-        if(phase == Phase.WORKING && hasLeftWork() && npc.getWorld() instanceof ServerWorld world) {
+        if(phase == Phase.WORKING && hasLeftWork() && npc.getEntityWorld() instanceof ServerWorld world) {
             abandoned("left its work, " + interruptedBy);
             startReturn(world);
         }
@@ -1097,7 +1097,7 @@ public class NpcRoutineGoal extends Goal {
     private boolean hasLeftWork() {
         return switch (activity) {
             case HUNT, FORAGE, FARM, FOLLOW -> false;
-            default -> !spot.isWithinDistance(npc.getPos(), LEFT_WORK_DISTANCE);
+            default -> !spot.isWithinDistance(npc.getEntityPos(), LEFT_WORK_DISTANCE);
         };
     }
 
@@ -1133,7 +1133,7 @@ public class NpcRoutineGoal extends Goal {
         if(--thinkCooldown > 0)
             return;
         thinkCooldown = THINK_INTERVAL;
-        if(!(npc.getWorld() instanceof ServerWorld world))
+        if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return;
 
         long time = world.getTime();
@@ -1174,10 +1174,10 @@ public class NpcRoutineGoal extends Goal {
         BlockPos bed = phase == Phase.RETURNING && toBed ? freeBed(world) : null;
         boolean bedding = bed != null;
         BlockPos store = dropOff();
-        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store);
+        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && canSee(world, store);
         // A seat boxed in by other seats and a table can only be reached from a corner, a little further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
-        if(target.isWithinDistance(mover().getPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || workTarget() == null || canSee(world, workTarget()))
+        if(target.isWithinDistance(mover().getEntityPos(), arrival) && (!bedding || canSeeBed(world, bed)) && (!working || workTarget() == null || canSee(world, workTarget()))
                 && atStore && (!sitting || canSee(world, meetSeat))) {
             arrive(world);
             return;
@@ -1202,12 +1202,12 @@ public class NpcRoutineGoal extends Goal {
         legs++;
         // A stretch that ended no closer was a path that led nowhere, unless it was walked to its end, because the way
         // to a loft can lead off from it first
-        double distance = target.getSquaredDistance(mover().getPos());
-        boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getPos(), LEG_END_REACH);
+        double distance = target.getSquaredDistance(mover().getEntityPos());
+        boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getEntityPos(), LEG_END_REACH);
         // Nearer than ever before on this walk. Stretches that go back and forth between two places get no nearer, and
         // only a few of those are let pass
         // On a planned route, reaching the next waypoint counts as getting along, though the route may first lead off
-        boolean atWaypoint = waypoints != null && waypoints.get(waypointIndex).isWithinDistance(mover().getPos(), WAYPOINT_REACH);
+        boolean atWaypoint = waypoints != null && waypoints.get(waypointIndex).isWithinDistance(mover().getEntityPos(), WAYPOINT_REACH);
         boolean improved = legs == 1 || distance < bestLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS || atWaypoint;
         if(improved) {
             bestLegDistance = distance;
@@ -1418,7 +1418,7 @@ public class NpcRoutineGoal extends Goal {
 
     private boolean cannotStart(RoutineData.Activity what, String why) {
         abandoned(what, "could not start, " + why);
-        hold(what, npc.getWorld().getTime());
+        hold(what, npc.getEntityWorld().getTime());
         return false;
     }
 
@@ -1431,7 +1431,7 @@ public class NpcRoutineGoal extends Goal {
         int reach = triedDoors.isEmpty() ? DOOR_REACH : FAR_DOOR_REACH;
         BlockPos best = null;
         for(BlockPos door : site.getDoors()) {
-            if(triedDoors.contains(door) || !door.isWithinDistance(target, reach) || door.isWithinDistance(mover.getPos(), AT_DOOR))
+            if(triedDoors.contains(door) || !door.isWithinDistance(target, reach) || door.isWithinDistance(mover.getEntityPos(), AT_DOOR))
                 continue;
             if(best == null || door.getSquaredDistance(target) < best.getSquaredDistance(target))
                 best = door;
@@ -1443,7 +1443,7 @@ public class NpcRoutineGoal extends Goal {
 
     private Vec3d nextPlannedWaypoint() {
         MobEntity mover = mover();
-        while(waypointIndex < waypoints.size() - 1 && waypoints.get(waypointIndex).isWithinDistance(mover.getPos(), WAYPOINT_REACH))
+        while(waypointIndex < waypoints.size() - 1 && waypoints.get(waypointIndex).isWithinDistance(mover.getEntityPos(), WAYPOINT_REACH))
             waypointIndex++;
         return Vec3d.ofBottomCenter(waypoints.get(waypointIndex));
     }
@@ -1620,7 +1620,7 @@ public class NpcRoutineGoal extends Goal {
             BlockPos store = dropOff();
             if(store == null || canSee(world, store))
                 npc.swingHand(Hand.MAIN_HAND);
-            if(store != null && store.isWithinDistance(npc.getPos(), STORE_REACH) && canSee(world, store)) {
+            if(store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && canSee(world, store)) {
                 world.playSound(null, store, SoundEvents.BLOCK_BARREL_CLOSE, SoundCategory.BLOCKS, STORE_SOUND_VOLUME, 1f);
                 deliver(world, store);
             } else if(store != null)
@@ -2008,7 +2008,7 @@ public class NpcRoutineGoal extends Goal {
         }
         if(npc.squaredDistanceTo(lord) <= FOLLOW_FAR * FOLLOW_FAR)
             return null;
-        Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
+        Vec3d away = npc.getEntityPos().subtract(lord.getEntityPos()).multiply(1, 0, 1);
         away = away.lengthSquared() < NO_HEADING ? new Vec3d(1, 0, 0) : away.normalize();
         BlockPos lordAt = lord.getBlockPos();
         for(int dy : FOLLOW_HEIGHTS) {
@@ -2067,7 +2067,7 @@ public class NpcRoutineGoal extends Goal {
         // Looks the way the post does, otherwise outwards from the lord
         lookTarget = facingTarget();
         if(lookTarget == null) {
-            Vec3d away = npc.getPos().subtract(lord.getPos()).multiply(1, 0, 1);
+            Vec3d away = npc.getEntityPos().subtract(lord.getEntityPos()).multiply(1, 0, 1);
             lookTarget = away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
         }
         showProp();
@@ -2126,7 +2126,7 @@ public class NpcRoutineGoal extends Goal {
             next = ringIndex + ringStep;
         }
         ringIndex = Math.floorMod(next, ring.size());
-        spot = npc.getWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
+        spot = npc.getEntityWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
         lookTarget = null;
         phase = Phase.GOING;
         resetWalk();
@@ -2195,7 +2195,7 @@ public class NpcRoutineGoal extends Goal {
                 nearest = animal;
         }
         // No shooting towards people
-        Box shot = new Box(npc.getEyePos(), nearest.getPos()).expand(BYSTANDER_DISTANCE);
+        Box shot = new Box(npc.getEyePos(), nearest.getEntityPos()).expand(BYSTANDER_DISTANCE);
         boolean clear = world.getEntitiesByClass(LivingEntity.class, shot, entity -> entity != npc && (entity instanceof NpcEntity || entity instanceof PlayerEntity)).isEmpty();
         return clear ? nearest : null;
     }
@@ -2208,7 +2208,7 @@ public class NpcRoutineGoal extends Goal {
         }
         if(npc.getRandom().nextInt(FARM_ACT_ONE_IN) != 0)
             return;
-        if(fieldCell != null && fieldCell.isWithinDistance(npc.getPos(), FIELD_REACH)) {
+        if(fieldCell != null && fieldCell.isWithinDistance(npc.getEntityPos(), FIELD_REACH)) {
             if(!canSee(world, fieldCell.up()))
                 hiddenPlots.add(fieldCell);
             else if(tend(world, fieldCell))
@@ -2218,7 +2218,7 @@ public class NpcRoutineGoal extends Goal {
         fieldCell = nextFieldCell(world, home, npc.getBlockPos());
         if(fieldCell == null) {
             endFarming(world);
-        } else if(!fieldCell.isWithinDistance(npc.getPos(), FIELD_REACH)) {
+        } else if(!fieldCell.isWithinDistance(npc.getEntityPos(), FIELD_REACH)) {
             spot = fieldCell.up();
             phase = Phase.GOING;
             resetWalk();
@@ -2645,7 +2645,7 @@ public class NpcRoutineGoal extends Goal {
     // Of the floor around a seat, the side between it and the next seat is shut in, and getting up goes back to where
     // it sat down from
     private boolean sitDown(ServerWorld world) {
-        Vec3d from = npc.getPos();
+        Vec3d from = npc.getEntityPos();
         if(meetSeat == null || !canSee(world, meetSeat) || !SeatBlock.seat(world, meetSeat, npc))
             return false;
         satFrom = from;
@@ -2665,7 +2665,7 @@ public class NpcRoutineGoal extends Goal {
             npc.refreshPositionAndAngles(back.x, back.y, back.z, npc.getYaw(), npc.getPitch());
             return;
         }
-        BlockPos floor = npc.getWorld() instanceof ServerWorld world ? standAt(world, seatPos) : null;
+        BlockPos floor = npc.getEntityWorld() instanceof ServerWorld world ? standAt(world, seatPos) : null;
         if(floor != null && !floor.equals(seatPos))
             npc.refreshPositionAndAngles(floor.getX() + 0.5, floor.getY(), floor.getZ() + 0.5, npc.getYaw(), npc.getPitch());
     }
@@ -2708,7 +2708,7 @@ public class NpcRoutineGoal extends Goal {
     }
 
     private boolean isDark() {
-        long time = npc.getWorld().getTimeOfDay() % DAY;
+        long time = npc.getEntityWorld().getTimeOfDay() % DAY;
         return time >= DUSK && time < DAWN;
     }
 

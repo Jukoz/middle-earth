@@ -90,7 +90,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
             LivingEntity leader = findLeader();
             if(leader == null)
                 return super.canStart();
-            if(npc.getPos().squaredDistanceTo(slotBehind(leader)) < SLOT_REACHED * SLOT_REACHED)
+            if(npc.getEntityPos().squaredDistanceTo(slotBehind(leader)) < SLOT_REACHED * SLOT_REACHED)
                 return false;
             ignoreChanceOnce();
         } else if(npc.getTravelHeading() != null && npc.getRandom().nextInt(LEADER_REST) == 0) {
@@ -116,7 +116,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
         LivingEntity leader = npc.getPartyLeader() == null ? null : findLeader();
         if(leader != null) {
-            leaderPos = leader.getPos();
+            leaderPos = leader.getEntityPos();
             speedFactor = npc.squaredDistanceTo(leader) > CATCH_UP_DISTANCE * CATCH_UP_DISTANCE ? CATCH_UP_SPEED : FOLLOW_SPEED;
             return slotBehind(leader);
         }
@@ -129,10 +129,10 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
 
         int length = STRETCH_LENGTH + npc.getRandom().nextBetween(-STRETCH_VARIATION, STRETCH_VARIATION);
         for(float detour : DETOURS) {
-            Vec3d ahead = npc.getPos().add(direction(heading + detour).multiply(length));
+            Vec3d ahead = npc.getEntityPos().add(direction(heading + detour).multiply(length));
             Vec3d ground = groundAt(ahead.x, ahead.z);
             // An npc that keeps bounds stays in its biome, so it skips a stretch that ends in a different one
-            if(ground != null && npc.keepsBounds() && !npc.getWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getWorld().getBiome(npc.getBlockPos())))
+            if(ground != null && npc.keepsBounds() && !npc.getEntityWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getEntityWorld().getBiome(npc.getBlockPos())))
                 continue;
             if(ground != null && Math.abs(ground.y - npc.getY()) <= MAXIMUM_HEIGHT_CHANGE) {
                 onStretch = true;
@@ -165,7 +165,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         }
         // Indoors most random spots are behind a wall, so an idle npc tries a few before giving up on the stroll
         if(strolling) {
-            for(int attempt = 0; attempt < STROLL_RETRIES && npc.getWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
+            for(int attempt = 0; attempt < STROLL_RETRIES && npc.getEntityWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
                 Vec3d other = nearHome(NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
                 if(other != null && npc.getNavigation().startMovingTo(other.x, other.y, other.z, moveSpeed) && isWorthWalking())
                     return;
@@ -188,7 +188,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         if(target == null || npc.isFarming())
             return false;
         BlockPos floor = BlockPos.ofFloored(target).down();
-        BlockState ground = npc.getWorld().getBlockState(floor);
+        BlockState ground = npc.getEntityWorld().getBlockState(floor);
         return ground.getBlock() instanceof FarmlandBlock || ground.isIn(BlockTagsME.FARMLANDS);
     }
 
@@ -196,7 +196,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         BlockPos destination = npc.getTravelDestination();
         if(destination == null) {
             // Settlements only become known as players pass by
-            if(!npc.keepsBounds() && npc.getRandom().nextInt(DESTINATION_CHECK_CHANCE) == 0 && npc.getWorld() instanceof ServerWorld world)
+            if(!npc.keepsBounds() && npc.getRandom().nextInt(DESTINATION_CHECK_CHANCE) == 0 && npc.getEntityWorld() instanceof ServerWorld world)
                 npc.setTravelDestination(RoutineSites.findDestination(world, npc));
             return heading;
         }
@@ -217,9 +217,9 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     // Past the edge of the ticking world nobody sees the journey, and the npc freezes where it crossed. An npc heading that
     // way turns around and gives up its destination for one it can reach
     private float awayFromStillWorld(float heading) {
-        if(!(npc.getWorld() instanceof ServerWorld world))
+        if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return heading;
-        Vec3d ahead = npc.getPos().add(direction(heading).multiply(LOOK_AHEAD));
+        Vec3d ahead = npc.getEntityPos().add(direction(heading).multiply(LOOK_AHEAD));
         if(world.shouldTickEntityAt(BlockPos.ofFloored(ahead)))
             return heading;
         float turned = heading + TURN_BACK + npc.getRandom().nextBetween(-TURN_VARIATION, TURN_VARIATION);
@@ -245,7 +245,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
         // Every check comes with a stroll attempt, so the same block over and over means none of them went anywhere.
         // An npc shut in a small room waits longer each time, or it would keep hopping around its cell
         stuckStrolls++;
-        if(stuckStrolls < STUCK_STROLLS << Math.min(rescues, MAXIMUM_RESCUE_BACK_OFF) || !(npc.getWorld() instanceof ServerWorld world))
+        if(stuckStrolls < STUCK_STROLLS << Math.min(rescues, MAXIMUM_RESCUE_BACK_OFF) || !(npc.getEntityWorld() instanceof ServerWorld world))
             return;
         stuckStrolls = 0;
         rescues++;
@@ -272,15 +272,15 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     private Vec3d slotBehind(LivingEntity leader) {
         Float leaderHeading = leader instanceof NpcEntity leaderNpc ? leaderNpc.getTravelHeading() : null;
         if(leaderHeading == null)
-            return leader.getPos();
+            return leader.getEntityPos();
         int slot = Math.floorMod(npc.getUuid().hashCode(), SLOTS);
-        Vec3d slotPos = leader.getPos().subtract(direction(leaderHeading).multiply(FOLLOW_GAP + slot * SLOT_SPACING));
+        Vec3d slotPos = leader.getEntityPos().subtract(direction(leaderHeading).multiply(FOLLOW_GAP + slot * SLOT_SPACING));
         Vec3d ground = groundAt(slotPos.x, slotPos.z);
-        return ground != null ? ground : leader.getPos();
+        return ground != null ? ground : leader.getEntityPos();
     }
 
     private @Nullable Vec3d groundAt(double x, double z) {
-        if(!(npc.getWorld() instanceof ServerWorld world))
+        if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return null;
         int blockX = MathHelper.floor(x);
         int blockZ = MathHelper.floor(z);
@@ -301,7 +301,7 @@ public class NpcTravelGoal extends WanderAroundFarGoal {
     }
 
     private @Nullable LivingEntity findLeader() {
-        if(npc.getWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive()) {
+        if(npc.getEntityWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive()) {
             leaderMissingChecks = 0;
             return leader;
         }

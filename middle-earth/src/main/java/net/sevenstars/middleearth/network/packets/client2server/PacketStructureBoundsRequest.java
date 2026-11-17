@@ -59,9 +59,9 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
     @Override
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
-        player.getServer().execute(() -> {
+        player.getEntityWorld().getServer().execute(() -> {
             // The last corner clicked is the one the builder is at
-            if(!StructureEditing.mayEdit(player, second) || !(player.getWorld() instanceof ServerWorld world))
+            if(!StructureEditing.mayEdit(player, second) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
             BlockBox box = BlockBox.create(first, second);
             int limit = StructureEditing.MAXIMUM_SIZE;

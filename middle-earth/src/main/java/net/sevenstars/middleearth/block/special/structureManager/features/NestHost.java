@@ -41,7 +41,7 @@ public interface NestHost {
 
     // Called when an npc dies or is removed, so a replacement can spawn in time
     static void signalGone(World world, @Nullable BlockPos host, LivingEntity entity) {
-        if(world.isClient || host == null || !world.isChunkLoaded(host.getX() >> 4, host.getZ() >> 4))
+        if(world.isClient() || host == null || !world.isChunkLoaded(host.getX() >> 4, host.getZ() >> 4))
             return;
         BlockEntity blockEntity = world.getBlockEntity(host);
         if(blockEntity instanceof NestHost found && !blockEntity.isRemoved() && found.getNest() != null && found.getNest().removeEntity(entity))

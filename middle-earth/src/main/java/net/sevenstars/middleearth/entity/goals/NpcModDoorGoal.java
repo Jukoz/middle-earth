@@ -48,7 +48,7 @@ public class NpcModDoorGoal extends Goal {
         Path path = npc.getNavigation().getCurrentPath();
         if(path == null || path.isFinished())
             return false;
-        World world = npc.getWorld();
+        World world = npc.getEntityWorld();
         BlockPos.Mutable probe = new BlockPos.Mutable();
         int last = Math.min(path.getCurrentNodeIndex() + NODES_AHEAD, path.getLength() - 1);
         for(int i = path.getCurrentNodeIndex(); i <= last; i++) {
@@ -83,7 +83,7 @@ public class NpcModDoorGoal extends Goal {
     // Anyone in the doorway, player or npc
     private boolean isBusy(BlockPos at) {
         Box around = new Box(at).expand(DOORWAY_REACH, 1, DOORWAY_REACH);
-        return !npc.getWorld().getEntitiesByClass(LivingEntity.class, around, LivingEntity::isAlive).isEmpty();
+        return !npc.getEntityWorld().getEntitiesByClass(LivingEntity.class, around, LivingEntity::isAlive).isEmpty();
     }
 
     @Override
@@ -111,8 +111,8 @@ public class NpcModDoorGoal extends Goal {
     private void set(boolean open) {
         if(origin == null)
             return;
-        BlockState state = npc.getWorld().getBlockState(origin);
+        BlockState state = npc.getEntityWorld().getBlockState(origin);
         if(state.getBlock() instanceof NpcDoor door)
-            door.setOpen(npc.getWorld(), origin, state, open, null);
+            door.setOpen(npc.getEntityWorld(), origin, state, open, null);
     }
 }

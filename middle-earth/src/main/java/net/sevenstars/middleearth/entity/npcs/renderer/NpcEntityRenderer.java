@@ -101,7 +101,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public static float getLOD(Vec3d entityPos) {
         MinecraftClient client = MinecraftClient.getInstance();
         Camera camera = client.gameRenderer.getCamera();
-        return (float)camera.getPos().distanceTo(entityPos);
+        return (float)camera.getCameraPos().distanceTo(entityPos);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         }
         ItemStack currentShoes = npcEntity.getEquippedStack(EquipmentSlot.FEET);
         npcEntityRenderState.canShowFeet = currentShoes == null || currentShoes.isEmpty();
-        npcEntityRenderState.LOD = getLOD(npcEntity.getPos());
+        npcEntityRenderState.LOD = getLOD(npcEntity.getEntityPos());
         npcEntityRenderState.talk = npcEntity.getTalk();
         npcEntityRenderState.talkAge = npcEntity.getTalkAge(tickDelta);
         nodHead(npcEntityRenderState);
@@ -265,24 +265,25 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             this.renderLabelIfPresent(state, matrices, queue, cameraState);
         }
         if(state.talk.isSpoken() && state.LOD < BUBBLE_DISTANCE)
-            renderBubble(state, matrices, vertexConsumers);
+            renderBubble(state, matrices, queue, cameraState);
     }
 
     // Faces the camera as a name label does, and is lit fully so it reads at night
-    private void renderBubble(NpcEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
+    private void renderBubble(NpcEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         float size = BUBBLE_SIZE * Math.min(1f, state.talkAge / BUBBLE_POP);
         float half = size / 2f;
         matrices.push();
         matrices.translate(0f, state.height + BUBBLE_GAP - (state.hasVehicle ? SEATED_DROP : 0f) + (state.displayName != null ? LABEL_ROOM : 0f), 0f);
-        matrices.multiply(this.dispatcher.getRotation());
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        matrices.multiply(cameraState.orientation);
         float left = (state.talk.ordinal() - 1) / (float) BUBBLES;
         float right = left + 1f / BUBBLES;
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getText(SPEECH_BUBBLES));
-        vertexConsumer.vertex(matrix, -half, 0f, 0f).color(0xFFFFFFFF).texture(left, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
-        vertexConsumer.vertex(matrix, half, 0f, 0f).color(0xFFFFFFFF).texture(right, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
-        vertexConsumer.vertex(matrix, half, size, 0f).color(0xFFFFFFFF).texture(right, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
-        vertexConsumer.vertex(matrix, -half, size, 0f).color(0xFFFFFFFF).texture(left, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        queue.submitCustom(matrices, RenderLayers.text(SPEECH_BUBBLES), (entry, vertexConsumer) -> {
+            Matrix4f matrix = entry.getPositionMatrix();
+            vertexConsumer.vertex(matrix, -half, 0f, 0f).color(0xFFFFFFFF).texture(left, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+            vertexConsumer.vertex(matrix, half, 0f, 0f).color(0xFFFFFFFF).texture(right, 1f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+            vertexConsumer.vertex(matrix, half, size, 0f).color(0xFFFFFFFF).texture(right, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+            vertexConsumer.vertex(matrix, -half, size, 0f).color(0xFFFFFFFF).texture(left, 0f).light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+        });
         matrices.pop();
     }
 

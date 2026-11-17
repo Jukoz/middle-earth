@@ -95,7 +95,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     @Override
     public PathNodeType getDefaultNodeType(PathContext context, int x, int y, int z) {
         BlockState state = context.getBlockState(probe.set(x, y, z));
-        if(state.getBlock() instanceof NpcDoor door && NpcDoor.opensFor(entity.getWorld(), probe, state, entity)) {
+        if(state.getBlock() instanceof NpcDoor door && NpcDoor.opensFor(entity.getEntityWorld(), probe, state, entity)) {
             if(door.isOpen(state))
                 return PathNodeType.DOOR_OPEN;
             return door.canMove(context.getWorld(), probe, state) ? PathNodeType.DOOR_WOOD_CLOSED : PathNodeType.BLOCKED;
@@ -247,7 +247,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     }
 
     private boolean isUnderRoof(int x, int y, int z) {
-        return entity != null && entity.getWorld().getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) > y + ROOF_HEIGHT;
+        return entity != null && entity.getEntityWorld().getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z) > y + ROOF_HEIGHT;
     }
 
     private void visit(int x, int y, int z) {
@@ -573,7 +573,7 @@ public class NpcPathNodeMaker extends LandPathNodeMaker {
     private boolean isLockedShut(BlockState state, BlockPos pos) {
         if(!(state.getBlock() instanceof NpcDoor) && !state.contains(Properties.OPEN))
             return false;
-        if(NpcDoor.opensFor(entity.getWorld(), pos, state, entity))
+        if(NpcDoor.opensFor(entity.getEntityWorld(), pos, state, entity))
             return false;
         if(state.getBlock() instanceof NpcDoor door)
             return !door.isOpen(state);

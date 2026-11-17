@@ -61,7 +61,7 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
     @Override
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
-        player.getServer().execute(() -> {
+        player.getEntityWorld().getServer().execute(() -> {
             if(!StructureEditing.isBuilder(player) || bed.equals(target)) {
                 StructureEditing.log("link of bed %s to %s refused: not a creative operator, or the bed itself".formatted(bed.toShortString(), target.toShortString()));
                 return;
@@ -71,12 +71,12 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                 StructureEditing.log("link of bed %s to %s refused: more than %d blocks from the builder".formatted(bed.toShortString(), target.toShortString(), REACH));
                 return;
             }
-            BlockState state = player.getWorld().getBlockState(bed);
+            BlockState state = player.getEntityWorld().getBlockState(bed);
             if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD) {
                 StructureEditing.log("link of bed %s refused: no bed head there".formatted(bed.toShortString()));
                 return;
             }
-            if(!(player.getWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null) {
+            if(!(player.getEntityWorld().getBlockEntity(bed) instanceof BedTagHolder holder) || holder.getBedTag() == null) {
                 StructureEditing.log("link of bed %s refused: the bed is not tagged".formatted(bed.toShortString()));
                 return;
             }
@@ -84,7 +84,7 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             BlockPos offset = target.subtract(bed);
             // Clicking a chest or barrel makes it the bed's store. Clicking it again unlinks it, and the nearest store
             // is used instead. A fire counts as a place of work rather than a store, and is linked as one
-            Block clicked = player.getWorld().getBlockState(target).getBlock();
+            Block clicked = player.getEntityWorld().getBlockState(target).getBlock();
             if(BuildFeatures.STORE.test(clicked) && BuildFeatures.stationOf(clicked) == null) {
                 boolean untied = tag.store().filter(offset::equals).isPresent();
                 holder.setBedTag(tag.withStore(untied ? Optional.empty() : Optional.of(offset)));
@@ -111,8 +111,8 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
             }
             holder.setBedTag(tag.withLinks(links, true));
             StructureEditing.log("bed %s %s %s (%s), %d links by hand now".formatted(bed.toShortString(), unlinked ? "unlinked from" : "linked to", target.toShortString(),
-                    player.getWorld().getBlockState(target).getBlock().getName().getString(), links.size()));
-            Text block = player.getWorld().getBlockState(target).getBlock().getName();
+                    player.getEntityWorld().getBlockState(target).getBlock().getName().getString(), links.size()));
+            Text block = player.getEntityWorld().getBlockState(target).getBlock().getName();
             player.sendMessage(Text.translatable("ui.%s.bed_link.%s".formatted(MiddleEarth.MOD_ID, unlinked ? "unlinked" : "linked"), block), true);
         });
     }

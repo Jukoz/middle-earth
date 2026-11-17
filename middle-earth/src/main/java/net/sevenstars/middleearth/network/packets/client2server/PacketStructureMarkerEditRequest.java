@@ -70,10 +70,10 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
     @Override
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
-        player.getServer().execute(() -> {
+        player.getEntityWorld().getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, pos))
                 return;
-            if(!(player.getWorld() instanceof ServerWorld world) || !world.isInBuildLimit(pos)) {
+            if(!(player.getEntityWorld() instanceof ServerWorld world) || !world.isInBuildLimit(pos)) {
                 StructureEditing.log("marker at %s refused: outside the world".formatted(pos.toShortString()));
                 return;
             }

@@ -46,14 +46,14 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         for(int i = 0; i < Math.min(path.getCurrentNodeIndex() + NODES_AHEAD, path.getLength()); i++) {
             PathNode node = path.getNode(i);
             BlockPos pos = new BlockPos(node.x, node.y + 1, node.z);
-            if(mob.squaredDistanceTo(pos.getX() + 0.5, mob.getY(), pos.getZ() + 0.5) <= DOOR_REACH * DOOR_REACH && DoorBlock.canOpenByHand(mob.getWorld(), pos)) {
+            if(mob.squaredDistanceTo(pos.getX() + 0.5, mob.getY(), pos.getZ() + 0.5) <= DOOR_REACH * DOOR_REACH && DoorBlock.canOpenByHand(mob.getEntityWorld(), pos)) {
                 doorPos = pos;
                 doorValid = true;
                 return true;
             }
         }
         doorPos = mob.getBlockPos().up();
-        doorValid = DoorBlock.canOpenByHand(mob.getWorld(), doorPos);
+        doorValid = DoorBlock.canOpenByHand(mob.getEntityWorld(), doorPos);
         return doorValid;
     }
 
@@ -91,7 +91,7 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
         heldTicks++;
         if(heldTicks % DOORWAY_CHECK_INTERVAL == 0) {
             Box doorway = new Box(doorPos).expand(DOORWAY_REACH, 0, DOORWAY_REACH);
-            doorwayBusy = !mob.getWorld().getEntitiesByClass(NpcEntity.class, doorway, other -> other != mob && other.isAlive()).isEmpty();
+            doorwayBusy = !mob.getEntityWorld().getEntitiesByClass(NpcEntity.class, doorway, other -> other != mob && other.isAlive()).isEmpty();
             // Someone else may have shut it in the meantime
             if(!isDoorOpen())
                 setDoorOpen(true);
@@ -101,8 +101,8 @@ public class NpcDoorInteractGoal extends DoorInteractGoal {
 
     @Override
     protected void setDoorOpen(boolean open) {
-        BlockState blockState = this.mob.getWorld().getBlockState(this.doorPos);
-        if(!NpcDoor.opensFor(this.mob.getWorld(), this.doorPos, blockState, mob))
+        BlockState blockState = this.mob.getEntityWorld().getBlockState(this.doorPos);
+        if(!NpcDoor.opensFor(this.mob.getEntityWorld(), this.doorPos, blockState, mob))
             return;
         super.setDoorOpen(open);
     }

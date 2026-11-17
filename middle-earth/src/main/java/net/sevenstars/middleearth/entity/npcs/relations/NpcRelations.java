@@ -52,7 +52,7 @@ public class NpcRelations {
     }
 
     private static Relation ofPlayer(NpcEntity npc, PlayerEntity player) {
-        if(player.getWorld().isClient || !player.canTakeDamage())
+        if(player.getEntityWorld().isClient() || !player.canTakeDamage())
             return Relation.NEUTRAL;
         PlayerData playerData = StateSaverAndLoader.getPlayerState(player);
         Identifier playerFaction = playerData == null ? null : playerData.getFaction();

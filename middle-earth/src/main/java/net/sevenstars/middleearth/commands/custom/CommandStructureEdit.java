@@ -127,7 +127,7 @@ public class CommandStructureEdit {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal(COMMAND)
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
                 .then(CommandManager.literal(LOAD)
                         .then(CommandManager.argument(TEMPLATE, IdentifierArgumentType.identifier())
                                 .suggests(TEMPLATES)

@@ -100,9 +100,10 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
 
     // Highlights the selected row with an accent bar on its left instead of the game's white frame
     @Override
-    protected void drawSelectionHighlight(DrawContext context, int y, int entryWidth, int entryHeight, int borderColor, int fillColor) {
-        context.fill(getX(), y - 2, getScrollbarX(), y + entryHeight + 2, SELECTED);
-        context.fill(getX(), y - 2, getX() + ACCENT_WIDTH, y + entryHeight + 2, EditorPanel.ACCENT);
+    protected void drawSelectionHighlight(DrawContext context, ChoiceEntry entry, int borderColor) {
+        int y = entry.getY();
+        context.fill(getX(), y, getScrollbarX(), y + entry.getHeight(), SELECTED);
+        context.fill(getX(), y, getX() + ACCENT_WIDTH, y + entry.getHeight(), EditorPanel.ACCENT);
     }
 
     @Override
@@ -194,7 +195,10 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            int x = getContentX();
+            int y = getContentY();
+            int entryHeight = getContentHeight();
             var textRenderer = MinecraftClient.getInstance().textRenderer;
             int textY = y + (entryHeight - textRenderer.fontHeight) / 2 + 1;
             int right = getScrollbarX() - TEXT_INDENT;
@@ -206,7 +210,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
                 return;
             }
             if(hovered && getSelectedOrNull() != this)
-                context.fill(getX(), y - 2, getScrollbarX(), y + entryHeight + 2, HOVER);
+                context.fill(getX(), getY(), getScrollbarX(), getY() + getHeight(), HOVER);
             int left = x + TEXT_INDENT;
             if(!choice.icon().isEmpty()) {
                 context.drawItem(choice.icon(), left, y + (entryHeight - ICON_SIZE) / 2);

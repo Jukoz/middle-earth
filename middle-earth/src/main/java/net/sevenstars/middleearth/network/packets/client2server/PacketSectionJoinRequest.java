@@ -47,9 +47,9 @@ public class PacketSectionJoinRequest extends ClientToServerPacket<PacketSection
     @Override
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
-        player.getServer().execute(() -> {
+        player.getEntityWorld().getServer().execute(() -> {
             // The last plug clicked is the one the builder is at
-            if(!StructureEditing.mayEdit(player, answerer) || !(player.getWorld() instanceof ServerWorld world))
+            if(!StructureEditing.mayEdit(player, answerer) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
             if(BuildSectionEditing.join(world, player, asker, answerer))
                 ServerPlayNetworking.send(player, new PacketJigsawFits(asker, JigsawFits.of(world, player, asker)));

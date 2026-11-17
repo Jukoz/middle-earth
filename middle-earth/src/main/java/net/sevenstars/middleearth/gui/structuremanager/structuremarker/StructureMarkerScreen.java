@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.gui.structuremanager.structuremarker;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -165,7 +166,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     }
 
     private int step() {
-        return hasShiftDown() ? BIG_STEP : 1;
+        return client.isShiftPressed() ? BIG_STEP : 1;
     }
 
     private MarkerKind selectedKind() {
@@ -236,16 +237,17 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
 
     // A container screen closes on the inventory key, which is a letter the player may want to type in a search
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
         if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
             save();
             return true;
         }
         if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
-            field.keyPressed(keyCode, scanCode, modifiers);
+            field.keyPressed(input);
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     // A container screen swallows the mouse wheel, so it's passed to the list under the mouse

@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 
@@ -14,7 +15,6 @@ public class StructureEditing {
     // In blocks along one side of a single saved template. The structure block's own screen clamps a box to 48 when Done
     // is pressed, so a bigger box can only be set with the tool or the command
     public static final int MAXIMUM_SIZE = 128;
-    private static final int OPERATOR_LEVEL = 2;
     // Set by the client. Opens the screen of the section whose structure block was clicked with the tool
     public static Consumer<BlockPos> sectionScreen = pos -> {};
 
@@ -47,7 +47,7 @@ public class StructureEditing {
     }
 
     public static boolean isBuilder(PlayerEntity player) {
-        return isBuildMode(player) && player.hasPermissionLevel(OPERATOR_LEVEL);
+        return isBuildMode(player) && CommandManager.GAMEMASTERS_CHECK.allows(player.getPermissions());
     }
 
     // Checked again when the request arrives, because a screen can be faked and the block may be far away by then
@@ -55,11 +55,11 @@ public class StructureEditing {
         boolean allowed = isBuilder(player) && isWithinReach(player, pos);
         if(!allowed)
             log("%s may not edit %s: creative %s, operator %s, within %d blocks and loaded %s".formatted(player.getName().getString(), pos.toShortString(),
-                    isBuildMode(player), player.hasPermissionLevel(OPERATOR_LEVEL), REACH, isWithinReach(player, pos)));
+                    isBuildMode(player), CommandManager.GAMEMASTERS_CHECK.allows(player.getPermissions()), REACH, isWithinReach(player, pos)));
         return allowed;
     }
 
     public static boolean isWithinReach(PlayerEntity player, BlockPos pos) {
-        return player.getBlockPos().isWithinDistance(pos, REACH) && player.getWorld().isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
+        return player.getBlockPos().isWithinDistance(pos, REACH) && player.getEntityWorld().isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4);
     }
 }

@@ -21,7 +21,7 @@ public final class RoutineGame {
 
     // Fenced in on every side within a few blocks
     public static boolean isPenned(AnimalEntity animal) {
-        World world = animal.getWorld();
+        World world = animal.getEntityWorld();
         BlockPos at = animal.getBlockPos();
         for(Direction side : Direction.Type.HORIZONTAL) {
             boolean fenced = false;

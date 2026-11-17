@@ -51,6 +51,6 @@ public class NpcMoveControl extends MoveControl {
         if(entity.isClimbing())
             return true;
         BlockPos feet = entity.getBlockPos();
-        return NpcPathNodeMaker.isOpenBoard(entity.getWorld().getBlockState(feet));
+        return NpcPathNodeMaker.isOpenBoard(entity.getEntityWorld().getBlockState(feet));
     }
 }

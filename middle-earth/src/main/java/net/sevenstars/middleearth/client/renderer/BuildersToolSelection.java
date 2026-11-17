@@ -91,11 +91,11 @@ public class BuildersToolSelection {
     private static void finishBounds(PlayerEntity player, BlockPos anchor, BlockPos first, BlockPos second) {
         MinecraftClient client = MinecraftClient.getInstance();
         StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
-        if(session != null && session.getDimension().equals(player.getWorld().getRegistryKey()) && session.pieceContaining(anchor) != null) {
+        if(session != null && session.getDimension().equals(player.getEntityWorld().getRegistryKey()) && session.pieceContaining(anchor) != null) {
             ClientPlayNetworking.send(new PacketStructureBoundsRequest(anchor, first, second, ""));
             return;
         }
-        BuildSections.Section section = BuildSections.at(player.getWorld(), anchor);
+        BuildSections.Section section = BuildSections.at(player.getEntityWorld(), anchor);
         client.setScreen(new BuildSectionScreen(anchor, first, second, section == null ? "" : section.name()));
     }
 
@@ -118,7 +118,7 @@ public class BuildersToolSelection {
         }
         joinFrom = null;
         joinTo = null;
-        List<BuildSections.Section> sections = BuildSections.near(player.getWorld(), pos);
+        List<BuildSections.Section> sections = BuildSections.near(player.getEntityWorld(), pos);
         BuildSections.Section own = BuildSections.at(sections, pos);
         if(own == null)
             return;
@@ -169,7 +169,7 @@ public class BuildersToolSelection {
 
     // A selected bed that was left behind would stop every other bed from being shown
     static void forgetOutOfRange(PlayerEntity player, int range) {
-        if(selected != null && (!player.getBlockPos().isWithinDistance(selected, range) || !(player.getWorld().getBlockState(selected).getBlock() instanceof BedBlock)))
+        if(selected != null && (!player.getBlockPos().isWithinDistance(selected, range) || !(player.getEntityWorld().getBlockState(selected).getBlock() instanceof BedBlock)))
             selected = null;
     }
 
@@ -197,7 +197,7 @@ public class BuildersToolSelection {
             return true;
         });
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            if(!world.isClient || !BuildersToolItem.isHeldBy(player))
+            if(!world.isClient() || !BuildersToolItem.isHeldBy(player))
                 return ActionResult.PASS;
             // The tool never breaks anything, whatever is clicked
             if(!StructureEditing.isBuildMode(player))

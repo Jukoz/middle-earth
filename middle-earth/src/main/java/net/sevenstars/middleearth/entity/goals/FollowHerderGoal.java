@@ -86,12 +86,12 @@ public class FollowHerderGoal extends Goal {
         if(--cooldown > 0)
             return false;
         cooldown = CHECK_INTERVAL;
-        target = animal.getWorld().getEntity(herder);
+        target = animal.getEntityWorld().getEntity(herder);
         if(target == null || !target.isAlive()) {
             // Herders come and go with the wild spawns, so an animal whose herder is gone is removed too rather than
             // left behind forever
             missingChecks++;
-            if(missingChecks >= ORPHAN_CHECKS && !animal.getWorld().isPlayerInRange(animal.getX(), animal.getY(), animal.getZ(), ORPHAN_PLAYER_RANGE)
+            if(missingChecks >= ORPHAN_CHECKS && !animal.getEntityWorld().isPlayerInRange(animal.getX(), animal.getY(), animal.getZ(), ORPHAN_PLAYER_RANGE)
                     && !animal.isLeashed() && !animal.hasPassengers() && !animal.hasCustomName())
                 animal.discard();
             return false;

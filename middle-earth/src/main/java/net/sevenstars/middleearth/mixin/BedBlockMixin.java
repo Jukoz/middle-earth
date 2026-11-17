@@ -17,6 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class BedBlockMixin implements BlockEntityProvider {
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient || state.get(BedBlock.PART) != BedPart.HEAD ? null : BedSpawning::tick;
+        return world.isClient() || state.get(BedBlock.PART) != BedPart.HEAD ? null : BedSpawning::tick;
     }
 }

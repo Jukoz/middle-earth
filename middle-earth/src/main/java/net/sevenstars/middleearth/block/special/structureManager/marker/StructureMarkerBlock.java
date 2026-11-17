@@ -58,7 +58,7 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(world.isClient)
+        if(world.isClient())
             return ActionResult.SUCCESS;
         if(state.get(HIDDEN) || !StructureEditing.isBuilder(player))
             return ActionResult.FAIL;
@@ -126,6 +126,6 @@ public class StructureMarkerBlock extends BlockWithEntity implements Waterloggab
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : validateTicker(type, BlockEntityRegistryME.STRUCTURE_MARKER, StructureMarkerBlockEntity::tick);
+        return world.isClient() ? null : validateTicker(type, BlockEntityRegistryME.STRUCTURE_MARKER, StructureMarkerBlockEntity::tick);
     }
 }

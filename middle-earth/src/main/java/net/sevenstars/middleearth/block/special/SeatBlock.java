@@ -57,14 +57,14 @@ public class SeatBlock extends Block {
 
     // Seats an entity that can't click the seat itself
     public static boolean seat(World world, BlockPos pos, Entity sitter) {
-        if(world.isClient || !isFree(world, pos) || sitter.hasVehicle())
+        if(world.isClient() || !isFree(world, pos) || sitter.hasVehicle())
             return false;
         BlockState state = world.getBlockState(pos);
         float yaw = state.get(FACING).getOpposite().getPositiveHorizontalDegrees();
         SeatEntity seat = newSeat(world, pos, yaw);
         if(!world.spawnEntity(seat))
             return false;
-        if(!sitter.startRiding(seat, true)) {
+        if(!sitter.startRiding(seat, true, true)) {
             seat.discard();
             return false;
         }

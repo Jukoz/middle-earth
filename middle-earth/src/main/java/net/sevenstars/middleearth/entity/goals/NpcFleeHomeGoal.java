@@ -84,7 +84,7 @@ public class NpcFleeHomeGoal extends Goal {
         if(home != null && npc.getStructureManagerHostPos() != null)
             destination = NoPenaltyTargeting.findTo(npc, FLEE_DISTANCE, FLEE_HEIGHT, Vec3d.ofBottomCenter(home), HOME_ANGLE);
         if(destination == null && threat != null)
-            destination = NoPenaltyTargeting.findFrom(npc, FLEE_DISTANCE, FLEE_HEIGHT, threat.getPos());
+            destination = NoPenaltyTargeting.findFrom(npc, FLEE_DISTANCE, FLEE_HEIGHT, threat.getEntityPos());
         if(destination != null)
             npc.getNavigation().startMovingTo(destination.x, destination.y, destination.z, speed);
     }

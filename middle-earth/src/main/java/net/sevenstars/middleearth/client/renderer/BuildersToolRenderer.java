@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.client.renderer;
 
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,9 +9,6 @@ import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.JigsawBlockEntity;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
@@ -119,7 +116,7 @@ public class BuildersToolRenderer {
     private static BlockPos scannedFrom = BlockPos.ORIGIN;
 
     public static void register() {
-        WorldRenderEvents.AFTER_ENTITIES.register(context -> {
+        WorldRenderEvents.END_EXTRACTION.register(context -> {
             MinecraftClient client = MinecraftClient.getInstance();
             PlayerEntity player = client.player;
             if(player == null || client.world == null || !BuildersToolItem.isHeldBy(player))
@@ -128,15 +125,12 @@ public class BuildersToolRenderer {
                 scan(client.world, player.getBlockPos());
                 BuildersToolSelection.forgetOutOfRange(player, RANGE);
                 List<StructureEditSession.Piece> pieces = piecesAround(client, player);
-                DebugDraw.lines(context, (matrices, lines, camera) -> {
-                    drawBoxes(matrices, lines);
-                    for(StructureEditSession.Piece piece : pieces)
-                        DebugDraw.box(matrices, lines, Box.from(piece.box()), PIECE);
-                });
-                MatrixStack matrices = context.matrixStack() == null ? new MatrixStack() : context.matrixStack();
-                drawLabels(matrices, context.consumers());
+                drawBoxes();
                 for(StructureEditSession.Piece piece : pieces)
-                    DebugDraw.label(matrices, context.consumers(), piece.template().getPath() + projectionNote(client, piece.template()), new Vec3d(piece.box().getCenter().getX() + 0.5,
+                    DebugDraw.box(Box.from(piece.box()), PIECE);
+                drawLabels();
+                for(StructureEditSession.Piece piece : pieces)
+                    DebugDraw.label(piece.template().getPath() + projectionNote(client, piece.template()), new Vec3d(piece.box().getCenter().getX() + 0.5,
                             piece.box().getMaxY() + PIECE_LABEL_HEIGHT, piece.box().getCenter().getZ() + 0.5), PIECE, PIECE_TEXT_SCALE);
             } catch (RuntimeException e) {
                 // A block entity that disappears between the scan and the frame only costs one frame. A failure that keeps
@@ -156,7 +150,7 @@ public class BuildersToolRenderer {
     // server, which the builder's own game runs
     private static List<StructureEditSession.Piece> piecesAround(MinecraftClient client, PlayerEntity player) {
         StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
-        if(session == null || !session.getDimension().equals(player.getWorld().getRegistryKey()))
+        if(session == null || !session.getDimension().equals(player.getEntityWorld().getRegistryKey()))
             return List.of();
         boolean settingBounds = BuildersToolSelection.boundsAnchor() != null;
         return session.getPieces().stream().filter(piece -> settingBounds || !piece.box().contains(player.getBlockPos())).toList();
@@ -276,64 +270,64 @@ public class BuildersToolRenderer {
         return SECTION_COLORS[Math.floorMod(section.name().hashCode(), SECTION_COLORS.length)];
     }
 
-    private static void drawBoxes(MatrixStack matrices, VertexConsumer lines) {
+    private static void drawBoxes() {
         for(BuildSections.Section section : sections)
-            DebugDraw.box(matrices, lines, Box.from(section.box()).expand(SECTION_MARGIN), sectionColor(section));
+            DebugDraw.box(Box.from(section.box()).expand(SECTION_MARGIN), sectionColor(section));
         BlockPos joinFrom = BuildersToolSelection.joinFrom();
         BlockPos joinTo = BuildersToolSelection.joinTo();
         if(joinFrom != null && joinTo != null) {
-            DebugDraw.box(matrices, lines, new Box(joinFrom).expand(SELECTED_MARGIN), JOIN);
-            DebugDraw.box(matrices, lines, new Box(joinTo).expand(SELECTED_MARGIN), JOIN);
-            DebugDraw.line(matrices, lines, Vec3d.ofCenter(joinFrom), Vec3d.ofCenter(joinTo), JOIN);
+            DebugDraw.box(new Box(joinFrom).expand(SELECTED_MARGIN), JOIN);
+            DebugDraw.box(new Box(joinTo).expand(SELECTED_MARGIN), JOIN);
+            DebugDraw.line(Vec3d.ofCenter(joinFrom), Vec3d.ofCenter(joinTo), JOIN);
         }
         BlockPos plug = BuildersToolSelection.jigsaw();
         if(plug != null) {
-            DebugDraw.box(matrices, lines, new Box(plug).expand(SELECTED_MARGIN), PLUG);
+            DebugDraw.box(new Box(plug).expand(SELECTED_MARGIN), PLUG);
             for(BlockPos fit : BuildersToolSelection.jigsawFits()) {
-                DebugDraw.box(matrices, lines, fit, PLUG);
-                DebugDraw.line(matrices, lines, Vec3d.ofCenter(plug), Vec3d.ofCenter(fit), PLUG);
+                DebugDraw.box(fit, PLUG);
+                DebugDraw.line(Vec3d.ofCenter(plug), Vec3d.ofCenter(fit), PLUG);
             }
         }
         if(BuildersToolSelection.boundsAnchor() != null) {
-            DebugDraw.box(matrices, lines, new Box(BuildersToolSelection.boundsAnchor()).expand(SELECTED_MARGIN), BOUNDS);
+            DebugDraw.box(new Box(BuildersToolSelection.boundsAnchor()).expand(SELECTED_MARGIN), BOUNDS);
             Box preview = boundsPreview();
             if(preview != null)
-                DebugDraw.box(matrices, lines, preview, BOUNDS);
+                DebugDraw.box(preview, BOUNDS);
         }
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {
-            drawSelected(matrices, lines, selected);
+            drawSelected(selected);
             return;
         }
         Set<BlockPos> offLimits = offLimits();
         for(BlockPos pos : plainBeds)
-            DebugDraw.box(matrices, lines, pos, BED_PLAIN);
+            DebugDraw.box(pos, BED_PLAIN);
         for(BlockPos pos : stores) {
             if(!offLimits.contains(pos))
-                DebugDraw.box(matrices, lines, pos, STORE);
+                DebugDraw.box(pos, STORE);
         }
         for(BlockPos pos : seats) {
             if(!offLimits.contains(pos))
-                DebugDraw.box(matrices, lines, pos, SEAT);
+                DebugDraw.box(pos, SEAT);
         }
         for(BlockPos pos : tables) {
             if(!offLimits.contains(pos))
-                DebugDraw.box(matrices, lines, pos, TABLE);
+                DebugDraw.box(pos, TABLE);
         }
         for(StructureFeatureData.Marker marker : markers)
-            DebugDraw.box(matrices, lines, marker.pos(), MARKER);
+            DebugDraw.box(marker.pos(), MARKER);
         for(StructureFeatureData.Station station : stations) {
             // Skip fields, since a field is hundreds of farmland blocks
             if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
-                DebugDraw.box(matrices, lines, station.pos(), stationColor(station.kind()));
+                DebugDraw.box(station.pos(), stationColor(station.kind()));
         }
         for(Bed bed : beds) {
             List<BlockPos> links = linksOf(bed);
-            drawStore(matrices, lines, bed);
-            DebugDraw.box(matrices, lines, bed.pos(), links.isEmpty() && needsStation(bed) ? BED_LOST : BED_TAGGED);
+            drawStore(bed);
+            DebugDraw.box(bed.pos(), links.isEmpty() && needsStation(bed) ? BED_LOST : BED_TAGGED);
             for(BlockPos link : links) {
-                drawLinked(matrices, lines, link, BED_TAGGED);
-                drawLink(matrices, lines, bed, link, BED_TAGGED);
+                drawLinked(link, BED_TAGGED);
+                drawLink(bed, link, BED_TAGGED);
             }
         }
     }
@@ -349,28 +343,28 @@ public class BuildersToolRenderer {
     }
 
     // Only draws the connections of the selected bed
-    private static void drawSelected(MatrixStack matrices, VertexConsumer lines, BlockPos selected) {
-        DebugDraw.box(matrices, lines, new Box(selected).expand(SELECTED_MARGIN), SELECTED_BED);
+    private static void drawSelected(BlockPos selected) {
+        DebugDraw.box(new Box(selected).expand(SELECTED_MARGIN), SELECTED_BED);
         Bed bed = selectedBed(selected);
         if(bed == null)
             return;
-        drawStore(matrices, lines, bed);
+        drawStore(bed);
         int color = bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC;
         for(BlockPos link : linksOf(bed)) {
-            drawLinked(matrices, lines, link, color);
-            drawLink(matrices, lines, bed, link, color);
+            drawLinked(link, color);
+            drawLink(bed, link, color);
         }
     }
 
     // Draws what a bed works at. A field is all the farmland connected to the plot it was linked to, which is what its
     // farmer covers
-    private static void drawLinked(MatrixStack matrices, VertexConsumer lines, BlockPos link, int color) {
+    private static void drawLinked(BlockPos link, int color) {
         if(!fields.contains(link)) {
-            DebugDraw.box(matrices, lines, link, color);
+            DebugDraw.box(link, color);
             return;
         }
         for(Box row : PLOTS.computeIfAbsent(link, BuildersToolRenderer::plotOf))
-            DebugDraw.box(matrices, lines, row, color);
+            DebugDraw.box(row, color);
     }
 
     // The farmland connected to a plot, including steps up or down like on a slope, as one box per row
@@ -412,13 +406,13 @@ public class BuildersToolRenderer {
     // Where the bed's things are put away: the store its builder picked, drawn as a solid line, or else the scanned
     // store nearest to where it works, drawn dashed. A campfire only counts where there is no chest or barrel, matching
     // how the builds are read
-    private static void drawStore(MatrixStack matrices, VertexConsumer lines, Bed bed) {
+    private static void drawStore(Bed bed) {
         if(scannedWorld == null)
             return;
         Set<BlockPos> offLimits = offLimits();
         BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(pos -> stores.contains(pos) && !offLimits.contains(pos)).orElse(null);
         if(picked != null) {
-            DebugDraw.line(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
+            DebugDraw.line(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
             return;
         }
         boolean anyBox = stores.stream().anyMatch(pos -> !offLimits.contains(pos) && !(scannedWorld.getBlockState(pos).getBlock() instanceof CampfireBlock));
@@ -433,14 +427,14 @@ public class BuildersToolRenderer {
                 nearest = store;
         }
         if(nearest != null)
-            DebugDraw.dashedLine(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(nearest), STORE);
+            DebugDraw.dashedLine(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(nearest), STORE);
     }
 
-    private static void drawLink(MatrixStack matrices, VertexConsumer lines, Bed bed, BlockPos link, int color) {
+    private static void drawLink(Bed bed, BlockPos link, int color) {
         if(bed.tag().manual())
-            DebugDraw.line(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(link), color);
+            DebugDraw.line(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(link), color);
         else
-            DebugDraw.dashedLine(matrices, lines, Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(link), color);
+            DebugDraw.dashedLine(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(link), color);
     }
 
     private static @Nullable Bed selectedBed(BlockPos selected) {
@@ -473,38 +467,38 @@ public class BuildersToolRenderer {
         return bed.tag().job().filter(job -> !NpcJobs.stationKinds(job).isEmpty() || !NpcJobs.stationMarkers(job).isEmpty()).isPresent();
     }
 
-    private static void drawLabels(MatrixStack matrices, VertexConsumerProvider consumers) {
+    private static void drawLabels() {
         Box preview = BuildersToolSelection.boundsFirst() == null ? null : boundsPreview();
         if(preview != null)
-            DebugDraw.label(matrices, consumers, "%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
+            DebugDraw.label("%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
                     new Vec3d(preview.getCenter().x, preview.maxY + PIECE_LABEL_HEIGHT, preview.getCenter().z), BOUNDS, PIECE_TEXT_SCALE);
         for(Map.Entry<BlockPos, String> plug : plugs.entrySet())
-            label(matrices, consumers, plug.getValue(), plug.getKey(), PLUG, STATION_TEXT_SCALE);
+            label(plug.getValue(), plug.getKey(), PLUG, STATION_TEXT_SCALE);
         for(BuildSections.Section section : sections)
-            DebugDraw.label(matrices, consumers, BuildSections.shortName(section.name()), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
+            DebugDraw.label(BuildSections.shortName(section.name()), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
                     section.box().getCenter().getZ() + 0.5), sectionColor(section), PIECE_TEXT_SCALE);
         BlockPos selected = BuildersToolSelection.selected();
         if(selected != null) {
             Bed bed = selectedBed(selected);
             if(bed == null)
                 return;
-            label(matrices, consumers, bedLabel(bed), bed.pos(), SELECTED_BED, LABEL_TEXT_SCALE);
+            label(bedLabel(bed), bed.pos(), SELECTED_BED, LABEL_TEXT_SCALE);
             for(BlockPos link : linksOf(bed)) {
-                label(matrices, consumers, MinecraftClient.getInstance().world.getBlockState(link).getBlock().getName().getString(), link,
+                label(MinecraftClient.getInstance().world.getBlockState(link).getBlock().getName().getString(), link,
                         bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC, STATION_TEXT_SCALE);
             }
             return;
         }
         for(BlockPos pos : plainBeds)
-            label(matrices, consumers, "free (wanderers)", pos, BED_PLAIN, LABEL_TEXT_SCALE);
+            label("free (wanderers)", pos, BED_PLAIN, LABEL_TEXT_SCALE);
         for(Bed bed : beds)
-            label(matrices, consumers, bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
+            label(bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
         for(StructureFeatureData.Marker marker : markers)
-            label(matrices, consumers, markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
+            label(markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
         Set<BlockPos> offLimits = offLimits();
         for(StructureFeatureData.Station station : stations) {
             if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
-                label(matrices, consumers, station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
+                label(station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
         }
     }
 
@@ -523,8 +517,8 @@ public class BuildersToolRenderer {
         return marker.kind().asString() + ": " + value + " x" + marker.count() + (marker.respawns() ? " (respawns)" : "");
     }
 
-    private static void label(MatrixStack matrices, VertexConsumerProvider consumers, String text, BlockPos pos, int color, float scale) {
-        DebugDraw.label(matrices, consumers, text, new Vec3d(pos.getX() + 0.5, pos.getY() + LABEL_HEIGHT, pos.getZ() + 0.5), color, scale);
+    private static void label(String text, BlockPos pos, int color, float scale) {
+        DebugDraw.label(text, new Vec3d(pos.getX() + 0.5, pos.getY() + LABEL_HEIGHT, pos.getZ() + 0.5), color, scale);
     }
 
     private static int stationColor(StationKind kind) {

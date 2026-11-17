@@ -44,7 +44,7 @@ public class NpcWandererBedGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if(!(npc.getWorld() instanceof ServerWorld world))
+        if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
         if(!world.isNight()) {
             tries = 0;
@@ -75,23 +75,23 @@ public class NpcWandererBedGoal extends Goal {
 
     @Override
     public void start() {
-        walkDeadline = npc.getWorld().getTime() + WALK_LIMIT;
+        walkDeadline = npc.getEntityWorld().getTime() + WALK_LIMIT;
         if(!walkToBed())
             giveUp();
     }
 
     @Override
     public boolean shouldContinue() {
-        if(bed == null || !npc.getWorld().isNight() || npc.getTarget() != null)
+        if(bed == null || !npc.getEntityWorld().isNight() || npc.getTarget() != null)
             return false;
         if(npc.isSleeping())
-            return npc.getWorld().getBlockState(bed).getBlock() instanceof BedBlock;
-        return npc.getWorld().getTime() < walkDeadline;
+            return npc.getEntityWorld().getBlockState(bed).getBlock() instanceof BedBlock;
+        return npc.getEntityWorld().getTime() < walkDeadline;
     }
 
     @Override
     public void tick() {
-        if(bed == null || npc.isSleeping() || !(npc.getWorld() instanceof ServerWorld world))
+        if(bed == null || npc.isSleeping() || !(npc.getEntityWorld() instanceof ServerWorld world))
             return;
         double distanceX = bed.getX() + 0.5 - npc.getX();
         double distanceZ = bed.getZ() + 0.5 - npc.getZ();
@@ -120,7 +120,7 @@ public class NpcWandererBedGoal extends Goal {
     }
 
     private boolean walkToBed() {
-        if(bed == null || !(npc.getWorld() instanceof ServerWorld world))
+        if(bed == null || !(npc.getEntityWorld() instanceof ServerWorld world))
             return false;
         BlockPos stand = NestSurvey.standFor(world, bed);
         return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, speed);

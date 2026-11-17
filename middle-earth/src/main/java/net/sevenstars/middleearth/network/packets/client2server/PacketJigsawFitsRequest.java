@@ -43,8 +43,8 @@ public class PacketJigsawFitsRequest extends ClientToServerPacket<PacketJigsawFi
     @Override
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
-        player.getServer().execute(() -> {
-            if(!StructureEditing.mayEdit(player, pos) || !(player.getWorld() instanceof ServerWorld world))
+        player.getEntityWorld().getServer().execute(() -> {
+            if(!StructureEditing.mayEdit(player, pos) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
             ServerPlayNetworking.send(player, new PacketJigsawFits(pos, JigsawFits.of(world, player, pos)));
         });

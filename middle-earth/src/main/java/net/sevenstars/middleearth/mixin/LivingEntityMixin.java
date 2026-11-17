@@ -159,6 +159,6 @@ public abstract class LivingEntityMixin extends Entity {
         BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
         // A nest doesn't look for missing people, so a discarded npc tells it here. Deaths are reported from NpcEntity.onDeath
         if(reason == Entity.RemovalReason.DISCARDED && livingEntity instanceof NpcEntity npc)
-            NestHost.signalGone(npc.getWorld(), npc.getStructureManagerHostPos(), npc);
+            NestHost.signalGone(npc.getEntityWorld(), npc.getStructureManagerHostPos(), npc);
     }
 }
