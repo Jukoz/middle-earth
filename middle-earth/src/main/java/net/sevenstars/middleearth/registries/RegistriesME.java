@@ -427,7 +427,6 @@ public class RegistriesME {
             builder.add(BlockRegistryME.RED_WOOL_STAIRS, 100);
             builder.add(BlockRegistryME.BLACK_WOOL_STAIRS, 100);
 
-            builder.add(WeaponItemsME.WOODEN_SPEAR, 300);
             builder.add(WeaponItemsME.WOODEN_DAGGER, 150);
 
             builder.add(WeaponItemsME.GONDORIAN_BOW, 300);

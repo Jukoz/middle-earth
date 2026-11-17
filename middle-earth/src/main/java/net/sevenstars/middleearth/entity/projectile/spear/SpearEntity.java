@@ -103,7 +103,7 @@ public class SpearEntity extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack getDefaultItemStack() {
-        return WeaponItemsME.WOODEN_SPEAR.getDefaultStack();
+        return WeaponItemsME.BRONZE_SPEAR.getDefaultStack();
     }
 
     protected float getDragInWater() {
