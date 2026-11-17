@@ -1,8 +1,9 @@
 package net.sevenstars.middleearth.entity.npcs.renderer;
 
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Util;
@@ -23,7 +24,7 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
     public final ModelPart jacket;
 
     public NpcEntityModel(ModelPart modelPart) {
-        super(modelPart, RenderLayer::getEntityTranslucent);
+        super(modelPart, RenderLayers::entityTranslucent);
         this.leftSleeve = this.leftArm.getChild("left_sleeve");
         this.rightSleeve = this.rightArm.getChild("right_sleeve");
         this.leftPants = this.leftLeg.getChild("left_pants");
@@ -65,7 +66,7 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
         this.jacket.visible = visible;
     }
 
-    public void setArmAngle(Arm arm, MatrixStack matrices) {
-        super.setArmAngle(arm, matrices);
+    public void setArmAngle(BipedEntityRenderState state, Arm arm, MatrixStack matrices) {
+        super.setArmAngle(state, arm, matrices);
     }
 }

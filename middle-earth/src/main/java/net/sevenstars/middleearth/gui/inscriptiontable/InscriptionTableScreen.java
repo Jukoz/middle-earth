@@ -3,8 +3,8 @@ package net.sevenstars.middleearth.gui.inscriptiontable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Style;
+import net.minecraft.text.StyleSpriteSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
@@ -41,7 +42,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
     private static final Identifier EMPTY_SLOT_SAPPHIRE_TEXTURE = MiddleEarth.idFilePath( "container", "slot", "sapphire");
 
     private static final Identifier FONT_ID = Identifier.ofVanilla("alt");
-    private static final Style STYLE = Style.EMPTY.withFont(FONT_ID);
+    private static final Style STYLE = Style.EMPTY.withFont(new StyleSpriteSource.Font(FONT_ID));
 
     int indexStartOffset;
     private boolean scrolling;
@@ -307,7 +308,8 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         return true;
     }
 
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double deltaX, double deltaY) {
+        double mouseY = click.y();
         int i = this.handler.getWords().size();
         if (this.scrolling) {
             int j = this.y + 18;
@@ -318,11 +320,13 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             this.indexStartOffset = MathHelper.clamp((int)f, 0, l);
             return true;
         } else {
-            return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+            return super.mouseDragged(click, deltaX, deltaY);
         }
     }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
         this.scrolling = false;
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
@@ -330,7 +334,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             this.scrolling = true;
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     static class WidgetInscriptionButtonPage extends ButtonWidget {
@@ -368,8 +372,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         }
 
         @Override
-        protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-            MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        protected void drawIcon(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
             final int x = getX();
             final int y = getY();
             final int width = getWidth();
@@ -389,8 +392,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                         4 * selectedIndex, 0, x + width - 8, y + 5, 4, 4, ColorHelper.getWhite(this.alpha));
             }
 
-            int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
-            this.drawMessage(context, minecraftClient.textRenderer, i);
+            this.drawLabel(context.getHoverListener(this, DrawContext.HoverType.NONE));
         }
 
         @Override
@@ -410,8 +412,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         }
 
         @Override
-        protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-            MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        protected void drawIcon(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
             if (this.isHovered() && this.active){
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HIGHLIGHTED_BUTTON_TEXTURE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             } else if (this.active) {
@@ -419,8 +420,7 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
             } else {
                 context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BUTTON_UNAVAILABLE, this.getX(), this.getY(), this.getWidth(), this.getHeight(), ColorHelper.getWhite(this.alpha));
             }
-            int i = ColorHelper.withAlpha(this.alpha, this.active ? -1 : -6250336);
-            this.drawMessage(context, minecraftClient.textRenderer, i);
+            this.drawLabel(context.getHoverListener(this, DrawContext.HoverType.NONE));
         }
     }
 }

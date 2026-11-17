@@ -59,7 +59,7 @@ public class BowAtEntityGoal extends Goal {
 		if (this.targetType == PlayerEntity.class) {
 			this.target = serverWorld.getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 		} else {
-			this.target = serverWorld.getClosestEntity(this.mob.getWorld().getEntitiesByClass(this.targetType, this.mob.getBoundingBox().expand((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
+			this.target = serverWorld.getClosestEntity(this.mob.getEntityWorld().getEntitiesByClass(this.targetType, this.mob.getBoundingBox().expand((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
 				return true;
 			}), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 		}

@@ -10,7 +10,7 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.BackAttachmentDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
@@ -32,11 +32,10 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, ItemStack stack, BipedEntityRenderState state, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.CHEST) {
-            contextModel.copyTransforms(customChestplateModel);
             customChestplateModel.setVisible(false);
             customChestplateModel.body.visible = true;
             customChestplateModel.rightArm.visible = true;
@@ -49,40 +48,37 @@ public class ChestplateArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customChestplateModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customChestplateModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
 
             if (this.chestplateAddonModel != null) {
-                contextModel.copyTransforms(this.chestplateAddonModel);
                 this.chestplateAddonModel.setVisible(false);
                 this.chestplateAddonModel.body.visible = true;
                 this.chestplateAddonModel.rightArm.visible = true;
                 this.chestplateAddonModel.leftArm.visible = true;
                 if(texture.contains("_chestplate.png")){
-                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, queue, light, stack, this.chestplateAddonModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll("_chestplate.png", "_addition.png")), dyeable);
                 } else {
-                    CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.chestplateAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
+                    CustomArmorRenderer.renderArmor(matrices, queue, light, stack, this.chestplateAddonModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
             }
 
             BackAttachmentDataComponent capeDataComponent = stack.get(DataComponentTypesME.BACK_ATTACHMENT_DATA);
             if (capeDataComponent != null) {
                 ChestplateAddonModel capeModel = ArmorModelsME.CustomBackAttachmentPairedModels.valueOf(capeDataComponent.backAttachment().getName().toUpperCase()).getModel().getArmoredModel();
-                contextModel.copyTransforms(capeModel);
                 capeModel.setVisible(false);
                 capeModel.body.visible = true;
                 capeModel.rightArm.visible = true;
                 capeModel.leftArm.visible = true;
                 capeModel.rightLeg.visible = true;
                 capeModel.leftLeg.visible = true;
-                capeModel.setAngles(bipedEntityRenderState);
 
                 if (DyeablePiecesME.dyeableBackAttachments.containsKey(capeDataComponent.getBackAttachment())) {
-                    BackAttachmentRenderer.renderDyeableBackAttachment(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
+                    BackAttachmentRenderer.renderDyeableBackAttachment(matrices, queue, light, stack, capeModel, state, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"), true);
                     if (DyeablePiecesME.dyeableBackAttachments.get(capeDataComponent.backAttachment()).booleanValue()){
-                        ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + "_overlay.png"));
+                        CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, capeModel, state, null, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + "_overlay.png"));
                     }
                 } else {
-                    ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, capeModel, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"));
+                    CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, capeModel, state, null, Identifier.of(MiddleEarth.MOD_ID, "textures/models/back_attachment/" + capeDataComponent.backAttachment().getName() + ".png"));
                 }}
         }
     }

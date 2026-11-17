@@ -37,7 +37,7 @@ public class PacketTeleportToDynamicWorldCoordinate extends ClientToServerPacket
 
     @Override
     public void process(ServerPacketContext context) {
-        context.player().getServer().execute(() -> {
+        context.player().getEntityWorld().getServer().execute(() -> {
             if(!PermissionsME.checkMapTeleport(context.player()))
                 return;
             Vec3d coordinates = new Vec3d(xCoordinate, DimensionRegistryME.getDimensionHeight((int)xCoordinate, (int)zCoordinate).y, zCoordinate);

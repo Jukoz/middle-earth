@@ -82,7 +82,7 @@ public class NpcBrain {
         else {
             npc.getBrain().resetPossibleActivities(ImmutableList.of());
         }
-        npc.getBrain().refreshActivities(npc.getWorld().getTimeOfDay(), npc.getWorld().getTime());
+        npc.getBrain().refreshActivities(npc.getEntityWorld().getEnvironmentAttributes(), npc.getEntityWorld().getTime(), npc.getEntityPos());
     }
 
 

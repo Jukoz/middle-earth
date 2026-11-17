@@ -86,7 +86,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
         };
         this.output = new CraftingResultInventory();
         this.context = context;
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
 
         inputSlots = new ArtisanTableSlot[3][3];
         int index = 0;
@@ -202,7 +202,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
     }
 
     private boolean isInBounds(int id) {
-        if(this.playerEntity.getWorld().isClient()) {
+        if(this.playerEntity.getEntityWorld().isClient()) {
             return id >= 0 && id < this.outputs.size();
         } else {
             return id >= 0 && id < this.availableRecipes.size();
@@ -339,7 +339,7 @@ public class ArtisanTableScreenHandler extends ScreenHandler {
             stack = originalStack.copy();
             int playerStart = this.outputSlot.id + 1;
             if (invSlot == this.outputSlot){
-                item.onCraft(originalStack, player.getWorld());
+                item.onCraft(originalStack, player.getEntityWorld());
                 if (!this.insertItem(originalStack, playerStart, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }

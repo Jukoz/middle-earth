@@ -39,7 +39,7 @@ public class PacketLivingEntityData extends ServerToClientPacket<PacketLivingEnt
 
     @Override
     public void process(ClientPacketContext context) {
-        Entity entity = context.player().getWorld().getEntityById(entityId);
+        Entity entity = context.player().getEntityWorld().getEntityById(entityId);
         if(entity instanceof LivingEntity livingEntity) {
             livingEntity.addStatusEffect(statusEffectInstance);
         }

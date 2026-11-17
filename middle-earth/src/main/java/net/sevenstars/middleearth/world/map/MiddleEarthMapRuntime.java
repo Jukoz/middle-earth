@@ -12,10 +12,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MiddleEarthMapRuntime {
-    HashMap<Vector2i, MiddleEarthMapRegion> regions;
+    Map<Vector2i, MiddleEarthMapRegion> regions;
     HashMap<UUID, Vector2i> regionByUuids;
 
 
@@ -36,7 +38,8 @@ public class MiddleEarthMapRuntime {
     }
 
     public MiddleEarthMapRuntime() {
-        regions = new HashMap<>();
+        // filled from the world generation threads
+        regions = new ConcurrentHashMap<>();
         regionByUuids = new HashMap<>();
         edgeImage = MiddleEarthMapGeneration.getEdgeHeightImage();
         if(edgeImage == null) {
@@ -99,10 +102,7 @@ public class MiddleEarthMapRuntime {
     private MiddleEarthMapRegion getRegionToUse(Vector2i regionCoordinate){
         purgeRegions();
 
-        if(regions.get(regionCoordinate) != null) {
-            return regions.get(regionCoordinate);
-        }
-        return regions.put(regionCoordinate, new MiddleEarthMapRegion(regionCoordinate));
+        return regions.computeIfAbsent(regionCoordinate, MiddleEarthMapRegion::new);
     }
 
     private void purgeRegions() {

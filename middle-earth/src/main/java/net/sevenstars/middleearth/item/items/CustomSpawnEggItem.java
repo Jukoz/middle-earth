@@ -2,21 +2,19 @@ package net.sevenstars.middleearth.item.items;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.TypedEntityData;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraft.registry.Registries;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
@@ -35,7 +33,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CustomSpawnEggItem extends Item {
-    private static final MapCodec<EntityType<?>> ENTITY_TYPE_MAP_CODEC = Registries.ENTITY_TYPE.getCodec().fieldOf("id");
     private static final Map<EntityType<? extends MobEntity>, CustomSpawnEggItem> SPAWN_EGGS = Maps.newIdentityHashMap();
     private final EntityType<?> type;
     public CustomSpawnEggItem(EntityType<? extends MobEntity> type, Settings settings) {
@@ -90,7 +87,7 @@ public class CustomSpawnEggItem extends Item {
             itemStack.decrement(1);
         }
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        world.emitGameEvent((Entity)user, GameEvent.ENTITY_PLACE, ((Entity)entity).getPos());
+        world.emitGameEvent((Entity)user, GameEvent.ENTITY_PLACE, ((Entity)entity).getEntityPos());
         return ActionResult.CONSUME;
     }
 
@@ -108,11 +105,8 @@ public class CustomSpawnEggItem extends Item {
     }
 
     public EntityType<?> getEntityType(ItemStack stack) {
-        NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
-        if (!nbtComponent.isEmpty()) {
-            return nbtComponent.get(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type);
-        }
-        return this.type;
+        TypedEntityData<EntityType<?>> entityData = stack.get(DataComponentTypes.ENTITY_DATA);
+        return entityData != null ? entityData.getType() : this.type;
     }
 
     @Override

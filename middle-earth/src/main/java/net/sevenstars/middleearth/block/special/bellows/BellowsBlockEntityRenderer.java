@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.block.special.bellows;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.state.CameraRenderState;
@@ -11,9 +10,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -22,9 +19,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
 public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBlockEntity, BellowsBlockEntityRenderState>  {
@@ -95,7 +90,13 @@ public class BellowsBlockEntityRenderer implements BlockEntityRenderer<BellowsBl
     @Override
     public void updateRenderState(BellowsBlockEntity blockEntity, BellowsBlockEntityRenderState state, float tickProgress, Vec3d cameraPos, ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlay) {
         state.pumping = blockEntity.pumping;
-        state.animationProgress = blockEntity.animationProgress;
+        float animationProgress = 0;
+        if (blockEntity.pumping) {
+            animationProgress = blockEntity.animationProgress;
+            if (animationProgress > (float) BellowsBlockEntity.MAX_TICKS / 2) animationProgress = BellowsBlockEntity.MAX_TICKS - animationProgress;
+            animationProgress /= BellowsBlockEntity.MAX_TICKS;
+        }
+        state.animationProgress = animationProgress;
         BlockEntityRenderer.super.updateRenderState(blockEntity, state, tickProgress, cameraPos, crumblingOverlay);
     }
 }

@@ -169,7 +169,7 @@ public class WargEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(!this.getWorld().isClient() && !player.isCreative()) {
+        if(!this.getEntityWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
             if(playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
@@ -186,7 +186,7 @@ public class WargEntity extends AbstractBeastEntity {
                     this.heal(2.0f * f);
                     return ActionResult.SUCCESS;
                 }
-                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
+                else if (!this.getEntityWorld().isClient() && this.getBreedingAge() == 0 && this.canEat()) {
                     this.eat(player, hand, itemStack);
                     this.lovePlayer(player);
                     return ActionResult.SUCCESS;
@@ -362,7 +362,7 @@ public class WargEntity extends AbstractBeastEntity {
         boolean result = super.tryAttack(world, target);
         if(result) {
             this.setRunning(true);
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         }
         return result;
     }
@@ -371,7 +371,7 @@ public class WargEntity extends AbstractBeastEntity {
     public void chargeAttack() {
         if(!this.hasCharged()) {
             this.setHasCharged(true);
-            if(!this.isTame() && !this.getWorld().isClient()) {
+            if(!this.isTame() && !this.getEntityWorld().isClient()) {
                 if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                     targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
                             this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
@@ -379,27 +379,27 @@ public class WargEntity extends AbstractBeastEntity {
                 }
                 this.setVelocity(targetDir.multiply(1,0,1).normalize().add(0,0.6,0).multiply(0.7f));
             }
-            else if (this.getWorld().isClient()) {
+            else if (this.getEntityWorld().isClient()) {
                 this.setHasCharged(true);
                 this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.35,0).multiply(1.3f));
             }
         }
-        if(!this.isTame() && !this.getWorld().isClient()) {
+        if(!this.isTame() && !this.getEntityWorld().isClient()) {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
         }
 
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+        List<Entity> entities = this.getEntityWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
 
         Entity owner = this.getOwner();
         for(Entity entity : entities) {
             if((owner == null || entity.getUuid() != owner.getUuid()) && entity != this && !this.getPassengerList().contains(entity) && !((entity instanceof WargEntity) && !this.isTame())) {
-                if(getWorld() instanceof ServerWorld serverWorld)
+                if(getEntityWorld() instanceof ServerWorld serverWorld)
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), this.getAttackDamage());
 
                 if(entity instanceof ServerPlayerEntity) {
                     entity.stopRiding();
                 }
-                else if(!this.getWorld().isClient()) {
+                else if(!this.getEntityWorld().isClient()) {
                     entity.dismountVehicle();
                     entity.removeAllPassengers();
                 }
@@ -426,7 +426,7 @@ public class WargEntity extends AbstractBeastEntity {
         }
         this.damage(damageSource, i);
         if (this.hasPassengers()) {
-            if(getWorld() instanceof ServerWorld serverWorld){
+            if(getEntityWorld() instanceof ServerWorld serverWorld){
                 for (Entity entity : this.getPassengersDeep()) {
                     entity.damage(serverWorld, damageSource, i);
                 }

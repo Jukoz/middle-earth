@@ -4,11 +4,9 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -23,58 +21,59 @@ import net.sevenstars.middleearth.client.ModelLoaderME;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Objects;
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class HeaterShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
 
+    private final SpriteHolder spriteHolder;
     private final HeaterShieldEntityModel model;
 
-    public HeaterShieldModelRenderer(HeaterShieldEntityModel model) {
+    public HeaterShieldModelRenderer(SpriteHolder spriteHolder, HeaterShieldEntityModel model) {
+        this.spriteHolder = spriteHolder;
         this.model = model;
     }
 
     @Override
-    public void render(@Nullable ComponentMap data, ItemDisplayContext displayContext, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, boolean glint) {
+    public void render(@Nullable ComponentMap data, ItemDisplayContext displayContext, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, boolean glint, int outlineColor) {
         BannerPatternsComponent bannerPatternsComponent = data != null ? data.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT) : BannerPatternsComponent.DEFAULT;
         DyeColor dyeColor = data != null ? data.get(DataComponentTypes.BASE_COLOR) : null;
         boolean bl2 = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
         matrices.push();
         matrices.scale(1.0F, -1.0F, -1.0F);
         SpriteIdentifier spriteIdentifier = bl2 ? ModelLoaderME.HEATER_SHIELD_BASE : ModelLoaderME.HEATER_SHIELD_BASE_NO_PATTERN;
-        VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumers, this.model.getLayer(spriteIdentifier.getAtlasId()), displayContext == ItemDisplayContext.GUI, glint));
-        this.model.getHandle().render(matrices, vertexConsumer, light, overlay);
+        queue.submitModelPart(this.model.getHandle(), matrices, this.model.getLayer(spriteIdentifier.getAtlasId()), light, overlay, this.spriteHolder.getSprite(spriteIdentifier), false, false, -1, null, outlineColor);
         if (bl2) {
-            renderCanvas(matrices, vertexConsumers, light, overlay, this.model.getPlate(), spriteIdentifier, false, (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE), bannerPatternsComponent, glint, false);
+            renderCanvas(this.spriteHolder, matrices, queue, light, overlay, this.model.getPlate(), spriteIdentifier, (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE), bannerPatternsComponent, glint, outlineColor);
         } else {
-            this.model.getPlate().render(matrices, vertexConsumer, light, overlay);
+            queue.submitModelPart(this.model.getPlate(), matrices, this.model.getLayer(spriteIdentifier.getAtlasId()), light, overlay, this.spriteHolder.getSprite(spriteIdentifier), false, glint, -1, null, outlineColor);
         }
 
         matrices.pop();
     }
 
     @Override
-    public void collectVertices(Set<Vector3f> vertices) {
+    public void collectVertices(Consumer<Vector3fc> consumer) {
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
-        this.model.getRootPart().collectVertices(matrixStack, vertices);
+        this.model.getRootPart().collectVertices(matrixStack, consumer);
     }
 
-    public static void renderCanvas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, boolean isBanner, DyeColor color, BannerPatternsComponent patterns, boolean glint, boolean solid) {
-        canvas.render(matrices, baseSprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid, solid, glint), light, overlay);
-        renderLayer(matrices, vertexConsumers, light, overlay, canvas, TexturedRenderLayersME.HEATER_SHIELD_BASE, color);
+    public static void renderCanvas(SpriteHolder spriteHolder, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, ModelPart canvas, SpriteIdentifier baseSprite, DyeColor color, BannerPatternsComponent patterns, boolean glint, int outlineColor) {
+        queue.submitModelPart(canvas, matrices, baseSprite.getRenderLayer(RenderLayers::entitySolid), light, overlay, spriteHolder.getSprite(baseSprite), false, glint, -1, null, outlineColor);
+        renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, TexturedRenderLayersME.HEATER_SHIELD_BASE, color);
         for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternsComponent.Layer layer = patterns.layers().get(i);
             SpriteIdentifier spriteIdentifier = TexturedRenderLayersME.getHeaterShieldPatternTextureId(layer.pattern());
 
-            renderLayer(matrices, vertexConsumers, light, overlay, canvas, spriteIdentifier, layer.color());
+            renderLayer(spriteHolder, matrices, queue, light, overlay, canvas, spriteIdentifier, layer.color());
         }}
 
-    private static void renderLayer(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, ModelPart canvas, SpriteIdentifier textureId, DyeColor color) {
+    private static void renderLayer(SpriteHolder spriteHolder, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, int overlay, ModelPart canvas, SpriteIdentifier textureId, DyeColor color) {
         int i = color.getEntityColor();
-        canvas.render(matrices, textureId.getVertexConsumer(vertexConsumers, RenderLayer::getEntityNoOutline), light, overlay, i);
+        queue.submitModelPart(canvas, matrices, textureId.getRenderLayer(RenderLayers::entityNoOutline), light, overlay, spriteHolder.getSprite(textureId), i, null);
     }
 
     @Nullable
@@ -95,8 +94,8 @@ public class HeaterShieldModelRenderer implements SpecialModelRenderer<Component
             return CODEC;
         }
 
-        public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
-            return new HeaterShieldModelRenderer(new HeaterShieldEntityModel(entityModels.getModelPart(MiddleEarthClient.HEATER_SHIELD_LAYER)));
+        public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
+            return new HeaterShieldModelRenderer(context.spriteHolder(), new HeaterShieldEntityModel(context.entityModelSet().getModelPart(MiddleEarthClient.HEATER_SHIELD_LAYER)));
         }
 
         static {

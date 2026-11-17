@@ -3,25 +3,18 @@ package net.sevenstars.middleearth.block.special.fire_of_orthanc;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 
 public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEntity, FireOfOrthancEntityRenderState> {
-    private final BlockRenderManager blockRenderManager;
-
     public FireOfOrthancEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
         this.shadowRadius = 0.5F;
-        this.blockRenderManager = ctx.getBlockRenderManager();
     }
 
     @Override
@@ -29,40 +22,30 @@ public class FireOfOrthancEntityRenderer extends EntityRenderer<FireOfOrthancEnt
         return new FireOfOrthancEntityRenderState();
     }
 
-
     @Override
-    public void render(FireOfOrthancEntityRenderState renderState, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        super.render(renderState, matrices, queue, cameraState);
+    public void updateRenderState(FireOfOrthancEntity entity, FireOfOrthancEntityRenderState state, float tickProgress) {
+        super.updateRenderState(entity, state, tickProgress);
+        BlockState blockState = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
+        state.visible = blockState.getRenderType() == BlockRenderType.MODEL
+                && blockState != entity.getEntityWorld().getBlockState(entity.getBlockPos());
     }
 
-    /// TODO fixme
-    /*
-    public void render(FireOfOrthancEntity fireOfOrthancEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        BlockState blockState = DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState();
-        if (blockState.getRenderType() != BlockRenderType.MODEL) {
-            return;
-        }
-        World world = fireOfOrthancEntity.getEntityWorld();
-        if (blockState == world.getBlockState(fireOfOrthancEntity.getBlockPos()) || blockState.getRenderType() == BlockRenderType.INVISIBLE) {
+    @Override
+    public void render(FireOfOrthancEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        if (!state.visible) {
             return;
         }
         matrixStack.push();
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 
-        float scale = ((float) fireOfOrthancEntity.age / 36) + 1.0f;
+        float scale = (state.age / 36) + 1.0f;
         scale = Math.min(1.2f, scale);
         matrixStack.scale(scale, scale, scale);
 
-        BlockPos blockPos = BlockPos.ofFloored(fireOfOrthancEntity.getX(), fireOfOrthancEntity.getBoundingBox().maxY, fireOfOrthancEntity.getZ());
         matrixStack.translate(-0.5, 0.0, -0.5);
 
-        //TODO to test if this worky
-        this.blockRenderManager.renderBlockAsEntity(blockState, matrixStack, vertexConsumerProvider, light, OverlayTexture.DEFAULT_UV);
-
-        //this.blockRenderManager.getModelRenderer().render(world, this.blockRenderManager.getModel(blockState), blockState,
-        //        blockPos, matrixStack, vertexConsumerProvider.getBuffer(RenderLayers.getMovingBlockLayer(blockState)), false,
-        //        Random.create(), 0, OverlayTexture.DEFAULT_UV);
+        queue.submitBlock(matrixStack, DecorativeBlockRegistryME.FIRE_OF_ORTHANC.getDefaultState(), state.light, OverlayTexture.DEFAULT_UV, state.outlineColor);
         matrixStack.pop();
-        super.render(new FireOfOrthancEntityRenderState(), matrixStack, vertexConsumerProvider, light);
-    }*/
+        super.render(state, matrixStack, queue, cameraState);
+    }
 }

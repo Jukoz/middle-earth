@@ -45,7 +45,7 @@ public class FollowDifferentMobGoal<T extends MobEntity> extends Goal {
 
     @Override
     public boolean canStart() {
-        List<T> list = this.mob.getWorld().getEntitiesByClass(this.followedClass, this.mob.getBoundingBox().expand(this.maxDistance), EntityPredicates.VALID_ENTITY);
+        List<T> list = this.mob.getEntityWorld().getEntitiesByClass(this.followedClass, this.mob.getBoundingBox().expand(this.maxDistance), EntityPredicates.VALID_ENTITY);
         if (!list.isEmpty()) {
             for (MobEntity mobEntity : list) {
                 if (!mobEntity.isInvisible()) {

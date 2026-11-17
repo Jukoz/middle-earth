@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.beasts.broadhoof;
 
 import com.google.common.collect.Maps;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
@@ -25,21 +26,22 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
         super(context, new BroadhoofGoatModel(context.getPart(EntityModelLayersME.BROADHOOF_GOAT)), 0.8f);
         this.addFeature(new BroadhoofGoatPatternFeatureRenderer(this));
         this.addFeature(new BroadhoofGoatBeadsFeatureRenderer(this));
+        BroadhoofGoatModel armorModel = new BroadhoofGoatModel(context.getPart(EntityModelLayersME.BROADHOOF_GOAT_ARMOR));
         this.addFeature(
                 new SaddleFeatureRenderer<>(
                         this,
                         context.getEquipmentRenderer(),
-                        new BroadhoofGoatModel(context.getPart(EntityModelLayersME.BROADHOOF_GOAT_ARMOR)),
                         EquipmentModel.LayerType.HORSE_BODY,
-                        broadhoofGoatEntityRenderState -> broadhoofGoatEntityRenderState.armor
-
+                        broadhoofGoatEntityRenderState -> broadhoofGoatEntityRenderState.armor,
+                        armorModel,
+                        armorModel
                 )
         );
         this.addFeature(new BroadhoofGoatSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
     }
 
     @Override
-    public void render(BroadhoofGoatEntityRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(BroadhoofGoatEntityRenderState state, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
         if(state.baby) {
             matrixStack.scale(SIZE/2, SIZE/2, SIZE/2);
         }
@@ -47,7 +49,7 @@ public class BroadhoofGoatRenderer extends MobEntityRenderer<BroadhoofGoatEntity
             matrixStack.scale(SIZE, SIZE, SIZE);
         }
 
-        super.render(state, matrixStack, vertexConsumerProvider, i);
+        super.render(state, matrixStack, queue, cameraRenderState);
     }
 
     @Override

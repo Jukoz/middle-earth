@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.spawn.SpawnContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.EffectParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
@@ -143,13 +144,13 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+        Variants.writeData(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.GREAT_HORN_VARIANTS).ifPresent(this::setVariant);
+        Variants.fromData(view, DynamicRegistriesME.GREAT_HORN_VARIANTS).ifPresent(this::setVariant);
         this.dataTracker.set(MOUNTABLE, ServerConfigME.ENABLE_MOUNT_BROADHOOF_GOAT);
     }
 
@@ -188,7 +189,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(!this.getWorld().isClient() && !player.isCreative()) {
+        if(!this.getEntityWorld().isClient() && !player.isCreative()) {
             RaceType playerRace = RaceUtil.getRaceType(player);
 
             if(playerRace == null || playerRace == RaceType.NONE || (this.getCompatibleRaces() != null && !this.getCompatibleRaces().contains(playerRace))) {
@@ -205,7 +206,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                     this.heal(2.0f * f);
                     return ActionResult.SUCCESS;
                 }
-                else if (!this.getWorld().isClient && this.getBreedingAge() == 0 && this.canEat()) {
+                else if (!this.getEntityWorld().isClient() && this.getBreedingAge() == 0 && this.canEat()) {
                     this.eat(player, hand, itemStack);
                     this.lovePlayer(player);
                     return ActionResult.SUCCESS;
@@ -290,11 +291,11 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             this.setCharging(true);
             this.chargeTimeout = maxChargeCooldown();
             float entitySpeed = (float) this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue();
-            if(!this.getWorld().isClient()) {
+            if(!this.getEntityWorld().isClient()) {
                 Vec2f vec2f = this.getControlledRotation(this.getControllingPassenger());
                 this.setVelocity(new Vec3d(vec2f.x,0,vec2f.y).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
             }
-            else if (this.getWorld().isClient()) {
+            else if (this.getEntityWorld().isClient()) {
                 this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().add(0,0.4,0).multiply(strength * (1.4f + entitySpeed)));
             }
             this.chargeAnimationState.startIfNotRunning(this.age);
@@ -311,12 +312,12 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
                 this.setChargeTimeout(HORNS_ATTACK_COOLDOWN);
                 dataTracker.set(ATTACK, HORNS_ATTACK_COOLDOWN);
                 attackAnimationCooldown = HORNS_ATTACK_COOLDOWN;
-                List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(2.5,2,2.5));
+                List<Entity> entities = this.getEntityWorld().getOtherEntities(this, this.getBoundingBox().expand(2.5,2,2.5));
 
                 for(Entity entity : entities) {
                     if(!this.getPassengerList().contains(entity)) {
-                        if(!this.getWorld().isClient()) {
-                            entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), jumpPercentage * getAttackDamage());
+                        if(!this.getEntityWorld().isClient()) {
+                            entity.damage((ServerWorld) this.getEntityWorld(), entity.getDamageSources().mobAttack(this), jumpPercentage * getAttackDamage());
                         }
                         double dx = entity.getX() - this.getX();
                         double dz = entity.getZ() - this.getZ();
@@ -378,10 +379,10 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
             attackAnimationCooldown = Math.max(attackAnimationCooldown - 1, 0);
             dataTracker.set(ATTACK, attackAnimationCooldown);
         }
-        if (this.getWorld().isClient && bowAnimationState.isRunning()) {
+        if (this.getEntityWorld().isClient() && bowAnimationState.isRunning()) {
             if(random.nextInt(2) == 0) {
                 Vector3f randPos = new Vector3f(this.random.nextFloat()*6 - 3f, this.random.nextFloat()*1.25f, this.random.nextFloat()*6 - 3f);
-                this.getWorld().addParticleClient(ParticleTypes.INSTANT_EFFECT, this.getX() + randPos.x, this.getY() + randPos.y, this.getZ() + randPos.z,
+                this.getEntityWorld().addParticleClient(EffectParticleEffect.of(ParticleTypes.INSTANT_EFFECT, -1, 1.0f), this.getX() + randPos.x, this.getY() + randPos.y, this.getZ() + randPos.z,
                         0.0, 0.75f + this.random.nextFloat(), 0.0);
             }
         }
@@ -450,7 +451,7 @@ public class GreatHornEntity extends AbstractBeastEntity implements Evader {
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
         float speed = ((float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
-        if(this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_FOREST)) {
+        if(this.getEntityWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_FOREST)) {
             speed *= 1.1f;
         }
         if (controllingPlayer.isSprinting()) {

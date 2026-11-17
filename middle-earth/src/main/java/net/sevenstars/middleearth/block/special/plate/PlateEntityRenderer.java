@@ -2,33 +2,28 @@ package net.sevenstars.middleearth.block.special.plate;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.block.special.forge.ForgeBlock;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(value= EnvType.CLIENT)
-public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity, BlockEntityRenderState> {
+public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity, PlateEntityRenderer.State> {
     private final ItemModelManager itemModelManager;
 
     public PlateEntityRenderer(BlockEntityRendererFactory.Context context) {
@@ -36,20 +31,41 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
     }
 
     @Override
-    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        ItemStack stack = ItemStack.EMPTY; ///TODO FIX ME entity.getStack();
+    public State createRenderState() {
+        return new State();
+    }
 
-        if(stack.isEmpty()) return;
+    @Override
+    public void updateRenderState(PlateBlockEntity entity, State state, float tickProgress, Vec3d cameraPos,
+                                  ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlay) {
+        BlockEntityRenderer.super.updateRenderState(entity, state, tickProgress, cameraPos, crumblingOverlay);
+        state.facing = entity.getCachedState().get(PlateBlock.FACING);
+        state.is3D = false;
+
+        ItemStack stack = entity.getStack();
+        if (stack.isEmpty()) {
+            state.item.clear();
+            return;
+        }
 
         Identifier oldId = stack.get(DataComponentTypes.ITEM_MODEL);
         Identifier modelId = PlateFoodModels.getPlateIdentifier(oldId);
         ItemStack copyStack = stack.copy();
         copyStack.set(DataComponentTypes.ITEM_MODEL, modelId);
 
-        boolean is3D = oldId != modelId;
+        state.is3D = oldId != modelId;
+        this.itemModelManager.clearAndUpdate(state.item, copyStack, ItemDisplayContext.FIXED, entity.getWorld(), null, 1);
+        state.itemLight = getLightLevel(entity.getWorld(), entity.getPos(), state.facing);
+    }
+
+    @Override
+    public void render(State state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        if (state.item.isEmpty()) return;
+
+        boolean is3D = state.is3D;
 
         matrices.push();
-        Direction direction = state.blockState.get(PlateBlock.FACING);
+        Direction direction = state.facing;
 
         long seed = MathHelper.hashCode(state.pos.getX(), 0, state.pos.getZ());
         double xOffset = ((seed & 15L) / 15.0 - 0.5) * 0.15;
@@ -79,12 +95,7 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
             matrices.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.toRadians(rotOffset)));
         }
 
-        //this.itemRenderer.renderItem(copyStack, ItemDisplayContext.FIXED, currentLight, OverlayTexture.DEFAULT_UV,
-        //        matrices, vertexConsumers, entity.getWorld(), 1);
-        //ItemRenderState itemRenderState = state.itemRenderState;
-        //if (itemRenderState != null) {
-        //    this.renderItem(shelfBlockEntityRenderState, itemRenderState, matrixStack, orderedRenderCommandQueue, i, f);
-        //}
+        state.item.render(matrices, queue, state.itemLight, OverlayTexture.DEFAULT_UV, 0);
 
         matrices.pop();
     }
@@ -95,8 +106,10 @@ public class PlateEntityRenderer implements BlockEntityRenderer<PlateBlockEntity
         return LightmapTextureManager.pack(bLight, sLight);
     }
 
-    @Override
-    public BlockEntityRenderState createRenderState() {
-        return new BlockEntityRenderState();
+    public static class State extends BlockEntityRenderState {
+        public final ItemRenderState item = new ItemRenderState();
+        public Direction facing = Direction.NORTH;
+        public boolean is3D;
+        public int itemLight;
     }
 }

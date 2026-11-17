@@ -39,8 +39,8 @@ public class WebbedEntity extends AbstractProjectileEntity {
         super(EntitiesME.WEB, owner, world, new ItemStack(Items.COBWEB));
         this.damage = dmg;
         if(feature == null) {
-            if(!this.getWorld().isClient()) {
-                if(this.getWorld() instanceof ServerWorld serverWorld) {
+            if(!this.getEntityWorld().isClient()) {
+                if(this.getEntityWorld() instanceof ServerWorld serverWorld) {
                     Optional<? extends RegistryEntry<ConfiguredFeature<?, ?>>> optional = serverWorld.getRegistryManager()
                             .getOrThrow(RegistryKeys.CONFIGURED_FEATURE)
                             .getOptional(VegetationConfiguredFeatureRegistryME.PATCH_WEBBING);
@@ -57,7 +57,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient()) {
+        if (this.getEntityWorld().isClient()) {
             this.spawnParticles(2);
         }
     }
@@ -66,7 +66,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     public void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        if(this.getWorld() instanceof ServerWorld serverWorld) {
+        if(this.getEntityWorld() instanceof ServerWorld serverWorld) {
             entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
             if(entity instanceof LivingEntity livingEntity) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
@@ -108,7 +108,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     private void spawnParticles(int amount) {
         if (amount > 0) {
             for (int j = 0; j < amount; j++) {
-                this.getWorld()
+                this.getEntityWorld()
                         .addParticleClient(
                                 new BlockStateParticleEffect(ParticleTypes.BLOCK, NatureBlockRegistryME.WEBBING.getDefaultState()),
                                 this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5), 0.0, 0.0, 0.0
@@ -118,7 +118,7 @@ public class WebbedEntity extends AbstractProjectileEntity {
     }
 
     private void spawnWebbing() {
-        if(this.getWorld() instanceof ServerWorld serverWorld && feature != null) {
+        if(this.getEntityWorld() instanceof ServerWorld serverWorld && feature != null) {
             feature.generate(serverWorld, serverWorld.getChunkManager().getChunkGenerator(), random, this.getBlockPos());
         }
     }

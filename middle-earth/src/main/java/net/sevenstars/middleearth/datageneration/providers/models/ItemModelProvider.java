@@ -343,8 +343,8 @@ public class ItemModelProvider extends FabricModelProvider {
         ItemModel.Unbaked unbaked3 = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_pulling_1", Models.CROSSBOW));
         ItemModel.Unbaked unbaked4 = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_pulling_2", Models.CROSSBOW));
         ItemModel.Unbaked unbaked5 = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_arrow", Models.CROSSBOW));
-        ItemModel.Unbaked unbaked6 = ItemModels.basic(itemModelGenerator.registerSubModel(item, "_firework", Models.CROSSBOW));
-        itemModelGenerator.output.accept(item, ItemModels.select(new ChargeTypeProperty(), ItemModels.condition(ItemModels.usingItemProperty(), ItemModels.rangeDispatch(new CrossbowPullProperty(), unbaked2, new RangeDispatchItemModel.Entry[]{ItemModels.rangeDispatchEntry(unbaked3, 0.58F), ItemModels.rangeDispatchEntry(unbaked4, 1.0F)}), unbaked), new SelectItemModel.SwitchCase[]{ItemModels.switchCase(CrossbowItem.ChargeType.ARROW, unbaked5), ItemModels.switchCase(CrossbowItem.ChargeType.ROCKET, unbaked6)}));
+        // No crossbow has a firework-loaded texture, so a loaded rocket shows the arrow-loaded one
+        itemModelGenerator.output.accept(item, ItemModels.select(new ChargeTypeProperty(), ItemModels.condition(ItemModels.usingItemProperty(), ItemModels.rangeDispatch(new CrossbowPullProperty(), unbaked2, new RangeDispatchItemModel.Entry[]{ItemModels.rangeDispatchEntry(unbaked3, 0.58F), ItemModels.rangeDispatchEntry(unbaked4, 1.0F)}), unbaked), new SelectItemModel.SwitchCase[]{ItemModels.switchCase(CrossbowItem.ChargeType.ARROW, unbaked5), ItemModels.switchCase(CrossbowItem.ChargeType.ROCKET, unbaked5)}));
     }
 
     public final Identifier registerSubModelWithSingletonTexture(Item item, String suffix, Model model, BiConsumer<Identifier, ModelSupplier> modelCollector) {

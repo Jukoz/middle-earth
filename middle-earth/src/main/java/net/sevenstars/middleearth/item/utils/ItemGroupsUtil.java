@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.item.utils;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,7 @@ import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterials;
 import net.minecraft.item.equipment.trim.ArmorTrimPattern;
+import net.minecraft.entity.TypedEntityData;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -21,6 +21,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
@@ -42,7 +43,6 @@ public class ItemGroupsUtil {
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);
 
         NbtCompound compoundData = new NbtCompound();
-        compoundData.putString("id", MiddleEarth.id("npc").toString());
 
         NpcInitializationData npcInitializationData = new NpcInitializationData(null, true);
 
@@ -56,7 +56,7 @@ public class ItemGroupsUtil {
                 .getOrThrow();
         compoundData.put(NpcEntity.KeyStrings.INITIALIZATION_DATA, element);
 
-        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, NbtComponent.of(compoundData));
+        randomNpcSpawnEgg.set(DataComponentTypes.ENTITY_DATA, TypedEntityData.create(EntitiesME.NPC, compoundData));
         randomNpcSpawnEgg.set(DataComponentTypes.ITEM_NAME, Text.translatable(randomSpawnEggId.toTranslationKey("item")));
         randomNpcSpawnEgg.set(DataComponentTypes.CUSTOM_MODEL_DATA, new CustomModelDataComponent(
                 List.of(),

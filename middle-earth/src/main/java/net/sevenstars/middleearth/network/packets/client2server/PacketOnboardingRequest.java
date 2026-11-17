@@ -32,7 +32,7 @@ public class PacketOnboardingRequest extends ClientToServerPacket<PacketOnboardi
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 ServerPlayerEntity player = context.player();
 
                 PacketOnboardingResult newPacket = new PacketOnboardingResult(

@@ -309,7 +309,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         if(!world.isClient() && super.tryAttack(world, target)) {
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
         }
 
         return super.tryAttack(world, target);
@@ -317,9 +317,9 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
     @Override
     public void chargeAttack() {
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
+        List<Entity> entities = this.getEntityWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2,0,0.2));
 
-        if(!this.isTame() && !this.getWorld().isClient()) {
+        if(!this.isTame() && !this.getEntityWorld().isClient()) {
             if(targetDir == Vec3d.ZERO && this.getTarget() != null) {
                 targetDir = new Vec3d( this.getTarget().getBlockPos().getX() - this.getBlockPos().getX(),
                         this.getTarget().getBlockPos().getY() - this.getBlockPos().getY(),
@@ -328,13 +328,13 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
             this.setYaw((float) Math.toDegrees(Math.atan2(-targetDir.x, targetDir.z)));
             this.setVelocity(targetDir.multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
-        else if (this.getWorld().isClient()) {
+        else if (this.getEntityWorld().isClient()) {
             this.setVelocity(this.getRotationVector().multiply(1,0,1).normalize().multiply(1.0d - ((double)MathHelper.abs(this.chargeTimeout - (maxChargeCooldown() - chargeDuration()) - (chargeDuration() * 0.2f)) / chargeDuration())).add(0, this.getVelocity().y, 0));
         }
 
         for(Entity entity : entities) {
-            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity) && !this.getWorld().isClient()) {
-                entity.damage((ServerWorld) this.getWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
+            if(entity != this.getOwner() && entity != this && !this.getPassengerList().contains(entity) && !this.getEntityWorld().isClient()) {
+                entity.damage((ServerWorld) this.getEntityWorld(), entity.getDamageSources().mobAttack(this), getAttackDamage());
 
                 Vec3d velocity = this.getVelocity();
                 velocity = velocity.multiply(1.0, 0.0, 1.0);
@@ -351,7 +351,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
                 this.setCharging(false);
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.getEntityWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         this.chargeAnimationState.startIfNotRunning(this.age);
     }
 
@@ -418,20 +418,20 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
         }
         TrackedData<Boolean> trackedData = !bl ? RIGHT_HORN : (!bl2 ? LEFT_HORN : (this.random.nextBoolean() ? LEFT_HORN : RIGHT_HORN));
         this.dataTracker.set(trackedData, false);
-        Vec3d vec3d = this.getPos();
+        Vec3d vec3d = this.getEntityPos();
         ItemStack itemStack = this.getGoatHornStack();
         double d = MathHelper.nextBetween(this.random, -0.2f, 0.2f);
         double e = MathHelper.nextBetween(this.random, 0.3f, 0.7f);
         double f = MathHelper.nextBetween(this.random, -0.2f, 0.2f);
-        ItemEntity itemEntity = new ItemEntity(this.getWorld(), vec3d.getX(), vec3d.getY(), vec3d.getZ(), itemStack, d, e, f);
-        this.getWorld().spawnEntity(itemEntity);
+        ItemEntity itemEntity = new ItemEntity(this.getEntityWorld(), vec3d.getX(), vec3d.getY(), vec3d.getZ(), itemStack, d, e, f);
+        this.getEntityWorld().spawnEntity(itemEntity);
         return true;
     }
 
     public ItemStack getGoatHornStack() {
         Random random = Random.create((long)this.getUuid().hashCode());
         TagKey<Instrument> tagKey = this.random.nextBoolean() ? InstrumentTags.SCREAMING_GOAT_HORNS : InstrumentTags.REGULAR_GOAT_HORNS;
-        return (ItemStack)this.getWorld().getRegistryManager().getOrThrow(RegistryKeys.INSTRUMENT).getRandomEntry(tagKey, random).map((registryEntry) -> {
+        return (ItemStack)this.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.INSTRUMENT).getRandomEntry(tagKey, random).map((registryEntry) -> {
             return GoatHornItem.getStackForInstrument(Items.GOAT_HORN, registryEntry);
         }).orElseGet(() -> {
             return new ItemStack(Items.GOAT_HORN);
@@ -508,7 +508,7 @@ public class BroadhoofGoatEntity extends AbstractBeastEntity {
 
         this.setHair(this.random.nextBoolean());
 
-        if(!this.getWorld().isClient()) {
+        if(!this.getEntityWorld().isClient()) {
             this.dataTracker.set(MOUNTABLE, ServerConfigME.ENABLE_MOUNT_BROADHOOF_GOAT);
         }
 

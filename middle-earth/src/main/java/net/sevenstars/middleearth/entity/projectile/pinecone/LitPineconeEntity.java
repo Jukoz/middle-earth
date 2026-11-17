@@ -30,7 +30,7 @@ public class LitPineconeEntity extends AbstractProjectileEntity {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         entity.setOnFireFor(4);
-        if(this.getWorld() instanceof ServerWorld serverWorld)
+        if(this.getEntityWorld() instanceof ServerWorld serverWorld)
             entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
     }
 

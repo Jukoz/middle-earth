@@ -21,7 +21,9 @@ import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class BiomeSourceME extends BiomeSource {
@@ -35,8 +37,12 @@ public class BiomeSourceME extends BiomeSource {
     public static final int SUB_BIOME_NOISE = 256;
     public static final int SUB_BIOME_OFFSET = 8240;
     private MiddleEarthMapRuntime middleEarthMapRuntime;
+    private final Map<RegistryKey<Biome>, RegistryEntry<Biome>> entriesByKey = new HashMap<>();
     public BiomeSourceME(List<RegistryEntry<Biome>> biomes) {
         this.biomes = biomes;
+        for (RegistryEntry<Biome> entry : biomes) {
+            entry.getKey().ifPresent(key -> entriesByKey.putIfAbsent(key, entry));
+        }
         middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
     }
 
@@ -84,22 +90,67 @@ public class BiomeSourceME extends BiomeSource {
         int j = BiomeCoords.toBlock(y);
         int k = BiomeCoords.toBlock(z);
 
-        MapBasedCustomBiome biomeHeightData = middleEarthMapRuntime.getBiome(i, k);
-        
-        if (biomeHeightData == null) {
+        Column column = getColumn(i, k);
+        if (column.mapBiome == null) {
             return biomes.get(0);
         }
 
-        BiomeData biome = biomeHeightData.getBiome();
         RegistryKey<Biome> processedBiome;
+        if (column.misties && j <= CavesPlacedFeatureRegistryME.MAX_MITHRIL_HEIGHT) {
+            processedBiome = BiomeKeyRegistryME.MITHRIL_CAVE;
+        } else if (j < column.caveBelow || j < column.marshCaveBelow) {
+            if (column.caveBiome == null) column.caveBiome = getCaveBiome(i, k, column.mapBiome.getBiome());
+            processedBiome = column.caveBiome;
+        } else {
+            processedBiome = column.surfaceBiome;
+        }
+        return toEntry(processedBiome);
+    }
+
+    // Everything here only depends on x and z, and the game asks for every 4 blocks of height in a column
+    private static final class Column {
+        long seed;
+        int x;
+        int z;
+        MapBasedCustomBiome mapBiome;
+        boolean misties;
+        float caveBelow;
+        float marshCaveBelow = Float.NEGATIVE_INFINITY;
+        RegistryKey<Biome> surfaceBiome;
+        RegistryKey<Biome> caveBiome;
+    }
+
+    private static final int COLUMN_CACHE_SIZE = 256;
+    private static final ThreadLocal<Column[]> columnCache = ThreadLocal.withInitial(() -> new Column[COLUMN_CACHE_SIZE]);
+
+    private Column getColumn(int i, int k) {
+        long seed = MiddleEarthHeightMap.getSeed();
+        int slot = (((i >> 2) & 15) << 4) | ((k >> 2) & 15);
+        Column[] cache = columnCache.get();
+        Column column = cache[slot];
+        if (column != null && column.x == i && column.z == k && column.seed == seed) return column;
+
+        column = new Column();
+        column.seed = seed;
+        column.x = i;
+        column.z = k;
+        fillColumn(column, i, k);
+        cache[slot] = column;
+        return column;
+    }
+
+    private void fillColumn(Column column, int i, int k) {
+        MapBasedCustomBiome biomeHeightData = middleEarthMapRuntime.getBiome(i, k);
+        column.mapBiome = biomeHeightData;
+        if (biomeHeightData == null) return;
+
+        BiomeData biome = biomeHeightData.getBiome();
+        column.misties = biome.getCaveType() == CaveType.MISTIES;
 
         float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(i, k);
-        if(j <= CavesPlacedFeatureRegistryME.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
-            processedBiome = BiomeKeyRegistryME.MITHRIL_CAVE;
-        } else if(j < (height - 16)) {
-            processedBiome = getCaveBiome(i, k, biome);
-        }
-        else if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
+        column.caveBelow = height - 16;
+
+        if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             SubBiome subBiome = SubBiomes.getSubBiome(biomeHeightData.getBiomeKey());
             if(subBiome != null) {
                 double perlin = BiomeSourceME.getSubBiomeNoise(i, k, subBiome.getFrequency());
@@ -108,40 +159,42 @@ public class BiomeSourceME extends BiomeSource {
                 height += (float) additionalHeight;
             }
             RegistryKey<Biome> biomeRegistryKey = biome.getBiomeRegistryKey();
-            if(j <= CavesPlacedFeatureRegistryME.MAX_MITHRIL_HEIGHT && biome.getCaveType() == CaveType.MISTIES) {
-                processedBiome = BiomeKeyRegistryME.MITHRIL_CAVE;
-            } else if(biomeRegistryKey == MapBasedBiomePool.deadMarshes.getBiomeKey() || biomeRegistryKey == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
+            if(biomeRegistryKey == MapBasedBiomePool.deadMarshes.getBiomeKey() || biomeRegistryKey == MapBasedBiomePool.deadMarshesWater.getBiomeKey()) {
                 height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthChunkGenerator.getMarshesHeight(i, k, height);
-                if(j < (height - 20)) processedBiome = getCaveBiome(i, k, biome);
-                else if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) processedBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
-                else processedBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
+                column.marshCaveBelow = height - 20;
+                if(height < MiddleEarthChunkGenerator.WATER_HEIGHT) column.surfaceBiome = MapBasedBiomePool.deadMarshesWater.getBiomeKey();
+                else column.surfaceBiome = MapBasedBiomePool.deadMarshes.getBiomeKey();
             } else if(height <= biomeHeightData.getWaterHeight() + 1.25f) { // TODO : This is really rough, need to be more dynamic
                 if(MapBasedBiomePool.coastalBiomes.contains(biomeRegistryKey)){
-                    processedBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.oceanCoast.getBiomeKey();
                 } else if(MapBasedBiomePool.wastePondBiomes.contains(biomeRegistryKey)) {
-                    processedBiome = MapBasedBiomePool.wastePond.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.wastePond.getBiomeKey();
                 } else if(MapBasedBiomePool.mirkwoodSwampBiomes.contains(biomeRegistryKey)) {
-                    processedBiome = MapBasedBiomePool.mirkwoodSwamp.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.mirkwoodSwamp.getBiomeKey();
                 } else if(MapBasedBiomePool.oasisBiomes.contains(biomeRegistryKey)) {
-                    processedBiome = MapBasedBiomePool.oasis.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.oasis.getBiomeKey();
                 } else if(MapBasedBiomePool.frozenBiomes.contains(biomeRegistryKey)) {
-                    processedBiome = MapBasedBiomePool.frozenPond.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.frozenPond.getBiomeKey();
                 } else if(MapBasedBiomePool.anduinWaterBiomes.contains(biomeRegistryKey)){
-                    processedBiome = MapBasedBiomePool.greatRiver.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.greatRiver.getBiomeKey();
                 } else if(MapBasedBiomePool.mangrovePondBiomes.contains(biomeRegistryKey)){
-                    processedBiome = MapBasedBiomePool.mangrovePond.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.mangrovePond.getBiomeKey();
                 } else {
-                    processedBiome = MapBasedBiomePool.pond.getBiomeKey();
+                    column.surfaceBiome = MapBasedBiomePool.pond.getBiomeKey();
                 }
             } else if(biome.getBiomeRegistryKey().isOf(BiomeKeyRegistryME.NAN_CURUNIR.getRegistryRef()) && ProceduralStructures.isInsideIsengard(i, k)) {
-                processedBiome = BiomeKeyRegistryME.ISENGARD;
+                column.surfaceBiome = BiomeKeyRegistryME.ISENGARD;
             } else {
-                processedBiome = getSubBiome(i, k, biome);
+                column.surfaceBiome = getSubBiome(i, k, biome);
             }
-        } else processedBiome = biome.getBiomeRegistryKey();
+        } else column.surfaceBiome = biome.getBiomeRegistryKey();
+    }
 
+    private RegistryEntry<Biome> toEntry(RegistryKey<Biome> key) {
+        RegistryEntry<Biome> entry = entriesByKey.get(key);
+        if (entry != null) return entry;
         return biomes.stream().filter(
-                        b -> b.getKey().get().toString().equalsIgnoreCase(processedBiome.toString()))
+                        b -> b.getKey().get().toString().equalsIgnoreCase(key.toString()))
                 .findFirst().get();
     }
 }

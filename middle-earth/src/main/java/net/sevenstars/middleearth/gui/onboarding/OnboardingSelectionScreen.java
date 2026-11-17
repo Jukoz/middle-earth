@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.gui.onboarding;
 
+import net.minecraft.client.input.KeyInput;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -56,7 +57,7 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
 
         if(canResetCharacter){
             ButtonWidget.PressAction resetCharacterAction = button -> {
-                var controller = new OnboardingFactionScreenController(this.player.getWorld(), currentDelay, playerAttributes);
+                var controller = new OnboardingFactionScreenController(this.player.getEntityWorld(), currentDelay, playerAttributes);
                 controller.open();
             };
             resetCharacterButton = ButtonWidget.builder(Text.of("reset_character"), resetCharacterAction).build();
@@ -152,14 +153,15 @@ private static final Text ONBOARDING_SELECTION_TITLE = Text.translatable("ui.%s.
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key();
         // Keybind : Tabulation
         if(keyCode == KeyEvent.VK_CODE_INPUT && !focusEnabled){
             focusEnabled = true;
             return true;
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     private boolean isMouseOver(int startX, int sizeX, int startY, int sizeY) {

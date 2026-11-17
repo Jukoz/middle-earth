@@ -27,23 +27,23 @@ public class BoulderEntity extends ThrownEntity {
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        if (this.getWorld().isClient()) {
+        if (this.getEntityWorld().isClient()) {
             return;
         }
         Entity entity = entityHitResult.getEntity();
 
         if(this.getOwner() != null)  {
             Entity entity2 = this.getOwner();
-            if (entity2 instanceof LivingEntity && entity2 != null && !entity.getWorld().isClient()) {
-                entity.damage((ServerWorld) entity.getWorld(), this.getDamageSources().mobProjectile(this, (LivingEntity) entity2), 10.0f);
+            if (entity2 instanceof LivingEntity && entity2 != null && !entity.getEntityWorld().isClient()) {
+                entity.damage((ServerWorld) entity.getEntityWorld(), this.getDamageSources().mobProjectile(this, (LivingEntity) entity2), 10.0f);
             }
         }
     }
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.getWorld().isClient()) {
-            this.getWorld().createExplosion((Entity)this, this.getX(), this.getY(), this.getZ(), 0.5f, false, World.ExplosionSourceType.MOB);
+        if (!this.getEntityWorld().isClient()) {
+            this.getEntityWorld().createExplosion((Entity)this, this.getX(), this.getY(), this.getZ(), 0.5f, false, World.ExplosionSourceType.MOB);
             this.discard();
         }
     }

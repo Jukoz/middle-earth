@@ -4,5 +4,5 @@ import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 
 public class BellowsBlockEntityRenderState extends BlockEntityRenderState {
     public boolean pumping;
-    public int animationProgress;
+    public float animationProgress;
 }

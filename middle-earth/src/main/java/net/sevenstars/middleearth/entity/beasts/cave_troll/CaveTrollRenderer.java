@@ -57,6 +57,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
     @Override
     public void updateRenderState(CaveTrollEntity troll, CaveTrollEntityRenderState state, float f) {
         super.updateRenderState(troll, state, f);
+        state.customName = troll.getCustomName();
         CaveTrollEntityRenderState.updateRenderState(troll, state, this.itemModelResolver);
 
         state.chaseAnimationState = troll.chaseAnimationState;

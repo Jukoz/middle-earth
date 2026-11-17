@@ -74,7 +74,7 @@ public class WoodlandRealmCrownItem extends CustomHelmetItem {
 
     private static void spawnSeasonParticles(ServerWorld world, LivingEntity entity, SeasonDataComponent.Season season, SeasonDataComponent.Season newSeason) {
         double scale = 1.8f * entity.getAttributeValue(EntityAttributes.SCALE);
-        Vec3d pos = entity.getPos().add(0, 1.8f * scale, 0).add(0, -1.1f, 0);
+        Vec3d pos = entity.getEntityPos().add(0, 1.8f * scale, 0).add(0, -1.1f, 0);
 
         if(season.equals(SeasonDataComponent.Season.DEAD) && !newSeason.equals(SeasonDataComponent.Season.WINTER)) {
             world.spawnParticles(ParticleTypes.COMPOSTER, pos.getX(), pos.getY(), pos.getZ(), 9, OFFSET_XZ, OFFSET_Y, OFFSET_XZ, 1);

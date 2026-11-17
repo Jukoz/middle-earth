@@ -39,9 +39,9 @@ public class PacketTeleportToCurrentSpawn extends ClientToServerPacket<PacketTel
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 if(PlayerDataService.playerPassedOnboarding(context.player())){
-                    SpawnData spawnData = PlayerDataService.getPlayerSpawnData(context.player(), context.player().getWorld());
+                    SpawnData spawnData = PlayerDataService.getPlayerSpawnData(context.player(), context.player().getEntityWorld());
                     if(spawnData == null)
                         return;
                     BlockPos spawnCoordinates = spawnData.getBlockPos();

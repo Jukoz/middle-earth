@@ -9,21 +9,21 @@ import net.sevenstars.middleearth.resources.persistent_datas.PlayerDataService;
 public class RaceUtil {
 
     public static void updateRace(PlayerEntity player, Race race, boolean shouldHeal){
-        Race previousRace = PlayerDataService.getPlayerRace(player, player.getWorld());
+        Race previousRace = PlayerDataService.getPlayerRace(player, player.getEntityWorld());
         boolean havePreviousRace =  previousRace != null;
         boolean raceExists = race != null;
 
         // [RESET]
         if(havePreviousRace){
             previousRace.reverseAttributes(player);
-            PlayerDataService.setRace(player, player.getWorld(), null);
+            PlayerDataService.setRace(player, player.getEntityWorld(), null);
         }
 
         reset(player);
 
         // [SET]
         if(raceExists){
-            PlayerDataService.setRace(player, player.getWorld(), race.getId());
+            PlayerDataService.setRace(player, player.getEntityWorld(), race.getId());
         }
 
         if(shouldHeal)
@@ -32,7 +32,7 @@ public class RaceUtil {
 
 
     public static RaceType getRaceType(PlayerEntity player){
-        Race race = PlayerDataService.getPlayerRace(player, player.getWorld());
+        Race race = PlayerDataService.getPlayerRace(player, player.getEntityWorld());
         if(race != null)
             return race.getRaceType();
         else
@@ -40,7 +40,7 @@ public class RaceUtil {
     }
 
     public static void initializeRace(ServerPlayerEntity player) {
-        Race race = PlayerDataService.getPlayerRace(player, player.getWorld());
+        Race race = PlayerDataService.getPlayerRace(player, player.getEntityWorld());
         updateRace(player, race, false);
     }
 

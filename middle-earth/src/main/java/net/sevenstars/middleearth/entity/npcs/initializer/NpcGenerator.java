@@ -64,7 +64,7 @@ public class NpcGenerator {
     }
 
     private static void spawnMount(NpcEntity entity) {
-        if(entity.getWorld() instanceof ServerWorld serverWorld)
+        if(entity.getEntityWorld() instanceof ServerWorld serverWorld)
         {
             NpcType type = entity.getNpcType();
             if(type == null || !type.hasMount())

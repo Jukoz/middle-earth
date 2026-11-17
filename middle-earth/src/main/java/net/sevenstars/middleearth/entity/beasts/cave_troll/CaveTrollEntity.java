@@ -28,7 +28,6 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -50,6 +49,7 @@ import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.WorldAccess;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
@@ -98,7 +98,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
                     lootWorldContext = new LootWorldContext.Builder(serverWorld)
                             .add(LootContextParameters.THIS_ENTITY, this)
-                            .add(LootContextParameters.ORIGIN, this.getPos())
+                            .add(LootContextParameters.ORIGIN, this.getEntityPos())
                             .build(LootContextTypes.CHEST);
                 }
 
@@ -178,13 +178,23 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         super.mobTick(world);
     }
 
+    private boolean isAffectedByDaylight() {
+        if (this.getEntityWorld().getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.MONSTERS_BURN_GAMEPLAY, this.getEntityPos())) {
+            float f = this.getBrightnessAtEyes();
+            BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
+            boolean bl = this.isTouchingWaterOrRain() || this.inPowderSnow || this.wasInPowderSnow;
+            return f > 0.5F && this.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !bl && this.getEntityWorld().isSkyVisible(blockPos);
+        }
+        return false;
+    }
+
     @Override
     public void tryBonding(PlayerEntity player) {
         double rand = this.random.nextDouble();
 
         if(rand < 0.15 || (rand < 0.3 && this.getTameness() <= 0) || player.isInCreativeMode()) { // Tame success, chance is twice as high if the troll is feral
             this.tameBeast(player);
-            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
             this.chargeTimeout = 0;
         }
@@ -193,7 +203,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             this.setEnraged(true);
             this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, player);
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 1200));
-            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
         }
     }
 
@@ -201,7 +211,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
-        if(!this.getWorld().isClient()) { // Server side
+        if(!this.getEntityWorld().isClient()) { // Server side
             for(RaceType race : this.getCompatibleRaces()) { // Check for race
                 if(PlayerUtil.isOfRace(player, race) || player.isCreative()) {
 
@@ -267,7 +277,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void tameBeast(LivingEntity livingEntity) {
-        if(!this.getWorld().isClient()) {
+        if(!this.getEntityWorld().isClient()) {
             this.setTame(true);
             this.setTameness(75);
             this.stopSleeping();
@@ -283,7 +293,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void tickMovement() {
-        if(this.getWorld().isClient()) {
+        if(this.getEntityWorld().isClient()) {
             setupAnimationStates();
         }
         else {
@@ -367,7 +377,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
                 front += 0.5;
             }
 
-            if(this.getWorld().isClient() && this.smashingAnimationState.isRunning()) {
+            if(this.getEntityWorld().isClient() && this.smashingAnimationState.isRunning()) {
                 float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
                 if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
                     front -= MathHelper.sin(time) * 0.3;
@@ -403,7 +413,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
             y = sprinting ? y + 0.15 : y; // Add offset if sprinting
 
-            if(this.getWorld().isClient()) {
+            if(this.getEntityWorld().isClient()) {
                 float time = (this.smashingAnimationState.getTimeInMilliseconds(this.age) / 2000.0F) * 2 * MathHelper.PI; // Goes from 0 to 2Pi over the duration of the animation
                 if(this.smashingAnimationState.getTimeInMilliseconds(this.age) < 1000) {
                     front -= MathHelper.sin(time) * 0.3;
@@ -498,37 +508,37 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void chargeAttack() {
-        List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
+        List<Entity> entities = this.getEntityWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, 0.0, 0.2f));
         Vec3d direction = Vec3d.ZERO;
         LivingEntity target = this.getTarget();
-        int difficulty = this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() : 0;
+        int difficulty = this.hasControllingPassenger() ? this.getEntityWorld().getDifficulty().getId() : 0;
 
-        if(!this.isTame() && !this.getWorld().isClient()) { // Charge Attack for wild Troll
+        if(!this.isTame() && !this.getEntityWorld().isClient()) { // Charge Attack for wild Troll
             if(target != null) { // Has attack target memory
-                direction = this.getPos().relativize(target.getPos()); // Vector from Troll to target entity
+                direction = this.getEntityPos().relativize(target.getEntityPos()); // Vector from Troll to target entity
             }
 
             this.setYaw((float) Math.toDegrees(Math.atan2(-direction.x, direction.z))); // Turning the troll into the right direction
             this.setChargeVelocity(direction);
         }
-        else if (this.getWorld().isClient && this.hasControllingPassenger()) { // Charge Attack for tamed Troll
+        else if (this.getEntityWorld().isClient() && this.hasControllingPassenger()) { // Charge Attack for tamed Troll
             this.setChargeVelocity(this.getRotationVector());
         }
 
         for(Entity entity : entities) { // Check through all nearby entities
             if(entity != this.getOwner() && !this.getPassengerList().contains(entity)) { // Exclude passengers and owner
-                if(getWorld() instanceof ServerWorld serverWorld) {
+                if(getEntityWorld() instanceof ServerWorld serverWorld) {
                     entity.damage(serverWorld, entity.getDamageSources().mobAttack(this), 10.0f + difficulty * 2);
                 }
 
             }
         }
-        this.getWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
+        this.getEntityWorld().addParticleClient(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 1, 0.1, 1);
     }
 
     public void smashAttack(float strength) { // Strength goes from 0 to 100
         setSmashing(false);
-        Box box = new Box(this.getPos().subtract(5,0,5), this.getPos().add(5,1,5));
+        Box box = new Box(this.getEntityPos().subtract(5,0,5), this.getEntityPos().add(5,1,5));
 
         double weaponDamage = 0;
         AttributeModifiersComponent component = this.getWeaponStack().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
@@ -540,8 +550,8 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             }
         }
 
-        List<Entity> entities = this.getWorld().getOtherEntities(this, box);
-        World world = this.getWorld();
+        List<Entity> entities = this.getEntityWorld().getOtherEntities(this, box);
+        World world = this.getEntityWorld();
         int difficulty = this.hasControllingPassenger() ? world.getDifficulty().getId() : 0;
 
         if(world instanceof ServerWorld serverWorld) {
@@ -641,7 +651,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void setSitting(boolean sitting) {
-        if(!this.getWorld().isClient()) {
+        if(!this.getEntityWorld().isClient()) {
             if(sitting) {
                 this.getBrain().remember(MemoryModulesME.SITTING, true);
                 this.getBrain().forget(MemoryModuleType.WALK_TARGET);

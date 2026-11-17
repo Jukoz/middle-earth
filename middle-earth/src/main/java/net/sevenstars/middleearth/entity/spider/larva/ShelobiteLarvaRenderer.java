@@ -1,7 +1,8 @@
 package net.sevenstars.middleearth.entity.spider.larva;
 
 
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -40,7 +41,7 @@ public class ShelobiteLarvaRenderer extends MobEntityRenderer<ShelobiteLarvaEnti
     }
 
     @Override
-    public void render(ShelobiteScuttlerRenderState livingEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        super.render(livingEntityRenderState, matrixStack, vertexConsumerProvider, i);
+    public void render(ShelobiteScuttlerRenderState livingEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
+        super.render(livingEntityRenderState, matrixStack, queue, cameraRenderState);
     }
 }

@@ -6,7 +6,6 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.SingleTickTask;
 import net.minecraft.entity.ai.brain.task.TaskTriggerer;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.RangedWeaponItem;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
@@ -67,7 +66,7 @@ public class NpcRangedAttackTask {
     private static boolean isHoldingUsableRangedWeapon(MobEntity mob) {
         return mob.isHolding((stack) -> {
             Item item = stack.getItem();
-            return item instanceof RangedWeaponItem && mob.canUseRangedWeapon(item.getDefaultStack());
+            return item instanceof RangedWeaponItem && mob.canUseRangedWeapon(stack);
         });
     }
 }

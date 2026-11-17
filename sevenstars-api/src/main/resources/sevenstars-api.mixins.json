@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "client.BakedModelManagerMixin"
+    "client.AtlasManagerMixin"
   ],
   "server": [
   ],

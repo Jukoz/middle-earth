@@ -5,7 +5,7 @@ import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.registry.tag.ItemTags;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.model.equipment.CustomLeggingsModel;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
@@ -22,11 +22,10 @@ public class LeggingsArmorRenderer implements ArmorRenderer {
 
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, BipedEntityRenderState bipedEntityRenderState, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, ItemStack stack, BipedEntityRenderState state, EquipmentSlot slot, int light, BipedEntityModel<BipedEntityRenderState> contextModel) {
         boolean dyeable = false;
 
         if (slot == EquipmentSlot.LEGS) {
-            contextModel.copyTransforms(customLeggingsModel);
             customLeggingsModel.setVisible(false);
             customLeggingsModel.body.visible = true;
             customLeggingsModel.rightLeg.visible = true;
@@ -37,7 +36,7 @@ public class LeggingsArmorRenderer implements ArmorRenderer {
             }
 
             String texture = "textures/models/armor/" + Registries.ITEM.getId(stack.getItem()).getPath() + ".png";
-            CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, customLeggingsModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
+            CustomArmorRenderer.renderArmor(matrices, queue, light, stack, customLeggingsModel, state, contextModel, Identifier.of(MiddleEarth.MOD_ID, texture), dyeable);
         }
     }
 }

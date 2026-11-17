@@ -106,11 +106,11 @@ public class SpiderPounceTask<E extends MobEntity> extends MultiTickTask<E> {
 		Optional<LivingEntity> targetEntity = mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET);
 		if(targetEntity.isPresent()) {
 			LivingEntity value = targetEntity.get();
-			this.potentialTargets.add(new Target(value.getPos(), 1));
+			this.potentialTargets.add(new Target(value.getEntityPos(), 1));
 			System.out.println("add potential target pos");
 		}
 		this.targetSearchTime = 20;
-		this.startPos = Optional.of(mobEntity.getPos());
+		this.startPos = Optional.of(mobEntity.getEntityPos());
 	}
 
 	@Override

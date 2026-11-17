@@ -117,7 +117,7 @@ public class CaveTrollBrain {
 
     public static void updateActivities(CaveTrollEntity troll) {
         troll.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, ActivitiesME.TAMED, Activity.IDLE));
-        troll.getBrain().refreshActivities(troll.getWorld().getTimeOfDay(), troll.getWorld().getTime());
+        troll.getBrain().refreshActivities(troll.getEntityWorld().getEnvironmentAttributes(), troll.getEntityWorld().getTime(), troll.getEntityPos());
     }
 
     static {

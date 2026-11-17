@@ -372,6 +372,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         int bottomY = chunk.getBottomY();
         long seed = region.getSeed();
         List<StructureStart> structureStarts = structures.getStructureStarts(chunk.getPos(), s -> true);
+        CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive());
 
         for(int x = 0; x < 16; x++) {
             for(int z = 0; z < 16; z++) {
@@ -462,16 +463,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
+                    trySetBlock(caves, chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
                 }
                 if(Math.random() < 0.5f) chunk.setBlockState(chunk.getPos().getBlockPos(x, chunk.getBottomY() + 1, z),
                         Blocks.BEDROCK.getDefaultState(), 0);
 
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base().getDefaultState());
+                    trySetBlock(caves, chunk, chunk.getPos().getBlockPos(x, y, z), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base().getDefaultState());
                 }
                 for(int y = NURGON_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
+                    trySetBlock(caves, chunk, chunk.getPos().getBlockPos(x, y, z), Blocks.DEEPSLATE.getDefaultState());
                 }
 
                 float dirtHeight = HEIGHT + height - 1;
@@ -480,7 +481,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for(BlocksLayeringData.LayerData layerData : customHeightBiomeHeightData.getBiome().getBlocksLayering().layers) {
                     int blocks = (int) (totalLayersHeight * layerData.percentage);
                     for(int y = 0; y <= blocks; y++) {
-                        trySetBlock(chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
+                        trySetBlock(caves, chunk, chunk.getPos().getBlockPos(x, currentHeight++, z), layerData.block.getDefaultState());
                     }
                 }
                 chunk.setBlockState(chunk.getPos().getBlockPos(x, (int) (HEIGHT + height - 2), z), customHeightBiomeHeightData.getBiome().getBlocksLayering().layers.getLast().block.getDefaultState());
@@ -562,30 +563,109 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return sampler.sample(unblendedNoisePos);
     }
 
-    private void trySetBlock(Chunk chunk, BlockPos blockPos, BlockState blockState) {
-        float noise = 0;
-        if(blockPos.getY() < WATER_HEIGHT) {
-            noise =(float) SimplexNoise.noise(
-                    (float) blockPos.getX() / CAVE_STRETCH_H, Math.tan((float) blockPos.getY() / CAVE_STRETCH_V), (float) blockPos.getZ() / CAVE_STRETCH_H);
-            noise += 0.5f * (float) SimplexNoise.noise(
-                    (float) blockPos.getX() / (CAVE_STRETCH_H * 0.5f), (float) blockPos.getY() / (CAVE_STRETCH_V * 0.5f), (float) blockPos.getZ() / (CAVE_STRETCH_H * 0.5f));
-            noise = noise / (1 + 0.5f);
-        }
-        float noise3 = (float) SimplexNoise.noise((float) blockPos.getX() / 90, (float) blockPos.getY() / 60, (float) blockPos.getZ() / 90);
-        float miniNoise = (float) SimplexNoise.noise((float) blockPos.getX() / 40, (float) blockPos.getY() / 30, (float) blockPos.getZ() / 40);
-
-
-        float spaghettiNoise = Math.abs ((float) SimplexNoise.noise(
-                (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) Math.tan((float) blockPos.getY() / CAVE_STRETCH_V), (float) blockPos.getZ() / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142));
-        float spaghettiNoise2 = Math.abs ((float) SimplexNoise.noise(
-                (float) (98153 + blockPos.getZ()) / SPAGHETTI_CAVE_STRETCH_H, (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / SPAGHETTI_CAVE_STRETCH_H, 0));
-        float spaghettiNoise3 = Math.abs ((float) SimplexNoise.noise(
-                (float) (1243624 + blockPos.getZ()) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), (float) blockPos.getY() / CAVE_STRETCH_V, (float) blockPos.getX() / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0));
-        float combinedSpaghettiNoise = Math.abs(spaghettiNoise) + Math.abs(spaghettiNoise2) + Math.abs(spaghettiNoise3);
-        combinedSpaghettiNoise /= 3;
-
-        if(noise < 0.4f && noise3 < 0.75f && miniNoise < 0.8f && combinedSpaghettiNoise > 0.09f) {
+    private void trySetBlock(CaveSampler caves, Chunk chunk, BlockPos blockPos, BlockState blockState) {
+        if(chunk.isOutOfHeightLimit(blockPos.getY())) return;
+        if(caves.isSolid(blockPos.getX(), blockPos.getY(), blockPos.getZ())) {
             chunk.setBlockState(blockPos, blockState);
+        }
+    }
+
+    // Cave noise sampled every 2 blocks and blended in between, like vanilla's noise cells.
+    // Corners sit on fixed world positions, so neighbouring chunks share their edges.
+    private static final class CaveSampler {
+        private static final int CELL = 2;
+        private static final int CORNERS = 16 / CELL + 1;
+        private static final int VALUES = 6;
+
+        private final int startX;
+        private final int startZ;
+        private final int minCellY;
+        private final float[][] layers;
+
+        CaveSampler(int startX, int startZ, int bottomY, int topY) {
+            this.startX = startX;
+            this.startZ = startZ;
+            this.minCellY = Math.floorDiv(bottomY, CELL);
+            this.layers = new float[Math.floorDiv(topY, CELL) - minCellY + 2][];
+        }
+
+        boolean isSolid(int x, int y, int z) {
+            int localX = x - startX;
+            int localZ = z - startZ;
+            int cellX = localX / CELL;
+            int cellZ = localZ / CELL;
+            int cellY = Math.floorDiv(y, CELL) - minCellY;
+            float fx = (float) (localX % CELL) / CELL;
+            float fz = (float) (localZ % CELL) / CELL;
+            float fy = (float) Math.floorMod(y, CELL) / CELL;
+
+            float[] below = layer(cellY);
+            float[] above = layer(cellY + 1);
+            float noise = y < WATER_HEIGHT ? lerp3(below, above, cellX, cellZ, 0, fx, fy, fz) : 0;
+            if (noise >= 0.4f
+                    || lerp3(below, above, cellX, cellZ, 1, fx, fy, fz) >= 0.75f
+                    || lerp3(below, above, cellX, cellZ, 2, fx, fy, fz) >= 0.8f) return false;
+            // the spaghetti noises are blended signed and only then made absolute, which keeps the thin tunnels
+            float spaghetti = Math.abs(lerp3(below, above, cellX, cellZ, 3, fx, fy, fz))
+                    + Math.abs(lerp3(below, above, cellX, cellZ, 4, fx, fy, fz))
+                    + Math.abs(lerp3(below, above, cellX, cellZ, 5, fx, fy, fz));
+            return spaghetti / 3 > 0.09f;
+        }
+
+        private static float lerp3(float[] below, float[] above, int cellX, int cellZ, int v, float fx, float fy, float fz) {
+            float b = bilerp(below, cellX, cellZ, v, fx, fz);
+            float a = bilerp(above, cellX, cellZ, v, fx, fz);
+            return b + (a - b) * fy;
+        }
+
+        private static float bilerp(float[] layer, int cellX, int cellZ, int v, float fx, float fz) {
+            float c00 = layer[index(cellX, cellZ, v)];
+            float c10 = layer[index(cellX + 1, cellZ, v)];
+            float c01 = layer[index(cellX, cellZ + 1, v)];
+            float c11 = layer[index(cellX + 1, cellZ + 1, v)];
+            float top = c00 + (c10 - c00) * fx;
+            float bottom = c01 + (c11 - c01) * fx;
+            return top + (bottom - top) * fz;
+        }
+
+        private static int index(int cornerX, int cornerZ, int v) {
+            return (cornerX * CORNERS + cornerZ) * VALUES + v;
+        }
+
+        private float[] layer(int cellY) {
+            float[] layer = layers[cellY];
+            if (layer == null) {
+                layer = new float[CORNERS * CORNERS * VALUES];
+                int y = (cellY + minCellY) * CELL;
+                for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
+                    for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
+                        sample(layer, index(cornerX, cornerZ, 0), startX + cornerX * CELL, y, startZ + cornerZ * CELL);
+                    }
+                }
+                layers[cellY] = layer;
+            }
+            return layer;
+        }
+
+        private static void sample(float[] out, int offset, int x, int y, int z) {
+            float noise = (float) SimplexNoise.noise(
+                    (float) x / CAVE_STRETCH_H, Math.tan((float) y / CAVE_STRETCH_V), (float) z / CAVE_STRETCH_H);
+            noise += 0.5f * (float) SimplexNoise.noise(
+                    (float) x / (CAVE_STRETCH_H * 0.5f), (float) y / (CAVE_STRETCH_V * 0.5f), (float) z / (CAVE_STRETCH_H * 0.5f));
+            noise = noise / (1 + 0.5f);
+
+            float noise3 = (float) SimplexNoise.noise((float) x / 90, (float) y / 60, (float) z / 90);
+            float miniNoise = (float) SimplexNoise.noise((float) x / 40, (float) y / 30, (float) z / 40);
+
+            out[offset] = noise;
+            out[offset + 1] = noise3;
+            out[offset + 2] = miniNoise;
+            out[offset + 3] = (float) SimplexNoise.noise(
+                    (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), (float) Math.tan((float) y / CAVE_STRETCH_V), (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142);
+            out[offset + 4] = (float) SimplexNoise.noise(
+                    (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, (float) y / CAVE_STRETCH_V, (float) x / SPAGHETTI_CAVE_STRETCH_H, 0);
+            out[offset + 5] = (float) SimplexNoise.noise(
+                    (float) (1243624 + z) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), (float) y / CAVE_STRETCH_V, (float) x / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0);
         }
     }
 

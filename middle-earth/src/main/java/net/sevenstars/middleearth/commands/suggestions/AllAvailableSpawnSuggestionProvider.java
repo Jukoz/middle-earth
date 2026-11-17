@@ -47,7 +47,7 @@ public class AllAvailableSpawnSuggestionProvider implements SuggestionProvider<S
 
         } catch (Exception e){ // There is no player argument in the command
             if(targettedPlayer != null){
-                currentSelectedFaction = PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getWorld());
+                currentSelectedFaction = PlayerDataService.getPlayerFaction(targettedPlayer, targettedPlayer.getEntityWorld());
             }
         }
         List<Identifier> candidates = new ArrayList<>();

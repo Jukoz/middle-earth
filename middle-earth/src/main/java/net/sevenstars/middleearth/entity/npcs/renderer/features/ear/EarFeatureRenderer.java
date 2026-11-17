@@ -3,8 +3,7 @@ package net.sevenstars.middleearth.entity.npcs.renderer.features.ear;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
@@ -14,6 +13,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.sevenstars.middleearth.client.TexturedRenderLayersME;
 import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
@@ -33,32 +33,22 @@ public class EarFeatureRenderer extends FeatureRenderer<NpcEntityRenderState, Np
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, NpcEntityRenderState state, float limbAngle, float limbDistance) {
         boolean isSimplified = ClientConfigME.ENABLE_SIMPLIFIED_CHARACTER_RENDERING && state.simplifiedSkinId != null;
         Identifier earId =  (isSimplified) ? state.simplifiedEarId : MiddleEarth.appendPrefix(state.earId, AtlasesME.SKIN_PREFIX);
-
-        earModel.setAngles(state);
 
         if(!state.canShowEars)
             return;
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(TexturedRenderLayersME.getCharacterTexturesRenderLayer());
 
         int overlay = state.hurt ? getOverlay(state, 0f) : OverlayTexture.DEFAULT_UV;
         if(earId != null){
             Sprite sprite = characterTexturesAtlas.getSprite(earId);
-            renderModel(sprite, matrices, vertexConsumer, light, overlay);
+            RenderUtil.renderModel(earModel, state, matrices, queue, TexturedRenderLayersME.getCharacterTexturesRenderLayer(), light, overlay, sprite);
         }
     }
 
     public static int getOverlay(LivingEntityRenderState state, float whiteOverlayProgress) {
         return OverlayTexture.packUv(OverlayTexture.getU(whiteOverlayProgress), OverlayTexture.getV(state.hurt));
-    }
-
-    private void renderModel(Sprite sprite, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay){
-        if(sprite != null){
-            VertexConsumer newLayerVertexConsumer = sprite.getTextureSpecificVertexConsumer(vertexConsumer);
-            earModel.render(matrices, newLayerVertexConsumer, light, overlay);
-        }
     }
 }

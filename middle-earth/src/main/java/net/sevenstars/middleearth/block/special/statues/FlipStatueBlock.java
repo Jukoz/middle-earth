@@ -47,12 +47,11 @@ public class FlipStatueBlock extends StatueBlock {
         if (!world.isClient() && player.getAbilities().allowModifyWorld) {
             world.setBlockState(pos, state.cycle(FLIP));
             BlockState updatedState = world.getBlockState(pos);
-            if(state.get(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState otherState = world.getBlockState(pos.up());
-                world.setBlockState(pos.up(), otherState.with(FLIP, updatedState.get(FLIP)));
-            } else {
-                BlockState otherState = world.getBlockState(pos.down());
-                world.setBlockState(pos.down(), otherState.with(FLIP, updatedState.get(FLIP)));
+            BlockPos otherPos = state.get(HALF) == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
+            BlockState otherState = world.getBlockState(otherPos);
+            // The other half can be missing, e.g. after /setblock
+            if(otherState.contains(FLIP)) {
+                world.setBlockState(otherPos, otherState.with(FLIP, updatedState.get(FLIP)));
             }
         }
         return ActionResult.SUCCESS;

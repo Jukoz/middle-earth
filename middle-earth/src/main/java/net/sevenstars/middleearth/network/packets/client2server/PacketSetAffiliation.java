@@ -48,11 +48,11 @@ public class PacketSetAffiliation extends ClientToServerPacket<PacketSetAffiliat
 
     @Override
     public void process(ServerPacketContext context) {
-        MinecraftServer server = context.player().getServer();
+        MinecraftServer server = context.player().getEntityWorld().getServer();
         server.execute(() -> {
             try{
                 Identifier factionId = Identifier.of(factionName);
-                Faction faction = FactionLookup.getFactionById(context.player().getWorld(), factionId);
+                Faction faction = FactionLookup.getFactionById(context.player().getEntityWorld(), factionId);
                 Identifier spawnId = Identifier.of(spawnName);
                 FactionUtil.updateFaction(context.player(), faction, spawnId);
                 if(!context.player().isCreative() && context.player().getMainHandStack().getItem() instanceof StarlightPhialItem)

@@ -15,7 +15,10 @@ import net.sevenstars.middleearth.network.packets.client2server.ArtisanTableTabP
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.decoration.ArmorStandEntity;
@@ -212,7 +215,8 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
         this.renderRecipeBackground(context, mouseX, mouseY, l, m, n);
         this.renderRecipeIcons(context, l, m, n);
-        InventoryScreen.drawEntity(context, i, j, this.x + 412, this.y + 128, 27.5F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, this.armorStand);
+        EntityRenderState armorStandState = this.armorStandRenderState();
+        context.addEntity(armorStandState, 27.5F, ARMOR_STAND_TRANSLATION, ARMOR_STAND_ROTATION, (Quaternionf)null, i, j, this.x + 412, this.y + 128);
 
     }
 
@@ -279,6 +283,15 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     }
 
+    private EntityRenderState armorStandRenderState() {
+        EntityRenderer<? super ArmorStandEntity, ?> renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(this.armorStand);
+        EntityRenderState state = renderer.getAndUpdateRenderState(this.armorStand, 1.0F);
+        state.light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
+        state.shadowPieces.clear();
+        state.outlineColor = 0;
+        return state;
+    }
+
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
         List<ItemStack> list = this.handler.getAvailableOutputs();
         for (int i = this.scrollOffset; i < scrollOffset && i < (this.handler).getAvailableOutputs().size(); ++i) {
@@ -291,21 +304,24 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
 
     }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int button = click.button();
         this.mouseClicked = false;
         if (button == 0) {
             for (ArtisanTableTab category : this.categories) {
                 if (category.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedCategory = category;
                 selectedTab = tabs.get(selectedCategory.getIndex()).getFirst();
-                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 changeTab();
                 break;
             }
             for (ArtisanTableTab tab : tabs.get(selectedCategory.getIndex())) {
                 if (tab.isClickOnTab(x, y, mouseX, mouseY)) continue;
                 this.selectedTab = tab;
-                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 changeTab();
                 break;
             }
@@ -320,7 +336,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
                 double d = mouseX - (double)(i + m % 4 * 16);
                 double e = mouseY - (double)(j + m / 4 * 18);
                 if (d >= 0.0 && e >= 0.0 && d < 16.0 && e < 18.0 && (this.handler).onButtonClick(this.client.player, l)) {
-                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                     this.handler.setSelectedRecipe(l);
                     return true;
                 }
@@ -333,10 +349,11 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             }
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double deltaX, double deltaY) {
+        double mouseY = click.y();
         if (this.mouseClicked && this.shouldScroll()) {
             int i = this.y + 14;
             int j = i + 54;
@@ -345,7 +362,7 @@ public class ArtisanTableScreen extends HandledScreen<ArtisanTableScreenHandler>
             this.scrollOffset = (int)((double)(this.scrollAmount * (float)this.getMaxScroll()) + 0.5) * 4;
             return true;
         } else {
-            return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+            return super.mouseDragged(click, deltaX, deltaY);
         }
     }
 

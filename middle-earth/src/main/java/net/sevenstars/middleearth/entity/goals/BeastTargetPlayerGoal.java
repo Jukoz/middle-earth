@@ -29,13 +29,13 @@ public class BeastTargetPlayerGoal extends ActiveTargetGoal<PlayerEntity> {
     }
 
     private boolean canTargetMob(){
-        if(this.mob.getWorld() instanceof ServerWorld serverWorld) {
+        if(this.mob.getEntityWorld() instanceof ServerWorld serverWorld) {
             PlayerEntity player = serverWorld.getClosestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());;
-            if(player == null || mob.getWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame() || player == mob.getOwner()){
+            if(player == null || mob.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL || mob.isTame() || player == mob.getOwner()){
                 return false;
             }
             if(beastDispositionType != null){
-                return PlayerDataService.getPlayerDisposition(player, player.getWorld()) != beastDispositionType;
+                return PlayerDataService.getPlayerDisposition(player, player.getEntityWorld()) != beastDispositionType;
             }
             return true;
         }

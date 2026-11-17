@@ -176,7 +176,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     }
 
     protected boolean isClientWorld() {
-        return this.getWorld().isClient();
+        return this.getEntityWorld().isClient();
     }
 
     public boolean isOwner(LivingEntity entity) {
@@ -402,12 +402,12 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
     public void tryBonding(PlayerEntity player) {
         if(random.nextDouble() <= 0.1d || player.isInCreativeMode()) {
             this.tameBeast(player);
-            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
 
             this.chargeTimeout = 0;
         }
         else {
-            this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
         }
     }
 
@@ -429,7 +429,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(isBondingItem(player.getStackInHand(hand)) && !this.isTame() && this.isTamable(player)) {
-            if(!this.getWorld().isClient()) {
+            if(!this.getEntityWorld().isClient()) {
                 this.tryBonding(player);
                 this.eat(player, hand, itemStack);
             }
@@ -494,7 +494,7 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
                 && !source.equals(getDamageSources().cramming()) && !source.equals(getDamageSources().magic())) {
             amount *= (1 - RESISTANCE);
         }
-        return !this.getWorld().isClient() && super.damage((ServerWorld) this.getWorld(), source, amount);
+        return !this.getEntityWorld().isClient() && super.damage((ServerWorld) this.getEntityWorld(), source, amount);
     }
 
     public void chargeAttack() {
@@ -555,16 +555,16 @@ public abstract class AbstractBeastEntity extends AbstractHorseEntity {
             this.setTarget(null);
         }
 
-        if (this.getWorld().isClient()) {
+        if (this.getEntityWorld().isClient()) {
             setupAnimationStates();
         }
 
         if (!this.isClientWorld() && isTame() && this.getOwner() != null) {
-            if(this.getWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
-                List<? extends PlayerEntity> players = this.getWorld().getPlayers();
+            if(this.getEntityWorld().getTimeOfDay() == 6500) { // Tameness always decreases shortly after noon
+                List<? extends PlayerEntity> players = this.getEntityWorld().getPlayers();
                 if(this.getOwner() != null && players.contains(this.getOwner())) { // Check if owner is online
                     // Get amount of other beasts using the Tameness mechanic in a 25 block radius. The tameness decreases exponentially faster for each of them.
-                    int affectingBeasts = this.getWorld().getEntitiesByClass(AbstractBeastEntity.class, this.getBoundingBox().expand(25), (entity) -> usesTameness() && getOwner() == this.getOwner()).size();
+                    int affectingBeasts = this.getEntityWorld().getEntitiesByClass(AbstractBeastEntity.class, this.getBoundingBox().expand(25), (entity) -> usesTameness() && getOwner() == this.getOwner()).size();
 
                     // The number of entities includes itself, therefore the smallest value to decrease is at 10
                     this.setTameness(this.getTameness() - (int)(5 * Math.pow(2, affectingBeasts)));

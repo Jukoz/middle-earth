@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.client.renderer.armor;
 
+import org.jetbrains.annotations.Nullable;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -13,7 +14,6 @@ import net.sevenstars.middleearth.item.utils.armor.ArmorModelsME;
 import net.sevenstars.middleearth.item.utils.armor.DyeablePiecesME;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -27,14 +27,14 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
     }
 
     static <S extends BipedEntityRenderState> void renderDyeableHelmetAttachment(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, ItemStack stack,
-                                                                                 Model<? super S> model, S state, Identifier texture, boolean helmet) {
+                                                                                 Model<? super S> model, S state, @Nullable BipedEntityModel<BipedEntityRenderState> contextModel, Identifier texture, boolean helmet) {
         int color;
         if (helmet) {
             color = ColorHelper.fullAlpha(stack.get(DataComponentTypesME.HELMET_ATTACHMENT_DATA).helmetAttachmentColor());
         } else {
             color = DyedColorComponent.getColor(stack, DyedColorComponent.DEFAULT_COLOR);
         }
-        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, RenderLayers.armorCutoutNoCull(texture), color);
+        CustomArmorRenderer.submit(matrices, queue, light, stack, model, state, contextModel, RenderLayers.armorCutoutNoCull(texture), color, 0);
     }
 
     @Override
@@ -62,13 +62,13 @@ public class HelmetAttachmentRenderer implements ArmorRenderer {
         helmetAttachmentModel.hat.visible = true;
 
         if (DyeablePiecesME.dyeableHelmetAttachments.containsKey(data.getHelmetAttachment())) {
-            renderDyeableHelmetAttachment(matrices, queue, light, stack, helmetAttachmentModel, state, texture, false);
+            renderDyeableHelmetAttachment(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel, texture, false);
             if (DyeablePiecesME.dyeableHelmetAttachments.get(data.helmetAttachment())) {
-                CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state,
+                CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel,
                         Identifier.of(MiddleEarth.MOD_ID, texture.getPath().replaceAll(".png", "_overlay.png")));
             }
         } else {
-            CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, texture);
+            CustomArmorRenderer.renderTranslucentPiece(matrices, queue, light, stack, helmetAttachmentModel, state, contextModel, texture);
         }
     }
 }

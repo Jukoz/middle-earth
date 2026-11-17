@@ -105,6 +105,20 @@ public class SackBlockEntity extends LootableContainerBlockEntity implements Sid
     }
 
     @Override
+    public void onOpen(ContainerUser user) {
+        if (!this.removed && !user.asLivingEntity().isSpectator()) {
+            this.stateManager.openContainer(user.asLivingEntity(), this.getWorld(), this.getPos(), this.getCachedState(), user.getContainerInteractionRange());
+        }
+    }
+
+    @Override
+    public void onClose(ContainerUser user) {
+        if (!this.removed && !user.asLivingEntity().isSpectator()) {
+            this.stateManager.closeContainer(user.asLivingEntity(), this.getWorld(), this.getPos(), this.getCachedState());
+        }
+    }
+
+    @Override
     public void onBlockReplaced(BlockPos pos, BlockState oldState) {
         // Keep empty
     }

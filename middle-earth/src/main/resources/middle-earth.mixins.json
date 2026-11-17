@@ -43,6 +43,7 @@
     "client.AbstractClientPlayerEntityMixin",
     "client.AtmosphericFogModifierMixin",
     "client.ClientWorldMixin",
+    "client.CreateWorldScreenMixin",
     "client.BipedEntityModelMixin",
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",
@@ -56,6 +57,8 @@
     "client.PlayerEntityRendererMixin"
   ],
   "server": [
+    "AbstractPropertiesHandlerAccessor",
+    "ServerMainMixin"
   ],
   "injectors": {
     "defaultRequire": 1

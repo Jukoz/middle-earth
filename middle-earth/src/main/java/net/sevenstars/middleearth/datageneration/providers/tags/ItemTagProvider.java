@@ -98,7 +98,8 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))
                 .toArray(Item[]::new);
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(meleeWeapons);
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/melee_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sweeping"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sharp_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
@@ -219,7 +220,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GRAY_ARMOR);
         dyeable.add(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR);
 
-        chains.add(Items.CHAIN);
+        chains.add(Items.IRON_CHAIN);
         chains.add(DecorativeBlockRegistryME.BRONZE_CHAIN.asItem());
         chains.add(DecorativeBlockRegistryME.BRONZE_BROAD_CHAIN.asItem());
         chains.add(DecorativeBlockRegistryME.CRUDE_CHAIN.asItem());

@@ -3,13 +3,12 @@ package net.sevenstars.middleearth.entity.beasts.broadhoof.features;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
@@ -72,12 +71,11 @@ public class BroadhoofGoatPatternFeatureRenderer extends FeatureRenderer<Broadho
     }
 
     public void render(
-            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BroadhoofGoatEntityRenderState state, float f, float g
+            MatrixStack matrixStack, OrderedRenderCommandQueue queue, int i, BroadhoofGoatEntityRenderState state, float f, float g
     ) {
         Identifier identifier = (Identifier)TEXTURES.get(state.pattern);
         if (identifier != INVISIBLE_ID && !state.invisible) {
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(identifier));
-            this.getContextModel().render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(state, 0.0F));
+            RenderUtil.renderTranslucentTexture(this.getContextModel(), state, matrixStack, queue, identifier, i, LivingEntityRenderer.getOverlay(state, 0.0F));
         }
     }
 }

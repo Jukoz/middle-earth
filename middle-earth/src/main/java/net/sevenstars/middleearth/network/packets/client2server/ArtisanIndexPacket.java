@@ -47,7 +47,7 @@ public class ArtisanIndexPacket extends ClientToServerPacket<ArtisanIndexPacket>
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 ServerPlayerEntity player = context.player();
                 ScreenHandler screenHandler = player.currentScreenHandler;
                 if (screenHandler.syncId == this.syncId && screenHandler instanceof ArtisanTableScreenHandler artisanTableScreenHandler) {

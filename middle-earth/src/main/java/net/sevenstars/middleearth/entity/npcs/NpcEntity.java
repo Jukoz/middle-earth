@@ -404,7 +404,7 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
         super.mobTick(world);
 
         if(hasVehicle()){
-            rotate(getVehicle().getYaw(), getVehicle().getPitch());
+            rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);
         }
     }
 

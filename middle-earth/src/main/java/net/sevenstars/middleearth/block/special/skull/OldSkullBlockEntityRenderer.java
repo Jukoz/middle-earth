@@ -11,11 +11,10 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.SkullBlockEntityModel;
 import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
+import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.*;
 import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -27,7 +26,8 @@ import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
-public class OldSkullBlockEntityRenderer implements BlockEntityRenderer<OldSkullBlockEntity, BlockEntityRenderState> {
+public class OldSkullBlockEntityRenderer implements BlockEntityRenderer<OldSkullBlockEntity, OldSkullBlockEntityRenderer.State> {
+    private static final RenderLayer RENDER_LAYER = RenderLayers.entityCutout(Identifier.of(MiddleEarth.MOD_ID, "textures/model/old_skull.png"));
     private final ModelPart skull;
 
     public OldSkullBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
@@ -48,50 +48,45 @@ public class OldSkullBlockEntityRenderer implements BlockEntityRenderer<OldSkull
         return TexturedModelData.of(modelData, 64, 64);
     }
 
-    public void render(BlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        /// TODO Fix me
-        /*
-        BlockState blockState = skullBlockEntity.getCachedState();
-        boolean bl = blockState.getBlock() instanceof WallSkullBlock;
-        Direction direction = bl ? blockState.get(WallSkullBlock.FACING) : null;
-        int k = bl ? RotationPropertyHelper.fromDirection(direction.getOpposite()) : (Integer)blockState.get(SkullBlock.ROTATION);
-        float h = RotationPropertyHelper.toDegrees(k);
-
-        VertexConsumer vertexConsumer = getSpriteIdentifier().getVertexConsumer(vertexConsumerProvider, RenderLayer::getEntityCutout);
-
-        RenderLayer renderLayer = getRenderLayer();
-        renderSkull(direction, h, 0, matrixStack, vertexConsumer, i, skull, renderLayer);
-        */
+    @Override
+    public State createRenderState() {
+        return new State();
     }
 
-    public static void renderSkull(@Nullable Direction direction, float yaw, float animationProgress, MatrixStack matrices,
-                                   VertexConsumer vertexConsumers, int light, ModelPart model, RenderLayer renderLayer) {
+    @Override
+    public void updateRenderState(OldSkullBlockEntity entity, State state, float tickProgress, Vec3d cameraPos,
+                                  ModelCommandRenderer.@Nullable CrumblingOverlayCommand crumblingOverlay) {
+        BlockEntityRenderer.super.updateRenderState(entity, state, tickProgress, cameraPos, crumblingOverlay);
+        BlockState blockState = entity.getCachedState();
+        boolean wall = blockState.getBlock() instanceof WallSkullBlock;
+        state.facing = wall ? blockState.get(WallSkullBlock.FACING) : null;
+        int rotation = wall ? RotationPropertyHelper.fromDirection(state.facing.getOpposite()) : blockState.get(SkullBlock.ROTATION);
+        state.yaw = RotationPropertyHelper.toDegrees(rotation);
+    }
+
+    @Override
+    public void render(State state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        renderSkull(state.facing, state.yaw, matrices, queue, state.lightmapCoordinates, skull, RENDER_LAYER);
+    }
+
+    public static void renderSkull(@Nullable Direction direction, float yaw, MatrixStack matrices,
+                                   OrderedRenderCommandQueue queue, int light, ModelPart model, RenderLayer renderLayer) {
         matrices.push();
         if (direction == null) {
             matrices.translate(0.5F, 0.0F, 0.5F);
         } else {
-            float f = 0.25F;
             matrices.translate(0.5F - direction.getOffsetX() * 0.25F, 0.25F, 0.5F - direction.getOffsetZ() * 0.25F);
         }
 
         matrices.translate(0, 1.5f, 0);
         matrices.scale(-1.0F, -1.0F, 1.0F);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
-        model.render(matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV);
+        queue.submitModelPart(model, matrices, renderLayer, light, OverlayTexture.DEFAULT_UV, null);
         matrices.pop();
     }
 
-    @Override
-    public BlockEntityRenderState createRenderState() {
-        return new BlockEntityRenderState();
-    }
-
-    //public static RenderLayer getRenderLayer() {
-    //    return RenderLayer.getEntityCutoutNoCullZOffset(Identifier.of(MiddleEarth.MOD_ID, "model/old_skull"));
-    //}
-
-    private SpriteIdentifier getSpriteIdentifier(){
-        return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/old_skull"));
+    public static class State extends BlockEntityRenderState {
+        public @Nullable Direction facing;
+        public float yaw;
     }
 }

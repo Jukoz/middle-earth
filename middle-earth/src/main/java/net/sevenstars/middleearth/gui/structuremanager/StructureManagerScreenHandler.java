@@ -23,7 +23,7 @@ public class StructureManagerScreenHandler extends ScreenHandler {
     // Client side Constructor
     public StructureManagerScreenHandler(int syncId, PlayerInventory playerInventory, StructureManagerScreenData structureManagerScreenData) {
         super(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, syncId);
-        this.world = playerInventory.player.getWorld();
+        this.world = playerInventory.player.getEntityWorld();
         this.data = structureManagerScreenData;
         this.blockEntity = (StructureManagerBlockEntity) this.world.getBlockEntity(data.getPos());
     }

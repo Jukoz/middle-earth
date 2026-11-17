@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKey;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatEntityRenderState;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,12 +27,11 @@ public class BroadhoofGoatArmorFeatureRenderer extends FeatureRenderer<Broadhoof
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, BroadhoofGoatEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, BroadhoofGoatEntityRenderState state, float limbAngle, float limbDistance) {
         ItemStack itemStack = state.armor;
         EquippableComponent equippableComponent = (EquippableComponent)itemStack.get(DataComponentTypes.EQUIPPABLE);
         if (equippableComponent != null && !equippableComponent.assetId().isEmpty()) {
-            model.setAngles(state);
-            this.equipmentRenderer.render(EquipmentModel.LayerType.HORSE_BODY, (RegistryKey)equippableComponent.assetId().get(), model, itemStack, matrices, vertexConsumers, light);
+            this.equipmentRenderer.render(EquipmentModel.LayerType.HORSE_BODY, (RegistryKey)equippableComponent.assetId().get(), model, state, itemStack, matrices, queue, light, state.outlineColor);
         }
     }
 }

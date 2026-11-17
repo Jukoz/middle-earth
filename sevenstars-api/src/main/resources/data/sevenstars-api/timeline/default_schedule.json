@@ -1,0 +1,17 @@
+{
+  "period_ticks": 24000,
+  "tracks": {
+    "sevenstars-api:default_sleep": {
+      "keyframes": [
+        { "ticks": 10, "value": "minecraft:idle" },
+        { "ticks": 12000, "value": "minecraft:rest" }
+      ]
+    },
+    "sevenstars-api:default_baby": {
+      "keyframes": [
+        { "ticks": 10, "value": "minecraft:baby_idle" },
+        { "ticks": 12000, "value": "minecraft:baby_rest" }
+      ]
+    }
+  }
+}

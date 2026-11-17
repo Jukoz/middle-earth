@@ -38,9 +38,9 @@ public record GreatHornVariant(GreatHornAssetInfo assetInfo, SpawnConditionSelec
 		return this.spawnConditions.selectors();
 	}
 
-	public record GreatHornAssetInfo(AssetInfo id) {
+	public record GreatHornAssetInfo(AssetInfo.TextureAssetInfo id) {
 		public static final Codec<GreatHornAssetInfo> CODEC = RecordCodecBuilder.create(
-				instance -> instance.group(AssetInfo.CODEC.fieldOf("id").forGetter(GreatHornAssetInfo::id)).apply(instance, GreatHornAssetInfo::new)
+				instance -> instance.group(AssetInfo.TextureAssetInfo.CODEC.fieldOf("id").forGetter(GreatHornAssetInfo::id)).apply(instance, GreatHornAssetInfo::new)
 		);
 	}
 }

@@ -30,6 +30,7 @@ import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.world.StartInMiddleEarth;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.Objects;
@@ -40,14 +41,16 @@ public class EventRegistryME {
     public static void register(){
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
-            MiddleEarthHeightMap.setSeed(player.getWorld().getSeed());
+            MiddleEarthHeightMap.setSeed(player.getEntityWorld().getSeed());
+
+            StartInMiddleEarth.onJoin(player);
 
             PlayerData data = StateSaverAndLoader.getPlayerState(player);
             if(data == null)
                 return;
             if(data != null && data.getRace() != null){
                 RaceUtil.reset(player);
-                boolean isInMiddleEarth = DimensionRegistryME.isInMiddleEarth(player.getWorld());
+                boolean isInMiddleEarth = DimensionRegistryME.isInMiddleEarth(player.getEntityWorld());
                 if(isInMiddleEarth){
                     RaceUtil.initializeRace(player);
                 } else if(ServerConfigME.ENABLE_KEEP_RACE_ON_DIMENSION_SWAP){
@@ -62,7 +65,7 @@ public class EventRegistryME {
             }
         });
 
-        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
+        ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity, damageSource) -> {
             if(entity instanceof PlayerEntity playerEntity) {
                 ItemStack stack = Objects.requireNonNull(playerEntity.getMainHandStack());
                 RegistryEntry<Enchantment> enchantmentRegistryEntry = world.getRegistryManager()
@@ -73,7 +76,7 @@ public class EventRegistryME {
                     ItemStack drop = ItemStack.EMPTY;
                     if(killedEntity instanceof PlayerEntity killedPlayer) {
                         drop = new ItemStack(Items.PLAYER_HEAD);
-                        drop.set(DataComponentTypes.PROFILE, new ProfileComponent(killedPlayer.getGameProfile()));
+                        drop.set(DataComponentTypes.PROFILE, ProfileComponent.ofStatic(killedPlayer.getGameProfile()));
                     }
                     if(!drop.isEmpty()) {
                         killedEntity.dropStack(world, drop);

@@ -33,7 +33,7 @@ public class PebbleEntity extends AbstractProjectileEntity {
         super.onEntityHit(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         //if(this.getOwner() instanceof ShireHobbitEntity && entity instanceof ShireHobbitEntity) return;
-        if(this.getWorld() instanceof ServerWorld serverWorld)
+        if(this.getEntityWorld() instanceof ServerWorld serverWorld)
             entity.damage(serverWorld, this.getDamageSources().thrown( this, this.getOwner()), this.damage);
     }
 }

@@ -1,42 +1,40 @@
 package net.sevenstars.middleearth.block.special.reinforcedChest;
 
+import net.minecraft.util.math.RotationAxis;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.entity.EntityModelLayersME;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.state.ChestBlockEntityRenderState;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.EntityModelLayersME;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 
 public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends ChestBlockEntityRenderer<T> {
 
     private static final String BASE = "bottom";
     private static final String LID = "lid";
     private static final String LATCH = "lock";
-    private final ModelPart chestLid;
-    private final ModelPart chestBase;
-    private final ModelPart chestLatch;
+    private static final SpriteIdentifier TEXTURE = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
+            Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
+    private final SpriteHolder spriteHolder;
+    private final ReinforcedChestModel model;
 
     public ReinforcedChestEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         super(ctx);
         ModelPart modelPart = ctx.getLayerModelPart(EntityModelLayersME.REINFORCED_CHEST);
-        this.chestBase = modelPart.getChild(BASE);
-        this.chestLid = modelPart.getChild(LID);
-        this.chestLatch = modelPart.getChild(LATCH);
+        this.spriteHolder = ctx.spriteHolder();
+        this.model = new ReinforcedChestModel(modelPart);
     }
 
 
@@ -51,35 +49,20 @@ public class ReinforcedChestEntityRenderer<T extends ChestBlockEntity> extends C
     }
 
     @Override
-    public void render(ChestBlockEntityRenderState chestBlockEntityRenderState, MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, CameraRenderState cameraRenderState) {
-        /// TODO fixme
-        /*
-        SpriteIdentifier spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.CHEST_ATLAS_TEXTURE,
-                Identifier.of(MiddleEarth.MOD_ID, "model/reinforced_chest"));
-        VertexConsumer vertexConsumer = spriteIdentifier.getVertexConsumer(vertexConsumers, RenderLayer::getEntityCutout);
+    public void render(ChestBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
+        RenderLayer renderLayer = TEXTURE.getRenderLayer(RenderLayers::entityCutout);
+        Sprite sprite = spriteHolder.getSprite(TEXTURE);
 
-        World world = entity.getWorld();
-        BlockState blockState = world != null ? entity.getCachedState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
-        Block block = blockState.getBlock();
-
-        ReinforcedChestBlock chest = (ReinforcedChestBlock)block;
-
-        DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> properties;
-        properties = chest.getBlockEntitySource(blockState, world, entity.getPos(), true);
-        float g = properties.apply(ReinforcedChestBlock.getAnimationProgressRetriever(entity)).get(tickProgress);
+        float g = state.lidAnimationProgress;
         g = 1.0F - g;
         g = 1.0F - g * g * g;
 
         matrices.push();
-        float rotation = blockState.get(ChestBlock.FACING).getPositiveHorizontalDegrees();
         matrices.translate(0.5D, 0.0D, 0.5D);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-rotation));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-state.yaw));
 
-        chestLatch.pitch = chestLid.pitch = +(g * 1.5707964f);
-        chestLid.render(matrices, vertexConsumer, light, overlay);
-        chestLatch.render(matrices, vertexConsumer, light, overlay);
-        chestBase.render(matrices, vertexConsumer, light, overlay);
+        queue.submitModel(model, g, matrices, renderLayer, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, -1, sprite, 0, state.crumblingOverlay);
 
-        matrices.pop();*/
+        matrices.pop();
     }
 }

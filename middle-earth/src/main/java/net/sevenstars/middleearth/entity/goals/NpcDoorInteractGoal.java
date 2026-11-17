@@ -12,7 +12,7 @@ public class NpcDoorInteractGoal extends LongDoorInteractGoal {
 
     @Override
     protected void setDoorOpen(boolean open) {
-        BlockState blockState = this.mob.getWorld().getBlockState(this.doorPos);
+        BlockState blockState = this.mob.getEntityWorld().getBlockState(this.doorPos);
         if(blockState.isOf(BlockRegistryME.TREATED_STEEL_DOOR))
             return;
         super.setDoorOpen(open);

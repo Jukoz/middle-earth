@@ -225,9 +225,9 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     @Override
     public void onLanding() {
-        if (this.getWorld() instanceof ServerWorld serverWorld) {
+        if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             if (this.isOnGround() && this.fallDistance > 1.5) {
-                Vec3d vec3d = getPos().add(0.0, 0.5, 0.0);
+                Vec3d vec3d = getEntityPos().add(0.0, 0.5, 0.0);
                 BlockState blockState = this.getSteppingBlockState();
                 int count = (int) MathHelper.clamp(20.0 * this.fallDistance - 1, 0.0, 120.0);
                 serverWorld.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), vec3d.x, vec3d.y, vec3d.z,
@@ -246,7 +246,7 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
 
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient()) {
+        if (!this.getEntityWorld().isClient()) {
             if(biteAnimationCooldown <= 1) {
                 this.dataTracker.set(BITE_FLAG, -1);
             }
@@ -363,13 +363,13 @@ public class ShelobiteScuttlerEntity extends HostileEntity implements Pouncer {
     @Override
     protected void writeCustomData(WriteView view) {
         super.writeCustomData(view);
-        Variants.writeVariantToNbt(view, this.getRegistryVariant());
+        Variants.writeData(view, this.getRegistryVariant());
     }
 
     @Override
     protected void readCustomData(ReadView view) {
         super.readCustomData(view);
-        Variants.readVariantFromNbt(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
+        Variants.fromData(view, DynamicRegistriesME.SPIDER_VARIANTS).ifPresent(this::setVariant);
     }
 
     static {

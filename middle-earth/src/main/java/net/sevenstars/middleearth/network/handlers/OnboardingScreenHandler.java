@@ -18,7 +18,7 @@ import java.util.List;
 public class OnboardingScreenHandler {
     public static void handle(ClientPacketContext context, boolean havePlayerData, float delay, List<AttributePoolElement> playerAttributes){
         try{
-            World world = context.player().getWorld();
+            World world = context.player().getEntityWorld();
             if(DimensionRegistryME.isInOverworld(world)){
                 MinecraftClient client = MinecraftClient.getInstance();
                 if(!havePlayerData){

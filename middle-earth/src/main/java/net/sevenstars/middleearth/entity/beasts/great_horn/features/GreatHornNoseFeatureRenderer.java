@@ -3,13 +3,12 @@ package net.sevenstars.middleearth.entity.beasts.great_horn.features;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.util.math.MatrixStack;
+import net.sevenstars.middleearth.client.RenderUtil;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
@@ -35,10 +34,9 @@ public class GreatHornNoseFeatureRenderer extends FeatureRenderer<GreatHornEntit
 	}
 
 	@Override
-	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, GreatHornEntityRenderState state, float limbAngle, float limbDistance) {
+	public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, GreatHornEntityRenderState state, float limbAngle, float limbDistance) {
 		if(state.hasRedNose() || isChristmas()) {
-			VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(TEXTURE));
-			this.getContextModel().render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+			RenderUtil.renderTranslucentTexture(this.getContextModel(), state, matrices, queue, TEXTURE, light, OverlayTexture.DEFAULT_UV);
 		}
 	}
 }

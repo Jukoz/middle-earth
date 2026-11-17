@@ -27,7 +27,7 @@ public class InscriptionConfirmationPacket extends ClientToServerPacket<Inscript
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 InscriptionTableScreenHandler screenHandler = (InscriptionTableScreenHandler) context.player().currentScreenHandler;
                 screenHandler.enchantItem();
             });

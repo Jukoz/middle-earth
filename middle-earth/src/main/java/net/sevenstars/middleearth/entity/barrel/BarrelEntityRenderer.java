@@ -3,13 +3,15 @@ package net.sevenstars.middleearth.entity.barrel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.BoatEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -19,13 +21,13 @@ import org.joml.Quaternionf;
 public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntityRenderState> {
     private static final Identifier TEXTURE = Identifier.of(MiddleEarth.MOD_ID, "textures/entities/reinforced_barrel/reinforced_barrel.png");
     private ModelPart modelPart;
-    private final Model waterMaskModel;
+    private final Model.SinglePartModel waterMaskModel;
 
     public BarrelEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
         modelPart = context.getPart(EntityModelLayersME.REINFORCED_BARREL);
         this.waterMaskModel = new Model.SinglePartModel(context.getPart(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK), (id) -> {
-            return RenderLayer.getWaterMask();
+            return RenderLayers.waterMask();
         });
         this.shadowRadius = 0.6F;
     }
@@ -36,7 +38,7 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
     }
 
     @Override
-    public void render(BoatEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(BoatEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
         matrices.push();
         matrices.scale(1.35f, 1.35f, 1.35f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - state.yaw));
@@ -52,8 +54,8 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         }
 
         matrices.translate(0f, -1.4f, 0f);
-        modelPart.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutout(TEXTURE)), light, OverlayTexture.DEFAULT_UV);
-        this.renderWaterMask(state, matrices, vertexConsumers, light);
+        queue.submitModelPart(modelPart, matrices, RenderLayers.entityCutout(TEXTURE), state.light, OverlayTexture.DEFAULT_UV, null, false, false, -1, null, state.outlineColor);
+        this.renderWaterMask(state, matrices, queue);
         matrices.pop();
     }
 
@@ -69,9 +71,9 @@ public class BarrelEntityRenderer extends EntityRenderer<BarrelEntity, BoatEntit
         boatEntityRenderState.rightPaddleAngle = barrelEntity.lerpPaddlePhase(1, f);
     }
 
-    protected void renderWaterMask(BoatEntityRenderState state, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    protected void renderWaterMask(BoatEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue) {
         if (!state.submergedInWater) {
-            this.waterMaskModel.render(matrices, vertexConsumers.getBuffer(this.waterMaskModel.getLayer(TEXTURE)), light, OverlayTexture.DEFAULT_UV);
+            queue.submitModel(this.waterMaskModel, Unit.INSTANCE, matrices, this.waterMaskModel.getLayer(TEXTURE), state.light, OverlayTexture.DEFAULT_UV, state.outlineColor, null);
         }
 
     }

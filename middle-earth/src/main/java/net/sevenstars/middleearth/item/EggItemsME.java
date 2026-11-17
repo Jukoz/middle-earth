@@ -24,32 +24,32 @@ public class EggItemsME {
 
 
     public static final Item BROADHOOF_GOAT_SPAWN_EGG = registerItem("broadhoof_goat_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.BROADHOOF_GOAT, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.BROADHOOF_GOAT)), new Item.Settings());
 
     public static final Item GREAT_HORN_SPAWN_EGG = registerItem("great_horn_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.GREAT_HORN, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.GREAT_HORN)), new Item.Settings());
 
     public static final Item WARG_SPAWN_EGG = registerItem("warg_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.WARG, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.WARG)), new Item.Settings());
 
     public static final Item STONE_TROLL_SPAWN_EGG = registerItem("stone_troll_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.STONE_TROLL, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.STONE_TROLL)), new Item.Settings());
 
     public static final Item SNOW_TROLL_SPAWN_EGG = registerItem("snow_troll_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.SNOW_TROLL, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.SNOW_TROLL)), new Item.Settings());
     public static final Item CAVE_TROLL_SPAWN_EGG = registerItem("cave_troll_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.CAVE_TROLL, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.CAVE_TROLL)), new Item.Settings());
 
     public static final Item SHELOBITE_LARVA_SPAWN_EGG = registerItem("shelobite_larva_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.SHELOBITE_LARVA, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.SHELOBITE_LARVA)), new Item.Settings());
     public static final Item SHELOBITE_SCUTTLER_SPAWN_EGG = registerItem("shelobite_scuttler_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.SHELOBITE_SCUTTLER, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.SHELOBITE_SCUTTLER)), new Item.Settings());
     public static final Item SHELOBITE_SPAWN_SPAWN_EGG = registerItem("spawn_of_shelob_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.SPAWN_OF_SHELOB, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.SPAWN_OF_SHELOB)), new Item.Settings());
 
     // Npcs
     public static final Item NPC_SPAWN_EGG = registerSpecialEgg("npc_spawn_egg",
-            (settings) -> new SpawnEggItem(EntitiesME.NPC, settings), new Item.Settings());
+            (settings) -> new SpawnEggItem(settings.spawnEgg(EntitiesME.NPC)), new Item.Settings());
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));

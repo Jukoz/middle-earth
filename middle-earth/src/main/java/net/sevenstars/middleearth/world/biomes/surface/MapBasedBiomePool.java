@@ -10,8 +10,10 @@ import net.minecraft.world.biome.Biome;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Converts PNG pixel color to a BiomeKey reference.
@@ -50,6 +52,10 @@ public class MapBasedBiomePool {
         if(biomeHashMap.containsKey(new Color(rgb)))
             return biomeHashMap.get(new Color(rgb));
         throw new RuntimeException("MeBiomes::No registered biome has %s for color".formatted(rgb));
+    }
+
+    public static Map<Color, MapBasedCustomBiome> getMapBiomes() {
+        return Collections.unmodifiableMap(biomeHashMap);
     }
 
     public static void loadBiomes() {
@@ -414,14 +420,21 @@ public class MapBasedBiomePool {
         deadMarshesBiomes.add(BiomeKeyRegistryME.DEAD_MARSHES);
 
         mangrovePondBiomes.add(BiomeKeyRegistryME.ETHIR_ANDUIN);
+
+        // several colours share an id; the first in biomeHashMap order wins
+        Map<Identifier, MapBasedCustomBiome> byId = new HashMap<>();
+        for (MapBasedCustomBiome biome : biomeHashMap.values()) {
+            byId.putIfAbsent(biome.getBiomeKey().getValue(), biome);
+        }
+        biomesById = byId;
     }
+
+    private static Map<Identifier, MapBasedCustomBiome> biomesById = Map.of();
+
     public static MapBasedCustomBiome getBiome(RegistryEntry<Biome> biome, int posX, int posZ) {
         MapBasedCustomBiome foundBiome = null;
         if(biome.getKey().isPresent()){
-            Identifier biomeId = biome.getKey().get().getValue();
-            foundBiome = biomeHashMap.values().stream().filter(
-                    b-> b.getBiomeKey().getValue().equals(biomeId)
-            ).findFirst().orElse(defaultBiome);
+            foundBiome = biomesById.getOrDefault(biome.getKey().get().getValue(), defaultBiome);
         }
 
         if(foundBiome != null){

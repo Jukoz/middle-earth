@@ -53,7 +53,7 @@ public class ForgeModeSwitchPacket extends ClientToServerPacket<ForgeModeSwitchP
     @Override
     public void process(ServerPacketContext context) {
         try{
-            context.player().getServer().execute(() -> {
+            context.player().getEntityWorld().getServer().execute(() -> {
                 Vec3d coordinates = new Vec3d(x, y, z);
                 ForgeBlockEntity.switchMode(coordinates, context.player());
             });

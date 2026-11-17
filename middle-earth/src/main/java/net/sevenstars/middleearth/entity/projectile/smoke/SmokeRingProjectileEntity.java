@@ -104,10 +104,10 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     }
 
     private boolean checkEntityCollision() {
-        Vec3d start = this.getPos();
-        Vec3d end = this.getPos().add(this.getVelocity());
+        Vec3d start = this.getEntityPos();
+        Vec3d end = this.getEntityPos().add(this.getVelocity());
 
-        EntityHitResult hit = ProjectileUtil.getEntityCollision(this.getWorld(),
+        EntityHitResult hit = ProjectileUtil.getEntityCollision(this.getEntityWorld(),
                 this,
                 start,
                 end,
@@ -125,7 +125,7 @@ public class SmokeRingProjectileEntity extends ProjectileEntity {
     }
 
     private boolean checkBlockCollision() {
-        return CollisionUtilsME.checkBlockFanCollision(this.getWorld(),
+        return CollisionUtilsME.checkBlockFanCollision(this.getEntityWorld(),
                 this.getBoundingBox(),
                 this.getVelocity(),
                 this,

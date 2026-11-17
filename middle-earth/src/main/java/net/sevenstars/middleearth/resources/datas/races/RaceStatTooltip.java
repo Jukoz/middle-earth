@@ -37,7 +37,7 @@ public class RaceStatTooltip {
         addAttributeListHeader();
 
         boolean hasAttribute = false;
-        var registry = entity.getWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
+        var registry = entity.getEntityWorld().getRegistryManager().getOptional(RegistryKeys.ATTRIBUTE).get();
         List<AttributePoolElement> nextBoundAttributes = race.getBaseAttributePool().getPool();
         for (AttributePoolElement currentEntityAttribute : playerAttributes){
             hasAttribute = addAttributeLine(entity, registry, currentEntityAttribute, nextBoundAttributes, detailed) || hasAttribute;

@@ -46,12 +46,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @ModifyVariable(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;resetLastAttackedTicks()V",
+    @ModifyVariable(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;beforePlayerAttack()V",
     shift = At.Shift.AFTER), ordinal = 0)
     public float attack(float damage, Entity target) {
         float newDamage = damage;
         ItemStack mainStack = getMainHandStack();
-        RegistryEntry<Enchantment> enchantmentRegistryEntry = getWorld().getRegistryManager()
+        RegistryEntry<Enchantment> enchantmentRegistryEntry = getEntityWorld().getRegistryManager()
                 .getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentsME.FIRST_STRIKE).orElseThrow();
         boolean hasEnchant = mainStack.getEnchantments().getEnchantments().contains(enchantmentRegistryEntry);
         if(hasEnchant) {
@@ -98,8 +98,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return value;
     }*/
 
-    @Inject(method = "resetLastAttackedTicks", at = @At("HEAD"))
-    public void resetLastAttackedTicks(CallbackInfo ci) {
+    @Inject(method = "resetTicksSinceLastAttack", at = @At("HEAD"))
+    public void resetTicksSinceLastAttack(CallbackInfo ci) {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 

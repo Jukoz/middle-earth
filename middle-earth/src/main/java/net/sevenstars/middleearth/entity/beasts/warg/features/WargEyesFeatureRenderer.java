@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.entity.beasts.warg.features;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.util.math.MatrixStack;
@@ -31,12 +31,12 @@ public class WargEyesFeatureRenderer extends FeatureRenderer<WargEntityRenderSta
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
-        RenderUtil.renderCutoutTexture(this.getContextModel(), matrices, vertexConsumers,
+    public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, WargEntityRenderState state, float limbAngle, float limbDistance) {
+        RenderUtil.renderCutoutTexture(this.getContextModel(), state, matrices, queue,
                 LOCATION_BY_VARIANT.get(state.eyeVariant), light, OverlayTexture.DEFAULT_UV);
 
         if(state.haveEmissiveEyes) {
-            RenderUtil.renderEmissiveTexture(this.getContextModel(), matrices, vertexConsumers,
+            RenderUtil.renderEmissiveTexture(this.getContextModel(), state, matrices, queue,
                     EMISSIVE_TEXTURE, light, OverlayTexture.DEFAULT_UV);
         }
     }

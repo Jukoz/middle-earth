@@ -42,9 +42,9 @@ public class PacketTeleportToDynamicCoordinate extends ClientToServerPacket<Pack
 
     @Override
     public void process(ServerPacketContext context) {
-        context.player().getServer().execute(() -> {
+        context.player().getEntityWorld().getServer().execute(() -> {
             Vector2d worldCoordinate = MiddleEarthMapUtils.getInstance().getWorldCoordinateFromInitialMap(xCoordinate, zCoordinate);
-            MinecraftServer server = context.player().getServer();
+            MinecraftServer server = context.player().getEntityWorld().getServer();
             Vec3d coordinates = new Vec3d(worldCoordinate.x, DimensionRegistryME.getDimensionHeight((int)worldCoordinate.x, (int)worldCoordinate.y).y, worldCoordinate.y);
             DimensionRegistryME.teleportPlayerToMe(context.player(), coordinates, true, welcomeNeeded);
         });
