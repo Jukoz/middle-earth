@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.common.registration.BlockRegistrar;
 import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.block.OxidizablePaneBlock;
 import net.minecraft.item.ItemStack;
@@ -822,18 +823,15 @@ public class BlockRegistryME {
     }
 
     static void registerBlockItem(String name, Block block, Item.Settings itemSettings) {
-        var item = Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name),
-                new BlockItem(block, itemSettings.registryKey(keyOfItem(name))));
-        Item.BLOCK_ITEMS.put(block, item);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
+        BlockRegistrar.registerBlockItem(name, block, itemSettings);
     }
 
     public static RegistryKey<Block> keyOfBlock(String id) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, id));
+        return BlockRegistrar.keyOfBlock(id);
     }
 
     public static RegistryKey<Item> keyOfItem(String id) {
-        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, id));
+        return BlockRegistrar.keyOfItem(id);
     }
 
     public static void registerModBlocks() {

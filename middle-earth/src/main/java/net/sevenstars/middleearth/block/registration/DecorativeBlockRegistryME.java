@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.registration;
 
+import net.sevenstars.middleearth.common.registration.BlockRegistrar;
 import net.minecraft.block.piston.PistonBehavior;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.*;
@@ -753,9 +754,7 @@ public class DecorativeBlockRegistryME {
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
-        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
+        return BlockRegistrar.register(name, factory, settings);
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
@@ -763,12 +762,7 @@ public class DecorativeBlockRegistryME {
     }
 
     public static Block registerBlockWithItem(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, Item.Settings itemSettings) {
-        Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));
-        BlockRegistryME.registerBlockItem(name, block, itemSettings);
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(block.asItem().getDefaultStack());
-        TranslationEntries.blockEntries.add(block);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));
-        return Registry.register(Registries.BLOCK, BlockRegistryME.keyOfBlock(name), block);
+        return BlockRegistrar.registerWithItem(name, factory, settings, itemSettings, ItemGroupsME.DECORATIVES_BLOCKS_CONTENT);
     }
 
     private static ToIntFunction<BlockState> createLightLevelFromLitBlockState(int litLevel) {

@@ -6,7 +6,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
@@ -16,7 +15,7 @@ import java.util.function.Function;
 public class ItemRegistrar {
     // A null group keeps the item out of the creative tabs.
     public static Item register(String name, Function<Item.Settings, Item> factory, Item.Settings settings, List<ItemStack> group) {
-        Item item = factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
+        Item item = factory.apply(settings.registryKey(BlockRegistrar.keyOfItem(name)));
         if (group != null) {
             group.add(item.getDefaultStack());
         }
