@@ -36,7 +36,7 @@ import net.sevenstars.middleearth.item.items.weapons.CustomLongswordWeaponItem;
 import net.sevenstars.middleearth.features.smithing.item.HotComponentProperty;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
 import net.sevenstars.middleearth.item.utils.SmithingTrimMaterialsME;
-import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
+import net.sevenstars.middleearth.features.npcs.classes.NpcRegistry;
 
 import java.util.ArrayList;
 import java.util.Iterator;

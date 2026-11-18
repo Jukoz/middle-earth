@@ -1,0 +1,397 @@
+package net.sevenstars.middleearth.features.npcs.routine;
+
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.sevenstars.middleearth.block.special.NpcDoor;
+import net.minecraft.block.BlockState;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.PoolStructurePiece;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructureStart;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockBox;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.Structure;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class RoutineSites {
+    // All limits are per world, per tick
+    private static final int SCAN_STEPS = 8;
+    private static final int ROUTINE_STARTS = 1;
+    private static final int PATH_REQUESTS = 3;
+    private static final int ENTITY_SEARCHES = 1;
+
+    private static final int WILD_CELL_SIZE = 48;
+    private static final int DESTINATION_RANGE = 320;
+    private static final int DESTINATION_MINIMUM = 40;
+    private static final int STRUCTURE_SEARCH_CHUNKS = 2;
+    private static final int DEFAULT_RING_RADIUS = 14;
+    private static final int MINIMUM_RING_RADIUS = 10;
+    private static final int MAXIMUM_RING_RADIUS = 40;
+    private static final int RING_RADIUS_PADDING = 6;
+    private static final String FACTION_TAG_PREFIX = "faction/";
+    private static final int CLEANUP_INTERVAL = 20 * 60;
+    private static final int UNUSED_LIFETIME = 20 * 60 * 10;
+
+    // Y part of the key for sites not tied to a block
+    private static final int STRUCTURE_KEY_Y = 2047;
+    private static final int WILD_KEY_Y = 2046;
+    private static final int UNDERGROUND_KEY_Y = 2045;
+    private static final int RETRY_INTERVAL = 20 * 30;
+
+    private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
+
+    private static class WorldSites {
+        final Long2ObjectOpenHashMap<RoutineSite> sites = new Long2ObjectOpenHashMap<>();
+        final ArrayDeque<RoutineSite> scanning = new ArrayDeque<>();
+        long budgetTick = -1;
+        int starts;
+        int paths;
+        int entitySearches;
+
+        // Blocks off_limits markers face, plus the one above for a door's top half
+        private final LongOpenHashSet noEntry = new LongOpenHashSet();
+
+        // A multi-block gate is identified by the block that stays put, known once loaded
+        private void listNoEntry(ServerWorld world) {
+            noEntry.clear();
+            for(RoutineSite site : sites.values())
+                listNoEntry(world, site);
+        }
+
+        private void listNoEntry(ServerWorld world, RoutineSite site) {
+            for(StructureFeatureData.Marker marker : site.getMarkers(MarkerKind.OFF_LIMITS)) {
+                BlockPos faced = marker.pos().offset(marker.facing());
+                noEntry.add(faced.asLong());
+                noEntry.add(faced.up().asLong());
+                if(!world.isChunkLoaded(faced.getX() >> 4, faced.getZ() >> 4))
+                    continue;
+                BlockState state = world.getBlockState(faced);
+                if(state.getBlock() instanceof NpcDoor door)
+                    noEntry.add(door.getAnchor(faced, state).asLong());
+            }
+        }
+
+        void refresh(long time) {
+            if(budgetTick == time)
+                return;
+            budgetTick = time;
+            starts = ROUTINE_STARTS;
+            paths = PATH_REQUESTS;
+            entitySearches = ENTITY_SEARCHES;
+        }
+    }
+
+    public static void register() {
+        ServerTickEvents.END_WORLD_TICK.register(RoutineSites::tick);
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> WORLDS.clear());
+        LootTableEvents.MODIFY_DROPS.register((entry, context, drops) -> {
+            if(context.get(LootContextParameters.ATTACKING_ENTITY) instanceof NpcEntity npc
+                    && npc.getHuntTarget() != null && npc.getHuntTarget() == context.get(LootContextParameters.THIS_ENTITY))
+                drops.clear();
+        });
+    }
+
+    private static void tick(ServerWorld world) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        if(sites == null)
+            return;
+
+        for(int step = 0; step < SCAN_STEPS && !sites.scanning.isEmpty(); step++) {
+            if(sites.scanning.peek().scanStep(world))
+                sites.scanning.poll();
+        }
+
+        long time = world.getTime();
+        if(time % CLEANUP_INTERVAL == 0)
+            sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().getLastUsed() > UNUSED_LIFETIME);
+        if(time % RETRY_INTERVAL == 0) {
+            // A structure's site is also stored under each of its managers' keys
+            for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {
+                if(site.hasMissed())
+                    site.retryMissed(world);
+            }
+            sites.listNoEntry(world);
+        }
+    }
+
+    public static void forget(ServerWorld world) {
+        WORLDS.remove(world.getRegistryKey());
+    }
+
+    // Known once its place is scanned, which managers do on load
+    public static boolean isNoEntry(World world, BlockPos pos) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        return sites != null && !sites.noEntry.isEmpty() && sites.noEntry.contains(pos.asLong());
+    }
+
+    public static boolean takeStart(ServerWorld world) {
+        WorldSites sites = of(world);
+        if(sites.starts <= 0)
+            return false;
+        sites.starts--;
+        return true;
+    }
+
+    public static boolean takePath(ServerWorld world) {
+        WorldSites sites = of(world);
+        if(sites.paths <= 0)
+            return false;
+        sites.paths--;
+        return true;
+    }
+
+    public static boolean takeEntitySearch(ServerWorld world) {
+        WorldSites sites = of(world);
+        if(sites.entitySearches <= 0)
+            return false;
+        sites.entitySearches--;
+        return true;
+    }
+
+    private static WorldSites of(ServerWorld world) {
+        WorldSites sites = WORLDS.computeIfAbsent(world.getRegistryKey(), key -> new WorldSites());
+        sites.refresh(world.getTime());
+        return sites;
+    }
+
+    // Only sites used in the last 10 minutes are known, we can't search the map
+    public static @Nullable BlockPos findDestination(ServerWorld world, NpcEntity leader) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        Identifier own = leader.getFactionIdentifier();
+        if(sites == null || own == null)
+            return null;
+        boolean raiding = leader.isEvil() && world.isNight();
+        RoutineSite best = null;
+        double bestDistance = DESTINATION_RANGE * DESTINATION_RANGE;
+        for(RoutineSite site : sites.sites.values()) {
+            Identifier faction = site.getFaction();
+            if(faction == null)
+                continue;
+            boolean wanted = raiding ? leader.isHostileToFaction(faction) : faction.equals(own);
+            double distance = leader.squaredDistanceTo(site.getCenterX(), leader.getY(), site.getCenterZ());
+            // Skip places in unticked chunks; the party could never reach them and would freeze at the edge
+            if(wanted && distance > DESTINATION_MINIMUM * DESTINATION_MINIMUM && distance < bestDistance
+                    && world.shouldTickEntityAt(new BlockPos(site.getCenterX(), site.getSurfaceY(), site.getCenterZ()))) {
+                best = site;
+                bestDistance = distance;
+            }
+        }
+        return best == null ? null : new BlockPos(best.getCenterX(), best.getSurfaceY(), best.getCenterZ());
+    }
+
+    // Only sites used in the last 10 minutes are known
+    public static List<RoutineSite> near(ServerWorld world, BlockPos pos, int range) {
+        WorldSites sites = WORLDS.get(world.getRegistryKey());
+        List<RoutineSite> found = new ArrayList<>();
+        if(sites == null)
+            return found;
+        for(RoutineSite site : sites.sites.values()) {
+            int reach = range + site.getExtent();
+            long distanceX = site.getCenterX() - pos.getX();
+            long distanceZ = site.getCenterZ() - pos.getZ();
+            if(!site.getBeds().isEmpty() && distanceX * distanceX + distanceZ * distanceZ <= (long) reach * reach && !found.contains(site))
+                found.add(site);
+        }
+        return found;
+    }
+
+    // Null while the manager's chunk, or its structure's centre chunk, isn't loaded
+    public static @Nullable RoutineSite forManager(ServerWorld world, BlockPos managerPos) {
+        if(!world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
+            return null;
+        WorldSites sites = of(world);
+        long key = managerPos.asLong();
+        RoutineSite site = sites.sites.get(key);
+        if(site == null) {
+            StructureStart start = world.getStructureAccessor().getStructureContaining(managerPos, entry -> true);
+            if(start != null && start.hasChildren())
+                site = forStructure(world, sites, start);
+            else
+                site = create(world, sites, managerPos.getX(), managerPos.getZ(), RoutineSite.isEnclosed(world, managerPos.getX(), managerPos.getZ(), managerPos.getY()), DEFAULT_RING_RADIUS, 0, null);
+            if(site == null)
+                return null;
+            sites.sites.put(key, site);
+        }
+        site.touch(world.getTime());
+        return site;
+    }
+
+    public static @Nullable RoutineSite forWild(ServerWorld world, BlockPos home, @Nullable Identifier factionId) {
+        if(!world.isChunkLoaded(home.getX() >> 4, home.getZ() >> 4))
+            return null;
+        WorldSites sites = of(world);
+
+        StructureStart start = factionId == null ? null : findFactionStructure(world, home, factionId);
+        if(start != null) {
+            RoutineSite site = forStructure(world, sites, start);
+            if(site != null)
+                site.touch(world.getTime());
+            return site;
+        }
+
+        int cellX = Math.floorDiv(home.getX(), WILD_CELL_SIZE);
+        int cellZ = Math.floorDiv(home.getZ(), WILD_CELL_SIZE);
+        int centerX = cellX * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
+        int centerZ = cellZ * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
+        if(!world.isChunkLoaded(centerX >> 4, centerZ >> 4))
+            return null;
+        boolean underground = RoutineSite.isEnclosed(world, centerX, centerZ, home.getY());
+        long wildKey = BlockPos.asLong(cellX, underground ? UNDERGROUND_KEY_Y : WILD_KEY_Y, cellZ);
+        RoutineSite site = sites.sites.get(wildKey);
+        if(site != null) {
+            site.touch(world.getTime());
+            return site;
+        }
+
+        site = create(world, sites, centerX, centerZ, underground, 0, 0, null);
+        sites.sites.put(wildKey, site);
+        site.touch(world.getTime());
+        return site;
+    }
+
+    private static @Nullable RoutineSite forStructure(ServerWorld world, WorldSites sites, StructureStart start) {
+        BlockBox box = start.getBoundingBox();
+        BlockPos center = box.getCenter();
+        long key = BlockPos.asLong(center.getX(), STRUCTURE_KEY_Y, center.getZ());
+        RoutineSite site = sites.sites.get(key);
+        if(site != null)
+            return site;
+
+        if(!world.isChunkLoaded(center.getX() >> 4, center.getZ() >> 4))
+            return null;
+
+        List<BlockBox> pieces = new ArrayList<>();
+        for(StructurePiece piece : start.getChildren())
+            pieces.add(piece.getBoundingBox());
+        int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
+        int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
+        site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, extent, pieces);
+        placesOf(world, sites, start, site);
+        site.setOwners(world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure()).streamTags()
+                .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
+                .map(tag -> tag.id().getPath().substring(FACTION_TAG_PREFIX.length())).collect(Collectors.toSet()));
+        sites.sites.put(key, site);
+        return site;
+    }
+
+    private static void placesOf(ServerWorld world, WorldSites sites, StructureStart start, RoutineSite site) {
+        List<List<BlockPos>> tables = new ArrayList<>();
+        List<StructureFeatureData.Station> stations = new ArrayList<>();
+        List<StructureFeatureData.Bed> beds = new ArrayList<>();
+        List<BlockPos> households = new ArrayList<>();
+        List<BlockPos> stores = new ArrayList<>();
+        List<BlockPos> seats = new ArrayList<>();
+        List<BlockPos> doors = new ArrayList<>();
+        List<StructureFeatureData.Marker> markers = new ArrayList<>();
+        Optional<Registry<StructureFeatureData>> registry = world.getRegistryManager().getOptional(DynamicRegistriesME.STRUCTURE_FEATURES);
+        if(registry.isEmpty())
+            return;
+        for(StructurePiece piece : start.getChildren()) {
+            if(!(piece instanceof PoolStructurePiece placed))
+                continue;
+            StructureFeatureData data = NestSurvey.dataOf(world, registry.get(), placed);
+            if(data == null)
+                continue;
+            for(List<BlockPos> table : data.tables()) {
+                List<BlockPos> places = new ArrayList<>();
+                for(BlockPos seat : table)
+                    places.add(NestSurvey.placedAt(placed, seat));
+                tables.add(places);
+            }
+            for(StructureFeatureData.Bed bed : data.beds()) {
+                BlockPos at = NestSurvey.placedAt(placed, bed.pos());
+                beds.add(new StructureFeatureData.Bed(at, bed.tag(), bed.store().map(store -> NestSurvey.placedAt(placed, store)),
+                        bed.links().stream().map(link -> NestSurvey.placedAt(placed, link)).toList(), bed.manual(),
+                        bed.manager().map(manager -> NestSurvey.placedAt(placed, manager))));
+                if(bed.tag().isPresent())
+                    households.add(at);
+                bed.store().ifPresent(store -> stores.add(NestSurvey.placedAt(placed, store)));
+            }
+            for(StructureFeatureData.Station station : data.stations())
+                stations.add(new StructureFeatureData.Station(station.kind(), NestSurvey.placedAt(placed, station.pos())));
+            for(BlockPos seat : data.seats())
+                seats.add(NestSurvey.placedAt(placed, seat));
+            for(BlockPos door : data.doors())
+                doors.add(NestSurvey.placedAt(placed, door));
+            for(StructureFeatureData.Marker marker : data.markers())
+                markers.add(new StructureFeatureData.Marker(marker.kind(), NestSurvey.placedAt(placed, marker.pos()), placed.getRotation().rotate(marker.facing()),
+                        marker.value(), marker.count(), marker.respawns()));
+        }
+        site.setTables(tables);
+        site.setStations(stations);
+        site.setBeds(beds);
+        site.setHouseholds(households);
+        site.setStores(stores.stream().distinct().toList());
+        site.setSeats(seats);
+        site.setDoors(doors);
+        site.setMarkers(markers);
+        sites.listNoEntry(world, site);
+    }
+
+    private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
+        RoutineSite site = new RoutineSite(world, centerX, centerZ, enclosed, ringRadius, extent, pieces);
+        if(!site.isReady())
+            sites.scanning.add(site);
+        return site;
+    }
+
+    private static @Nullable StructureStart findFactionStructure(ServerWorld world, BlockPos pos, Identifier factionId) {
+        Registry<Structure> structures = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE);
+        TagKey<Structure> tag = factionTag(factionId.getPath());
+        String parent = parentFaction(factionId.getPath());
+        TagKey<Structure> parentTag = parent == null ? null : factionTag(parent);
+
+        // A chunk only knows structures reaching into it, so check the surrounding chunks too
+        ChunkPos center = new ChunkPos(pos);
+        for(int x = -STRUCTURE_SEARCH_CHUNKS; x <= STRUCTURE_SEARCH_CHUNKS; x++) {
+            for(int z = -STRUCTURE_SEARCH_CHUNKS; z <= STRUCTURE_SEARCH_CHUNKS; z++) {
+                if(!world.isChunkLoaded(center.x + x, center.z + z))
+                    continue;
+                List<StructureStart> starts = world.getStructureAccessor().getStructureStarts(new ChunkPos(center.x + x, center.z + z), structure -> {
+                    var entry = structures.getEntry(structure);
+                    return entry.isIn(tag) || (parentTag != null && entry.isIn(parentTag));
+                });
+                if(!starts.isEmpty())
+                    return starts.getFirst();
+            }
+        }
+        return null;
+    }
+
+    // longbeards.erebor also counts as longbeards. Null if there's no parent
+    static @Nullable String parentFaction(String path) {
+        int split = path.indexOf('.');
+        return split < 0 ? null : path.substring(0, split);
+    }
+
+    private static TagKey<Structure> factionTag(String faction) {
+        return TagKey.of(RegistryKeys.STRUCTURE, Identifier.of(MiddleEarth.MOD_ID, FACTION_TAG_PREFIX + faction));
+    }
+}

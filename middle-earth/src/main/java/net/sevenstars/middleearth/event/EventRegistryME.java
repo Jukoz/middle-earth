@@ -39,7 +39,7 @@ import java.util.Objects;
 import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 
 public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";

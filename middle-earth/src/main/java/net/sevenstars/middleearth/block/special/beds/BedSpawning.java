@@ -11,8 +11,8 @@ import net.sevenstars.middleearth.block.special.structureManager.GeneratedStruct
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 

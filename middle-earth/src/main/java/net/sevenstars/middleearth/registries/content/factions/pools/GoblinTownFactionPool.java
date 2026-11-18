@@ -4,7 +4,7 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcclasses.pools.GoblinTownNpcClassPool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.GoblinTownNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;

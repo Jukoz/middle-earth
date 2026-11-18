@@ -2,9 +2,9 @@ package net.sevenstars.middleearth.dev;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.ai.NpcBrain;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 // Dev tooling for npc routines. Off unless the game starts with -Dme.npcDebug=true
 public class NpcDebug {

@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 
 import java.util.List;
 import java.util.Optional;

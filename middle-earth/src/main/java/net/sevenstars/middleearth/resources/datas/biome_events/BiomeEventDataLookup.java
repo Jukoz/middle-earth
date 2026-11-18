@@ -14,7 +14,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.config.ServerConfigME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegistry;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;

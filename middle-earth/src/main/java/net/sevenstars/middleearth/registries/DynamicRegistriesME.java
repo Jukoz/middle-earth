@@ -19,13 +19,13 @@ import net.sevenstars.middleearth.registries.content.biomevents.BiomeEventRegist
 import net.sevenstars.middleearth.registries.content.greathornvariants.GreatHornVariantRegistry;
 import net.sevenstars.middleearth.registries.content.texturepresets.TexturePresetsRegistry;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npcclasses.NpcRegistry;
+import net.sevenstars.middleearth.features.npcs.classes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.texture_presets.CharacterTextureMaterial;
@@ -35,8 +35,8 @@ import net.sevenstars.middleearth.registries.content.structurefeatures.Structure
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.registries.content.forage.ForageTables;
 import net.sevenstars.middleearth.resources.datas.forage.ForageTable;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 
 public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<Race>> RACE = RegistryKey.ofRegistry(MiddleEarth.id("race"));

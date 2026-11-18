@@ -14,13 +14,13 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnEventDataUtil;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnCensus;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import org.jetbrains.annotations.Nullable;
 

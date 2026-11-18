@@ -7,7 +7,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.Optional;
 import java.util.Random;

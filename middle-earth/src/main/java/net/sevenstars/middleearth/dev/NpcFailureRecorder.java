@@ -23,7 +23,7 @@ import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;

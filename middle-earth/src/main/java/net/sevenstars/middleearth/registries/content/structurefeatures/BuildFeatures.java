@@ -22,7 +22,7 @@ import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.block.special.StoneTableBlock;
 import net.sevenstars.middleearth.block.special.ThickLadderBlock;
 import net.sevenstars.middleearth.block.special.WoodTableBlock;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
+import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

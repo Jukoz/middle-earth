@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npcclasses.pools.DalishNpcClassPool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.DalishNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;

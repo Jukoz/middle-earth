@@ -18,7 +18,7 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureEditin
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreenData;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 
 import java.util.Optional;

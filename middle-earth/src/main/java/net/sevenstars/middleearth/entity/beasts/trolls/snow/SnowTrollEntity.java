@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.goals.ChargeAttackGoal;
 import net.sevenstars.middleearth.entity.goals.TargetPlayerGoal;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 
 public class SnowTrollEntity extends TrollEntity {
     public SnowTrollEntity(EntityType<? extends SnowTrollEntity> entityType, World world) {

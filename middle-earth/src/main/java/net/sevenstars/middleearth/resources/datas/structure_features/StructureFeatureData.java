@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
+import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
 
 import java.util.List;
 import java.util.Optional;

@@ -54,7 +54,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.StructureLiquidSettings;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry;

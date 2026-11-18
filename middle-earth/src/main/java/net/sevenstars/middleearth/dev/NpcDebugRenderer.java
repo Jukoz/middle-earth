@@ -12,9 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.client.renderer.DebugDraw;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine;
+import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 
 import java.util.List;
 

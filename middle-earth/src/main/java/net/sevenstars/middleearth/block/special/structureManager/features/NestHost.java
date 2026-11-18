@@ -7,8 +7,8 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
 

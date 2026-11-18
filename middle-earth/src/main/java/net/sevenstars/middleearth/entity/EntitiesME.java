@@ -21,7 +21,7 @@ import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollE
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.warg.WargEntity;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntity;
 import net.sevenstars.middleearth.entity.projectile.pebble.PebbleEntity;

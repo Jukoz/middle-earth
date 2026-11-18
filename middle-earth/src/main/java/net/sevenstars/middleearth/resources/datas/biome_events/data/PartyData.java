@@ -6,8 +6,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.ArrayList;
 import java.util.List;

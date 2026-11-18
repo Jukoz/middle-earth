@@ -32,9 +32,9 @@ import net.sevenstars.middleearth.block.special.structureManager.marker.Structur
 import net.sevenstars.middleearth.commands.custom.PieceProjections;
 import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 import net.sevenstars.middleearth.item.items.BuildersToolItem;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
+import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
 

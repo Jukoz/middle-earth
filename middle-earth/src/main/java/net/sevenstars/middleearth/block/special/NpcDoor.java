@@ -8,8 +8,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import org.jetbrains.annotations.Nullable;
 
 // Npcs open every door except ones a builder marked off limits

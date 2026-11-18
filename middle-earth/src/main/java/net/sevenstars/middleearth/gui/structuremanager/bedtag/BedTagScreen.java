@@ -24,9 +24,9 @@ import net.sevenstars.middleearth.block.special.beds.BedOccupant;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget;
 import net.sevenstars.middleearth.gui.structuremanager.ChoiceListWidget.Choice;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
-import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
-import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
-import net.sevenstars.middleearth.resources.datas.npc_classes.data.StationKind;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 

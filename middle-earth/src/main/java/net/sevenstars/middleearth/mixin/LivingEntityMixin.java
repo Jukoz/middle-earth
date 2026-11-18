@@ -24,7 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.utils.TwoHandedItems;
 import net.sevenstars.middleearth.network.packets.server2client.PacketLivingEntityData;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
