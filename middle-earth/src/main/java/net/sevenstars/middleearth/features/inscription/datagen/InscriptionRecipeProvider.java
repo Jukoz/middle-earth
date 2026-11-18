@@ -793,6 +793,38 @@ public class InscriptionRecipeProvider extends RecipeProvider {
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_silk_touch")));
                 //endregion
 
+                //region LUNGE
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.LUNGE), 1, 5)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("swift")
+                        .addWord("piercer")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lunge_1")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.LUNGE), 2, 7)
+                        .chisel(ItemTagsME.MID_CHISELS)
+                        .addWord("swift")
+                        .addWord("piercer")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lunge_2")));
+
+                InscriptionRecipeJsonBuilder.createInscriptionRecipe(itemLookup, RecipeCategory.MISC,
+                                getEnchantment(Enchantments.LUNGE), 3, 9)
+                        .chisel(ItemTagsME.LATE_CHISELS)
+                        .addWord("swift")
+                        .addWord("piercer")
+                        .addWord("traveller")
+                        .criterion(hasItem(ResourceItemsME.ADAMANT),
+                                conditionsFromItem(ResourceItemsME.ADAMANT))
+                        .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "inscription_lunge_3")));
+                //endregion
+
 
 
                 //region AILMENT PROTECTION

@@ -7,7 +7,7 @@ import net.minecraft.client.model.ModelPartData;
 import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
 
-// Each coffer's lid part must be named "lid" for CofferModel to open it.
+// CofferModel opens the part named "lid"
 public class CofferModels {
     public static TexturedModelData larch() {
         ModelData modelData = new ModelData();

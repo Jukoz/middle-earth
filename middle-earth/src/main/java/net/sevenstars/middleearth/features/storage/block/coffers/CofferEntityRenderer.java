@@ -21,7 +21,7 @@ public class CofferEntityRenderer<T extends ChestBlockEntity> extends ChestBlock
     private final SpriteHolder spriteHolder;
     private final CofferModel model;
     private final SpriteIdentifier sprite;
-    // The spruce coffer is modelled side-on, so its lid rolls open and it is turned a quarter.
+    // Spruce's model is side-on, so its lid rolls and it's turned 90 degrees
     private final boolean sideways;
 
     public CofferEntityRenderer(BlockEntityRendererFactory.Context ctx, EntityModelLayer layer, String texture, boolean sideways) {

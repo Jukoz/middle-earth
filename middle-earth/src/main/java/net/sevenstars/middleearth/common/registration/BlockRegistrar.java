@@ -26,7 +26,6 @@ public class BlockRegistrar {
         return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, id));
     }
 
-    // A block with no item of its own. Its item, if any, is registered separately.
     public static Block register(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings.registryKey(keyOfBlock(name)));
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.BLOCK, name));

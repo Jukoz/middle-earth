@@ -65,8 +65,7 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
-		// Creative tab order follows the order these classes load in, so these four load first, in this order.
-		// Items registered by a feature class come after everything else in their tab.
+		// Load order is creative tab order, so these four go first, in this order
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
 		StoneBlockSetRegistryME.registerModBlockSets();

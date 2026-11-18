@@ -27,7 +27,7 @@ public class ItemRegistrar {
         return register(name, factory, settings, group);
     }
 
-    // A null group keeps the item out of the creative tabs.
+    // null group: not shown in any creative tab
     public static Item register(String name, Function<Item.Settings, Item> factory, Item.Settings settings, List<ItemStack> group) {
         Item item = factory.apply(settings.registryKey(BlockRegistrar.keyOfItem(name)));
         if (group != null) {

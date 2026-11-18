@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.common.feature;
 
-// Kept apart from Feature so a dedicated server never loads client classes.
+// Separate from Feature so servers never load client code
 public interface ClientFeature {
     void registerClient();
 }

@@ -11,7 +11,7 @@ import net.sevenstars.middleearth.features.farming.Farming;
 import java.util.List;
 
 public class Features {
-    // Order matters: a feature's items follow the previous feature's in the creative tabs.
+    // This order is the creative tab order
     public static final List<Feature> ALL = List.of(
             new Smithing(),
             new Cooking(),
