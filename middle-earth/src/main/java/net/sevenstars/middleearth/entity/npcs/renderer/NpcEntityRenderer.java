@@ -55,20 +55,19 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
     public final static int BLINKING_INTERVAL = 80;
     public final static int BLINKING_DURATION = 3;
 
-    // One bubble for each thing an npc can say, side by side in the order of NpcEntity.Talk
+    // In NpcEntity.Talk order
     private static final Identifier SPEECH_BUBBLES = Identifier.of(MiddleEarth.MOD_ID, "textures/entity/npc/speech_bubbles.png");
     private static final int BUBBLES = 4;
     // In blocks
     private static final float BUBBLE_SIZE = 0.6f;
     private static final float BUBBLE_GAP = 0.2f;
-    // A name label is drawn half a block over the head
     private static final float LABEL_ROOM = 0.6f;
     private static final float SEATED_DROP = 0.5f;
     private static final float BUBBLE_DISTANCE = 32f;
-    // In ticks, for a bubble to grow to its size and a gesture to reach its pose
+    // In ticks
     private static final float BUBBLE_POP = 3f;
     public static final float GESTURE_EASE = 4f;
-    // Laughter's shake, in radians of phase per tick, for the head and the arms alike
+    // Radians of phase per tick
     public static final float LAUGH_SHAKE_SPEED = 1.3f;
 
 
@@ -171,8 +170,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         nodHead(npcEntityRenderState);
     }
 
-    // The head's part in a gesture, in degrees. It's put in the state and not in the model because the hair, ears and
-    // nose are models of their own that each turn by the state's pitch
+    // In degrees. In the state, not the model, as hair, ears and nose turn by its pitch
     private static void nodHead(NpcEntityRenderState state) {
         float time = state.talkAge;
         float ease = Math.min(1f, time / GESTURE_EASE);
@@ -268,7 +266,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
             renderBubble(state, matrices, queue, cameraState);
     }
 
-    // Faces the camera as a name label does, and is lit fully so it reads at night
+    // Fully lit so it reads at night
     private void renderBubble(NpcEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
         float size = BUBBLE_SIZE * Math.min(1f, state.talkAge / BUBBLE_POP);
         float half = size / 2f;

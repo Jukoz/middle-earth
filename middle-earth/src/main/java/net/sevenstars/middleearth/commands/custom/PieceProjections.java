@@ -22,8 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-// Each pool that offers a piece decides how it is placed on the ground: as it was built, or with every column of it
-// projected onto the ground below. The same template can use one in one pool and the other in the next
+// Each pool offering a piece decides how it meets the ground, so one template can differ per pool
 public class PieceProjections {
     private static final String ELEMENTS = "elements";
     private static final String ELEMENT = "element";
@@ -44,7 +43,7 @@ public class PieceProjections {
         return projections;
     }
 
-    // Changes the pools the game has loaded, for what is generated from now on. Returns the names of the pools that were changed
+    // Loaded pools, for what generates from now on. Returns the ones changed
     public static List<Identifier> set(Registry<StructurePool> pools, Identifier template, StructurePool.Projection projection, @Nullable Identifier only) {
         List<Identifier> changed = new ArrayList<>();
         for(Identifier id : pools.getIds()) {
@@ -65,7 +64,7 @@ public class PieceProjections {
         return changed;
     }
 
-    // Changes the pool files in the mod's own sources, for every world opened after. Returns the files that were written
+    // The mod's own sources, for worlds opened after. Returns the files written
     public static List<Path> write(Path resources, Identifier template, StructurePool.Projection projection, @Nullable Identifier only) throws IOException {
         Path data = resources.resolve("data");
         List<Path> written = new ArrayList<>();
@@ -104,7 +103,6 @@ public class PieceProjections {
         return written;
     }
 
-    // A list element has a projection of its own, and each element inside it has one too
     private static boolean set(JsonObject element, String template, String projection) {
         boolean any = false;
         if(element.has(ELEMENTS) && element.get(ELEMENTS).isJsonArray()) {

@@ -10,15 +10,12 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 
 public class StructureEditing {
-    // In blocks, from the builder to the marker, bed, plug or section block being edited
+    // In blocks
     public static final int REACH = 8;
-    // In blocks along one side of a single saved template. The structure block's own screen clamps a box to 48 when Done
-    // is pressed, so a bigger box can only be set with the tool or the command
+    // Per side, in blocks. The structure block screen clamps to 48, so more needs the tool or command
     public static final int MAXIMUM_SIZE = 128;
-    // Set by the client. Opens the screen of the section whose structure block was clicked with the tool
     public static Consumer<BlockPos> sectionScreen = pos -> {};
 
-    // Logs what builders do to a build, to follow the work and to explain why a click did nothing
     public static void log(String what) {
         MiddleEarth.LOGGER.logInfoMsg("StructEdit :: " + what);
     }
@@ -27,8 +24,7 @@ public class StructureEditing {
         return player.isCreative();
     }
 
-    // Builders who can pass through blocks, to go over a build from inside its walls. Kept here for the client and the
-    // server it runs alike. A client that joins a separate server isn't told about it, and the server pulls it back
+    // Shared by client and server; a client on a separate server isn't told, and gets pulled back
     private static final Set<UUID> NO_CLIP = ConcurrentHashMap.newKeySet();
 
     public static boolean isNoClip(PlayerEntity player) {
@@ -50,7 +46,7 @@ public class StructureEditing {
         return isBuildMode(player) && CommandManager.GAMEMASTERS_CHECK.allows(player.getPermissions());
     }
 
-    // Checked again when the request arrives, because a screen can be faked and the block may be far away by then
+    // Checked again on arrival: a screen can be faked and the block may be far away
     public static boolean mayEdit(PlayerEntity player, BlockPos pos) {
         boolean allowed = isBuilder(player) && isWithinReach(player, pos);
         if(!allowed)

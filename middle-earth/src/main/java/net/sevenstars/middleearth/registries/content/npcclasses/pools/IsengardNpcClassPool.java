@@ -103,7 +103,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(EquipmentItemsME.ORCISH_BRACED_SANDALS).withColors(allColors))
                         )
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
-                                .add(WeightedItemData.create(WeaponItemsME.WOODEN_SPEAR).withWeight(6))
+                                .add(WeightedItemData.create(Items.WOODEN_SPEAR).withWeight(6))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_SPEAR).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.CRUDE_DAGGER).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORC_KNIFE).withWeight(2))

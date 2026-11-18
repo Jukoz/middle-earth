@@ -40,7 +40,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// Keeps the sites of each world and limits how much routine work can happen per tick
 public class RoutineSites {
     // All limits are per world, per tick
     private static final int SCAN_STEPS = 8;
@@ -60,11 +59,10 @@ public class RoutineSites {
     private static final int CLEANUP_INTERVAL = 20 * 60;
     private static final int UNUSED_LIFETIME = 20 * 60 * 10;
 
-    // Used as the y part of the key for sites that aren't tied to a block
+    // Y part of the key for sites not tied to a block
     private static final int STRUCTURE_KEY_Y = 2047;
     private static final int WILD_KEY_Y = 2046;
     private static final int UNDERGROUND_KEY_Y = 2045;
-    // Ticks between rechecks of the parts of a place that weren't loaded when it was first scanned
     private static final int RETRY_INTERVAL = 20 * 30;
 
     private static final Map<RegistryKey<World>, WorldSites> WORLDS = new HashMap<>();
@@ -77,11 +75,10 @@ public class RoutineSites {
         int paths;
         int entitySearches;
 
-        // The blocks off_limits markers face, plus the block above each one for the upper half of a door
+        // Blocks off_limits markers face, plus the one above for a door's top half
         private final LongOpenHashSet noEntry = new LongOpenHashSet();
 
-        // Rebuilt every so often. A multi-block gate is identified by the one block that stays in place, and that block
-        // is only known once the gate is loaded
+        // A multi-block gate is identified by the block that stays put, known once loaded
         private void listNoEntry(ServerWorld world) {
             noEntry.clear();
             for(RoutineSite site : sites.values())
@@ -114,7 +111,6 @@ public class RoutineSites {
     public static void register() {
         ServerTickEvents.END_WORLD_TICK.register(RoutineSites::tick);
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> WORLDS.clear());
-        // The hunter keeps the game instead of leaving it on the ground
         LootTableEvents.MODIFY_DROPS.register((entry, context, drops) -> {
             if(context.get(LootContextParameters.ATTACKING_ENTITY) instanceof NpcEntity npc
                     && npc.getHuntTarget() != null && npc.getHuntTarget() == context.get(LootContextParameters.THIS_ENTITY))
@@ -136,7 +132,7 @@ public class RoutineSites {
         if(time % CLEANUP_INTERVAL == 0)
             sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().getLastUsed() > UNUSED_LIFETIME);
         if(time % RETRY_INTERVAL == 0) {
-            // A structure's site is stored under the key of each of its managers as well as its own key
+            // A structure's site is also stored under each of its managers' keys
             for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {
                 if(site.hasMissed())
                     site.retryMissed(world);
@@ -145,13 +141,11 @@ public class RoutineSites {
         }
     }
 
-    // Drops everything computed for a world, so it gets recomputed after a structure is added or removed
     public static void forget(ServerWorld world) {
         WORLDS.remove(world.getRegistryKey());
     }
 
-    // A door, gate or hatch a builder marked for npcs to leave shut. It's known once the place it's in has been
-    // scanned, which its managers do as soon as they're loaded
+    // Known once its place is scanned, which managers do on load
     public static boolean isNoEntry(World world, BlockPos pos) {
         WorldSites sites = WORLDS.get(world.getRegistryKey());
         return sites != null && !sites.noEntry.isEmpty() && sites.noEntry.contains(pos.asLong());
@@ -173,7 +167,6 @@ public class RoutineSites {
         return true;
     }
 
-    // One budget shared by the searches for prey, for company at a table and for someone to escort
     public static boolean takeEntitySearch(ServerWorld world) {
         WorldSites sites = of(world);
         if(sites.entitySearches <= 0)
@@ -188,9 +181,7 @@ public class RoutineSites {
         return sites;
     }
 
-    // Where a travelling party heads: a settlement of its own people, or at night, for an evil leader, one to raid.
-    // Only sites that npcs or beds have used in the last 10 minutes are known, because finding others would mean
-    // searching the map
+    // Only sites used in the last 10 minutes are known, we can't search the map
     public static @Nullable BlockPos findDestination(ServerWorld world, NpcEntity leader) {
         WorldSites sites = WORLDS.get(world.getRegistryKey());
         Identifier own = leader.getFactionIdentifier();
@@ -205,7 +196,7 @@ public class RoutineSites {
                 continue;
             boolean wanted = raiding ? leader.isHostileToFaction(faction) : faction.equals(own);
             double distance = leader.squaredDistanceTo(site.getCenterX(), leader.getY(), site.getCenterZ());
-            // Skip places in unticked chunks. The party could never reach them and would freeze at the edge
+            // Skip places in unticked chunks; the party could never reach them and would freeze at the edge
             if(wanted && distance > DESTINATION_MINIMUM * DESTINATION_MINIMUM && distance < bestDistance
                     && world.shouldTickEntityAt(new BlockPos(site.getCenterX(), site.getSurfaceY(), site.getCenterZ()))) {
                 best = site;
@@ -215,8 +206,7 @@ public class RoutineSites {
         return best == null ? null : new BlockPos(best.getCenterX(), best.getSurfaceY(), best.getCenterZ());
     }
 
-    // The known sites that have beds around a position. The caller looks for a free bed in them. Only sites that npcs
-    // or beds have used in the last 10 minutes are known
+    // Only sites used in the last 10 minutes are known
     public static List<RoutineSite> near(ServerWorld world, BlockPos pos, int range) {
         WorldSites sites = WORLDS.get(world.getRegistryKey());
         List<RoutineSite> found = new ArrayList<>();
@@ -232,7 +222,7 @@ public class RoutineSites {
         return found;
     }
 
-    // Null while the manager's chunk, or the chunk at the centre of its structure, isn't loaded
+    // Null while the manager's chunk, or its structure's centre chunk, isn't loaded
     public static @Nullable RoutineSite forManager(ServerWorld world, BlockPos managerPos) {
         if(!world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4))
             return null;
@@ -253,7 +243,6 @@ public class RoutineSites {
         return site;
     }
 
-    // Wild npcs use a nearby structure of their faction, or else share a site with the other npcs in the same wild cell
     public static @Nullable RoutineSite forWild(ServerWorld world, BlockPos home, @Nullable Identifier factionId) {
         if(!world.isChunkLoaded(home.getX() >> 4, home.getZ() >> 4))
             return null;
@@ -273,7 +262,6 @@ public class RoutineSites {
         int centerZ = cellZ * WILD_CELL_SIZE + WILD_CELL_SIZE / 2;
         if(!world.isChunkLoaded(centerX >> 4, centerZ >> 4))
             return null;
-        // Npcs living in a cave don't share a site with the surface
         boolean underground = RoutineSite.isEnclosed(world, centerX, centerZ, home.getY());
         long wildKey = BlockPos.asLong(cellX, underground ? UNDERGROUND_KEY_Y : WILD_KEY_Y, cellZ);
         RoutineSite site = sites.sites.get(wildKey);
@@ -313,7 +301,6 @@ public class RoutineSites {
         return site;
     }
 
-    // Collects the generated data for the pieces this settlement is made of
     private static void placesOf(ServerWorld world, WorldSites sites, StructureStart start, RoutineSite site) {
         List<List<BlockPos>> tables = new ArrayList<>();
         List<StructureFeatureData.Station> stations = new ArrayList<>();
@@ -381,7 +368,7 @@ public class RoutineSites {
         String parent = parentFaction(factionId.getPath());
         TagKey<Structure> parentTag = parent == null ? null : factionTag(parent);
 
-        // A chunk only knows the structures that reach into it, so check the surrounding chunks too
+        // A chunk only knows structures reaching into it, so check the surrounding chunks too
         ChunkPos center = new ChunkPos(pos);
         for(int x = -STRUCTURE_SEARCH_CHUNKS; x <= STRUCTURE_SEARCH_CHUNKS; x++) {
             for(int z = -STRUCTURE_SEARCH_CHUNKS; z <= STRUCTURE_SEARCH_CHUNKS; z++) {
@@ -398,7 +385,7 @@ public class RoutineSites {
         return null;
     }
 
-    // longbeards.erebor also counts as longbeards. Null when the faction has no parent
+    // longbeards.erebor also counts as longbeards. Null if there's no parent
     static @Nullable String parentFaction(String path) {
         int split = path.indexOf('.');
         return split < 0 ? null : path.substring(0, split);

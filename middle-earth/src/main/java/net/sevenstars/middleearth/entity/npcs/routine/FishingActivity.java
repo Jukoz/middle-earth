@@ -18,7 +18,7 @@ class FishingActivity extends RoutineActivity {
     private static final int FISHING_TIME = 20 * 30;
     private static final int FISHING_TIME_VARIATION = 20 * 30;
 
-    // Each is a one-in-N chance per look while working, except the fish escape, which is rolled once per catch
+    // One-in-N per look while working; fish escape is rolled once per catch
     private static final int FISH_ESCAPE_ONE_IN = 5;
     private static final int FISH_SPLASH_ONE_IN = 12;
 

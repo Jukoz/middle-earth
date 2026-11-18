@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// Runs an npc's day: out to its task, home with what it got, and to bed at night
 public class NpcRoutine {
     enum Phase { NONE, GOING, WORKING, HUNTING, RETURNING, SLEEPING }
 
@@ -49,42 +48,34 @@ public class NpcRoutine {
     private static final int FIRST_CHECK_DELAY = 20;
     private static final int FIRST_CHECK_ID_FACTOR = 31;
     private static final int FIRST_CHECK_SPREAD = 300;
-    // In think ticks, so 10 looks at the world a second
     private static final int THINK_INTERVAL = 5;
 
     // Test runs widen it, so one player covers a whole village
     private static final int PLAYER_RANGE = Integer.getInteger("me.routineRange", 48);
     static final int SPOT_RANGE = 64;
     private static final int WILD_HOME_RANGE = 64;
-    // A settled npc further from home than this walks back first
     private static final int STRAY_DISTANCE = 24;
     private static final int DRIFT_DISTANCE = 48;
-    // How far to look for a floor with a line of sight to a store that has no floor beside it
     static final int STORE_STAND_RADIUS = 2;
-    // Just inside the face of a block, so a ray aimed there ends inside the block
+    // Just inside a block's face, so a ray aimed there ends inside the block
     private static final double FACE_INSET = 0.49;
     private static final double HALF_BLOCK = 0.5;
 
-    // Blocks above the feet, beyond which a place counts as indoors or underground
     private static final int COVER_HEIGHT = 2;
-    // How long a failed task is put on hold. Each failure in a row holds it longer, up to three times as long
+    // How long a failed task is held. Each failure in a row adds more, up to 3x
     static final int HOLD = 20 * 120;
     static final int MAXIMUM_STRIKES = 3;
-    // How many times another task is tried when the one picked can't be started
     private static final int PICK_ATTEMPTS = 3;
 
-    // In ticks
     static final int ROUTINE_TIME_LIMIT = 20 * 60 * 5;
     static final int REST = 20 * 20;
     static final int REST_VARIATION = 20 * 40;
     static final int NOTHING_TO_DO_REST = 20 * 120;
 
-    // In ticks
     static final long DAY = 24000;
-    // Time of day
+    // Tick of day
     private static final int DUSK = 12500;
     private static final int DAWN = 23500;
-    // In blocks from the place of its work. An interrupted npc further away than this has left it
     private static final double LEFT_WORK_DISTANCE = 4;
 
     private static final int LOOK_DISTANCE = 5;
@@ -103,25 +94,22 @@ public class NpcRoutine {
     long phaseEnd = 0;
     long deadline = 0;
     private long restUntil = 0;
-    // Where what is carried goes when it isn't the household's store, e.g. a woodcutter's logs go on the wood pile
+    // Where carried goods go when it isn't the household's store, e.g. a woodcutter's logs go on the wood pile
     @Nullable BlockPos dropOff = null;
     private String interruptedBy = "";
-    // Grows each time a routine has to be abandoned, so an npc with no way out stops trying
+    // Grows with each give-up so a stuck npc stops trying
     private final Map<RoutineData.Activity, Long> heldUntil = new EnumMap<>(RoutineData.Activity.class);
     private final Map<RoutineData.Activity, Integer> strikes = new EnumMap<>(RoutineData.Activity.class);
     private final Set<String> notedFallbacks = new HashSet<>();
-    // The way home and the way to bed are held back the same way once they fail
     private long homeHeldUntil = 0;
     int homeStrikes = 0;
-    // Set once the current task has been given up, so it isn't also counted as finished
+    // Set once the task is given up, so it isn't also counted as finished
     boolean failed = false;
     private boolean ownsRod = false;
     boolean toBed = false;
     @Nullable BlockPos meetSeat = null;
     int carriedCount = 1;
-    // Heading back with no task, after straying or at the end of the day
     boolean homeward = false;
-    // The direction the marker of the post, seat or stop being visited faces
     @Nullable Direction facing = null;
 
     final RoutineWalker walker;
@@ -162,7 +150,6 @@ public class NpcRoutine {
     public NpcRoutine(NpcEntity npc, double speed) {
         this.npc = npc;
         this.speed = speed;
-        // Spreads the first check of each npc over half a minute
         this.delay = FIRST_CHECK_DELAY + Math.floorMod(npc.getId() * FIRST_CHECK_ID_FACTOR, FIRST_CHECK_SPREAD);
         this.walker = new RoutineWalker(this);
         this.beds = new RoutineBed(this);
@@ -199,7 +186,6 @@ public class NpcRoutine {
     }
 
     public boolean canStart() {
-        // Also picks up an npc that was saved asleep
         if(npc.isSleeping()) {
             phase = Phase.SLEEPING;
             return true;
@@ -217,7 +203,7 @@ public class NpcRoutine {
         if(phase == Phase.SLEEPING)
             phase = Phase.NONE;
         boolean seated = npc.getVehicle() instanceof SeatEntity;
-        // It was saved at the table, so forget the meeting it sat down for
+        // Saved at the table, so forget the meeting
         if(seated && phase == Phase.NONE) {
             sitting.standUp();
             meetSeat = null;
@@ -226,7 +212,7 @@ public class NpcRoutine {
             return false;
         if(phase != Phase.NONE) {
             if(world.getTime() > deadline && phase != Phase.RETURNING) {
-                // An npc still at work when time is up counts as done, including a long shift at a post
+                // Still working when time is up counts as done, even a long shift at a post
                 if(phase != Phase.WORKING)
                     abandoned("ran out of time");
                 startReturn(world);
@@ -240,8 +226,7 @@ public class NpcRoutine {
         if(npc.getPartyLeader() != null || npc.getTravelHeading() != null)
             return false;
         long time = world.getTime();
-        // Wandering takes settled npcs out of their village for good, seen or not. One that couldn't get home rests
-        // first, as after any other walk given up, or it would try again and again from the same spot
+        // Settled npcs that wandered off walk home. One that failed rests first
         if(time >= restUntil && time >= homeHeldUntil && drifted(world)) {
             carried = null;
             homeward = true;
@@ -254,17 +239,16 @@ public class NpcRoutine {
             debug.debugWhyNot(world, "no routine");
             return false;
         }
-        // Where a wild npc first stands becomes its camp, before wandering takes it elsewhere
+        // A wild npc's camp is wherever it first stood
         if(npc.getRoutineHome() == null && npc.getStructureManagerHostPos() == null)
             npc.setRoutineHome(npc.getBlockPos());
-        // Keeps a village from setting out all at once when its chunks load
+        // Stops a village setting out all at once
         if(restUntil == 0)
             restUntil = time + npc.getRandom().nextInt(REST + REST_VARIATION);
         if(time < restUntil && !npc.hasInvitation(time)) {
             debug.debugWhyNot(world, "resting for " + (restUntil - time));
             return false;
         }
-        // Bed time applies whether or not anyone is watching
         // A rider stays with its mount through the night and has no bed to lie in
         BlockPos restingHome = npc.getStructureManagerHostPos() == null || walker.riding() ? null : npc.getRoutineHome();
         if(restingHome != null && npc.isRestTime())
@@ -291,14 +275,12 @@ public class NpcRoutine {
             return false;
         }
 
-        // Someone is calling on its household, so it comes home to sit with them
         table.hostingAt = npc.takeInvitation(time);
         if(table.hostingAt != null && !npc.isRestTime() && begin(world, RoutineData.Activity.VISIT, home))
             return true;
         table.hostingAt = null;
         RoutineData.Activity picked = pickActivity(world, routine, home, time);
         if(NpcDebug.ENABLED && picked == null) debug.debugWhyNot(world, "nothing picked, on duty " + routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()));
-        // A task that can't be started is put on hold and another is tried, before the npc settles for doing nothing
         for(int attempt = 0; attempt < PICK_ATTEMPTS && picked != null; attempt++) {
             if(picked == RoutineData.Activity.ESCORT) {
                 escort.findWard(world);
@@ -314,7 +296,6 @@ public class NpcRoutine {
     }
 
     private boolean isEscortOut(ServerWorld world) {
-        // An escort stays with its ward until the ward is home again or lost
         if(npc.isEscorting()) {
             boolean stillOut = npc.getPartyLeader() != null && world.getEntity(npc.getPartyLeader()) instanceof NpcEntity ward && ward.isAlive() && ward.isOnOuting();
             if(stillOut)
@@ -329,7 +310,6 @@ public class NpcRoutine {
             delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
             return false;
         }
-        // Without a bed, staying around the house is all the rest it gets
         if(beds.freeBed(world) == null && restingHome.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
             restUntil = time + NOTHING_TO_DO_REST;
             return false;
@@ -347,7 +327,6 @@ public class NpcRoutine {
     }
 
     private boolean goHomeOffDuty(ServerWorld world, long time, BlockPos home) {
-        // Off duty, a settled npc that has drifted away goes home
         if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
             carried = null;
             homeward = true;
@@ -359,16 +338,13 @@ public class NpcRoutine {
     }
 
     private @Nullable RoutineData.Activity pickActivity(ServerWorld world, RoutineData routine, BlockPos home, long time) {
-        // Npcs living deep underground stay in their halls. The hunting grounds and the round of the place are up on
-        // the surface, further off down the halls and up the stairs than any walk is looked for
-        // A wild npc has no house over its head, so any roof over its camp is the roof of a cave
+        // Underground npcs stay in their halls. A wild npc has no house, so any roof is a cave
         boolean underground = npc.getStructureManagerHostPos() == null ? isUnderCover(world, home) : RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
         boolean onDuty = routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
         // Elves need little sleep and keep company through the night
         if(!onDuty && (!npc.isElf() || npc.isRestTime()))
             return null;
-        // Each task is judged only once, because whether there is somebody to visit is random, and what was found
-        // possible has to stay possible while the pick is made
+        // Each task is judged once so the answers stay the same during the pick
         table.visitHousehold = null;
         Set<RoutineData.Activity> possible = EnumSet.noneOf(RoutineData.Activity.class);
         for(RoutineData.Entry entry : routine.getEntries()) {
@@ -399,7 +375,6 @@ public class NpcRoutine {
         };
     }
 
-    // Done outside, on the ground around the place. Posts are inspected where they're marked, wherever that is
     private boolean isOutdoors(RoutineData.Activity activity) {
         return switch (activity) {
             case HUNT, FORAGE, FISH, CHOP, PATROL -> true;
@@ -412,7 +387,6 @@ public class NpcRoutine {
         return heldUntil.getOrDefault(activity, 0L) > time;
     }
 
-    // Each failure in a row holds the task longer, so the npc spends the time on its other tasks
     void hold(RoutineData.Activity activity, long time) {
         int count = Math.min(strikes.getOrDefault(activity, 0) + 1, MAXIMUM_STRIKES);
         strikes.put(activity, count);
@@ -433,7 +407,6 @@ public class NpcRoutine {
         return !home.isWithinDistance(npc.getBlockPos(), DRIFT_DISTANCE);
     }
 
-    // Routines only run where a player is near enough to see them
     boolean isWatched(ServerWorld world) {
         // isPlayerInRange ignores spectators, and the test harness watches as one
         if(NpcDebug.ENABLED && world.getPlayers().stream().anyMatch(player -> player.squaredDistanceTo(npc) < PLAYER_RANGE * PLAYER_RANGE))
@@ -444,8 +417,7 @@ public class NpcRoutine {
     private boolean findSite(ServerWorld world) {
         BlockPos managerPos = npc.getStructureManagerHostPos();
         if(managerPos != null) {
-            // Asked for again at every start. A place nobody was near for a while is forgotten, and the one kept here
-            // would no longer be the one its manager and its neighbours use
+            // Fetched every start. A site forgotten meanwhile would differ from neighbours'
             RoutineSite found = RoutineSites.forManager(world, managerPos);
             if(found != null)
                 site = found;
@@ -470,7 +442,6 @@ public class NpcRoutine {
         carried = null;
         carriedCount = 1;
         facing = null;
-        // Falls back to another duty when the build lacks what this one needs
         if(picked == RoutineData.Activity.POST) {
             String noPost = post.claimPost(world, home);
             if(noPost != null) {
@@ -491,7 +462,6 @@ public class NpcRoutine {
         activity = picked;
         homeward = false;
         npc.setFarming(picked == RoutineData.Activity.FARM);
-        // Only npcs with a home behind walls are worth escorting out and back
         npc.setOnOuting(npc.getStructureManagerHostPos() != null
                 && (picked == RoutineData.Activity.FORAGE || picked == RoutineData.Activity.HUNT || picked == RoutineData.Activity.FISH || picked == RoutineData.Activity.CHOP));
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
@@ -506,7 +476,7 @@ public class NpcRoutine {
     }
 
     public boolean shouldContinue() {
-        // A sleeping npc is still ticked, so the routine has to be what keeps it in bed
+        // Sleepers are still ticked, so keep it in bed
         if(phase == Phase.SLEEPING)
             return npc.isSleeping() && npc.getTarget() == null;
         return (phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING)
@@ -514,7 +484,7 @@ public class NpcRoutine {
     }
 
     public void start() {
-        // Work that a fight or a fright interrupted isn't resumed from wherever the npc ended up. It goes home instead
+        // Interrupted work goes home, it does not resume where it ended up
         if(phase == Phase.WORKING && hasLeftWork() && npc.getEntityWorld() instanceof ServerWorld world) {
             abandoned("left its work, " + interruptedBy);
             startReturn(world);
@@ -524,7 +494,6 @@ public class NpcRoutine {
         showProp();
     }
 
-    // Hunting, foraging and farming continue wherever the npc is, and a bodyguard looks for its lord again
     private boolean hasLeftWork() {
         return switch (activity) {
             case HUNT, FORAGE, FARM, FOLLOW -> false;
@@ -535,10 +504,10 @@ public class NpcRoutine {
     public void stop() {
         if(phase == Phase.GOING || phase == Phase.WORKING || phase == Phase.RETURNING) {
             LivingEntity foe = npc.getTarget();
-            // Every npc has the same entity type, so they're told apart by npc class
+            // All npcs share one entity type, so tell them apart by npc class
             String foeName = foe == null ? "" : foe instanceof NpcEntity other && other.getNpcClass() != null ? other.getNpcClass().getId().getPath()
                     : Registries.ENTITY_TYPE.getId(foe.getType()).getPath();
-            // A task resumed after the fight isn't one given up. It only counts as given up if the npc has to leave it
+            // A task resumed after a fight isn't given up, only if the npc has to leave it
             interruptedBy = foe != null ? "interrupted by a fight with " + foeName
                     : npc.hasVehicle() && !(npc.getVehicle() instanceof SeatEntity) && !walker.riding() ? "interrupted, it is riding" : "interrupted by something else, such as fleeing";
             BlockPos pos = npc.getBlockPos();
@@ -547,7 +516,6 @@ public class NpcRoutine {
         }
         walker.stopMoving();
         sitting.standUp();
-        // The npc needs its hands back when a fight interrupts
         npc.clearRoutineProp();
         if(npc.isSleeping())
             npc.wakeUp();
@@ -589,7 +557,6 @@ public class NpcRoutine {
         }
     }
 
-    // Every task given up before it was done goes in the debug log with its reason, to find where npcs' days go wrong
     void abandoned(String why) {
         abandoned(toBed ? "bed" : homeward ? "home" : activity.asString(), why);
     }
@@ -607,7 +574,6 @@ public class NpcRoutine {
             NpcFailureRecorder.record(npc, who(), what, phase.name().toLowerCase(), why, phase == Phase.RETURNING ? (toBed && npc.getBedStand() != null ? npc.getBedStand() : toBed ? npc.getAssignedBed() : carried != null && npc.getStore() != null ? npc.getStore() : npc.getRoutineHome()) : spot, npc.getAssignedBed(), npc.getRoutineHome(), npc.getNavigation().getCurrentPath());
     }
 
-    // What the build lacks, so the npc does something else in its place. Not a task given up, and noted once
     void fallsBack(RoutineData.Activity what, String why) {
         fallsBack(what.asString(), why);
     }
@@ -619,7 +585,6 @@ public class NpcRoutine {
         MiddleEarth.LOGGER.logDebugMsg("NpcRoutine :: %s falls back from %s at %d,%d,%d: %s".formatted(who(), what, pos.getX(), pos.getY(), pos.getZ(), why));
     }
 
-    // How far off the bed was when the npc gave up on it, across the floor and up or down
     private String bedDistance() {
         BlockPos bed = npc.getAssignedBed();
         if(bed == null)
@@ -629,7 +594,6 @@ public class NpcRoutine {
         return " (bed %.1f blocks away, %s)".formatted(across, rise == 0 ? "same floor" : rise > 0 ? rise + " up" : -rise + " down");
     }
 
-    // Every task done is in the log too, to count what the npcs get done
     void did(String what) {
         did(activity.asString(), what);
     }
@@ -667,7 +631,7 @@ public class NpcRoutine {
         if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && inspect.skipStop(world, why))
             return;
         if(phase == Phase.RETURNING && toBed) {
-            // Stopped short, but near enough to lie down after all
+            // Stopped short, but near enough to lie down
             BlockPos bed = beds.freeBed(world);
             if(bed == null || !beds.isInReach(bed) || !beds.canSeeBed(world, bed))
                 abandoned("could not reach its bed, " + why);
@@ -677,7 +641,7 @@ public class NpcRoutine {
         boolean skipsStretch = phase != Phase.RETURNING && activity == RoutineData.Activity.PATROL && patrol.canSkipStretch();
         abandoned((skipsStretch ? "skipped a stretch of its round, " : "") + why);
         if(skipsStretch) {
-            // A blocked stretch of the round is skipped, and the rest of it still runs
+            // Skip a blocked stretch, keep walking the rest
             failed = false;
             patrol.skipStretch();
             return;
@@ -732,7 +696,6 @@ public class NpcRoutine {
         return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * LOOK_DISTANCE, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * LOOK_DISTANCE);
     }
 
-    // Riders keep to the watch. The other work is done on foot
     private static boolean mounted(RoutineData.Activity activity) {
         return activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.INSPECT;
     }
@@ -751,8 +714,7 @@ public class NpcRoutine {
         return dropOff != null ? dropOff : npc.getStore();
     }
 
-    // The floor beside a block. A seat on a bench between the table, a wall and the next seat has none, and is reached
-    // across the next seat, from a floor a step further off that can see it
+    // Floor beside a block. A bench seat has none, so it's reached across the next seat
     BlockPos standAt(ServerWorld world, BlockPos block) {
         BlockPos stand = NestSurvey.standNextTo(world, block, npc.getBlockPos());
         if(stand == null)
@@ -760,12 +722,10 @@ public class NpcRoutine {
         return stand != null ? stand : block;
     }
 
-    // Aimed at the side of the block facing the npc. From eye height, a ray to the middle of a block a step away
-    // crosses the block above it, which hides a forge under a stone hood
+    // Ray hits the side facing the npc, from eye height the middle crosses the block above
     boolean canSee(ServerWorld world, BlockPos block) {
         Vec3d eye = npc.getEyePos();
         Vec3d middle = Vec3d.ofCenter(block);
-        // Every side facing the npc is tried, because from a corner one of them is behind the next block
         List<Direction> sides = new ArrayList<>(3);
         if(Math.abs(eye.x - middle.x) > HALF_BLOCK)
             sides.add(eye.x > middle.x ? Direction.EAST : Direction.WEST);
@@ -787,10 +747,8 @@ public class NpcRoutine {
     }
 
     void finish(ServerWorld world, int rest) {
-        // Logs the tasks seen through to the end, to set against the ones given up
         if(phase != Phase.NONE && !failed) {
-            // Only a task seen through clears what went wrong before. A hunter that found nothing again keeps away
-            // longer
+            // Only a finished task clears failures, so a hunter that found nothing stays away longer
             if(phase != Phase.SLEEPING && !toBed && !homeward)
                 strikes.remove(activity);
             BlockPos pos = npc.getBlockPos();

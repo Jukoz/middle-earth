@@ -40,7 +40,6 @@ public record StructureMarkerScreenData(BlockPos pos, boolean isNew, MarkerKind 
         return new StructureMarkerScreenData(pos, isNew, kind, value, count, respawns, facing, BedTag.peopleNests().keySet().stream().map(Identifier::toString).toList(), allAnimals());
     }
 
-    // Every animal a marker can spawn: all creature-group entities plus the EXTRA_ANIMALS (mounts and the goat)
     public static synchronized List<String> allAnimals() {
         if(animalIds == null) {
             TreeSet<String> found = new TreeSet<>();

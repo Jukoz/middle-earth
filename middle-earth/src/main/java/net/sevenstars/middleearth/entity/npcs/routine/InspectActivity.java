@@ -34,7 +34,6 @@ class InspectActivity extends RoutineActivity {
         List<StructureFeatureData.Marker> posts = new ArrayList<>(routine.site.getMarkers(MarkerKind.GUARD_POST));
         posts.addAll(routine.site.getMarkers(MarkerKind.ENTRANCE));
         if(posts.isEmpty()) {
-            // Nothing marked, so a walk around the place will do
             List<BlockPos> ring = routine.site.getRing();
             if(ring.size() < MINIMUM_RING_POINTS)
                 return routine.cannotStart(picked, "no post marked and no round to walk in this build");
@@ -78,7 +77,7 @@ class InspectActivity extends RoutineActivity {
             nextStop(time);
     }
 
-    // The skip is in the log. The rest of the round still runs
+    // The skip is logged, the rest of the round still runs
     boolean skipStop(ServerWorld world, String why) {
         if(stops.isEmpty())
             return false;

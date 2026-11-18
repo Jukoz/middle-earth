@@ -22,7 +22,7 @@ class PostActivity extends RoutineActivity {
         super(routine);
     }
 
-    // Null once a post is claimed, otherwise why there is none to stand at
+    // Null once claimed, else why there's no post
     @Nullable String claimPost(ServerWorld world, BlockPos home) {
         boolean sentry = routine.isSentry();
         MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
@@ -48,7 +48,6 @@ class PostActivity extends RoutineActivity {
     @Override
     void arrive(ServerWorld world, Random random, long time) {
         routine.phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
-        // A marked post says where to look. The rest watch the land outside
         routine.lookTarget = routine.facingTarget();
         if(routine.lookTarget == null) {
             double awayX = npc.getX() - routine.site.getCenterX();
@@ -63,7 +62,6 @@ class PostActivity extends RoutineActivity {
             routine.showProp();
             return;
         }
-        // The guard isn't relieved while its shift lasts and there's somebody to see it standing there
         if(routine.onDuty(world) && routine.isWatched(world))
             routine.phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
         else

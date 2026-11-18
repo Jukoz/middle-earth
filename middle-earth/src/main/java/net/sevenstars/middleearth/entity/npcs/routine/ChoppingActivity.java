@@ -25,7 +25,6 @@ class ChoppingActivity extends RoutineActivity {
     private static final int CHOPPING_TIME = 20 * 40;
     private static final int CHOPPING_TIME_VARIATION = 20 * 20;
 
-    // The most recently worked trees are skipped for a while
     private static final int RECENT_TREES = 3;
     private static final int TREE_PASSES = 2;
 
@@ -35,7 +34,6 @@ class ChoppingActivity extends RoutineActivity {
     private static final float CHOP_SOUND_PITCH = 0.9f;
     private static final float CHOP_SOUND_PITCH_VARIATION = 0.2f;
 
-    // The base of the trunk being worked at
     private @Nullable BlockPos tree = null;
     private final ArrayDeque<BlockPos> recentTrees = new ArrayDeque<>();
 
@@ -53,7 +51,6 @@ class ChoppingActivity extends RoutineActivity {
         return true;
     }
 
-    // The trees are around the place, as far out as foraging goes. A tree felled since the scan is skipped
     private @Nullable BlockPos nextTree(ServerWorld world, BlockPos home) {
         List<BlockPos> trees = routine.site.getTrees();
         int range = SPOT_RANGE + routine.site.getExtent();
@@ -64,7 +61,7 @@ class ChoppingActivity extends RoutineActivity {
                 if(!candidate.isWithinDistance(home, range) || recentTrees.contains(candidate)
                         || !isLoaded(world, candidate) || !world.getBlockState(candidate).isIn(BlockTags.LOGS))
                     continue;
-                // A bush is a log with leaves on every side, leaving no room to stand and swing at it
+                // A bush is a log with leaves on every side: no room to stand and swing
                 if(NestSurvey.standNextTo(world, candidate, home) == null)
                     continue;
                 recentTrees.addLast(candidate);
@@ -72,7 +69,7 @@ class ChoppingActivity extends RoutineActivity {
                     recentTrees.removeFirst();
                 return candidate;
             }
-            // With few trees about, one worked recently is better than none
+            // With few trees about, a recently worked one beats none
             recentTrees.clear();
         }
         return null;
@@ -96,7 +93,6 @@ class ChoppingActivity extends RoutineActivity {
                 routine.abandoned("the tree was gone");
             else
                 routine.did("carries " + itemName(routine.carried) + " from the tree at " + tree.toShortString());
-            // Stacked on the wood pile of the place, where there is one
             BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
             routine.dropOff = routine.carried == null ? null : routine.site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
             routine.startReturn(world);

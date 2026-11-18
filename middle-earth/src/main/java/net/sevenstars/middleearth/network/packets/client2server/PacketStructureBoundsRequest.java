@@ -19,9 +19,7 @@ import net.sevenstars.middleearth.commands.custom.StructureEditSession;
 
 import java.util.List;
 
-// Sets the part of a build that is saved to the box between two corners. The build is the one containing the anchor,
-// which is either a piece of the structure the builder has loaded or a section with its own structure block. With a
-// name, the box becomes a new section with that name instead, wherever the anchor is
+// Box between two corners becomes the build's saved part; with a name, a new section instead
 public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStructureBoundsRequest> {
     public static final Id<PacketStructureBoundsRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "structure_bounds_request"));
 
@@ -60,7 +58,6 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
     public void process(ServerPacketContext context) {
         ServerPlayerEntity player = context.player();
         player.getEntityWorld().getServer().execute(() -> {
-            // The last corner clicked is the one the builder is at
             if(!StructureEditing.mayEdit(player, second) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
             BlockBox box = BlockBox.create(first, second);
@@ -125,7 +122,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
             BuildSectionEditing.remove(world, whole);
             player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(whole.name())), false);
         }
-        // The section this was cut from still saves this part too, until the rest of that section is cut up as well
+        // The section this was cut from still saves this part until the rest of it is cut up too
         sections.stream().filter(section -> section.box().intersects(box) && !cutUp.contains(section)).findFirst().ifPresent(over ->
                 player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(over.name()), over.name()), false));
     }

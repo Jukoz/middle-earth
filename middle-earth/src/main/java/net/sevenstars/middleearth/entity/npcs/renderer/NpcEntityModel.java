@@ -11,7 +11,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.List;
 
 public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
-    // In radians, how far apart the arms are held
+    // Radians
     private static final float ASK_ARM_SPREAD = 0.45f;
     private static final float EXCLAIM_ARM_SPREAD = 0.6f;
     private static final String LEFT_SLEEVE = "left_sleeve";
@@ -60,22 +60,19 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
         gesture(renderState);
     }
 
-    // The arms' part in what the npc is saying, in radians. An arm that's aiming, blocking or using something is left
-    // to it. The head's part is in the renderer
+    // Arms that are aiming, blocking or using something are left alone
     private void gesture(NpcEntityRenderState state) {
         float time = state.talkAge;
         float ease = Math.min(1f, time / NpcEntityRenderer.GESTURE_EASE);
         boolean right = isFree(state.rightArmPose);
         boolean left = isFree(state.leftArmPose);
         switch (state.talk) {
-            // Waves a hand about in front of it
             case SAY -> {
                 if(right) {
                     rightArm.pitch = MathHelper.lerp(ease, rightArm.pitch, -1.1f + 0.3f * MathHelper.sin(time * 0.5f));
                     rightArm.yaw = MathHelper.lerp(ease, rightArm.yaw, -0.35f);
                 }
             }
-            // Holds both hands out, palms up
             case ASK -> {
                 float pitch = -0.7f + 0.08f * MathHelper.sin(time * 0.35f);
                 if(right)
@@ -83,7 +80,6 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
                 if(left)
                     pose(leftArm, ease, pitch, -ASK_ARM_SPREAD);
             }
-            // Throws both arms up
             case EXCLAIM -> {
                 float pitch = -3f + 0.12f * MathHelper.sin(time * 1.1f);
                 if(right)
@@ -91,7 +87,6 @@ public class NpcEntityModel extends BipedEntityModel<NpcEntityRenderState> {
                 if(left)
                     pose(leftArm, ease, pitch, -EXCLAIM_ARM_SPREAD);
             }
-            // Shakes with it
             case LAUGH -> {
                 float shake = ease * (0.12f * MathHelper.sin(time * NpcEntityRenderer.LAUGH_SHAKE_SPEED) - 0.25f);
                 if(right)

@@ -9,11 +9,9 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
 final class MeleeAttackBehaviour extends AttackBehaviour {
-    // As a multiple of the npc's walking speed
+    // Multiple of walking speed
     private static final double MELEE_ATTACK_SPEED = 1.2;
-    // In ticks
     private static final int ATTACK_INTERVAL = 20;
-    // The least time between one look for a path to start on and the next
     private static final long PATH_INTERVAL = 20;
     private static final int REPATH_DELAY = 4;
     private static final int REPATH_DELAY_VARIATION = 7;
@@ -21,10 +19,10 @@ final class MeleeAttackBehaviour extends AttackBehaviour {
     private static final int NEAR_DELAY = 5;
     private static final int NO_PATH_DELAY = 15;
 
-    // In blocks, squared. The farther the target the longer between paths
+    // Blocks, squared. The farther the target, the longer between paths
     private static final double FAR_DISTANCE = 32 * 32;
     private static final double NEAR_DISTANCE = 16 * 16;
-    // Squared. A target that has hardly moved is only chased again now and then
+    // Squared. A target that barely moved is only chased now and then
     private static final double MOVED_DISTANCE = 1.0;
     private static final float REPATH_CHANCE = 0.05F;
     private static final float LOOK_ANGLE = 30.0F;

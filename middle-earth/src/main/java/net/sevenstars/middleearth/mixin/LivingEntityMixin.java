@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    // Speed of a mount an npc rides: the fixed speed for a horse, and the minimum for any mount
+    // Fixed for a horse, minimum for any other mount
     @Unique
     private static final float NPC_HORSE_SPEED = 0.5f;
     @Unique

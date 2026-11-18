@@ -29,19 +29,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-// What counts as what in a building. The generated structure template data, the block tags the datagen writes for them
-// (middle-earth:build/<kind>) and the survey of a building with no data all use these definitions.
-// Tags aren't bound while data is generated, so each kind is a test on the block
+// Shared by template data, the datagen block tags (middle-earth:build/<kind>) and the building survey
+// Tags aren't bound during datagen, so each kind is a test on the block
 public enum BuildFeatures implements Predicate<Block> {
-    // A household keeps its food by the campfire
     STORE("store", block -> block instanceof BarrelBlock || block instanceof ChestBlock || block instanceof CampfireBlock),
     SEAT("seat", block -> block instanceof SeatBlock),
-    // Work tables are left out. This is for tables to sit at
+    // Work tables are left out; this is for tables to sit at
     TABLE("table", block -> (block instanceof WoodTableBlock || block instanceof StoneTableBlock) && !isWorkTable(block)),
     BED("bed", block -> block instanceof BedBlock),
     FIELD("field", block -> block instanceof FarmlandBlock),
     DOOR("door", block -> block instanceof DoorBlock || block instanceof FenceGateBlock || block instanceof NpcDoor),
-    // Vines are left out because there are too many of them to count as a way up
     LADDER("ladder", block -> block instanceof LadderBlock || block instanceof ThickLadderBlock || block instanceof ScaffoldingBlock
             || block == DecorativeBlockRegistryME.ROPE || block == DecorativeBlockRegistryME.ROPE_LADDER || block == BlockRegistryME.NET);
 
@@ -75,7 +72,7 @@ public enum BuildFeatures implements Predicate<Block> {
         return StationKind.of(Registries.BLOCK.getId(block).getPath());
     }
 
-    // Templates from the first version of the mod name their blocks in the namespace "me". Null if the block no longer exists
+    // Early templates name blocks in the "me" namespace. Null if the block no longer exists
     public static @Nullable Block resolve(String name) {
         Identifier id = Identifier.tryParse(name);
         if(id == null)

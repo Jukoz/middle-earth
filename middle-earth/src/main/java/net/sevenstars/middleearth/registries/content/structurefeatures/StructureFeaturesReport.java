@@ -40,7 +40,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-// The builders' to-do list: what each structure still lacks for its npcs to live their days. Written when data is generated
+// Builders' to-do list of what each structure still lacks. Written during datagen
 public class StructureFeaturesReport {
     private static final String DATA = "data/" + MiddleEarth.MOD_ID + "/worldgen/";
 
@@ -62,7 +62,6 @@ public class StructureFeaturesReport {
         return report.summary();
     }
 
-    // Which templates each structure is made of: its start pool and every pool its templates point to
     private void readStructures() throws IOException {
         Map<Identifier, List<Identifier>> pools = new HashMap<>();
         Map<String, Identifier> starts = new TreeMap<>();
@@ -119,7 +118,6 @@ public class StructureFeaturesReport {
         return path.substring(0, path.length() - ".json".length());
     }
 
-    // Single elements, and list elements that hold several of them
     private static void collectLocations(JsonElement json, List<Identifier> into) {
         if(json.isJsonObject()) {
             JsonObject object = json.getAsJsonObject();
@@ -220,7 +218,6 @@ public class StructureFeaturesReport {
         return warnings;
     }
 
-    // Every position a link can reasonably point at
     private static Set<BlockPos> recognised(StructureFeatureData data) {
         Set<BlockPos> known = new HashSet<>();
         data.stations().forEach(station -> known.add(station.pos()));
@@ -242,7 +239,6 @@ public class StructureFeaturesReport {
         return managerIds;
     }
 
-    // The kinds of person living in the nests of the managers that the structure's templates name
     private Set<String> nestKindsOf(Set<Identifier> structure) {
         Set<Identifier> managerIds = managerIdsOf(structure);
         Set<String> nestKinds = new TreeSet<>();

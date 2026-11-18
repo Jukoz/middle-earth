@@ -16,11 +16,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-// The sections of a build placed in the world for editing. Each is the box that a structure block in save mode saves
-// under its name. Nothing else is stored, so they are rebuilt from the world itself, on the client and the server alike
+// Each section is the box a structure block saves; rebuilt from the world, never stored
 public class BuildSections {
     public static final int MAXIMUM_NAME_LENGTH = 128;
-    // A structure block sits next to its box, and a box is never longer than this
+    // A structure block sits next to its box, which is never longer than this
     private static final int SEARCH_CHUNKS = (StructureEditing.MAXIMUM_SIZE >> 4) + 2;
 
     public record Section(BlockPos block, String name, BlockBox box) {
@@ -28,19 +27,16 @@ public class BuildSections {
             return (long) box.getBlockCountX() * box.getBlockCountY() * box.getBlockCountZ();
         }
 
-        // Adjacent, stacked or overlapping
         boolean touches(Section other) {
             return box.expand(1).intersects(other.box);
         }
     }
 
-    // The part of a section's or template's name after its namespace
     public static String pathOf(String name) {
         Identifier id = Identifier.tryParse(name);
         return id == null ? name : id.getPath();
     }
 
-    // The mod's own names are shown without the namespace
     public static String shortName(String name) {
         Identifier id = Identifier.tryParse(name);
         return id != null && id.getNamespace().equals(MiddleEarth.MOD_ID) ? id.getPath() : name;
@@ -68,7 +64,7 @@ public class BuildSections {
         return sections;
     }
 
-    // When one section lies inside another, like a room in a house, the block belongs to the smaller one
+    // When one section lies inside another (a room in a house), the block goes to the smaller
     public static @Nullable Section at(List<Section> sections, BlockPos pos) {
         return sections.stream().filter(section -> section.box().contains(pos)).min(Comparator.comparingLong(Section::volume)).orElse(null);
     }
@@ -81,7 +77,6 @@ public class BuildSections {
         return sections.stream().min(Comparator.comparingDouble(section -> section.box().getCenter().getSquaredDistance(pos))).orElse(null);
     }
 
-    // The sections that form one build with this one: the ones it touches, and the ones those touch
     public static List<Section> buildOf(List<Section> sections, Section of) {
         List<Section> build = new ArrayList<>();
         List<Section> open = new ArrayList<>();

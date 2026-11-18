@@ -39,7 +39,7 @@ public class NpcEntityRenderState extends BipedEntityRenderState {
     public boolean canShowHair;
     public float LOD = 0;
     public NpcEntity.Talk talk = NpcEntity.Talk.NONE;
-    // In ticks, since it began
+    // Ticks since it began
     public float talkAge;
 
     public NpcEntityRenderState() {

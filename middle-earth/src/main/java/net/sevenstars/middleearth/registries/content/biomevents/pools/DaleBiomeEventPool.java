@@ -16,7 +16,6 @@ public class DaleBiomeEventPool {
     static {
         DEFAULT = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.DALE_PEASANT).withWeight(7).withSameNpcClass(4, 256).lightShouldBeAtLeast(8),
-            // Dale supplies food to Erebor
             new WildSpawnEventData(NpcRegistry.DALE_PEASANT).withWeight(3).withSameNpcClass(4, 256).lightShouldBeAtLeast(8).withParty(PartyData.create().ledBy(NpcJobs.DROVER).addAnimals(EntityType.DONKEY, 1, 2)),
             new WildSpawnEventData(NpcRegistry.DALE_MILITIA).withWeight(3).withSameNpcClass(5, 256).withParty(PartyData.create().add(NpcRegistry.DALE_MILITIA, 1, 2)),
             new WildSpawnEventData(NpcRegistry.DALE_SOLDIER).withWeight(3).withSameNpcClass(3, 256).withParty(PartyData.create().add(NpcRegistry.DALE_MILITIA, 1, 2)),

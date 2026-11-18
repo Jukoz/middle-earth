@@ -39,7 +39,6 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
-// Reads every structure template of the mod when data is generated, picking out beds and tags, stations, seats, doors and markers
 public class StructureFeaturesRegistry {
     private static final String TEMPLATES = "data/" + MiddleEarth.MOD_ID + "/structure";
     private static final String MANAGER_BLOCK = MiddleEarth.MOD_ID + ":structure_manager";
@@ -53,7 +52,6 @@ public class StructureFeaturesRegistry {
     private static final String JIGSAW_BLOCK = "minecraft:jigsaw";
     private static final int MINIMUM_TABLE_SEATS = 2;
 
-    // Keys in a structure template and in its block states
     private static final String PALETTE_KEY = "palette";
     private static final String PALETTES_KEY = "palettes";
     private static final String BLOCKS_KEY = "blocks";
@@ -73,11 +71,8 @@ public class StructureFeaturesRegistry {
     private static final Map<Identifier, Optional<StructureFeatureData>> LIVE = new ConcurrentHashMap<>();
     private static final Set<Identifier> EDITED = ConcurrentHashMap.newKeySet();
 
-    // What the scan found in one template, besides the data itself
-    // Managers are the ones the template has blocks for. They say which structure manager data its beds spawn from
     public record Template(Identifier id, StructureFeatureData data, int stores, Set<Identifier> pools, Set<String> unresolved,
                            Set<Identifier> managers) {
-        // Nothing in it that needs a file
         public boolean isEmpty() {
             return data.beds().isEmpty() && data.tables().isEmpty() && data.stations().isEmpty() && data.seats().isEmpty()
                     && data.doors().isEmpty() && data.ladders().isEmpty() && data.markers().isEmpty() && data.managers().isEmpty();
@@ -91,7 +86,7 @@ public class StructureFeaturesRegistry {
         }
     }
 
-    // The generator builds data more than once per run, so the templates are only read once
+    // The generator builds data more than once per run, so read templates once
     public static synchronized List<Template> scan() {
         if(scanned != null)
             return scanned;
@@ -113,13 +108,12 @@ public class StructureFeaturesRegistry {
         return scanned;
     }
 
-    // A template saved by a builder since the game started no longer matches the generated data
+    // A template saved since launch no longer matches the generated data
     public static void edited(Identifier template) {
         EDITED.add(template);
         LIVE.remove(template);
     }
 
-    // What was read from one world's own templates doesn't hold for the next
     public static void clearLive() {
         LIVE.clear();
     }
@@ -128,7 +122,6 @@ public class StructureFeaturesRegistry {
         return EDITED.contains(template);
     }
 
-    // Reads what a template holds right now. For templates with no generated data yet, or changed since it was generated
     public static @Nullable StructureFeatureData live(StructureTemplateManager manager, Identifier template) {
         return LIVE.computeIfAbsent(template, id -> manager.getTemplate(id).map(found -> read(id, found.writeNbt(new NbtCompound())).data())).orElse(null);
     }
@@ -211,7 +204,6 @@ public class StructureFeaturesRegistry {
             if(kind != null)
                 stations.add(new StructureFeatureData.Station(kind, pos));
         }
-        // Stores, seats, tables, ladders, stations and doors a builder marked off limits are left out
         Set<BlockPos> offLimits = new HashSet<>();
         for(StructureFeatureData.Marker marker : markers) {
             if(marker.kind() == MarkerKind.OFF_LIMITS)
@@ -223,19 +215,16 @@ public class StructureFeaturesRegistry {
         tableBlocks.removeIf(offLimits::contains);
         ladders.removeIf(offLimits::contains);
         stations.removeIf(station -> offLimits.contains(station.pos()));
-        // A door can be marked off limits on either of its halves
         doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
         List<List<BlockPos>> tables = tables(tableBlocks, seats);
 
         List<StructureFeatureData.Bed> bedData = new ArrayList<>();
-        // Use a barrel or chest if the building has one, because anything brought home to a campfire is put on the
-        // fire, harvest included. Only a camp with nothing else keeps its things by the fire
+        // Prefer a barrel or chest: things brought to a campfire go on the fire, harvest included
         boolean anyBox = stores.size() > fires.size();
         for(int i = 0; i < beds.size(); i++) {
             BlockPos bed = beds.get(i);
             Optional<BedTag> tag = bedTags.get(i);
-            // Things are put away near where the work is done: the place the bed was linked to, or the one its job will
-            // find. An npc that works at neither, or out in the land, keeps them by the bed
+            // Things go near the work: the bed's link, or where its job will find one; else by the bed
             BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
                     .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, stations, markers))).orElse(bed);
             BlockPos store = null;
@@ -245,7 +234,6 @@ public class StructureFeaturesRegistry {
                 if(store == null || candidate.getSquaredDistance(work) < store.getSquaredDistance(work))
                     store = candidate;
             }
-            // The store the builder picked, as long as it's still there
             BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
             if(picked != null && stores.contains(picked))
                 store = picked;
@@ -277,14 +265,13 @@ public class StructureFeaturesRegistry {
         return Direction.NORTH;
     }
 
-    // For a door made of several blocks, the one the others are counted from
     private static boolean isAnchor(Block door, NbtCompound properties) {
         if(properties.getString(HALF_PROPERTY, "").equals(UPPER_HALF))
             return false;
         return !(door instanceof NpcDoor) || properties.getString(PART_PROPERTY, "0").equals("0");
     }
 
-    // Table blocks that touch form one table, and the seats beside it belong to it. A table with one seat isn't a place to meet
+    // Touching table blocks form one table; one seat isn't a place to meet
     private static List<List<BlockPos>> tables(Set<BlockPos> tableBlocks, List<BlockPos> seats) {
         List<List<BlockPos>> tables = new ArrayList<>();
         Set<BlockPos> seen = new HashSet<>();

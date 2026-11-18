@@ -1,5 +1,10 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
+import net.sevenstars.middleearth.features.cooking.CookingItems;
+
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.minecraft.item.Item;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -11,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleItemModel {
-    public static List<Item> items = new ArrayList<>() {
+    public static List<Item> items = RegistrationLists.SIMPLE_ITEM_MODELS;
+    static {
+        RegistrationLists.prepend(items, new ArrayList<Item>() {
         {
             add(ResourceItemsME.MIDDLE_EARTH_MAP);
 
@@ -30,22 +37,22 @@ public class SimpleItemModel {
             add(FoodItemsME.TOMATO);
             add(FoodItemsME.BELL_PEPPER);
             add(FoodItemsME.CUCUMBER);
-            add(FoodItemsME.GARLIC);
-            add(FoodItemsME.LEEK);
+            add(FarmingItems.GARLIC);
+            add(FarmingItems.LEEK);
             add(FoodItemsME.LETTUCE);
-            add(FoodItemsME.ONION);
+            add(FarmingItems.ONION);
             add(ResourceItemsME.FLAX);
 
             //Pipeweed stuff
             add(ResourceItemsME.PIPEWEED);
             add(ResourceItemsME.DRIED_PIPEWEED);
-            add(ResourceItemsME.PIPEWEED_SEEDS);
+            add(FarmingItems.PIPEWEED_SEEDS);
 
-            add(ResourceItemsME.FLAX_SEEDS);
-            add(ResourceItemsME.TOMATO_SEEDS);
-            add(ResourceItemsME.BELL_PEPPER_SEEDS);
-            add(ResourceItemsME.CUCUMBER_SEEDS);
-            add(ResourceItemsME.LETTUCE_SEEDS);
+            add(FarmingItems.FLAX_SEEDS);
+            add(FarmingItems.TOMATO_SEEDS);
+            add(FarmingItems.BELL_PEPPER_SEEDS);
+            add(FarmingItems.CUCUMBER_SEEDS);
+            add(FarmingItems.LETTUCE_SEEDS);
 
             add(ResourceItemsME.STRAW);
 
@@ -75,7 +82,7 @@ public class SimpleItemModel {
             add(ResourceItemsME.SNAIL_BANNER_PATTERN);
 
             //Food Items
-            add(FoodItemsME.LAYERED_CAKE);
+            add(CookingItems.LAYERED_CAKE);
             add(FoodItemsME.BERRY_PIE);
             add(FoodItemsME.BOILED_EGG);
             add(FoodItemsME.FISH_STEW);
@@ -196,5 +203,6 @@ public class SimpleItemModel {
             add(BlockRegistryME.MEDIUM_GLOWSTONE_BUD.asItem());
             add(BlockRegistryME.LARGE_GLOWSTONE_BUD.asItem());
         }
-    };
+    });
+    }
 }

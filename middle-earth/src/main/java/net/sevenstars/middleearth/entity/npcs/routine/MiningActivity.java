@@ -35,7 +35,7 @@ class MiningActivity extends RoutineActivity {
 
     @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
-        // The marker is where the miner stands, and it faces the rock
+        // The marker is where the miner stands, facing the rock
         StructureFeatureData.Marker nearest = null;
         for(StructureFeatureData.Marker marker : routine.site.getMarkers(MarkerKind.MINE_FACE)) {
             if(marker.pos().isWithinDistance(home, WORK_RANGE) && (nearest == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < nearest.pos().getSquaredDistance(npc.getBlockPos())))

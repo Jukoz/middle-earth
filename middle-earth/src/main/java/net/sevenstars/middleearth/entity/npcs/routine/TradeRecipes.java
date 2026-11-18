@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.features.farming.FarmingItems;
 import net.sevenstars.middleearth.item.FoodItemsME;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
 import net.sevenstars.middleearth.resources.datas.npc_jobs.NpcJob;
@@ -25,16 +26,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-// What each trade makes out of what the others bring in. Every input here is something a farmer, forager, fisher,
-// hunter or miner carries home, so the trades live off each other's work
+// Every input is something other jobs carry home, so the trades live off each other
 public final class TradeRecipes {
     private record Recipe(Set<Item> inputs, int count, Item output) {}
 
-    // One job to do: take this many of the input from the place and make the output of them
     public record Order(BlockPos from, Item input, int count, Item output) {}
 
-    // A trade without its inputs has nothing to do, unless it's lenient. A smith with no ore still has tools to mend.
-    // Cooking is a furnace recipe type whose recipes count for the trade too, for inputs of that kind only
+    // No inputs means nothing to do, unless lenient (a smith still mends tools)
+    // Cooking is a furnace recipe type that counts for inputs of that kind
     private record Trade(List<Recipe> recipes, @Nullable RecipeType<? extends AbstractCookingRecipe> cooking, Predicate<ItemStack> cookable, boolean lenient) {}
 
     private static final Map<Identifier, Trade> TRADES = new HashMap<>();
@@ -46,7 +45,7 @@ public final class TradeRecipes {
         List<Recipe> kitchen = List.of(
                 new Recipe(Set.of(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, NatureBlockRegistryME.WHITE_MUSHROOM.asItem()), 2, Items.MUSHROOM_STEW),
                 new Recipe(Set.of(Items.BEETROOT, NatureBlockRegistryME.WILD_BEETROOT.asItem()), 3, Items.BEETROOT_SOUP),
-                new Recipe(Set.of(Items.CARROT, FoodItemsME.ONION, FoodItemsME.LEEK, FoodItemsME.LETTUCE, FoodItemsME.GARLIC, FoodItemsME.TOMATO,
+                new Recipe(Set.of(Items.CARROT, FarmingItems.ONION, FarmingItems.LEEK, FoodItemsME.LETTUCE, FarmingItems.GARLIC, FoodItemsME.TOMATO,
                         FoodItemsME.BELL_PEPPER, FoodItemsME.CUCUMBER, NatureBlockRegistryME.WILD_CARROT.asItem(), NatureBlockRegistryME.WILD_ONION.asItem(),
                         NatureBlockRegistryME.WILD_LEEK.asItem(), NatureBlockRegistryME.WILD_LETTUCE.asItem(), NatureBlockRegistryME.WILD_GARLIC.asItem(),
                         NatureBlockRegistryME.WILD_TOMATO.asItem(), NatureBlockRegistryME.WILD_BELL_PEPPER.asItem(),
@@ -59,11 +58,11 @@ public final class TradeRecipes {
                 new Recipe(Set.of(Items.CLAY_BALL), 1, Items.BRICK),
                 new Recipe(Set.of(Items.CLAY), 1, Items.TERRACOTTA));
 
-        // Anything a smoker cooks counts for a kitchen too, which covers the fishers' and hunters' catch
+        // Smoker recipes count for a kitchen too, covering fish and game
         add(NpcJobs.COOK, new Trade(kitchen, RecipeType.SMOKING, stack -> true, false));
         add(NpcJobs.INNKEEPER, new Trade(kitchen, RecipeType.SMOKING, stack -> true, false));
         add(NpcJobs.BAKER, new Trade(bakery, null, stack -> false, false));
-        // Ore from the miners, smelted as a blast furnace would. Only ore, or the swords in the armoury would be melted down
+        // Ore from miners. Ore only, or the armoury's swords get melted down
         add(NpcJobs.SMITH, new Trade(List.of(), RecipeType.BLASTING,
                 stack -> stack.isIn(ConventionalItemTags.ORES) || stack.isIn(ConventionalItemTags.RAW_MATERIALS), true));
         add(NpcJobs.POTTER, new Trade(pottery, null, stack -> false, true));
@@ -81,8 +80,7 @@ public final class TradeRecipes {
         return worksFromStock(job) && !TRADES.get(job).lenient();
     }
 
-    // Something this job can make right now from what's stored near home, picked at random so a kitchen with fish
-    // and mushrooms doesn't only ever cook fish
+    // Picked at random so a kitchen with fish and mushrooms doesn't only cook fish
     public static @Nullable Order order(ServerWorld world, SiteStock stock, @Nullable Identifier job, BlockPos home, int range, Random random) {
         if(!worksFromStock(job))
             return null;

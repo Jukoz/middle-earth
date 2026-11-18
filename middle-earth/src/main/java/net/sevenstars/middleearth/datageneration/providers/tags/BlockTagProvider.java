@@ -1,5 +1,15 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
+
+import net.sevenstars.middleearth.features.inscription.InscriptionBlocks;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -15,7 +25,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.beds.CustomBedBlock;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.registries.content.structurefeatures.BuildFeatures;
@@ -50,7 +60,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         var seat = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "seat")));
         var table = valueLookupBuilder(TagKey.of(RegistryKeys.BLOCK, Identifier.of(MiddleEarth.MOD_ID, "table")));
 
-        // Tags blocks by what they count as in a building, using the same definitions the structure data is read with
         for(BuildFeatures feature : BuildFeatures.values()) {
             var members = valueLookupBuilder(feature.getTag());
             for(Block block : Registries.BLOCK) {
@@ -330,16 +339,16 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.adamant_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.mithril_ore());
 
-        needsStoneTools.add(DecorativeBlockRegistryME.STONE_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL);
-        needsIronTools.add(DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL);
+        needsStoneTools.add(SmithingBlocks.STONE_ANVIL);
+        needsIronTools.add(SmithingBlocks.TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.DWARVEN_TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.ELVEN_TREATED_ANVIL);
+        needsIronTools.add(SmithingBlocks.ORCISH_TREATED_ANVIL);
 
         needsIronTools.add(DecorativeBlockRegistryME.TORCH_OF_ORTHANC);
 
-        needsIronTools.add(DecorativeBlockRegistryME.REINFORCED_CHEST);
-        mineableAxe.add(DecorativeBlockRegistryME.REINFORCED_CHEST);
+        needsIronTools.add(StorageBlocks.REINFORCED_CHEST);
+        mineableAxe.add(StorageBlocks.REINFORCED_CHEST);
 
         needsDiamondTools.add(DecorativeBlockRegistryME.FIRE_OF_ORTHANC);
 
@@ -423,10 +432,10 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         mineablePickaxe.add(BlockRegistryME.EMBERS);
 
-        mineableAxe.add(DecorativeBlockRegistryME.WOOD_PILE);
-        mineableAxe.add(DecorativeBlockRegistryME.ARTISAN_TABLE);
-        mineableAxe.add(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE);
-        mineableAxe.add(DecorativeBlockRegistryME.INSCRIPTION_TABLE);
+        mineableAxe.add(StorageBlocks.WOOD_PILE);
+        mineableAxe.add(ArtisanBlocks.ARTISAN_TABLE);
+        mineableAxe.add(ArtisanBlocks.ORCISH_ARTISAN_TABLE);
+        mineableAxe.add(InscriptionBlocks.INSCRIPTION_TABLE);
 
         mineablePickaxe.add(BlockRegistryME.BRICK_VERTICAL_SLAB);
         mineablePickaxe.add(BlockRegistryME.MUD_BRICK_VERTICAL_SLAB);

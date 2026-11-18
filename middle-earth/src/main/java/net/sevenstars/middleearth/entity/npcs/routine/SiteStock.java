@@ -14,10 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-// What every store and wood pile of a place holds, shared by everyone who lives there. It is counted from the
-// inventories themselves and not kept as a ledger, because players take from chests too
+// Counted from inventories, not kept as a ledger, since players take from chests too
 public final class SiteStock {
-    // In ticks. A count this old is taken again, so somebody may find a store emptied since and has to check on arrival
+    // In ticks. Older counts are retaken
     private static final int FRESH_FOR = 100;
 
     public record Holding(BlockPos place, Item item, int count) {}
@@ -45,7 +44,6 @@ public final class SiteStock {
         return found;
     }
 
-    // The nearest place that holds at least this many of one wanted item
     public @Nullable Holding nearest(ServerWorld world, BlockPos near, int range, Predicate<Item> wanted, int count) {
         Holding best = null;
         for(Holding holding : near(world, near, range)) {

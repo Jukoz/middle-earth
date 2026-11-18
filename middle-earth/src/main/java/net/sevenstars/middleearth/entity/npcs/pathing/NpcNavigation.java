@@ -17,18 +17,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Set;
 
 public class NpcNavigation extends MobNavigation {
-    // Minimum node budget for a search, before the range multiplier. The game's default of 16 per block of follow range
-    // runs out on the way around a long building, and the search then ends on the near side of the wall
+    // Minimum node budget. The default (16 per block of range) runs out going round a long building
     private static final int SEARCH_NODES = 2048;
     private static final float PATH_LENGTH = 64;
     private static final float LONG_PATH_LENGTH = 96;
-    // For planning a whole route at once, through the halls of a stronghold and up its stairs
     private static final float PLAN_LENGTH = 256;
     private static final float PLAN_SEARCH = 16;
-    // The range the game passes for a search to a single block
     private static final int FOLLOW_TARGET_RANGE = 8;
 
-    // The game's own multiplier is private, so keep a copy
+    // The game's multiplier is private, so keep a copy
     private float searchMultiplier = 1;
     private boolean planning = false;
 
@@ -36,20 +33,18 @@ public class NpcNavigation extends MobNavigation {
         super(mob, world);
     }
 
-    // Searches don't follow paths longer than this (the follow range by default). The route around a house to its door,
-    // or up the back stairs to a loft, is longer than the default 32 blocks
+    // Path length cap, follow range by default. Round a house to its door or loft is longer
     @Override
     protected @Nullable Path findPathToAny(Set<BlockPos> positions, int range, boolean useHeadPos, int distance, float followRange) {
-        // A search with more nodes, such as the walk to bed, is also allowed a longer path
         float length = planning ? PLAN_LENGTH : searchMultiplier > 1 ? LONG_PATH_LENGTH : PATH_LENGTH;
         return super.findPathToAny(positions, range, useHeadPos, distance, Math.max(followRange, length));
     }
 
-    // The game moves the target up when it sits in a block it considers solid. The spot to stand at beside a bed can be
-    // in the block of an open trapdoor, which isn't really solid, so search for that block itself
+    // The game moves a target out of a block it thinks is solid, but an open trapdoor's isn't,
+    // so search for that block itself
     @Override
     public @Nullable Path findPathTo(BlockPos target, int distance) {
-        // Reading the block state in an unloaded chunk would load it
+        // Reading a block in an unloaded chunk would load it
         if(!world.isChunkLoaded(target.getX() >> 4, target.getZ() >> 4))
             return null;
         if(isBoard(world.getBlockState(target)))
@@ -57,8 +52,7 @@ public class NpcNavigation extends MobNavigation {
         return super.findPathTo(target, distance);
     }
 
-    // Finds the whole route to a place in one search, with many more nodes and practically no length limit, so it can be
-    // walked a stretch at a time. Null when no path reaches the target
+    // Whole route in one search, with almost no length limit, to walk in stretches. Null if unreachable
     public @Nullable Path plan(BlockPos target) {
         planning = true;
         float before = searchMultiplier;
@@ -90,17 +84,14 @@ public class NpcNavigation extends MobNavigation {
         return new NpcPathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
     }
 
-    // A ladder is a board along one side of its block, like an open trapdoor. If an npc aims for the middle of the block
-    // and is a little wider than the room beside the board, it walks into the end of the board and gets stuck. So aim for
-    // the middle of the free room instead
+    // A ladder board sits on one side, so aim for the middle of the free room or a wide npc sticks
     @Override
     public void tick() {
         super.tick();
         if(isIdle() || currentPath == null || currentPath.isFinished())
             return;
         BlockPos node = currentPath.getCurrentNodePos();
-        // There can be a board at the feet and another at head height, such as a ladder turning a corner or a shutter over
-        // a ladder. Both narrow the room the body has to pass through
+        // A second board can sit at head height (corner ladder, shutter), narrowing the room too
         BlockState feet = world.getBlockState(node);
         BlockState head = world.getBlockState(node.up());
         VoxelShape low = isBoard(feet) ? feet.getCollisionShape(world, node) : VoxelShapes.empty();
@@ -117,7 +108,6 @@ public class NpcNavigation extends MobNavigation {
         return state.isIn(BlockTags.CLIMBABLE) || NpcPathNodeMaker.isOpenBoard(state);
     }
 
-    // The middle of the room the shapes leave free along one axis, between the sides of the block
     private static double freeMiddle(VoxelShape low, VoxelShape high, Direction.Axis axis) {
         double from = 0;
         double to = 1;
@@ -132,7 +122,6 @@ public class NpcNavigation extends MobNavigation {
         return (from + to) / 2;
     }
 
-    // A path can be followed from a ladder even though the npc is off the ground
     @Override
     protected boolean isAtValidPosition() {
         return super.isAtValidPosition() || this.entity.isClimbing();

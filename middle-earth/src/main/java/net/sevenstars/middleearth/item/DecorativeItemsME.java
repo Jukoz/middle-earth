@@ -1,13 +1,12 @@
 package net.sevenstars.middleearth.item;
 
+import net.sevenstars.middleearth.common.registration.ItemRegistrar;
 import net.sevenstars.middleearth.item.items.BuildersToolItem;
 import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.special.LargeDoorBlock;
 import net.sevenstars.middleearth.block.utils.BlockAuthor;
-import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.dataComponents.BlockAuthorDataComponent;
 import net.sevenstars.middleearth.item.items.CustomSpawnEggItem;
@@ -25,7 +24,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
-import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 
@@ -57,32 +55,9 @@ public class DecorativeItemsME {
     public static final Item ORCISH_SCONCE = registerItem("orcish_sconce",
             (settings) -> new VerticallyAttachableBlockItem(DecorativeBlockRegistryME.ORCISH_SCONCE, DecorativeBlockRegistryME.ORCISH_WALL_SCONCE, Direction.DOWN, settings), new Item.Settings());
 
-    public static final Item FORGE = registerItem("forge",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.FORGE, settings), new Item.Settings());
-
-    public static final Item STONE_ANVIL = registerItem("stone_anvil",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.STONE_ANVIL, settings), new Item.Settings());
-
-    public static final Item TREATED_ANVIL = registerItem("treated_anvil",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item DWARVEN_TREATED_ANVIL = registerItem("dwarven_treated_anvil",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item ELVEN_TREATED_ANVIL = registerItem("elven_treated_anvil",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item ORCISH_TREATED_ANVIL = registerItem("orcish_treated_anvil",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item BELLOWS = registerItem("bellows",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.BELLOWS, settings), new Item.Settings());
-
     public static final Item REINFORCED_SCAFFOLDING = registerItem("reinforced_scaffolding",
             (settings) -> new ReinforcedScaffoldingItem(DecorativeBlockRegistryME.REINFORCED_SCAFFOLDING, settings), new Item.Settings());
 
-    public static final Item ARTISAN_TABLE = registerItem("artisan_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ARTISAN_TABLE, settings), new Item.Settings());
-    public static final Item ORCISH_ARTISAN_TABLE = registerItem("orcish_artisan_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.ORCISH_ARTISAN_TABLE, settings), new Item.Settings());
-    public static final Item INSCRIPTION_TABLE = registerItem("inscription_table",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.INSCRIPTION_TABLE, settings), new Item.Settings());
 
     public static final Item STRUCTURE_MANAGER = registerItem("structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());
@@ -103,39 +78,8 @@ public class DecorativeItemsME {
     public static final Item SPIDER_VAULT = registerItem("spider_vault",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.SPIDER_VAULT, settings), new Item.Settings());
 
-    public static final Item SMALL_CRATE = registerItem("small_crate",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SMALL_CRATE, settings), new Item.Settings());
-    public static final Item THIN_BARREL = registerItem("thin_barrel",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.THIN_BARREL, settings), new Item.Settings());
-    public static final Item LARCH_COFFER = registerItem("larch_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.LARCH_COFFER, settings), new Item.Settings());
-    public static final Item PINE_COFFER = registerItem("pine_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.PINE_COFFER, settings), new Item.Settings());
-    public static final Item SPRUCE_COFFER = registerItem("spruce_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SPRUCE_COFFER, settings), new Item.Settings());
-    public static final Item FIR_COFFER = registerItem("fir_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.FIR_COFFER, settings), new Item.Settings());
-    public static final Item BEECH_COFFER = registerItem("beech_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.BEECH_COFFER, settings), new Item.Settings());
-    public static final Item CHESTNUT_COFFER = registerItem("chestnut_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.CHESTNUT_COFFER, settings), new Item.Settings());
-    public static final Item OAK_COFFER = registerItem("oak_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.OAK_COFFER, settings), new Item.Settings());
-    public static final Item WILLOW_COFFER = registerItem("willow_coffer",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.WILLOW_COFFER, settings), new Item.Settings());
-    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.REINFORCED_CHEST, settings), new Item.Settings());
     // A full sack can't go in a bundle or another container, like a shulker box
-    public static final Item SACK = registerItem("sack",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.SACK, settings) {
-                @Override
-                public boolean canBeNested() {
-                    return false;
-                }
-            }, new Item.Settings().maxCount(1));
 
-    public static final Item WOOD_PILE = registerItem("wood_pile",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.WOOD_PILE, settings), new Item.Settings());
 
     public static final Item BASALT_STATUE = registerItem("basalt_statue",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.BASALT_STATUE, settings), new Item.Settings()
@@ -251,11 +195,7 @@ public class DecorativeItemsME {
 
 
     private static Item registerItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = (Item)factory.apply(settings.registryKey(BlockRegistryME.keyOfItem(name)));
-        ItemGroupsME.DECORATIVES_BLOCKS_CONTENT.add(item.getDefaultStack());
-        TranslationEntries.itemEntries.add(item);
-        RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.ITEM, name));
-        return Registry.register(Registries.ITEM, Identifier.of(MiddleEarth.MOD_ID, name), item);
+        return ItemRegistrar.register(name, factory, settings, ItemGroupsME.DECORATIVES_BLOCKS_CONTENT);
     }
 
     public static void registerModItems() {

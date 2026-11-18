@@ -7,8 +7,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-// The look shared by the builder's screens: a framed window with a title bar, drawn over the world (which stays
-// visible behind it), and darker wells that hold lists and readouts
 @Environment(value = EnvType.CLIENT)
 public class EditorPanel {
     public static final int PADDING = 6;
@@ -28,7 +26,6 @@ public class EditorPanel {
     private static final int LINE = 0xFF333A45;
     private static final int SHADOW_OFFSET = 3;
 
-    // The window, with its title on the left of the title bar and a subject on the right
     public static void window(DrawContext context, TextRenderer textRenderer, int x, int y, int width, int height, Text title, @Nullable Text about) {
         context.fill(x + SHADOW_OFFSET, y + SHADOW_OFFSET, x + width + SHADOW_OFFSET, y + height + SHADOW_OFFSET, SHADOW);
         context.fill(x - 1, y - 1, x + width + 1, y + height + 1, EDGE);
@@ -42,7 +39,6 @@ public class EditorPanel {
             context.drawTextWithShadow(textRenderer, about, x + width - PADDING - textRenderer.getWidth(about), textY, MUTED);
     }
 
-    // The divider line above the buttons at the bottom of a window
     public static void footer(DrawContext context, int x, int y, int width, int height) {
         divider(context, x + 1, y + height - FOOTER_HEIGHT, width - 2);
     }

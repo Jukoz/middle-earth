@@ -7,12 +7,11 @@ import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
-// A way of picking a target and sticking with it. Stopping one drops the target
 abstract class TargetBehaviour extends Behaviour {
     // In ticks, though the sight is only checked on think ticks
     private final int lostSightTicks;
     private int timeWithoutSight = 0;
-    // What it fell back on when the npc's own target was cleared from elsewhere
+    // Fallback for when the npc's own target was cleared elsewhere
     @Nullable LivingEntity remembered = null;
 
     TargetBehaviour(int priority, int lostSightTicks) {

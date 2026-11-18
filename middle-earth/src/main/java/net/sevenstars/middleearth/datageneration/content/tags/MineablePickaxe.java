@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.minecraft.block.Block;
@@ -102,13 +104,13 @@ public class MineablePickaxe {
             add(BlockRegistryME.BURZUM_BARS);
             add(BlockRegistryME.GILDED_BARS);
 
-            add(DecorativeBlockRegistryME.FORGE);
+            add(SmithingBlocks.FORGE);
 
-            add(DecorativeBlockRegistryME.STONE_ANVIL);
-            add(DecorativeBlockRegistryME.TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.DWARVEN_TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.ELVEN_TREATED_ANVIL);
-            add(DecorativeBlockRegistryME.ORCISH_TREATED_ANVIL);
+            add(SmithingBlocks.STONE_ANVIL);
+            add(SmithingBlocks.TREATED_ANVIL);
+            add(SmithingBlocks.DWARVEN_TREATED_ANVIL);
+            add(SmithingBlocks.ELVEN_TREATED_ANVIL);
+            add(SmithingBlocks.ORCISH_TREATED_ANVIL);
 
             add(DecorativeBlockRegistryME.GREAT_GONDORIAN_GATE);
 

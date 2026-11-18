@@ -21,7 +21,6 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded
 class RoutineBed {
     private static final double BED_REACH = 6;
     private static final double BED_HEIGHT_REACH = 5;
-    // Just above the top of a bed, so it can be seen across the footboard
     private static final double BED_TOP = 0.6;
 
     private final NpcRoutine routine;
@@ -35,8 +34,7 @@ class RoutineBed {
         this.npc = routine.npc;
     }
 
-    // A bed is two blocks, and the near half is as good as the other. Aims at its middle, or else its top, because a
-    // trapdoor left open at the foot of a bed hides the middle from the floor beside it
+    // Aims at the middle, else the top: an open trapdoor at the foot hides the middle
     boolean canSeeBed(ServerWorld world, BlockPos bed) {
         for(Vec3d aim : new Vec3d[]{Vec3d.ofCenter(bed), Vec3d.ofBottomCenter(bed).add(0, BED_TOP, 0)}) {
             BlockHitResult hit = world.raycast(new RaycastContext(npc.getEyePos(), aim, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, npc));
@@ -47,7 +45,6 @@ class RoutineBed {
         return false;
     }
 
-    // Its own bed, unless that's gone or somebody is lying in it
     @Nullable BlockPos freeBed(ServerWorld world) {
         BlockPos bed = npc.getAssignedBed();
         if(bed == null || !isLoaded(world, bed))
@@ -55,9 +52,7 @@ class RoutineBed {
         BlockState state = world.getBlockState(bed);
         if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED))
             return null;
-        // A bed with no floor anywhere beside it, such as one in a tent shut at both ends by its poles, can't be got
-        // into, so its owner rests at home. Looked for again in case the bed's chunk wasn't loaded when it was given
-        // out
+        // No floor beside the bed (e.g. a tent shut by poles): rest at home. Rechecked as chunks load
         if(npc.getBedStand() == null) {
             BlockPos stand = NestSurvey.standFor(world, bed);
             if(stand == null) {
@@ -81,11 +76,10 @@ class RoutineBed {
             bedStrikes = 0;
             routine.failed = false;
         } else {
-            // A walk to it that was given up is already in the log
             if(!routine.failed)
                 routine.abandoned("bed", bed == null ? "its bed is gone or somebody lies in it" : !isInReach(bed) ? "could not get near its bed " + bed.toShortString()
                         : "its bed " + bed.toShortString() + " is behind a wall");
-            // Left set until the failure is logged, which records the route to the bed rather than home
+            // Left set until the failure is logged, so it records the route to the bed
             routine.toBed = false;
             bedStrikes = Math.min(bedStrikes + 1, MAXIMUM_STRIKES);
             bedHeldUntil = world.getTime() + (long) HOLD * bedStrikes;
@@ -93,8 +87,7 @@ class RoutineBed {
         }
     }
 
-    // Lofts, ladders and odd corners keep many npcs from walking the last steps to their bed. Inside the house is near
-    // enough
+    // Lofts and ladders block walks to the bed, so inside the house is near enough
     boolean isInReach(BlockPos bed) {
         double distanceX = bed.getX() + 0.5 - npc.getX();
         double distanceZ = bed.getZ() + 0.5 - npc.getZ();

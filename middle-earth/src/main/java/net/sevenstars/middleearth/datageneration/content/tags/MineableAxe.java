@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
@@ -44,18 +48,18 @@ public class MineableAxe {
             add(DecorativeBlockRegistryME.RUINED_DWARVEN_DOOR);
             add(DecorativeBlockRegistryME.GREAT_ELVEN_GATE);
 
-            add(DecorativeBlockRegistryME.THIN_BARREL);
-            add(DecorativeBlockRegistryME.SMALL_CRATE);
+            add(StorageBlocks.THIN_BARREL);
+            add(StorageBlocks.SMALL_CRATE);
 
-            add(DecorativeBlockRegistryME.BEECH_COFFER);
-            add(DecorativeBlockRegistryME.CHESTNUT_COFFER);
-            add(DecorativeBlockRegistryME.FIR_COFFER);
-            add(DecorativeBlockRegistryME.LARCH_COFFER);
-            add(DecorativeBlockRegistryME.OAK_COFFER);
-            add(DecorativeBlockRegistryME.PINE_COFFER);
-            add(DecorativeBlockRegistryME.SPRUCE_COFFER);
-            add(DecorativeBlockRegistryME.WILLOW_COFFER);
-            add(DecorativeBlockRegistryME.REINFORCED_CHEST);
+            add(StorageBlocks.BEECH_COFFER);
+            add(StorageBlocks.CHESTNUT_COFFER);
+            add(StorageBlocks.FIR_COFFER);
+            add(StorageBlocks.LARCH_COFFER);
+            add(StorageBlocks.OAK_COFFER);
+            add(StorageBlocks.PINE_COFFER);
+            add(StorageBlocks.SPRUCE_COFFER);
+            add(StorageBlocks.WILLOW_COFFER);
+            add(StorageBlocks.REINFORCED_CHEST);
 
             add(BlockRegistryME.AGED_WOOD_TRAPDOOR);
             add(BlockRegistryME.BLACK_WATTLE_TRAPDOOR);
@@ -66,7 +70,7 @@ public class MineableAxe {
 
             add(BlockRegistryME.TREATED_WOOD_ROPE_FENCE);
 
-            add(DecorativeBlockRegistryME.BELLOWS);
+            add(SmithingBlocks.BELLOWS);
 
             add(DecorativeBlockRegistryME.TREATED_WOOD_LADDER);
             add(DecorativeBlockRegistryME.TREATED_WOOD_STOOL);

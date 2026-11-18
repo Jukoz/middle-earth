@@ -28,12 +28,12 @@ abstract class RoutineActivity {
         this.npc = routine.npc;
     }
 
-    // False when the activity could not be started, having been put on hold
+    // False if it couldn't start and was put on hold
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         return true;
     }
 
-    // True when the arrival was spent on something else and the work does not start yet
+    // True if the arrival went on something else and the work doesn't start yet
     boolean beforeWork(ServerWorld world, Random random, long time) {
         return false;
     }
@@ -41,7 +41,6 @@ abstract class RoutineActivity {
     void arrive(ServerWorld world, Random random, long time) {
     }
 
-    // For work at a block: true when the block is behind a wall, which ends the task
     boolean leaveIfHidden(ServerWorld world, Random random, @Nullable BlockPos worked) {
         if(worked == null || routine.canSee(world, worked))
             return false;

@@ -1,5 +1,19 @@
 package net.sevenstars.middleearth.datageneration.providers.recipes;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.farming.FarmingItems;
+
+import net.sevenstars.middleearth.features.storage.StorageBlocks;
+
+import net.sevenstars.middleearth.features.cooking.CookingBlocks;
+
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Block;
@@ -18,14 +32,14 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.*;
-import net.sevenstars.middleearth.block.utils.BlockRecordTypes;
-import net.sevenstars.middleearth.block.utils.setBuilders.GenericBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.SimpleBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.StoneBlockSetBuilder;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.BlockRecordTypes;
+import net.sevenstars.middleearth.features.building.sets.builders.GenericBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.SimpleBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.StoneBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 import net.sevenstars.middleearth.datageneration.content.models.*;
-import net.sevenstars.middleearth.datageneration.custom.AlloyRecipeJsonBuilder;
-import net.sevenstars.middleearth.datageneration.custom.AnvilShapingRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.smithing.datagen.AlloyRecipeJsonBuilder;
+import net.sevenstars.middleearth.features.smithing.datagen.AnvilShapingRecipeJsonBuilder;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.recipe.*;
 import net.sevenstars.middleearth.utils.ItemTagsME;
@@ -942,10 +956,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createDaggerRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), WeaponItemsME.STONE_DAGGER);
                 createDaggerRecipe(exporter, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_DAGGER);
 
-                createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")), WeaponItemsME.WOODEN_SPEAR);
-                createSpearRecipeTag(exporter, Items.STICK, TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials")), WeaponItemsME.STONE_SPEAR);
-                createSpearRecipe(exporter, Items.STICK, Items.DIAMOND, WeaponItemsME.DIAMOND_SPEAR);
-
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.BRONZE_INGOT, ToolItemsME.BRONZE_PICKAXE, ToolItemsME.BRONZE_AXE, ToolItemsME.BRONZE_SHOVEL, ToolItemsME.BRONZE_HOE);
 
                 createToolSetRecipes(exporter, Items.STICK, ResourceItemsME.CRUDE_INGOT, ToolItemsME.CRUDE_PICKAXE, ToolItemsME.CRUDE_AXE, ToolItemsME.CRUDE_SHOVEL, ToolItemsME.CRUDE_HOE);
@@ -1047,12 +1057,12 @@ public class RecipeProvider extends FabricRecipeProvider {
                 //endregion
 
                 //region SEEDS
-                createSeedsRecipe(exporter, FoodItemsME.TOMATO, ResourceItemsME.TOMATO_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, ResourceItemsME.BELL_PEPPER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, ResourceItemsME.CUCUMBER_SEEDS);
-                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, ResourceItemsME.LETTUCE_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, ResourceItemsME.PIPEWEED_SEEDS);
-                createSeedsRecipe(exporter, ResourceItemsME.FLAX, ResourceItemsME.FLAX_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.TOMATO, FarmingItems.TOMATO_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.BELL_PEPPER, FarmingItems.BELL_PEPPER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.CUCUMBER, FarmingItems.CUCUMBER_SEEDS);
+                createSeedsRecipe(exporter, FoodItemsME.LETTUCE, FarmingItems.LETTUCE_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.PIPEWEED, FarmingItems.PIPEWEED_SEEDS);
+                createSeedsRecipe(exporter, ResourceItemsME.FLAX, FarmingItems.FLAX_SEEDS);
                 //endregion
 
                 //region FOOD
@@ -1130,7 +1140,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .input(Items.CHICKEN)
                         .input(Items.WHEAT)
                         .input(Items.EGG)
-                        .input(FoodItemsME.GARLIC)
+                        .input(FarmingItems.GARLIC)
                         .criterion(hasItem(ResourceItemsME.PTEROSAUR_NUGGET),
                                 conditionsFromItem(ResourceItemsME.PTEROSAUR_NUGGET))
                         .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, "chicken_nugget" + "_from_alloying")));
@@ -1166,12 +1176,12 @@ public class RecipeProvider extends FabricRecipeProvider {
 
                 createMeltBulkRecipe(exporter, Items.NETHERITE_INGOT, "netherite");
 
-                createAnvilRecipe(exporter, BlockRegistryME.STEEL_BLOCK.asItem(), ResourceItemsME.STEEL_INGOT, DecorativeItemsME.TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.KHAZAD_STEEL_BLOCK.asItem(), ResourceItemsME.KHAZAD_STEEL_INGOT, DecorativeItemsME.DWARVEN_TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.EDHEL_STEEL_BLOCK.asItem(), ResourceItemsME.EDHEL_STEEL_INGOT, DecorativeItemsME.ELVEN_TREATED_ANVIL);
-                createAnvilRecipe(exporter, BlockRegistryME.BURZUM_STEEL_BLOCK.asItem(), ResourceItemsME.BURZUM_STEEL_INGOT, DecorativeItemsME.ORCISH_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.STEEL_BLOCK.asItem(), ResourceItemsME.STEEL_INGOT, SmithingItems.TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.KHAZAD_STEEL_BLOCK.asItem(), ResourceItemsME.KHAZAD_STEEL_INGOT, SmithingItems.DWARVEN_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.EDHEL_STEEL_BLOCK.asItem(), ResourceItemsME.EDHEL_STEEL_INGOT, SmithingItems.ELVEN_TREATED_ANVIL);
+                createAnvilRecipe(exporter, BlockRegistryME.BURZUM_STEEL_BLOCK.asItem(), ResourceItemsME.BURZUM_STEEL_INGOT, SmithingItems.ORCISH_TREATED_ANVIL);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeItemsME.BELLOWS, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, SmithingItems.BELLOWS, 1)
                         .pattern(" PS")
                         .pattern("PFF")
                         .pattern("TPS")
@@ -1662,19 +1672,19 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createStatueRecipe(exporter, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.TUFF_WALL, DecorativeBlockRegistryME.TUFF_STATUE);
                 createStatueRecipe(exporter, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base(), StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.wall(), DecorativeBlockRegistryME.ZIGILABAN_STATUE);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CERAMIC_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.CERAMIC_PLATE, 1)
                         .pattern("BB")
                         .input('B', Items.BRICK)
                         .criterion(hasItem(Items.BRICK),
                                 conditionsFromItem(Items.BRICK))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.ROTTEN_PLATE, 4)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.ROTTEN_PLATE, 4)
                         .pattern("RR")
                         .input('R', WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log())
                         .criterion(hasItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()),
                                 conditionsFromItem(WoodBlockSetRegistryME.ROTTEN_SET.logBlocks.log()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SILVER_PLATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, CookingBlocks.SILVER_PLATE, 1)
                         .pattern("SS")
                         .input('S', ResourceItemsME.SILVER_INGOT)
                         .criterion(hasItem(ResourceItemsME.SILVER_INGOT),
@@ -2526,7 +2536,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.BOOK))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SMALL_CRATE, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SMALL_CRATE, 1)
                         .pattern("SSS")
                         .pattern("PPP")
                         .input('S', TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs")))
@@ -2535,7 +2545,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_PLANKS))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.THIN_BARREL, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.THIN_BARREL, 1)
                         .pattern("VSV")
                         .pattern("V V")
                         .pattern("VSV")
@@ -2545,7 +2555,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(Items.OAK_SLAB))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.LARCH_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.LARCH_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2554,7 +2564,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.LARCH_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.PINE_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.PINE_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2563,7 +2573,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.PINE_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.PINE_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SPRUCE_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SPRUCE_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2572,7 +2582,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Blocks.SPRUCE_PLANKS),
                                 conditionsFromItem(Blocks.SPRUCE_PLANKS))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.FIR_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.FIR_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2581,7 +2591,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.FIR_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.BEECH_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.BEECH_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2590,7 +2600,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.BEECH_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.BEECH_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.CHESTNUT_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.CHESTNUT_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2599,7 +2609,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.CHESTNUT_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.CHESTNUT_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.OAK_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.OAK_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2608,7 +2618,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(WoodBlockSetRegistryME.OAK_SET.planksBlocks.base()),
                                 conditionsFromItem(WoodBlockSetRegistryME.OAK_SET.planksBlocks.base()))
                         .offerTo(exporter);
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.WILLOW_COFFER, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.WILLOW_COFFER, 1)
                         .pattern("TLT")
                         .pattern("L L")
                         .pattern("LLL")
@@ -2618,7 +2628,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                                 conditionsFromItem(WoodBlockSetRegistryME.WILLOW_SET.planksBlocks.base()))
                         .offerTo(exporter);
 
-                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, DecorativeBlockRegistryME.SACK, 1)
+                ShapedRecipeJsonBuilder.create(itemLookup, RecipeCategory.BUILDING_BLOCKS, StorageBlocks.SACK, 1)
                         .pattern("C C")
                         .pattern("CRC")
                         .pattern("CCC")
@@ -2662,7 +2672,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBannerPatternRecipe(exporter, Items.BONE_BLOCK, ResourceItemsME.GOBLIN_SKULL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.SKELETON_SKULL, ResourceItemsME.SCREECHING_SKULL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.WHITE_DYE, ResourceItemsME.ISENGARD_BANNER_PATTERN);
-                createBannerPatternRecipe(exporter, ToolItemsME.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
+                createBannerPatternRecipe(exporter, SmithingItems.DWARVEN_SMITHING_HAMMER, ResourceItemsME.ANVIL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, ResourceItemsME.BRONZE_INGOT, ResourceItemsME.BELL_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.GOLD_NUGGET, ResourceItemsME.DWARF_CROWN_BANNER_PATTERN);
                 createBannerPatternRecipe(exporter, Items.SPIDER_EYE, ResourceItemsME.SPIDER_BANNER_PATTERN);
@@ -3240,29 +3250,29 @@ public class RecipeProvider extends FabricRecipeProvider {
                 switch (ingots) {
                     case 1 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount, 0)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_1_" + input.id().getPath())));
                     case 2 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 2, 0)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_2_" + input.id().getPath())));
                     case 3 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 3, 0)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_3_" + input.id().getPath())));
                     case 4 -> AlloyRecipeJsonBuilder.createAlloyRecipe(this.itemLookup, RecipeCategory.MISC, output, amount * 4, 0)
                             .input(input)
                             .input(input)
                             .input(input)
                             .input(input)
-                            .criterion(hasItem(DecorativeItemsME.FORGE),
-                                    conditionsFromItem(DecorativeItemsME.FORGE))
+                            .criterion(hasItem(SmithingItems.FORGE),
+                                    conditionsFromItem(SmithingItems.FORGE))
                             .offerTo(exporter, String.valueOf(Identifier.of(MiddleEarth.MOD_ID, output + "_from_melting_4_" + input.id().getPath())));
                 }
             }

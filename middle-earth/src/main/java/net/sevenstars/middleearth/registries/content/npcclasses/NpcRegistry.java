@@ -167,7 +167,7 @@ public class NpcRegistry {
     public final static RegistryKey<NpcClass> ISENGARD_URUK_HAI_BERSERKER = DynamicRegistriesME.of(NPC_CLASS_KEY, createID(FactionRegistry.ISENGARD, "berserker"));
     public final static RegistryKey<NpcClass> ISENGARD_URUK_HAI_LEADER = DynamicRegistriesME.of(NPC_CLASS_KEY, createID(FactionRegistry.ISENGARD, "leader"));
     public final static RegistryKey<NpcClass> ISENGARD_ORTHANC_GUARD = DynamicRegistriesME.of(NPC_CLASS_KEY, createID(FactionRegistry.ISENGARD, "orthanc_guard"));
-    // Classes that were merged into a base class plus a job. An npc saved with one of these loads as the base class and job
+    // Folded into a base class plus a job; a saved npc loads as that pair
     public record Folded(RegistryKey<NpcClass> npcClass, RegistryKey<NpcJob> job) {}
     public final static Map<Identifier, Folded> FOLDED = Map.of(
             createID(FactionRegistry.LONGBEARDS_EREBOR, "miner"), new Folded(EREBOR_PEASANT, NpcJobs.MINER)

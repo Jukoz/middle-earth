@@ -17,11 +17,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-// Containers, items and station blocks
 public final class RoutineStores {
     private RoutineStores() {}
 
-    // Treats a double chest as one inventory
     public static @Nullable Inventory inventoryAt(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if(state.getBlock() instanceof ChestBlock chest)
@@ -42,7 +40,6 @@ public final class RoutineStores {
         return StationKind.of(Registries.BLOCK.getId(state.getBlock()).getPath());
     }
 
-    // Removes one item from the first matching stack in the inventory and returns it
     public static @Nullable Item takeFrom(ServerWorld world, BlockPos place, Predicate<ItemStack> wanted) {
         Inventory inventory = inventoryAt(world, place);
         if(inventory == null)
@@ -59,7 +56,7 @@ public final class RoutineStores {
         return null;
     }
 
-    // Takes this many of one item or none at all, because somebody else may have got to the store first
+    // All or nothing, since someone else may have got there first
     public static boolean take(ServerWorld world, BlockPos place, Item item, int count) {
         Inventory inventory = inventoryAt(world, place);
         if(inventory == null || inventory.count(item) < count)
@@ -73,7 +70,7 @@ public final class RoutineStores {
         return true;
     }
 
-    // The sound of working the block itself, like a hammer on iron at a forge or rustling hay in a stable
+    // Sound of working the block itself, like a hammer on iron at a forge or rustling hay in a stable
     public static SoundEvent workSound(BlockState station) {
         StationKind kind = kindOf(station);
         if(kind == null)

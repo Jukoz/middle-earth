@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npcclasses.pools;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -111,7 +113,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_SPEAR).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_SWORD).withWeight(3))
                                 .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE).withWeight(3))
-                                .add(WeightedItemData.create(WeaponItemsME.IRON_SPEAR).withWeight(2))
+                                .add(WeightedItemData.create(Items.IRON_SPEAR).withWeight(2))
                                 .add(WeightedItemData.create(Items.IRON_SWORD))
                                 .add(WeightedItemData.create(Items.IRON_AXE))
                         )
@@ -156,7 +158,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_SPEAR).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_SWORD))
                                 .add(WeightedItemData.create(ToolItemsME.BRONZE_AXE))
-                                .add(WeightedItemData.create(WeaponItemsME.IRON_SPEAR).withWeight(2))
+                                .add(WeightedItemData.create(Items.IRON_SPEAR).withWeight(2))
                                 .add(WeightedItemData.create(Items.IRON_SWORD))
                                 .add(WeightedItemData.create(Items.IRON_AXE))
                         )

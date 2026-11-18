@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.datageneration.providers.tags;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
@@ -14,8 +16,8 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
-import net.sevenstars.middleearth.datageneration.content.models.HotMetalsModel;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.smithing.datagen.HotMetalsModel;
 import net.sevenstars.middleearth.datageneration.content.models.SimpleDyeableItemModel;
 import net.sevenstars.middleearth.datageneration.content.tags.*;
 import net.sevenstars.middleearth.item.*;
@@ -93,6 +95,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
         // Bows, crossbows and shields are registered as weapons too, but melee enchantments don't belong on them
         Item[] meleeWeapons = WeaponEnchants.weapons.stream()
                 .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))
@@ -110,11 +113,11 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(ArmorTags.armors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(SmithingItems.smithingHammers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/durability"))).add(Crossbows.crossbows.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(ArmorTags.armors.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(ToolItemsME.smithingHammers.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/vanishing"))).add(SmithingItems.smithingHammers.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "tools/shields"))).add(WeaponItemsME.shields.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "tools/shield"))).add(WeaponItemsME.shields.toArray(new Item[0]));

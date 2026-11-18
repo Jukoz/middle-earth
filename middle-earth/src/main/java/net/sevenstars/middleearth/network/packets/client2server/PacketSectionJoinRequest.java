@@ -15,8 +15,6 @@ import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
 import net.sevenstars.middleearth.commands.custom.JigsawFits;
 import net.sevenstars.middleearth.network.packets.server2client.PacketJigsawFits;
 
-// Makes the piece of one block target the piece of another where they meet. Either two plugs are linked, or two blocks
-// side by side in two sections become a pair of plugs
 public class PacketSectionJoinRequest extends ClientToServerPacket<PacketSectionJoinRequest> {
     public static final Id<PacketSectionJoinRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "section_join_request"));
 

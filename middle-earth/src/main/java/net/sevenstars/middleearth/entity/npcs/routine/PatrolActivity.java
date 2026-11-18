@@ -19,7 +19,6 @@ class PatrolActivity extends RoutineActivity {
     private static final int WATCH_TIME_VARIATION = 20 * 4;
 
     private static final int MINIMUM_ROUTE_POINTS = 2;
-    // A rider's round is this much further out than the one on foot
     private static final int RIDER_MARGIN = 18;
 
     int ringIndex = 0;
@@ -51,7 +50,7 @@ class PatrolActivity extends RoutineActivity {
     @Override
     void arrive(ServerWorld world, Random random, long time) {
         routine.phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
-        // Watches the land outside, with the place for a rider being further out than the ring
+        // A rider's place is further out than the ring
         double awayX = npc.getX() - routine.site.getCenterX();
         double awayZ = npc.getZ() - routine.site.getCenterZ();
         routine.lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
@@ -62,8 +61,7 @@ class PatrolActivity extends RoutineActivity {
         if(!done)
             return;
         ringLeft--;
-        // The watch walks its rounds until the shift is over, rather than cross the middle of the place to go home after each.
-        // With nobody about to see it, the round ends, as every other routine does
+        // The watch walks rounds until the shift ends. With nobody to see it, the round ends
         if(!routine.onDuty(world) || !routine.isWatched(world)) {
             if(routine.onDuty(world))
                 routine.abandoned("cut its round short, no player near");
@@ -78,7 +76,6 @@ class PatrolActivity extends RoutineActivity {
         }
     }
 
-    // Riders go round further out, where a horse has room to go
     private BlockPos routePoint(ServerWorld world, BlockPos point) {
         if(!routine.walker.riding() || routine.site.hasMarkedRoute())
             return point;
@@ -108,7 +105,7 @@ class PatrolActivity extends RoutineActivity {
     private void nextWaypoint() {
         List<BlockPos> ring = routine.site.getPatrolRoute();
         int next = ringIndex + ringStep;
-        // Turns back at the ends of a round broken by a lake or a cliff
+        // Turns back at the ends of a round broken by a lake or cliff
         if(routine.site.isPatrolArc() && (next < 0 || next >= ring.size())) {
             ringStep = -ringStep;
             next = ringIndex + ringStep;
@@ -119,7 +116,6 @@ class PatrolActivity extends RoutineActivity {
         routine.phase = Phase.GOING;
         routine.walker.resetWalk();
         routine.thinkCooldown = 0;
-        // Dusk and dawn can fall in the middle of a round
         routine.showProp();
     }
 }

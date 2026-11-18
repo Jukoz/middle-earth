@@ -46,8 +46,7 @@ public class BiomeEventData {
     private static final int MAXIMUM_PENDING_SPAWNS = 256;
     private static final int DEFAULT_WEIGHT = 1;
     private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
-    // The world time until which a kind of entity isn't retried in a chunk where it was just refused. Tracked per kind,
-    // so npcs waiting for night don't stop sheep from spawning there
+    // Per kind, so npcs waiting for night don't stop sheep spawning
     private static final HashMap<DisabledSpawn, Long> DISABLED_SPAWNS = new HashMap<>();
     private static final int MAXIMUM_DISABLED_SPAWNS = 4096;
 
@@ -86,8 +85,7 @@ public class BiomeEventData {
     }
 
     public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        // Spawn what the spawn check picked for this spot instead of rolling again and maybe getting nothing.
-        // Structure events are checked before the biome's, so only the event that made a pick can take it
+        // Use what the spawn check picked here. Only the event that made a pick can take it
         long spot = entity.getBlockPos().asLong();
         PendingSpawn pending = PENDING_SPAWNS.get(spot);
         WildSpawnEventData spawningData = null;
@@ -148,7 +146,7 @@ public class BiomeEventData {
 
         WildSpawnEventData spawningData = pickWeighted(entityId, world, pos, random);
         if(spawningData == null || spawningData.isDiscarded(random)){
-            // Entries are only revisited where something tries to spawn, so entries for chunks that were left behind pile up
+            // Only revisited where something tries to spawn, so abandoned chunks' entries pile up
             if(DISABLED_SPAWNS.size() >= MAXIMUM_DISABLED_SPAWNS)
                 DISABLED_SPAWNS.values().removeIf(until -> until <= world.getTime());
             DISABLED_SPAWNS.put(spawn, world.getTime() + CHUNK_DISABLE_TICKS);
@@ -164,7 +162,7 @@ public class BiomeEventData {
         return true;
     }
 
-    // The times are world times, which a different save starts over
+    // World times, which a different save starts over
     public static void clearSpawns() {
         PENDING_SPAWNS.clear();
         DISABLED_SPAWNS.clear();

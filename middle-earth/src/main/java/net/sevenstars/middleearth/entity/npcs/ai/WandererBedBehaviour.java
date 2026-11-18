@@ -13,13 +13,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-// At night, a traveller near a settlement sleeps in one of its free beds (ones no npc spawns from) and moves on in
-// the morning
 final class WandererBedBehaviour extends Behaviour {
     private static final int MAXIMUM_TRIES = 3;
-    // In blocks, beyond the settlement's extent
+    // Blocks, beyond the settlement's extent
     private static final int SEARCH_RANGE = 48;
-    // In ticks
     private static final int SEARCH_INTERVAL = 40;
     private static final int WALK_LIMIT = 20 * 30;
 
@@ -45,7 +42,7 @@ final class WandererBedBehaviour extends Behaviour {
             return false;
         }
         boolean travelling = npc.getPartyLeader() != null || npc.getTravelHeading() != null;
-        // Npcs that live somewhere have their own beds, and a raiding party won't sleep in the place it's raiding
+        // Npcs that live somewhere have their own beds, and a raiding party won't sleep where it's raiding
         if(!travelling || tries >= MAXIMUM_TRIES || npc.getStructureManagerHostPos() != null || npc.isEvil() || npc.isConfined()
                 || npc.isSleeping() || npc.hasVehicle() || npc.getTarget() != null || world.getTime() < nextSearch)
             return false;
@@ -120,7 +117,6 @@ final class WandererBedBehaviour extends Behaviour {
         return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, NpcBrain.WALK_SPEED);
     }
 
-    // Ends the behaviour. The next try comes after a pause
     private void giveUp() {
         tries++;
         bed = null;

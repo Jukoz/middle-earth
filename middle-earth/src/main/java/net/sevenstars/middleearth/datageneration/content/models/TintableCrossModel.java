@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.models;
 
+import net.sevenstars.middleearth.common.registration.RegistrationLists;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
 
@@ -7,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TintableCrossModel {
-    public static List<Block> notTintedBlocks = new ArrayList<>() {
+    public static List<Block> notTintedBlocks = RegistrationLists.NOT_TINTED_CROSS;
+    static {
+        RegistrationLists.prepend(notTintedBlocks, new ArrayList<Block>() {
         {
             add(NatureBlockRegistryME.WILD_CUCUMBER);
             add(NatureBlockRegistryME.WILD_LEEK);
@@ -55,7 +58,8 @@ public class TintableCrossModel {
             add(NatureBlockRegistryME.WHITE_LAVENDER);
             add(NatureBlockRegistryME.YELLOW_TROLLIUS);
         }
-    };
+    });
+    }
     public static List<Block> tintedBlocks = new ArrayList<>() {
         {
             add(NatureBlockRegistryME.GRASS_TUFT);

@@ -1,9 +1,24 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+
+import net.sevenstars.middleearth.features.farming.Farming;
+
+import net.sevenstars.middleearth.features.artisan.Artisan;
+
+import net.sevenstars.middleearth.features.inscription.Inscription;
+
+import net.sevenstars.middleearth.features.storage.Storage;
+
+import net.sevenstars.middleearth.features.cooking.Cooking;
+
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.features.smithing.Smithing;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.config.ClientConfigME;
@@ -25,7 +40,7 @@ import net.sevenstars.api.network.connections.ConnectionToClient;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.recipe.RecipeSerializerRegistryME;
 import net.sevenstars.middleearth.recipe.RecipesME;
-import net.sevenstars.middleearth.recipe.inscription.InscriptionWordBank;
+import net.sevenstars.middleearth.features.inscription.recipe.InscriptionWordBank;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.registries.RegistriesME;
 import net.sevenstars.middleearth.sound.SoundsME;
@@ -44,7 +59,7 @@ import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
 	public static final String OLD_MOD_ID = "me";
-	public static final String MOD_VERSION = "1.0.3-1.21.11-beta";
+	public static final String MOD_VERSION = "1.0.0-1.21.8-beta";
 	public static final boolean IS_DEBUG = true;
 	public static final boolean ENABLE_INSTANT_BOOTING = true;
 	public static final ModLogger LOGGER = new ModLogger(MOD_ID, IS_DEBUG);
@@ -52,6 +67,13 @@ public class MiddleEarth implements ModInitializer {
     @Override
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
+
+		// Creative tab order follows the order these classes load in, so these four load first, in this order.
+		// Items registered by a feature class come after everything else in their tab.
+		BlockRegistryME.registerModBlocks();
+		DecorativeBlockRegistryME.registerModBlocks();
+		StoneBlockSetRegistryME.registerModBlockSets();
+		DecorativeItemsME.registerModItems();
 
 		LOGGER.logInfoMsg("");
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
@@ -85,6 +107,12 @@ public class MiddleEarth implements ModInitializer {
 		NatureBlockItemsME.registerModItems();
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
+		Smithing.register();
+		Cooking.register();
+		Storage.register();
+		Inscription.register();
+		Artisan.register();
+		Farming.register();
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 
@@ -94,6 +122,7 @@ public class MiddleEarth implements ModInitializer {
 		RegistriesME.registerToolTipAppenders();
 		RegistriesME.registerFlammableBlocks();
 		RegistriesME.registerTillableBlocks();
+		RegistriesME.registerShovelPaths();
 		RegistriesME.registerAgingCopperBlocks();
 		RegistriesME.registerComposterBlocks();
 		RegistriesME.registerBedPointsOfInterest();

@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
 public class WillowVinesFeature extends Feature<DefaultFeatureConfig> {
     public WillowVinesFeature(Codec<DefaultFeatureConfig> configCodec) {

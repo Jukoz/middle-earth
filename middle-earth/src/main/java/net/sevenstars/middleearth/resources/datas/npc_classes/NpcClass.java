@@ -125,7 +125,7 @@ public class NpcClass {
         return this;
     }
 
-    // Gets a trade once its household assigns one, and carries no tool until then
+    // No tool until its household assigns a trade
     public boolean isCivilian() {
         return civilian;
     }

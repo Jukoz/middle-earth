@@ -10,7 +10,6 @@ import net.minecraft.util.math.Box;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
-// Opens a door on the way through and shuts it afterwards, but not while someone else is still going through
 final class DoorBehaviour extends Behaviour {
     // In ticks
     private static final int PASSING_TIME = 20;
@@ -32,8 +31,7 @@ final class DoorBehaviour extends Behaviour {
         super(NONE);
     }
 
-    // Measures to the middle of the door and not a corner of it, which an npc a little wider than most, pressed against a
-    // shutter beside the doorway, is never near enough to
+    // Measure to the door's middle: a wide npc against a shutter is never near a corner
     @Override
     boolean canStart(NpcEntity npc) {
         if(!npc.horizontalCollision || !(npc.getNavigation() instanceof MobNavigation navigation))
@@ -61,7 +59,6 @@ final class DoorBehaviour extends Behaviour {
             return false;
         if(ticksLeft > 0)
             return true;
-        // The npc is still squeezing through, or others are in the doorway
         boolean stillPassing = npc.squaredDistanceTo(doorPos.getX() + 0.5, npc.getY(), doorPos.getZ() + 0.5) < OWN_REACH * OWN_REACH;
         return stillPassing || doorwayBusy;
     }
@@ -88,7 +85,6 @@ final class DoorBehaviour extends Behaviour {
         if(heldTicks % DOORWAY_CHECK_INTERVAL == 0) {
             Box doorway = new Box(doorPos).expand(DOORWAY_REACH, 0, DOORWAY_REACH);
             doorwayBusy = !npc.getEntityWorld().getEntitiesByClass(NpcEntity.class, doorway, other -> other != npc && other.isAlive()).isEmpty();
-            // Someone else may have shut it in the meantime
             if(!isDoorOpen(npc))
                 setDoorOpen(npc, true);
         }

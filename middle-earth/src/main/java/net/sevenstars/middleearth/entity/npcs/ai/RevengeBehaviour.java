@@ -9,7 +9,7 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.relations.NpcRelations;
 
 final class RevengeBehaviour extends TargetBehaviour {
-    // In ticks. Someone who hit the npc is followed for longer than a stranger
+    // Someone who hit the npc is followed longer than a stranger
     private static final int LOST_SIGHT_TICKS = 300;
 
     private static final TargetPredicate AVOIDABLE = TargetPredicate.createAttackable().ignoreVisibility().ignoreDistanceScalingFactor();
@@ -23,8 +23,8 @@ final class RevengeBehaviour extends TargetBehaviour {
     @Override
     boolean canStart(NpcEntity npc) {
         LivingEntity attacker = npc.getAttacker();
-        // Common folk strike back unless they have run for the guards. At home there's nowhere left to run, so the npc calls
-        // the guards from where it stands and fights
+        // Common folk strike back unless they've run for the guards.
+        // At home there's nowhere left to run, so call the guards and fight
         if(npc.isTimid() && attacker != null && !NpcRelations.of(npc, attacker).isFriendly()) {
             if(npc.isAtHome())
                 npc.callGuardsOnce(attacker);

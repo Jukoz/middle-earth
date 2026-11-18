@@ -10,14 +10,13 @@ import java.util.Objects;
 class EscortActivity extends RoutineActivity {
     private static final int ESCORT_RANGE = 24;
     private static final int ESCORT_HEIGHT_RANGE = 8;
-    // Only npcs it can see, since nobody sets out with someone on the other side of a wall
+    // Only npcs it can see: nobody sets out with someone behind a wall
     private static final TargetPredicate COMPANIONS = TargetPredicate.createNonAttackable();
 
     EscortActivity(NpcRoutine routine) {
         super(routine);
     }
 
-    // The nearest of the place's own npcs who is setting out and doesn't have anybody with them yet
     void findWard(ServerWorld world) {
         if(!RoutineSites.takeEntitySearch(world))
             return;

@@ -80,20 +80,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-// A whole structure laid out for its builder, as the game would assemble it from its jigsaw pieces. Assembled, it
-// stands as it would in the world and is only for looking at. Spaced, the pieces are set apart, each whole in its
-// own box, and changes to one are saved back to the template of that piece
+// Assembled: view only, as in the world. Spaced: pieces apart, edits saved to each template
 public class StructureEditSession {
-    // In blocks. The gap left between spaced pieces unless the builder asks for another
     private static final int DEFAULT_GAP = 4;
     public static final int MAXIMUM_GAP = 64;
     private static final double FIRST_SPREAD = 1.5;
     private static final double SPREAD_STEP = 0.25;
     private static final double MAXIMUM_SPREAD = 6;
-    // The structure is always assembled in this chunk and then moved, so the same seed gives the same pieces
-    // wherever the builder stands
+    // Always assembled in this chunk, then moved, so a seed gives the same pieces anywhere
     private static final ChunkPos ASSEMBLY_CHUNK = new ChunkPos(0, 0);
-    // The game drops pieces that reach out of the world, so use the tallest possible world to make sure none do
+    // Tallest possible world, or the game drops pieces that reach out of it
     private static final HeightLimitView ASSEMBLY_HEIGHT = HeightLimitView.create(-2032, 4064);
     private static final String START_HEIGHT_KEY = "start_height";
     private static final String PROJECT_TO_HEIGHTMAP_KEY = "project_start_to_heightmap";
@@ -101,7 +97,6 @@ public class StructureEditSession {
     static final String START_POOL_KEY = "start_pool";
     private static final String START_JIGSAW_NAME_KEY = "start_jigsaw_name";
     private static final String SIZE_KEY = "size";
-    // How many pieces deep a jigsaw structure may be assembled
     private static final int MAXIMUM_DEPTH = 7;
     private static final String PALETTE = "palette";
     private static final String PALETTES = "palettes";
@@ -115,7 +110,6 @@ public class StructureEditSession {
     private static final int DIFFERENCE_LENGTH = 90;
 
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
-    // Sessions read back with the world that no builder has claimed yet
     private static final Set<UUID> RESTORED = ConcurrentHashMap.newKeySet();
     private static final Set<UUID> SINGLES = new HashSet<>();
     private static final String FILE = "data/middle-earth_structure_editing.nbt";
@@ -134,10 +128,8 @@ public class StructureEditSession {
     private static final String LOADED = "loaded";
 
     private static final Map<UUID, StructureEditSession> SESSIONS = new ConcurrentHashMap<>();
-    // Whether the world was frozen here, and so is for this class to set running again
     private static boolean froze;
 
-    // The corner the template was placed from, and the blocks it had when it was loaded, used to tell what has changed since
     public record Piece(Identifier template, BlockPos origin, BlockRotation rotation, BlockBox box, NbtCompound loaded) {}
 
     public record Saved(List<Identifier> written, List<Identifier> conflicts) {}
@@ -147,7 +139,7 @@ public class StructureEditSession {
     private final long seed;
     private final boolean spaced;
     private final int gap;
-    // Replaced as a whole on every change, because the render thread reads it
+    // Swapped whole on every change, the render thread reads it
     private volatile List<Piece> pieces;
 
     private StructureEditSession(RegistryKey<World> dimension, Identifier structure, long seed, boolean spaced, int gap, List<Piece> pieces) {
@@ -159,8 +151,7 @@ public class StructureEditSession {
         this.pieces = List.copyOf(pieces);
     }
 
-    // The builder's own session, or else the one restored with the world that nobody has claimed yet. A game run from the
-    // workspace gives its player a different name, and so a different id, every time
+    // Falls back to the unclaimed restored session. A workspace game gives its player a new id every run
     public static @Nullable StructureEditSession of(UUID builder) {
         StructureEditSession own = SESSIONS.get(builder);
         if(own != null || !FabricLoader.getInstance().isDevelopmentEnvironment() || RESTORED.size() != 1)
@@ -168,7 +159,6 @@ public class StructureEditSession {
         return SESSIONS.get(RESTORED.iterator().next());
     }
 
-    // Makes the session restored with the world the builder's own, so the commands can work on it
     public static @Nullable StructureEditSession claim(UUID builder) {
         if(SESSIONS.containsKey(builder)) {
             RESTORED.remove(builder);
@@ -185,7 +175,6 @@ public class StructureEditSession {
         return restored;
     }
 
-    // The pieces belong to the world that was open and mean nothing in the next one
     public static void register() {
         ServerLifecycleEvents.SERVER_STARTED.register(StructureEditSession::restore);
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
@@ -200,7 +189,6 @@ public class StructureEditSession {
         });
     }
 
-    // Saved with the world. The pieces stay in it as blocks, and without this nothing would recognise them as pieces again
     private static void store(MinecraftServer server) {
         NbtList sessions = new NbtList();
         for(Map.Entry<UUID, StructureEditSession> entry : SESSIONS.entrySet()) {
@@ -280,7 +268,6 @@ public class StructureEditSession {
         pause(server);
     }
 
-    // A template loaded on its own is edited too, though it isn't a session
     public static void beginSingle(MinecraftServer server, UUID builder) {
         SINGLES.add(builder);
         pause(server);
@@ -292,9 +279,8 @@ public class StructureEditSession {
         return ended;
     }
 
-    // While pieces are in the world to be edited, the world is frozen: nothing grows, flows, burns or wakes up in them, so
-    // what is saved is what the builder made. Builders can still move and build. A game frozen by someone else is left
-    // frozen. A frozen game isn't saved with the world, so only loaded structures are frozen again when the server starts
+    // The world is frozen while pieces are edited, so nothing grows, flows or burns. Someone else's freeze is left alone
+    // A frozen game isn't saved, so loaded structures are frozen again on server start
     private static void pause(MinecraftServer server) {
         boolean editing = !SINGLES.isEmpty() || SESSIONS.values().stream().anyMatch(session -> session.spaced);
         if(editing && !server.getTickManager().isFrozen()) {
@@ -320,7 +306,6 @@ public class StructureEditSession {
         return gap;
     }
 
-    // The piece the builder is in, or else the nearest one
     public @Nullable Piece pieceAt(BlockPos pos) {
         Piece nearest = null;
         double nearestDistance = Double.MAX_VALUE;
@@ -340,8 +325,7 @@ public class StructureEditSession {
         return pieces.stream().filter(piece -> piece.box().contains(pos)).findFirst().orElse(null);
     }
 
-    // Expands a piece on one side, to be built into and saved as part of its template. Returns null on success, or else the
-    // piece that is in the way
+    // Null on success, else the piece in the way
     public @Nullable Piece expand(ServerWorld world, Piece piece, Direction side, int blocks) {
         BlockBox box = piece.box();
         BlockBox grown = new BlockBox(
@@ -354,7 +338,6 @@ public class StructureEditSession {
                 return other;
             }
         }
-        // The new room is open, like what a template leaves out, until something is built in it
         for(BlockPos pos : BlockPos.iterate(grown.getMinX(), grown.getMinY(), grown.getMinZ(), grown.getMaxX(), grown.getMaxY(), grown.getMaxZ())) {
             if(!box.contains(pos) && world.isInBuildLimit(pos))
                 world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
@@ -365,7 +348,7 @@ public class StructureEditSession {
         return null;
     }
 
-    // The box a piece is saved with, set as a whole. Anything it leaves out stays in the world, to be taken in again or cleared by hand
+    // Anything outside the box stays in the world, to take in again or clear by hand
     public @Nullable Piece resize(ServerWorld world, Piece piece, BlockBox resized) {
         BlockBox box = piece.box();
         for(Piece other : pieces) {
@@ -374,7 +357,6 @@ public class StructureEditSession {
                 return other;
             }
         }
-        // New empty room is open, like what a template leaves out. Blocks already built there are taken in as they are
         for(BlockPos pos : BlockPos.iterate(resized.getMinX(), resized.getMinY(), resized.getMinZ(), resized.getMaxX(), resized.getMaxY(), resized.getMaxZ())) {
             if(!box.contains(pos) && world.isInBuildLimit(pos) && world.getBlockState(pos).isAir())
                 world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
@@ -391,7 +373,6 @@ public class StructureEditSession {
         pieces = List.copyOf(changed);
     }
 
-    // The corner of its box that a rotated template is placed from
     private static BlockPos originOf(BlockBox box, BlockRotation rotation) {
         return switch (rotation) {
             case NONE -> new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ());
@@ -401,7 +382,7 @@ public class StructureEditSession {
         };
     }
 
-    // The size of the template as it lies unrotated
+    // Unrotated size
     private static Vec3i sizeOf(BlockBox box, BlockRotation rotation) {
         boolean turned = rotation == BlockRotation.CLOCKWISE_90 || rotation == BlockRotation.COUNTERCLOCKWISE_90;
         return new Vec3i(turned ? box.getBlockCountZ() : box.getBlockCountX(), box.getBlockCountY(), turned ? box.getBlockCountX() : box.getBlockCountZ());
@@ -438,11 +419,9 @@ public class StructureEditSession {
         return pieces;
     }
 
-    // Null when the structure can't be put together from that seed, or none of its pieces comes from a template
     public static @Nullable StructureEditSession load(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, Identifier id, long seed, boolean spaced, Function<Vec3i, BlockPos> cornerFor) {
         StructureStart start = assemble(world, structure, structure.value(), seed, world, ASSEMBLY_CHUNK);
-        // A structure that goes underground is cut short where the ground is thin, as in a flat world. Use whichever version
-        // gives more pieces to edit
+        // Underground parts get cut short where the ground is thin, so use whichever version has more pieces
         Structure free = freeStanding(world, structure.value());
         StructureStart freeStart = free == null ? null : assemble(world, structure, free, seed, ASSEMBLY_HEIGHT, ASSEMBLY_CHUNK);
         if(freeStart != null && freeStart.getChildren().size() > start.getChildren().size())
@@ -482,8 +461,7 @@ public class StructureEditSession {
         List<Piece> loaded = new ArrayList<>();
         for(Piece piece : pieces)
             loaded.add(place(world, piece, spaced));
-        // A piece placed against an earlier one changes the blocks along their seam after the earlier one was read,
-        // so all the pieces are read again
+        // A piece changes the blocks along its seam after the earlier one was read, so read them all again
         if(spaced)
             loaded.replaceAll(piece -> new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), read(world, piece, null)));
         StructureEditSession session = new StructureEditSession(world.getRegistryKey(), id, seed, spaced, gap, loaded);
@@ -516,9 +494,8 @@ public class StructureEditSession {
         return ChunkPos.stream(new ChunkPos(box.getMinX() >> 4, box.getMinZ() >> 4), new ChunkPos(box.getMaxX() >> 4, box.getMaxZ() >> 4));
     }
 
-    // The structure as the game would generate it, at the builder, and registered with the world as a structure: its
-    // managers wake up, its people are born and its markers are gone. Placing it with a command would only set
-    // blocks. A structure the ground would cut short is placed whole at the builder's height instead of on the ground
+    // Registered as a real structure: managers wake, people are born, markers go. A command only sets blocks
+    // One the ground would cut short is placed whole at the builder's height
     public static @Nullable Generated generate(ServerWorld world, UUID builder, RegistryEntry<Structure> structure, long seed, BlockPos at) {
         ChunkPos chunk = new ChunkPos(at);
         StructureStart start = assemble(world, structure, structure.value(), seed, world, chunk);
@@ -536,7 +513,7 @@ public class StructureEditSession {
             }
             for(StructurePiece piece : pieces)
                 piece.translate(0, rise, 0);
-            // A start remembers the bounds it had before its pieces were moved
+            // A start remembers its bounds from before the pieces moved
             start = new StructureStart(structure.value(), chunk, 0, new StructurePiecesList(pieces));
         }
         if(!start.hasChildren()) {
@@ -550,9 +527,7 @@ public class StructureEditSession {
         return new Generated(box, start.getChildren().size());
     }
 
-    // One piece on its own, placed at the builder as a structure the world knows: its people are born and its markers are
-    // gone, with no pool and no structure of its own. The world stores it under the name of an existing structure, which is
-    // only a name to store it by
+    // A single piece placed as a structure with no pool, stored under an existing structure's name (just a key)
     public static @Nullable Generated generatePiece(ServerWorld world, UUID builder, Identifier template, RegistryEntry<Structure> carrier, BlockPos at) {
         StructureTemplateManager manager = world.getStructureTemplateManager();
         if(manager.getTemplate(template).isEmpty())
@@ -571,9 +546,6 @@ public class StructureEditSession {
         return new Generated(box, 1);
     }
 
-    // The piece with everything its plugs ask for, as the game would assemble them from the pools it has read. It uses the
-    // structure the piece is stored as, started from a pool of this piece alone. Null if that structure isn't made of jigsaw
-    // pieces, or nothing came of it
     private static @Nullable Generated generateFrom(ServerWorld world, UUID builder, Identifier template, RegistryEntry<Structure> carrier, BlockPos at) {
         RegistryOps<JsonElement> ops = world.getRegistryManager().getOps(JsonOps.INSTANCE);
         JsonElement json = Structure.STRUCTURE_CODEC.encodeStart(ops, carrier.value()).result().orElse(null);
@@ -599,7 +571,7 @@ public class StructureEditSession {
         List<StructurePiece> pieces = assemble(world, carrier, whole, world.getRandom().nextLong(), world, chunk).getChildren();
         if(pieces.isEmpty())
             return null;
-        // Work out the offset before moving anything, because translating a piece also moves its bounding box
+        // Work out the offset first, translating a piece moves its box too
         BlockBox first = pieces.getFirst().getBoundingBox();
         Vec3i move = new Vec3i(at.getX() - first.getMinX(), at.getY() - first.getMinY(), at.getZ() - first.getMinZ());
         for(StructurePiece piece : pieces)
@@ -608,7 +580,6 @@ public class StructureEditSession {
         placeAsStructure(world, carrier.value(), start, chunk);
         remember(builder, world, carrier.value(), chunk);
         StructureEditing.log("generated the piece %s with what its plugs ask for, %d pieces in %s, kept as %s".formatted(template, pieces.size(), describe(start.getBoundingBox()), carrier.getIdAsString()));
-        // The box of the start is wider than its pieces where the ground is shaped to it
         return new Generated(BlockBox.encompass(pieces.stream().map(StructurePiece::getBoundingBox).toList()).orElse(start.getBoundingBox()), pieces.size());
     }
 
@@ -623,8 +594,7 @@ public class StructureEditSession {
         RoutineSites.forget(world);
     }
 
-    // Removes what the builder generated to try out in this dimension. That covers its blocks, its residents and its registration
-    // as a structure. The ground it was placed on isn't restored
+    // The ground it was placed on isn't restored
     public static int clearTests(ServerWorld world, UUID builder) {
         List<Test> tests = TESTS.getOrDefault(builder, List.of());
         int cleared = 0;
@@ -638,8 +608,6 @@ public class StructureEditSession {
         return cleared;
     }
 
-    // The same for the structure the builder is standing in, however it got there. One generated before the game was last
-    // started isn't remembered as the builder's
     public static boolean clearTestAt(ServerWorld world, BlockPos pos) {
         for(StructureStart start : world.getStructureAccessor().getStructureStarts(new ChunkPos(pos), structure -> true)) {
             if(start.hasChildren() && start.getBoundingBox().contains(pos))
@@ -665,7 +633,6 @@ public class StructureEditSession {
             if(entity != null)
                 entity.discard();
         }
-        // And whatever was left lying or standing in it: loot, animals from its markers, anyone its managers lost count of
         for(Entity entity : world.getOtherEntities(null, Box.from(box), entity -> !(entity instanceof PlayerEntity)))
             entity.discard();
         for(StructurePiece piece : start.getChildren())
@@ -681,8 +648,7 @@ public class StructureEditSession {
         return true;
     }
 
-    // The structure as it is, but starting at a fixed height in the middle of a world taller than any, with room for all of it
-    // above and below. Only works for a structure whose data can be read and written back, as a jigsaw structure's can
+    // Starts at a fixed height mid-world with room above and below. Only for structures whose data can be written back
     private static @Nullable Structure freeStanding(ServerWorld world, Structure structure) {
         RegistryOps<JsonElement> ops = world.getRegistryManager().getOps(JsonOps.INSTANCE);
         JsonElement json = Structure.STRUCTURE_CODEC.encodeStart(ops, structure).result().orElse(null);
@@ -698,19 +664,16 @@ public class StructureEditSession {
 
     private static Piece place(ServerWorld world, Piece piece, boolean spaced) {
         StructureTemplate template = world.getStructureTemplateManager().getTemplate(piece.template()).orElseThrow();
-        // Its box is the template's box as it is now, which a save may have enlarged
         piece = new Piece(piece.template(), piece.origin(), piece.rotation(), boxOf(template, piece.origin(), piece.rotation()), piece.loaded());
-        // What a template leaves open is kept open: it is filled with structure void, which is left out again when saving
+        // Open space is filled with structure void, left out again when saving
         if(spaced)
             fill(world, piece.box(), Blocks.STRUCTURE_VOID.getDefaultState());
-        // Placed as they were saved. If they were left to settle, a door at the edge of a piece would fall because the next
-        // piece's floor isn't there, and fences would reach for neighbours that don't exist
+        // Placed as saved. Left to settle, a door at a piece's edge would fall and fences reach for missing neighbours
         StructurePlacementData placement = new StructurePlacementData().setRotation(piece.rotation()).setIgnoreEntities(true).setUpdateNeighbors(true);
         template.place(world, piece.origin(), piece.origin(), placement, world.getRandom(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         return new Piece(piece.template(), piece.origin(), piece.rotation(), piece.box(), spaced ? read(world, piece, null) : piece.loaded());
     }
 
-    // Removes the pieces of the builder's structure from the world again
     public static boolean close(ServerWorld world, UUID builder) {
         StructureEditSession session = claim(builder);
         if(session == null)
@@ -727,8 +690,7 @@ public class StructureEditSession {
         return true;
     }
 
-    // Writes the template of every piece that was changed. If two pieces of one template were changed differently, neither
-    // is written
+    // Neither is written if two pieces of one template were changed differently
     public Saved save(ServerWorld world) {
         StructureTemplateManager manager = world.getStructureTemplateManager();
         Map<Identifier, NbtCompound> changed = new LinkedHashMap<>();
@@ -751,7 +713,6 @@ public class StructureEditSession {
             if(conflicts.contains(entry.getKey()))
                 continue;
             StructureTemplate template = manager.getTemplateOrBlank(entry.getKey());
-            // Entities are left as they were
             NbtCompound nbt = template.writeNbt(new NbtCompound());
             nbt.put(SIZE, entry.getValue().getListOrEmpty(SIZE));
             nbt.remove(PALETTES);
@@ -763,8 +724,7 @@ public class StructureEditSession {
                 StructureFeaturesRegistry.edited(entry.getKey());
             }
         }
-        // What was saved is the baseline for later changes. The other pieces of a template that was written are updated to
-        // match it, or the old one would be saved over it next time
+        // What was saved is the new baseline. Other pieces of that template are updated, or the old one would be saved over it
         List<Piece> updated = new ArrayList<>(pieces);
         for(int i = 0; i < updated.size(); i++) {
             Piece piece = updated.get(i);
@@ -799,9 +759,7 @@ public class StructureEditSession {
         return BlockBox.encompass(pieces.stream().map(Piece::box).toList()).orElseThrow();
     }
 
-    // Moves groups apart from the middle of the structure until no two are within the gap of each other, so they keep their
-    // places beside one another. A piece that stands on or under another, like a cellar under its house, stays over or under
-    // it and is lifted off it by the gap. Pieces that run through one another are put side by side instead
+    // Moves groups outward from the middle until none are within the gap. A cellar stays under its house, lifted off by the gap
     private static List<Piece> spread(List<Piece> assembled, int gap) {
         List<List<Piece>> groups = attached(assembled);
         List<BlockBox> bounds = groups.stream().map(StructureEditSession::boundsOf).toList();
@@ -836,7 +794,6 @@ public class StructureEditSession {
             for(Piece piece : groups.get(i))
                 groupOf.put(piece, i);
         }
-        // Lift each piece above whatever it stands on by the gap, lowest first
         Map<Piece, Integer> lifts = new IdentityHashMap<>();
         for(List<Piece> group : groups) {
             List<Piece> rising = new ArrayList<>(group);
@@ -862,7 +819,6 @@ public class StructureEditSession {
         return spread;
     }
 
-    // Pieces stacked over one another without running through each other form one group and move together
     private static List<List<Piece>> attached(List<Piece> pieces) {
         int[] group = new int[pieces.size()];
         for(int i = 0; i < group.length; i++)
@@ -888,7 +844,7 @@ public class StructureEditSession {
         return new ArrayList<>(groups.values());
     }
 
-    // The earlier of the first two boxes that are within the gap of each other across the ground, or -1
+    // Earlier of the first two boxes within the gap, or -1
     private static int tooClose(List<BlockBox> boxes, int gap) {
         for(int i = 0; i < boxes.size(); i++) {
             BlockBox box = boxes.get(i);
@@ -906,15 +862,13 @@ public class StructureEditSession {
         for(BlockPos pos : BlockPos.iterate(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())) {
             if(!world.isInBuildLimit(pos))
                 continue;
-            // A chest that is removed spills what it holds, and one that was never opened rolls its loot to spill it. Without its
-            // data it has nothing to drop
+            // Removing a chest spills its contents, rolling loot if it was never opened. Without its data there's nothing to drop
             if(world.getBlockState(pos).hasBlockEntity())
                 world.removeBlockEntity(pos);
             world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.FORCE_STATE | Block.SKIP_DROPS);
         }
     }
 
-    // Takes the loot seeds out of a stored template, because a piece is read from the world without them
     private static NbtCompound withoutSeeds(NbtCompound template) {
         NbtList blocks = template.getListOrEmpty(BLOCKS);
         for(int i = 0; i < blocks.size(); i++)
@@ -938,8 +892,6 @@ public class StructureEditSession {
         return held;
     }
 
-    // What the world does to a build on its own while it is being edited: a spawner or vault wakes up near the builder,
-    // grass dies under a roof and spreads over bare earth. None of it is the builder's work
     private static boolean isWorldsDoing(BlockState held, BlockState now) {
         Block before = held.getBlock();
         Block after = now.getBlock();
@@ -952,7 +904,6 @@ public class StructureEditSession {
         return block == Blocks.DIRT || block instanceof SpreadableBlock;
     }
 
-    // What was changed, for the log: how many blocks, and the first few
     private static String differences(NbtCompound before, NbtCompound now) {
         Map<BlockPos, String> old = described(before);
         Map<BlockPos, String> current = described(now);
@@ -985,9 +936,8 @@ public class StructureEditSession {
         return text == null ? "nothing" : text.length() > DIFFERENCE_LENGTH ? text.substring(0, DIFFERENCE_LENGTH) + "..." : text;
     }
 
-    // The blocks of a piece as its template holds them: rotated back to how the template is saved, in the order the game
-    // saves them, full blocks first and those with data last. Given what the piece held when it was loaded, anything the
-    // world has since done to it on its own is read as it was
+    // Blocks as the template stores them: rotated back, full blocks first, data last
+    // Changes the world made since loading read as unchanged
     private static NbtCompound read(ServerWorld world, Piece piece, @Nullable NbtCompound loaded) {
         Map<BlockPos, Held> held = loaded == null ? Map.of() : heldIn(world, loaded);
         Vec3i size = sizeOf(piece.box(), piece.rotation());
@@ -1012,7 +962,7 @@ public class StructureEditSession {
                 data.remove("x");
                 data.remove("y");
                 data.remove("z");
-                // A new seed is drawn for every chest each time a template is placed
+                // Chests get a new seed every time a template is placed
                 data.remove(LOOT_TABLE_SEED);
             }
             BlockState turned = state.rotate(back);

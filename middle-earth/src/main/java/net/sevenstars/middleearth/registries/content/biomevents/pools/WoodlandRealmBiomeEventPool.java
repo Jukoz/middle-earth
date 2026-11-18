@@ -15,7 +15,6 @@ public class WoodlandRealmBiomeEventPool {
     static {
         DEFAULT = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(4).withSameNpcClass(1, 256),
-            // The Woodland Realm's people hunt in groups
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_HUNTER).withWeight(3).withSameNpcClass(2, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_HUNTER, 1, 2)),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_RANGER).withWeight(3).withSameNpcClass(3, 256).withParty(PartyData.create().add(NpcRegistry.WOODLAND_REALM_RANGER, 1, 2)),
             new WildSpawnEventData(NpcRegistry.WOODLAND_REALM_LANCER).withWeight(3).withSameNpcClass(0, 256),

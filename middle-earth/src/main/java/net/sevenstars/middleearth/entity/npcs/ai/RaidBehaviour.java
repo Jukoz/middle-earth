@@ -12,13 +12,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-// Evil npcs out at night with no home of their own, with nobody awake to fight, go for the people asleep in their beds.
-// Prisoners are left alone
+// Homeless evil npcs at night, with nobody awake to fight, go for sleepers. Not prisoners
 final class RaidBehaviour extends TargetBehaviour {
-    // Only 1 in this many think ticks looks for a sleeper
+    // One search per this many think ticks
     private static final int SEARCH_CHECKS = 5;
     private static final int LOST_SIGHT_TICKS = 60;
-    // Paths are only tried to the nearest few, nearest first
     private static final int PATH_TRIES = 3;
 
     private @Nullable NpcEntity found = null;
@@ -46,7 +44,7 @@ final class RaidBehaviour extends TargetBehaviour {
         return isRaiding(npc) && super.shouldContinue(npc);
     }
 
-    // A sleeper behind a wall is still there to be found. Once it wakes it's fought like anyone else
+    // Finds sleepers through walls; once awake they're fought like anyone
     @Override
     boolean needsSight(LivingEntity target) {
         return !target.isSleeping();
@@ -64,7 +62,7 @@ final class RaidBehaviour extends TargetBehaviour {
         Box box = npc.getBoundingBox().expand(range, range, range);
         List<NpcEntity> raiders = world.getEntitiesByClass(NpcEntity.class, box, other -> other != npc && isRaiding(other));
         List<NpcEntity> sleepers = world.getEntitiesByClass(NpcEntity.class, box, other -> other.isSleeping() && !isPrisoner(other) && npc.canTarget(other));
-        // A sleeper another raider is already after comes last, so the raiders spread over the beds
+        // Sleepers another raider is after go last, so raiders spread over the beds
         sleepers.sort(Comparator.<NpcEntity>comparingInt(sleeper -> raiders.stream().anyMatch(raider -> raider.getTarget() == sleeper) ? 1 : 0)
                 .thenComparingDouble(npc::squaredDistanceTo));
         for(int i = 0; i < Math.min(PATH_TRIES, sleepers.size()); i++) {

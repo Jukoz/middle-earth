@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npcclasses.pools;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -92,7 +94,7 @@ public class DalishNpcClassPool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.DALISH_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.IRON_SWORD))
-                                .add(WeightedItemData.create(WeaponItemsME.IRON_SPEAR))
+                                .add(WeightedItemData.create(Items.IRON_SPEAR))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
@@ -122,7 +124,7 @@ public class DalishNpcClassPool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_SWORD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_AXE))
-                                .add(WeightedItemData.create(WeaponItemsME.IRON_SPEAR))
+                                .add(WeightedItemData.create(Items.IRON_SPEAR))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_SPEAR))
                         )
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()

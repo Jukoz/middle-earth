@@ -144,7 +144,6 @@ public class MountData {
                 npc.prepare();
             }
 
-            // Set other passengers
             getPassengerSlots().forEach(slot -> {
                LivingEntity passengerEntity = slot.createRandom(world, owner);
                if(passengerEntity != null)

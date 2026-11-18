@@ -51,17 +51,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// Right-click a bed to choose who lives in it. Right-click a block the build treats as a feature, such as a seat, a
-// store, a door or a place of work, to make it off limits to npcs, and right-click it again to undo that. Right-click
-// anything else, or sneak and right-click, to place or edit a structure marker. Left-click a bed to select it, then
-// left-click the blocks it works at or its store to link them. With no bed selected, sneak and left-click a block and
-// then two corners to set which part of the build is saved, or to make the box a new named section. Left-click twice
-// on a block where two sections meet to join them there with a pair of plugs. Left-click a plug to see what fits it,
-// then sneak and left-click another plug to make the first one target it. Sneak and right-click a plug to turn it
-// into its final-state block. Right-click a section's structure block to rename the section or remove its box.
-// While the tool is held, the client draws what each of the build's blocks is recognized as
+// Right-click: a bed picks who lives in it, a feature block toggles off limits, else place or edit a marker.
+// Left-click: a bed selects it, then work blocks or a store link to it. Two corners set a box; plugs join sections.
 public class BuildersToolItem extends Item {
-    // Left-clicks select beds and links and never break blocks
+    // Left-clicks never break blocks
     @Override
     public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity user) {
         return false;
@@ -75,14 +68,14 @@ public class BuildersToolItem extends Item {
         return player.getMainHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL) || player.getOffHandStack().isOf(DecorativeItemsME.BUILDERS_TOOL);
     }
 
-    // A bed handles right-clicks itself before the item gets a chance, so the tool has to take the click first
+    // A bed handles right-clicks before the item does, so take the click first
     public static void register() {
         UseBlockCallback.EVENT.register((player, world, hand, hit) -> {
             if(!isHeldBy(player))
                 return ActionResult.PASS;
             BlockState state = world.getBlockState(hit.getBlockPos());
             boolean bed = state.getBlock() instanceof BedBlock;
-            // A plug keeps its own screen, unless the builder sneaks. Then it's turned into its final-state block
+            // A plug keeps its own screen unless sneaking, which turns it into its final-state block
             if(state.isOf(Blocks.JIGSAW) && StructureEditing.isBuildMode(player)) {
                 if(!player.isSneaking())
                     return ActionResult.PASS;
@@ -103,15 +96,12 @@ public class BuildersToolItem extends Item {
             if(section)
                 return ActionResult.SUCCESS;
             if(!bed) {
-                // The click itself makes a recognized block off limits or puts it back in use. When sneaking, the click
-                // places a marker of any kind, as it does on any other block
                 if(!player.isSneaking() && isRecognized(state))
                     toggleOffLimits(serverPlayer, hit.getBlockPos(), state, hit.getSide());
                 else
                     openMarker(serverPlayer, hit, state);
                 return ActionResult.SUCCESS;
             }
-            // The tag is stored on the head half, which is the half builds are read from
             BlockPos head = state.get(BedBlock.PART) == BedPart.HEAD ? hit.getBlockPos() : hit.getBlockPos().offset(state.get(BedBlock.FACING));
             if(!(world.getBlockEntity(head) instanceof BedTagHolder holder))
                 return ActionResult.FAIL;
@@ -126,11 +116,9 @@ public class BuildersToolItem extends Item {
                 || BuildFeatures.LADDER.test(block) || BuildFeatures.stationOf(block) != null || state.contains(Properties.OPEN);
     }
 
-    // Places an off limits marker beside the block, facing it, or removes the one that's already there. The marker has
-    // to be in the same piece as the block so it's saved with it
+    // The marker must be in the same piece as the block, so it's saved with it
     private static void toggleOffLimits(ServerPlayerEntity player, BlockPos clicked, BlockState state, Direction clickedSide) {
         ServerWorld world = player.getEntityWorld();
-        // A door is marked on its lower half, whichever half was clicked
         BlockPos target = state.contains(Properties.DOUBLE_BLOCK_HALF) && state.get(Properties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? clicked.down() : clicked;
         for(Direction side : Direction.Type.HORIZONTAL) {
             BlockPos beside = target.offset(side);
@@ -176,7 +164,7 @@ public class BuildersToolItem extends Item {
                 player.sendMessage(Text.translatable("ui.%s.structure_marker.no_room".formatted(MiddleEarth.MOD_ID)), true);
                 return;
             }
-            // On something that opens, the marker the builder most likely wants is the one that keeps npcs out
+            // On something that opens, the builder most likely wants the marker that keeps npcs out
             boolean opens = state.getBlock() instanceof NpcDoor || state.contains(Properties.OPEN);
             data = StructureMarkerScreenData.create(pos, true, opens ? MarkerKind.OFF_LIMITS : MarkerKind.GUARD_POST, "", 1, false, hit.getSide().getAxis().isHorizontal() ? hit.getSide().getOpposite() : player.getHorizontalFacing());
         }

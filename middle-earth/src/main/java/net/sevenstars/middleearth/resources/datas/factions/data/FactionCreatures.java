@@ -14,8 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Creatures a faction treats differently from the rules every npc shares. Each entry is an entity id or an entity type
-// tag starting with #
+// Entries are entity ids or #entity type tags
 public class FactionCreatures {
     private static final String TAG_PREFIX = "#";
 

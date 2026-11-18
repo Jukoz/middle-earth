@@ -8,8 +8,7 @@ import net.sevenstars.middleearth.block.special.beds.BedOccupant;
 
 import java.util.List;
 
-// The bed's current tag (an empty nest kind means nobody spawns in the bed) and every occupant each place can house.
-// The place is the bed's own. If the bed has none yet it's the neighbouring beds' place, or empty
+// Empty nest kind means nobody spawns. Place is the bed's own, else the neighbours', else empty
 public record BedTagScreenData(BlockPos pos, String place, String nestKind, String job, String npcClass, List<BedOccupant> occupants) {
     public static final int MAXIMUM_LENGTH = 128;
     public static final PacketCodec<RegistryByteBuf, BedTagScreenData> PACKET_CODEC = PacketCodec.tuple(

@@ -57,8 +57,7 @@ class ForagingActivity extends RoutineActivity {
         }
     }
 
-    // What its routine sends the npc out for, where that's something particular. Otherwise whatever grows in the land
-    // it's in
+    // What its routine sends it for, else whatever grows where it is
     private List<Item> forage(ServerWorld world) {
         RoutineData data = npc.getRoutine();
         if(data != null && !data.getForage().isEmpty())

@@ -19,10 +19,9 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 import java.util.List;
 import java.util.Optional;
 
-// A tagged bed in a generated structure spawns the npc its tag names, and spawns another when they are gone and the
-// wait is over. Beds in a build being edited, or placed by a player, house nobody
+// Beds in a build being edited, or placed by a player, house nobody
 public final class BedSpawning {
-    // In ticks, between checks of a bed
+    // In ticks
     private static final int CHECK_INTERVAL = 20;
 
     private BedSpawning() {}
@@ -43,7 +42,7 @@ public final class BedSpawning {
             return;
         }
         SpawnNestManager nest = host.getNest();
-        // The bed was tagged again since, so it now belongs to someone else
+        // Tagged again since, so it's someone else's now
         if(nest == null || !nest.getId().equals(data.getId()) || !nest.getBedJob().equals(tag.job())) {
             nest = new SpawnNestManager(data, bedOf(serverWorld, pos, tag));
             host.setNest(nest);
@@ -53,8 +52,8 @@ public final class BedSpawning {
         nest.tick(serverWorld.getTime(), serverWorld, pos);
     }
 
-    // Built from the build's generated data, including its store and links. A bed the data doesn't know, such as one
-    // tagged in a world generated earlier, only has its tag
+    // From the build's generated data, including store and links. A bed it doesn't know, like one tagged
+    // in an older world, only has its tag
     private static StructureFeatureData.Bed bedOf(ServerWorld world, BlockPos pos, BedTag tag) {
         RoutineSite site = RoutineSites.forManager(world, pos);
         if(site != null) {

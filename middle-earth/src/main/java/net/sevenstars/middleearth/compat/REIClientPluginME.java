@@ -1,5 +1,9 @@
 package net.sevenstars.middleearth.compat;
 
+import net.sevenstars.middleearth.features.artisan.ArtisanBlocks;
+
+import net.sevenstars.middleearth.features.smithing.SmithingBlocks;
+
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -12,16 +16,16 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
-import net.sevenstars.middleearth.compat.artisantable.ArtisanTableCategory;
-import net.sevenstars.middleearth.compat.artisantable.ArtisanTableDisplay;
-import net.sevenstars.middleearth.compat.forge.AlloyingCategory;
-import net.sevenstars.middleearth.compat.forge.AlloyingDisplay;
-import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
-import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
+import net.sevenstars.middleearth.features.artisan.compat.ArtisanTableCategory;
+import net.sevenstars.middleearth.features.artisan.compat.ArtisanTableDisplay;
+import net.sevenstars.middleearth.features.smithing.compat.AlloyingCategory;
+import net.sevenstars.middleearth.features.smithing.compat.AlloyingDisplay;
+import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
+import net.sevenstars.middleearth.features.smithing.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreen;
-import net.sevenstars.middleearth.recipe.AlloyingRecipe;
-import net.sevenstars.middleearth.recipe.ArtisanRecipe;
+import net.sevenstars.middleearth.features.smithing.recipe.AlloyingRecipe;
+import net.sevenstars.middleearth.features.artisan.recipe.ArtisanRecipe;
 
 @Environment(EnvType.CLIENT)
 public class REIClientPluginME implements REIClientPlugin {
@@ -30,8 +34,8 @@ public class REIClientPluginME implements REIClientPlugin {
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new ArtisanTableCategory());
         registry.add(new AlloyingCategory());
-        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.ARTISAN_TABLE));
-        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(DecorativeBlockRegistryME.FORGE));
+        registry.addWorkstations(REICommonPluginME.ARTISAN_TABLE_CATEGORY, EntryStacks.of(ArtisanBlocks.ARTISAN_TABLE));
+        registry.addWorkstations(REICommonPluginME.FORGE_CATEGORY, EntryStacks.of(SmithingBlocks.FORGE));
     }
 
     @Override
@@ -46,7 +50,7 @@ public class REIClientPluginME implements REIClientPlugin {
     @Override
     public void registerScreens(ScreenRegistry registry) {
         REIClientPlugin.super.registerScreens(registry);
-        // These screens are for tagging beds and placing markers, not for looking up items
+        // These screens tag beds and place markers, not look up items
         registry.registerDecider(new OverlayDecider() {
             @Override
             public <R extends Screen> boolean isHandingScreen(Class<R> screen) {

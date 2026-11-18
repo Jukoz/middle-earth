@@ -28,13 +28,12 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.itemName;
 
 class HuntingActivity extends RoutineActivity {
-    // Long enough to look over the hunting ground for game
     private static final int STALKING_TIME = 20 * 60;
     private static final int STALKING_TIME_VARIATION = 20 * 60;
     private static final int CHASE_TIME = 20 * 30;
 
     private static final int HUNT_ROAM = 10;
-    // Past the edge of the buildings, so the animals of the yards and the green are left alone
+    // Past the buildings, so yard and green animals are left alone
     private static final int SETTLEMENT_MARGIN = 12;
 
     private static final int PREY_RANGE = 24;
@@ -64,10 +63,8 @@ class HuntingActivity extends RoutineActivity {
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
-        // Brings home only what it hunted
         if(done) {
             routine.abandoned("found no game");
-            // The game may come back, but not right away
             routine.hold(RoutineData.Activity.HUNT, time);
             routine.startReturn(world);
         } else if(random.nextInt(PREY_SEARCH_ONE_IN) == 0 && RoutineSites.takeEntitySearch(world)) {
@@ -77,13 +74,11 @@ class HuntingActivity extends RoutineActivity {
                 routine.phase = Phase.HUNTING;
             }
         } else if(random.nextInt(HUNT_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-            // Looks over the hunting ground
             npc.getNavigation().startMovingTo(routine.spot.getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.spot.getY(),
                     routine.spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.speed * ROAM_SPEED);
         }
     }
 
-    // Where the place has its own hunter, the hunting is left to the hunter and the rest keep to their other work
     boolean leftToHunters(ServerWorld world) {
         BlockPos managerPos = npc.getStructureManagerHostPos();
         if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !isLoaded(world, managerPos))
@@ -95,8 +90,7 @@ class HuntingActivity extends RoutineActivity {
         return false;
     }
 
-    // Of the open grounds within reach of home, the one with the most game about lately. Game is rare in many lands,
-    // and a hunter doesn't go out where none has been seen. -1 when no ground has a herd near it
+    // Ground with the most game lately, skipping ones with none seen. -1 if none
     int huntingGround(ServerWorld world, BlockPos home, long time) {
         List<BlockPos> game = routine.site.getGame(world, time, animal -> isPrey(animal) && FollowHerderGoal.herderOf(animal) == null);
         if(game.isEmpty())
@@ -138,8 +132,7 @@ class HuntingActivity extends RoutineActivity {
         return clear ? nearest : null;
     }
 
-    // A beast driven by a herder of a friendly people counts as theirs. Whether the herder is a friend or foe is only
-    // known while it's about, and until then the beast is left be
+    // Friend or foe is only known while the herder is about, so until then leave the beast alone
     private boolean isKeptByFriend(ServerWorld world, AnimalEntity animal) {
         UUID herder = FollowHerderGoal.herderOf(animal);
         if(herder == null)
@@ -158,14 +151,12 @@ class HuntingActivity extends RoutineActivity {
         return animal.getType().isIn(EntityTypeTagsME.WILD_LIVESTOCK) && isLoose(animal);
     }
 
-    // A farm animal counts as wild out beyond the place, but not where it's fenced in
     private boolean isLoose(AnimalEntity animal) {
         if(routine.site != null && Math.hypot(animal.getX() - routine.site.getCenterX(), animal.getZ() - routine.site.getCenterZ()) < routine.site.getExtent() + SETTLEMENT_MARGIN)
             return false;
         return !RoutineGame.isPenned(animal);
     }
 
-    // The fight does the chase, and the npc itself ends it
     boolean finishHunt(ServerWorld world) {
         if(npc.getHuntTarget() != null)
             return false;

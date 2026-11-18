@@ -37,7 +37,6 @@ import java.util.Set;
 public class BuildSectionEditing {
     static final String AIR = "minecraft:air";
 
-    // A name typed without a namespace gets the mod's namespace. Null if it isn't a valid name
     public static @Nullable Identifier named(String typed) {
         String name = typed.trim();
         if(name.isEmpty() || name.endsWith("/") || name.endsWith(":") || name.contains("//"))
@@ -49,9 +48,7 @@ public class BuildSectionEditing {
         return box.getBlockCountX() <= StructureEditing.MAXIMUM_SIZE && box.getBlockCountY() <= StructureEditing.MAXIMUM_SIZE && box.getBlockCountZ() <= StructureEditing.MAXIMUM_SIZE;
     }
 
-    // Where the structure block for a section cut out of a build goes: the empty block beside its box that is nearest the
-    // first corner and in no section, so it doesn't replace anything that was built. If the box is buried in a build, it
-    // goes under the first corner like the block of a new build
+    // Empty block by the box nearest the first corner, in no section. Buried boxes use the first corner
     public static BlockPos blockFor(ServerWorld world, BlockBox box, List<BuildSections.Section> sections) {
         BlockPos corner = new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ());
         BlockPos nearest = null;
@@ -104,15 +101,13 @@ public class BuildSectionEditing {
         return true;
     }
 
-    // Removes only the section's box. The blocks and any saved template file are left alone
     public static void remove(ServerWorld world, BuildSections.Section section) {
         world.removeBlockEntity(section.block());
         world.setBlockState(section.block(), Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
         StructureEditing.log("%s is no section any more, its structure block at %s taken away".formatted(section.name(), section.block().toShortString()));
     }
 
-    // Saves the same as the section's structure block would, except that structure blocks of other sections inside its
-    // box are left out, like the open blocks of a build
+    // Skips other sections' blocks inside the box, like a build's open blocks
     public static @Nullable Identifier save(ServerWorld world, ServerPlayerEntity player, BuildSections.Section section) {
         Identifier id = Identifier.tryParse(section.name());
         BlockBox box = section.box();
@@ -123,7 +118,6 @@ public class BuildSectionEditing {
         return id;
     }
 
-    // The template a block would be saved to: the one for the piece it's in (of a loaded structure), or else its section's
     private static @Nullable Identifier templateAt(ServerWorld world, ServerPlayerEntity player, List<BuildSections.Section> sections, BlockPos pos) {
         StructureEditSession session = StructureEditSession.claim(player.getUuid());
         StructureEditSession.Piece piece = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session.pieceContaining(pos);
@@ -142,10 +136,8 @@ public class BuildSectionEditing {
         return section == null ? null : section.box();
     }
 
-    // Makes the piece of the first block ask for the piece of the second at that spot. Two blocks that are already plugs
-    // are tied together as they are. Two side-by-side blocks that aren't plugs yet become a pair of plugs, each of which
-    // turns back into the original block when the game generates the pieces. The answering plug is found by its name,
-    // which no other plug in its piece may share, in a pool named after its piece
+    // The asker's piece asks for the answerer's. Two plugs tie as they are,
+    // two plain blocks become plugs that revert on generation
     public static boolean join(ServerWorld world, ServerPlayerEntity player, BlockPos asker, BlockPos answerer) {
         List<BuildSections.Section> sections = BuildSections.near(world, asker);
         Identifier asking = templateAt(world, player, sections, asker);
@@ -166,9 +158,7 @@ public class BuildSectionEditing {
         if(!(world.getBlockEntity(asker) instanceof JigsawBlockEntity from) || !(world.getBlockEntity(answerer) instanceof JigsawBlockEntity to))
             return refuse(player, "no_section", "no plug could be set at %s or %s".formatted(asker.toShortString(), answerer.toShortString()));
 
-        // When both blocks were already plugs, the asking plug already has a pool and a target, and this plug has no
-        // name yet, this piece is another one the asker may be given there. This plug gets the name the asker
-        // targets, and the piece goes into that pool when it is saved
+        // Both plugs: another piece the asker may get there, so it takes the asker's target name
         boolean another = plugs && !from.getPool().equals(StructurePools.EMPTY) && !from.getTarget().equals(PiecePools.EMPTY) && to.getName().equals(PiecePools.EMPTY);
         if(another)
             to.setName(from.getTarget());
@@ -191,7 +181,6 @@ public class BuildSectionEditing {
         return true;
     }
 
-    // Turns a plug back into the block it replaced, along with the plug it meets if that one answers or asks for it
     public static boolean unplug(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
         if(!(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug))
             return false;
@@ -224,8 +213,7 @@ public class BuildSectionEditing {
         world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
     }
 
-    // A section whose blocks are all covered by smaller sections saves nothing they don't, so it would only be one piece
-    // too many. This is the whole build the builder made, once all of it is cut up
+    // A section fully covered by smaller ones saves nothing extra
     public static List<BuildSections.Section> cutUp(List<BuildSections.Section> sections) {
         List<BuildSections.Section> covered = new ArrayList<>();
         for(BuildSections.Section section : sections) {
@@ -260,8 +248,7 @@ public class BuildSectionEditing {
         BlockState before = world.getBlockState(pos);
         if(before.isOf(Blocks.JIGSAW))
             return;
-        // Plugs that meet up and down both get the same top direction, so with their aligned joint the pieces join
-        // turned the way they were built
+        // Plugs meeting up and down share a top direction, so the pieces join as built
         Direction top = facing.getAxis().isVertical() ? Direction.NORTH : Direction.UP;
         world.setBlockState(pos, Blocks.JIGSAW.getDefaultState().with(JigsawBlock.ORIENTATION, Orientation.byDirections(facing, top)), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
         if(!(world.getBlockEntity(pos) instanceof JigsawBlockEntity jigsaw))
@@ -273,7 +260,6 @@ public class BuildSectionEditing {
         jigsaw.setJoint(facing.getAxis().isVertical() ? JigsawBlockEntity.Joint.ALIGNED : JigsawBlockEntity.Joint.ROLLABLE);
     }
 
-    // Named after its piece, with a number added if a plug in the piece already has that name
     private static Identifier freeName(ServerWorld world, Identifier template, BlockBox box, BlockPos but) {
         Set<Identifier> taken = new HashSet<>();
         for(int x = box.getMinX() >> 4; x <= box.getMaxX() >> 4; x++) {

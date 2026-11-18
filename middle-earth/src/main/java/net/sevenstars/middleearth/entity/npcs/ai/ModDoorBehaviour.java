@@ -11,7 +11,6 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import org.jetbrains.annotations.Nullable;
 
-// Opens the mod's doors, any block that is an NpcDoor, on the way through and shuts them behind
 final class ModDoorBehaviour extends Behaviour {
     private static final double REACH = 2.5;
     private static final int NODES_AHEAD = 2;
@@ -22,7 +21,6 @@ final class ModDoorBehaviour extends Behaviour {
 
     private static final double DOORWAY_REACH = 2;
 
-    // The part of the door that stays fixed while the rest swings
     private @Nullable BlockPos origin = null;
     private @Nullable BlockPos doorway = null;
     private @Nullable BlockPos leftOpen = null;
@@ -35,7 +33,7 @@ final class ModDoorBehaviour extends Behaviour {
 
     @Override
     boolean canStart(NpcEntity npc) {
-        // A door that couldn't be shut because someone was in the way gets shut once they've gone
+        // A door that couldn't shut because someone was in the way shuts once they've gone
         if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(npc, leftOpenDoorway)) {
             origin = leftOpen;
             set(npc, false);
@@ -77,7 +75,6 @@ final class ModDoorBehaviour extends Behaviour {
         return heldTicks < PASSING_TIME || isBusy(npc, doorway);
     }
 
-    // Anyone in the doorway, player or npc
     private boolean isBusy(NpcEntity npc, BlockPos at) {
         Box around = new Box(at).expand(DOORWAY_REACH, 1, DOORWAY_REACH);
         return !npc.getEntityWorld().getEntitiesByClass(LivingEntity.class, around, LivingEntity::isAlive).isEmpty();

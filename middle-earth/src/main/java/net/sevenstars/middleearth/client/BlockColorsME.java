@@ -6,7 +6,7 @@ import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.world.biome.GrassColors;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
 public class BlockColorsME {
 

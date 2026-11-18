@@ -31,31 +31,23 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.ROUTINE_
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isUnderCover;
 import static net.sevenstars.middleearth.entity.npcs.routine.RoutineReturn.STORE_REACH;
 
-// Gets the npc where it is going, a stretch at a time
 class RoutineWalker {
     static final double ARRIVAL_DISTANCE = 2.5;
     private static final int HOME_DISTANCE = 12;
-    // Multiplier on how many nodes a path search may visit when heading to bed
     private static final float BED_SEARCH = 4;
     private static final double STORE_ARRIVAL_DISTANCE = 1.5;
     private static final double SEAT_ARRIVAL_DISTANCE = 2;
 
     private static final int DIRECT_DISTANCE = 18;
-    // Top heights of the shapes below and in the feet's block. A fence or a wall is above the first, a slab or a carpet
-    // below the second
+    // Shape top heights. A fence or wall is above the first, a slab or carpet below the second
     private static final double BLOCK_HEIGHT = 1;
     private static final double LOW_THING_HEIGHT = 0.5;
-    // Close enough to the end of a stretch to count it as walked
     private static final double LEG_END_REACH = 2;
-    // Stretches walked to their end without getting any nearer, before the walk counts as stuck
     private static final int IDLE_LEGS = 3;
-    // Nodes of a planned route between the places walked to one stretch at a time, and how near counts as having
-    // reached one
     private static final int WAYPOINT_SPACING = 16;
     private static final double WAYPOINT_REACH = 2.5;
-    // Doors within this distance of the place are tried after the nearest one
     private static final int FAR_DOOR_REACH = 32;
-    // A door this near a place is taken as its way in, and one this near the npc as the door it's already at
+    // A door this near a place is its way in, this near the npc is the door it's already at
     private static final int DOOR_REACH = 16;
     private static final double AT_DOOR = 2.5;
     private static final int LEG_LENGTH = 14;
@@ -68,10 +60,8 @@ class RoutineWalker {
     private static final int MAXIMUM_LEGS = 30;
     private static final int MAXIMUM_FAILURES = 3;
     private static final int MINIMUM_PROGRESS = 2;
-    // Consecutive looks at the world (four seconds' worth) without the npc getting any further along its path, before
-    // the walk counts as stalled
+    // Looks (four seconds' worth) with no progress along the path before the walk is stalled
     private static final int WATCH_THINKS = 8;
-    // How far an npc stranded where no path starts looks for a floor to step to
     private static final int STEP_OFF_RADIUS = 3;
     private static final int STEP_OFF_DEPTH = 3;
 
@@ -80,15 +70,12 @@ class RoutineWalker {
 
     int legs = 0;
     int failures = 0;
-    // Where the path of the last stretch was to end, when it led all the way there
     private @Nullable BlockPos lastLegEnd = null;
     private double bestLegDistance = Double.MAX_VALUE;
     private int idleLegs = 0;
     private boolean lastLegMoved = true;
-    // Doors already tried as the way in on this walk
     private final Set<BlockPos> triedDoors = new HashSet<>();
     private boolean planned = false;
-    // The whole route to the destination of this walk, once planned
     private @Nullable List<BlockPos> waypoints = null;
     private int waypointIndex = 0;
     private @Nullable Path watchedPath = null;
@@ -108,23 +95,23 @@ class RoutineWalker {
             routine.finish(world, REST);
             return;
         }
-        // The usual distance reaches through a wall, so a store on its far side would be filled from the street
+        // The usual distance reaches through a wall, so a store behind it would be filled from the street
         boolean storing = routine.phase == Phase.RETURNING && !routine.toBed && routine.carried != null && routine.dropOff() != null;
         boolean sitting = routine.phase == Phase.GOING && routine.meetSeat != null;
         boolean working = routine.phase == Phase.GOING && routine.activity == RoutineData.Activity.WORK;
-        // Close enough to a bed means able to see it, not a step away through the wall
+        // Close to a bed means seeing it, not a step away through the wall
         BlockPos bed = routine.phase == Phase.RETURNING && routine.toBed ? routine.beds.freeBed(world) : null;
         boolean bedding = bed != null;
         BlockPos store = routine.dropOff();
         boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && routine.canSee(world, store);
-        // A seat boxed in by other seats and a table can only be reached from a corner, a little further off
+        // A seat boxed in by other seats and a table is only reachable from a corner, a bit further off
         double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
         if(target.isWithinDistance(mover().getEntityPos(), arrival) && (!bedding || routine.beds.canSeeBed(world, bed)) && (!working || routine.station.workTarget() == null || routine.canSee(world, routine.station.workTarget()))
                 && atStore && (!sitting || routine.canSee(world, routine.meetSeat))) {
             routine.arrive(world);
             return;
         }
-        // A path that can't be followed keeps the navigation busy without the npc getting anywhere
+        // An unfollowable path keeps navigation busy while the npc goes nowhere
         if(isGettingAlong()) {
             watchedThinks = 0;
         } else if(++watchedThinks >= WATCH_THINKS) {
@@ -142,13 +129,10 @@ class RoutineWalker {
             return;
 
         legs++;
-        // A stretch that ended no closer was a path that led nowhere, unless it was walked to its end, because the way
-        // to a loft can lead off from it first
+        // A stretch that got no closer led nowhere, unless walked to its end: the way to a loft can lead off first
         double distance = target.getSquaredDistance(mover().getEntityPos());
         boolean walkedLeg = lastLegEnd != null && lastLegEnd.isWithinDistance(mover().getEntityPos(), LEG_END_REACH);
-        // Nearer than ever before on this walk. Stretches that go back and forth between two places get no nearer, and
-        // only a few of those are let pass
-        // On a planned route, reaching the next waypoint counts as getting along, though the route may first lead off
+        // Nearer than ever before. Stretches back and forth get no nearer, so only a few of those pass
         boolean atWaypoint = waypoints != null && waypoints.get(waypointIndex).isWithinDistance(mover().getEntityPos(), WAYPOINT_REACH);
         boolean improved = legs == 1 || distance < bestLegDistance - MINIMUM_PROGRESS * MINIMUM_PROGRESS || atWaypoint;
         if(improved) {
@@ -160,15 +144,13 @@ class RoutineWalker {
             routine.arrive(world);
             return;
         }
-        // A walk under cover that has gone wrong once gets its whole route planned and is walked by stretches. With no
-        // route at all, there's no use trying on. Out in the open the stretches and the detours mostly do, but not
-        // around the far side of a hill, so the route is planned before the last try
+        // Under cover, a walk that went wrong once plans its whole route. No route means give up.
+        // In the open stretches and detours mostly do, but not round a hill, so plan before the last try
         boolean covered = isUnderCover(world, mover().getBlockPos()) || isUnderCover(world, target);
         if(planWay(world, target, covered))
             return;
         Vec3d destination = legs > MAXIMUM_LEGS ? null : waypoints != null ? nextPlannedWaypoint() : nextLeg(world, target);
-        // The path to a bed or a station ends on the floor beside it, not a step off where a table may hide it. A bed
-        // up a stair round the back of the house is a long way round, longer than the usual search looks
+        // A bed up a stair round the back is further than the usual search looks
         if(bedding)
             mover().getNavigation().setRangeMultiplier(BED_SEARCH);
         boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working || storing ? 0 : 1, routine.speed);
@@ -194,7 +176,7 @@ class RoutineWalker {
             planned = true;
             Path whole = navigation.plan(target);
             if(whole == null) {
-                // Up on a railing no path starts at all, and from the floor beside it there may well be one
+                // No path starts up on a railing, but there may be one from the floor beside it
                 if(stepOff(world)) {
                     planned = false;
                     return true;
@@ -211,8 +193,7 @@ class RoutineWalker {
         return false;
     }
 
-    // Further along its path than at the last look, by however little: past another node of it, or nearer the next one.
-    // Wading through water or climbing a ladder is slow and still counts. Without a path, the stretches handle it
+    // Further along than at the last look, however little. Water and ladders are slow but still count.
     private boolean isGettingAlong() {
         MobEntity mover = mover();
         Path path = mover.getNavigation().getCurrentPath();
@@ -222,7 +203,7 @@ class RoutineWalker {
         }
         int node = path.getCurrentNodeIndex();
         Vec3d next = path.getNodePosition(mover);
-        // Across the ground only, because bobbing in water goes up and down without getting anywhere
+        // Ground only, bobbing in water goes nowhere
         double distance = Math.hypot(next.x - mover.getX(), next.z - mover.getZ());
         boolean further = path != watchedPath || node > watchedNode || distance < watchedDistance;
         watchedPath = path;
@@ -231,9 +212,8 @@ class RoutineWalker {
         return further;
     }
 
-    // On the floor means standing on the ground, or on a low thing lying in its block such as a slab or a carpet. On
-    // roof stairs at the top of a ladder, or on a piece of furniture, no path starts at all. The npc steps down to the
-    // nearest floor once a walk, rather than give up every walk from there
+    // On the floor: the ground, or a low thing like a slab or carpet. On roof stairs, a ladder top or furniture
+    // no path starts, so the npc steps down to the nearest floor once a walk rather than give up every walk
     private boolean stepOff(ServerWorld world) {
         if(steppedOff || riding() || npc.isClimbing() || isOnFloor(world))
             return false;
@@ -248,7 +228,6 @@ class RoutineWalker {
 
     private boolean isOnFloor(ServerWorld world) {
         BlockPos feet = npc.getBlockPos();
-        // The top of a fence or a wall is higher than its block, and no path starts up there
         VoxelShape under = world.getBlockState(feet.down()).getCollisionShape(world, feet.down());
         if(!under.isEmpty() && under.getMax(Direction.Axis.Y) > BLOCK_HEIGHT)
             return false;
@@ -256,7 +235,6 @@ class RoutineWalker {
         return npc.isOnGround() && (inside.isEmpty() || inside.getMax(Direction.Axis.Y) <= LOW_THING_HEIGHT) && !(world.getBlockState(feet).getBlock() instanceof StairsBlock);
     }
 
-    // The block the walk was held up at, found from the path it was following
     private String heldUpAt(ServerWorld world) {
         Path path = mover().getNavigation().getCurrentPath();
         if(path == null || path.isFinished())
@@ -266,9 +244,8 @@ class RoutineWalker {
         return ", held up at " + at.toShortString() + " (" + world.getBlockState(at).getBlock().getName().getString() + ")";
     }
 
-    // The nearest door to the place that hasn't been tried yet on this walk. Once one has been, doors further off are
-    // looked at as well, because the nearest door to a room upstairs may be inside the house, with the way into the
-    // house round the far side
+    // Nearest door not yet tried. After one has been, farther doors count too: the nearest door to an upstairs
+    // room may be inside the house, with the way in round the far side
     private @Nullable BlockPos doorTowards(BlockPos target, MobEntity mover) {
         if(routine.site == null)
             return null;
@@ -292,7 +269,7 @@ class RoutineWalker {
         return Vec3d.ofBottomCenter(waypoints.get(waypointIndex));
     }
 
-    // Long walks are cut into short stretches because a path over the whole way would cost too much
+    // Long walks are cut into stretches, a path over the whole way costs too much
     private @Nullable Vec3d nextLeg(ServerWorld world, BlockPos target) {
         MobEntity mover = mover();
         double distanceX = target.getX() + 0.5 - mover.getX();
@@ -301,18 +278,16 @@ class RoutineWalker {
         boolean close = distance <= DIRECT_DISTANCE;
         if(close && failures == 0)
             return Vec3d.ofBottomCenter(target);
-        // No path found straight to a place indoors, so the way in is by the door nearest it, and from there it's a
-        // short walk. A search from far off gives out on the way round to the far side of a house
+        // No path straight to an indoor place, so go by the nearest door. A search from far off gives out on the way round
         BlockPos door = failures > 0 ? doorTowards(target, mover) : null;
         if(door != null)
             return Vec3d.ofBottomCenter(door);
-        // Under a roof or underground, the stretches over open ground below are no way at all. Each search goes
-        // straight for the place, and the walk gets as near as it found
+        // Under a roof or underground, search straight for the place and get as near as found
         if(isUnderCover(world, mover.getBlockPos()) || isUnderCover(world, target))
             return Vec3d.ofBottomCenter(target);
 
-        // No path to a place close by means a wall in between, and a search aimed straight at the place gives up at the
-        // wall. The way in is around the building, first to one side and to the other if that leads nowhere
+        // No path to a close place means a wall, and a search aimed straight at it gives up there.
+        // Go around the building, to one side first and the other if that leads nowhere
         float[] detours = !close ? DETOURS : failures % 2 == 1 ? AROUND_LEFT : AROUND_RIGHT;
         int length = close ? AROUND_LENGTH : LEG_LENGTH;
         float heading = (float) (MathHelper.atan2(distanceZ, distanceX) * MathHelper.DEGREES_PER_RADIAN);
@@ -328,17 +303,14 @@ class RoutineWalker {
             if(world.getFluidState(ground.down()).isEmpty() && SpawnUtil.canSpawn(ground, world, SpawnReason.EVENT))
                 return Vec3d.ofBottomCenter(ground);
         }
-        // Boxed in, a path straight at the target at least gets closer
         return Vec3d.ofBottomCenter(target);
     }
 
-    // The npc is on its own mount, and the mount's legs do the walking
     boolean riding() {
         NpcClass npcClass = npc.getNpcClass();
         return npcClass != null && npcClass.hasMount() && npc.getVehicle() instanceof MobEntity mount && mount.getFirstPassenger() == npc;
     }
 
-    // Whatever does the walking. For a rider that's the mount
     MobEntity mover() {
         return riding() && npc.getVehicle() instanceof MobEntity mount ? mount : npc;
     }
@@ -369,7 +341,6 @@ class RoutineWalker {
         failures = 0;
     }
 
-    // Each walk is judged separately: its stretches, the doors tried and the planned route
     void newWalk(ServerWorld world) {
         routine.lookTarget = null;
         resetWalk();

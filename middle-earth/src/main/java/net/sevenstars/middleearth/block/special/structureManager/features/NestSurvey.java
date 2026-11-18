@@ -30,15 +30,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Finds where an npc can stand and walk in a building: the floor beside a bed or a chest, and the ground around
 public class NestSurvey {
-    // A bed, a slab or a carpet isn't a wall, even though an npc can't stand in it
+    // Beds, slabs and carpets aren't walls
     private static final double LOW_ENOUGH_TO_PASS = 0.6;
-    // A carpet or other thin layer is stood on, not an obstacle
     private static final double UNDERFOOT = 0.2;
     private static final double EYE_HEIGHT = 1.6;
 
-    // Uses the generated data, or reads the template itself if there is no generated data yet or a builder has edited it since
+    // Generated data, or the template if there's none or a builder edited it since
     public static @Nullable StructureFeatureData dataOf(ServerWorld world, Registry<StructureFeatureData> registry, PoolStructurePiece piece) {
         if(!(piece.getPoolElement() instanceof SinglePoolElement element) || element.location.left().isEmpty())
             return null;
@@ -54,7 +52,7 @@ public class NestSurvey {
         return StructureTemplate.transformAround(inTemplate, BlockMirror.NONE, piece.getRotation(), BlockPos.ORIGIN).add(piece.getPos());
     }
 
-    // Null when the bed is gone or its chunk isn't loaded
+    // Null if the bed is gone or its chunk isn't loaded
     public static @Nullable BlockPos standFor(ServerWorld world, BlockPos bed) {
         if(!world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
             return null;
@@ -64,7 +62,7 @@ public class NestSurvey {
         return standBeside(world, bed, state);
     }
 
-    // The floor next to a barrel or chest, on the side closest to the given position. Null when it's walled in
+    // Null if it's walled in
     public static @Nullable BlockPos standNextTo(ServerWorld world, BlockPos block, BlockPos closeTo) {
         BlockPos best = null;
         for(Direction side : Direction.Type.HORIZONTAL) {
@@ -79,7 +77,6 @@ public class NestSurvey {
         return best;
     }
 
-    // For a block with no floor beside it, the nearest floor within a few blocks that has a line of sight to the block
     public static @Nullable BlockPos standInSight(ServerWorld world, BlockPos block, BlockPos closeTo, int radius) {
         BlockPos best = null;
         Vec3d middle = Vec3d.ofCenter(block);
@@ -96,7 +93,6 @@ public class NestSurvey {
         return best;
     }
 
-    // An npc can't walk onto a bed, so this finds the floor next to it
     private static @Nullable BlockPos standBeside(ServerWorld world, BlockPos head, BlockState state) {
         BlockPos foot = head.offset(state.get(BedBlock.FACING).getOpposite());
         BlockPos behindBoard = null;
@@ -111,7 +107,7 @@ public class NestSurvey {
                 for(BlockPos spot : new BlockPos[]{beside, beside.down()}) {
                     if(!isStandable(world, spot))
                         continue;
-                    // An open trapdoor between the floor and the bed acts as a footboard, and the floor behind one is often walled in
+                    // An open trapdoor beside a bed is a footboard; the floor behind it is often walled in
                     if(!isBoardTowards(world, spot, side.getOpposite()))
                         return spot;
                     if(behindBoard == null)
@@ -122,7 +118,7 @@ public class NestSurvey {
         }
         if(behindBoard != null)
             return behindBoard;
-        // An upper bunk has its floor two blocks down, and a bed sunk into the ground has it one block up
+        // An upper bunk's floor is two blocks down; a bed sunk into the ground has it one up
         for(BlockPos half : new BlockPos[]{foot, head}) {
             for(Direction side : Direction.Type.HORIZONTAL) {
                 BlockPos beside = half.offset(side);
@@ -137,7 +133,6 @@ public class NestSurvey {
         return null;
     }
 
-    // True for an open trapdoor in this block whose panel is on the given side
     private static boolean isBoardTowards(ServerWorld world, BlockPos pos, Direction side) {
         BlockState state = world.getBlockState(pos);
         if(!(state.getBlock() instanceof TrapdoorBlock) || !state.get(TrapdoorBlock.OPEN))
@@ -155,15 +150,14 @@ public class NestSurvey {
         return isRoomFor(world, pos, true) && isRoomFor(world, pos.up(), false) && isFloor(world, pos.down());
     }
 
-    // A right-way-up stair counts as floor, since the only way to a bed sunk into the ground can be its step
+    // A right-way-up stair counts as floor: a bed sunk into the ground may only be reachable by its step
     private static boolean isFloor(ServerWorld world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         return state.isSideSolidFullSquare(world, pos, Direction.UP)
                 || state.getBlock() instanceof StairsBlock && state.get(StairsBlock.HALF) == BlockHalf.BOTTOM;
     }
 
-    // Nothing blocks an npc's body here: the block is empty, or holds an open trapdoor's panel against one side. A
-    // carpet counts as underfoot
+    // Empty, or an open trapdoor against one side
     private static boolean isRoomFor(ServerWorld world, BlockPos pos, boolean feet) {
         BlockState state = world.getBlockState(pos);
         if(state.getBlock() instanceof TrapdoorBlock && state.get(TrapdoorBlock.OPEN))
@@ -172,14 +166,11 @@ public class NestSurvey {
         return shape.isEmpty() || feet && shape.getMax(Direction.Axis.Y) <= UNDERFOOT;
     }
 
-    // The nearest spot with a full block to stand on, nothing in the way of a body and no water, so a path can start
-    // from there again. Only spots reachable through open space from the given position count, never one through a
-    // wall or a shut door
+    // Only spots reachable through open space, never through a wall or shut door
     public static @Nullable BlockPos freeFloorNear(ServerWorld world, BlockPos pos, int radius, int depth) {
         Set<BlockPos> open = openAround(world, pos, radius, depth);
         BlockPos best = null;
         for(BlockPos spot : open) {
-            // Skip holes, and ledges with no floor beside them to walk on from
             if(spot.equals(pos) || !open.contains(spot.up()) || spot.getY() < pos.getY() - 1 || !hasFloorBeside(world, spot))
                 continue;
             BlockPos below = spot.down();
@@ -201,7 +192,6 @@ public class NestSurvey {
         return false;
     }
 
-    // The nearby blocks reachable from the two blocks a body occupies, without passing through anything taller than a bed
     private static Set<BlockPos> openAround(ServerWorld world, BlockPos pos, int radius, int depth) {
         Set<BlockPos> seen = new HashSet<>(List.of(pos, pos.up()));
         ArrayDeque<BlockPos> queue = new ArrayDeque<>(seen);

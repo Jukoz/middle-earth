@@ -18,7 +18,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.plate.PlateBlockEntity;
+import net.sevenstars.middleearth.features.cooking.block.plate.PlateBlockEntity;
 import net.sevenstars.middleearth.world.features.chain.ChainFeatureConfig;
 
 public class PlatedFoodFeature extends Feature<PlatedFoodFeatureConfig> {

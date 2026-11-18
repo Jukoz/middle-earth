@@ -6,15 +6,12 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.resources.datas.npc_classes.NpcClass;
 
-// For working on npc routines: shows what each npc is doing over its head, draws its walks in the world, shows why it does
-// nothing, records each task it gives up along with the blocks around it, and adds /npcpath. Off unless the game is
-// started with -Dme.npcDebug=true
+// Dev tooling for npc routines. Off unless the game starts with -Dme.npcDebug=true
 public class NpcDebug {
     public static final boolean ENABLED = Boolean.getBoolean("me.npcDebug");
-    // In ticks
     private static final int LABEL_INTERVAL = 5;
 
-    // What the npc is doing, as its name. The name is saved with the npc like any other
+    // Shown as the npc's name, so it gets saved too
     public static void label(NpcEntity npc) {
         if(npc.age % LABEL_INTERVAL != 0)
             return;

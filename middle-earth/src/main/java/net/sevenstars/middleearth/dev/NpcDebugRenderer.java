@@ -18,7 +18,6 @@ import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 
 import java.util.List;
 
-// Draws what the npcs around the camera are heading for: path, routine spot, patrol ring, prey, bed and leader
 public class NpcDebugRenderer {
     private static final double RANGE = 80;
     private static final int PATH = 0xFFFFFFFF;
@@ -45,7 +44,7 @@ public class NpcDebugRenderer {
                 float tickProgress = context.tickCounter().getTickProgress(false);
                 render(context.camera().getCameraPos(), tickProgress);
             } catch (RuntimeException ignored) {
-                // The server world is read from the render thread. A torn read only glitches one frame
+                // Server world read from the render thread; a torn read only glitches one frame
             }
         });
     }

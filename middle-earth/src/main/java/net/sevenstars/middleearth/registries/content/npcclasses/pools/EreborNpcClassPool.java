@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.registries.content.npcclasses.pools;
 
+import net.sevenstars.middleearth.features.smithing.SmithingItems;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;

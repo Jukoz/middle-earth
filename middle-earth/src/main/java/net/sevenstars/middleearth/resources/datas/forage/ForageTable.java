@@ -12,9 +12,7 @@ import net.minecraft.world.biome.Biome;
 import java.util.List;
 import java.util.Optional;
 
-// What an npc finds when foraging in a kind of land. A table applies to the biomes in a tag, or to biomes with a word
-// in their name, such as every wood of Lothlorien whatever it is tagged as. Of the tables that fit a place, the highest
-// priority wins
+// A table covers biomes in a tag or with a word in their name. Highest priority wins
 public record ForageTable(Optional<TagKey<Biome>> tag, Optional<String> name, List<Item> items, int priority) {
     public static final Codec<ForageTable> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             TagKey.codec(RegistryKeys.BIOME).optionalFieldOf("tag").forGetter(ForageTable::tag),

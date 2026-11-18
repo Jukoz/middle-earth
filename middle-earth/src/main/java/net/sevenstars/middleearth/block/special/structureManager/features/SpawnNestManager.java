@@ -44,9 +44,7 @@ public class SpawnNestManager {
             Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
     ).apply(instance, SpawnNestManager::new));
 
-    // Where an npc is placed when there is no floor beside its bed
     private static final int BED_SPAWN_RADIUS = 2;
-    // Margin around the structure used to count the npcs who live there
     private static final int GUARD_COUNT_MARGIN = 48;
 
     private Identifier id;
@@ -56,16 +54,14 @@ public class SpawnNestManager {
     private BlockPos originPos;
     private int spawnRadius;
 
-    // The bed a single-person nest is for, with the job its tag gives that person (if none, the nest's job) and the
-    // store where its things are put away. The origin of such a nest is the bed
+    // Single-person nest: the bed (the nest's origin), its job and its store
     private @Nullable BlockPos bed = null;
     private Optional<Identifier> bedJob = Optional.empty();
-    // The class its tag names, spawned instead of one from the nest's pool
     private Optional<Identifier> bedClass = Optional.empty();
     private @Nullable BlockPos store = null;
-    // The places the builder tied the bed to by hand. If empty, the npc finds its own work
+    // Places the builder tied the bed to. Empty means the npc finds its own work
     private List<BlockPos> links = List.of();
-    // Above 0 for a nest that spawns a set number of people: one for a tagged bed, or the count on a spawn_npc marker
+    // Above 0 for a nest with a set number of people: one per tagged bed, or a spawn_npc marker's count
     private int capacity = 0;
 
     public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<Identifier> bedClass, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
@@ -89,7 +85,6 @@ public class SpawnNestManager {
         this.capacity = capacity;
     }
 
-    // The tagged bed's positions are world positions, not template offsets
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, StructureFeatureData.Bed tagged) {
         this(spawnNestNodeData, tagged.pos(), BED_SPAWN_RADIUS, 1);
         this.bed = tagged.pos();
@@ -103,7 +98,7 @@ public class SpawnNestManager {
         this.entities = new ArrayList<>();
         this.id = spawnNestNodeData.getId();
         this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
-        // The delay only applies to respawning after the npcs are lost. A new settlement is populated from the start
+        // The delay only applies to respawns. A new settlement fills at once
         this.respawnEventTriggerTick = -spawnNestNodeData.getRespawnTickDelay();
         this.originPos = position;
         this.spawnRadius = spawnRadius;
@@ -176,7 +171,6 @@ public class SpawnNestManager {
             StructureSpawnNestPool pool = data.getRandomPool();
             BlockPos bedside = null;
             if(bed != null) {
-                // Try again on a later tick, once the building is loaded
                 if(!world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
                     return;
                 if(!(world.getBlockState(bed).getBlock() instanceof BedBlock)) {
@@ -202,7 +196,6 @@ public class SpawnNestManager {
         this.respawnEventTriggerTick = -1;
     }
 
-    // Gives a newly spawned npc its job, its home and, for a prisoner, its cell
     private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
         Optional<Identifier> job = bed != null && bedJob.isPresent() ? bedJob : data.getJob();
         if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
@@ -217,19 +210,17 @@ public class SpawnNestManager {
             npc.setHousehold(null, null, null, List.of());
     }
 
-    // The next duty to fill in the place, counted over everyone living in it
     private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site) {
         if(site == null)
             return Optional.of(NpcJobs.PATROL.getValue());
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;
         Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
-        // Guards can spawn before their lord does, and the lord is counted anyway
+        // Guards can spawn before their lord, who is counted anyway
         boolean lordExpected = site.getBeds().stream().anyMatch(found -> NpcJobs.isLord(found.tag().flatMap(BedTag::job).orElse(null)));
         return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
     }
 
-    // A fighter from any nest stands guard where the build has posts or lookouts marked, such as a watch tower.
-    // Elsewhere it keeps the routine of its kind
+    // A fighter stands guard where the build marks posts or lookouts, like a watch tower. Elsewhere it keeps its kind's routine
     private boolean mansPosts(@Nullable RoutineSite site, NpcEntity npc) {
         NpcClass npcClass = npc.getNpcClass();
         if(npcClass == null || npcClass.isCivilian())

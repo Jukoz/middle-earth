@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.features.misc;
 
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.world.features.columns.ColumnsFeatureConfig;
 import net.sevenstars.middleearth.world.gen.FeatureRegistryME;
 import net.minecraft.block.Blocks;

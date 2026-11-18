@@ -23,12 +23,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Finds which plugs a jigsaw block could be joined to, the way the game would join them. A plug that asks for a piece
-// from a pool and names a target fits the plugs with that name on the pieces of that pool, rotated to meet it. It
-// searches the pieces of the loaded structure, or for a plug in none of them, the nearby jigsaw blocks of any piece
+// A plug asking for a pool piece fits plugs of its target name, rotated to meet it
 public class JigsawFits {
     public static final int MAXIMUM_FITS = 512;
-    // In chunks, the search radius around a plug that is in no structure being edited
+    // In chunks. Search radius for a plug in no structure being edited
     private static final int NEAR_CHUNKS = 4;
 
     private record Plug(BlockPos pos, @Nullable Identifier template, RegistryKey<StructurePool> pool, Identifier name, Identifier target, Direction facing) {
@@ -54,7 +52,6 @@ public class JigsawFits {
         return fits;
     }
 
-    // The asking plug picks a piece from its pool and joins it at the plug its target names
     private static boolean joins(Registry<StructurePool> pools, Plug asking, Plug joined) {
         if(!asking.asks() || joined.name().equals(PiecePools.EMPTY) || !joined.name().equals(asking.target()))
             return false;
@@ -70,7 +67,7 @@ public class JigsawFits {
         return templates;
     }
 
-    // Up meets down. Sideways plugs meet in any horizontal direction, because the piece can be rotated to fit
+    // Up meets down. Sideways plugs meet in any direction, since the piece can be rotated
     private static boolean meets(Direction facing, Direction other) {
         return facing.getAxis().isVertical() ? other == facing.getOpposite() : other.getAxis().isHorizontal();
     }

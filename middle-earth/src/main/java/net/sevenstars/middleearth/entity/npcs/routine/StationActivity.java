@@ -39,16 +39,16 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.itemName;
 
 class StationActivity extends RoutineActivity {
-    // A station the npc couldn't stand at, or couldn't see from where it stood, is skipped for this long
+    // A station the npc couldn't stand at or see from where it stood is skipped this long
     private static final int STATION_HOLD = 20 * 300;
 
     private static final int WORK_TIME = 20 * 40;
     private static final int WORK_TIME_VARIATION = 20 * 40;
 
-    // Distance from home. Nobody crosses the whole town to use someone else's forge
+    // From home. Nobody crosses town to use someone else's forge
     static final int WORK_RANGE = 48;
     private static final int STABLE_RANGE = 12;
-    // A hive fills over a day, and its honey is collected once it has been full for another
+    // A hive fills over a day, and its honey is taken once it's been full another
     private static final int FULL_HONEY = 5;
     private static final long HIVE_READY_TIME = 2 * DAY;
     private static final double HORSE_REACH = 4;
@@ -73,15 +73,12 @@ class StationActivity extends RoutineActivity {
 
     private final Map<BlockPos, Long> unusableStations = new HashMap<>();
     private @Nullable BlockPos workStation = null;
-    // The animal a stable master is tending
     @Nullable AnimalEntity workAnimal = null;
-    // A trade that works from the place's stock first fetches its inputs from a store, works them at the station, then
-    // takes what it made back
     @Nullable TradeRecipes.Order order = null;
     private boolean woodNeeded = false;
     @Nullable BlockPos fetchFrom = null;
     @Nullable BlockPos stationStand = null;
-    // An oven burns planks split from the logs the woodcutters bring in. A hearth is already a fire
+    // An oven burns planks split from the woodcutters' logs. A hearth is already a fire
     private int planks = 0;
     @Nullable BlockPos fuelFrom = null;
     @Nullable Item logInHand = null;
@@ -90,7 +87,6 @@ class StationActivity extends RoutineActivity {
         super(routine);
     }
 
-    // What a task that has ended leaves behind
     void clear() {
         fetchFrom = null;
         order = null;
@@ -111,7 +107,6 @@ class StationActivity extends RoutineActivity {
         woodNeeded = false;
         if(order == null && needsStock())
             return routine.cannotStart(picked, "nothing in any store for its trade to work with");
-        // A stable master works on the animals at its spawn_animal marker
         if(isStableWork()) {
             workAnimal = findAnimal(world, home);
             if(workAnimal == null)
@@ -156,25 +151,21 @@ class StationActivity extends RoutineActivity {
         return true;
     }
 
-    // What the walk of a trade ends in sight of. That's the store its inputs are fetched from, then the wood pile, then
-    // the station. None for a stable master, who walks up to an animal
+    // What the walk ends in sight of: the store for inputs, then the wood pile, then the station.
     @Nullable BlockPos workTarget() {
         return fetchFrom != null ? fetchFrom : fuelFrom != null ? fuelFrom : workStation;
     }
 
     @Override
     boolean beforeWork(ServerWorld world, Random random, long time) {
-        // What the order needs has been fetched, and goes on to the station
         if(fetchFrom != null) {
             arriveAtStore(world);
             return true;
         }
-        // And a log for the oven, from the wood pile
         if(fuelFrom != null) {
             arriveAtWoodPile(world);
             return true;
         }
-        // Nothing is worked on the far side of a wall
         if(workStation != null && !routine.canSee(world, workStation)) {
             routine.abandoned("its station " + workStation.toShortString() + " is behind a wall");
             unusableStations.put(workStation, time + STATION_HOLD);
@@ -223,7 +214,6 @@ class StationActivity extends RoutineActivity {
         }
         if(woodNeeded && planks == 0) {
             routine.abandoned("has no wood for the oven at " + workStation.toShortString());
-            // What was fetched to be cooked goes back to its store
             if(routine.carried != null)
                 routine.startReturn(world);
             else
@@ -260,7 +250,6 @@ class StationActivity extends RoutineActivity {
                 routine.did("work", "tended the animal at " + workAnimal.getBlockPos().toShortString());
             routine.finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(workAnimal != null) {
-            // Brushed and fed where it stands
             workAnimal.getNavigation().stop();
             routine.lookTarget = workAnimal.getEyePos();
             if(random.nextInt(STABLE_SWING_ONE_IN) == 0)
@@ -276,9 +265,7 @@ class StationActivity extends RoutineActivity {
         }
     }
 
-    // Fills the hive as time passes since its honey was last taken, which is due once the hive has been full for a
-    // whole day. The hives of a settlement have no bees to fill them. Where the honey in one isn't what was left in it,
-    // somebody else took some or bees brought some, and it's reckoned again from what is there
+    // Settlement hives have no bees. If the honey isn't what was left, someone changed it, so reckon again
     private boolean hiveReady(ServerWorld world, BlockPos hive, long time) {
         BlockState state = world.getBlockState(hive);
         int found = state.get(BeehiveBlock.HONEY_LEVEL);
@@ -290,19 +277,16 @@ class StationActivity extends RoutineActivity {
         return since >= HIVE_READY_TIME;
     }
 
-    // A trade that lives off the place's stock can't work without it. Where a place has no stores at all there is
-    // nothing to share, and its people go through the motions at their stations
     private boolean needsStock() {
         return TradeRecipes.needsStock(npc.getJobId()) && !routine.site.getStores().isEmpty();
     }
 
-    // The nearest wood pile or store of the place with a log in it
     private @Nullable BlockPos woodSource(ServerWorld world, BlockPos home) {
         SiteStock.Holding logs = routine.site.getStock().nearest(world, home, WORK_RANGE, item -> item.getDefaultStack().isIn(ItemTags.LOGS), 1);
         return logs == null ? null : logs.place();
     }
 
-    // An oven burns the wood the woodcutters bring in. Where nobody keeps a wood pile it's taken to be fired already
+    // With no wood pile anywhere, the oven counts as already fired
     private boolean lacksWood(ServerWorld world, BlockPos station, BlockPos home) {
         return RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null
                 && !routine.site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE).isEmpty();
@@ -312,7 +296,6 @@ class StationActivity extends RoutineActivity {
         return NpcJobs.STABLES_MASTER.getValue().equals(npc.getJobId());
     }
 
-    // The spawn_animal marker a stable master tends. That's one it's linked to, or else the nearest to home
     private @Nullable StructureFeatureData.Marker animalMarker(BlockPos home) {
         List<StructureFeatureData.Marker> markers = routine.site.getMarkers(MarkerKind.SPAWN_ANIMAL);
         for(BlockPos link : npc.getLinks()) {
@@ -329,7 +312,7 @@ class StationActivity extends RoutineActivity {
         return nearest;
     }
 
-    // The nearest animal of the marker's kind near it that nobody is riding. A marker of any horse covers all of them
+    // Nearest unridden animal of the marker's kind. A marker of any horse covers all of them
     private @Nullable AnimalEntity findAnimal(ServerWorld world, BlockPos home) {
         StructureFeatureData.Marker marker = animalMarker(home);
         Identifier typeId = marker == null ? null : Identifier.tryParse(marker.value());
@@ -348,7 +331,6 @@ class StationActivity extends RoutineActivity {
         return nearest;
     }
 
-    // The links of the bed that are stations of the trade, visited before any other, and then the stations near home
     private List<BlockPos> stationsToWork(RoutineData data, BlockPos home) {
         List<BlockPos> stations = new ArrayList<>();
         for(BlockPos link : npc.getLinks()) {
@@ -363,7 +345,6 @@ class StationActivity extends RoutineActivity {
         return stations;
     }
 
-    // A station of its trade to work at, a hive only once its honey is due, and for a stable master an animal
     boolean hasWork(ServerWorld world, RoutineData data, BlockPos home, long time) {
         boolean ready = TradeRecipes.order(world, routine.site.getStock(), npc.getJobId(), home, WORK_RANGE, npc.getRandom()) != null;
         if(!ready && needsStock())

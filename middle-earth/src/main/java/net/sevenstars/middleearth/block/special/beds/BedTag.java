@@ -21,10 +21,8 @@ import java.util.TreeMap;
 import java.util.Optional;
 import java.util.TreeSet;
 
-// Who spawns in a bed. The nest kind is the last word of the nest's id. An empty job means that kind's default routine.
-// The class is only set where the nest's own classes won't do, such as who is held in a cell. Links and store are
-// offsets from the bed head, so a rotated template stays valid; links count only when manual, otherwise the nearest
-// target is used. A bed with no place spawns nobody. The manager offset is unused and kept only so old templates load
+// Offsets are from the bed head so rotated templates stay valid. Empty job = the kind's default
+// The manager offset is unused, kept so old templates load
 public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
                      Optional<Identifier> place, Optional<BlockPos> store) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -41,7 +39,6 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
     private static List<String> nestKinds = null;
     private static Map<Identifier, Identifier> peopleNests = null;
 
-    // Who a kind of nest houses, judged by the classes of its pools in every structure that has one
     public enum Folk {
         COMMON,
         FIGHTERS,
@@ -90,7 +87,6 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return withLinks(List.of(), false);
     }
 
-    // Every kind of person that any structure has a nest for
     public static synchronized List<String> nestKinds() {
         if(nestKinds == null) {
             TreeSet<String> found = new TreeSet<>();
@@ -105,7 +101,6 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return nestKinds;
     }
 
-    // The place of each people nest, keyed by nest. A spawn marker names its people by such a nest
     public static synchronized Map<Identifier, Identifier> peopleNests() {
         if(peopleNests == null) {
             Map<Identifier, Identifier> found = new TreeMap<>();

@@ -30,16 +30,15 @@ class FarmingActivity extends RoutineActivity {
     private static final int FARMING_TIME = 20 * 90;
     private static final int FARMING_TIME_VARIATION = 20 * 60;
 
-    // How far the farmer may stand from the plot it works
     private static final double FIELD_REACH = 3;
-    // Plots within this distance of a field the farmer's bed is linked to count as the farmer's own and are worked first
+    // Plots this close to the bed's linked field are worked first
     private static final int LINKED_FIELD_RANGE = 8;
 
     private static final int FARM_ACT_ONE_IN = 2;
 
     @Nullable BlockPos fieldCell = null;
     private long farmingEnd = 0;
-    // Plots found to be behind a fence or a wall from where they were to be worked. Skipped until it next sets out to farm
+    // Plots found walled off. Skipped until it next sets out to farm
     private final Set<BlockPos> hiddenPlots = new HashSet<>();
 
     FarmingActivity(NpcRoutine routine) {
@@ -60,11 +59,9 @@ class FarmingActivity extends RoutineActivity {
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        // Walking on to the next plot is still the same day in the fields
         routine.phaseEnd = farmingEnd;
     }
 
-    // One plot at a time. Does whatever the plot in reach needs, then moves on to the next one that needs anything
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
@@ -90,7 +87,6 @@ class FarmingActivity extends RoutineActivity {
         }
     }
 
-    // The harvest is taken home to the store
     private void endFarming(ServerWorld world) {
         fieldCell = null;
         if(routine.carried != null)
@@ -99,7 +95,6 @@ class FarmingActivity extends RoutineActivity {
             routine.finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
     }
 
-    // The plots of the place's fields are known from its buildings. Finds the nearest one that needs anything done
     private @Nullable BlockPos nextFieldCell(ServerWorld world, BlockPos home, BlockPos from) {
         BlockPos best = null;
         boolean bestLinked = false;
@@ -123,7 +118,6 @@ class FarmingActivity extends RoutineActivity {
         return false;
     }
 
-    // While the crops are growing, nobody needs to work the fields
     boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
         for(BlockPos cell : routine.site.getFields(home, WORK_RANGE)) {
             if(isLoaded(world, cell) && FarmPlots.needsWork(world, cell))
@@ -132,7 +126,6 @@ class FarmingActivity extends RoutineActivity {
         return false;
     }
 
-    // Tills it, sows it, or brings in its crop and sows again. False when the plot needs nothing
     private boolean tend(ServerWorld world, BlockPos cell) {
         BlockState ground = world.getBlockState(cell);
         BlockPos up = cell.up();

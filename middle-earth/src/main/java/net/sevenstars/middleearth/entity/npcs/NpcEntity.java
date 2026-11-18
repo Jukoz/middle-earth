@@ -134,7 +134,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final TrackedData<NpcData> NPC_DATA;
     private static final TrackedData<NpcInitializationData> NPC_INITIALIZATION_DATA;
     private static final TrackedData<NpcTextureData> NPC_TEXTURE_DATA;
-    // The id of the npc's job, empty for none. Tracked so the client can show the job in the npc's name
+    // Tracked so the client can show it in the name
     private static final TrackedData<String> JOB = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> USING_ITEM = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> TALK = DataTracker.registerData(NpcEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -153,7 +153,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         CROSSBOW
     }
 
-    // What an npc in company is doing, shown as a gesture and, for those that say something, a bubble over its head
     public enum Talk {
         NONE(false),
         SAY(true),
@@ -162,7 +161,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         LAUGH(true),
         NOD(false);
 
-        // SAY twice, so plain talk is the most common
         public static final List<Talk> SPOKEN = List.of(SAY, SAY, ASK, EXCLAIM, LAUGH);
         private static final Talk[] VALUES = values();
         private final boolean spoken;
@@ -176,7 +174,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    // Maximum body width whatever the scale, a little less than the room a board leaves in its block
+    // Narrower than a board leaves in its block
     private static final float MAXIMUM_WIDTH = 0.8f;
 
     // In ticks
@@ -193,55 +191,45 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final int PARTY_RANGE = 64;
     private static final double FOLLOW_RANGE = 32.0;
 
-    // Guards that must be around for a timid npc to run for them instead of fighting
     private static final int GUARDS_TO_FLEE = 3;
 
     // In blocks
     private static final int HOME_STAND_RANGE = 5;
     private static final int ALARM_RANGE = 24;
     private static final int ALARM_HEIGHT_RANGE = 8;
-    // Common folk help a neighbour who is close by, not one across the village
     private static final int HELP_RANGE = 16;
 
-    // An npc already rising faster than this is on its way out of the water and isn't lifted again
+    // Rising faster than this means it's climbing out of water
     private static final double CLIMBING_OUT = 0.1;
 
-    // Combat and reach
     private static final double BASE_ATTACK_DAMAGE = 1.0;
     private static final float KNOCKBACK_SCALE = 0.5f;
     private static final double KNOCKBACK_SELF_SLOWDOWN = 0.6;
-    // In ticks, from the last blow. Vanilla forgets an attacker after 5 seconds, which would end a fight with someone
-    // neutral halfway through
+    // Ticks. Vanilla forgets attackers after 5s, which would end fights with neutrals
     private static final int GRUDGE_TICKS = 20 * 60;
-    // In blocks, from the npc's feet to its target's. Each race sets its own, and the weapon in hand adds to it
+    // Blocks, feet to feet. Races set their own; weapons add to it
     private static final double DEFAULT_REACH = 1.75;
     private static final float MOUNTED_REACH_BONUS = 0.5f;
-    // Extra reach past touching, since touching is as close as the npc and its target can stand
     private static final float CONTACT_REACH = 0.25f;
 
     private static final EquipmentSlot[] ARMOUR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
-    // Archery
     // In ticks
     private static final int BOW_ATTACK_INTERVAL = 20;
     private static final int BOW_ATTACK_INTERVAL_HARD = 30;
-    // An npc's arrow leaves at BASE_ARROW_SPEED times the weapon's power, in blocks a tick. A fully drawn vanilla bow
-    // shoots at 3
+    // Times the weapon's power, in blocks a tick. A full vanilla bow is 3
     private static final float BASE_ARROW_SPEED = 1.6F;
     private static final float CROSSBOW_ARROW_POWER = 1.25f;
     private static final float NO_INACCURACY = 0f;
     private static final double ARROW_AIR_DRAG = 0.99;
     private static final double MAX_ARROW_FLIGHT_TICKS = 200;
-    // AIM_STEP is how finely arcs are tried, in ticks of flight. AIM_BISECTIONS is how many times the interval is halved to
-    // narrow in on the arc that was found
+    // AIM_STEP is ticks of flight per arc tried; AIM_BISECTIONS halves the interval
     private static final double AIM_STEP = 0.5;
     private static final int AIM_BISECTIONS = 30;
 
-    // Prison
-    // In ticks, a second
+    // In ticks
     private static final int PRISON_CHECK_INTERVAL = 20;
 
-    // Hatches
     // In ticks
     private static final int HATCH_CHECK_INTERVAL = 4;
 
@@ -249,71 +237,57 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final double HATCH_OPEN_DISTANCE = 3;
     private static final double HATCH_CLOSE_DISTANCE = 3.5;
 
-    // Mount and passenger
-    // Where a passenger sits relative to the middle of the npc's shoulders, a little lower and behind
+    // From the middle of the shoulders, lower and behind
     private static final double PASSENGER_OFFSET_Y = -0.3;
     private static final double PASSENGER_OFFSET_Z = -0.25;
 
-    // Loot
     private static final int FALLBACK_EXPERIENCE = 1;
     private static final String LOOT_TABLE_FOLDER = "entities/";
 
     // [FIELDS]
-    // Party and travel
     private @Nullable UUID partyLeader = null;
     private @Nullable Float travelHeading = null;
     private @Nullable BlockPos travelDestination = null;
 
-    // Household
     private @Nullable BlockPos routineHome = null;
-    // Bed, stand, store and links are assigned by the structure manager of its nest
+    // Set by the nest's structure manager
     private @Nullable BlockPos assignedBed = null;
     private @Nullable BlockPos bedStand = null;
     private @Nullable BlockPos store = null;
-    // The places the builder linked to its bed, which the npc goes to first for work
+    // Places the builder linked to its bed; the npc goes there first for work
     private List<BlockPos> links = List.of();
 
-    // Routine state
     private boolean onOuting = false;
-    // Out tending the fields, the one errand that takes an npc across them
     private boolean farming = false;
-    // Where a visitor to its household asked it to sit, and until when the visitor stays
     private @Nullable BlockPos invitedTo = null;
     private long invitedUntil = 0;
     private @Nullable UUID escort = null;
-    // Saved, otherwise an escort loaded in the middle of an outing would follow its ward forever
+    // Saved, or a reloaded escort would follow its ward forever
     private boolean escorting = false;
-    // What the hand held before a routine put something else in it
     private @Nullable ItemStack routineStowedItem = null;
     private boolean routineStowedMainHand = false;
     private @Nullable Vec3d sleptFrom = null;
-    // Entity age at which it falls silent, on the server, and at which it last changed what it's doing, on the client
+    // Age it fell silent (server) and last changed activity (client)
     private int talkUntil;
     private int talkSince;
 
-    // Prison
-    // Where a prisoner is held. A prisoner outside it is free
     private @Nullable PrisonCell prisonCell = null;
     private ItemStack confiscatedMain = ItemStack.EMPTY;
     private ItemStack confiscatedOff = ItemStack.EMPTY;
 
-    // Threat and grudges
     private @Nullable UUID threatFaced = null;
     private boolean fleesThreat = false;
     private @Nullable UUID guardsCalledFor = null;
-    // Who wronged this npc, and until when in world ticks. Only this npc keeps it, and it isn't saved
+    // Grudges: offender -> expiry tick. Not saved
     private final Map<UUID, Long> grudges = new HashMap<>();
 
-    // Hunt
     private @Nullable LivingEntity huntTarget = null;
     private @Nullable EntityType<?> huntKill = null;
     private int huntEndAge = 0;
 
-    // Doors
     private final Set<BlockPos> openedHatches = new HashSet<>();
     private boolean passingDoor = false;
 
-    // Caches
     private String cachedJobText = "";
     private @Nullable Identifier cachedJobId = null;
     private @Nullable NpcJob cachedJob = null;
@@ -323,10 +297,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private int managerCheckAge = 0;
     private boolean dataInitialized = false;
 
-    // Routine and attack
-    // Built when first asked for, which only a server needs
+    // Built on first use, server only
     private @Nullable NpcRoutine dayRoutine = null;
-    // What the weapon in hand was last set up for, which is how the npc fights
     private AttackType attackType = AttackType.MELEE;
     private int bowAttackInterval = BOW_ATTACK_INTERVAL;
 
@@ -337,7 +309,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.navigation.setCanOpenDoors(true);
         this.navigation.setCanSwim(true);
         this.moveControl = new NpcMoveControl(this);
-        // Vanilla only makes walking through fire costly. Npcs should never walk into fire, a lit campfire or a brazier
+        // Vanilla only makes fire costly. Npcs should never walk into fire, campfires or braziers
         setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, -1);
         setPathfindingPenalty(PathNodeType.DAMAGE_OTHER, -1);
     }
@@ -346,7 +318,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.FOLLOW_RANGE, FOLLOW_RANGE)
                 .add(EntityAttributes.ATTACK_DAMAGE, BASE_ATTACK_DAMAGE)
-                // A held weapon only adds its reach if the npc has this attribute
                 .add(EntityAttributes.ENTITY_INTERACTION_RANGE, DEFAULT_REACH);
     }
 
@@ -373,7 +344,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             talkSince = age;
     }
 
-    // It ends by itself, so nothing has to stop it when the npc is called away
     public void talk(Talk talk, int ticks) {
         dataTracker.set(TALK, talk.ordinal());
         talkUntil = age + ticks;
@@ -410,8 +380,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
         if(wanted == this.attackType)
             return;
-        // Ending the attack that is going on drops the target if it is the crossbow's. Restore the target so the fight
-        // continues with the other weapon
+        // Ending the attack drops the crossbow's target, so put it back
         LivingEntity target = getTarget();
         NpcBrain.stopAttack(this);
         this.attackType = wanted;
@@ -435,7 +404,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return NpcBrain.createProfile();
     }
 
-    // Also called when saved data with a brain is read into a live npc, and by the constructor, when there is no brain yet
+    // Also runs from the constructor, before there's a brain
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         Brain<NpcEntity> replaced = getBrain();
@@ -455,7 +424,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return new NpcNavigation(this, world);
     }
 
-    // Capped so tall elves fit beside a ladder or an open shutter. Any wider and they catch on every board in their halls
+    // Capped so tall elves fit beside ladders and shutters
     @Override
     protected EntityDimensions getBaseDimensions(EntityPose pose) {
         EntityDimensions base = super.getBaseDimensions(pose);
@@ -472,7 +441,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
-        // Gear comes from the npc class, not vanilla's random armour
     }
 
     // [SAVE AND LOAD]
@@ -520,13 +488,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.confiscatedMain = view.read(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.confiscatedOff = view.read(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
-        // The routine isn't saved, so its prop gets put away again
         clearRoutineProp();
 
         Identifier savedClass = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
         NpcRegistry.Folded folded = savedClass == null ? null : NpcRegistry.FOLDED.get(savedClass);
         if(folded != null) {
-            // Its gear stays as saved. Only its class and job change
             ReadView data = view.getOptionalReadView(KeyStrings.DATA).orElseThrow();
             Registry<NpcClass> classes = getEntityWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
             NpcClass base = classes.get(folded.npcClass().getValue());
@@ -553,7 +519,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     // [IDENTITY AND INITIALISATION]
-    // [NpcTextureData]
     public void saveNpcTextureData(NpcTextureData npcTextureData) {
         this.dataTracker.set(NPC_TEXTURE_DATA, npcTextureData);
     }
@@ -564,7 +529,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return retrieveNpcTextureData().get(NpcRenderedPart.BODY) != null;
     }
 
-    // [NpcInitializationData]
     public void saveNpcInitializationData(NpcInitializationData npcInitializationData) {
         this.dataInitialized = false;
         this.dataTracker.set(NPC_INITIALIZATION_DATA, npcInitializationData);
@@ -588,14 +552,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.saveNpcInitializationData(newNpcInitializationData);
     }
 
-    // [NpcData]
     public void saveNpcData(NpcData npcData) {
         this.dataTracker.set(NPC_DATA, npcData);
     }
     public NpcData retrieveNpcData() {
         return this.dataTracker.get(NPC_DATA);
     }
-    // [NpcClass]
     public NpcClass getNpcClass(){
         return retrieveNpcData().getNpcClass();
     }
@@ -621,7 +583,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return retrieveNpcData().getNpcClassId();
     }
 
-    // [Faction]
     public @Nullable Faction getFaction(){
         NpcData data = retrieveNpcData();
         if(data == null)
@@ -629,7 +590,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         Identifier factionId = data.getFaction();
         if(factionId == null)
             return null;
-        // Called for every npc in sight when looking for enemies, and a registry lookup is too slow for that
+        // Hot path: runs on every enemy check, registry lookups are too slow
         if(factionId.equals(cachedFactionId))
             return cachedFaction;
         try {
@@ -662,11 +623,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return npcClass != null && RaceRegistry.ELF.getValue().equals(npcClass.getRace());
     }
 
-    // [Initialisation]
     public void tryToInitializeData(){
         if(dataInitialized)
             return;
-        // Commands spawn the npc at the origin first, so wait until it has been moved
+        // Commands spawn at the origin first
         if(Objects.equals(getBlockPos(), BlockPos.ORIGIN))
             return;
 
@@ -709,7 +669,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.dataTracker.set(JOB, job == null ? "" : job.toString());
     }
 
-    // Called after the class gear is on. A job that replaces the name swaps whatever is in the hand for its tool
+    // After class gear. Some jobs swap the hand item for a tool
     public void takeJob(Identifier job) {
         setJob(job);
         if(isPrisoner()) {
@@ -731,7 +691,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     public @Nullable Identifier getJobId() {
         String job = this.dataTracker.get(JOB);
-        // Called on every friend-or-foe check, so parsing the id from its text each time is too slow
+        // Hot path, so don't reparse the id each time
         if(!job.equals(cachedJobText)) {
             cachedJobText = job;
             cachedJobId = job.isEmpty() ? null : Identifier.tryParse(job);
@@ -749,7 +709,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return cachedJob;
     }
 
-    // What the npc does with its day. The job's routine if it has one, otherwise the class's
     public @Nullable RoutineData getRoutine() {
         NpcJob job = getJob();
         if(job != null && job.routine().isPresent())
@@ -782,14 +741,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         RoutineData routine = getRoutine();
         if(routine == null || !routine.getPeriod().isResting(getEntityWorld().getTimeOfDay(), isNightShift()))
             return false;
-        // Elves rest in waking dreams and only lie down every few days, each on its own night
+        // Elves lie down only every few days, each on its own night
         long day = getEntityWorld().getTimeOfDay() / DAY_TICKS;
         return !isElf() || Math.floorMod(getUuid().hashCode() + day, ELF_SLEEP_INTERVAL) == 0;
     }
 
     public void showRoutineProp(ItemStack prop) {
         if(routineStowedItem == null) {
-            // A prop in the off hand doesn't show next to a two-handed weapon, so that weapon is put away
+            // An off-hand prop doesn't show beside a two-handed weapon
             Item mainHand = getMainHandStack().getItem();
             routineStowedMainHand = mainHand instanceof CustomLongbowWeaponItem || mainHand instanceof CustomSiegeShieldItem
                     || (mainHand instanceof ReachWeaponItem reachWeapon && reachWeapon.type.twoHanded);
@@ -813,7 +772,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return routineStowedMainHand ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
     }
 
-    // Out beyond the walls on a routine, which is when an escort comes along
     public boolean isOnOuting() {
         return onOuting;
     }
@@ -848,7 +806,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     // [HOUSEHOLD AND MANAGER]
-    // The bed or marker the npc spawned from
     public void assignHost(BlockPos host){
         NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(host);
         this.saveNpcData(newNpcData);
@@ -894,8 +851,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         BlockPos structureManagerPos = getStructureManagerHostPos();
         if(structureManagerPos == null)
             return super.isPersistent();
-        // Called every tick, so the manager is only looked up now and then. Reading a block entity in an unloaded chunk
-        // would load that chunk, so the lookup is skipped there
+        // Skip unloaded chunks, reading the block entity would load them
         if(age >= managerCheckAge) {
             managerCheckAge = age + MANAGER_CHECK_INTERVAL;
             if(getEntityWorld().isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4))
@@ -936,7 +892,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return escort;
     }
 
-    // Follows its ward the way a party member follows its leader, for as long as the outing lasts
     public void escort(NpcEntity ward) {
         ward.escort = getUuid();
         this.escorting = true;
@@ -970,7 +925,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return prisonCell != null && isPrisoner();
     }
 
-    // A prisoner holds no weapon while imprisoned. Whatever is in its hands is confiscated and given back when it gets free
     private void disarm() {
         ItemStack main = getMainHandStack();
         ItemStack off = getOffHandStack();
@@ -1004,7 +958,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             free(world);
     }
 
-    // Once out of its cell, the prisoner belongs only to its own people and runs away from the place that held it
+    // Out of its cell it goes back to its own people and flees the place that held it
     private void free(ServerWorld world) {
         PrisonCell cell = prisonCell;
         BlockPos managerPos = getStructureManagerHostPos();
@@ -1047,8 +1001,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return NpcRelations.of(this, other).isFriendly();
     }
 
-    // Grudges are personal. They're kept by the npc that was wronged and by the npcs it called for help. A blow from a
-    // friendly npc is treated as a stray one, but a friendly beast that turns on the npc is fought like anyone else
+    // Only the wronged npc and those it called keep a grudge. A friendly npc's blow is a stray
     public void bearGrudge(LivingEntity offender) {
         if(offender == this || getEntityWorld().isClient())
             return;
@@ -1071,9 +1024,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             bearGrudge(attacker);
     }
 
-    // A timid npc picks one response to a threat and sticks with it, otherwise it would keep running, turning and running
-    // again. It runs to call the guards if enough of them are around to come, and otherwise stands and fights alongside
-    // the other common folk nearby
+    // Timid npcs commit to one response, or they'd run, turn and run again
     public boolean fleesFrom(LivingEntity threat) {
         if(!threat.getUuid().equals(threatFaced)) {
             threatFaced = threat.getUuid();
@@ -1084,7 +1035,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return fleesThreat;
     }
 
-    // Close to home there's nowhere left to run, so the npc stands its ground
+    // Nowhere left to run near home
     public boolean isAtHome() {
         return routineHome != null && getStructureManagerHostPos() != null && routineHome.isWithinDistance(getEntityPos(), HOME_STAND_RANGE);
     }
@@ -1118,11 +1069,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    // Everyone who could come to help: the npcs nearby and everyone living in the same place
     private Set<NpcEntity> neighbours(ServerWorld world) {
         Set<NpcEntity> neighbours = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
         BlockPos structureManagerPos = getStructureManagerHostPos();
-        // Reading a block entity in an unloaded chunk would load the chunk
         if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)) {
             for(UUID owner : NestHost.residents(world, structureManagerPos)) {
                 if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
@@ -1132,13 +1081,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return neighbours;
     }
 
-    // Sends the fighters after whatever frightened this npc. That's the fighters within earshot, plus those with a bed in
-    // its structure, wherever they are
     public void callGuards(@Nullable LivingEntity threat) {
         if(threat == null || !(getEntityWorld() instanceof ServerWorld world))
             return;
         for(NpcEntity guard : neighbours(world)) {
-            // Allies and friends come to help, and each one that answers takes on the grudge against the threat
             if(guard.isTimid() || guard.getTarget() != null || !NpcRelations.of(guard, this).isFriendly())
                 continue;
             guard.bearGrudge(threat);
@@ -1155,7 +1101,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if (source.isOf(DamageTypes.IN_WALL) && this.hasVehicle()) {
             return true;
         }
-        // Stray arrows from a hunting npc don't hurt non-enemies
+        // Stray arrows from hunters don't hurt non-enemies
         if(source.getAttacker() instanceof NpcEntity hunter && hunter != this && hunter.huntTarget != null && NpcRelations.of(this, hunter) != Relation.ENEMY)
             return true;
         return super.isInvulnerableTo(world, source);
@@ -1173,14 +1119,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         setTarget(prey);
     }
 
-    // The type of animal the last hunt killed. It can only be taken once
     public @Nullable EntityType<?> takeHuntKill() {
         EntityType<?> kill = huntKill;
         huntKill = null;
         return kill;
     }
 
-    // The attack never drops a target on its own
     private void tickHunt() {
         if(huntTarget.isAlive() && age < huntEndAge)
             return;
@@ -1244,9 +1188,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    // Archery
-    // Aims at the middle of the target's body and leads it by its current movement. Inaccuracy is vanilla's shot spread,
-    // added on top. 0 never misses, and skeletons shoot with 2 on hard to 10 on easy
+    // Spread 0 never misses; skeletons use 2 on hard to 10 on easy
     public void shootAt(LivingEntity target, float pullProgress, float powerModifier, float inaccuracy) {
         ItemStack weapon = this.getMainHandStack();
         ItemStack projectileStack = this.getProjectileType(weapon);
@@ -1279,9 +1221,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.shootAt(target, 1, pullProgress, NO_INACCURACY);
     }
 
-    // Simulates the arrow the way vanilla moves it each tick: it moves, loses a hundredth of its speed, then falls by its
-    // gravity. Of the arcs that reach the target it picks the flattest, and when the target is out of range it picks the
-    // shot that carries furthest
+    // Steps the arrow like vanilla. Picks the flattest arc that reaches, else the furthest
     private static Vec3d solveArrowAim(Vec3d origin, LivingEntity target, double speed, double gravity) {
         Vec3d targetStart = new Vec3d(target.getX(), target.getBodyY(0.5), target.getZ());
         Vec3d targetMovement = movementOf(target);
@@ -1293,7 +1233,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         for (double ticks = AIM_STEP; ticks <= MAX_ARROW_FLIGHT_TICKS; ticks += AIM_STEP) {
             double speedGap = requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks).length() - speed;
             if (speedGap <= 0) {
-                // The needed speed falls with flight time before it rises again, so the first crossing is the flat shot
+                // Needed speed falls then rises, so the first crossing is the flat shot
                 double low = previousTicks, high = ticks;
                 for (int i = 0; i < AIM_BISECTIONS; i++) {
                     double mid = (low + high) / 2;
@@ -1314,16 +1254,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks);
     }
 
-    // Per-tick movement used to lead the target. For players, vanilla tracks it. For everything else this is the position
-    // change over the last tick, not velocity: ground friction has already cut velocity nearly in half, and a mob standing
-    // on the ground still has downward velocity, which would make every shot land short
+    // Position change over the last tick, not velocity: friction has halved it and a mob on
+    // the ground still has downward velocity, which makes shots land short
     private static Vec3d movementOf(LivingEntity target) {
         if(target instanceof PlayerEntity)
             return target.getMovement();
         return new Vec3d(target.getX() - target.lastX, target.isOnGround() ? 0 : target.getY() - target.lastY, target.getZ() - target.lastZ);
     }
 
-    // The velocity the arrow needs when it leaves the bow to reach where the target will be after that many ticks
     private static Vec3d requiredLaunchVelocity(Vec3d origin, Vec3d targetStart, Vec3d targetMovement, double gravity, double ticks) {
         // After n ticks: offset = v0 * k(n) - gravity / (1 - drag) * (n - k(n)) on y, where k(n) = (1 - drag^n) / (1 - drag).
         double travel = (1 - Math.pow(ARROW_AIR_DRAG, ticks)) / (1 - ARROW_AIR_DRAG);
@@ -1340,7 +1278,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         return this.getItemUseTime() > 0;
     }
 
-    // Crossbow
     public boolean isCharging() {
         return this.dataTracker.get(CROSSBOW_CHARGING);
     }
@@ -1388,7 +1325,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     protected void mobTick(ServerWorld world) {
         tryToInitializeData();
-        // Sleeping npcs are ticked too, as the routine keeps them in bed
         NpcBrain.updateActivities(this);
         getBrain().tick(world, this);
         if(getTalk() != Talk.NONE && (age >= talkUntil || getTarget() != null || !getDayRoutine().isInCompany()))
@@ -1402,8 +1338,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             disarm();
         if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
             tickPrison(world);
-        // The targeting never drops a target that was set from outside it. A dead target blocks everything else, and so
-        // does one that is no longer an enemy, such as when the grudge a guard was called out for has expired
+        // Never drops a target set from outside: a dead or no-longer-enemy one blocks the rest
         LivingEntity target = getTarget();
         if(target != null && (!target.isAlive() || age % TARGET_CHECK_INTERVAL == 0 && !canTarget(target)))
             setTarget(null);
@@ -1418,7 +1353,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
-    // Opens the gate or trapdoor of a loft the path leads through, and closes it again once the npc is past
     private void tickHatch(ServerWorld world) {
         openedHatches.removeIf(hatch -> {
             if(hatch.isWithinDistance(getEntityPos(), HATCH_CLOSE_DISTANCE))
@@ -1466,8 +1400,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         sleep(bed);
     }
 
-    // Vanilla puts a waking sleeper on whatever is next to the bed, which is as often a bench or a table as the floor,
-    // and many npcs never find a way down from there
+    // Vanilla drops a waking sleeper on the bench or table beside the bed, with no way down
     @Override
     public void wakeUp() {
         super.wakeUp();
@@ -1481,7 +1414,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         this.passingDoor = passingDoor;
     }
 
-    // Two npcs side by side in a doorway push each other into the frame and neither gets through
+    // Two npcs side by side in a doorway shove each other and neither gets through
     @Override
     public void pushAwayFrom(Entity entity) {
         if(entity instanceof NpcEntity other && (passingDoor || other.passingDoor))
@@ -1489,7 +1422,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         super.pushAwayFrom(entity);
     }
 
-    // Riding
     @Override
     public void tickRiding() {
         super.tickRiding();
@@ -1555,7 +1487,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         super.onDeath(source);
     }
 
-    // The first follower found takes over the party and the way it was going
     private void handOverParty(ServerWorld world) {
         NpcEntity heir = null;
         for(NpcEntity follower : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(PARTY_RANGE), other -> other.isAlive() && getUuid().equals(other.getPartyLeader()))) {

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-// One nest of a place: who spawns there, and how long after the last of them is gone they come back
 public class SpawnNestNodeData {
     public static final Codec<SpawnNestNodeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(SpawnNestNodeData::getId),
@@ -34,7 +33,7 @@ public class SpawnNestNodeData {
     }
 
     public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools) {
-        // The job comes from the nest name, so a baker's nest houses a baker unless another job is given
+        // Job comes from the nest name unless another is given
         this(id, respawnTickDelay, npcPools, NpcJobs.forNest(id));
     }
 
@@ -58,7 +57,6 @@ public class SpawnNestNodeData {
         return structureSpawnNestPools;
     }
 
-    // A nest of people, who spawn from beds, as opposed to a nest of animals
     public boolean isPeople() {
         return !structureSpawnNestPools.isEmpty() && structureSpawnNestPools.stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC);
     }

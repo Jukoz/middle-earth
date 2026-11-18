@@ -3,7 +3,7 @@ package net.sevenstars.middleearth.world.features.columns;
 import com.mojang.serialization.Codec;
 import net.minecraft.state.property.Properties;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;

@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 
 final class BowAttackBehaviour extends AttackBehaviour {
-    // In ticks
     private static final int SEEING_TICKS = 20;
     private static final int STRAFE_INTERVAL = 20;
     private static final int LOST_SIGHT_TICKS = -60;
@@ -49,7 +48,6 @@ final class BowAttackBehaviour extends AttackBehaviour {
         return npc.getStackInHand(Hand.MAIN_HAND).getItem() instanceof BowItem;
     }
 
-    // Goes on after the target is gone, until the walk it was on is over
     @Override
     boolean shouldContinue(NpcEntity npc) {
         return (canStart(npc) || !npc.getNavigation().isIdle()) && isHoldingBow(npc);

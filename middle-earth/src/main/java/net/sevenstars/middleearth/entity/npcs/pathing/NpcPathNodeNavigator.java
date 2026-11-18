@@ -20,13 +20,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-// The game's search with one difference. The game writes a node's walked length before checking whether the newly found
-// route to it is better, so a longer route can overwrite a shorter one and a node near the start can be dropped for being
-// past the longest allowed path, depending on the order the search visits nodes in
+// The game's search with one fix. The game writes a node's walked length before checking the new route is
+// so a longer route can overwrite a shorter one
 public class NpcPathNodeNavigator extends PathNodeNavigator {
-    // Same weighting the game uses for the distance still to go against the distance walked
     private static final float HEURISTIC_WEIGHT = 1.5f;
-    // Same size as the game's own successor array
     private static final int MAXIMUM_SUCCESSORS = 32;
 
     private final PathNodeMaker maker;
@@ -40,7 +37,7 @@ public class NpcPathNodeNavigator extends PathNodeNavigator {
         this.nodes = nodes;
     }
 
-    // The game resets this from the follow range every so often, which would undo the larger search
+    // The game periodically resets this from the follow range, which would undo the larger search
     @Override
     public void setRange(int range) {
         this.nodes = Math.max(this.nodes, range);

@@ -2,7 +2,6 @@ package net.sevenstars.middleearth.entity.npcs.ai;
 
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 
-// Runs the behaviours it is given, which are tried in the order given
 final class BehaviourSelector {
     private final Behaviour[] behaviours;
     private final boolean[] running;
@@ -12,8 +11,7 @@ final class BehaviourSelector {
         this.running = new boolean[behaviours.length];
     }
 
-    // A think tick stops the behaviours that are done, starts those that can, and then ticks the running ones. The ticks in
-    // between only tick those that run every tick
+    // Think ticks start and stop behaviours; other ticks only tick ones that run every tick
     void update(NpcEntity npc, boolean thinkTick) {
         if(!thinkTick) {
             for(int i = 0; i < behaviours.length; i++)

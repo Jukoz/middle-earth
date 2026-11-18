@@ -1,5 +1,18 @@
 package net.sevenstars.middleearth.network;
 
+import net.sevenstars.middleearth.features.artisan.network.ArtisanIndexPacket;
+import net.sevenstars.middleearth.features.artisan.network.ArtisanRecipePacket;
+import net.sevenstars.middleearth.features.artisan.network.ArtisanTableTabPacket;
+
+import net.sevenstars.middleearth.features.inscription.network.InscriptionConfirmationPacket;
+import net.sevenstars.middleearth.features.inscription.network.InscriptionEnchantInfoPacket;
+import net.sevenstars.middleearth.features.inscription.network.InscriptionWordUpdatePacket;
+
+import net.sevenstars.middleearth.features.smithing.network.AnvilIndexPacket;
+import net.sevenstars.middleearth.features.smithing.network.ForgeModeSwitchPacket;
+import net.sevenstars.middleearth.features.smithing.network.ForgeOutputPacket;
+import net.sevenstars.middleearth.features.smithing.network.ShapingAnvilRecipePacket;
+
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

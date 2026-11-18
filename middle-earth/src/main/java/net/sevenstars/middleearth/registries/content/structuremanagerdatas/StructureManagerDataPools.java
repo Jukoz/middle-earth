@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StructureManagerDataPools {
-    // In ticks, three days
+    // Three days, in ticks
     public final static int RESPAWN_TICKS = 24000 * 3;
     // Who is held in a cell unless the bed names someone else
     private static final List<StructureSpawnNestPool> PRISONERS = List.of(

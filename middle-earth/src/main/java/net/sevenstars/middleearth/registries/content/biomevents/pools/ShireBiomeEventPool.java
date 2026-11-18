@@ -16,7 +16,6 @@ public class ShireBiomeEventPool {
     static {
         DEFAULT = new BiomeEventData(false, List.of(
             new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(8).withSameNpcClass(3, 256),
-            // Pigs being driven to market, and a farmer out with a dog
             new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(3).withSameNpcClass(3, 256).lightShouldBeAtLeast(8).withParty(PartyData.create().ledBy(NpcJobs.SWINEHERD).addAnimals(EntityType.PIG, 2, 3)),
             new WildSpawnEventData(NpcRegistry.SHIRE_PEASANT).withWeight(2).withSameNpcClass(3, 256).lightShouldBeAtLeast(8).withParty(PartyData.create().ledBy(NpcJobs.FARMER).addAnimals(EntityType.WOLF, 1, 1)),
             new WildSpawnEventData(NpcRegistry.SHIRE_MILITIA).withWeight(2).withSameNpcClass(1, 256).withParty(PartyData.create().add(NpcRegistry.SHIRE_MILITIA, 1, 2)),

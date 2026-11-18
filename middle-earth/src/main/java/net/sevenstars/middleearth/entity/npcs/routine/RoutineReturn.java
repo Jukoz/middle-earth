@@ -45,7 +45,6 @@ class RoutineReturn {
     private void deliver(ServerWorld world, BlockPos store) {
         if(routine.carried == null)
             return;
-        // A camp keeps its things by the fire, so what's brought there goes on the fire
         if(world.getBlockState(store).getBlock() instanceof CampfireBlock) {
             world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + SMOKE_HEIGHT, store.getZ() + 0.5, SMOKE_PARTICLES, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPEED);
             routine.did("deliver", "put " + itemName(routine.carried) + " on the fire at " + store.toShortString());
@@ -82,7 +81,6 @@ class RoutineReturn {
         routine.finish(world, REST + random.nextInt(REST_VARIATION));
     }
 
-    // What's brought back goes to the barrel or the fire, and a tired npc goes to its bed
     @Nullable BlockPos returnTarget(ServerWorld world) {
         if(routine.toBed) {
             BlockPos bed = routine.beds.freeBed(world);
@@ -94,14 +92,13 @@ class RoutineReturn {
         return npc.getRoutineHome();
     }
 
-    // The store itself is a block nobody can stand in, and the closest the pathfinder gets to it may be the wrong side
-    // of a wall
+    // The pathfinder's closest point to a store may be the wrong side of a wall
     private BlockPos storeStand(ServerWorld world, BlockPos store) {
         if(!store.equals(standOf)) {
             standOf = store;
             BlockPos inside = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
             storeStand = isLoaded(world, store) ? NestSurvey.standNextTo(world, store, inside) : null;
-            // A barrel on a table or in a corner is reached across it, from a floor that can see it
+            // Reached across a barrel on a table or in a corner, from a floor that can see it
             if(storeStand == null && isLoaded(world, store))
                 storeStand = NestSurvey.standInSight(world, store, inside, STORE_STAND_RADIUS);
         }

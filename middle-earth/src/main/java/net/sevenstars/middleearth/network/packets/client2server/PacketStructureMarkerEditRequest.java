@@ -113,7 +113,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
     }
 
     private boolean validValue() {
-        // A nest id, or only a nest kind for markers placed before nests had full names
+        // A nest id, or only a kind for markers placed before nests had full names
         if(kind == MarkerKind.SPAWN_NPC) {
             Identifier nest = Identifier.tryParse(value);
             return BedTag.nestKinds().contains(value) || nest != null && BedTag.peopleNests().containsKey(nest);

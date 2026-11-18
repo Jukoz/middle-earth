@@ -29,9 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// A piece's pools can be worked out from plugs alone. A plug that asks for a pool and names a target is asking for
-// every piece that has a plug with that name. So a piece goes into the pools whose plugs target one of its own plug
-// names, and a pool that one of its own plugs asks for but doesn't exist yet is created from the pieces that answer to it
+// A plug asking for a pool names a target and wants every piece with a plug of that name.
+// So pieces join the pools they answer to, and missing pools are created from them
 public class PiecePools {
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     static final Identifier EMPTY = Identifier.ofVanilla("empty");
@@ -40,11 +39,9 @@ public class PiecePools {
 
     record Plugs(Set<Identifier> names, Map<Identifier, Set<Identifier>> asked) {}
 
-    // The pools the piece was added to in the open world, the pool files written, and the pools newly created. The game
-    // only sees new pools once the world is opened again
+    // The game only sees new pools once the world is reopened
     public record Result(List<Identifier> live, List<Path> written, List<Identifier> created) {}
 
-    // The names of the piece's own plugs, and for each pool one of its plugs asks for, the target names it asks for there
     private static Plugs plugsOf(ServerWorld world, Identifier template) {
         Set<Identifier> names = new LinkedHashSet<>();
         Map<Identifier, Set<Identifier>> asked = new LinkedHashMap<>();
@@ -70,12 +67,10 @@ public class PiecePools {
         return new Plugs(names, asked);
     }
 
-    // The pools the piece's plugs ask for
     public static Set<Identifier> asked(ServerWorld world, Identifier template) {
         return plugsOf(world, template).asked().keySet();
     }
 
-    // The plugs of every template in a namespace
     static Map<Identifier, Plugs> plugsIn(ServerWorld world, String namespace) {
         Map<Identifier, Plugs> plugs = new LinkedHashMap<>();
         for(Identifier id : world.getStructureTemplateManager().streamTemplates().filter(id -> id.getNamespace().equals(namespace)).sorted().toList())
@@ -91,7 +86,6 @@ public class PiecePools {
         Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
         Plugs own = plugs.computeIfAbsent(template, id -> plugsOf(world, id));
 
-        // Where it belongs: every pool that some piece asks for by one of its plug names
         Map<Identifier, Set<Identifier>> additions = new LinkedHashMap<>();
         for(Plugs other : plugs.values()) {
             for(Map.Entry<Identifier, Set<Identifier>> asked : other.asked().entrySet()) {
@@ -99,7 +93,6 @@ public class PiecePools {
                     additions.computeIfAbsent(asked.getKey(), key -> new LinkedHashSet<>()).add(template);
             }
         }
-        // What it asks for: a pool that doesn't exist yet is created from the pieces that answer to the target name
         List<Identifier> created = new ArrayList<>();
         for(Map.Entry<Identifier, Set<Identifier>> asked : own.asked().entrySet()) {
             if(pools.containsId(asked.getKey()) || Files.isRegularFile(fileOf(resources, asked.getKey())))
@@ -124,7 +117,6 @@ public class PiecePools {
         return new Result(live, written, created);
     }
 
-    // A pool containing only this piece, for a structure to start from
     public static boolean writeStart(Path resources, Identifier pool, Identifier template) throws IOException {
         return write(fileOf(resources, pool), pool, Set.of(template));
     }
@@ -133,7 +125,7 @@ public class PiecePools {
         return within(resources, resources.resolve("data").resolve(pool.getNamespace()).resolve("worldgen").resolve("template_pool").resolve(pool.getPath() + ".json"));
     }
 
-    // An identifier path may hold "..", which must not lead out of the folder files are written to
+    // A path may hold "..", which must not leave the folder
     static Path within(Path resources, Path file) throws IOException {
         Path normalized = file.toAbsolutePath().normalize();
         if(!normalized.startsWith(resources.toAbsolutePath().normalize()))
@@ -141,7 +133,6 @@ public class PiecePools {
         return normalized;
     }
 
-    // A pool entry offering a template alone, at the weight pools give pieces by default
     static JsonObject elementOf(Identifier template) {
         JsonObject element = new JsonObject();
         element.addProperty("element_type", "minecraft:single_pool_element");
@@ -170,7 +161,7 @@ public class PiecePools {
         return any;
     }
 
-    // Adds the missing pieces to the pool's file, or writes a new file. Pieces the file already lists are kept
+    // Pieces already listed are kept
     private static boolean write(Path file, Identifier pool, Set<Identifier> templates) throws IOException {
         JsonObject root = null;
         if(Files.isRegularFile(file)) {

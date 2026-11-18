@@ -23,7 +23,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
 import java.util.ArrayList;
 import java.util.HashSet;

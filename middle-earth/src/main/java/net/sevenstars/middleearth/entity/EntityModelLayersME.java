@@ -1,5 +1,14 @@
 package net.sevenstars.middleearth.entity;
 
+import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -11,9 +20,8 @@ import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.bellows.BellowsBlockEntityRenderer;
-import net.sevenstars.middleearth.block.special.coffers.*;
-import net.sevenstars.middleearth.block.special.reinforcedChest.ReinforcedChestEntityRenderer;
+import net.sevenstars.middleearth.features.smithing.block.bellows.BellowsBlockEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.broadhoof.BroadhoofGoatModel;

@@ -22,14 +22,14 @@ import org.jetbrains.annotations.Nullable;
 final class TravelBehaviour extends Behaviour {
     // 1 in this many think ticks
     private static final int LEADER_REST = 10;
-    // Also 1 in this many think ticks, which is a couple of seconds between strolls
+    // Also 1 in this many think ticks
     private static final int STROLL_PAUSE = 20;
     private static final int STROLL_RETRIES = 3;
     // In path nodes
     private static final int MINIMUM_STROLL = 4;
     private static final int STROLL_RETRY_RANGE = 6;
     private static final int STROLL_RETRY_HEIGHT = 4;
-    // Strolls tried from the same block before the npc counts as stuck, about 10 seconds
+    // Strolls from the same block before it counts as stuck, about 10 seconds
     private static final int STUCK_STROLLS = 5;
     private static final int MAXIMUM_RESCUE_BACK_OFF = 4;
     private static final int RESCUE_CLEAR_DISTANCE = 4;
@@ -41,26 +41,23 @@ final class TravelBehaviour extends Behaviour {
     private static final float[] DETOURS = {0, 20, -20, 40, -40, 60, -60};
     private static final int MAXIMUM_HEIGHT_CHANGE = 8;
     private static final int MAXIMUM_FAILURES = 3;
-    // In blocks from home, beyond which a stroll by a settled npc is turned back
     private static final int HOME_LEASH = 20;
     private static final int HOME_PULL_RANGE = 10;
     private static final int HOME_PULL_HEIGHT = 7;
     private static final int ARRIVAL_DISTANCE = 24;
     private static final int DESTINATION_CHECK_CHANCE = 10;
-    // A bit more than two stretches, far enough ahead to turn before reaching the edge
     private static final int LOOK_AHEAD = 32;
     private static final int TURN_VARIATION = 45;
     private static final float TURN_BACK = 180f;
     private static final float TURN_ASIDE = 90f;
 
-    // The chance of walking is 1 in 120 server ticks, so 1 in this many think ticks
+    // Vanilla walks 1 in 120 server ticks, so this is 1 in this many think ticks
     private static final int WANDER_CHANCE = 60;
     private static final int DESPAWN_COUNTER = 100;
-    // In blocks, how far around itself a stroll is looked for
+    // In blocks
     private static final int STROLL_RADIUS = 10;
     private static final int WATER_STROLL_RADIUS = 15;
     private static final int WANDER_HEIGHT = 7;
-    // The chance, per think tick, of a plain nearby target instead of a fuzzy one
     private static final float FAR_PROBABILITY = 0.001F;
 
     private static final double SLOT_REACHED = 2.5;
@@ -77,7 +74,6 @@ final class TravelBehaviour extends Behaviour {
     private double targetX;
     private double targetY;
     private double targetZ;
-    // Set when the next think tick has to walk, whatever the chance of staying put
     private boolean ignoreChance = false;
     private int failures = 0;
     private int leaderMissingChecks = 0;
@@ -110,7 +106,6 @@ final class TravelBehaviour extends Behaviour {
         } else if(npc.getTravelHeading() != null && npc.getRandom().nextInt(LEADER_REST) == 0) {
             ignoreChance = true;
         } else if(npc.getTravelHeading() == null && npc.getRandom().nextInt(STROLL_PAUSE) == 0) {
-            // Npcs with nothing to do wander around instead of standing in one spot for minutes
             ignoreChance = true;
             checkStuck(npc);
         }
@@ -183,7 +178,6 @@ final class TravelBehaviour extends Behaviour {
         for(float detour : DETOURS) {
             Vec3d ahead = npc.getEntityPos().add(direction(heading + detour).multiply(length));
             Vec3d ground = groundAt(npc, ahead.x, ahead.z);
-            // An npc that keeps bounds stays in its biome, so it skips a stretch that ends in a different one
             if(ground != null && npc.keepsBounds() && !npc.getEntityWorld().getBiome(BlockPos.ofFloored(ground)).equals(npc.getEntityWorld().getBiome(npc.getBlockPos())))
                 continue;
             if(ground != null && Math.abs(ground.y - npc.getY()) <= MAXIMUM_HEIGHT_CHANGE) {
@@ -200,7 +194,6 @@ final class TravelBehaviour extends Behaviour {
         double moveSpeed = NpcBrain.WALK_SPEED * speedFactor;
         boolean moving = npc.getNavigation().startMovingTo(targetX, targetY, targetZ, moveSpeed);
         boolean strolling = npc.getPartyLeader() == null && npc.getTravelHeading() == null;
-        // A path that ends at the nearest wall doesn't count as a stroll
         if(moving && strolling && !isWorthWalking(npc))
             moving = false;
         if(moving) {
@@ -215,7 +208,6 @@ final class TravelBehaviour extends Behaviour {
             npc.getNavigation().startMovingTo(leaderPos.x, leaderPos.y, leaderPos.z, moveSpeed);
             return;
         }
-        // Indoors most random spots are behind a wall, so an idle npc tries a few before giving up on the stroll
         if(strolling) {
             for(int attempt = 0; attempt < STROLL_RETRIES && npc.getEntityWorld() instanceof ServerWorld world && RoutineSites.takePath(world); attempt++) {
                 Vec3d other = nearHome(npc, NoPenaltyTargeting.find(npc, STROLL_RETRY_RANGE, STROLL_RETRY_HEIGHT));
@@ -226,7 +218,6 @@ final class TravelBehaviour extends Behaviour {
         }
     }
 
-    // Keeps settled npcs from wandering out of their village for good
     private @Nullable Vec3d nearHome(NpcEntity npc, @Nullable Vec3d target) {
         BlockPos home = npc.getRoutineHome();
         if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, HOME_LEASH))
@@ -235,7 +226,6 @@ final class TravelBehaviour extends Behaviour {
         return inField(npc, back) ? null : back;
     }
 
-    // Npcs don't stroll through crops
     private boolean inField(NpcEntity npc, @Nullable Vec3d target) {
         if(target == null || npc.isFarming())
             return false;
@@ -255,19 +245,17 @@ final class TravelBehaviour extends Behaviour {
         double distanceX = destination.getX() + 0.5 - npc.getX();
         double distanceZ = destination.getZ() + 0.5 - npc.getZ();
         if(distanceX * distanceX + distanceZ * distanceZ < ARRIVAL_DISTANCE * ARRIVAL_DISTANCE) {
-            // The journey is over, so the party stays here
             npc.setTravelDestination(null);
             npc.setTravelHeading(null);
             return heading;
         }
-        // Same as entity yaw. 0 is south, 90 is west
+        // Same as entity yaw: 0 is south, 90 is west
         float towards = (float) (MathHelper.atan2(-distanceX, distanceZ) * MathHelper.DEGREES_PER_RADIAN);
         npc.setTravelHeading(towards);
         return towards;
     }
 
-    // Past the edge of the ticking world nobody sees the journey, and the npc freezes where it crossed. An npc heading that
-    // way turns around and gives up its destination for one it can reach
+    // Past the edge of the ticking world an npc freezes, so turn around
     private float awayFromStillWorld(NpcEntity npc, float heading) {
         if(!(npc.getEntityWorld() instanceof ServerWorld world))
             return heading;
@@ -281,11 +269,10 @@ final class TravelBehaviour extends Behaviour {
         return turned;
     }
 
-    // Furniture is a trap. An npc that ends up on a stool or a table finds no path off it and would stay there forever
+    // Furniture is a trap: an npc on a stool or table finds no path off and stays forever
     private void checkStuck(NpcEntity npc) {
         BlockPos pos = npc.getBlockPos();
         if(!pos.equals(lastStrollPos) || npc.isSleeping()) {
-            // Once the npc has walked well away from where it was freed, it's no longer stuck
             if(rescuedAt != null && !rescuedAt.isWithinDistance(pos, RESCUE_CLEAR_DISTANCE)) {
                 rescuedAt = null;
                 rescues = 0;
@@ -294,8 +281,7 @@ final class TravelBehaviour extends Behaviour {
             stuckStrolls = 0;
             return;
         }
-        // Every think tick comes with a stroll attempt, so the same block over and over means none of them went anywhere.
-        // An npc shut in a small room waits longer each time, or it would keep hopping around its cell
+        // Shut in a small room, it waits longer each time or it'd hop around its cell
         stuckStrolls++;
         if(stuckStrolls < STUCK_STROLLS << Math.min(rescues, MAXIMUM_RESCUE_BACK_OFF) || !(npc.getEntityWorld() instanceof ServerWorld world))
             return;
@@ -346,7 +332,6 @@ final class TravelBehaviour extends Behaviour {
         return Vec3d.ofBottomCenter(pos);
     }
 
-    // Same as entity yaw. 0 is south, 90 is west
     private static Vec3d direction(float heading) {
         float radians = heading * MathHelper.RADIANS_PER_DEGREE;
         return new Vec3d(-MathHelper.sin(radians), 0, MathHelper.cos(radians));

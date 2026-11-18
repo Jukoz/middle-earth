@@ -14,7 +14,6 @@ class RoutineSeat {
     private final NpcRoutine routine;
     private final NpcEntity npc;
 
-    // Where the npc stood when it sat down, so getting up puts it back there
     private @Nullable Vec3d satFrom = null;
 
     RoutineSeat(NpcRoutine routine) {
@@ -22,8 +21,7 @@ class RoutineSeat {
         this.npc = routine.npc;
     }
 
-    // Of the floor around a seat, the side between it and the next seat is shut in, and getting up goes back to where
-    // it sat down from
+    // The floor side between this seat and the next is shut in, so getting up goes back where it sat from
     boolean sitDown(ServerWorld world) {
         Vec3d from = npc.getEntityPos();
         if(routine.meetSeat == null || !routine.canSee(world, routine.meetSeat) || !SeatBlock.seat(world, routine.meetSeat, npc))
@@ -37,8 +35,7 @@ class RoutineSeat {
             return;
         BlockPos seatPos = seat.getBlockPos();
         npc.stopRiding();
-        // Getting up leaves the npc standing on the seat, and there's no path off a piece of furniture. It's put on the
-        // floor it sat down from
+        // Getting up leaves it standing on the seat, and no path starts off furniture. Put it on the floor it sat from
         Vec3d back = satFrom;
         satFrom = null;
         if(back != null && back.isInRange(Vec3d.ofBottomCenter(seatPos), SAT_FROM_RANGE)) {

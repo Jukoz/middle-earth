@@ -28,15 +28,13 @@ class FollowActivity extends RoutineActivity {
     private static final double FOLLOW_NEAR = 3.5;
     private static final double FOLLOW_FAR = 5.5;
     private static final int[] FOLLOW_HEIGHTS = {0, -1, 1};
-    // Squared distance under which two places count as the same one, so there is no direction from one to the other
+    // Squared. Closer places count as the same one, with no direction between them
     private static final double NO_HEADING = 0.01;
-    // How far from the seated lord a guard post may be for a bodyguard to stand at it
     private static final int FOLLOW_POST_RANGE = 8;
-    // Looks, half a second each, between two corrections of where a bodyguard walks to
+    // Looks (half a second each) between path corrections
     private static final int FOLLOW_REPATH = 6;
     private static final int LORD_SEARCH_RANGE = 32;
     private static final int LORD_HEIGHT_RANGE = 48;
-    // In blocks. How far the spot to stand by the lord has to move before the walk to it starts over
     private static final int FOLLOW_SPOT_SHIFT = 3;
 
     private @Nullable UUID lordId = null;
@@ -65,7 +63,6 @@ class FollowActivity extends RoutineActivity {
         routine.phaseEnd = time;
     }
 
-    // The lord of the place is whichever of its people holds the job. Found once, then looked up by id
     @Nullable NpcEntity findLord(ServerWorld world) {
         if(lordId != null && world.getEntity(lordId) instanceof NpcEntity known && known.isAlive())
             return known;
@@ -85,8 +82,7 @@ class FollowActivity extends RoutineActivity {
         return nearest;
     }
 
-    // Where a bodyguard should be. That's a post while the lord sits at court, otherwise a few blocks off the lord.
-    // Null when it's already there
+    // A post while the lord sits at court, else a few blocks off him. Null if already there
     private @Nullable BlockPos followSpot(ServerWorld world, NpcEntity lord) {
         routine.facing = null;
         if(lord.getVehicle() instanceof SeatEntity && routine.site != null) {
@@ -116,7 +112,6 @@ class FollowActivity extends RoutineActivity {
         return beside != null ? beside : lordAt;
     }
 
-    // While walking after the lord, who has moved on since the walk began. False once there's nowhere left to walk to
     boolean following(ServerWorld world) {
         if(--followCheck > 0)
             return true;
@@ -160,7 +155,6 @@ class FollowActivity extends RoutineActivity {
             followCheck = FOLLOW_REPATH;
             return;
         }
-        // Looks the way the post does, otherwise outwards from the lord
         routine.lookTarget = routine.facingTarget();
         if(routine.lookTarget == null) {
             Vec3d away = npc.getEntityPos().subtract(lord.getEntityPos()).multiply(1, 0, 1);

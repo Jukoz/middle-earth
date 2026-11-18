@@ -37,8 +37,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
     private List<Choice> all = List.of();
     private String filter = "";
 
-    // Headers label the choices below them and can't be selected. A choice can also have a short detail, drawn dimmer at
-    // the end of its row, and an icon so it can be recognized at a glance
     public record Choice(String value, Text label, boolean header, @Nullable Text detail, ItemStack icon) {
         public Choice(String value, Text label) {
             this(value, label, false, null, ItemStack.EMPTY);
@@ -58,7 +56,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         setX(x);
     }
 
-    // The game's lists make rows 220 wide and centered, wider than these narrow side-by-side lists, so rows fill the list instead
+    // Vanilla rows are 220 wide and centered, too wide for these lists
     @Override
     public int getRowWidth() {
         return width - SCROLLBAR_ROOM;
@@ -74,12 +72,12 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         show(current);
     }
 
-    // Keep the current selection in the list even when the search filters it out, so saving doesn't change it
+    // Keep the selection when the search filters it out, so saving doesn't change it
     public void setFilter(String text) {
         String current = selectedValue();
         filter = text.trim().toLowerCase(Locale.ROOT);
         show(current);
-        // Show the search text as a warning when no choice matches it. The kept selection doesn't count
+        // Warn when nothing matches (the kept selection doesn't count)
         if(search != null)
             search.setEditableColor(!filter.isEmpty() && all.stream().noneMatch(choice -> !choice.header() && matches(choice)) ? EditorPanel.WARNING : EditorPanel.TEXT);
     }
@@ -88,7 +86,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         return choice.label().getString().toLowerCase(Locale.ROOT).contains(filter);
     }
 
-    // Draws the list in one of the window's wells. The game's separator bars above and below it are left out
     @Override
     protected void drawMenuListBackground(DrawContext context) {
         EditorPanel.well(context, getX(), getY(), width, height);
@@ -98,7 +95,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
     protected void drawHeaderAndFooterSeparators(DrawContext context) {
     }
 
-    // Highlights the selected row with an accent bar on its left instead of the game's white frame
     @Override
     protected void drawSelectionHighlight(DrawContext context, ChoiceEntry entry, int borderColor) {
         int y = entry.getY();
@@ -116,7 +112,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         }
     }
 
-    // A search box above the list. The list then shows only the choices whose name contains the text
     public TextFieldWidget newSearchField(TextRenderer textRenderer) {
         Text hint = Text.translatable("ui.%s.choice_list.search".formatted(MiddleEarth.MOD_ID));
         TextFieldWidget field = new TextFieldWidget(textRenderer, getX(), getY() - SEARCH_HEIGHT - SEARCH_GAP, width, SEARCH_HEIGHT, hint);
@@ -126,7 +121,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         return field;
     }
 
-    // The y position for a label above the list's search box
     public int labelY(TextRenderer textRenderer) {
         return getY() - SEARCH_HEIGHT - SEARCH_GAP - textRenderer.fontHeight - LABEL_GAP;
     }
@@ -148,7 +142,7 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
         clearEntries();
         ChoiceEntry selected = null;
         for(Choice choice : all) {
-            // Headers are only shown when the list isn't filtered
+            // Headers only show when the list isn't filtered
             if(choice.header() ? !filter.isEmpty() : !choice.value().equals(current) && !matches(choice))
                 continue;
             ChoiceEntry entry = new ChoiceEntry(choice);
@@ -156,7 +150,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
             if(!choice.header() && choice.value().equals(current))
                 selected = entry;
         }
-        // If the selection is no longer in the list, select the first choice
         if(selected == null) {
             for(ChoiceEntry entry : children()) {
                 if(!entry.choice.header()) {
@@ -218,7 +211,6 @@ public class ChoiceListWidget extends AlwaysSelectedEntryListWidget<ChoiceListWi
             }
             if(choice.detail() != null) {
                 int detailWidth = textRenderer.getWidth(choice.detail());
-                // Only if it fits beside the name
                 if(left + textRenderer.getWidth(choice.label()) + TEXT_INDENT + detailWidth <= right) {
                     context.drawTextWithShadow(textRenderer, choice.detail(), right - detailWidth, textY, HEADER_COLOR);
                     right -= detailWidth + TEXT_INDENT;

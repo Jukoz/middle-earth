@@ -33,16 +33,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Records every distinct task an npc gave up on, with what's needed to reproduce it. That's the seed and location, the
-// npc, its target, its path and the surrounding blocks as a structure template. Kept in run/npc-failures/. Also adds
-// /npcpath, which asks an npc's own pathfinder for a route to a block
+// Records each distinct given-up task with what's needed to reproduce it, in run/npc-failures/
+// Also adds /npcpath, which asks an npc's pathfinder for a route to a block
 public final class NpcFailureRecorder {
     private static final Gson GSON = new Gson();
-    // Margin around the npc and its target so the route around a building is in the snapshot too
+    // Margin so the route around a building is in the snapshot
     private static final int MARGIN = 12;
     private static final int MAXIMUM_ACROSS = 72;
     private static final int MAXIMUM_HEIGHT = 32;
-    // Targets further than this are left out of the snapshot, so it only covers the npc's surroundings
     private static final int TARGET_IN_SNAPSHOT = 48;
     private static final int MAXIMUM_RECORDS = 600;
     private static final int MAXIMUM_NODES = 48;
@@ -65,12 +63,12 @@ public final class NpcFailureRecorder {
         if(!(npc.getEntityWorld() instanceof ServerWorld world) || recorded >= MAXIMUM_RECORDS)
             return;
         BlockPos pos = npc.getBlockPos();
-        // The same npc kind giving up the same way at the same spot counts as one failure, however often it happens
+        // Same npc kind giving up the same way at the same spot is one failure
         String key = who + "|" + task + "|" + why.replaceAll("-?\\d+", "#") + "|" + (pos.getX() >> 1) + "," + pos.getY() + "," + (pos.getZ() >> 1);
         if(!SEEN.add(key))
             return;
         recorded++;
-        // Uses the save folder name because worlds copied from one another keep the first one's level name
+        // Save folder name, since copied worlds keep the first one's level name
         String worldName = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
         String id = "%s-%d-%s".formatted(worldName, world.getTime(), Integer.toHexString(key.hashCode()));
         java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
@@ -160,7 +158,7 @@ public final class NpcFailureRecorder {
         return out;
     }
 
-    // /npcpath <npc> <x y z> [range] [range multiplier] prints the route the npc's pathfinder finds to a block, node by node
+    // /npcpath <npc> <x y z> [range] [range multiplier] prints the route node by node
     public static void register() {
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             SEEN.clear();

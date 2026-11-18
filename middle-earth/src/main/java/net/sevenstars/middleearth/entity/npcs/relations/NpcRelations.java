@@ -16,7 +16,6 @@ import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
 import org.jetbrains.annotations.Nullable;
 
-// The single place that decides whether an npc treats someone as an enemy, a friend or neither
 public class NpcRelations {
 
     public static Relation of(NpcEntity npc, Entity other) {
@@ -29,13 +28,12 @@ public class NpcRelations {
         return standing(npc, other);
     }
 
-    // How the npc sees someone by faction and kind. Its own grudges are left out, except those against a mount's rider
+    // By faction and kind. Own grudges are left out, except those against a mount's rider
     public static Relation standing(NpcEntity npc, Entity other) {
         if(other == npc)
             return Relation.ALLY;
         if(involvesPrisoner(npc, other))
             return Relation.NEUTRAL;
-        // A mount takes the side of its rider
         Entity rider = other.getControllingPassenger();
         if(rider != null && rider != other)
             return of(npc, rider);
@@ -46,7 +44,6 @@ public class NpcRelations {
         return ofCreature(npc, other);
     }
 
-    // Prisoners aren't hostile to anyone and no one is hostile to them
     private static boolean involvesPrisoner(NpcEntity npc, Entity other) {
         return npc.isPrisoner() || other instanceof NpcEntity otherNpc && otherNpc.isPrisoner();
     }
@@ -72,9 +69,7 @@ public class NpcRelations {
         return affinity == null ? Relation.NEUTRAL : Relation.of(affinity);
     }
 
-    // The faction's creature lists take priority, then the rules every npc shares
     private static Relation ofCreature(NpcEntity npc, Entity other) {
-        // A wild cave troll attacks every npc, whoever keeps trolls
         if(other instanceof CaveTrollEntity caveTroll && !caveTroll.isTame())
             return Relation.ENEMY;
         EntityType<?> type = other.getType();
@@ -86,7 +81,7 @@ public class NpcRelations {
             if(creatures.isHostile(type))
                 return Relation.ENEMY;
         }
-        // Not every monster can be listed in a tag, so also go by class
+        // Not every monster fits in a tag, so go by class too
         if(type.isIn(EntityTypeTagsME.NPC_ENEMIES) || other instanceof HostileEntity)
             return Relation.ENEMY;
         return Relation.NEUTRAL;

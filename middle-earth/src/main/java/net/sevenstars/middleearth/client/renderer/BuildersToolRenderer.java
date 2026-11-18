@@ -48,14 +48,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-// Draws what the nearby blocks count as while the builder's tool is held: tagged beds with who spawns in them and the
-// station or marker their job will use, free beds, stations, stores, seats, tables and structure markers, and the
-// sections of a build with their names
 public class BuildersToolRenderer {
-    // Stations are searched for within 48 blocks of a bed, so a bed near the edge of the scan can show as having no station
+    // Beds search 48 blocks for stations, so one at the scan's edge can show none
     private static final int RANGE = 32;
     private static final int RANGE_HEIGHT = 16;
-    // Uses wall-clock time because game time is frozen while a structure is being edited
+    // Wall-clock, since game time is frozen while editing
     private static final int RESCAN_MILLIS = 500;
     private static final int RESCAN_DISTANCE = 2;
     private static final float LABEL_TEXT_SCALE = 0.02f;
@@ -77,7 +74,7 @@ public class BuildersToolRenderer {
     private static final int JOIN = 0xFF00E676;
     private static final Identifier EMPTY_PLUG = Identifier.ofVanilla("empty");
     private static final int[] SECTION_COLORS = {0xFF40C4FF, 0xFFFF8A65, 0xFFB388FF, 0xFFFFD740, 0xFF69F0AE, 0xFFFF80AB, 0xFF84FFFF, 0xFFEEFF41};
-    // Keeps the section box outside the white box the game draws for a structure block
+    // Keeps the box outside vanilla's white structure box
     private static final double SECTION_MARGIN = 0.03;
     private static final int MAXIMUM_PLOT = 4096;
     private static final int PROJECTIONS_MILLIS = 2000;
@@ -95,7 +92,7 @@ public class BuildersToolRenderer {
     private record Bed(BlockPos pos, BedTag tag) {}
 
     private static final Map<Block, Integer> FEATURES = new IdentityHashMap<>();
-    // Empty for blocks that aren't stations, so they aren't looked up again
+    // Empty for non-stations, so they aren't looked up again
     private static final Map<Block, Optional<StationKind>> STATIONS = new IdentityHashMap<>();
     private static final List<Bed> beds = new ArrayList<>();
     private static final List<StructureFeatureData.Station> stations = new ArrayList<>();
@@ -133,8 +130,7 @@ public class BuildersToolRenderer {
                     DebugDraw.label(piece.template().getPath() + projectionNote(client, piece.template()), new Vec3d(piece.box().getCenter().getX() + 0.5,
                             piece.box().getMaxY() + PIECE_LABEL_HEIGHT, piece.box().getCenter().getZ() + 0.5), PIECE, PIECE_TEXT_SCALE);
             } catch (RuntimeException e) {
-                // A block entity that disappears between the scan and the frame only costs one frame. A failure that keeps
-                // repeating would leave the tool drawing nothing with no explanation, so it gets logged
+                // Block entities can vanish between scan and frame; log a failure that repeats
                 if(Util.getMeasuringTimeMs() - failureLoggedAt >= FAILURE_LOG_MILLIS) {
                     failureLoggedAt = Util.getMeasuringTimeMs();
                     MiddleEarth.LOGGER.logError("StructEdit :: the builder's tool could not draw: " + e);
@@ -145,9 +141,7 @@ public class BuildersToolRenderer {
         });
     }
 
-    // The pieces of the structure the builder has loaded, so they can be told apart. The piece the builder is standing
-    // in is skipped because its walls are already visible, unless its bounds are being set. The session lives on the
-    // server, which the builder's own game runs
+    // Skips the piece they stand in (its walls show) unless its bounds are being set
     private static List<StructureEditSession.Piece> piecesAround(MinecraftClient client, PlayerEntity player) {
         StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
         if(session == null || !session.getDimension().equals(player.getEntityWorld().getRegistryKey()))
@@ -156,8 +150,7 @@ public class BuildersToolRenderer {
         return session.getPieces().stream().filter(piece -> settingBounds || !piece.box().contains(player.getBlockPos())).toList();
     }
 
-    // A note for a piece that follows the ground in the pools that offer it, or in some of them. Read from the pools of
-    // the game's own server every so often, because a command can change them
+    // Re-read from the server now and then, since a command can change the pools
     private static String projectionNote(MinecraftClient client, Identifier template) {
         if(client.getServer() == null)
             return "";
@@ -241,7 +234,6 @@ public class BuildersToolRenderer {
         return hit instanceof BlockHitResult block && hit.getType() == HitResult.Type.BLOCK ? block.getBlockPos() : null;
     }
 
-    // The bounds being set: from the clicked corner to the block being looked at, which the next click makes the other corner
     private static @Nullable Box boundsPreview() {
         BlockPos first = BuildersToolSelection.boundsFirst();
         PlayerEntity player = MinecraftClient.getInstance().player;
@@ -265,7 +257,6 @@ public class BuildersToolRenderer {
         return BuildSections.shortName(id.toString());
     }
 
-    // Each section gets its own colour, picked from its name so it stays the same
     private static int sectionColor(BuildSections.Section section) {
         return SECTION_COLORS[Math.floorMod(section.name().hashCode(), SECTION_COLORS.length)];
     }
@@ -317,7 +308,7 @@ public class BuildersToolRenderer {
         for(StructureFeatureData.Marker marker : markers)
             DebugDraw.box(marker.pos(), MARKER);
         for(StructureFeatureData.Station station : stations) {
-            // Skip fields, since a field is hundreds of farmland blocks
+            // Skip fields, they're hundreds of farmland blocks
             if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
                 DebugDraw.box(station.pos(), stationColor(station.kind()));
         }
@@ -332,7 +323,6 @@ public class BuildersToolRenderer {
         }
     }
 
-    // Blocks a marker puts off limits aren't highlighted, like any other block npcs have no use for
     private static Set<BlockPos> offLimits() {
         Set<BlockPos> offLimits = new HashSet<>();
         for(StructureFeatureData.Marker marker : markers) {
@@ -342,7 +332,6 @@ public class BuildersToolRenderer {
         return offLimits;
     }
 
-    // Only draws the connections of the selected bed
     private static void drawSelected(BlockPos selected) {
         DebugDraw.box(new Box(selected).expand(SELECTED_MARGIN), SELECTED_BED);
         Bed bed = selectedBed(selected);
@@ -356,8 +345,7 @@ public class BuildersToolRenderer {
         }
     }
 
-    // Draws what a bed works at. A field is all the farmland connected to the plot it was linked to, which is what its
-    // farmer covers
+    // A field is all farmland connected to the linked plot
     private static void drawLinked(BlockPos link, int color) {
         if(!fields.contains(link)) {
             DebugDraw.box(link, color);
@@ -367,7 +355,6 @@ public class BuildersToolRenderer {
             DebugDraw.box(row, color);
     }
 
-    // The farmland connected to a plot, including steps up or down like on a slope, as one box per row
     private static List<Box> plotOf(BlockPos from) {
         Set<BlockPos> plot = new HashSet<>();
         List<BlockPos> open = new ArrayList<>();
@@ -403,9 +390,7 @@ public class BuildersToolRenderer {
         return rows;
     }
 
-    // Where the bed's things are put away: the store its builder picked, drawn as a solid line, or else the scanned
-    // store nearest to where it works, drawn dashed. A campfire only counts where there is no chest or barrel, matching
-    // how the builds are read
+    // Solid: picked store. Dashed: nearest scanned one. Campfire only with no chest or barrel
     private static void drawStore(Bed bed) {
         if(scannedWorld == null)
             return;
@@ -416,7 +401,6 @@ public class BuildersToolRenderer {
             return;
         }
         boolean anyBox = stores.stream().anyMatch(pos -> !offLimits.contains(pos) && !(scannedWorld.getBlockState(pos).getBlock() instanceof CampfireBlock));
-        // Measured from the workplace, or from the bed if the npc has no workplace
         List<BlockPos> links = linksOf(bed);
         BlockPos work = links.isEmpty() ? bed.pos() : links.getFirst();
         BlockPos nearest = null;
@@ -445,8 +429,7 @@ public class BuildersToolRenderer {
         return null;
     }
 
-    // What the bed works at: the places it was tied to by hand, or else what its job will use. That is picked the way an
-    // npc with that job picks it, as the nearest station of its kinds to the bed
+    // Hand-tied places, else the nearest station its job would use
     private static List<BlockPos> linksOf(Bed bed) {
         if(bed.tag().manual())
             return bed.tag().links().stream().map(offset -> bed.pos().add(offset)).toList();
@@ -454,7 +437,7 @@ public class BuildersToolRenderer {
         return station == null ? List.of() : List.of(station);
     }
 
-    // For the server, which can't see what the client does, when the bed is first tied by hand
+    // Sent to the server when a bed is first tied by hand; it can't see this
     static List<BlockPos> automaticLinks(BlockPos bedPos) {
         Bed bed = selectedBed(bedPos);
         if(bed == null || bed.tag().manual())
@@ -462,7 +445,7 @@ public class BuildersToolRenderer {
         return linksOf(bed);
     }
 
-    // Not every job works at a station or marker. A hunter, for one, goes out into the wild
+    // Not every job has a station or marker, e.g. hunters go into the wild
     private static boolean needsStation(Bed bed) {
         return bed.tag().job().filter(job -> !NpcJobs.stationKinds(job).isEmpty() || !NpcJobs.stationMarkers(job).isEmpty()).isPresent();
     }

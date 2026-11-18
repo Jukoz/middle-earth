@@ -20,19 +20,16 @@ import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST_VAR
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.isLoaded;
 
 class TableActivity extends RoutineActivity {
-    // Tables within this distance of home are preferred over ones further away
     private static final int TABLE_RANGE = 40;
 
     private static final int MEETING_TIME = 20 * 20;
     private static final int MEETING_TIME_VARIATION = 20 * 20;
     private static final int COURT_TIME = 20 * 120;
     private static final int COURT_TIME_VARIATION = 20 * 60;
-    // How long a household keeps an invitation for a visitor in mind
     private static final int INVITATION_TIME = 20 * 60;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
 
-    // How far from the lord's seat marker the seat itself may be
     private static final int LORD_SEAT_REACH = 3;
     private static final int VISIT_SEAT_RANGE = 10;
     private static final int HOST_RANGE = 24;
@@ -40,7 +37,7 @@ class TableActivity extends RoutineActivity {
     private static final int COMPANION_RANGE = 6;
     private static final int COMPANION_HEIGHT_RANGE = 2;
 
-    // Chances per look while in company, and how long each lasts in ticks
+    // Chance per look, and how long each lasts in ticks
     private static final int SPEAK_ONE_IN = 30;
     private static final int NOD_ONE_IN = 20;
     private static final int SPEAK_TIME = 40;
@@ -48,9 +45,8 @@ class TableActivity extends RoutineActivity {
     private static final int NOD_TIME = 30;
     private static final int COMPANION_RECHECK_ONE_IN = 40;
 
-    // The seat at its own table that a visitor asked it to take, while it comes home for the visit
+    // Seat at its own table a visitor asked it to take
     @Nullable BlockPos hostingAt = null;
-    // The household the pick found somebody in, which the visit goes to
     @Nullable BlockPos visitHousehold = null;
     @Nullable NpcEntity companion = null;
 
@@ -81,9 +77,7 @@ class TableActivity extends RoutineActivity {
         visitHousehold = null;
         if(household == null)
             return routine.cannotStart(picked, "no other household to call on");
-        // A visit is to somebody, so the household is invited to its own table
         List<NpcEntity> hosts = hostsAt(world, household);
-        // To the table if there's room at it, otherwise just inside the door
         routine.meetSeat = routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
         BlockPos hostSeat = routine.meetSeat == null ? null : routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE, routine.meetSeat);
         for(NpcEntity host : hosts)
@@ -111,7 +105,6 @@ class TableActivity extends RoutineActivity {
             if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
                 seatMarker = marker;
         }
-        // The marker is beside the seat
         BlockPos seat = null;
         for(BlockPos candidate : routine.site.getSeats()) {
             if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
@@ -164,12 +157,10 @@ class TableActivity extends RoutineActivity {
         }
     }
 
-    // They take turns. One says something while the other listens and nods now and then. Somebody only passing by,
-    // or asleep in the same room, is not spoken to
+    // They take turns. Passers-by and sleepers aren't spoken to
     private void converse(Random random) {
         NpcRoutine other = companion.getDayRoutine();
         if(!other.isInCompany()) {
-            // Somebody who came to sit with it may be nearby by now
             if(random.nextInt(COMPANION_RECHECK_ONE_IN) == 0)
                 companion = null;
             return;
@@ -181,7 +172,6 @@ class TableActivity extends RoutineActivity {
                 npc.talk(NpcEntity.Talk.NOD, NOD_TIME);
         } else if(random.nextInt(SPEAK_ONE_IN) == 0) {
             npc.talk(NpcEntity.Talk.SPOKEN.get(random.nextInt(NpcEntity.Talk.SPOKEN.size())), SPEAK_TIME + random.nextInt(SPEAK_TIME_VARIATION));
-            // Whoever is spoken to turns to the speaker, so the two look at each other
             other.turnTo(npc);
         }
     }
@@ -190,7 +180,6 @@ class TableActivity extends RoutineActivity {
         companion = speaker;
     }
 
-    // The nearest of those it's in company with. Failing that, it turns to face anyone else standing around
     private @Nullable NpcEntity findCompanion(ServerWorld world) {
         NpcEntity nearest = null;
         boolean nearestInCompany = false;
@@ -204,7 +193,7 @@ class TableActivity extends RoutineActivity {
         return nearest;
     }
 
-    // Of a few households tried, picks one with somebody in it to call on. Nobody visits an empty house
+    // Nobody visits an empty house
     @Nullable BlockPos householdToVisit(ServerWorld world, BlockPos home) {
         for(int attempt = 0; attempt < VISIT_TRIES; attempt++) {
             BlockPos household = routine.site.pickHousehold(world, home, npc.getRandom());

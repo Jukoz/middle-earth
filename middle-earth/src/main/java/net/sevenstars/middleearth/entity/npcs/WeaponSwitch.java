@@ -5,11 +5,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
-// An npc holding a ranged weapon in one hand and a melee weapon in the other shoots from afar, swaps to the melee
-// weapon when a foe gets close, and swaps back once the foe moves off. The middle-earth:npc_ranged_weapons tag decides
-// which weapons count as ranged for swapping. The attack comes from the kind of item held, which this tag has no say in
+// Shoots from afar, swaps to melee when a foe is close. The npc_ranged_weapons tag says what's ranged
 public final class WeaponSwitch {
-    // In blocks. The two distances differ so an npc with a foe at the edge doesn't swap back and forth
+    // In blocks. Two distances so a foe at the edge doesn't cause swapping back and forth
     private static final double CLOSE_QUARTERS = 3.5;
     private static final double SHOOTING_RANGE = 6;
 
@@ -21,7 +19,7 @@ public final class WeaponSwitch {
 
     public static void tick(NpcEntity npc) {
         LivingEntity target = npc.getTarget();
-        // A routine prop isn't a weapon to swap to. It gets put away when the fight takes over
+        // A routine prop isn't a weapon; it's put away when the fight starts
         if(target == null || npc.hasRoutineProp())
             return;
         ItemStack main = npc.getMainHandStack();

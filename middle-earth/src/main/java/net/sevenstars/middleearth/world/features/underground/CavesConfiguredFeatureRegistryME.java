@@ -5,7 +5,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.block.special.DroopingIciclesBlock;
 import net.sevenstars.middleearth.world.features.columns.ClusterFeatureConfig;
 import net.sevenstars.middleearth.world.features.columns.SmallPointedStoneFeatureConfig;

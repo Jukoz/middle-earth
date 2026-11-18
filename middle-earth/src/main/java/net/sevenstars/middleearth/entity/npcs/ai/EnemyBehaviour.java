@@ -10,9 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// Looks for anyone the npc counts as an enemy. NpcRelations decides who that is through canTarget
 final class EnemyBehaviour extends TargetBehaviour {
-    // Only 1 in this many think ticks looks for a target
+    // One search per this many think ticks
     private static final int SEARCH_CHECKS = 5;
     private static final int LOST_SIGHT_TICKS = 60;
 
@@ -43,8 +42,7 @@ final class EnemyBehaviour extends TargetBehaviour {
     private void find(NpcEntity npc) {
         ServerWorld world = (ServerWorld) npc.getEntityWorld();
         if(predicate == null) {
-            // The animal being hunted is left to the hunt, which sets it as the target itself
-            // A raider leaves sleepers to the raid, which only goes for them once nobody awake is about
+            // The hunt sets its own target; a raider leaves sleepers to the raid until nobody's awake
             predicate = TargetPredicate.createAttackable().setPredicate((target, targetWorld) -> target != npc.getHuntTarget()
                     && !(target.isSleeping() && RaidBehaviour.isRaiding(npc)));
         }

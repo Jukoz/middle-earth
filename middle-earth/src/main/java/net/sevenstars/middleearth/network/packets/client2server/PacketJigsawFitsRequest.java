@@ -14,8 +14,7 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureEditin
 import net.sevenstars.middleearth.commands.custom.JigsawFits;
 import net.sevenstars.middleearth.network.packets.server2client.PacketJigsawFits;
 
-// Asks which plugs fit the clicked jigsaw block: those in the builder's loaded structure, or the nearby ones when the
-// block is in no loaded piece. Only the server knows the pools
+// Asks which plugs fit the clicked jigsaw block; only the server knows the pools
 public class PacketJigsawFitsRequest extends ClientToServerPacket<PacketJigsawFitsRequest> {
     public static final Id<PacketJigsawFitsRequest> ID = new Id<>(Identifier.of(MiddleEarth.MOD_ID, "jigsaw_fits_request"));
 

@@ -72,7 +72,7 @@ public class SwanBrain {
                 new MoveToTargetTask(),
                 new UpdateLookControlTask(45, 90),
                 DefendHomeTask.create(5),
-                UpdateAttackTargetTask.create((world, swan) -> swan.getHurtBy()),
+                UpdateAttackTargetTask.create((ServerWorld world, SwanEntity swan) -> swan.getHurtBy()),
                 new TickCooldownTask(MemoryModulesWT.EGG_COOLDOWN)
         ));
     }

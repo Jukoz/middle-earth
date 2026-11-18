@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.world.biomes;
 
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.minecraft.block.Blocks;
 
 public class BiomeDataConfigsME {

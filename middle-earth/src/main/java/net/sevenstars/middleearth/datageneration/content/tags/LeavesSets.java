@@ -4,8 +4,8 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.minecraft.block.Block;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
-import net.sevenstars.middleearth.block.utils.setBuilders.WoodBlockSetBuilder;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.sets.builders.WoodBlockSetBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,6 @@ import net.sevenstars.middleearth.block.special.beds.BedTag;
 
 import java.util.List;
 
-// What a structure manager spawns: the nests of its place
 public class StructureManagerData {
     public static final Codec<StructureManagerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(StructureManagerData::getIdString),
@@ -51,7 +50,7 @@ public class StructureManagerData {
         return null;
     }
 
-    // The people nest that beds of this kind spawn from. Animal nests and other managers' nests can share the same last word
+    // Animal nests and other managers' nests can share the last word
     public @Nullable SpawnNestNodeData findPeopleNest(String nestKind) {
         for(SpawnNestNodeData nest : spawnNestNodeData) {
             if(nest.isPeople() && BedTag.nestKindOf(nest.getId()).equals(nestKind))

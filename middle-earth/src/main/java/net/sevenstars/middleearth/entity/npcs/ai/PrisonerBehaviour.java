@@ -3,9 +3,8 @@ package net.sevenstars.middleearth.entity.npcs.ai;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 
-// A prisoner has no routine and nowhere to go. It wanders around its cell
 final class PrisonerBehaviour extends Behaviour {
-    // As a multiple of the npc's walking speed
+    // Multiple of walking speed
     private static final double PRISONER_SPEED = 0.6;
     // In think ticks
     private static final int PAUSE = 40;

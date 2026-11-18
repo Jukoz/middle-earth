@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.*;
 import net.minecraft.text.Text;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.registration.GenericBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.registration.StoneBlockSetRegistryME;
-import net.sevenstars.middleearth.block.registration.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 import net.sevenstars.middleearth.item.*;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 
