@@ -12,7 +12,9 @@ abstract class Behaviour {
 
     // A lower number takes over from a higher one
     static final int REVENGE_PRIORITY = 1;
-    static final int ENEMY_PRIORITY = 3;
+    static final int ENEMY_PRIORITY = 2;
+    // Below the enemy search, so a raider deals with anyone awake before it goes for the beds
+    static final int RAID_PRIORITY = 3;
     static final int ATTACK_PRIORITY = 4;
     static final int ROUTINE_PRIORITY = 5;
     static final int WANDERER_BED_PRIORITY = 5;

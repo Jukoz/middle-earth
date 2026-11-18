@@ -44,7 +44,9 @@ final class EnemyBehaviour extends TargetBehaviour {
         ServerWorld world = (ServerWorld) npc.getEntityWorld();
         if(predicate == null) {
             // The animal being hunted is left to the hunt, which sets it as the target itself
-            predicate = TargetPredicate.createAttackable().setPredicate((target, targetWorld) -> target != npc.getHuntTarget());
+            // A raider leaves sleepers to the raid, which only goes for them once nobody awake is about
+            predicate = TargetPredicate.createAttackable().setPredicate((target, targetWorld) -> target != npc.getHuntTarget()
+                    && !(target.isSleeping() && RaidBehaviour.isRaiding(npc)));
         }
         double range = followRange(npc);
         Box box = npc.getBoundingBox().expand(range, range, range);

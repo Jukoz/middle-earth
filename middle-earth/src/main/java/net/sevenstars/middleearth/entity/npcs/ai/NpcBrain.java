@@ -48,7 +48,7 @@ public class NpcBrain {
             return brain;
         // Who to fight and how to get through doors, each before anything else
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
-                new BehaviourTask(null, new RevengeBehaviour(), new EnemyBehaviour(), new DoorBehaviour(), new ModDoorBehaviour(), new FleeCheckBehaviour()),
+                new BehaviourTask(null, new RevengeBehaviour(), new EnemyBehaviour(), new RaidBehaviour(), new DoorBehaviour(), new ModDoorBehaviour(), new FleeCheckBehaviour()),
                 new StayAboveWaterTask<>(SWIM_CHANCE)
         ));
         brain.setTaskList(Activity.PANIC, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.PANIC, new FleeBehaviour(), new LookAtPlayerBehaviour())),

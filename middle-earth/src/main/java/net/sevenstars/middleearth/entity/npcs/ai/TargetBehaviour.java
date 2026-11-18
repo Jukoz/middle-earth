@@ -40,11 +40,15 @@ abstract class TargetBehaviour extends Behaviour {
         double range = followRange(npc);
         if(npc.squaredDistanceTo(target) > range * range)
             return false;
-        if(npc.getVisibilityCache().canSee(target))
+        if(!needsSight(target) || npc.getVisibilityCache().canSee(target))
             timeWithoutSight = 0;
         else if(++timeWithoutSight > MathHelper.ceilDiv(lostSightTicks, 2))
             return false;
         npc.setTarget(target);
+        return true;
+    }
+
+    boolean needsSight(LivingEntity target) {
         return true;
     }
 
