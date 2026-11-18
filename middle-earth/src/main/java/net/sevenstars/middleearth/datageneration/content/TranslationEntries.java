@@ -708,6 +708,7 @@ public class TranslationEntries {
             put(of(LangCategory.SCREEN, "playerbook.navigate_to"), "Navigate to");
             put(of(LangCategory.SCREEN, "playerbook.chapter_getting_started"), "Getting Started");
             put(of(LangCategory.SCREEN, "playerbook.chapter_mining"), "Mining");
+            put(of(LangCategory.SCREEN, "playerbook.chapter_gem_studies"), "Gem Studies");
             put(of(LangCategory.SCREEN, "playerbook.chapter_smithing"), "Smithing");
             put(of(LangCategory.SCREEN, "playerbook.chapter_enchanting"), "Enchanting");
             put(of(LangCategory.SCREEN, "playerbook.chapter_mounts"), "Mounts");
@@ -810,6 +811,11 @@ public class TranslationEntries {
             put(of(LangCategory.SCREEN, "playerbook.dungeon_spider_burrows_desc"), "The spiders of Shelob have infested the Mirkwood forest.\n " +
                     "Traveling in that corrupted forest is very dangerous, however you may find forgotten traveler's riches, if you ever return alive.");
             put(of(LangCategory.SCREEN, "playerbook.dungeon_spider_burrows_desc_right"), "");
+
+            put(of(LangCategory.TOOLTIP, "held_light.lit"), "Lit");
+            put(of(LangCategory.TOOLTIP, "held_light.shaded"), "Shaded");
+            put(of(LangCategory.TOOLTIP, "held_light.hint"), "Carry in your off hand and use it to light or shade it");
+            put(of(LangCategory.TOOLTIP, "held_light.hold_shift"), "Hold Shift for details");
 
             put(of(LangCategory.WIDGET, "spawn_tooltip_title"), "Spawns");
             put(of(LangCategory.WIDGET, "marker.selected_title_container.before"), "[");

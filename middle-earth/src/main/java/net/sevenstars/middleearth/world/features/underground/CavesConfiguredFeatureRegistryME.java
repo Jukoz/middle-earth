@@ -116,10 +116,6 @@ public class CavesConfiguredFeatureRegistryME {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_JADE = registerKey("ore_jade");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_GOLD = registerKey("ore_gold");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MITHRIL = registerKey("ore_mithril");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_ADAMANT = registerKey("ore_adamant");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_EMERALD = registerKey("ore_emerald");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_RUBY = registerKey("ore_ruby");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SAPPHIRE = registerKey("ore_sapphire");
     // endregion
 
     // region MUSHROOMS
@@ -334,16 +330,6 @@ public class CavesConfiguredFeatureRegistryME {
     static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> goldList = List.of(
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.gold_ore().getDefaultState()),
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.gold_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> emeraldList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.emerald_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.emerald_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> rubyList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.ruby_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.ruby_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> sapphireList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.sapphire_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.sapphire_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> adamentList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.adamant_ore().getDefaultState()));
     static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mithrilList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()));
     // endregion
 
@@ -491,10 +477,6 @@ public class CavesConfiguredFeatureRegistryME {
         ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(jadeList, 16, 0.5f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(goldList, 7, 0.42f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(emeraldList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(rubyList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sapphireList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(adamentList, 3, 0.72f));
         ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mithrilList, 1, 1.0f));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,

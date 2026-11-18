@@ -1,0 +1,424 @@
+{
+  "variants": {
+    "cutting=false,facing=north,part=table": {
+      "model": "middle-earth:block/lapidary_table_base"
+    },
+    "cutting=false,facing=north,part=study": {
+      "model": "middle-earth:block/lapidary_table_study"
+    },
+    "cutting=false,facing=north,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=north,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=north,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=false,facing=north,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=false,facing=north,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=false,facing=north,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=false,facing=north,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=false,facing=east,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 90
+    },
+    "cutting=false,facing=east,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 90
+    },
+    "cutting=false,facing=east,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=east,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=east,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=false,facing=east,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=false,facing=east,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=false,facing=east,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=false,facing=east,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=false,facing=south,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 180
+    },
+    "cutting=false,facing=south,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 180
+    },
+    "cutting=false,facing=south,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=south,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=south,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=false,facing=south,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=false,facing=south,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=false,facing=south,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=false,facing=south,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=false,facing=west,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 270
+    },
+    "cutting=false,facing=west,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 270
+    },
+    "cutting=false,facing=west,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=false,facing=west,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=false,facing=west,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=false,facing=west,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=false,facing=west,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=false,facing=west,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=false,facing=west,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=true,facing=north,part=table": {
+      "model": "middle-earth:block/lapidary_table_base"
+    },
+    "cutting=true,facing=north,part=study": {
+      "model": "middle-earth:block/lapidary_table_study"
+    },
+    "cutting=true,facing=north,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=north,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=north,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=true,facing=north,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=true,facing=north,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=true,facing=north,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=true,facing=north,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=true,facing=east,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 90
+    },
+    "cutting=true,facing=east,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 90
+    },
+    "cutting=true,facing=east,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=east,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=east,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=true,facing=east,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=true,facing=east,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=true,facing=east,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=true,facing=east,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=true,facing=south,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 180
+    },
+    "cutting=true,facing=south,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 180
+    },
+    "cutting=true,facing=south,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=south,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=south,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=true,facing=south,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=true,facing=south,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=true,facing=south,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=true,facing=south,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=true,facing=west,part=table": {
+      "model": "middle-earth:block/lapidary_table_base",
+      "y": 270
+    },
+    "cutting=true,facing=west,part=study": {
+      "model": "middle-earth:block/lapidary_table_study",
+      "y": 270
+    },
+    "cutting=true,facing=west,part=handle": {
+      "model": "middle-earth:block/lapidary_table_handle"
+    },
+    "cutting=true,facing=west,part=wheel": {
+      "model": "middle-earth:block/lapidary_table_wheel"
+    },
+    "cutting=true,facing=west,part=wheel_enhanced": {
+      "model": "middle-earth:block/lapidary_table_wheel_enhanced"
+    },
+    "cutting=true,facing=west,part=wheel_khazad": {
+      "model": "middle-earth:block/lapidary_table_wheel_khazad"
+    },
+    "cutting=true,facing=west,part=lens": {
+      "model": "middle-earth:block/lapidary_table_lens"
+    },
+    "cutting=true,facing=west,part=lens_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_refined"
+    },
+    "cutting=true,facing=west,part=lens_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_exquisite"
+    },
+    "cutting=false,facing=north,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=false,facing=north,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=false,facing=north,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=false,facing=north,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=false,facing=east,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=false,facing=east,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=false,facing=east,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=false,facing=east,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=false,facing=south,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=false,facing=south,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=false,facing=south,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=false,facing=south,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=false,facing=west,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=false,facing=west,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=false,facing=west,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=false,facing=west,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=true,facing=north,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=true,facing=north,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=true,facing=north,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=true,facing=north,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=true,facing=east,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=true,facing=east,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=true,facing=east,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=true,facing=east,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=true,facing=south,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=true,facing=south,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=true,facing=south,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=true,facing=south,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=true,facing=west,part=pedal_base": {
+      "model": "middle-earth:block/lapidary_table_pedal_base"
+    },
+    "cutting=true,facing=west,part=pedal_top": {
+      "model": "middle-earth:block/lapidary_table_pedal_top"
+    },
+    "cutting=true,facing=west,part=bucket": {
+      "model": "middle-earth:block/lapidary_table_bucket"
+    },
+    "cutting=true,facing=west,part=basin": {
+      "model": "middle-earth:block/lapidary_table_basin"
+    },
+    "cutting=false,facing=north,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=false,facing=north,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=false,facing=east,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=false,facing=east,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=false,facing=south,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=false,facing=south,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=false,facing=west,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=false,facing=west,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=true,facing=north,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=true,facing=north,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=true,facing=east,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=true,facing=east,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=true,facing=south,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=true,facing=south,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=true,facing=west,part=pedal_base_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_base_elven"
+    },
+    "cutting=true,facing=west,part=pedal_top_elven": {
+      "model": "middle-earth:block/lapidary_table_pedal_top_elven"
+    },
+    "cutting=false,facing=north,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=false,facing=east,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=false,facing=south,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=false,facing=west,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=true,facing=north,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=true,facing=east,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=true,facing=south,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=true,facing=west,part=lens_glass_refined": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_refined"
+    },
+    "cutting=false,facing=north,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=false,facing=east,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=false,facing=south,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=false,facing=west,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=true,facing=north,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=true,facing=east,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=true,facing=south,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    },
+    "cutting=true,facing=west,part=lens_glass_exquisite": {
+      "model": "middle-earth:block/lapidary_table_lens_glass_exquisite"
+    }
+  }
+}

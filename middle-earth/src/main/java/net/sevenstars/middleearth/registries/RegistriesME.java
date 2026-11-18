@@ -108,6 +108,11 @@ public class RegistriesME {
                 alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
             }
         }
+
+        for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.renamedAliases) {
+            alias.registry().addAlias(Identifier.of(MiddleEarth.MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+            alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
+        }
     }
 
     public static void registerToolTipAppenders() {
@@ -725,6 +730,8 @@ public class RegistriesME {
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(EquipmentItemsME.GREAT_HORN_LIGHT_GREEN_ARMOR, CLEAN_EQUIPMENT);
 
         CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ResourceItemsME.DIRTY_BONE, CLEAN_ITEM);
+
+        CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(ToolItemsME.RING, COOL_DOWN_METAL);
     }
 
     //This not good but will do for now until more cases appear

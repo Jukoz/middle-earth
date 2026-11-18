@@ -433,13 +433,13 @@ public class WoodBlockSetRegistryME {
                     set.strippedLogBlocks = BlockSetRegistration.createWoodSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     StrippableBlockRegistry.register(set.logBlocks.log(), set.strippedLogBlocks.log());
                     StrippableBlockRegistry.register(set.logBlocks.wood(), set.strippedLogBlocks.wood());
-                    ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
+                    if (!set.vanilla) ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                 }
                 case STRIPPED_STEM_BLOCKS -> {
                     set.strippedLogBlocks = BlockSetRegistration.createStemSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);
                     StrippableBlockRegistry.register(set.logBlocks.log(), set.strippedLogBlocks.log());
                     StrippableBlockRegistry.register(set.logBlocks.wood(), set.strippedLogBlocks.wood());
-                    ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
+                    if (!set.vanilla) ModdedStrippedLogs.strippedLogs.add(set.strippedLogBlocks.log());
                 }
                 case PLANK_BLOCKS ->
                         set.planksBlocks = BlockSetRegistration.createPlanksSet(woodStoneTypes.getPrefix() + set.setName + woodStoneTypes.getSuffix(), set.hardness, set.blastResistance, set.mapColor, set.instrument, set.soundGroup, itemGroup);

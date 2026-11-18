@@ -9,10 +9,10 @@
   "key": {
     "R": {
       "fabric:type": "fabric:difference",
-      "base": "middle-earth:sapphire",
+      "base": "middle-earth:raw_sapphire",
       "subtracted": {
         "fabric:type": "fabric:components",
-        "base":  "middle-earth:sapphire",
+        "base":  "middle-earth:raw_sapphire",
         "components": {
           "minecraft:max_damage": 2
         }

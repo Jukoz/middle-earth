@@ -1,0 +1,23 @@
+{
+  "parent": "middle-earth:lapidary/root",
+  "display": {
+    "icon": {
+      "id": "middle-earth:relic_lapidary_scroll"
+    },
+    "title": {
+      "translate": "advancement.middle-earth.lapidary.tools.relic"
+    },
+    "description": {
+      "translate": "advancement.middle-earth.lapidary.tools.relic.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "learned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

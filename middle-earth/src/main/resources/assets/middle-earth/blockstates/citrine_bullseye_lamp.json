@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "face=floor,facing=north,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor"
+    },
+    "face=floor,facing=north,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor_unlit"
+    },
+    "face=floor,facing=east,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor",
+      "y": 90
+    },
+    "face=floor,facing=east,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor_unlit",
+      "y": 90
+    },
+    "face=floor,facing=south,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor",
+      "y": 180
+    },
+    "face=floor,facing=south,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor_unlit",
+      "y": 180
+    },
+    "face=floor,facing=west,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor",
+      "y": 270
+    },
+    "face=floor,facing=west,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_floor_unlit",
+      "y": 270
+    },
+    "face=ceiling,facing=north,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling"
+    },
+    "face=ceiling,facing=north,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling_unlit"
+    },
+    "face=ceiling,facing=east,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling",
+      "y": 90
+    },
+    "face=ceiling,facing=east,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling_unlit",
+      "y": 90
+    },
+    "face=ceiling,facing=south,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling",
+      "y": 180
+    },
+    "face=ceiling,facing=south,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling_unlit",
+      "y": 180
+    },
+    "face=ceiling,facing=west,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling",
+      "y": 270
+    },
+    "face=ceiling,facing=west,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_ceiling_unlit",
+      "y": 270
+    },
+    "face=wall,facing=north,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall"
+    },
+    "face=wall,facing=north,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall_unlit"
+    },
+    "face=wall,facing=east,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall",
+      "y": 90
+    },
+    "face=wall,facing=east,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall_unlit",
+      "y": 90
+    },
+    "face=wall,facing=south,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall",
+      "y": 180
+    },
+    "face=wall,facing=south,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall_unlit",
+      "y": 180
+    },
+    "face=wall,facing=west,lit=true": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall",
+      "y": 270
+    },
+    "face=wall,facing=west,lit=false": {
+      "model": "middle-earth:block/citrine_bullseye_lamp_wall_unlit",
+      "y": 270
+    }
+  }
+}

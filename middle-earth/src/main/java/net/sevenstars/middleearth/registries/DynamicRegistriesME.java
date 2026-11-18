@@ -21,8 +21,20 @@ import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
 import net.sevenstars.middleearth.registries.content.npctypes.NpcRegistry;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.registries.content.spidervariants.SpiderVariantRegistry;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
+import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingMetalRegistry;
+import net.sevenstars.middleearth.resources.datas.rings.RingMetal;
+import net.sevenstars.middleearth.registries.content.rings.RingCurseRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingThemeRegistry;
+import net.sevenstars.middleearth.registries.content.rings.RingWordRegistry;
+import net.sevenstars.middleearth.resources.datas.rings.RingCurse;
+import net.sevenstars.middleearth.resources.datas.rings.RingTheme;
+import net.sevenstars.middleearth.resources.datas.rings.RingWord;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataRegistry;
 import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventData;
+import net.sevenstars.middleearth.registries.content.heldlights.HeldLightRegistry;
+import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
 import net.sevenstars.middleearth.resources.datas.texture_presets.TexturePresetDataPool;
@@ -50,8 +62,16 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
     public static final RegistryKey<Registry<CharacterTexturePattern>> EYE_PATTERN = RegistryKey.ofRegistry(MiddleEarth.id("eye_pattern"));
     public static final RegistryKey<Registry<CharacterTexturePattern>> HAIR_PATTERN = RegistryKey.ofRegistry(MiddleEarth.id("hair_pattern"));
 
+    public static final RegistryKey<Registry<GemType>> GEM_TYPE = RegistryKey.ofRegistry(MiddleEarth.id("gem_type"));
+    public static final RegistryKey<Registry<RingMetal>> RING_METAL = RegistryKey.ofRegistry(MiddleEarth.id("ring_metal"));
+    public static final RegistryKey<Registry<RingWord>> RING_WORD = RegistryKey.ofRegistry(MiddleEarth.id("ring_word"));
+    public static final RegistryKey<Registry<RingTheme>> RING_THEME = RegistryKey.ofRegistry(MiddleEarth.id("ring_theme"));
+    public static final RegistryKey<Registry<RingCurse>> RING_CURSE = RegistryKey.ofRegistry(MiddleEarth.id("ring_curse"));
+
     public static final RegistryKey<Registry<SpiderVariant>> SPIDER_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("spider_variants"));
     public static final RegistryKey<Registry<GreatHornVariant>> GREAT_HORN_VARIANTS = RegistryKey.ofRegistry(MiddleEarth.id("great_horn_variants"));
+
+    public static final RegistryKey<Registry<HeldLightData>> HELD_LIGHT = RegistryKey.ofRegistry(MiddleEarth.id("held_light"));
 
     public static void register() {
         MiddleEarth.LOGGER.logDebugMsg("Registering Dynamic Entries for " + MiddleEarth.MOD_ID);
@@ -71,8 +91,14 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         DynamicRegistries.registerSynced(EYE_MATERIAL, CharacterTextureMaterial.CODEC);
         DynamicRegistries.registerSynced(HAIR_MATERIAL, CharacterTextureMaterial.CODEC);
 
+        DynamicRegistries.registerSynced(GEM_TYPE, GemType.CODEC);
+        DynamicRegistries.registerSynced(RING_METAL, RingMetal.CODEC);
+        DynamicRegistries.registerSynced(RING_WORD, RingWord.CODEC);
+        DynamicRegistries.registerSynced(RING_THEME, RingTheme.CODEC);
+        DynamicRegistries.registerSynced(RING_CURSE, RingCurse.CODEC);
         DynamicRegistries.registerSynced(SPIDER_VARIANTS, SpiderVariant.CODEC);
         DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
+        DynamicRegistries.registerSynced(HELD_LIGHT, HeldLightData.CODEC);
     }
 
     public static void prepareBoostrap(RegistryBuilder registryBuilder) {
@@ -84,8 +110,14 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         registryBuilder.addRegistry(STRUCTURE_MANAGER_DATA, StructureManagerDataRegistry::bootstrap);
         registryBuilder.addRegistry(TEXTURE_PRESETS, TexturePresetsRegistry::bootstrap);
 
+        registryBuilder.addRegistry(GEM_TYPE, GemTypeRegistry::bootstrap);
+        registryBuilder.addRegistry(RING_METAL, RingMetalRegistry::bootstrap);
+        registryBuilder.addRegistry(RING_WORD, RingWordRegistry::bootstrap);
+        registryBuilder.addRegistry(RING_THEME, RingThemeRegistry::bootstrap);
+        registryBuilder.addRegistry(RING_CURSE, RingCurseRegistry::bootstrap);
         registryBuilder.addRegistry(SPIDER_VARIANTS, SpiderVariantRegistry::bootstrap);
         registryBuilder.addRegistry(GREAT_HORN_VARIANTS, GreatHornVariantRegistry::bootstrap);
+        registryBuilder.addRegistry(HELD_LIGHT, HeldLightRegistry::bootstrap);
     }
 
     public static void addProviders(FabricDataGenerator.Pack pack) {
@@ -96,7 +128,13 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         pack.addProvider(FactionProvider::new);
         pack.addProvider(StructureDataProvider::new);
         pack.addProvider(BiomeEventProvider::new);
+        pack.addProvider(GemTypesProvider::new);
+        pack.addProvider(RingMetalsProvider::new);
+        pack.addProvider(RingWordsProvider::new);
+        pack.addProvider(RingThemesProvider::new);
+        pack.addProvider(RingCursesProvider::new);
         pack.addProvider(StructureEventProvider::new);
         pack.addProvider(GreatHornVariantsProvider::new);
+        pack.addProvider(HeldLightsProvider::new);
     }
 }

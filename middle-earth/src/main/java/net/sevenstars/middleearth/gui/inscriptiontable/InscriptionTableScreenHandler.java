@@ -1,5 +1,12 @@
 package net.sevenstars.middleearth.gui.inscriptiontable;
 
+import net.minecraft.registry.RegistryKey;
+import net.sevenstars.middleearth.item.DataComponentTypesME;
+import net.sevenstars.middleearth.item.items.gems.CutGemItem;
+import net.sevenstars.middleearth.item.items.gems.RawGemItem;
+import net.sevenstars.middleearth.registries.content.gems.GemTypeRegistry;
+import net.sevenstars.middleearth.resources.datas.gems.GemType;
+
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -149,13 +156,29 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         return canUse(this.context, player, DecorativeBlockRegistryME.INSCRIPTION_TABLE);
     }
 
+    /**
+     * The catalyst's own words. Gems carry theirs on their gem type (one cut gem item can hold any gem), every
+     * other catalyst in {@link InscriptionWordBank} by item. Both the screen's list (getWords) and the server's
+     * (updateWords) must come from here, or the per-word "selectable" flags land on the wrong words.
+     */
+    private List<String> catalystWords(ItemStack catalyst) {
+        RegistryKey<GemType> gem = catalyst.get(DataComponentTypesME.GEM_TYPE);
+        if (gem != null) {
+            var gemType = GemTypeRegistry.get(this.player.getWorld().getRegistryManager(), gem);
+            if (gemType.isPresent()) {
+                return gemType.get().inscriptionWords();
+            }
+        }
+        return InscriptionWordBank.wordBank.get(catalyst.getItem());
+    }
+
     public List<String> getWords(){
         ItemStack catalyst = this.input.getStack(0);
 
         List<String> words = new ArrayList<>();
 
         if(this.hasAll()){
-            words.addAll(InscriptionWordBank.wordBank.get(catalyst.getItem()));
+            words.addAll(catalystWords(catalyst));
             words.addAll(InscriptionWordBank.wordBank.get(null));
         }
         return words;
@@ -212,7 +235,7 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
             List<String> words = new ArrayList<>();
             List<String> allowedWords = new ArrayList<>();
             if(this.hasAll()){
-                words.addAll(InscriptionWordBank.wordBank.get(this.input.getStack(0).getItem()));
+                words.addAll(catalystWords(this.input.getStack(0)));
                 words.addAll(InscriptionWordBank.wordBank.get(null));
             }
 
@@ -292,6 +315,16 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
         ItemStack stackChisel = this.input.getStack(1);
         ItemStack stack = this.input.getStack(2);
 
+        // Gems have exact charges. A catalyst is only removed when its damage already equals its max before
+        // the use (so max+1 uses, and 3 for undamageable ones); a cut gem must last exactly its tier's charges
+        // and a raw gem is used up at once (tier 1, like lapis), so on their last charge set damage = max.
+        if (stackCatalyst.getItem() instanceof RawGemItem) {
+            stackCatalyst.set(DataComponentTypes.MAX_DAMAGE, 1);
+            stackCatalyst.set(DataComponentTypes.DAMAGE, 1);
+        } else if (stackCatalyst.getItem() instanceof CutGemItem && stackCatalyst.getDamage() + 1 >= stackCatalyst.getMaxDamage()) {
+            stackCatalyst.setDamage(stackCatalyst.getMaxDamage());
+        }
+
         if(stackCatalyst.get(DataComponentTypes.MAX_DAMAGE) == null){
             if (stackCatalyst.isOf(Items.LAPIS_LAZULI)) this.input.setStack(0, ItemStack.EMPTY);
             stackCatalyst.set(DataComponentTypes.MAX_DAMAGE, 2);
@@ -335,7 +368,12 @@ public class InscriptionTableScreenHandler extends ScreenHandler {
                     k++;
                 }
             }
-            this.levelCost.set(levelCost + k);
+            int cost = levelCost + k;
+            // Cut gems: -1 level per tier above 1, never below 1 (raw gems count as tier 1).
+            if (this.input.getStack(0).getItem() instanceof CutGemItem cutGem && cost > 0) {
+                cost = Math.max(1, cost - (cutGem.getCut().tier() - 1));
+            }
+            this.levelCost.set(cost);
         }
     }
 

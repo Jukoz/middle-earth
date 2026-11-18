@@ -25,6 +25,11 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 public class BlockEntityRegistryME {
+    public static BlockEntityType<net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlockEntity> LAPIDARY_TABLE = register("lapidary_table",
+            net.sevenstars.middleearth.block.special.lapidarytable.LapidaryTableBlockEntity::new, DecorativeBlockRegistryME.LAPIDARY_TABLE);
+    public static BlockEntityType<net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlockEntity> BEAM_LAMP = register("beam_lamp",
+            net.sevenstars.middleearth.block.special.beamlamp.BeamLampBlockEntity::new,
+            DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP, DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP);
     public static BlockEntityType<ForgeBlockEntity> FORGE = register("forge", ForgeBlockEntity::new,
             DecorativeBlockRegistryME.FORGE);
     public static BlockEntityType<StoneAnvilBlockEntity> STONE_ANVIL = register("stone_anvil", StoneAnvilBlockEntity::new,

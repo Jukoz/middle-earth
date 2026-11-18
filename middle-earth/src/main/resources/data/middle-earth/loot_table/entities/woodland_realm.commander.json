@@ -68,6 +68,42 @@
         }
       ],
       "rolls": 1
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:masterwork_lapidary_scroll"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.008
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:relic_lapidary_scroll"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.002
+        }
+      ]
     }
   ]
 }

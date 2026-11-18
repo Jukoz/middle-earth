@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:lothlorien",
+    "middle-earth:lothlorien_blossom",
+    "middle-earth:lothlorien_glade",
+    "middle-earth:lorien_edge",
+    "middle-earth:woodland_realm",
+    "middle-earth:woodland_glade",
+    "middle-earth:woodland_hills",
+    "middle-earth:woodland_foothills",
+    "middle-earth:lindon",
+    "middle-earth:lindon_forest",
+    "middle-earth:lindon_hidden_blossom",
+    "middle-earth:lindon_meadow",
+    "middle-earth:lindon_shores",
+    "middle-earth:lindon_shores_cliffs",
+    "middle-earth:eregion",
+    "middle-earth:eregion_forest",
+    "middle-earth:eregion_glade"
+  ]
+}

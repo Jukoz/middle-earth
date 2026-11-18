@@ -11,6 +11,8 @@ import java.util.List;
 public class BlockDrops {
     public static List<Block> blocks = new ArrayList<>() {
         {
+            add(DecorativeBlockRegistryME.CITRINE_BULLSEYE_LAMP);
+            add(DecorativeBlockRegistryME.MIRDAIN_BEAM_LAMP);
             add(DecorativeBlockRegistryME.SILVER_LANTERN);
             add(DecorativeBlockRegistryME.WALL_SILVER_LANTERN);
             add(DecorativeBlockRegistryME.ELVEN_LANTERN);

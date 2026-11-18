@@ -6,6 +6,9 @@ import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.Registries;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.recipe.ArtisanRecipe;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.minecraft.advancement.Advancement;
@@ -58,6 +61,12 @@ public class ArtisanTableRecipeJsonBuilder implements CraftingRecipeJsonBuilder 
     @Override
     public Item getOutputItem() {
         return this.output.getItem();
+    }
+
+    // The default id is the output item's id, which would replace that item's crafting table recipe
+    @Override
+    public void offerTo(RecipeExporter exporter) {
+        this.offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, MiddleEarth.id(Registries.ITEM.getId(this.getOutputItem()).getPath() + "_artisan")));
     }
 
     @Override

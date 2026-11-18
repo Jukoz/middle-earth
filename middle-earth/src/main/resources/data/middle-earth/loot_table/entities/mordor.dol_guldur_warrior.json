@@ -158,6 +158,42 @@
           "weight": 2
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:masterwork_lapidary_scroll"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:relic_lapidary_scroll"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.001
+        }
+      ]
     }
   ],
   "random_sequence": "minecraft:entities/creeper"

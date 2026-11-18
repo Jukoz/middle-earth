@@ -609,7 +609,8 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
                 Item item = entity.getStack(i).getItem();
                 if (entity.getStack(i).isEmpty()){
                     hasColdItem = true;
-                } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)) {
+                } else if(!HotMetalsModel.nuggets.contains(item) && !HotMetalsModel.ingots.contains(item) && !HotMetalsModel.items.contains(item)
+                        && !net.sevenstars.middleearth.item.items.rings.RingItem.canHeat(entity.getStack(i))) {
                     return false; // One of the items cannot be heated
                 } else {
                     TemperatureDataComponent temperatureComponent = entity.getStack(i).get(DataComponentTypesME.TEMPERATURE_DATA);

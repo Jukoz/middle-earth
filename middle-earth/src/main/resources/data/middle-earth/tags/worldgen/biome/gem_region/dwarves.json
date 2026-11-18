@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:lonely_mountain",
+    "middle-earth:lonely_mountain_base",
+    "middle-earth:lonely_mountain_foothills",
+    "middle-earth:lonely_mountain_peaks",
+    "middle-earth:lonely_mountain_taiga",
+    "middle-earth:iron_hills",
+    "middle-earth:iron_hills_base",
+    "middle-earth:iron_hills_frontier",
+    "middle-earth:iron_hills_peaks",
+    "middle-earth:iron_foothills",
+    "middle-earth:blue_mountains",
+    "middle-earth:blue_mountains_base",
+    "middle-earth:blue_mountains_foothills",
+    "middle-earth:blue_mountains_high_lands",
+    "middle-earth:blue_mountains_peaks",
+    "middle-earth:blue_mountains_woods",
+    "middle-earth:caradhras",
+    "middle-earth:caradhras_base",
+    "middle-earth:caradhras_peaks",
+    "middle-earth:celebdil",
+    "middle-earth:celebdil_base",
+    "middle-earth:celebdil_peaks",
+    "middle-earth:fanuidhol",
+    "middle-earth:fanuidhol_base",
+    "middle-earth:fanuidhol_peaks",
+    "middle-earth:grey_mountains",
+    "middle-earth:grey_mountains_base",
+    "middle-earth:grey_mountains_peaks"
+  ]
+}

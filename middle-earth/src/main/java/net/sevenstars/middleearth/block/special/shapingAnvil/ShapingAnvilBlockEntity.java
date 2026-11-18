@@ -187,7 +187,9 @@ public class ShapingAnvilBlockEntity extends BlockEntity implements ExtendedScre
             int maxRandTemperature = 18;
             int value = (int) (Math.random() * (maxRandTemperature - minRandTemperature) + minRandTemperature);
 
-            if ((input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value) <= 0){
+            if (input.get(DataComponentTypesME.TEMPERATURE_DATA) == null) {
+                // Cold metal: nothing to cool.
+            } else if ((input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value) <= 0){
                 input.remove(DataComponentTypesME.TEMPERATURE_DATA);
             } else {
                 input.set(DataComponentTypesME.TEMPERATURE_DATA, new TemperatureDataComponent(input.get(DataComponentTypesME.TEMPERATURE_DATA).temperature() - value));

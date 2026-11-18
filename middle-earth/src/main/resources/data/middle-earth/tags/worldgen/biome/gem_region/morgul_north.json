@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:dol_guldur",
+    "middle-earth:dol_guldur_hill",
+    "middle-earth:mount_gundabad",
+    "middle-earth:mount_gundabad_base",
+    "middle-earth:mount_gundabad_peaks",
+    "middle-earth:gundabad_plains",
+    "middle-earth:gundabad_woods",
+    "middle-earth:old_angmar",
+    "middle-earth:old_angmar_cold_hill",
+    "middle-earth:old_angmar_forest",
+    "middle-earth:old_angmar_frozen_hill"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "#middle-earth:is_mordor",
+    "middle-earth:nurn",
+    "middle-earth:eastern_nurn",
+    "middle-earth:nurn_edge",
+    "middle-earth:nurn_edge_woods",
+    "middle-earth:nurn_forest",
+    "middle-earth:nurn_hill",
+    "middle-earth:nurn_river",
+    "middle-earth:nurn_sea",
+    "middle-earth:mount_doom",
+    "middle-earth:mount_doom_pit"
+  ]
+}

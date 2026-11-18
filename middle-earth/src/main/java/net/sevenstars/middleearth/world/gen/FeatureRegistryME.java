@@ -38,6 +38,9 @@ public class FeatureRegistryME {
     public static final Feature<DefaultFeatureConfig> MIRKWOOD_VINE = register("mirkwood_vine", new MirkwoodVinesFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> WILLOW_VINE = register("willow_vine", new WillowVinesFeature(DefaultFeatureConfig.CODEC));
 
+    public static final Feature<net.sevenstars.middleearth.world.features.underground.gems.GemOreFeatureConfig> GEM_ORE =
+            register("gem_ore", new net.sevenstars.middleearth.world.features.underground.gems.GemOreFeature());
+
     public static void init() {
         MiddleEarth.LOGGER.logInfoMsg("Registering new features");
     }
