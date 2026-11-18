@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.world.biomes.BiomeColorsDTO;
 import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.world.features.boulder.BoulderPlacedFeatureRegistryME;
 import net.sevenstars.middleearth.world.features.misc.MiscPlacedFeatureRegistryME;
+import net.sevenstars.middleearth.world.features.tree.TreePlacedFeatureRegistryME;
 import net.sevenstars.middleearth.world.features.vegetation.VegetationPlacedFeatureRegistryME;
 import net.sevenstars.middleearth.world.spawners.SpawnSettingsBuilderME;
 
@@ -1915,7 +1916,7 @@ public class BiomesME {
             BiomeFeaturesME.addPinkFlowers(vegetation);
             BiomeFeaturesME.addWhiteFlowers(vegetation);
             vegetation.add(VegetationPlacedFeatures.PATCH_LEAF_LITTER);
-            vegetation.add(TreePlacedFeatures.FALLEN_BIRCH_TREE);
+            vegetation.add(TreePlacedFeatureRegistryME.FALLEN_BIRCH_PLACED_TREE_KEY);
             vegetation.add(VegetationPlacedFeatures.FLOWER_CHERRY);
             vegetation.add(VegetationPlacedFeatures.TREES_CHERRY);
         } else if(step == 5) { // Meadow
