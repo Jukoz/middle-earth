@@ -471,9 +471,12 @@ public class NpcRoutine {
         carriedCount = 1;
         facing = null;
         // Falls back to another duty when the build lacks what this one needs
-        if(picked == RoutineData.Activity.POST && isSentry() && site.getMarkers(MarkerKind.LOOKOUT).isEmpty()) {
-            fallsBack(picked, "no lookout marked in this build, patrols instead");
-            picked = RoutineData.Activity.PATROL;
+        if(picked == RoutineData.Activity.POST) {
+            String noPost = post.claimPost(world, home);
+            if(noPost != null) {
+                fallsBack(picked, noPost + ", patrols instead");
+                picked = RoutineData.Activity.PATROL;
+            }
         }
         if(picked == RoutineData.Activity.FOLLOW && follow.findLord(world) == null) {
             fallsBack(picked, "no lord to follow in this place, patrols instead");

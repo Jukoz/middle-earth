@@ -7,6 +7,7 @@ import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.resources.datas.npc_classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
+import org.jetbrains.annotations.Nullable;
 
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST;
 import static net.sevenstars.middleearth.entity.npcs.routine.NpcRoutine.REST_VARIATION;
@@ -15,24 +16,32 @@ class PostActivity extends RoutineActivity {
     private static final int POST_TIME = 20 * 60;
     private static final int POST_TIME_VARIATION = 20 * 60;
 
+    private @Nullable StructureFeatureData.Marker claimed = null;
+
     PostActivity(NpcRoutine routine) {
         super(routine);
     }
 
+    // Null once a post is claimed, otherwise why there is none to stand at
+    @Nullable String claimPost(ServerWorld world, BlockPos home) {
+        boolean sentry = routine.isSentry();
+        MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
+        claimed = routine.site.claimPost(world, npc.getUuid(), home, kinds);
+        if(claimed != null)
+            return null;
+        String post = sentry ? "lookout" : "post";
+        for(MarkerKind kind : kinds)
+            if(!routine.site.getMarkers(kind).isEmpty())
+                return "every " + post + " is taken";
+        return "no " + post + " marked in this build";
+    }
+
     @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
-        routine.spot = home;
-        MarkerKind[] kinds = routine.isSentry() ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
-        StructureFeatureData.Marker post = routine.site.claimPost(world, npc.getUuid(), home, kinds);
-        if(post != null) {
-            routine.spot = post.pos();
-            routine.facing = post.facing();
-        } else {
-            boolean marked = false;
-            for(MarkerKind kind : kinds)
-                marked |= !routine.site.getMarkers(kind).isEmpty();
-            routine.fallsBack(picked, marked ? "every post is taken, stands at its nest" : "no post marked in this build, stands at its nest");
-        }
+        if(claimed == null)
+            return false;
+        routine.spot = claimed.pos();
+        routine.facing = claimed.facing();
         return true;
     }
 
