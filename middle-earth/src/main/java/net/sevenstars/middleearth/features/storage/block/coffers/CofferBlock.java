@@ -1,12 +1,11 @@
 package net.sevenstars.middleearth.features.storage.block.coffers;
 
-import net.sevenstars.middleearth.features.storage.StorageBlockEntities;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -16,15 +15,20 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class ChestnutCofferBlock extends ChestBlock {
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-    public ChestnutCofferBlock(Settings settings) {
-        super(() -> StorageBlockEntities.CHESTNUT_COFFER, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE, settings);
+public class CofferBlock extends ChestBlock {
+    private final Function<BlockState, VoxelShape> outline;
+
+    public CofferBlock(Supplier<BlockEntityType<? extends ChestBlockEntity>> type, Function<BlockState, VoxelShape> outline, Settings settings) {
+        super(type, SoundEvents.BLOCK_CHEST_OPEN, SoundEvents.BLOCK_CHEST_CLOSE, settings);
+        this.outline = outline;
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new ChestnutCofferBlockEntity(pos, state);
+        return new CofferBlockEntity(this.entityTypeRetriever.get(), pos, state);
     }
 
     @Override
@@ -36,14 +40,6 @@ public class ChestnutCofferBlock extends ChestBlock {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if(state.get(FACING) == Direction.NORTH) {
-            return Block.createCuboidShape(0.0, 0.0, 2.0, 16.0, 12.0, 13.0);
-        } else if(state.get(FACING) == Direction.SOUTH) {
-            return Block.createCuboidShape(0.0, 0.0, 3.0, 16.0, 12.0, 14.0);
-        } else if(state.get(FACING) == Direction.EAST) {
-            return Block.createCuboidShape(3.0, 0.0, 0.0, 14.0, 12.0, 16.0);
-        } else {
-            return Block.createCuboidShape(2.0, 0.0, 0.0, 13.0, 12.0, 16.0);
-        }
+        return outline.apply(state);
     }
 }

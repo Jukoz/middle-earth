@@ -1,11 +1,13 @@
 package net.sevenstars.middleearth.features.cooking;
 
-public class Cooking {
-    public static void register() {
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Cooking implements Feature {
+    @Override
+    public void register() {
         CookingRecipes.register();
-        CookingBlocks.register();
-        CookingBlockEntities.register();
+        Feature.load(CookingBlocks.class, CookingBlockEntities.class);
         CookingScreenHandlers.register();
-        CookingItems.register();
+        Feature.load(CookingItems.class);
     }
 }

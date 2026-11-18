@@ -1,10 +1,12 @@
 package net.sevenstars.middleearth.features.storage;
 
-public class Storage {
-    public static void register() {
-        StorageBlocks.register();
-        StorageBlockEntities.register();
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Storage implements Feature {
+    @Override
+    public void register() {
+        Feature.load(StorageBlocks.class, StorageBlockEntities.class);
         StorageScreenHandlers.register();
-        StorageItems.register();
+        Feature.load(StorageItems.class);
     }
 }

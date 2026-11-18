@@ -1,13 +1,6 @@
 package net.sevenstars.middleearth.entity;
 
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.CofferModels;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -85,14 +78,14 @@ public final class EntityModelLayersME {
 
     // Blocks
     public static final EntityModelLayer BELLOWS = EntityModelLayersME.registerEntityModelLayer("bellows", BellowsBlockEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer LARCH_COFFER = EntityModelLayersME.registerEntityModelLayer("larch_coffer", LarchCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer PINE_COFFER = EntityModelLayersME.registerEntityModelLayer("pine_coffer", PineCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer SPRUCE_COFFER = EntityModelLayersME.registerEntityModelLayer("spruce_coffer", SpruceCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer FIR_COFFER = EntityModelLayersME.registerEntityModelLayer("fir_coffer", FirCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer BEECH_COFFER = EntityModelLayersME.registerEntityModelLayer("beech_coffer", BeechCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer CHESTNUT_COFFER = EntityModelLayersME.registerEntityModelLayer("chestnut_coffer", ChestnutCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer OAK_COFFER = EntityModelLayersME.registerEntityModelLayer("oak_coffer", OakCofferEntityRenderer.getTexturedModelData());
-    public static final EntityModelLayer WILLOW_COFFER = EntityModelLayersME.registerEntityModelLayer("willow_coffer", WillowCofferEntityRenderer.getTexturedModelData());
+    public static final EntityModelLayer LARCH_COFFER = EntityModelLayersME.registerEntityModelLayer("larch_coffer", CofferModels.larch());
+    public static final EntityModelLayer PINE_COFFER = EntityModelLayersME.registerEntityModelLayer("pine_coffer", CofferModels.pine());
+    public static final EntityModelLayer SPRUCE_COFFER = EntityModelLayersME.registerEntityModelLayer("spruce_coffer", CofferModels.spruce());
+    public static final EntityModelLayer FIR_COFFER = EntityModelLayersME.registerEntityModelLayer("fir_coffer", CofferModels.fir());
+    public static final EntityModelLayer BEECH_COFFER = EntityModelLayersME.registerEntityModelLayer("beech_coffer", CofferModels.beech());
+    public static final EntityModelLayer CHESTNUT_COFFER = EntityModelLayersME.registerEntityModelLayer("chestnut_coffer", CofferModels.chestnut());
+    public static final EntityModelLayer OAK_COFFER = EntityModelLayersME.registerEntityModelLayer("oak_coffer", CofferModels.oak());
+    public static final EntityModelLayer WILLOW_COFFER = EntityModelLayersME.registerEntityModelLayer("willow_coffer", CofferModels.willow());
     public static final EntityModelLayer REINFORCED_CHEST = EntityModelLayersME.registerEntityModelLayer("reinforced_chest", ReinforcedChestEntityRenderer.getTexturedModelData());
     public static final EntityModelLayer OLD_SKULL = EntityModelLayersME.registerEntityModelLayer("old_skull", OldSkullBlockEntityRenderer.getTexturedModelData());
 

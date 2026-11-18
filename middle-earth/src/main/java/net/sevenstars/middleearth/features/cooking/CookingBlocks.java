@@ -70,7 +70,4 @@ public class CookingBlocks {
 
     public static final Block BLACK_CANDLES_LAYERED_CAKE = BlockRegistryME.registerTablessBlock("black_candles_layered_cake",
             (settings) -> new CandleLayeredCakeBlock(Blocks.BLACK_CANDLE, settings), AbstractBlock.Settings.copy(Blocks.BLACK_CANDLE_CAKE), false);
-
-    public static void register() {
-    }
 }

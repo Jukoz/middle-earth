@@ -1,10 +1,13 @@
 package net.sevenstars.middleearth.features.inscription;
 
-public class Inscription {
-    public static void register() {
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Inscription implements Feature {
+    @Override
+    public void register() {
         InscriptionRecipes.register();
-        InscriptionBlocks.register();
+        Feature.load(InscriptionBlocks.class);
         InscriptionScreenHandlers.register();
-        InscriptionItems.register();
+        Feature.load(InscriptionItems.class);
     }
 }
