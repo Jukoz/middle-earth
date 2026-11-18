@@ -7,7 +7,7 @@ import net.minecraft.server.dedicated.ServerPropertiesLoader;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.SaveProperties;
 import net.minecraft.world.dimension.DimensionOptions;
-import net.sevenstars.middleearth.world.StartInMiddleEarth;
+import net.sevenstars.middleearth.features.generation.StartInMiddleEarth;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

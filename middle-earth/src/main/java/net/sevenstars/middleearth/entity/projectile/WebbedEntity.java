@@ -23,7 +23,7 @@ import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
-import net.sevenstars.middleearth.world.features.vegetation.VegetationConfiguredFeatureRegistryME;
+import net.sevenstars.middleearth.features.generation.worldfeatures.vegetation.VegetationConfiguredFeatureRegistryME;
 
 import java.util.Optional;
 

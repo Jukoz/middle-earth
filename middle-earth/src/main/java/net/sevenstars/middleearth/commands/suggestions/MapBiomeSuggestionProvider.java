@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.world.map.MapBiomeLocator;
+import net.sevenstars.middleearth.features.generation.map.MapBiomeLocator;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

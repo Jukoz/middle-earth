@@ -1,0 +1,7 @@
+{
+  "type": "middle-earth:misty_shaft_bridge",
+  "biomes": "#middle-earth:has_structure/misty_caves_biomes",
+  "step": "underground_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

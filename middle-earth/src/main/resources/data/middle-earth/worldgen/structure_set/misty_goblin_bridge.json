@@ -1,0 +1,12 @@
+{
+  "structures": [
+    {
+      "structure": "middle-earth:misty_goblin_bridge",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "middle-earth:misty_shaft",
+    "salt": 1827463905
+  }
+}

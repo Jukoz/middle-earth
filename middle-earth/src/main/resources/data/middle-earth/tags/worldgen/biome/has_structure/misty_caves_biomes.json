@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:izheraban_cave",
+    "middle-earth:limestone_cave",
+    "middle-earth:dolomite_cave",
+    "middle-earth:dripstone_cave",
+    "middle-earth:mountain_cave",
+    "middle-earth:basic_cave",
+    "middle-earth:lush_cave",
+    "middle-earth:fungus_cave",
+    "middle-earth:mithril_cave"
+  ]
+}

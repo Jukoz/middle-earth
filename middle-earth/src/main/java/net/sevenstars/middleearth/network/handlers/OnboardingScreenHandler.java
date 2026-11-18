@@ -8,7 +8,7 @@ import net.sevenstars.middleearth.gui.onboarding.OnboardingSelectionScreen;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 
 import java.util.List;
 

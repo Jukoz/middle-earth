@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
-import net.sevenstars.middleearth.world.biomes.BiomeAmbianceME;
+import net.sevenstars.middleearth.features.generation.biomes.BiomeAmbianceME;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

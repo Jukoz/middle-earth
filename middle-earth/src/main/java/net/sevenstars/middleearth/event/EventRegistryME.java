@@ -29,9 +29,9 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.StartInMiddleEarth;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.features.generation.StartInMiddleEarth;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 
 import java.util.Objects;
 

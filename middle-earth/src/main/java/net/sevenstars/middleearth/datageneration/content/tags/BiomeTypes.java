@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import static net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME.*;
+import static net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 

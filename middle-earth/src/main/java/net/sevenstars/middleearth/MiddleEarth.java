@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.features.artisan.Artisan;
 
 import net.sevenstars.middleearth.features.inscription.Inscription;
 
+import net.sevenstars.middleearth.features.generation.Generation;
 import net.sevenstars.middleearth.features.storage.Storage;
 
 import net.sevenstars.middleearth.features.cooking.Cooking;
@@ -48,14 +49,6 @@ import net.sevenstars.middleearth.statusEffects.StatusEffectRegistryME;
 import net.sevenstars.api.utils.IdentifierUtil;
 import net.sevenstars.middleearth.utils.LootModifiers;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
-import net.sevenstars.middleearth.world.StartInMiddleEarth;
-import net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME;
-import net.sevenstars.middleearth.world.biomes.surface.MapBasedBiomePool;
-import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
-import net.sevenstars.middleearth.world.gen.CustomWorldGeneration;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
-import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
@@ -81,7 +74,6 @@ public class MiddleEarth implements ModInitializer {
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
 		EventRegistryME.register();
-		StartInMiddleEarth.register();
 		ServerConfigME.registerConfigs();
 		ClientConfigME.registerConfigs();
 
@@ -140,7 +132,6 @@ public class MiddleEarth implements ModInitializer {
 
 
 		EntitiesME.registerModEntities();
-		EntitySpawningME.addSpawns();
 
 		// Entity AI
 		SensorsME.registerModSensors();
@@ -151,24 +142,14 @@ public class MiddleEarth implements ModInitializer {
 		ParticleTypeRegistryME.registerParticleTypes();
 		StatusEffectRegistryME.registerStatusEffects();
 
-		DimensionRegistryME.register();
-		MapBiomeData.loadBiomes();
-		BiomeKeyRegistryME.registerModBiomes();
-		MapBasedBiomePool.loadBiomes();
+		Generation.register();
 
-		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
 
 		// Dynamic Data
         DynamicRegistriesME.register();
 		RegistriesME.registerRegistryAliases();
-
-		try {
-			new MiddleEarthMapGeneration();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	// Logger

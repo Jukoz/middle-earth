@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.mixin;
 
 import com.google.common.collect.ImmutableList;
-import net.sevenstars.middleearth.world.spawners.SpawnerNPCs;
+import net.sevenstars.middleearth.features.generation.spawners.SpawnerNPCs;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.spawner.SpecialSpawner;
 import org.spongepowered.asm.mixin.Mixin;

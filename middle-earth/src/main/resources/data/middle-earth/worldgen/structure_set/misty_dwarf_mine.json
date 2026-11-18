@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "middle-earth:misty_dwarf_mine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 12,
+    "separation": 4,
+    "salt": 1049382716
+  }
+}

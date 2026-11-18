@@ -18,7 +18,7 @@ import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.CooldownDataComponent;
 import net.sevenstars.middleearth.item.dataComponents.SeasonDataComponent;
 import net.sevenstars.middleearth.item.utils.armor.ExtendedArmorMaterial;
-import net.sevenstars.middleearth.world.biomes.BiomeTagsME;
+import net.sevenstars.middleearth.features.generation.biomes.BiomeTagsME;
 import org.jetbrains.annotations.Nullable;
 
 public class WoodlandRealmCrownItem extends CustomHelmetItem {

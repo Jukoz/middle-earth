@@ -20,8 +20,8 @@ import net.sevenstars.middleearth.gui.utils.widgets.backgrounds.BackgroundContai
 import net.sevenstars.middleearth.gui.utils.widgets.backgrounds.types.BackgroundContainerTypes;
 import net.sevenstars.middleearth.gui.utils.widgets.map.FullscreenToggeableMapWidget;
 import net.sevenstars.middleearth.utils.ColorsME;
-import net.sevenstars.middleearth.world.biomes.surface.MapBasedCustomBiome;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
+import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
+import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapConfigs;
 import org.joml.Vector2d;
 import org.joml.Vector2i;
 

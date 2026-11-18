@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.screen.world.WorldCreator;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.gen.WorldPreset;
-import net.sevenstars.middleearth.world.StartInMiddleEarth;
+import net.sevenstars.middleearth.features.generation.StartInMiddleEarth;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
