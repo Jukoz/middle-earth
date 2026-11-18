@@ -11,14 +11,6 @@ import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
 
 
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
 
 
 

@@ -1,35 +1,28 @@
 package net.sevenstars.middleearth.features.storage;
 
+import net.sevenstars.middleearth.features.storage.block.coffers.CofferBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferBlockEntity;
 import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestBlockEntity;
 import net.sevenstars.middleearth.features.storage.block.sack.SackBlockEntity;
 import net.sevenstars.middleearth.features.storage.block.wood_pile.WoodPileBlockEntity;
 
 public class StorageBlockEntities {
-    public static BlockEntityType<LarchCofferBlockEntity> LARCH_COFFER = BlockEntityRegistryME.register("larch_coffer", LarchCofferBlockEntity::new, StorageBlocks.LARCH_COFFER);
+    public static BlockEntityType<CofferBlockEntity> LARCH_COFFER = BlockEntityRegistryME.register("larch_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.LARCH_COFFER, pos, state), StorageBlocks.LARCH_COFFER);
 
-    public static BlockEntityType<PineCofferBlockEntity> PINE_COFFER = BlockEntityRegistryME.register("pine_coffer", PineCofferBlockEntity::new, StorageBlocks.PINE_COFFER);
+    public static BlockEntityType<CofferBlockEntity> PINE_COFFER = BlockEntityRegistryME.register("pine_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.PINE_COFFER, pos, state), StorageBlocks.PINE_COFFER);
 
-    public static BlockEntityType<SpruceCofferBlockEntity> SPRUCE_COFFER = BlockEntityRegistryME.register("spruce_coffer", SpruceCofferBlockEntity::new, StorageBlocks.SPRUCE_COFFER);
+    public static BlockEntityType<CofferBlockEntity> SPRUCE_COFFER = BlockEntityRegistryME.register("spruce_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.SPRUCE_COFFER, pos, state), StorageBlocks.SPRUCE_COFFER);
 
-    public static BlockEntityType<FirCofferBlockEntity> FIR_COFFER = BlockEntityRegistryME.register("fir_coffer", FirCofferBlockEntity::new, StorageBlocks.FIR_COFFER);
+    public static BlockEntityType<CofferBlockEntity> FIR_COFFER = BlockEntityRegistryME.register("fir_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.FIR_COFFER, pos, state), StorageBlocks.FIR_COFFER);
 
-    public static BlockEntityType<BeechCofferBlockEntity> BEECH_COFFER = BlockEntityRegistryME.register("beech_coffer", BeechCofferBlockEntity::new, StorageBlocks.BEECH_COFFER);
+    public static BlockEntityType<CofferBlockEntity> BEECH_COFFER = BlockEntityRegistryME.register("beech_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.BEECH_COFFER, pos, state), StorageBlocks.BEECH_COFFER);
 
-    public static BlockEntityType<ChestnutCofferBlockEntity> CHESTNUT_COFFER = BlockEntityRegistryME.register("chestnut_coffer", ChestnutCofferBlockEntity::new, StorageBlocks.CHESTNUT_COFFER);
+    public static BlockEntityType<CofferBlockEntity> CHESTNUT_COFFER = BlockEntityRegistryME.register("chestnut_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.CHESTNUT_COFFER, pos, state), StorageBlocks.CHESTNUT_COFFER);
 
-    public static BlockEntityType<OakCofferBlockEntity> OAK_COFFER = BlockEntityRegistryME.register("oak_coffer", OakCofferBlockEntity::new, StorageBlocks.OAK_COFFER);
+    public static BlockEntityType<CofferBlockEntity> OAK_COFFER = BlockEntityRegistryME.register("oak_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.OAK_COFFER, pos, state), StorageBlocks.OAK_COFFER);
 
-    public static BlockEntityType<WillowCofferBlockEntity> WILLOW_COFFER = BlockEntityRegistryME.register("willow_coffer", WillowCofferBlockEntity::new, StorageBlocks.WILLOW_COFFER);
+    public static BlockEntityType<CofferBlockEntity> WILLOW_COFFER = BlockEntityRegistryME.register("willow_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.WILLOW_COFFER, pos, state), StorageBlocks.WILLOW_COFFER);
 
     public static BlockEntityType<SackBlockEntity> SACK = BlockEntityRegistryME.register("sack", SackBlockEntity::new, StorageBlocks.SACK);
 
