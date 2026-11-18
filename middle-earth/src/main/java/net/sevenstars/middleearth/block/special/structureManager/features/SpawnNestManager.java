@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.entity.npcs.NpcEntity;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.entity.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.entity.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.registries.content.npcjobs.NpcJobs;
@@ -202,8 +203,10 @@ public class SpawnNestManager {
             job = guardDuty(world, structureManagerPos, site);
         job.ifPresent(npc::takeJob);
         npc.assignHost(structureManagerPos);
-        if(npc.isPrisoner())
-            npc.setPrisonCell(site == null ? null : site.findCell(npc.getBlockPos()));
+        if(npc.isPrisoner()) {
+            PrisonCell cell = site == null ? null : site.findCell(npc.getBlockPos());
+            npc.setPrisonCell(cell != null ? cell : PrisonCell.around(world, npc.getBlockPos()));
+        }
         if(bed != null)
             npc.setHousehold(bed, bedside, store, links);
         else if(isMarked())

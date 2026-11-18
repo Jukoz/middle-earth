@@ -229,6 +229,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // In ticks
     private static final int PRISON_CHECK_INTERVAL = 20;
+    private static final int ESCAPE_RANGE = 16;
+    // Blocks from the cell, and a walking speed multiplier
+    private static final int PRISON_STRAY_REACH = 3;
+    private static final double PRISONER_RETURN_SPEED = 0.8;
+    private static final int PRISON_STRAY_CHECKS = 3;
 
     // In ticks
     private static final int HATCH_CHECK_INTERVAL = 4;
@@ -272,6 +277,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private int talkSince;
 
     private @Nullable PrisonCell prisonCell = null;
+    private int strayChecks = 0;
     private ItemStack confiscatedMain = ItemStack.EMPTY;
     private ItemStack confiscatedOff = ItemStack.EMPTY;
 
@@ -954,8 +960,24 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             prisonCell = null;
             return;
         }
-        if(!prisonCell.contains(getBlockPos()))
+        if(prisonCell.contains(getBlockPos())) {
+            strayChecks = 0;
+            return;
+        }
+        // Only a prisoner taken well away goes free. A stray walks back in, or is put back by its bed if it can't
+        if(prisonCell.distanceTo(getBlockPos()) > PRISON_STRAY_REACH) {
+            strayChecks = 0;
             free(world);
+            return;
+        }
+        Path back = getNavigation().findPathTo(prisonCell.centerX(), getY(), prisonCell.centerZ(), 0);
+        if(++strayChecks <= PRISON_STRAY_CHECKS && back != null && back.reachesTarget()) {
+            getNavigation().startMovingAlong(back, PRISONER_RETURN_SPEED);
+        } else if(bedStand != null && prisonCell.contains(bedStand)) {
+            getNavigation().stop();
+            requestTeleport(bedStand.getX() + 0.5, bedStand.getY(), bedStand.getZ() + 0.5);
+            strayChecks = 0;
+        }
     }
 
     // Out of its cell it goes back to its own people and flees the place that held it
@@ -988,6 +1010,23 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 : (float) (MathHelper.atan2(-awayX, awayZ) * MathHelper.DEGREES_PER_RADIAN);
         setTravelDestination(null);
         setTravelHeading(heading);
+        escape(world);
+    }
+
+    // Fights a lone guard if armed, otherwise runs. Common folk don't count
+    private void escape(ServerWorld world) {
+        List<LivingEntity> enemies = world.getEntitiesByClass(LivingEntity.class, getBoundingBox().expand(ESCAPE_RANGE),
+                other -> other.isAlive() && !(other instanceof NpcEntity npc && npc.isTimid()) && canTarget(other) && canSee(other));
+        LivingEntity nearest = null;
+        for(LivingEntity enemy : enemies)
+            if(nearest == null || squaredDistanceTo(enemy) < squaredDistanceTo(nearest))
+                nearest = enemy;
+        if(nearest == null)
+            return;
+        if(enemies.size() == 1 && !getMainHandStack().isEmpty())
+            setTarget(nearest);
+        else
+            NpcBrain.flee(this, nearest);
     }
 
     // [RELATIONS AND ALARM]
@@ -1336,6 +1375,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         climbOutOfWater();
         if(age % PRISON_CHECK_INTERVAL == 0 && isPrisoner())
             disarm();
+        // Older saves have no cell, so hold it in the room by its bed
+        if(prisonCell == null && isPrisoner())
+            prisonCell = PrisonCell.around(world, bedStand != null ? bedStand : getBlockPos());
         if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
             tickPrison(world);
         // Never drops a target set from outside: a dead or no-longer-enemy one blocks the rest
@@ -1412,6 +1454,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     public void setPassingDoor(boolean passingDoor) {
         this.passingDoor = passingDoor;
+    }
+
+    // Nobody shoves a prisoner out of its cell
+    @Override
+    public boolean isPushable() {
+        return !isConfined() && super.isPushable();
     }
 
     // Two npcs side by side in a doorway shove each other and neither gets through

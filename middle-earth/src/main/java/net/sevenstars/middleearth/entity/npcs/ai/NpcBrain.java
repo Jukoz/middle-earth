@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.entity.npcs.ai;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -76,6 +77,11 @@ public class NpcBrain {
         for(Task<? super NpcEntity> task : npc.getBrain().getRunningTasks())
             if(task instanceof BehaviourTask behaviours)
                 behaviours.stopAll(npc, AttackBehaviour.class);
+    }
+
+    public static void flee(NpcEntity npc, LivingEntity threat) {
+        npc.getBrain().remember(MemoryModulesME.FLEEING_FROM, threat);
+        updateActivities(npc);
     }
 
     public static boolean isFleeing(NpcEntity npc) {
