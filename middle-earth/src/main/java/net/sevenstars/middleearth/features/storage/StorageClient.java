@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.features.storage;
 
+import net.sevenstars.middleearth.common.feature.ClientFeature;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
@@ -13,8 +14,9 @@ import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEnt
 import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
 
-public class StorageClient {
-    public static void register() {
+public class StorageClient implements ClientFeature {
+    @Override
+    public void registerClient() {
         HandledScreens.register(StorageScreenHandlers.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         BlockEntityRendererFactories.register(StorageBlockEntities.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(StorageBlockEntities.PINE_COFFER, PineCofferEntityRenderer::new);

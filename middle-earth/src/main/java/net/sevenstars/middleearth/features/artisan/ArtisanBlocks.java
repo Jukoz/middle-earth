@@ -10,7 +10,4 @@ public class ArtisanBlocks {
 
     public static final Block ORCISH_ARTISAN_TABLE = DecorativeBlockRegistryME.registerBlock("orcish_artisan_table",
             ArtisanTable::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
-
-    public static void register() {
-    }
 }

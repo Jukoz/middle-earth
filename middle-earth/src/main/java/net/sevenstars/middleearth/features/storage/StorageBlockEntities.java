@@ -38,7 +38,4 @@ public class StorageBlockEntities {
 
     public static BlockEntityType<WoodPileBlockEntity> WOOD_PILE = BlockEntityRegistryME.register("wood_pile", WoodPileBlockEntity::new,
             StorageBlocks.WOOD_PILE);
-
-    public static void register() {
-    }
 }

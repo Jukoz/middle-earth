@@ -1,15 +1,14 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.common.feature.ClientFeature;
+import net.sevenstars.middleearth.features.ClientFeatures;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
-import net.sevenstars.middleearth.features.artisan.ArtisanClient;
 
 
-import net.sevenstars.middleearth.features.inscription.InscriptionClient;
 
 
-import net.sevenstars.middleearth.features.storage.StorageClient;
 
 
 import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
@@ -21,7 +20,6 @@ import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntit
 import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
 import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
 
-import net.sevenstars.middleearth.features.cooking.CookingClient;
 
 
 import net.fabricmc.api.ClientModInitializer;
@@ -43,7 +41,6 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
-import net.sevenstars.middleearth.features.smithing.SmithingClient;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
 import net.sevenstars.middleearth.features.cooking.block.plate.PlateEntityRenderer;
@@ -235,11 +232,7 @@ public class MiddleEarthClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ParticleTypeRegistryME.BIOME_FOG_PARTICLE, BiomeFogParticle.Factory::new);
 
         initializeRenderLayerMap();
-        SmithingClient.register();
-        CookingClient.register();
-        StorageClient.register();
-        InscriptionClient.register();
-        ArtisanClient.register();
+        ClientFeatures.ALL.forEach(ClientFeature::registerClient);
         BlockColorsME.initializeBlockColors();
     }
 

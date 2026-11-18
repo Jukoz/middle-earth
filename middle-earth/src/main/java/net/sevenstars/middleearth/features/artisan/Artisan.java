@@ -1,9 +1,12 @@
 package net.sevenstars.middleearth.features.artisan;
 
-public class Artisan {
-    public static void register() {
-        ArtisanBlocks.register();
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Artisan implements Feature {
+    @Override
+    public void register() {
+        Feature.load(ArtisanBlocks.class);
         ArtisanScreenHandlers.register();
-        ArtisanItems.register();
+        Feature.load(ArtisanItems.class);
     }
 }

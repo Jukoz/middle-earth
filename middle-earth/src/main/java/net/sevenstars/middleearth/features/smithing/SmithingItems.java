@@ -15,21 +15,24 @@ import java.util.List;
 import java.util.function.Function;
 
 public class SmithingItems {
-    public static final Item FORGE = registerBlockItem("forge",
+    private static final ItemRegistrar TOOLS = ItemRegistrar.forGroup(ItemGroupsME.TOOLS_CONTENTS);
+    private static final ItemRegistrar DECORATIVES = ItemRegistrar.forGroup(ItemGroupsME.DECORATIVES_BLOCKS_CONTENT);
+
+    public static final Item FORGE = DECORATIVES.register("forge",
             (settings) -> new BlockItem(SmithingBlocks.FORGE, settings), new Item.Settings());
 
-    public static final Item STONE_ANVIL = registerBlockItem("stone_anvil",
+    public static final Item STONE_ANVIL = DECORATIVES.register("stone_anvil",
             (settings) -> new BlockItem(SmithingBlocks.STONE_ANVIL, settings), new Item.Settings());
 
-    public static final Item TREATED_ANVIL = registerBlockItem("treated_anvil",
+    public static final Item TREATED_ANVIL = DECORATIVES.register("treated_anvil",
             (settings) -> new BlockItem(SmithingBlocks.TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item DWARVEN_TREATED_ANVIL = registerBlockItem("dwarven_treated_anvil",
+    public static final Item DWARVEN_TREATED_ANVIL = DECORATIVES.register("dwarven_treated_anvil",
             (settings) -> new BlockItem(SmithingBlocks.DWARVEN_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item ELVEN_TREATED_ANVIL = registerBlockItem("elven_treated_anvil",
+    public static final Item ELVEN_TREATED_ANVIL = DECORATIVES.register("elven_treated_anvil",
             (settings) -> new BlockItem(SmithingBlocks.ELVEN_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item ORCISH_TREATED_ANVIL = registerBlockItem("orcish_treated_anvil",
+    public static final Item ORCISH_TREATED_ANVIL = DECORATIVES.register("orcish_treated_anvil",
             (settings) -> new BlockItem(SmithingBlocks.ORCISH_TREATED_ANVIL, settings), new Item.Settings());
-    public static final Item BELLOWS = registerBlockItem("bellows",
+    public static final Item BELLOWS = DECORATIVES.register("bellows",
             (settings) -> new BlockItem(SmithingBlocks.BELLOWS, settings), new Item.Settings());
 
     public static List<Item> smithingHammers = new ArrayList<>();
@@ -65,17 +68,10 @@ public class SmithingItems {
             (settings) -> new SmithingHammerItem(settings, ToolMaterialsME.MITHRIL_HAMMER, -2.5f), new Item.Settings().enchantable(20)
                     .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
-    private static Item registerBlockItem(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        return ItemRegistrar.register(name, factory, settings, ItemGroupsME.DECORATIVES_BLOCKS_CONTENT);
-    }
-
     private static Item registerHammer(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
-        Item item = ItemRegistrar.register(name, factory, settings, ItemGroupsME.TOOLS_CONTENTS);
+        Item item = TOOLS.register(name, factory, settings);
         SimpleHandheldItemModel.items.add(item);
         smithingHammers.add(item);
         return item;
-    }
-
-    public static void register() {
     }
 }

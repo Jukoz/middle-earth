@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.features.smithing;
 
+import net.sevenstars.middleearth.common.feature.ClientFeature;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -17,8 +18,9 @@ import net.sevenstars.middleearth.features.smithing.gui.shapinganvil.ShapingAnvi
 import net.sevenstars.middleearth.features.smithing.item.HotComponentProperty;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 
-public class SmithingClient {
-    public static void register() {
+public class SmithingClient implements ClientFeature {
+    @Override
+    public void registerClient() {
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("hot_component"), HotComponentProperty.CODEC);
         HandledScreens.register(SmithingScreenHandlers.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
         HandledScreens.register(SmithingScreenHandlers.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);

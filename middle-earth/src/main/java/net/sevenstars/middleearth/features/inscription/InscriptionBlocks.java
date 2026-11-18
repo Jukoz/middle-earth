@@ -7,7 +7,4 @@ import net.sevenstars.middleearth.features.inscription.block.InscriptionTableblo
 public class InscriptionBlocks {
     public static final Block INSCRIPTION_TABLE = DecorativeBlockRegistryME.registerBlock("inscription_table",
             InscriptionTableblock::new, AbstractBlock.Settings.copy(Blocks.SMITHING_TABLE).nonOpaque());
-
-    public static void register() {
-    }
 }

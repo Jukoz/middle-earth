@@ -1,11 +1,13 @@
 package net.sevenstars.middleearth.features.smithing;
 
-public class Smithing {
-    public static void register() {
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Smithing implements Feature {
+    @Override
+    public void register() {
         SmithingRecipes.register();
-        SmithingBlocks.register();
-        SmithingBlockEntities.register();
+        Feature.load(SmithingBlocks.class, SmithingBlockEntities.class);
         SmithingScreenHandlers.register();
-        SmithingItems.register();
+        Feature.load(SmithingItems.class);
     }
 }

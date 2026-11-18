@@ -65,7 +65,4 @@ public class StorageBlocks {
 
     public static final Block WOOD_PILE = DecorativeBlockRegistryME.registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
-
-    public static void register() {
-    }
 }
