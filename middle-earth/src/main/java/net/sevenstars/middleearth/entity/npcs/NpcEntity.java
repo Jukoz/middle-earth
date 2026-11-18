@@ -234,6 +234,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final int PRISON_STRAY_REACH = 3;
     private static final double PRISONER_RETURN_SPEED = 0.8;
     private static final int PRISON_STRAY_CHECKS = 3;
+    // Blocks from the cell's middle to aim for, tried in random directions
+    private static final int ESCAPE_DISTANCE = 16;
+    private static final int ESCAPE_TRIES = 2;
+    private static final double ESCAPE_SPEED = 1.2;
 
     // In ticks
     private static final int HATCH_CHECK_INTERVAL = 4;
@@ -278,6 +282,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     private @Nullable PrisonCell prisonCell = null;
     private int strayChecks = 0;
+    private boolean escaping = false;
     private ItemStack confiscatedMain = ItemStack.EMPTY;
     private ItemStack confiscatedOff = ItemStack.EMPTY;
 
@@ -962,10 +967,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
         if(prisonCell.contains(getBlockPos())) {
             strayChecks = 0;
+            if(getNavigation().isIdle())
+                escaping = false;
             return;
         }
-        // Only a prisoner taken well away goes free. A stray walks back in, or is put back by its bed if it can't
-        if(prisonCell.distanceTo(getBlockPos()) > PRISON_STRAY_REACH) {
+        // Only an escapee or a prisoner taken well away goes free. A stray walks back in, or is put back by its bed if it can't
+        if(escaping || prisonCell.distanceTo(getBlockPos()) > PRISON_STRAY_REACH) {
             strayChecks = 0;
             free(world);
             return;
@@ -980,8 +987,32 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         }
     }
 
+    // Prisoners never open doors, so a path out means a gap, an open door or a broken wall
+    public boolean tryEscape() {
+        if(!isConfined())
+            return false;
+        PrisonCell cell = prisonCell;
+        for(int i = 0; i < ESCAPE_TRIES; i++) {
+            float angle = random.nextFloat() * MathHelper.TAU;
+            BlockPos goal = BlockPos.ofFloored(cell.centerX() + MathHelper.cos(angle) * ESCAPE_DISTANCE, getY(), cell.centerZ() + MathHelper.sin(angle) * ESCAPE_DISTANCE);
+            Path path = getNavigation().findPathTo(goal, 1);
+            // A partial path counts, as long as it gets well clear
+            if(path != null && path.getEnd() != null && cell.distanceTo(path.getEnd().getBlockPos()) > PRISON_STRAY_REACH) {
+                escaping = true;
+                getNavigation().startMovingAlong(path, ESCAPE_SPEED);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEscaping() {
+        return escaping;
+    }
+
     // Out of its cell it goes back to its own people and flees the place that held it
     private void free(ServerWorld world) {
+        escaping = false;
         PrisonCell cell = prisonCell;
         BlockPos managerPos = getStructureManagerHostPos();
         double centerX = cell.centerX();

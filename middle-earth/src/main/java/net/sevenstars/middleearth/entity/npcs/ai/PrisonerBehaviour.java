@@ -31,6 +31,8 @@ final class PrisonerBehaviour extends Behaviour {
         if(--pause > 0 || !npc.getNavigation().isIdle())
             return;
         pause = PAUSE + npc.getRandom().nextInt(PAUSE_VARIATION);
+        if(npc.tryEscape())
+            return;
         PrisonCell cell = npc.getPrisonCell();
         int x = npc.getRandom().nextBetween(cell.minX(), cell.maxX());
         int z = npc.getRandom().nextBetween(cell.minZ(), cell.maxZ());
