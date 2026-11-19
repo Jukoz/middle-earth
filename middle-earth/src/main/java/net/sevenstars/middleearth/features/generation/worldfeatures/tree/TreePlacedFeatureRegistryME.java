@@ -30,6 +30,7 @@ public class TreePlacedFeatureRegistryME {
     public static final RegistryKey<PlacedFeature> VERY_RARE_BIRCH_PLACED_TREE_KEY = registerKey("super_rare_birch_tree");
     public static final RegistryKey<PlacedFeature> MEGA_BIRCH_PLACED_COMMON_TREE_KEY = registerKey("mega_birch_common_tree");
     public static final RegistryKey<PlacedFeature> MEGA_BIRCH_PLACED_TREE_KEY = registerKey("mega_birch_tree");
+    public static final RegistryKey<PlacedFeature> FALLEN_BIRCH_PLACED_TREE_KEY = registerKey("fallen_birch_tree");
 
     public static final RegistryKey<PlacedFeature> COMMON_ASPEN_PLACED_TREE_KEY = registerKey("common_aspen_tree");
     public static final RegistryKey<PlacedFeature> ASPEN_PLACED_TREE_KEY = registerKey("aspen_tree");
@@ -213,6 +214,9 @@ public class TreePlacedFeatureRegistryME {
                         Blocks.BIRCH_SAPLING));
         register(context, COMMON_BIRCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatureRegistryME.BIRCH_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(frequentTree,
+                        Blocks.BIRCH_SAPLING));
+        register(context, FALLEN_BIRCH_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatures.FALLEN_BIRCH_TREE),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
                         Blocks.BIRCH_SAPLING));
 
         register(context, ASPEN_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatureRegistryME.ASPEN_TREE_KEY),

@@ -4,6 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.BlockRenderLayers;
+import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.DecoratedPotBlockEntityRenderer;
@@ -21,9 +23,11 @@ import org.jetbrains.annotations.Nullable;
 public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<DecoratedPotBlockEntity, DecoratedPotBlockEntityRenderState> {
     private static final float POSITIVE_WOBBLE_SCALE = 0.015625F;
     private final DecoratedPotBlockEntityRenderer vanillaRenderer;
+    private final BlockRenderManager blockRenderManager;
 
     public LootablePotBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         this.vanillaRenderer = new DecoratedPotBlockEntityRenderer(context);
+        this.blockRenderManager = context.renderManager();
     }
 
     @Override
@@ -48,7 +52,10 @@ public class LootablePotBlockEntityRenderer implements BlockEntityRenderer<Decor
 
         matrices.push();
         applyWobble(state, matrices);
-        queue.submitBlock(matrices, state.blockState, state.lightmapCoordinates, OverlayTexture.DEFAULT_UV, 0);
+        // submitBlock skips INVISIBLE render types, which these pots are so the world does not draw them too
+        queue.submitBlockStateModel(matrices, BlockRenderLayers.getEntityBlockLayer(state.blockState),
+                blockRenderManager.getModel(state.blockState), 1.0F, 1.0F, 1.0F, state.lightmapCoordinates,
+                OverlayTexture.DEFAULT_UV, 0);
         matrices.pop();
     }
 
