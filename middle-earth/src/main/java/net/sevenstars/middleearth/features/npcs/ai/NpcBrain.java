@@ -35,7 +35,7 @@ public class NpcBrain {
     private static final List<Activity> PANIC_OR_CONFINED = List.of(Activity.PANIC, ActivitiesME.CONFINED);
 
     private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModulesME.FLEEING_FROM, MemoryModuleType.ATTACK_TARGET);
-    private static final ImmutableList<SensorType<? extends Sensor<? super NpcEntity>>> SENSORS = ImmutableList.of();
+    private static final ImmutableList<SensorType<? extends Sensor<? super NpcEntity>>> SENSORS = ImmutableList.of(NpcSensors.FLEE);
 
     public static Brain.Profile<NpcEntity> createProfile() {
         return Brain.createProfile(MEMORY_MODULES, SENSORS);
@@ -47,7 +47,7 @@ public class NpcBrain {
         ModDoorBehaviour modDoors = new ModDoorBehaviour();
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
                 new BehaviourTask(null, new AlarmBehaviour(), new RevengeBehaviour(), new EnemyBehaviour(), new RaidBehaviour(), new DoorBehaviour(),
-                        new DoorShutBehaviour(modDoors), modDoors, new FleeCheckBehaviour()),
+                        new DoorShutBehaviour(modDoors), modDoors, new PartyLeaderBehaviour()),
                 new StayAboveWaterTask<>(SWIM_CHANCE)
         ));
         brain.setTaskList(Activity.PANIC, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.PANIC, new FleeBehaviour(), new LookAtPlayerBehaviour())),

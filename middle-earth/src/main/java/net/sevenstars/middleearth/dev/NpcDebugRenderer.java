@@ -17,9 +17,12 @@ import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class NpcDebugRenderer {
     private static final double RANGE = 80;
@@ -40,8 +43,14 @@ public class NpcDebugRenderer {
     private static final double END_BOX_SIZE = 0.4;
     private static final double RING_HEIGHT = 0.3;
     private static final double PREY_HEIGHT = 0.5;
+    private static final int LABEL = 0xFFFFFFFF;
+    private static final double LABEL_HEIGHT = 0.5;
+    private static final float LABEL_SCALE = 0.04f;
+    private static final int LABEL_INTERVAL = 5;
+    private static final int MAXIMUM_LABELS = 1024;
 
     private static final Set<String> LOGGED = new HashSet<>();
+    private static final Map<UUID, String> LABELS = new HashMap<>();
 
     public static void register() {
         WorldRenderEvents.END_EXTRACTION.register(context -> {
@@ -70,6 +79,8 @@ public class NpcDebugRenderer {
         ServerWorld world = server.getWorld(client.world.getRegistryKey());
         if(world == null)
             return;
+        if(LABELS.size() > MAXIMUM_LABELS)
+            LABELS.clear();
         for(Entity seen : client.world.getEntities()) {
             if(!(seen instanceof NpcEntity) || seen.squaredDistanceTo(camera) > RANGE * RANGE)
                 continue;
@@ -78,6 +89,10 @@ public class NpcDebugRenderer {
             Vec3d feet = seen.getLerpedPos(tickProgress).add(0, FEET_OFFSET, 0);
             Vec3d chest = feet.add(0, seen.getHeight() * CHEST_HEIGHT, 0);
             drawPath(npc, feet);
+            String label = LABELS.get(seen.getUuid());
+            if(label == null || npc.age % LABEL_INTERVAL == 0)
+                LABELS.put(seen.getUuid(), label = NpcDebug.text(npc));
+            DebugDraw.label(label, seen.getLerpedPos(tickProgress).add(0, seen.getHeight() + LABEL_HEIGHT, 0), LABEL, LABEL_SCALE);
             NpcRoutine routine = npc.getDayRoutine();
             if(routine.debugActive()) {
                 int color = switch (routine.debugActivity()) {

@@ -31,6 +31,7 @@ import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
+import net.sevenstars.middleearth.features.npcs.ai.NpcSensors;
 import net.sevenstars.middleearth.event.EventRegistryME;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.*;
@@ -144,6 +145,7 @@ public class MiddleEarth implements ModInitializer {
 
 		// Entity AI
 		SensorsME.registerModSensors();
+		NpcSensors.register();
 		ActivitiesME.registerModActivities();
 		MemoryModulesME.registerModMemoryModules();
 

@@ -36,29 +36,31 @@ final class TravelBehaviour extends Behaviour {
         if(npc.isConfined())
             return false;
         TravelMode candidate = modeFor(npc);
+        boolean forced = ignoreChance;
         switch(candidate.gate(npc)) {
             case SKIP:
                 return false;
             case FORCED:
-                ignoreChance = true;
+                forced = true;
                 break;
             case CHANCE:
                 break;
         }
         if(npc.hasControllingPassenger())
             return false;
-        if(!ignoreChance) {
+        if(!forced) {
             if(npc.getDespawnCounter() >= DESPAWN_COUNTER)
                 return false;
             if(npc.getRandom().nextInt(WANDER_CHANCE) != 0)
                 return false;
         }
+        // One forced attempt, even if no target turns up
+        ignoreChance = false;
         TravelMode.Leg planned = candidate.plan(npc);
         if(planned == null)
             return false;
         mode = candidate;
         leg = planned;
-        ignoreChance = false;
         return true;
     }
 

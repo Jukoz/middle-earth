@@ -29,6 +29,7 @@ public class NpcAlarm {
     private final NpcEntity npc;
     private @Nullable UUID threatFaced = null;
     private boolean fleesThreat = false;
+    private boolean folkPending = false;
     private @Nullable UUID guardsCalledFor = null;
     private long threatFacedUntil;
     private long guardsCalledUntil;
@@ -56,15 +57,24 @@ public class NpcAlarm {
     }
 
     // Timid npcs commit to one response, or they'd run, turn and run again
-    public boolean fleesFrom(LivingEntity threat) {
+    public boolean decidesToFlee(LivingEntity threat) {
         long now = npc.getEntityWorld().getTime();
         if(!threat.getUuid().equals(threatFaced) || threatFacedUntil < now) {
             faceThreat(threat, now);
             fleesThreat = npc.getEntityWorld() instanceof ServerWorld world && countGuards(world) >= GUARDS_TO_FLEE;
-            if(!fleesThreat && npc.getEntityWorld() instanceof ServerWorld world)
-                callCommonFolk(world, threat);
+            folkPending = !fleesThreat;
         }
         return fleesThreat;
+    }
+
+    // Once per decision, for those who stand and fight
+    public void raiseAlarm(LivingEntity threat) {
+        decidesToFlee(threat);
+        if(!folkPending)
+            return;
+        folkPending = false;
+        if(npc.getEntityWorld() instanceof ServerWorld world)
+            callCommonFolk(world, threat);
     }
 
     public void callGuardsOnce(LivingEntity threat) {
@@ -95,6 +105,7 @@ public class NpcAlarm {
     private void warnedOf(LivingEntity threat, long now) {
         faceThreat(threat, now);
         fleesThreat = false;
+        folkPending = false;
     }
 
     private void faceThreat(LivingEntity threat, long now) {

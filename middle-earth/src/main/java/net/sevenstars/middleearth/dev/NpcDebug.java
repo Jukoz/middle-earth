@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.dev;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.text.Text;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.features.npcs.ai.NpcBrain;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
@@ -9,17 +8,9 @@ import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 // Dev tooling for npc routines. Off unless the game starts with -Dme.npcDebug=true
 public class NpcDebug {
     public static final boolean ENABLED = Boolean.getBoolean("me.npcDebug");
-    private static final int LABEL_INTERVAL = 5;
 
-    // Shown as the npc's name, so it gets saved too
-    public static void label(NpcEntity npc) {
-        if(npc.age % LABEL_INTERVAL != 0)
-            return;
-        String label = who(npc) + ": " + doing(npc);
-        if(npc.getCustomName() == null || !npc.getCustomName().getString().equals(label)) {
-            npc.setCustomName(Text.literal(label));
-            npc.setCustomNameVisible(true);
-        }
+    public static String text(NpcEntity npc) {
+        return who(npc) + ": " + doing(npc);
     }
 
     private static String who(NpcEntity npc) {

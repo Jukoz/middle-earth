@@ -79,11 +79,8 @@ interface TravelMode {
         // Multiples of the normal wander speed
         private static final double FOLLOW_SPEED = 1.15;
         private static final double CATCH_UP_SPEED = 1.4;
-        // In think ticks, 10 a second
-        private static final int LEADER_MISSING_DELAY = 10 * 30;
 
         private final Journey journey;
-        private int leaderMissingChecks = 0;
 
         Follow(Journey journey) {
             this.journey = journey;
@@ -131,14 +128,7 @@ interface TravelMode {
         }
 
         private @Nullable LivingEntity findLeader(NpcEntity npc) {
-            if(npc.getEntityWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive()) {
-                leaderMissingChecks = 0;
-                return leader;
-            }
-            leaderMissingChecks++;
-            if(leaderMissingChecks >= LEADER_MISSING_DELAY)
-                npc.setPartyLeader(null);
-            return null;
+            return npc.getEntityWorld().getEntity(npc.getPartyLeader()) instanceof LivingEntity leader && leader.isAlive() ? leader : null;
         }
     }
 

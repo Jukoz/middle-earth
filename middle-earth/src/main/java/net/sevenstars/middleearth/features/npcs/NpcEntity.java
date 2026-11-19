@@ -1,7 +1,6 @@
 package net.sevenstars.middleearth.features.npcs;
 
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
-import net.sevenstars.middleearth.dev.NpcDebug;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -74,6 +73,7 @@ import net.sevenstars.middleearth.item.items.shields.CustomSiegeShieldItem;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomLongbowWeaponItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
+import net.sevenstars.middleearth.resources.datas.biome_events.SpawnGate;
 import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
@@ -385,6 +385,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData) {
         this.saveSpawnReason(spawnReason);
+        if(world.toServerWorld() instanceof ServerWorld serverWorld)
+            SpawnGate.commit(serverWorld, this);
         return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
@@ -887,10 +889,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             bearGrudge(attacker);
     }
 
-    public boolean fleesFrom(LivingEntity threat) {
-        return alarm.fleesFrom(threat);
-    }
-
     // Nowhere left to run near home
     public boolean isAtHome() {
         BlockPos routineHome = getRoutineHome();
@@ -1105,8 +1103,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         super.mobTick(world);
         if(age % WEAPON_CHECK_INTERVAL == 0)
             WeaponSwitch.tick(this);
-        if(NpcDebug.ENABLED)
-            NpcDebug.label(this);
 
         if(hasVehicle()){
             rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);

@@ -32,8 +32,12 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 // Records each distinct given-up task with what's needed to reproduce it, in run/npc-failures/
 // Also adds /npcpath, which asks an npc's pathfinder for a route to a block
@@ -51,6 +55,7 @@ public final class NpcFailureRecorder {
     private static final int DEFAULT_RANGE = 0;
     private static final int DEFAULT_BUDGET = 1;
     private static final long TICKS_PER_DAY = 24000;
+    private static final long FLUSH_SECONDS = 10;
     private static final String FAILURES_FOLDER = "npc-failures";
     private static final String FAILURES_FILE = "failures.jsonl";
     private static final String SNAPSHOT_EXTENSION = ".nbt";
@@ -170,6 +175,17 @@ public final class NpcFailureRecorder {
         }
     }
 
+    // The writer is a daemon thread, so queued writes would be lost at exit
+    private static void flush() {
+        try {
+            WRITER.submit(() -> {}).get(FLUSH_SECONDS, TimeUnit.SECONDS);
+        } catch(InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch(ExecutionException | TimeoutException | RejectedExecutionException e) {
+            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not flush the queued failures", e);
+        }
+    }
+
     private static @Nullable JsonArray block(@Nullable BlockPos pos) {
         if(pos == null)
             return null;
@@ -182,6 +198,7 @@ public final class NpcFailureRecorder {
 
     // /npcpath <npc> <x y z> [range] [range multiplier] prints the route node by node
     public static void register() {
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> flush());
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             SEEN.clear();
             recorded = 0;

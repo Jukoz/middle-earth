@@ -30,6 +30,6 @@ final class AlarmBehaviour extends Behaviour {
         if(npc.isAtHome())
             npc.callGuardsOnce(attacker);
         else
-            npc.fleesFrom(attacker);
+            npc.getAlarm().raiseAlarm(attacker);
     }
 }

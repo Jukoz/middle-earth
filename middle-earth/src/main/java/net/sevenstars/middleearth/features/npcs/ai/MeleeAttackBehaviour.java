@@ -1,12 +1,10 @@
 package net.sevenstars.middleearth.features.npcs.ai;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
-import org.jetbrains.annotations.Nullable;
 
 final class MeleeAttackBehaviour extends AttackBehaviour {
     // Multiple of walking speed
@@ -27,13 +25,12 @@ final class MeleeAttackBehaviour extends AttackBehaviour {
     private static final float REPATH_CHANCE = 0.05F;
     private static final float LOOK_ANGLE = 30.0F;
 
-    private @Nullable Path path = null;
+    private final PathProbe probe = new PathProbe(PATH_INTERVAL);
     private double targetX;
     private double targetY;
     private double targetZ;
     private int updateCountdown;
     private int cooldown;
-    private long lastUpdateTime = 0;
 
     MeleeAttackBehaviour() {
         super(NpcEntity.AttackType.MELEE);
@@ -42,16 +39,15 @@ final class MeleeAttackBehaviour extends AttackBehaviour {
     @Override
     boolean canAttack(NpcEntity npc) {
         long time = npc.getEntityWorld().getTime();
-        if(time - lastUpdateTime < PATH_INTERVAL)
+        if(!probe.isDue(time))
             return false;
-        lastUpdateTime = time;
         LivingEntity target = npc.getTarget();
+        probe.search(npc, target, time);
         if(target == null)
             return false;
         if(!target.isAlive())
             return false;
-        path = npc.getNavigation().findPathTo(target, 0);
-        if(path != null)
+        if(probe.path() != null)
             return true;
         return npc.isInAttackRange(target);
     }
@@ -68,7 +64,7 @@ final class MeleeAttackBehaviour extends AttackBehaviour {
 
     @Override
     void start(NpcEntity npc) {
-        npc.getNavigation().startMovingAlong(path, MELEE_ATTACK_SPEED);
+        npc.getNavigation().startMovingAlong(probe.path(), MELEE_ATTACK_SPEED);
         npc.setAttacking(true);
         updateCountdown = 0;
         cooldown = 0;
