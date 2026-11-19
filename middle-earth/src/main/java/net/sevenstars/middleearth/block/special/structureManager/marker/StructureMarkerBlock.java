@@ -37,7 +37,7 @@ import net.minecraft.world.tick.ScheduledTickView;
 import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import org.jetbrains.annotations.Nullable;
 
-// Marks what blocks can't (a guard post, the lord's seat). In a world it removes itself on its first tick,
+// Marks what blocks can't (a guard post, an entrance). In a world it removes itself on its first tick,
 // except a spawning marker, which stays hidden to manage what it spawned
 public class StructureMarkerBlock extends BlockWithEntity implements Waterloggable {
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;

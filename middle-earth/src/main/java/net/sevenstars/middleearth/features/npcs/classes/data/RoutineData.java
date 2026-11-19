@@ -33,14 +33,10 @@ public class RoutineData {
         TABLE("table"),
         WORK("work"),
         FARM("farm"),
-        // Nearest free entrance or guard post (lookout for a sentry), or its nest
+        // Nearest free entrance or guard post, or its nest
         POST("post"),
         ESCORT("escort"),
-        CHOP("chop"),
-        MINE("mine"),
-        COURT("court"),
-        INSPECT("inspect"),
-        FOLLOW("follow");
+        CHOP("chop");
 
         public static final Codec<Activity> CODEC = StringIdentifiable.createCodec(Activity::values);
         private final String name;

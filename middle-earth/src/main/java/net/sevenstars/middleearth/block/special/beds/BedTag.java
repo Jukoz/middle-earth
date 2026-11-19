@@ -28,7 +28,7 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
                      Optional<Identifier> place, Optional<BlockPos> store) {
     public static final Codec<BedTag> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("type").forGetter(BedTag::nestKind),
-            Identifier.CODEC.optionalFieldOf("role").forGetter(BedTag::job),
+            Identifier.CODEC.xmap(NpcJobs::current, job -> job).optionalFieldOf("role").forGetter(BedTag::job),
             Identifier.CODEC.optionalFieldOf("npc_class").forGetter(BedTag::npcClass),
             BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(BedTag::links),
             Codec.BOOL.optionalFieldOf("manual", false).forGetter(BedTag::manual),

@@ -227,8 +227,7 @@ public class SpawnNestManager {
         job.ifPresent(npc::takeJob);
         npc.assignHost(hostPos);
         if(npc.isPrisoner()) {
-            PrisonCell cell = site == null ? null : site.findCell(npc.getBlockPos());
-            npc.setPrisonCell(cell != null ? cell : PrisonCell.around(world, npc.getBlockPos()));
+            npc.setPrisonCell(PrisonCell.around(world, npc.getBlockPos()));
         }
         if(household.isPresent())
             npc.setHousehold(household.get().bed(), bedside, household.get().store().orElse(null), household.get().links());
@@ -241,17 +240,14 @@ public class SpawnNestManager {
             return Optional.of(NpcJobs.PATROL.getValue());
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;
         Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
-        // Guards can spawn before their lord, who is counted anyway
-        boolean lordExpected = site.getBeds().stream().anyMatch(found -> NpcJobs.isLord(found.tag().flatMap(BedTag::job).orElse(null)));
-        return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive), lordExpected));
+        return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive)));
     }
 
-    // A fighter stands guard where the build marks posts or lookouts, like a watch tower. Elsewhere it keeps its kind's routine
+    // A fighter stands guard where the build marks posts, like a watch tower. Elsewhere it keeps its kind's routine
     private boolean mansPosts(@Nullable RoutineSite site, NpcEntity npc) {
         NpcClass npcClass = npc.getNpcClass();
         if(npcClass == null || npcClass.isCivilian())
             return false;
-        return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty()
-                || !site.getMarkers(MarkerKind.LOOKOUT).isEmpty());
+        return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty());
     }
 }

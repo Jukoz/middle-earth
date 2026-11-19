@@ -709,13 +709,8 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_marker.respawns_tip"), "Whether new animals come when these are gone");
             put(of(LangCategory.UI, "structure_marker.about_guard_post"), "A guard on duty stands here, looking the way the marker faces. One guard to a post. The lord calls at each on its rounds");
             put(of(LangCategory.UI, "structure_marker.about_entrance"), "A way into the build. A guard on duty stands here as at a guard post, looking the way the marker faces");
-            put(of(LangCategory.UI, "structure_marker.about_lookout"), "A sentry keeps watch from here, looking the way the marker faces. Guards leave it to the sentries");
-            put(of(LangCategory.UI, "structure_marker.about_lord_seat"), "The lord holds court in the seat beside this, or stands here if there is none. Its bodyguards keep close by");
-            put(of(LangCategory.UI, "structure_marker.about_patrol_point"), "A point on the round the watch walks. It takes two to make a round, and without them the watch walks the outline of the build");
-            put(of(LangCategory.UI, "structure_marker.about_mine_face"), "A miner stands here and works the block the marker faces, then carries home what that block is made of");
             put(of(LangCategory.UI, "structure_marker.about_spawn_npc"), "This many of the chosen people are born here, and again when they die. They need no bed");
             put(of(LangCategory.UI, "structure_marker.about_spawn_animal"), "This many of the chosen animal are born here. They come again only if set to respawn");
-            put(of(LangCategory.UI, "structure_marker.about_cell_corner"), "Four of these mark the corners of a cell. Whoever is born in a bed inside it is held there as a prisoner");
             put(of(LangCategory.UI, "structure_marker.about_off_limits"), "Npcs leave the block it faces alone. A door stays shut, and a seat, store, table or workplace goes unused");
             put(of(LangCategory.UI, "structure_marker.remove"), "Remove");
             put(of(LangCategory.UI, "structure_marker.no_room"), "No room for a marker there");

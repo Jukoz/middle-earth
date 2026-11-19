@@ -33,7 +33,6 @@ class SiteLayout {
     private List<BlockPos> doors = List.of();
     private List<StructureFeatureData.Marker> markers = List.of();
     private Map<MarkerKind, List<StructureFeatureData.Marker>> markersByKind = Map.of();
-    private @Nullable List<PrisonCell> cells = null;
 
     List<BlockPos> getStores() {
         return stores;
@@ -120,7 +119,6 @@ class SiteLayout {
         for(StructureFeatureData.Marker marker : markers)
             grouped.computeIfAbsent(marker.kind(), kind -> new ArrayList<>()).add(marker);
         this.markersByKind = grouped;
-        this.cells = null;
     }
 
     List<BlockPos> getSeats() {
@@ -133,16 +131,6 @@ class SiteLayout {
 
     List<StructureFeatureData.Marker> getMarkers(MarkerKind kind) {
         return markersByKind.getOrDefault(kind, List.of());
-    }
-
-    @Nullable PrisonCell findCell(BlockPos pos) {
-        if(cells == null)
-            cells = PrisonCell.cells(getMarkers(MarkerKind.CELL_CORNER).stream().map(StructureFeatureData.Marker::pos).toList());
-        for(PrisonCell cell : cells) {
-            if(cell.contains(pos))
-                return cell;
-        }
-        return null;
     }
 
     List<BlockPos> getFields(BlockPos near, int range) {

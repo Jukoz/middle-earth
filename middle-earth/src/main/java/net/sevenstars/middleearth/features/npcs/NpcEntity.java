@@ -588,7 +588,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // [JOB AND ROUTINE]
     public void setJob(@Nullable Identifier job) {
-        this.dataTracker.set(JOB, job == null ? "" : job.toString());
+        Identifier current = NpcJobs.current(job);
+        this.dataTracker.set(JOB, current == null ? "" : current.toString());
     }
 
     // After class gear. Some jobs swap the hand item for a tool

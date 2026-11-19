@@ -23,7 +23,6 @@ import net.sevenstars.middleearth.dev.NpcDebug;
 import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
-import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
@@ -125,11 +124,8 @@ public class NpcRoutine {
     final StationActivity station;
     final FarmingActivity farming;
     private final ChoppingActivity chopping;
-    private final MiningActivity mining;
     private final PostActivity post;
     final PatrolActivity patrol;
-    private final InspectActivity inspect;
-    private final FollowActivity follow;
     final EscortActivity escort;
     private final Map<RoutineData.Activity, RoutineActivity> activities = new EnumMap<>(RoutineData.Activity.class);
 
@@ -164,26 +160,19 @@ public class NpcRoutine {
         this.station = new StationActivity(this);
         this.farming = new FarmingActivity(this);
         this.chopping = new ChoppingActivity(this);
-        this.mining = new MiningActivity(this);
         this.post = new PostActivity(this);
         this.patrol = new PatrolActivity(this);
-        this.inspect = new InspectActivity(this);
-        this.follow = new FollowActivity(this);
         this.escort = new EscortActivity(this);
         activities.put(RoutineData.Activity.FISH, fishing);
         activities.put(RoutineData.Activity.HUNT, hunting);
         activities.put(RoutineData.Activity.FORAGE, foraging);
         activities.put(RoutineData.Activity.VISIT, table);
         activities.put(RoutineData.Activity.TABLE, table);
-        activities.put(RoutineData.Activity.COURT, table);
         activities.put(RoutineData.Activity.WORK, station);
         activities.put(RoutineData.Activity.FARM, farming);
         activities.put(RoutineData.Activity.CHOP, chopping);
-        activities.put(RoutineData.Activity.MINE, mining);
         activities.put(RoutineData.Activity.POST, post);
         activities.put(RoutineData.Activity.PATROL, patrol);
-        activities.put(RoutineData.Activity.INSPECT, inspect);
-        activities.put(RoutineData.Activity.FOLLOW, follow);
         activities.put(RoutineData.Activity.ESCORT, escort);
     }
 
@@ -462,10 +451,6 @@ public class NpcRoutine {
         return true;
     }
 
-    boolean isSentry() {
-        return NpcJobs.SENTRY.getValue().equals(npc.getJobId());
-    }
-
     public boolean shouldContinue() {
         // Sleepers are still ticked, so keep it in bed
         if(phase == Phase.SLEEPING)
@@ -533,10 +518,7 @@ public class NpcRoutine {
         }
 
         switch (phase) {
-            case GOING -> {
-                if(activity != RoutineData.Activity.FOLLOW || follow.following(world))
-                    walker.travel(world, spot);
-            }
+            case GOING -> walker.travel(world, spot);
             case RETURNING -> walker.travel(world, returnTrip.returnTarget(world));
             case WORKING -> work(world, time);
             default -> {}

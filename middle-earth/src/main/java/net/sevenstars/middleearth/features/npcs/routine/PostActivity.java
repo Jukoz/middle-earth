@@ -14,6 +14,7 @@ import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST_VARIATION;
 
 class PostActivity extends RoutineActivity {
+    private static final MarkerKind[] POST_KINDS = {MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
     private static final int POST_TIME = 20 * 60;
     private static final int POST_TIME_VARIATION = 20 * 60;
 
@@ -49,16 +50,13 @@ class PostActivity extends RoutineActivity {
 
     // Null once claimed, else why there's no post
     @Nullable String claimPost(ServerWorld world, BlockPos home) {
-        boolean sentry = routine.isSentry();
-        MarkerKind[] kinds = sentry ? new MarkerKind[]{MarkerKind.LOOKOUT} : new MarkerKind[]{MarkerKind.ENTRANCE, MarkerKind.GUARD_POST};
-        claimed = routine.site.claimPost(world, npc.getUuid(), home, kinds);
+        claimed = routine.site.claimPost(world, npc.getUuid(), home, POST_KINDS);
         if(claimed != null)
             return null;
-        String post = sentry ? "lookout" : "post";
-        for(MarkerKind kind : kinds)
+        for(MarkerKind kind : POST_KINDS)
             if(!routine.site.getMarkers(kind).isEmpty())
-                return "every " + post + " is taken";
-        return "no " + post + " marked in this build";
+                return "every post is taken";
+        return "no post marked in this build";
     }
 
     @Override

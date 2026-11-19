@@ -98,9 +98,9 @@ public class NpcDebugRenderer {
                 int color = switch (routine.debugActivity()) {
                     case FISH -> FISH;
                     case HUNT -> HUNT;
-                    case FORAGE, WORK, FARM, CHOP, MINE -> FORAGE;
-                    case PATROL, POST, ESCORT, INSPECT, FOLLOW -> PATROL;
-                    case VISIT, TABLE, COURT -> MEET;
+                    case FORAGE, WORK, FARM, CHOP -> FORAGE;
+                    case PATROL, POST, ESCORT -> PATROL;
+                    case VISIT, TABLE -> MEET;
                 };
                 if(routine.debugActivity() == RoutineData.Activity.PATROL)
                     drawRing(routine.debugRing(), routine.debugRingIndex());

@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.features.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.registries.content.structurefeatures.StructureFeaturesRegistry.Template;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
@@ -134,13 +133,13 @@ public class StructureFeaturesReport {
     }
 
     private record Warnings(List<String> noNestKind, List<String> noStore, List<String> noStation, List<String> noGuardMarkers,
-                            List<String> badSpawns, List<String> badCells, List<String> badLinks) {
+                            List<String> badSpawns, List<String> badLinks) {
         Warnings() {
-            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
 
         int total() {
-            return noNestKind.size() + noStore.size() + noStation.size() + noGuardMarkers.size() + badSpawns.size() + badCells.size() + badLinks.size();
+            return noNestKind.size() + noStore.size() + noStation.size() + noGuardMarkers.size() + badSpawns.size() + badLinks.size();
         }
     }
 
@@ -191,7 +190,6 @@ public class StructureFeaturesReport {
                         warnings.noGuardMarkers.add(where);
                 }
             }
-            List<BlockPos> corners = new ArrayList<>();
             for(StructureFeatureData.Marker marker : template.data().markers()) {
                 String where = "`%s` at %s, %s".formatted(id.getPath(), at(marker.pos()), marker.kind().asString());
                 if(marker.kind() == MarkerKind.SPAWN_NPC) {
@@ -206,13 +204,7 @@ public class StructureFeaturesReport {
                         warnings.badSpawns.add(where + " has no value");
                     else if(type == null || !Registries.ENTITY_TYPE.containsId(type))
                         warnings.badSpawns.add(where + " has the unknown entity type `%s`".formatted(marker.value()));
-                } else if(marker.kind() == MarkerKind.CELL_CORNER) {
-                    corners.add(marker.pos());
                 }
-            }
-            for(List<BlockPos> cell : PrisonCell.group(corners)) {
-                if(cell.size() != PrisonCell.CORNERS)
-                    warnings.badCells.add("`%s` at %s, %d cell_corner markers together".formatted(id.getPath(), at(cell.get(0)), cell.size()));
             }
         }
         return warnings;
@@ -294,7 +286,6 @@ public class StructureFeaturesReport {
             section(out, "Tagged beds whose job has none of its stations or markers in the structure", found.noStation);
             section(out, "Guards in a structure without an entrance or guard_post marker", found.noGuardMarkers);
             section(out, "Spawn markers with no value or an unknown one", found.badSpawns);
-            section(out, "Cell corners that do not make up groups of four", found.badCells);
             section(out, "Beds linked by hand to something that is not recognised", found.badLinks);
             if(found.total() == 0)
                 out.append("Nothing to add.\n");

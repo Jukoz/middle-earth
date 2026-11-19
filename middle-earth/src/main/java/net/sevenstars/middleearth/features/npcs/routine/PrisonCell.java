@@ -12,10 +12,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.NpcDoor;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 // A cell's floor from above. Only x and z, both ends inclusive
@@ -27,7 +24,6 @@ public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
             Codec.INT.fieldOf("max_z").forGetter(PrisonCell::maxZ)
     ).apply(instance, PrisonCell::new));
 
-    public static final int CORNERS = 4;
     // A bigger room isn't a cell, so hold the prisoner to the blocks round its spawn instead
     private static final int MAXIMUM_FLOOR = 64;
     private static final int OPEN_CELL_RADIUS = 1;
@@ -36,34 +32,7 @@ public record PrisonCell(int minX, int minZ, int maxX, int maxZ) {
         return pos.getX() >= minX && pos.getX() <= maxX && pos.getZ() >= minZ && pos.getZ() <= maxZ;
     }
 
-    // Nearest corners pair up. The last group is short if corners are missing
-    public static List<List<BlockPos>> group(List<BlockPos> corners) {
-        List<BlockPos> left = new ArrayList<>(corners);
-        List<List<BlockPos>> groups = new ArrayList<>();
-        while(!left.isEmpty()) {
-            BlockPos first = left.removeFirst();
-            left.sort(Comparator.comparingDouble(corner -> corner.getSquaredDistance(first)));
-            List<BlockPos> group = new ArrayList<>();
-            group.add(first);
-            while(group.size() < CORNERS && !left.isEmpty())
-                group.add(left.removeFirst());
-            groups.add(group);
-        }
-        return groups;
-    }
-
-    public static List<PrisonCell> cells(List<BlockPos> corners) {
-        List<PrisonCell> cells = new ArrayList<>();
-        for(List<BlockPos> group : group(corners)) {
-            if(group.size() != CORNERS)
-                continue;
-            cells.add(new PrisonCell(group.stream().mapToInt(BlockPos::getX).min().orElse(0), group.stream().mapToInt(BlockPos::getZ).min().orElse(0),
-                    group.stream().mapToInt(BlockPos::getX).max().orElse(0), group.stream().mapToInt(BlockPos::getZ).max().orElse(0)));
-        }
-        return cells;
-    }
-
-    // No cell marked: use the room it was born in, bounded by anything solid and by doors
+    // The room it was born in, bounded by anything solid and by doors
     public static PrisonCell around(World world, BlockPos start) {
         Set<BlockPos> floor = new HashSet<>();
         ArrayDeque<BlockPos> open = new ArrayDeque<>();

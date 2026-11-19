@@ -112,7 +112,7 @@ class PatrolActivity extends RoutineActivity {
     }
 
     private BlockPos routePoint(ServerWorld world, BlockPos point) {
-        if(!routine.walker.riding() || routine.site.hasMarkedRoute())
+        if(!routine.walker.riding())
             return point;
         double outX = point.getX() - routine.site.getCenterX();
         double outZ = point.getZ() - routine.site.getCenterZ();

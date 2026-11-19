@@ -54,13 +54,8 @@ public class StructureMarkerScreen extends EditorScreen<StructureMarkerScreenHan
     private static final Map<MarkerKind, Item> ICONS = Map.of(
             MarkerKind.GUARD_POST, Items.IRON_SWORD,
             MarkerKind.ENTRANCE, Items.OAK_DOOR,
-            MarkerKind.LOOKOUT, Items.SPYGLASS,
-            MarkerKind.LORD_SEAT, Items.GOLDEN_HELMET,
-            MarkerKind.PATROL_POINT, Items.COMPASS,
-            MarkerKind.MINE_FACE, Items.IRON_PICKAXE,
             MarkerKind.SPAWN_NPC, Items.PLAYER_HEAD,
             MarkerKind.SPAWN_ANIMAL, Items.SADDLE,
-            MarkerKind.CELL_CORNER, Items.IRON_BARS,
             MarkerKind.OFF_LIMITS, Items.BARRIER);
 
     private ChoiceListWidget kindList;

@@ -22,7 +22,6 @@ public class RoutineSite {
     // Wider gaps aren't walked, the round becomes an arc
     private static final double ARC_GAP = SiteSurvey.RING_SPACING * 2.5;
     private static final int MINIMUM_ROUND_POINTS = 3;
-    private static final int MINIMUM_MARKED_ROUND_POINTS = 2;
     private static final int GAME_INTERVAL = 20 * 60 * 2;
     // Matches how far a hunter roams from open ground
     private static final int GAME_MARGIN = 34;
@@ -140,7 +139,7 @@ public class RoutineSite {
     }
 
     boolean hasPatrolRound() {
-        return getPatrolRoute().size() >= MINIMUM_ROUND_POINTS || hasMarkedRoute();
+        return getPatrolRoute().size() >= MINIMUM_ROUND_POINTS;
     }
 
     boolean hasRingRound() {
@@ -266,10 +265,6 @@ public class RoutineSite {
         return layout.getMarkers(kind);
     }
 
-    public @Nullable PrisonCell findCell(BlockPos pos) {
-        return layout.findCell(pos);
-    }
-
     public List<BlockPos> getFields(BlockPos near, int range) {
         return layout.getFields(near, range);
     }
@@ -295,43 +290,35 @@ public class RoutineSite {
         return layout.pickSeat(world, random, near, range);
     }
 
+    // Round the ring, or along it when one gap is too wide to walk across
     public List<BlockPos> getPatrolRoute() {
         if(patrolRoute == null) {
             List<BlockPos> ring = getRing();
-            List<BlockPos> points = new ArrayList<>();
-            for(StructureFeatureData.Marker marker : getMarkers(MarkerKind.PATROL_POINT))
-                points.add(marker.pos());
-            if(points.size() < MINIMUM_MARKED_ROUND_POINTS) {
-                patrolRoute = new ArrayList<>(ring);
-                patrolArc = false;
-                int widest = -1;
-                double widestGap = ARC_GAP * ARC_GAP;
-                for(int i = 0; i < ring.size(); i++) {
-                    double gap = ring.get(i).getSquaredDistance(ring.get((i + 1) % ring.size()));
-                    if(gap > widestGap) {
-                        widestGap = gap;
-                        widest = i;
-                    }
-                }
-                if(widest >= 0 && ring.size() >= 2) {
-                    List<BlockPos> arc = new ArrayList<>(ring.size());
-                    for(int i = 1; i <= ring.size(); i++)
-                        arc.add(ring.get((widest + i) % ring.size()));
-                    patrolRoute = arc;
-                    patrolArc = true;
-                }
-            } else {
-                int centerX = getCenterX();
-                int centerZ = getCenterZ();
-                points.sort((a, b) -> Double.compare(Math.atan2(a.getZ() - centerZ, a.getX() - centerX), Math.atan2(b.getZ() - centerZ, b.getX() - centerX)));
-                patrolRoute = points;
-            }
+            int widest = widestGap(ring);
+            patrolArc = widest >= 0 && ring.size() >= 2;
+            patrolRoute = patrolArc ? arcFrom(ring, widest) : new ArrayList<>(ring);
         }
         return patrolRoute;
     }
 
-    public boolean hasMarkedRoute() {
-        return getMarkers(MarkerKind.PATROL_POINT).size() >= MINIMUM_MARKED_ROUND_POINTS;
+    private static int widestGap(List<BlockPos> ring) {
+        int widest = -1;
+        double widestGap = ARC_GAP * ARC_GAP;
+        for(int i = 0; i < ring.size(); i++) {
+            double gap = ring.get(i).getSquaredDistance(ring.get((i + 1) % ring.size()));
+            if(gap > widestGap) {
+                widestGap = gap;
+                widest = i;
+            }
+        }
+        return widest;
+    }
+
+    private static List<BlockPos> arcFrom(List<BlockPos> ring, int widest) {
+        List<BlockPos> arc = new ArrayList<>(ring.size());
+        for(int i = 1; i <= ring.size(); i++)
+            arc.add(ring.get((widest + i) % ring.size()));
+        return arc;
     }
 
     public boolean isPatrolArc() {

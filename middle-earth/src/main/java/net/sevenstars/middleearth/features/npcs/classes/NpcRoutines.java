@@ -35,8 +35,8 @@ public class NpcRoutines {
     public final static RoutineData NIGHT_SOLDIER = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 3).add(Activity.ESCORT, 1);
     public final static RoutineData ELITE = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 2).add(Activity.POST, 1);
     public final static RoutineData NIGHT_ELITE = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 2).add(Activity.POST, 1);
-    public final static RoutineData LEADER = RoutineData.create(Period.DAY).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.VISIT, 1);
-    public final static RoutineData NIGHT_LEADER = RoutineData.create(Period.NIGHT).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.VISIT, 1);
+    public final static RoutineData LEADER = RoutineData.create(Period.DAY).add(Activity.PATROL, 1).add(Activity.TABLE, 2).add(Activity.VISIT, 1);
+    public final static RoutineData NIGHT_LEADER = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1).add(Activity.TABLE, 2).add(Activity.VISIT, 1);
     public final static RoutineData ARCHER = RoutineData.create(Period.SHIFTS).add(Activity.PATROL, 2).add(Activity.HUNT, 1);
     public final static RoutineData NIGHT_RIDER = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 3).add(Activity.HUNT, 1);
     public final static RoutineData BRUTE = RoutineData.create(Period.NIGHT).add(Activity.PATROL, 1);

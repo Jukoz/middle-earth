@@ -6,11 +6,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.special.SeatBlock;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
-import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -24,13 +22,10 @@ class TableActivity extends RoutineActivity {
 
     private static final int MEETING_TIME = 20 * 20;
     private static final int MEETING_TIME_VARIATION = 20 * 20;
-    private static final int COURT_TIME = 20 * 120;
-    private static final int COURT_TIME_VARIATION = 20 * 60;
     private static final int INVITATION_TIME = 20 * 60;
     private static final int TEA_TIME = 20 * 45;
     private static final int TEA_TIME_VARIATION = 20 * 45;
 
-    private static final int LORD_SEAT_REACH = 3;
     private static final int VISIT_SEAT_RANGE = 10;
     private static final int HOST_RANGE = 24;
     private static final int VISIT_TRIES = 4;
@@ -57,14 +52,13 @@ class TableActivity extends RoutineActivity {
     boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
         return switch (kind) {
             case VISIT -> site.hasHouseholdsToVisit();
-            case COURT -> !site.getMarkers(MarkerKind.LORD_SEAT).isEmpty() || site.hasTables();
             default -> site.hasTables();
         };
     }
 
     @Override
     boolean isSocial(RoutineData.Activity kind) {
-        return kind != RoutineData.Activity.COURT;
+        return true;
     }
 
     @Override
@@ -73,20 +67,10 @@ class TableActivity extends RoutineActivity {
     }
 
     @Override
-    RoutineData.Activity fallback(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
-        if(picked == RoutineData.Activity.COURT && routine.site.getMarkers(MarkerKind.LORD_SEAT).isEmpty()) {
-            routine.fallsBack(picked, "no lord seat marked in this build, sits at a table instead");
-            return RoutineData.Activity.TABLE;
-        }
-        return picked;
-    }
-
-    @Override
     String label(RoutineData.Activity kind) {
         boolean seated = npc.getVehicle() instanceof SeatEntity;
         return switch (kind) {
             case VISIT -> seated ? "visiting, seated" : "visiting";
-            case COURT -> seated ? "holding court, seated" : "holding court";
             default -> seated ? "sitting at a table" : "table";
         };
     }
@@ -95,10 +79,7 @@ class TableActivity extends RoutineActivity {
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(picked == RoutineData.Activity.VISIT)
             return beginVisit(world, picked, home);
-        if(picked == RoutineData.Activity.TABLE)
-            return beginTable(world, picked, home, npc.getRandom());
-        beginCourt(world);
-        return true;
+        return beginTable(world, picked, home, npc.getRandom());
     }
 
     private boolean beginVisit(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
@@ -135,47 +116,11 @@ class TableActivity extends RoutineActivity {
         return true;
     }
 
-    private void beginCourt(ServerWorld world) {
-        StructureFeatureData.Marker seatMarker = null;
-        for(StructureFeatureData.Marker marker : routine.site.getMarkers(MarkerKind.LORD_SEAT)) {
-            if(seatMarker == null || marker.pos().getSquaredDistance(npc.getBlockPos()) < seatMarker.pos().getSquaredDistance(npc.getBlockPos()))
-                seatMarker = marker;
-        }
-        BlockPos seat = null;
-        for(BlockPos candidate : routine.site.getSeats()) {
-            if(candidate.isWithinDistance(seatMarker.pos(), LORD_SEAT_REACH) && isLoaded(world, candidate) && SeatBlock.isFree(world, candidate)
-                    && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
-                seat = candidate;
-        }
-        routine.setFacing(seatMarker.facing());
-        if(seat != null) {
-            routine.setMeetSeat(seat);
-            routine.setSpot(routine.standAt(world, seat));
-        } else {
-            routine.setSpot(seatMarker.pos());
-        }
-    }
-
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        if(routine.activity == RoutineData.Activity.COURT)
-            arriveCourt(world, random, time);
-        else
-            arriveVisitOrTable(world, random, time);
-    }
-
-    private void arriveVisitOrTable(ServerWorld world, Random random, long time) {
         // Somebody quicker may have taken the seat. The table is still the place to be
         boolean seated = routine.sitting.sitDown(world);
         routine.setPhaseEnd(seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION));
-        companion = null;
-        routine.setMeetSeat(null);
-    }
-
-    private void arriveCourt(ServerWorld world, Random random, long time) {
-        boolean seated = routine.sitting.sitDown(world);
-        routine.setPhaseEnd(time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION));
-        routine.did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
         companion = null;
         routine.setMeetSeat(null);
     }
@@ -186,7 +131,7 @@ class TableActivity extends RoutineActivity {
             routine.finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
             companion = RoutineSites.takeEntitySearch(world) ? findCompanion(world) : null;
-            routine.setLookTarget(routine.activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? routine.facingTarget() : null);
+            routine.setLookTarget(null);
         } else {
             routine.setLookTarget(companion.getEyePos());
             converse(random);

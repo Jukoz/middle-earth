@@ -34,7 +34,6 @@ public class NpcJobs {
     // In blocks
     private static final int BED_STATION_RANGE = 48;
 
-    private static final int BODYGUARDS = 2;
     private static final List<String> GUARD_NESTS = List.of("guard", "orthanc_guard");
     private static final List<String> LORD_NESTS = List.of("lord", "captain", "chief", "chieftain", "marshal");
     // Knights and veterans who rank above a place's soldiers
@@ -69,7 +68,7 @@ public class NpcJobs {
             NpcJob.named(RoutineData.create(Period.DAY).add(Activity.HUNT, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1))
                     .holding(Items.BOW).orHolding(Items.CROSSBOW).withSidearm(WeaponItemsME.IRON_DAGGER).withoutArmour());
     public static final RegistryKey<NpcJob> MINER = registerForNest("miner", "miner",
-            NpcJob.named(RoutineData.create(Period.DAY).timid().add(Activity.MINE, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_PICKAXE).atMarkers(MarkerKind.MINE_FACE));
+            NpcJob.named(RoutineData.create(Period.DAY).timid().add(Activity.TABLE, 1).add(Activity.VISIT, 1)).holding(Items.IRON_PICKAXE));
     // Orcs and goblins in a place with no trade for them. They work shifts, like the guard
     public static final RegistryKey<NpcJob> LABOURER = registerForNest("labourer", "labourer",
             NpcJob.named(RoutineData.create(Period.SHIFTS).working(StationKind.FORGE, StationKind.HEARTH, StationKind.WOOD_PILE)
@@ -83,16 +82,18 @@ public class NpcJobs {
     // [WARRIORS]
     // Only for npcs saved with it. Nests assign the duties below
     public static final RegistryKey<NpcJob> GUARD = register("guard", duty(NpcRoutines.GUARD));
-    public static final RegistryKey<NpcJob> LORD = registerForNests(LORD_NESTS, "lord", duty(lordRoutine(Period.DAY)).atMarkers(MarkerKind.LORD_SEAT));
-    // For orcs and goblins, whose lords keep to the night
-    public static final RegistryKey<NpcJob> NIGHT_LORD = register("night_lord", duty(lordRoutine(Period.NIGHT)).atMarkers(MarkerKind.LORD_SEAT));
+    // Keeps its class's routine, so orc chiefs still keep to the night
+    public static final RegistryKey<NpcJob> LORD = registerForNests(LORD_NESTS, "lord", new NpcJob(Optional.empty(), false, Optional.empty()));
     // Guard nest duties, picked when the guard spawns
     public static final RegistryKey<NpcJob> GATE_GUARD = register("gate_guard", duty(NpcRoutines.GUARD).atMarkers(MarkerKind.GUARD_POST, MarkerKind.ENTRANCE));
-    public static final RegistryKey<NpcJob> BODYGUARD = register("bodyguard", duty(RoutineData.create(Period.SHIFTS).add(Activity.FOLLOW, 1)));
-    public static final RegistryKey<NpcJob> SENTRY = register("sentry", duty(NpcRoutines.GUARD).atMarkers(MarkerKind.LOOKOUT));
     public static final RegistryKey<NpcJob> PATROL = register("patrol", duty(NpcRoutines.WATCH));
     // Nowhere to go but the bed. A thief in a cell is still a thief
     public static final RegistryKey<NpcJob> PRISONER = registerForNests(PRISONER_NESTS, "prisoner", duty(RoutineData.create(Period.DAY)));
+
+    private static final Map<Identifier, Identifier> RETIRED = Map.of(
+            MiddleEarth.id("sentry"), PATROL.getValue(),
+            MiddleEarth.id("bodyguard"), PATROL.getValue(),
+            MiddleEarth.id("night_lord"), LORD.getValue());
 
     public static void bootstrap(Registerable<NpcJob> context) {
         JOBS.forEach(context::register);
@@ -107,10 +108,6 @@ public class NpcJobs {
         return JOBS_BY_ID.get(id);
     }
 
-    public static boolean isLord(@Nullable Identifier job) {
-        return LORD.getValue().equals(job) || NIGHT_LORD.getValue().equals(job);
-    }
-
     public static boolean isGuardNest(String nestKind) {
         return GUARD_NESTS.contains(nestKind);
     }
@@ -119,29 +116,20 @@ public class NpcJobs {
         return LORD_NESTS.contains(nestKind) || ELITE_NESTS.contains(nestKind);
     }
 
-    // First duty with an opening: gates, lord's bodyguards, lookouts, then patrol
-    public static Identifier guardDuty(RoutineSite site, Iterable<? extends NpcEntity> residents, boolean lordExpected) {
+    // Gates first while any are unmanned, then patrol
+    public static Identifier guardDuty(RoutineSite site, Iterable<? extends NpcEntity> residents) {
         int gates = 0;
-        int bodyguards = 0;
-        int sentries = 0;
-        boolean lord = false;
         for(NpcEntity resident : residents) {
-            Identifier job = resident.getJobId();
-            if(job == null || !resident.isAlive())
-                continue;
-            if(job.equals(GATE_GUARD.getValue())) gates++;
-            else if(job.equals(BODYGUARD.getValue())) bodyguards++;
-            else if(job.equals(SENTRY.getValue())) sentries++;
-            else if(isLord(job)) lord = true;
+            if(resident.isAlive() && GATE_GUARD.getValue().equals(resident.getJobId()))
+                gates++;
         }
         int entrances = site.getMarkers(MarkerKind.ENTRANCE).size() + site.getMarkers(MarkerKind.GUARD_POST).size();
-        if(gates < entrances)
-            return GATE_GUARD.getValue();
-        if((lord || lordExpected) && bodyguards < BODYGUARDS)
-            return BODYGUARD.getValue();
-        if(sentries < site.getMarkers(MarkerKind.LOOKOUT).size())
-            return SENTRY.getValue();
-        return PATROL.getValue();
+        return gates < entrances ? GATE_GUARD.getValue() : PATROL.getValue();
+    }
+
+    // Jobs that were folded into others. Old saves still name them
+    public static @Nullable Identifier current(@Nullable Identifier job) {
+        return job == null ? null : RETIRED.getOrDefault(job, job);
     }
 
     public static Optional<Identifier> forNest(Identifier nestId) {
@@ -236,10 +224,6 @@ public class NpcJobs {
 
     private static NpcJob trade(StationKind... stations) {
         return NpcJob.named(RoutineData.create(Period.DAY).timid().working(stations).add(Activity.WORK, 4).add(Activity.TABLE, 1).add(Activity.VISIT, 1));
-    }
-
-    private static RoutineData lordRoutine(Period period) {
-        return RoutineData.create(period).add(Activity.COURT, 2).add(Activity.INSPECT, 1).add(Activity.TABLE, 1).add(Activity.VISIT, 1);
     }
 
     // Keeps the class name, so a Gondor Knight on duty is still a knight

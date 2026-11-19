@@ -9,13 +9,8 @@ import net.minecraft.util.StringIdentifiable;
 public enum MarkerKind implements StringIdentifiable {
     GUARD_POST("guard_post"),
     ENTRANCE("entrance"),
-    LOOKOUT("lookout"),
-    LORD_SEAT("lord_seat"),
-    PATROL_POINT("patrol_point"),
-    MINE_FACE("mine_face"),
     SPAWN_NPC("spawn_npc"),
     SPAWN_ANIMAL("spawn_animal"),
-    CELL_CORNER("cell_corner"),
     // What it faces is off limits to npcs: doors stay shut, seats and stores aren't features
     OFF_LIMITS("off_limits");
 
