@@ -24,6 +24,7 @@ public class FactionCreatures {
     ).apply(instance, FactionCreatures::new));
 
     public static final FactionCreatures NONE = new FactionCreatures(List.of(), List.of());
+    private static final String SHADOW_BEASTS = TAG_PREFIX + MiddleEarth.MOD_ID + ":shadow_beasts";
 
     private final List<String> hostile;
     private final List<String> friendly;
@@ -35,6 +36,10 @@ public class FactionCreatures {
         this.friendly = List.copyOf(friendly);
         this.hostileMatcher = new Matcher(hostile);
         this.friendlyMatcher = new Matcher(friendly);
+    }
+
+    public static FactionCreatures friendlyToShadowBeasts() {
+        return new FactionCreatures(List.of(), List.of(SHADOW_BEASTS));
     }
 
     public boolean isHostile(EntityType<?> type) {

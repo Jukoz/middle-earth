@@ -26,7 +26,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
-import net.sevenstars.middleearth.item.items.BuildersToolItem;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -36,20 +35,10 @@ import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 
 import java.util.Objects;
 
-import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
-import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
-import net.sevenstars.middleearth.commands.custom.StructureEditSession;
-import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
-
 public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
 
     public static void register(){
-        RoutineSites.register();
-        StructureManagerService.register();
-        StructureEditSession.register();
-        FollowHerderGoal.register();
-        BuildersToolItem.register();
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
             MiddleEarthHeightMap.setSeed(player.getEntityWorld().getSeed());

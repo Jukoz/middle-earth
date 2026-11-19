@@ -81,7 +81,7 @@ public class HobgoblinTribesFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        ).withCreatures(new FactionCreatures(List.of(), List.of("#middle-earth:shadow_beasts")));
+        ).withCreatures(FactionCreatures.friendlyToShadowBeasts());
 
     }
 }

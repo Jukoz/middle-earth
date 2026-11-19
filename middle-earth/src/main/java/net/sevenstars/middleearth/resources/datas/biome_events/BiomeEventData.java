@@ -2,14 +2,11 @@ package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.sevenstars.api.utils.IdentifierUtil;
@@ -25,7 +22,6 @@ import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class BiomeEventData {
@@ -40,21 +36,11 @@ public class BiomeEventData {
     ).apply(instance, BiomeEventData::new));
 
     // In ticks
-    private static final int PENDING_SPAWN_LIFETIME = 40;
     private static final int CHUNK_DISABLE_TICKS = 20 * 5;
 
-    private static final int MAXIMUM_PENDING_SPAWNS = 256;
     private static final int DEFAULT_WEIGHT = 1;
-    private static final Long2ObjectOpenHashMap<PendingSpawn> PENDING_SPAWNS = new Long2ObjectOpenHashMap<>();
-    // Per kind, so npcs waiting for night don't stop sheep spawning
-    private static final HashMap<DisabledSpawn, Long> DISABLED_SPAWNS = new HashMap<>();
-    private static final int MAXIMUM_DISABLED_SPAWNS = 4096;
-
-    private record DisabledSpawn(RegistryKey<World> world, ChunkPos chunk, EntityType<?> type) {}
 
     public record SpawnPick(@Nullable WildSpawnEventData data) {}
-
-    private record PendingSpawn(WildSpawnEventData data, long expires) {}
 
     private boolean shouldSpawnDefaultWhenUnmet;
     private List<WildSpawnEventData> wildSpawnEventDatas;
@@ -87,15 +73,8 @@ public class BiomeEventData {
     }
 
     public ContextualizedBiomeData findNpcData(World world, NpcEntity entity) {
-        // Use what the spawn check picked here. Only the event that made a pick can take it
-        long spot = entity.getBlockPos().asLong();
-        PendingSpawn pending = PENDING_SPAWNS.get(spot);
-        WildSpawnEventData spawningData = null;
-        if(pending != null && wildSpawnEventDatas.contains(pending.data())) {
-            PENDING_SPAWNS.remove(spot);
-            if(world.getTime() <= pending.expires())
-                spawningData = pending.data();
-        }
+        // Use what the spawn check picked here
+        WildSpawnEventData spawningData = SpawnGate.takeHeld(world, entity.getBlockPos(), wildSpawnEventDatas);
         if(spawningData == null)
             spawningData = pickWeighted(Registries.ENTITY_TYPE.getId(EntitiesME.NPC), world, entity.getBlockPos(), world.getRandom());
         if(spawningData == null)
@@ -139,20 +118,12 @@ public class BiomeEventData {
         Identifier entityId = Registries.ENTITY_TYPE.getId(type);
         if(!hasEntityType(entityId))
             return new SpawnPick(null);
-        DisabledSpawn spawn = new DisabledSpawn(world.getRegistryKey(), new ChunkPos(pos), type);
-        Long expiredTick = DISABLED_SPAWNS.get(spawn);
-        if (expiredTick != null) {
-            if(world.getTime() < expiredTick)
-                return null;
-            DISABLED_SPAWNS.remove(spawn);
-        }
+        if(SpawnGate.isDisabled(world, pos, type))
+            return null;
 
         WildSpawnEventData spawningData = pickWeighted(entityId, world, pos, random);
         if(spawningData == null || spawningData.isDiscarded(random)){
-            // Only revisited where something tries to spawn, so abandoned chunks' entries pile up
-            if(DISABLED_SPAWNS.size() >= MAXIMUM_DISABLED_SPAWNS)
-                DISABLED_SPAWNS.values().removeIf(until -> until <= world.getTime());
-            DISABLED_SPAWNS.put(spawn, world.getTime() + CHUNK_DISABLE_TICKS);
+            SpawnGate.disable(world, pos, type, CHUNK_DISABLE_TICKS);
             return null;
         }
         return new SpawnPick(spawningData);
@@ -165,17 +136,9 @@ public class BiomeEventData {
             return;
         spawningData.broadcastMessage(world, pos);
         if(type == EntitiesME.NPC) {
-            if(PENDING_SPAWNS.size() >= MAXIMUM_PENDING_SPAWNS)
-                PENDING_SPAWNS.clear();
-            PENDING_SPAWNS.put(pos.asLong(), new PendingSpawn(spawningData, world.getTime() + PENDING_SPAWN_LIFETIME));
+            SpawnGate.hold(world, pos, spawningData);
         }
         SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcClass(null) : null, pos);
-    }
-
-    // World times, which a different save starts over
-    public static void clearSpawns() {
-        PENDING_SPAWNS.clear();
-        DISABLED_SPAWNS.clear();
     }
 
     public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job) {}

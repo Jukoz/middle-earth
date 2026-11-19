@@ -11,12 +11,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.client.renderer.DebugDraw;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class NpcDebugRenderer {
     private static final double RANGE = 80;
@@ -38,15 +41,25 @@ public class NpcDebugRenderer {
     private static final double RING_HEIGHT = 0.3;
     private static final double PREY_HEIGHT = 0.5;
 
+    private static final Set<String> LOGGED = new HashSet<>();
+
     public static void register() {
         WorldRenderEvents.END_EXTRACTION.register(context -> {
             try {
                 float tickProgress = context.tickCounter().getTickProgress(false);
                 render(context.camera().getCameraPos(), tickProgress);
-            } catch (RuntimeException ignored) {
+            } catch (RuntimeException e) {
                 // Server world read from the render thread; a torn read only glitches one frame
+                logFirst(e);
             }
         });
+    }
+
+    private static void logFirst(RuntimeException e) {
+        StackTraceElement[] trace = e.getStackTrace();
+        String kind = e.getClass().getName() + (trace.length > 0 ? " at " + trace[0] : "");
+        if(LOGGED.add(kind))
+            MiddleEarth.LOGGER.logError("Npc debug render failed, later repeats of this are not logged", e);
     }
 
     private static void render(Vec3d camera, float tickProgress) {

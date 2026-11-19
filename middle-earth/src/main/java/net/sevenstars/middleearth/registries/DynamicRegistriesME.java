@@ -89,7 +89,6 @@ public class DynamicRegistriesME extends DynamicRegistriesAPI {
         DynamicRegistries.registerSynced(GREAT_HORN_VARIANTS, GreatHornVariant.CODEC);
 
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
-            BiomeEventData.clearSpawns();
             StructureFeaturesRegistry.clearLive();
         });
     }

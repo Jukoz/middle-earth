@@ -7,6 +7,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -85,7 +86,7 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
                 StructureEditing.log(marker ? "marker at %s removed".formatted(pos.toShortString()) : "no marker at %s to remove".formatted(pos.toShortString()));
                 return;
             }
-            if(!facing.getAxis().isHorizontal() || !validValue()) {
+            if(!facing.getAxis().isHorizontal() || !validValue(world.getRegistryManager())) {
                 StructureEditing.log("marker %s at %s refused: facing %s, value `%s`".formatted(kind.asString(), pos.toShortString(), facing.asString(), value));
                 return;
             }
@@ -112,11 +113,11 @@ public class PacketStructureMarkerEditRequest extends ClientToServerPacket<Packe
         });
     }
 
-    private boolean validValue() {
+    private boolean validValue(DynamicRegistryManager registries) {
         // A nest id, or only a kind for markers placed before nests had full names
         if(kind == MarkerKind.SPAWN_NPC) {
             Identifier nest = Identifier.tryParse(value);
-            return BedTag.nestKinds().contains(value) || nest != null && BedTag.peopleNests().containsKey(nest);
+            return BedTag.nestKinds(registries).contains(value) || nest != null && BedTag.peopleNests(registries).containsKey(nest);
         }
         if(kind == MarkerKind.SPAWN_ANIMAL) {
             return StructureMarkerScreenData.allAnimals().contains(value);

@@ -32,6 +32,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Records each distinct given-up task with what's needed to reproduce it, in run/npc-failures/
 // Also adds /npcpath, which asks an npc's pathfinder for a route to a block
@@ -53,10 +55,18 @@ public final class NpcFailureRecorder {
     private static final String FAILURES_FILE = "failures.jsonl";
     private static final String SNAPSHOT_EXTENSION = ".nbt";
     private static final Set<String> SEEN = new HashSet<>();
+    // One thread, so lines of the file don't interleave
+    private static final ExecutorService WRITER = Executors.newSingleThreadExecutor(task -> {
+        Thread thread = new Thread(task, "npc-failure-writer");
+        thread.setDaemon(true);
+        return thread;
+    });
     private static int recorded = 0;
 
     private NpcFailureRecorder() {
     }
+
+    private record Failure(String id, JsonObject json, NbtCompound snapshot) {}
 
     public static void record(NpcEntity npc, String who, String task, String phase, String why, @Nullable BlockPos target,
                               @Nullable BlockPos bed, @Nullable BlockPos home, @Nullable Path path) {
@@ -68,10 +78,18 @@ public final class NpcFailureRecorder {
         if(!SEEN.add(key))
             return;
         recorded++;
+        Failure failure = build(world, npc, key, who, task, phase, why, target, bed, home, path);
+        java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
+        WRITER.execute(() -> write(dir, failure));
+    }
+
+    // Reads the world, so it runs on the server thread
+    private static Failure build(ServerWorld world, NpcEntity npc, String key, String who, String task, String phase, String why, @Nullable BlockPos target,
+                                 @Nullable BlockPos bed, @Nullable BlockPos home, @Nullable Path path) {
+        BlockPos pos = npc.getBlockPos();
         // Save folder name, since copied worlds keep the first one's level name
         String worldName = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
         String id = "%s-%d-%s".formatted(worldName, world.getTime(), Integer.toHexString(key.hashCode()));
-        java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
 
         BlockPos other = target != null && target.isWithinDistance(pos, TARGET_IN_SNAPSHOT) ? target : pos;
         int minX = Math.min(pos.getX(), other.getX()) - MARGIN;
@@ -137,14 +155,18 @@ public final class NpcFailureRecorder {
         size.add(sizeZ);
         out.add("snapshotSize", size);
         out.addProperty("snapshot", id + SNAPSHOT_EXTENSION);
+        StructureTemplate template = new StructureTemplate();
+        template.saveFromWorld(world, origin, new Vec3i(sizeX, sizeY, sizeZ), false, List.of());
+        return new Failure(id, out, template.writeNbt(new NbtCompound()));
+    }
+
+    private static void write(java.nio.file.Path dir, Failure failure) {
         try {
             Files.createDirectories(dir);
-            StructureTemplate template = new StructureTemplate();
-            template.saveFromWorld(world, origin, new Vec3i(sizeX, sizeY, sizeZ), false, List.of());
-            NbtIo.writeCompressed(template.writeNbt(new NbtCompound()), dir.resolve(id + SNAPSHOT_EXTENSION));
-            Files.writeString(dir.resolve(FAILURES_FILE), GSON.toJson(out) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            NbtIo.writeCompressed(failure.snapshot(), dir.resolve(failure.id() + SNAPSHOT_EXTENSION));
+            Files.writeString(dir.resolve(FAILURES_FILE), GSON.toJson(failure.json()) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch(IOException e) {
-            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not write the failure " + id, e);
+            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not write the failure " + failure.id(), e);
         }
     }
 

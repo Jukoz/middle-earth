@@ -75,6 +75,9 @@ public class CustomBedBlockEntity extends BlockEntity implements BedTagHolder, N
 
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        return createComponentlessNbt(registries);
+        // The client only needs the tag, not who lives in the bed
+        NbtCompound nbt = new NbtCompound();
+        nbt.putNullable(BedTagHolder.TAG_KEY, BedTag.CODEC, tag);
+        return nbt;
     }
 }

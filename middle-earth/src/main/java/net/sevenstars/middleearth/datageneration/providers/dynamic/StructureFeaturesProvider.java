@@ -35,7 +35,7 @@ public class StructureFeaturesProvider extends FabricDynamicRegistryProvider {
             try {
                 MiddleEarth.LOGGER.logInfoMsg(StructureFeaturesReport.write(StructureFeaturesRegistry.scan(), report) + ", report in " + report);
             } catch (IOException e) {
-                throw new IllegalStateException("Could not write the structure features report", e);
+                MiddleEarth.LOGGER.logError("Could not write the structure features report to " + report, e);
             }
         });
     }

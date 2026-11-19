@@ -73,6 +73,9 @@ public abstract class BedBlockEntityMixin extends BlockEntity implements BedTagH
 
     @Override
     public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
-        return createComponentlessNbt(registries);
+        // The client only needs the tag, not who lives in the bed
+        NbtCompound nbt = new NbtCompound();
+        nbt.putNullable(BedTagHolder.TAG_KEY, BedTag.CODEC, middleEarth$tag);
+        return nbt;
     }
 }

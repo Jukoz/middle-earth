@@ -69,10 +69,17 @@ public class ForageTables {
         RegistryEntry<Biome> biome = world.getBiome(pos);
         ForageTable best = null;
         for(ForageTable table : tables.get()) {
-            if(table.fits(biome) && !table.items().isEmpty() && (best == null || table.priority() > best.priority()))
+            if(table.fits(biome) && !table.items().isEmpty() && (best == null || outranks(table, best)))
                 best = table;
         }
         return best == null ? List.of() : best.items();
+    }
+
+    // The longer matched name wins a tie, so ithilien_wastes beats ithilien
+    private static boolean outranks(ForageTable table, ForageTable other) {
+        if(table.priority() != other.priority())
+            return table.priority() > other.priority();
+        return table.name().map(String::length).orElse(0) > other.name().map(String::length).orElse(0);
     }
 
     private static void land(String name, TagKey<Biome> tag, int priority, String... items) {

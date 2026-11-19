@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.resources.datas.biome_events.data;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
@@ -66,16 +67,25 @@ public class PartyData {
     }
 
     public List<Member> getMembers() {
-        return members;
+        return List.copyOf(members);
     }
 
     public record Member(Optional<Identifier> npcClass, Optional<Identifier> entityType, Optional<Identifier> job, int minimumAmount, int maximumAmount) {
-        public static final Codec<Member> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        private static final Codec<Member> FIELDS = RecordCodecBuilder.create(instance -> instance.group(
                 Identifier.CODEC.optionalFieldOf(Fields.NPC_CLASS).forGetter(Member::npcClass),
                 Identifier.CODEC.optionalFieldOf(Fields.ENTITY_TYPE).forGetter(Member::entityType),
                 Identifier.CODEC.optionalFieldOf(Fields.JOB).forGetter(Member::job),
                 Codec.INT.fieldOf(Fields.MINIMUM_AMOUNT).forGetter(Member::minimumAmount),
                 Codec.INT.fieldOf(Fields.MAXIMUM_AMOUNT).forGetter(Member::maximumAmount)
         ).apply(instance, Member::new));
+        public static final Codec<Member> CODEC = FIELDS.validate(Member::validated);
+
+        private DataResult<Member> validated() {
+            if(npcClass.isEmpty() && entityType.isEmpty())
+                return DataResult.error(() -> "A party member needs " + Fields.NPC_CLASS + " or " + Fields.ENTITY_TYPE);
+            if(minimumAmount > maximumAmount)
+                return DataResult.error(() -> "A party member's " + Fields.MINIMUM_AMOUNT + " is above its " + Fields.MAXIMUM_AMOUNT);
+            return DataResult.success(this);
+        }
     }
 }

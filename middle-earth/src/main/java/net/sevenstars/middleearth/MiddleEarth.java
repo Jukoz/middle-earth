@@ -18,6 +18,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.features.npcs.Npcs;
 import net.sevenstars.middleearth.features.smithing.Smithing;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
@@ -79,6 +80,7 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
+		Npcs.register();
 		EventRegistryME.register();
 		StartInMiddleEarth.register();
 		ServerConfigME.registerConfigs();
