@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.features.npcs;
 
+import net.minecraft.util.Hand;
+import net.minecraft.util.ActionResult;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.ai.brain.Brain;
@@ -857,6 +859,13 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     public boolean isEscaping() {
         return prison.isEscaping();
+    }
+
+    @Override
+    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+        if(hand != Hand.MAIN_HAND || getEntityWorld().isClient() || !player.getStackInHand(hand).isEmpty())
+            return super.interactMob(player, hand);
+        return prison.followRescuer(player) ? ActionResult.SUCCESS_SERVER : super.interactMob(player, hand);
     }
 
     public NpcPrison getPrison() {
