@@ -5,6 +5,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.utils.resources.FileUtils;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedBiomePool;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
+import net.sevenstars.middleearth.features.generation.chunkgen.map.ImageUtils;
 import org.joml.Vector2i;
 
 import java.awt.*;
@@ -26,6 +27,8 @@ public class MiddleEarthMapRuntime {
     private static MiddleEarthMapRuntime single_instance = null;
 
     private BufferedImage edgeImage;
+    private float[] depths; // blocks, one per pixel of the depth map
+    private int depthSize;
     private MiddleEarthMapUtils middleEarthMapUtils;
 
     private volatile int latestValidationTick = 0;
@@ -53,6 +56,34 @@ public class MiddleEarthMapRuntime {
             }
         }
         middleEarthMapUtils = MiddleEarthMapUtils.getInstance();
+        BufferedImage depthImage = FileUtils.getInstance().getRunImage(MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_DEPTH_IMAGE_NAME);
+        if(depthImage != null) {
+            depthSize = depthImage.getWidth();
+            depths = new float[depthSize * depthImage.getHeight()];
+            for(int z = 0; z < depthImage.getHeight(); z++) {
+                for(int x = 0; x < depthSize; x++) depths[z * depthSize + x] = (depthImage.getRGB(x, z) & 0xFF) / 255f * ImageUtils.MAX_DEPTH;
+            }
+        }
+    }
+
+    // Blocks the bottom of the world lies below y -64: bilinear between the pixels of the depth map, 0 outside the map
+    public float getDepth(int posX, int posZ) {
+        if(depths == null || !middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return 0;
+        float scale = middleEarthMapUtils.ratioX * MiddleEarthMapConfigs.DEPTH_STEP;
+        float x = posX / scale - 0.5f;
+        float z = posZ / scale - 0.5f;
+        int x0 = (int) Math.floor(x);
+        int z0 = (int) Math.floor(z);
+        float fx = x - x0;
+        float fz = z - z0;
+        float top = depthAt(x0, z0) * (1 - fx) + depthAt(x0 + 1, z0) * fx;
+        float bottom = depthAt(x0, z0 + 1) * (1 - fx) + depthAt(x0 + 1, z0 + 1) * fx;
+        return top * (1 - fz) + bottom * fz;
+    }
+
+    private float depthAt(int x, int z) {
+        int rows = depths.length / depthSize;
+        return depths[Math.max(0, Math.min(rows - 1, z)) * depthSize + Math.max(0, Math.min(depthSize - 1, x))];
     }
 
     public MapBasedCustomBiome getBiome(int posX, int posZ) {

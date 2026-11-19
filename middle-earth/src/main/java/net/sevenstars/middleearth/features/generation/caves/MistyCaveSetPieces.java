@@ -13,14 +13,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 
 final class MistyCaveSetPieces {
     private static final int ATTEMPTS = 4;
     private static final float MIN_WEIGHT = 0.9f;
-    private static final int MIN_Y = -53; // the mithril band is -54 and below
-    private static final int DEEP_Y = -30;
+    private static final int FLOOR_CLEARANCE = 5; // above the deep floor
+    private static final float SCAFFOLD_MIDDLE_SHARE = 0.2f; // the top of the middle band that scaffolds reach into
     private static final int MAX_FLOORS = 16;
-    private static final int MAX_BUILT_Y = 60; // keeps kits off the high rift floors
     private static final int FLOOR_TRIES = 6;
 
     // out of 256, per attempt; the filters on top of these are in place()
@@ -35,18 +35,20 @@ final class MistyCaveSetPieces {
     private final MistyCaves.Lake[] lakes;
     private final int[] surfaceY;
     private final float[] weights;
+    private final DepthBands.Edges[] edges;
     private final int startX;
     private final int startZ;
     private final int topY;
     private final int[] floors = new int[MAX_FLOORS];
     private final BlockPos.Mutable pos = new BlockPos.Mutable();
 
-    MistyCaveSetPieces(Chunk chunk, MistyCaves caves, MistyCaves.Lake[] lakes, int[] surfaceY, float[] weights) {
+    MistyCaveSetPieces(Chunk chunk, MistyCaves caves, MistyCaves.Lake[] lakes, int[] surfaceY, float[] weights, DepthBands.Edges[] edges) {
         this.chunk = chunk;
         this.caves = caves;
         this.lakes = lakes;
         this.surfaceY = surfaceY;
         this.weights = weights;
+        this.edges = edges;
         this.startX = chunk.getPos().getStartX();
         this.startZ = chunk.getPos().getStartZ();
         this.topY = chunk.getTopYInclusive() - 1;
@@ -76,7 +78,20 @@ final class MistyCaveSetPieces {
                 }
             }
 
-            int count = pickFloors(x, z, surfaceY[lx * 16 + lz], type == 2 ? MAX_BUILT_Y : topY);
+            DepthBands.Edges column = edges[lx * 16 + lz];
+            if (column == null) continue;
+            // bones in the middle band and the deeps, scaffolds in the upper band and the top of the middle one, kits in the middle and mithril bands
+            int low = switch (type) {
+                case 0 -> column.floor() + FLOOR_CLEARANCE;
+                case 1 -> column.top(DepthBands.Band.MIDDLE) - (int) (SCAFFOLD_MIDDLE_SHARE * column.thickness(DepthBands.Band.MIDDLE));
+                default -> column.mithrilBottom();
+            };
+            int high = switch (type) {
+                case 0 -> column.top(DepthBands.Band.MIDDLE) - 1;
+                case 1 -> topY;
+                default -> column.top(DepthBands.Band.MIDDLE) - 1;
+            };
+            int count = pickFloors(x, z, surfaceY[lx * 16 + lz], low, high);
             if (count == 0) continue;
             int g = MistyCaves.mix(h, 1, 0);
             int first = ((h >>> 20) & 0xFFF) % count;
@@ -87,12 +102,12 @@ final class MistyCaveSetPieces {
                 boolean placed = false;
                 switch (type) {
                     case 0 -> {
-                        if (nearLake || floor < DEEP_Y || (g & 3) == 0) {
+                        if (nearLake || floor < column.mithrilBottom() || (g & 3) == 0) {
                             bones(x, floor, z, g);
                             placed = true;
                         }
                     }
-                    case 1 -> placed = (floor >= 0 || (seed & 1) != 0) && scaffold(x, floor, z, seed);
+                    case 1 -> placed = (floor >= column.upperBottom() || (seed & 1) != 0) && scaffold(x, floor, z, seed);
                     default -> {
                         kit(x, floor, z, g);
                         placed = true;
@@ -104,10 +119,10 @@ final class MistyCaveSetPieces {
     }
 
     // fills floors with air-above-a-full-block cells of the column
-    private int pickFloors(int x, int z, int surface, int limit) {
+    private int pickFloors(int x, int z, int surface, int low, int high) {
         int count = 0;
-        int top = Math.min(surface - 6, limit);
-        for (int y = top; y >= MIN_Y && count < MAX_FLOORS; y--) {
+        int top = Math.min(surface - 6, high);
+        for (int y = top; y >= low && count < MAX_FLOORS; y--) {
             if (air(x, y, z) && solid(x, y - 1, z)) floors[count++] = y;
         }
         return count;
@@ -272,7 +287,7 @@ final class MistyCaveSetPieces {
     }
 
     private boolean air(int x, int y, int z) {
-        return inside(x, z) && y >= MIN_Y && y <= topY && chunk.getBlockState(pos.set(x, y, z)).isAir();
+        return inside(x, z) && y >= chunk.getBottomY() && y <= topY && chunk.getBlockState(pos.set(x, y, z)).isAir();
     }
 
     private boolean solid(int x, int y, int z) {

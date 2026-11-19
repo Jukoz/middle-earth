@@ -129,6 +129,11 @@ public class MiddleEarthMapGeneration {
             generateBaseEdgeImage(initialMap);
         }
 
+        if(fileUtils.getRunImage(MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_DEPTH_IMAGE_NAME) == null) {
+            MiddleEarth.LOGGER.logInfoMsg("Begin DEPTH generation;");
+            generateBaseDepthImage(initialMap);
+        }
+
 
         MiddleEarth.LOGGER.logInfoMsg("Validating HEIGHT generation availability;");
         if(!validateHeightDatas(initialMap)){
@@ -328,6 +333,14 @@ public class MiddleEarthMapGeneration {
                 FileType.Png
         );
     }
+    private void generateBaseDepthImage(BufferedImage initialMap) {
+        fileUtils.saveImage(ImageUtils.depth(initialMap, MiddleEarthMapConfigs.DEPTH_DILATION, MiddleEarthMapConfigs.DEPTH_BLUR, MiddleEarthMapConfigs.DEPTH_CUTOFF, MiddleEarthMapConfigs.DEPTH_STEP),
+                MiddleEarthMapConfigs.BASE_HEIGHT_PATH,
+                MiddleEarthMapConfigs.BASE_DEPTH_IMAGE_NAME,
+                FileType.Png
+        );
+    }
+
     private void generateBaseEdgeImage(BufferedImage initialMap) {
         edgeHeightImage = ImageUtils.edge(initialMap);
         edgeHeightImage = ImageUtils.blur(edgeHeightImage, 15, false);

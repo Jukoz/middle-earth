@@ -56,7 +56,7 @@ public class SpawnerNPCs implements SpecialSpawner {
 
             Vec3d offset = new Vec3d(MAX_SPAWN_RAD, 0, MAX_SPAWN_RAD);
             Vec3d pos1 = blockPos.toCenterPos().add(offset).add(0, 321 - playerEntity.getEntityPos().y, 0);
-            Vec3d pos2 = blockPos.toCenterPos().subtract(offset).add(0, -63 - playerEntity.getEntityPos().y, 0);
+            Vec3d pos2 = blockPos.toCenterPos().subtract(offset).add(0, -127 - playerEntity.getEntityPos().y, 0);
             int size = world.getEntitiesByClass(NpcEntity.class, new Box(pos1, pos2), (entity) -> true).size();
             if(size <= SPAWN_COUNT_CAP) {
                 float randomAngle = random.nextInt(360);

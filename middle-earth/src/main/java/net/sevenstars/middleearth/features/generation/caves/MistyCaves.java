@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.features.generation.caves;
 import net.minecraft.util.math.MathHelper;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 import net.sevenstars.middleearth.features.generation.biomes.caves.CaveType;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
@@ -16,12 +17,13 @@ public final class MistyCaves {
     private static final float RIFT_Y = 40;
     private static final float RIFT_Z = 80;
     private static final float RIFT_HALF_WIDTH = 0.16f;
-    private static final int RIFT_MIN_Y = 30;
-    private static final int RIFT_FULL_Y = 46;
+    // shares of the upper band's thickness: the rifts fade in from above its bottom and are fully open a little way into it
+    private static final float RIFT_TAPER = 0.15f;
+    private static final float RIFT_FULL = 0.1f;
+    private static final int RIFT_MIN_THICKNESS = 8;
 
-    private static final int CHAMBER_TOP_Y = -10;
-    private static final int CHAMBER_FLOOR_Y = -57; // lava sea is at -60
-    private static final int CHAMBER_DEPTH_RANGE = 40;
+    private static final int CHAMBER_CLEARANCE = DepthBands.LAVA_THICKNESS + 3; // above the deep floor
+    private static final int CHAMBER_TOP_FADE = 6;
 
     private static final int MOUTH_MIN_SURFACE_Y = 110;
     private static final float MOUTH_MIN_WEIGHT = 0.95f;
@@ -36,7 +38,9 @@ public final class MistyCaves {
     private static final int SHAFT_EDGE = 20; // shafts stay this far from their cell border
     private static final int SHAFT_CHANCE = 80; // out of 256
     private static final float SHAFT_MIN_WEIGHT = 0.95f;
-    private static final int SHAFT_MIN_Y = -50;
+    private static final int SHAFT_FLOOR_CLEARANCE = 8; // bottom above the deep floor, the taper closes it before that
+    private static final int SHAFT_FLOOR_SPREAD = 5;
+    private static final float SHAFT_TOP_FROM = 0.9f; // share of the middle band
     private static final int SHAFT_TAPER = 14;
     private static final int SHAFT_MAX_REACH = 16; // radius + wobble + drift
     private static final int BRIDGE_CHANCE = 102; // out of 256
@@ -54,12 +58,16 @@ public final class MistyCaves {
     private static final int ROAD_SURFACE_MARGIN = 15;
     private static final float ROAD_MIN_DIAMETER = 12;
     private static final int ROAD_TRIES = 8;
-    private static final int ROAD_MIN_Y = -47;
+    private static final float ROAD_DECK_FROM = 0.5f; // share of the middle band
+    private static final float ROAD_DECK_TO = 0.8f;
     private static final int ROAD_SURFACE_STEP = 8;
     private static final int ROAD_APRON = 8; // blocks of solid floor past the shaft rim
 
-    private static final int STREAM_MIN_Y = 0;
-    private static final int STREAM_MAX_Y = 50;
+    private static final int STREAM_MIN_THICKNESS = 24; // of the middle band
+    private static final int STREAM_LEVEL_THICKNESS = 110; // one more level for every this many blocks of band, up to three
+    private static final float STREAM_WINDOW = 0.8f; // share of a level's slot the tunnels use
+    private static final int STREAM_WINDOW_MAX = 40;
+    private static final int STREAM_EDGE = 8;
     private static final float STREAM_SLOPE = 0.1f; // blocks of drop per block towards +z
     private static final float STREAM_WIDTH_A = 0.09f;
     private static final float STREAM_WIDTH_B = 0.17f;
@@ -72,10 +80,12 @@ public final class MistyCaves {
     private static final float LAKE_WOBBLE = 0.32f;
     private static final float LAKE_DOME_WOBBLE = 0.25f;
     private static final int LAKE_SHELL = 5;
-    private static final int LAKE_MIN_Y = -50; // shell included; the lava sea is at -60
-    private static final int LAKE_TUNNEL_MAX_Y = 70;
-    private static final int LAKE_TUNNEL_LENGTH = 150;
-    private static final float LAKE_TUNNEL_SLOPE = 0.4f;
+    private static final int LAKE_WATER_MIN_Y = -95;
+    private static final int LAKE_WATER_MAX_Y = -66;
+    private static final int LAKE_FLOOR_CLEARANCE = 6; // shell bottom above the deep floor
+    private static final int LAKE_TUNNEL_MAX_Y = 45;
+    private static final int LAKE_TUNNEL_LENGTH = 130;
+    private static final float LAKE_TUNNEL_SLOPE = 0.8f; // steep enough to clear the rising floor at the edge of the deep region
     private static final float LAKE_TUNNEL_RADIUS = 3.2f;
     private static final int LAKE_SURFACE_CLEARANCE = 40;
     private static final int LAKE_REACH = 256; // tunnel included
@@ -97,15 +107,19 @@ public final class MistyCaves {
         final float radius;
         final int bottomY;
         final int topY;
+        final int middleBottom;
+        final int middleTop;
         final float wobble;
         final boolean bridge;
 
-        private Shaft(int x, int z, int h) {
+        private Shaft(DepthBands.Edges edges, int x, int z, int h) {
             this.x = x;
             this.z = z;
             this.radius = 5 + (mix(h, 3, 0) & 0xFF) / 255f * 4;
-            this.bottomY = SHAFT_MIN_Y + (mix(h, 4, 0) & 0xFF) % 9;
-            this.topY = 40 + (mix(h, 5, 0) & 0xFF) % 21;
+            this.bottomY = edges.floor() + SHAFT_FLOOR_CLEARANCE + (mix(h, 4, 0) & 0xFF) % SHAFT_FLOOR_SPREAD;
+            this.topY = edges.at(DepthBands.Band.MIDDLE, SHAFT_TOP_FROM + (1 - SHAFT_TOP_FROM) * (mix(h, 5, 0) & 0xFF) / 255f);
+            this.middleBottom = edges.middleBottom();
+            this.middleTop = edges.top(DepthBands.Band.MIDDLE);
             this.wobble = (mix(h, 6, 0) & 0xFFF);
             this.bridge = (mix(h, 12, 0) & 0xFF) < BRIDGE_CHANCE;
         }
@@ -115,6 +129,9 @@ public final class MistyCaves {
         final Shaft shaft;
         final boolean alongX;
         final int deckY;
+        final int minDeck;
+        final int minY;
+        final int maxY;
         final int[] length = new int[2]; // negative then positive side
         final float[] slope = new float[2];
 
@@ -122,10 +139,18 @@ public final class MistyCaves {
             this.shaft = shaft;
             this.alongX = alongX;
             this.deckY = deckY;
+            this.minDeck = shaft.middleBottom;
+            int low = deckY;
+            int high = deckY;
             for (int side = 0; side < 2; side++) {
                 length[side] = ROAD_MIN_LENGTH + (mix(h, 21 + side, 0) & 0xFFFF) % (ROAD_MAX_LENGTH - ROAD_MIN_LENGTH + 1);
                 slope[side] = ROAD_MAX_SLOPE * ((mix(h, 23 + side, 0) & 0xFFFF) / 32767.5f - 1);
+                int end = Math.max(minDeck, deckY + Math.round(slope[side] * (length[side] - ROAD_FLAT)));
+                low = Math.min(low, end);
+                high = Math.max(high, end);
             }
+            this.minY = low - 3;
+            this.maxY = high + 4;
         }
     }
 
@@ -159,8 +184,7 @@ public final class MistyCaves {
             this.rx = 40 + (mix(h, 21, 0) & 0xFF) / 255f * 40;
             this.rz = 40 + (mix(h, 22, 0) & 0xFF) / 255f * 40;
             this.depth = 6 + (mix(h, 24, 0) & 0xFF) % 7;
-            int lowest = -(Math.abs(LAKE_MIN_Y) - 1) + depth + LAKE_SHELL;
-            this.waterTop = lowest + (mix(h, 23, 0) & 0xFFFF) % (1 - lowest);
+            this.waterTop = LAKE_WATER_MIN_Y + (mix(h, 23, 0) & 0xFFFF) % (LAKE_WATER_MAX_Y - LAKE_WATER_MIN_Y + 1);
             this.height = 14 + (mix(h, 25, 0) & 0xFF) % 13;
             this.wobble = (mix(h, 26, 0) & 0xFFF);
             float minRadius = Math.min(rx, rz);
@@ -197,6 +221,10 @@ public final class MistyCaves {
             return height * (1 + LAKE_DOME_WOBBLE);
         }
 
+        int lowestY() {
+            return waterTop - depth - LAKE_SHELL;
+        }
+
         private boolean touches(int startX, int startZ) {
             int reach = (int) (Math.max(rx, rz) * (1 + LAKE_WOBBLE)) + LAKE_SHELL + 1;
             if (x + reach >= startX && x - reach <= startX + 15 && z + reach >= startZ && z - reach <= startZ + 15) return true;
@@ -221,8 +249,10 @@ public final class MistyCaves {
     final int offsetX;
     final int offsetY;
     final int offsetZ;
+    final long seed;
 
     public MistyCaves(long seed) {
+        this.seed = seed;
         int hash = Long.hashCode(seed);
         this.offsetX = Math.floorMod(hash, 4096);
         this.offsetY = Math.floorMod(hash * 31 + 7919, 4096);
@@ -263,21 +293,40 @@ public final class MistyCaves {
     }
 
     // open where positive; scale is weight * cluster
-    public float riftMargin(int x, int y, int z, float scale) {
+    public float riftMargin(int x, int y, int z, float scale, DepthBands.Edges edges) {
         float n = (float) SimplexNoise.noise((x + offsetX) / RIFT_X, (y + offsetY) / RIFT_Y, (z + offsetZ) / RIFT_Z);
         n += 0.25f * (float) SimplexNoise.noise((x + offsetX) / (RIFT_X * 0.5f), (y + offsetY) / (RIFT_Y * 0.5f), (z + offsetZ) / (RIFT_Z * 0.5f));
         n /= 1.25f;
-        float envelope = smoothstep(RIFT_MIN_Y, RIFT_FULL_Y, y);
-        return RIFT_HALF_WIDTH * scale * envelope - Math.abs(n);
+        return RIFT_HALF_WIDTH * scale * riftEnvelope(edges, y) - Math.abs(n);
     }
 
-    public float chamberMargin(int x, int y, int z, float weight) {
-        float depth = MathHelper.clamp((CHAMBER_TOP_Y - y) / (float) CHAMBER_DEPTH_RANGE, 0f, 1f);
+    // the lowest y a rift can open at in a column, or the cap when it has none
+    public static int riftBottom(DepthBands.Edges edges) {
+        int thickness = edges.thickness(DepthBands.Band.UPPER);
+        if (thickness < RIFT_MIN_THICKNESS) return edges.cap();
+        return edges.upperBottom() - (int) (RIFT_TAPER * thickness);
+    }
+
+    private static float riftEnvelope(DepthBands.Edges edges, int y) {
+        int thickness = edges.thickness(DepthBands.Band.UPPER);
+        if (thickness < RIFT_MIN_THICKNESS) return 0;
+        return smoothstep(edges.upperBottom() - RIFT_TAPER * thickness, edges.upperBottom() + RIFT_FULL * thickness, y);
+    }
+
+    public float chamberMargin(int x, int y, int z, float weight, DepthBands.Edges edges) {
+        int top = edges.top(DepthBands.Band.DEEPS);
+        float depth = MathHelper.clamp((top - y) / (float) Math.max(1, top - edges.floor()), 0f, 1f);
         float n = 0.7f * (float) SimplexNoise.noise((x + offsetX + 311) / 28f, (y + offsetY) / 18f, (z + offsetZ + 577) / 28f);
         n += 0.3f * (float) SimplexNoise.noise((x + offsetX + 311) / 14f, (y + offsetY) / 9f, (z + offsetZ + 577) / 14f);
-        float threshold = 0.55f - 0.15f * depth + (1 - weight) * 0.6f;
-        float floorFade = MathHelper.clamp((y - CHAMBER_FLOOR_Y) / 4f, 0f, 1f);
-        return n - threshold - (1 - floorFade) * 2f;
+        // wider and commoner the deeper it gets
+        float threshold = 0.6f - 0.25f * depth + (1 - weight) * 0.6f;
+        float floorFade = MathHelper.clamp((y - (edges.floor() + CHAMBER_CLEARANCE)) / 4f, 0f, 1f);
+        float topFade = MathHelper.clamp((top - y) / (float) CHAMBER_TOP_FADE, 0f, 1f);
+        return n - threshold - (1 - floorFade) * 2f - (1 - topFade) * 2f;
+    }
+
+    public static int chamberBottom(DepthBands.Edges edges) {
+        return edges.floor() + CHAMBER_CLEARANCE - 4;
     }
 
     // shafts whose reach touches the chunk, or an empty array
@@ -314,7 +363,11 @@ public final class MistyCaves {
         int z = cellZ * SHAFT_CELL + SHAFT_EDGE + (mix(h, 2, 0) & 0xFFFF) % span;
         if (x < startX - reach || x > startX + 15 + reach || z < startZ - reach || z > startZ + 15 + reach) return null;
         if (weight(map, x, z) < SHAFT_MIN_WEIGHT) return null;
-        return new Shaft(x, z, h);
+        return new Shaft(edgesAt(map, x, z), x, z, h);
+    }
+
+    DepthBands.Edges edgesAt(MiddleEarthMapRuntime map, int x, int z) {
+        return DepthBands.Edges.of((int) surface(x, z), DepthBands.deepFloor(map, x, z, seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed));
     }
 
     // the road of a bridge-rolled shaft, or null when no deck height keeps it under the surface; pure in the shaft
@@ -323,8 +376,10 @@ public final class MistyCaves {
         int h = mix(shaft.x, shaft.z, 7311);
         boolean alongX = (mix(h, 20, 0) & 1) == 0;
         float[] profile = new float[3];
-        int lo = shaft.bottomY + ROAD_FROM_BOTTOM;
-        int hi = shaft.topY - ROAD_FROM_TOP;
+        int middle = shaft.middleTop - shaft.middleBottom;
+        int lo = Math.max(shaft.bottomY + ROAD_FROM_BOTTOM, shaft.middleBottom + Math.round(ROAD_DECK_FROM * middle));
+        int hi = Math.min(shaft.topY - ROAD_FROM_TOP, shaft.middleBottom + Math.round(ROAD_DECK_TO * middle));
+        if (hi < lo) return null;
         for (int attempt = 0; attempt < ROAD_TRIES; attempt++) {
             int deck = lo + (mix(h, 30, attempt) & 0xFFFF) % (hi - lo + 1);
             shaftProfile(shaft, deck, profile, 0);
@@ -394,11 +449,7 @@ public final class MistyCaves {
     static int roadDeck(Road road, int t) {
         int a = Math.abs(t);
         if (a <= ROAD_FLAT) return road.deckY;
-        return Math.max(ROAD_MIN_Y, road.deckY + Math.round(road.slope[t < 0 ? 0 : 1] * (a - ROAD_FLAT)));
-    }
-
-    public static boolean usesRoad(int y) {
-        return y >= ROAD_MIN_Y && y <= 72;
+        return Math.max(road.minDeck, road.deckY + Math.round(road.slope[t < 0 ? 0 : 1] * (a - ROAD_FLAT)));
     }
 
     // solid under and beside the road mouth: the deck row and three rows below it, 5 wide, from just inside the rim outward
@@ -468,14 +519,32 @@ public final class MistyCaves {
     }
 
     // two thin sheets: a near-vertical one and a layered one that tilts, so the tube winds and slopes
-    public float streamMargin(int x, int y, int z, float weight) {
+    public float streamMargin(int x, int y, int z, float weight, DepthBands.Edges edges) {
         float a = (float) SimplexNoise.noise((x + offsetX + 1201) / 64f, (y + offsetY) / 60f, (z + offsetZ + 733) / 64f);
         float tilted = y + STREAM_SLOPE * z;
         float b = (float) SimplexNoise.noise((x + offsetX + 2203) / 64f, (tilted + offsetY + 97) / 16f, (z + offsetZ + 1511) / 64f);
         float gate = (float) SimplexNoise.noise((x + offsetX + 3301) / 200f, (z + offsetZ + 2711) / 200f);
-        float envelope = smoothstep(STREAM_MIN_Y, STREAM_MIN_Y + 8, y) * (1 - smoothstep(STREAM_MAX_Y - 8, STREAM_MAX_Y, y));
         float margin = Math.min(1 - Math.abs(a) / STREAM_WIDTH_A, 1 - Math.abs(b) / STREAM_WIDTH_B);
-        return margin - (1 - envelope) * 2f - (1 - smoothstep(-0.25f, 0.2f, gate)) * 2f - (1 - weight) * 2f;
+        return margin - (1 - streamEnvelope(edges, y)) * 2f - (1 - smoothstep(-0.25f, 0.2f, gate)) * 2f - (1 - weight) * 2f;
+    }
+
+    // one to three levels, each a window around the middle of an equal slot of the middle band
+    public static boolean streamBand(DepthBands.Edges edges) {
+        return edges.thickness(DepthBands.Band.MIDDLE) >= STREAM_MIN_THICKNESS;
+    }
+
+    private static float streamEnvelope(DepthBands.Edges edges, int y) {
+        int thickness = edges.thickness(DepthBands.Band.MIDDLE);
+        if (thickness < STREAM_MIN_THICKNESS) return 0;
+        int levels = Math.min(3, 1 + thickness / STREAM_LEVEL_THICKNESS);
+        float slot = thickness / (float) levels;
+        float half = Math.min(slot * 0.5f * STREAM_WINDOW, STREAM_WINDOW_MAX);
+        float envelope = 0;
+        for (int level = 0; level < levels; level++) {
+            float centre = edges.middleBottom() + (level + 0.5f) * slot;
+            envelope = Math.max(envelope, smoothstep(centre - half - STREAM_EDGE, centre - half, y) * (1 - smoothstep(centre + half, centre + half + STREAM_EDGE, y)));
+        }
+        return envelope;
     }
 
     // lakes whose chamber or tunnel touches the chunk, or an empty array
@@ -503,8 +572,30 @@ public final class MistyCaves {
         return found;
     }
 
-    // the whole footprint must be Misty, with solid rock between the dome and the surface
-    private static boolean lakeFits(MiddleEarthMapRuntime map, Lake lake) {
+    private static final int FIT_CACHE_SIZE = 256;
+    private static final java.util.Map<java.util.List<Long>, Boolean> FITS = new java.util.LinkedHashMap<>() {
+        @Override
+        protected boolean removeEldestEntry(java.util.Map.Entry<java.util.List<Long>, Boolean> eldest) {
+            return size() > FIT_CACHE_SIZE;
+        }
+    };
+
+    // the footprint must be Misty, with solid rock between the dome and the surface, the shell clear of the deep floor
+    // and the tunnel clear of it all the way up
+    private boolean lakeFits(MiddleEarthMapRuntime map, Lake lake) {
+        java.util.List<Long> key = java.util.List.of(seed, (long) lake.x, (long) lake.z);
+        synchronized (FITS) {
+            Boolean known = FITS.get(key);
+            if (known != null) return known;
+        }
+        boolean fits = computeFits(map, lake);
+        synchronized (FITS) {
+            FITS.put(key, fits);
+        }
+        return fits;
+    }
+
+    private boolean computeFits(MiddleEarthMapRuntime map, Lake lake) {
         if (weight(map, lake.x, lake.z) < LAKE_MIN_WEIGHT) return false;
         float limit = lake.waterTop + lake.ceilingMax() + 1 + LAKE_SURFACE_CLEARANCE;
         if (surface(lake.x, lake.z) < limit) return false;
@@ -513,6 +604,22 @@ public final class MistyCaves {
             int x = lake.x + (int) (Math.cos(angle) * lake.rx * (1 + LAKE_WOBBLE));
             int z = lake.z + (int) (Math.sin(angle) * lake.rz * (1 + LAKE_WOBBLE));
             if (weight(map, x, z) < LAKE_RIM_WEIGHT || surface(x, z) < limit) return false;
+        }
+        for (int i = 0; i < 8; i++) {
+            double angle = i * Math.PI / 4;
+            for (float share : new float[]{0, 0.4f, 0.7f, 0.95f}) {
+                int x = lake.x + (int) (Math.cos(angle) * lake.rx * share);
+                int z = lake.z + (int) (Math.sin(angle) * lake.rz * share);
+                float inner = share / (1 - LAKE_WOBBLE);
+                float bottom = lake.waterTop - (lake.depth + LAKE_SHELL) * (float) Math.sqrt(Math.max(0, 1 - inner * inner));
+                if (bottom < DepthBands.deepFloor(map, x, z, seed) + LAKE_FLOOR_CLEARANCE) return false;
+            }
+        }
+        for (int along = 0; along <= LAKE_TUNNEL_LENGTH; along += 8) {
+            int x = (int) (lake.tunnelX + lake.tunnelDx * along);
+            int z = (int) (lake.tunnelZ + lake.tunnelDz * along);
+            float y = lake.tunnelY + LAKE_TUNNEL_SLOPE * along - LAKE_TUNNEL_RADIUS;
+            if (y < DepthBands.deepFloor(map, x, z, seed) + DepthBands.LAVA_THICKNESS + 3) return false;
         }
         int endX = (int) (lake.tunnelX + lake.tunnelDx * LAKE_TUNNEL_LENGTH);
         int endZ = (int) (lake.tunnelZ + lake.tunnelDz * LAKE_TUNNEL_LENGTH);
@@ -523,8 +630,15 @@ public final class MistyCaves {
         return MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z);
     }
 
-    public static boolean usesLake(int y) {
-        return y >= LAKE_MIN_Y && y <= LAKE_TUNNEL_MAX_Y;
+    // the range of y a lake or its tunnel can touch
+    public static int lakeMinY(Lake[] lakes) {
+        int min = Integer.MAX_VALUE;
+        for (Lake lake : lakes) min = Math.min(min, lake.lowestY());
+        return min;
+    }
+
+    public static int lakeMaxY() {
+        return LAKE_TUNNEL_MAX_Y;
     }
 
     // multiplier on the basin's horizontal radius: low frequencies dominate so the outline reads as a cavern
@@ -597,12 +711,25 @@ public final class MistyCaves {
         return ex * ex + ey * ey + ez * ez < LAKE_TUNNEL_RADIUS * LAKE_TUNNEL_RADIUS;
     }
 
-    public static boolean usesShaft(int y) {
-        return y >= SHAFT_MIN_Y - 4 && y <= 64;
+    // the range of y the shafts of a chunk can touch, as lowest then highest
+    public static int[] shaftRange(Shaft[] shafts) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (Shaft shaft : shafts) {
+            min = Math.min(min, shaft.bottomY - 4);
+            max = Math.max(max, shaft.topY);
+        }
+        return new int[]{min, max};
     }
 
-    public static boolean usesStream(int y) {
-        return y >= STREAM_MIN_Y - 2 && y <= STREAM_MAX_Y + 2;
+    public static int[] roadRange(Road[] roads) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (Road road : roads) {
+            min = Math.min(min, road.minY);
+            max = Math.max(max, road.maxY);
+        }
+        return new int[]{min, max};
     }
 
     // stateless integer hash
@@ -616,20 +743,12 @@ public final class MistyCaves {
         return h;
     }
 
-    public static boolean usesRift(int y) {
-        return y >= RIFT_MIN_Y;
-    }
-
-    public static boolean usesChamber(int y) {
-        return y <= CHAMBER_TOP_Y + 4 && y >= CHAMBER_FLOOR_Y - 4;
-    }
-
     // true where a rift breaks through the surface skin
     public boolean mouthOpen(int x, int z, float weight, int surfaceY) {
         if (weight < MOUTH_MIN_WEIGHT || surfaceY < MOUTH_MIN_SURFACE_Y) return false;
         float gate = (float) SimplexNoise.noise((x + offsetX + 901) / 70f, (z + offsetZ + 433) / 70f);
         if (gate < MOUTH_GATE) return false;
-        return riftMargin(x, surfaceY - 5, z, weight * riftCluster(x, z)) > 0.02f;
+        return riftMargin(x, surfaceY - 5, z, weight * riftCluster(x, z), DepthBands.Edges.of(surfaceY, DepthBands.SHALLOW_FLOOR, MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed))) > 0.02f;
     }
 
     private static float smoothstep(float edge0, float edge1, float x) {

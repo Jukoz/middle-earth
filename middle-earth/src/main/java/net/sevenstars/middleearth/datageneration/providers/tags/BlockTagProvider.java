@@ -320,6 +320,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(OreStoneSetRegistryME.NURGON.emerald_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.ruby_ore());
 
+        needsDiamondTools.add(OreStoneSetRegistryME.NURGON.mithril_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.lead_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.silver_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.gold_ore());

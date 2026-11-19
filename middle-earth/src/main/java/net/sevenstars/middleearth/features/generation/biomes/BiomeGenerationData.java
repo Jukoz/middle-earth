@@ -6,6 +6,7 @@ public class BiomeGenerationData {
 
     public RidgeAxis ridgeAxis = RidgeAxis.ISOTROPIC;
     public float ridgeAmplitude = 11; // blocks per unit of ridge noise and of mountain multiplier
+    public int extraDepth; // blocks the bottom of the world lies below y -64, 0 to 64; the map bake spreads it out into the foothills
     public byte[] biomeWeight;
     public double noiseModifier; /** Between 0 and 2; */
     public double heightModifier; /** Between 0 and 2; */
@@ -16,6 +17,7 @@ public class BiomeGenerationData {
         this.heightModifier = data.heightModifier;
         this.ridgeAxis = data.ridgeAxis;
         this.ridgeAmplitude = data.ridgeAmplitude;
+        this.extraDepth = data.extraDepth;
     }
 
     public BiomeGenerationData() {
@@ -36,6 +38,12 @@ public class BiomeGenerationData {
     public BiomeGenerationData heightModifier(double heightModifier) {
         BiomeGenerationData newInstance = new BiomeGenerationData(this);
         newInstance.heightModifier = heightModifier;
+        return newInstance;
+    }
+
+    public BiomeGenerationData extraDepth(int extraDepth) {
+        BiomeGenerationData newInstance = new BiomeGenerationData(this);
+        newInstance.extraDepth = extraDepth;
         return newInstance;
     }
 

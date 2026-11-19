@@ -7,14 +7,5 @@
   "start_pool": "middle-earth:misty/dwarf_mine/start",
   "corridor_pool": "middle-earth:misty/dwarf_mine/corridors",
   "size": 7,
-  "start_height": {
-    "type": "minecraft:uniform",
-    "min_inclusive": {
-      "absolute": -40
-    },
-    "max_inclusive": {
-      "absolute": 30
-    }
-  },
   "max_distance_from_center": 80
 }

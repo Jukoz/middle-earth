@@ -7,10 +7,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
+import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
+import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 
 public final class MistyCaveDecorator {
-    private static final int ICE_DEPTH = 28; // blocks below the surface
     private static final float ICE_MIN_WEIGHT = 0.5f;
 
     private static final float WORM_INNER = 0.8f; // squared share of the lake radius
@@ -26,13 +28,18 @@ public final class MistyCaveDecorator {
         int startZ = chunk.getPos().getStartZ();
         BlockPos.Mutable pos = new BlockPos.Mutable();
         for (MistyCaves.Lake lake : lakes) glowWorms(chunk, caves, lake, startX, startZ, pos);
+        DepthBands.Edges[] edges = new DepthBands.Edges[16 * 16];
         for (int lx = 0; lx < 16; lx++) {
             for (int lz = 0; lz < 16; lz++) {
-                if (weights[lx * 16 + lz] < ICE_MIN_WEIGHT) continue;
-                ice(chunk, caves, startX + lx, startZ + lz, lx, lz, surfaceY[lx * 16 + lz], pos);
+                int index = lx * 16 + lz;
+                if (weights[index] < ICE_MIN_WEIGHT) continue;
+                int x = startX + lx;
+                int z = startZ + lz;
+                edges[index] = DepthBands.Edges.of(surfaceY[index], DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, caves.seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, caves.seed));
+                ice(chunk, caves, x, z, lx, lz, surfaceY[index], edges[index].upperBottom(), pos);
             }
         }
-        new MistyCaveSetPieces(chunk, caves, lakes, surfaceY, weights).place();
+        new MistyCaveSetPieces(chunk, caves, lakes, surfaceY, weights, edges).place();
     }
 
     private static void glowWorms(Chunk chunk, MistyCaves caves, MistyCaves.Lake lake, int startX, int startZ, BlockPos.Mutable pos) {
@@ -67,8 +74,10 @@ public final class MistyCaveDecorator {
         }
     }
 
-    private static void ice(Chunk chunk, MistyCaves caves, int x, int z, int lx, int lz, int surface, BlockPos.Mutable pos) {
-        int bottom = Math.max(chunk.getBottomY() + 1, surface - ICE_DEPTH);
+    // the cold reaches down through the upper band, fading out at its bottom
+    private static void ice(Chunk chunk, MistyCaves caves, int x, int z, int lx, int lz, int surface, int upperBottom, BlockPos.Mutable pos) {
+        int bottom = Math.max(chunk.getBottomY() + 1, upperBottom);
+        int depth = Math.max(1, surface - upperBottom);
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
         // the block above is read once and carried to the next step; it is replaced when a snow layer goes there
         BlockState carried = null;
@@ -85,7 +94,7 @@ public final class MistyCaveDecorator {
                     || (lz > 0 && stateAt(chunk, lx, y, lz - 1).isAir())
                     || (lz < 15 && stateAt(chunk, lx, y, lz + 1).isAir()));
             if (!floor && !wall) continue;
-            float cold = 1 - (surface - y) / (float) ICE_DEPTH;
+            float cold = 1 - (surface - y) / (float) depth;
             float patch = (float) SimplexNoise.noise((x + caves.offsetX) / 7f, (y + caves.offsetY) / 7f, (z + caves.offsetZ) / 7f);
             if (patch < -0.35f) continue;
             int h = MistyCaves.mix(x + caves.offsetX, y + caves.offsetY, z + caves.offsetZ);

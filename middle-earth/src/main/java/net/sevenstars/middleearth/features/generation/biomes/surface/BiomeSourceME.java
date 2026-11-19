@@ -6,12 +6,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
-import net.sevenstars.middleearth.features.generation.biomes.caves.CaveType;
 import net.sevenstars.middleearth.features.generation.biomes.caves.CaveBiomesME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.chunkgen.ProceduralStructures;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.features.generation.worldfeatures.underground.CavesPlacedFeatureRegistryME;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -56,12 +55,12 @@ public class BiomeSourceME extends BiomeSource {
         return biomes.stream();
     }
 
-    private RegistryKey<Biome> getCaveBiome(int x, int z, BiomeData surfaceBiome) {
+    private RegistryKey<Biome> getCaveBiome(int x, int z, BiomeData surfaceBiome, DepthBands.Band band) {
         x += MiddleEarthHeightMap.getSeed();
         z += MiddleEarthHeightMap.getSeed();
         float temperature = (float) SimplexNoise.noise((double) x / CAVE_NOISE,  (double) z / CAVE_NOISE);
         float humidity = (float) SimplexNoise.noise((double) (x + CAVE_OFFSET) / CAVE_NOISE, (double)(z + CAVE_OFFSET) / CAVE_NOISE);
-        return CaveBiomesME.getBiome(new Vec2f(temperature, humidity), surfaceBiome);
+        return CaveBiomesME.getBiome(new Vec2f(temperature, humidity), surfaceBiome, band);
     }
 
     public static double getSubBiomeNoise(int x, int z, float frequency) {
@@ -96,11 +95,14 @@ public class BiomeSourceME extends BiomeSource {
         }
 
         RegistryKey<Biome> processedBiome;
-        if (column.misties && j <= CavesPlacedFeatureRegistryME.MAX_MITHRIL_HEIGHT) {
-            processedBiome = BiomeKeyRegistryME.MITHRIL_CAVE;
-        } else if (j < column.caveBelow || j < column.marshCaveBelow) {
-            if (column.caveBiome == null) column.caveBiome = getCaveBiome(i, k, column.mapBiome.getBiome());
-            processedBiome = column.caveBiome;
+        if (j < column.caveBelow || j < column.marshCaveBelow) {
+            DepthBands.Span span = DepthBands.at(j, column.edges);
+            DepthBands.Band band = span == null ? DepthBands.Band.UPPER : span.band();
+            RegistryKey<Biome> caveBiome = column.caveBiomes[band.ordinal()];
+            // the deeps belong to every column with a floor below the usual one, whatever its cave type
+            if (band == DepthBands.Band.DEEPS && column.edges.floor() < DepthBands.SHALLOW_FLOOR) caveBiome = column.caveBiomes[band.ordinal()] = BiomeKeyRegistryME.NAMELESS_DEEPS;
+            if (caveBiome == null) caveBiome = column.caveBiomes[band.ordinal()] = getCaveBiome(i, k, column.mapBiome.getBiome(), band);
+            processedBiome = caveBiome;
         } else {
             processedBiome = column.surfaceBiome;
         }
@@ -113,11 +115,16 @@ public class BiomeSourceME extends BiomeSource {
         int x;
         int z;
         MapBasedCustomBiome mapBiome;
-        boolean misties;
+        DepthBands.Edges edges;
         float caveBelow;
         float marshCaveBelow = Float.NEGATIVE_INFINITY;
         RegistryKey<Biome> surfaceBiome;
-        RegistryKey<Biome> caveBiome;
+        final RegistryKey<Biome>[] caveBiomes = newBandArray();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static RegistryKey<Biome>[] newBandArray() {
+        return new RegistryKey[DepthBands.Band.values().length];
     }
 
     private static final int COLUMN_CACHE_SIZE = 256;
@@ -145,10 +152,11 @@ public class BiomeSourceME extends BiomeSource {
         if (biomeHeightData == null) return;
 
         BiomeData biome = biomeHeightData.getBiome();
-        column.misties = biome.getCaveType() == CaveType.MISTIES;
 
         float height = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getCachedHeight(i, k);
         column.caveBelow = height - 16;
+        long seed = MiddleEarthHeightMap.getSeed();
+        column.edges = DepthBands.Edges.of((int) height, DepthBands.deepFloor(middleEarthMapRuntime, i, k, seed), MiddleEarthChunkGenerator.caveBlendNoise(i, k, seed));
 
         if(!MapBasedBiomePool.waterBiomes.contains(biome.getBiomeRegistryKey())) {
             RegistryKey<Biome> biomeRegistryKey = biome.getBiomeRegistryKey();

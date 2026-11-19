@@ -82,6 +82,9 @@ public final class BiomeAmbianceME {
     public static final BiomeAmbianceME ASH_MOUNTAINS = sky(0x3F3636, 0x2F2727)
             .withParticles(Particles.CINDERS)
             .withSounds(Sounds.MORDOR);
+    // The caves below the Dwarves' delvings
+    public static final BiomeAmbianceME NAMELESS_DEEPS = sky(0x0A0D12, 0x05070A)
+            .withParticles(Particles.DRIPS);
 
     private final int skyColor;
     private final int fogColor;
@@ -209,6 +212,8 @@ public final class BiomeAmbianceME {
         public static final Particles MOTES = new Particles(ParticleTypes.MYCELIUM, 0.012f).onlyUnderCover();
         public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f).onlyUnderCover();
         public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f).onlyUnderCover();
+
+        public static final Particles DRIPS = new Particles(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.002f);
 
         public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);
         public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.025f);

@@ -23,7 +23,7 @@ public class MiddleEarthMapConfigs {
     public static final int FULL_MAP_SIZE = (int) (REGION_SIZE * Math.pow(2, MAP_ITERATION) * PIXEL_WEIGHT);
 
     // Part of the folder the baked map data lives in, so a changed bake is picked up instead of the old files
-    public static final String MAP_DATA_VERSION = MiddleEarth.MOD_VERSION + "-terrain2";
+    public static final String MAP_DATA_VERSION = MiddleEarth.MOD_VERSION + "-terrain4";
     public static final String MOD_DATA_ROOT = "data/";
     public static final String MOD_DATA_MOD_ROOT = "data/me/";
     public static final String MOD_DATA = "data/me/%s".formatted(MAP_DATA_VERSION);
@@ -32,6 +32,12 @@ public class MiddleEarthMapConfigs {
     public static final String BASE_HEIGHT_PATH = "%s/heights/base".formatted(MOD_DATA);
     public static final String BASE_HEIGHT_IMAGE_NAME = "/base_height.png";
     public static final String BASE_EDGE_IMAGE_NAME = "/base_edge.png";
+    public static final String BASE_DEPTH_IMAGE_NAME = "/base_depth.png";
+    // initial map pixels to a pixel of the depth map, which is smooth enough for bilinear sampling
+    public static final int DEPTH_STEP = 4;
+    public static final int DEPTH_DILATION = 5; // initial map pixels
+    public static final float DEPTH_BLUR = 3; // sigma, in initial map pixels; the kernel stops at 2.5 sigma
+    public static final float DEPTH_CUTOFF = 2; // blocks of baked depth that count as none, the rest is stretched back to the full depth
     public static final String IMAGE_NAME = "/%s_%s.png";
     public static final String INITIAL_IMAGE = "assets/%s/textures/map.png".formatted(MiddleEarth.MOD_ID);
     public static final String INITIAL_MAP_FOLDER = "assets/%s/textures/map_data/%s".formatted(MiddleEarth.MOD_ID, MAP_DATA_VERSION);

@@ -29,7 +29,8 @@ public class Caves {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                         BiomeKeyRegistryME.IZHERABAN_CAVE, BiomeKeyRegistryME.LIMESTONE_CAVE, BiomeKeyRegistryME.DOLOMITE_CAVE,
                         BiomeKeyRegistryME.DRIPSTONE_CAVE, BiomeKeyRegistryME.MOUNTAIN_CAVE, BiomeKeyRegistryME.BASIC_CAVE,
-                        BiomeKeyRegistryME.LUSH_CAVE, BiomeKeyRegistryME.FUNGUS_CAVE, BiomeKeyRegistryME.MITHRIL_CAVE),
+                        BiomeKeyRegistryME.LUSH_CAVE, BiomeKeyRegistryME.FUNGUS_CAVE, BiomeKeyRegistryME.ICE_CAVE,
+                        BiomeKeyRegistryME.MITHRIL_CAVE, BiomeKeyRegistryME.NAMELESS_DEEPS),
                 GenerationStep.Feature.TOP_LAYER_MODIFICATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, MiddleEarth.id("misty_road_cleanup")));
     }
 }

@@ -6,6 +6,8 @@ import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.surface.BiomeData;
 import net.sevenstars.middleearth.features.generation.worldfeatures.underground.CavesPlacedFeatureRegistryME;
 import net.sevenstars.middleearth.features.generation.worldfeatures.vegetation.VegetationPlacedFeatureRegistryME;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -32,6 +34,7 @@ public class CaveBiomesME {
     public static CaveBiomesMap elvenCaves = new CaveBiomesMap();
     public static CaveBiomesMap forodCaves = new CaveBiomesMap();
     public static CaveBiomesMap mountainCaves = new CaveBiomesMap();
+    public static CaveBiomesMap mistyCaves = new CaveBiomesMap();
     public static CaveBiomesMap lonelyMountainCaves = new CaveBiomesMap();
     public static CaveBiomesMap haradCaves = new CaveBiomesMap();
 
@@ -69,6 +72,21 @@ public class CaveBiomesME {
         mountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
         mountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
 
+        // the Misty Mountains by depth band; the middle one is the mountain palette
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.ICE_CAVE, new Vec2f(-0.6f,0.3f), DepthBands.Band.UPPER));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(0.6f,0.3f), DepthBands.Band.UPPER));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MOUNTAIN_CAVE, new Vec2f(0.0f,-0.6f), DepthBands.Band.UPPER));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.IZHERABAN_CAVE, new Vec2f(-1.0f,1.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LIMESTONE_CAVE, new Vec2f(0.0f,1.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DOLOMITE_CAVE, new Vec2f(1.0f,1.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(1.0f,0.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MOUNTAIN_CAVE, new Vec2f(0.0f,0.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.BASIC_CAVE, new Vec2f(0.0f,-1.0f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LUSH_CAVE, new Vec2f(-1.25f,-1.1f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.FUNGUS_CAVE, new Vec2f(0f,-1.1f), DepthBands.Band.MIDDLE));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MITHRIL_CAVE, new Vec2f(0.0f,0.0f), DepthBands.Band.MITHRIL));
+        mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.NAMELESS_DEEPS, new Vec2f(0.0f,0.0f), DepthBands.Band.DEEPS));
+
         ashCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
         ashCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.BASALT_CAVE, new Vec2f(-1.0f,0.5f)));
         ashCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MAGMA_CAVE, new Vec2f(0.0f,-1.0f)));
@@ -81,18 +99,19 @@ public class CaveBiomesME {
         forodCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(1.0f,0f)));
     }
 
-    public static RegistryKey<Biome> getBiome(Vec2f coordinates, BiomeData surfaceBiome) {
+    public static RegistryKey<Biome> getBiome(Vec2f coordinates, BiomeData surfaceBiome, DepthBands.Band band) {
         if(surfaceBiome.getCaveType() != null)
             return switch (surfaceBiome.getCaveType()) {
-                case ASHEN -> ashCaves.getClosestBiome(coordinates);
-                case ELVEN -> elvenCaves.getClosestBiome(coordinates);
-                case FOROD -> forodCaves.getClosestBiome(coordinates);
-                case HARAD -> haradCaves.getClosestBiome(coordinates);
-                case MISTIES, MOUNTAINS -> mountainCaves.getClosestBiome(coordinates);
-                case LONELY_MOUNTAIN -> lonelyMountainCaves.getClosestBiome(coordinates);
-                default -> defaultCaves.getClosestBiome(coordinates);
+                case ASHEN -> ashCaves.getClosestBiome(coordinates, band);
+                case ELVEN -> elvenCaves.getClosestBiome(coordinates, band);
+                case FOROD -> forodCaves.getClosestBiome(coordinates, band);
+                case HARAD -> haradCaves.getClosestBiome(coordinates, band);
+                case MISTIES -> mistyCaves.getClosestBiome(coordinates, band);
+                case MOUNTAINS -> mountainCaves.getClosestBiome(coordinates, band);
+                case LONELY_MOUNTAIN -> lonelyMountainCaves.getClosestBiome(coordinates, band);
+                default -> defaultCaves.getClosestBiome(coordinates, band);
             };
-        return defaultCaves.getClosestBiome(coordinates);
+        return defaultCaves.getClosestBiome(coordinates, band);
     }
 
     public static void bootstrap(Registerable<Biome> context) {
@@ -109,6 +128,7 @@ public class CaveBiomesME {
         context.register(BiomeKeyRegistryME.FUNGUS_CAVE, createFungusCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 5869935, 6263141)));
 
         context.register(BiomeKeyRegistryME.MITHRIL_CAVE, createMithrilCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.NAMELESS_DEEPS, createNamelessDeeps(context, new BiomeColorsDTO(BiomeAmbianceME.NAMELESS_DEEPS, 0x1C2C40, 0x02040A, 0x3A4A3C, 0x3A4A3C)));
 
         context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
         context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
@@ -315,6 +335,20 @@ public class CaveBiomesME {
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
 
+    public static Biome createNamelessDeeps(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        spawnSettings.spawn(SpawnGroup.MONSTER, 2, new SpawnSettings.SpawnEntry(EntityType.CAVE_SPIDER, 1, 2));
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        addBasicFeatures(generationSettings, true);
+        undergroundOres.remove(CavesPlacedFeatureRegistryME.SPRING_LAVA);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatureRegistryME.DEEPS_GLOW_LICHEN);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatureRegistryME.DEEPS_MOSS);
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, CavesPlacedFeatureRegistryME.DEEPS_CLAY);
+
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true, false);
+    }
+
     public static Biome createBasaltCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -426,11 +460,17 @@ public class CaveBiomesME {
     }
 
     public static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation) {
+        return createBiome(biomeColors, spawnSettings, generationSettings, temperature, precipitation, true);
+    }
+
+    private static Biome createBiome(BiomeColorsDTO biomeColors, SpawnSettings.Builder spawnSettings, GenerationSettings.LookupBackedBuilder generationSettings, float temperature, boolean precipitation, boolean usualMobs) {
         CaveBiomeFeaturesME.addBats(spawnSettings);
 
-        CaveBiomeFeaturesME.addSparseNpc(spawnSettings);
-        CaveBiomeFeaturesME.addCaveTroll(spawnSettings);
-        CaveBiomeFeaturesME.addSpiders(spawnSettings);
+        if(usualMobs) {
+            CaveBiomeFeaturesME.addSparseNpc(spawnSettings);
+            CaveBiomeFeaturesME.addCaveTroll(spawnSettings);
+            CaveBiomeFeaturesME.addSpiders(spawnSettings);
+        }
 
         undergroundOres = undergroundOres.stream().sorted(Comparator.comparing(a -> a.getValue().toString())).toList();
         for (RegistryKey<PlacedFeature> feature: undergroundOres) {

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.generation.worldfeatures.underground;
 
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.worldfeatures.tree.MushroomTreeConfiguredFeatureRegistryME;
 import net.minecraft.registry.Registerable;
@@ -22,8 +23,6 @@ import net.minecraft.world.gen.placementmodifier.*;
 import java.util.List;
 
 public class CavesPlacedFeatureRegistryME {
-    public static final int MAX_MITHRIL_HEIGHT = -54;
-
     // region GEODES
     public static final RegistryKey<PlacedFeature> AMETHYST_GEODE = registerKey("amethyst_geode");
     public static final RegistryKey<PlacedFeature> CITRINE_GEODE = registerKey("citrine_geode");
@@ -156,11 +155,18 @@ public class CavesPlacedFeatureRegistryME {
     public static final RegistryKey<PlacedFeature> SPORE_BLOSSOM = registerKey("spore_blossom");
     public static final RegistryKey<PlacedFeature> CLASSIC_VINES_CAVE = registerKey("classic_vines_cave");
     // endregion
+
+    // region DEEPS
+    public static final RegistryKey<PlacedFeature> DEEPS_GLOW_LICHEN = registerKey("deeps_glow_lichen");
+    public static final RegistryKey<PlacedFeature> DEEPS_MOSS = registerKey("deeps_moss");
+    public static final RegistryKey<PlacedFeature> DEEPS_CLAY = registerKey("deeps_clay");
+    // endregion
     public static final RegistryKey<PlacedFeature> SPRING_LAVA = registerKey("spring_lava");
 
     static final HeightRangePlacementModifier mushroomsRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-40), YOffset.fixed(32));
     static final HeightRangePlacementModifier lushRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-4), YOffset.fixed(80));
     static final HeightRangePlacementModifier nurgonRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL));
+    static final HeightRangePlacementModifier deepsRange = HeightRangePlacementModifier.uniform(YOffset.fixed(DepthBands.DEEP_FLOOR), YOffset.fixed(DepthBands.MITHRIL_BOTTOM));
     static final HeightRangePlacementModifier medgonRange = HeightRangePlacementModifier.trapezoid(YOffset.fixed(-64), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL));
 
     public static void bootstrap(Registerable<PlacedFeature> featureRegisterable) {
@@ -277,6 +283,7 @@ public class CavesPlacedFeatureRegistryME {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> caveVine = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.CAVE_VINE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatch = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lushCavesClay = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.LUSH_CAVES_CLAY);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> glowLichen = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.GLOW_LICHEN);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatchCeiling = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH_CEILING);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sporeBlossom = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.SPORE_BLOSSOM);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> vines = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.VINES);
@@ -378,7 +385,7 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, ORE_RUBY, rubyOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
         PlacedFeatures.register(featureRegisterable, ORE_SAPPHIRE, sapphireOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-49), YOffset.fixed(-11))));
         PlacedFeatures.register(featureRegisterable, ORE_ADAMANT, adamantOre, modifiersWithCount(2, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-61), YOffset.fixed(-42))));
-        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-62), YOffset.fixed(MAX_MITHRIL_HEIGHT))));
+        PlacedFeatures.register(featureRegisterable, ORE_MITHRIL, mithrilOre, modifiersWithRarity(1, HeightRangePlacementModifier.trapezoid(YOffset.fixed(DepthBands.MITHRIL_BOTTOM), YOffset.fixed(DepthBands.MITHRIL_TOP))));
 
         // region MUSHROOMS
         PlacedFeatures.register(featureRegisterable, TREE_BROWN_BOLETTE, brownBoletteTree, List.of(RarityFilterPlacementModifier.of(1), SquarePlacementModifier.of(),
@@ -437,6 +444,10 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, SPORE_BLOSSOM, sporeBlossom, CountPlacementModifier.of(25), SquarePlacementModifier.of(), lushRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, CLASSIC_VINES_CAVE, vines, CountPlacementModifier.of(256), SquarePlacementModifier.of(), lushRange, BiomePlacementModifier.of());
 
+        // the vanilla ones start no lower than -4
+        PlacedFeatures.register(featureRegisterable, DEEPS_GLOW_LICHEN, glowLichen, CountPlacementModifier.of(UniformIntProvider.create(60, 100)), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DEEPS_MOSS, mossPatch, CountPlacementModifier.of(16), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DEEPS_CLAY, lushCavesClay, CountPlacementModifier.of(12), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, SPRING_LAVA, springLava, modifiersWithCount(20, HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL)) ));
     }

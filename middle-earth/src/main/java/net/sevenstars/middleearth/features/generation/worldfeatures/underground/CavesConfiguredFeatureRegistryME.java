@@ -344,7 +344,10 @@ public class CavesConfiguredFeatureRegistryME {
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.sapphire_ore().getDefaultState()),
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.sapphire_ore().getDefaultState()));
     static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> adamentList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.adamant_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mithrilList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()));
+    // the band reaches up through the Nurgon rock
+    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mithrilList = List.of(
+            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()),
+            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.mithril_ore().getDefaultState()));
     // endregion
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {

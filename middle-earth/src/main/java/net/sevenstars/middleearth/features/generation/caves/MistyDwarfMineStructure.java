@@ -27,13 +27,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.HeightContext;
-import net.minecraft.world.gen.heightprovider.HeightProvider;
 import net.minecraft.world.gen.structure.DimensionPadding;
 import net.minecraft.world.gen.structure.JigsawStructure;
 import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
@@ -54,12 +53,14 @@ public final class MistyDwarfMineStructure extends Structure {
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     StructurePool.REGISTRY_CODEC.fieldOf("corridor_pool").forGetter(structure -> structure.corridorPool),
                     Codec.intRange(0, 20).fieldOf("size").forGetter(structure -> structure.size),
-                    HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistance)
             ).apply(instance, MistyDwarfMineStructure::new));
 
     private static final float MIN_WEIGHT = 0.8f;
     // out of 256, per start chunk of the placement
+    // out of 3, the starts in the upper half of the mithril band; the rest are in the lower half of the middle one
+    private static final int DELVED_DEEP = 1;
+    private static final int START_TRIES = 5;
     private static final int PEAKS_CHANCE = 115;
     private static final int ELSEWHERE_CHANCE = 38;
 
@@ -86,15 +87,13 @@ public final class MistyDwarfMineStructure extends Structure {
     private final RegistryEntry<StructurePool> startPool;
     private final RegistryEntry<StructurePool> corridorPool;
     private final int size;
-    private final HeightProvider startHeight;
     private final int maxDistance;
 
-    private MistyDwarfMineStructure(Config config, RegistryEntry<StructurePool> startPool, RegistryEntry<StructurePool> corridorPool, int size, HeightProvider startHeight, int maxDistance) {
+    private MistyDwarfMineStructure(Config config, RegistryEntry<StructurePool> startPool, RegistryEntry<StructurePool> corridorPool, int size, int maxDistance) {
         super(config);
         this.startPool = startPool;
         this.corridorPool = corridorPool;
         this.size = size;
-        this.startHeight = startHeight;
         this.maxDistance = maxDistance;
     }
 
@@ -108,9 +107,18 @@ public final class MistyDwarfMineStructure extends Structure {
         MapBasedCustomBiome biome = map.getBiome(x, z);
         boolean peaks = biome != null && PEAKS.contains(biome.getBiomeKey());
         if (context.random().nextInt(256) >= (peaks ? PEAKS_CHANCE : ELSEWHERE_CHANCE)) return Optional.empty();
-        int y = startHeight.get(context.random(), new HeightContext(context.chunkGenerator(), context.world()));
-        BlockPos pos = new BlockPos(chunkPos.getStartX(), y, chunkPos.getStartZ());
+        DepthBands.Edges edges = new MistyCaves(context.seed()).edgesAt(map, x, z);
         MiddleEarthChunkGenerator.CaveProbe probe = new MiddleEarthChunkGenerator.CaveProbe(context.seed(), context.world());
+        // the band is rolled once; a start the rock refuses is tried again higher or lower in the same band, so the share holds
+        boolean delved = context.random().nextInt(3) < DELVED_DEEP;
+        for (int attempt = 0; attempt < START_TRIES; attempt++) {
+            Optional<StructurePosition> position = tryStart(context, probe, new BlockPos(chunkPos.getStartX(), startY(edges, context.random(), delved), chunkPos.getStartZ()));
+            if (position.isPresent()) return position;
+        }
+        return Optional.empty();
+    }
+
+    private Optional<StructurePosition> tryStart(Context context, MiddleEarthChunkGenerator.CaveProbe probe, BlockPos pos) {
         if (airShare(probe, pos.getX() - 2, pos.getX() + 2, pos.getY(), pos.getY() + 2, pos.getZ() - 2, pos.getZ() + 2, 1) > START_MAX_AIR) return Optional.empty();
         Optional<StructurePosition> generated = StructurePoolBasedGenerator.generate(
                 context, startPool, Optional.empty(), size, pos, false, Optional.empty(),
@@ -125,6 +133,13 @@ public final class MistyDwarfMineStructure extends Structure {
         StructurePiecesCollector collector = new StructurePiecesCollector();
         all.forEach(collector::addPiece);
         return Optional.of(new StructurePosition(generated.get().position(), Either.right(collector)));
+    }
+
+    // the mines delve deep: a third start in the upper half of the mithril band, the rest in the lower half of the middle band
+    private static int startY(DepthBands.Edges edges, Random random, boolean delved) {
+        float share = random.nextFloat() * 0.5f;
+        if (delved) return edges.at(DepthBands.Band.MITHRIL, 0.5f + share);
+        return edges.at(DepthBands.Band.MIDDLE, share);
     }
 
     // pieces reachable from the start piece through jigsaw connections without passing a piece that hangs over air

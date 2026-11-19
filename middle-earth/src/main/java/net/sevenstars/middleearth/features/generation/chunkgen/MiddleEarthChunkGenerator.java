@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.features.generation.chunkgen;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -24,6 +25,8 @@ import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.world.chunk.PaletteProvider;
+import net.minecraft.world.chunk.PalettedContainer;
 import net.minecraft.world.chunk.ProtoChunk;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.StructureTerrainAdaptation;
@@ -35,6 +38,7 @@ import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
@@ -349,6 +353,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.MUD_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.FUNGUS_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.MITHRIL_CAVE),
+                    biomeRegistry.getOrThrow(BiomeKeyRegistryME.NAMELESS_DEEPS),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.BASALT_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.MAGMA_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.DRY_CAVE),
@@ -381,6 +386,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         List<StructureStart> structureStarts = structures.getStructureStarts(chunk.getPos(), s -> true);
         CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive(), seed);
         ColumnWriter out = new ColumnWriter(chunk);
+        DepthBands.ChunkFloors floors = DepthBands.ChunkFloors.forChunk(middleEarthMapRuntime, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), seed);
+        if(floors == null) out.fillBedrock(DepthBands.SHALLOW_FLOOR);
         BlockPos.Mutable biomePos = new BlockPos.Mutable();
         MiddleEarthHeightMap.ChunkHeights heights = MiddleEarthHeightMap.getChunkHeights(chunk.getPos().x, chunk.getPos().z);
 
@@ -399,7 +406,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
                 float height = heights.at(x, z);
 
-                float caveBlendNoise = (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) (posX + seed) / 24f,  (double) (posZ + seed) / 24f)) - CAVE_NOISE);
+                float caveBlendNoise = caveBlendNoise(posX, posZ, seed);
                 float slopeAngle = getTerrainSlope(heights, x, z);
                 int waterHeight = customHeightBiomeHeightData.getWaterHeight();
 
@@ -447,15 +454,40 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
                 height = newHeight;
 
-                out.set(x, bottomY, z, Blocks.BEDROCK.getDefaultState());
-                for(int y = bottomY + 1; y <= LAVA_HEIGHT; y++) {
-                    out.set(x, y, z, Blocks.LAVA.getDefaultState());
-                }
+                int floor = floors == null ? DepthBands.SHALLOW_FLOOR : floors.floor(x, z);
+                if(floor < DepthBands.SHALLOW_FLOOR) {
+                    // lava sea over the deep floor; rock stands where a neighbour's sea is higher, and caves carve the rest
+                    int lavaTop = floor + DepthBands.LAVA_THICKNESS;
+                    int lavaCap = floors.lavaCap(x, z);
+                    for(int y = bottomY; y <= floor; y++) {
+                        out.set(x, y, z, Blocks.BEDROCK.getDefaultState());
+                    }
+                    for(int y = floor + 1; y <= lavaTop; y++) {
+                        out.set(x, y, z, Blocks.LAVA.getDefaultState());
+                    }
+                    for(int y = floor + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
+                        if(y > lavaTop && y <= lavaCap) {
+                            out.set(x, y, z, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
+                        } else {
+                            trySetBlock(caves, out, x, y, z, posX, posZ, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
+                        }
+                    }
+                } else {
+                    if(floors != null) {
+                        for(int y = bottomY; y < DepthBands.SHALLOW_FLOOR; y++) {
+                            out.set(x, y, z, Blocks.BEDROCK.getDefaultState());
+                        }
+                    }
+                    out.set(x, DepthBands.SHALLOW_FLOOR, z, Blocks.BEDROCK.getDefaultState());
+                    for(int y = DepthBands.SHALLOW_FLOOR + 1; y <= LAVA_HEIGHT; y++) {
+                        out.set(x, y, z, Blocks.LAVA.getDefaultState());
+                    }
 
-                for(int y = bottomY + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(caves, out, x, y, z, posX, posZ, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
+                    for(int y = DepthBands.SHALLOW_FLOOR + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
+                        trySetBlock(caves, out, x, y, z, posX, posZ, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
+                    }
+                    if(Math.random() < 0.5f) out.set(x, DepthBands.SHALLOW_FLOOR + 1, z, Blocks.BEDROCK.getDefaultState());
                 }
-                if(Math.random() < 0.5f) out.set(x, chunk.getBottomY() + 1, z, Blocks.BEDROCK.getDefaultState());
 
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(caves, out, x, y, z, posX, posZ, StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base().getDefaultState());
@@ -540,6 +572,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         caves.decorate(chunk);
     }
 
+    public static float caveBlendNoise(int x, int z, long seed) {
+        return (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) (x + seed) / 24f,  (double) (z + seed) / 24f)) - CAVE_NOISE);
+    }
+
     private float getTerrainSlope(MiddleEarthHeightMap.ChunkHeights heights, int x, int z) {
         int offset = 3;
         float height = heights.at(x, z);
@@ -573,6 +609,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     // heightmap bookkeeping; light is not tracked before the INITIALIZE_LIGHT status, and the heightmaps are rebuilt
     // in finish() the way vanilla does after its noise fill. Other chunk types keep the regular path.
     private static final class ColumnWriter {
+        private static final PaletteProvider<BlockState> BLOCK_PALETTE = PaletteProvider.forBlockStates(Block.STATE_IDS);
+
         private final Chunk chunk;
         private final boolean direct;
         private final ChunkSection[] sections;
@@ -605,6 +643,24 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             section.setBlockState(x, y & 15, z, state, false);
         }
 
+        // Every section below topY becomes one bedrock block, so each keeps a single palette entry
+        void fillBedrock(int topY) {
+            BlockState bedrock = Blocks.BEDROCK.getDefaultState();
+            for (int index = 0; chunk.getBottomY() + (index + 1) * 16 <= topY; index++) {
+                if (!direct) {
+                    for (int y = chunk.getBottomY() + index * 16; y < chunk.getBottomY() + (index + 1) * 16; y++) {
+                        for (int x = 0; x < 16; x++) {
+                            for (int z = 0; z < 16; z++) chunk.setBlockState(pos.set(startX + x, y, startZ + z), bedrock);
+                        }
+                    }
+                    continue;
+                }
+                ChunkSection section = new ChunkSection(new PalettedContainer<>(bedrock, BLOCK_PALETTE), chunk.getSection(index).getBiomeContainer());
+                chunk.getSectionArray()[index] = section;
+                sections[index] = section;
+            }
+        }
+
         void finish() {
             if (direct) Heightmap.populateHeightmaps(chunk, chunk.getStatus().getHeightmapTypes());
         }
@@ -626,6 +682,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         public boolean solid(int x, int y, int z) {
             if (y < bottomY) return true;
             if (y > topY) return false;
+            if (y < DepthBands.SHALLOW_FLOOR && y <= DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, seed)) return true;
             CaveSampler sampler = samplers.computeIfAbsent(ChunkPos.toLong(x >> 4, z >> 4), key -> new CaveSampler(x & ~15, z & ~15, bottomY, topY, seed));
             return sampler.sample(x, y, z) == CaveSampler.STONE;
         }
@@ -661,6 +718,17 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final MistyCaves.Road[] roads;
         private final float[][] lakeWobble;
         private final int[] surfaceY;
+        private final DepthBands.Edges[] cornerEdges; // null where the weight is 0
+        private int riftMinY = Integer.MAX_VALUE;
+        private int chamberMinY = Integer.MAX_VALUE;
+        private int chamberMaxY = Integer.MIN_VALUE;
+        private int streamMinY = Integer.MAX_VALUE;
+        private int streamMaxY = Integer.MIN_VALUE;
+        private int shaftMinY;
+        private int shaftMaxY;
+        private int lakeMinY;
+        private int roadMinY;
+        private int roadMaxY;
 
         // the blend weights and corner blends of the column being sampled; a stamp marks a slot as filled for that column
         private int columnX = -1;
@@ -699,7 +767,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     any |= w > 0;
                 }
             }
-            if (!any) {
+            // a lake tunnel runs out of the Misty region, and the chunks it passes through still carry it
+            MistyCaves candidate = new MistyCaves(seed);
+            MistyCaves.Lake[] tunnels = any ? null : candidate.lakesNear(map, startX, startZ);
+            if (!any && tunnels.length == 0) {
                 this.misty = null;
                 this.mistyWeight = null;
                 this.riftScale = null;
@@ -710,9 +781,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 this.roads = null;
                 this.lakeWobble = null;
                 this.surfaceY = null;
+                this.cornerEdges = null;
                 return;
             }
-            this.misty = new MistyCaves(seed);
+            this.misty = candidate;
             this.mistyWeight = new float[CORNERS * CORNERS];
             this.riftScale = new float[CORNERS * CORNERS];
             this.mistyPages = new float[layerPages.length][];
@@ -720,7 +792,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.mistyStamp = new int[layerCount * MistyCaves.VALUES];
             this.mistyBlend = new float[layerCount * MistyCaves.VALUES];
             this.shafts = misty.shaftsNear(map, startX, startZ);
-            this.lakes = misty.lakesNear(map, startX, startZ);
+            this.lakes = any ? misty.lakesNear(map, startX, startZ) : tunnels;
             this.roads = misty.roadsNear(map, startX, startZ);
             this.lakeWobble = new float[lakes.length][16 * 16 * 2];
             for (int i = 0; i < lakes.length; i++) {
@@ -729,6 +801,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
             }
             this.surfaceY = new int[16 * 16];
+            this.cornerEdges = new DepthBands.Edges[CORNERS * CORNERS];
             int ratio = MISTY_LATTICE / CELL;
             for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                 for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
@@ -745,9 +818,37 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     float w = top + (bottom - top) * fz;
                     int corner = cornerX * CORNERS + cornerZ;
                     mistyWeight[corner] = w;
-                    if (w > 0) riftScale[corner] = w * misty.riftCluster(startX + cornerX * CELL, startZ + cornerZ * CELL);
+                    if (w <= 0) continue;
+                    int cornerWorldX = startX + cornerX * CELL;
+                    int cornerWorldZ = startZ + cornerZ * CELL;
+                    riftScale[corner] = w * misty.riftCluster(cornerWorldX, cornerWorldZ);
+                    DepthBands.Edges edges = DepthBands.Edges.of((int) (DIRT_HEIGHT + MiddleEarthHeightMap.getCachedHeight(cornerWorldX, cornerWorldZ)),
+                            DepthBands.deepFloor(map, cornerWorldX, cornerWorldZ, seed), caveBlendNoise(cornerWorldX, cornerWorldZ, seed));
+                    cornerEdges[corner] = edges;
+                    if (riftScale[corner] > 0) riftMinY = Math.min(riftMinY, MistyCaves.riftBottom(edges));
+                    chamberMinY = Math.min(chamberMinY, MistyCaves.chamberBottom(edges));
+                    chamberMaxY = Math.max(chamberMaxY, edges.top(DepthBands.Band.DEEPS));
+                    if (MistyCaves.streamBand(edges)) {
+                        streamMinY = Math.min(streamMinY, edges.middleBottom() - 2);
+                        streamMaxY = Math.max(streamMaxY, edges.top(DepthBands.Band.MIDDLE) + 2);
+                    }
                 }
             }
+            if (shafts.length > 0) {
+                int[] range = MistyCaves.shaftRange(shafts);
+                shaftMinY = range[0];
+                shaftMaxY = range[1];
+            }
+            if (lakes.length > 0) lakeMinY = MistyCaves.lakeMinY(lakes);
+            if (roads.length > 0) {
+                int[] range = MistyCaves.roadRange(roads);
+                roadMinY = range[0];
+                roadMaxY = range[1];
+            }
+        }
+
+        boolean misty() {
+            return misty != null;
         }
 
         private void selectColumn(int localX, int localZ) {
@@ -772,7 +873,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         int sample(int x, int y, int z) {
             selectColumn(x - startX, z - startZ);
             if (misty == null) return baseSolid(x, y, z) ? STONE : AIR;
-            if (lakes.length > 0 && MistyCaves.usesLake(y)) {
+            if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
                 int column = ((x - startX) * 16 + (z - startZ)) * 2;
                 for (int i = 0; i < lakes.length; i++) {
                     int state = MistyCaves.lakeState(lakes[i], lakeWobble[i][column], lakeWobble[i][column + 1], x, y, z);
@@ -784,7 +885,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
                 }
             }
-            if (roads.length > 0 && MistyCaves.usesRoad(y)) {
+            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY) {
                 int road = roadAt(x, y, z);
                 if (road == STONE) return STONE;
                 if (road == AIR) return AIR;
@@ -821,10 +922,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         }
 
         private boolean mistySolid(int x, int y, int z) {
-            boolean rift = MistyCaves.usesRift(y);
-            boolean chamber = MistyCaves.usesChamber(y);
-            boolean shaft = shafts.length > 0 && MistyCaves.usesShaft(y);
-            boolean stream = MistyCaves.usesStream(y);
+            boolean rift = y >= riftMinY;
+            boolean chamber = y >= chamberMinY && y <= chamberMaxY;
+            boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
+            boolean stream = y >= streamMinY && y <= streamMaxY;
             if (!rift && !chamber && !shaft && !stream) return true;
             if (weight() <= 0) return true;
             int cellY = Math.floorDiv(y, CELL) - minCellY;
@@ -886,10 +987,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 float[] layer = page;
                 int layerBase = (cellY % PAGE_LAYERS) * MISTY_LAYER_SIZE;
                 int y = (cellY + minCellY) * CELL;
-                boolean rift = MistyCaves.usesRift(y);
-                boolean chamber = MistyCaves.usesChamber(y);
-                boolean shaft = shafts.length > 0 && MistyCaves.usesShaft(y);
-                boolean stream = MistyCaves.usesStream(y);
+                boolean rift = y >= riftMinY;
+                boolean chamber = y >= chamberMinY && y <= chamberMaxY;
+                boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
+                boolean stream = y >= streamMinY && y <= streamMaxY;
                 float[] profiles = null;
                 if (shaft) {
                     profiles = new float[shafts.length * 3];
@@ -902,8 +1003,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         int x = startX + cornerX * CELL;
                         int z = startZ + cornerZ * CELL;
                         float w = mistyWeight[corner];
-                        layer[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner]) : -1;
-                        layer[offset + MistyCaves.CHAMBER] = chamber && w > 0 ? misty.chamberMargin(x, y, z, w) : -1;
+                        layer[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner], cornerEdges[corner]) : -1;
+                        layer[offset + MistyCaves.CHAMBER] = chamber && w > 0 ? misty.chamberMargin(x, y, z, w, cornerEdges[corner]) : -1;
                         float shaftMargin = -1;
                         if (shaft && w > 0) {
                             for (int i = 0; i < shafts.length; i++) {
@@ -912,7 +1013,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                             }
                         }
                         layer[offset + MistyCaves.SHAFT] = shaftMargin;
-                        layer[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w) : -1;
+                        layer[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w, cornerEdges[corner]) : -1;
                     }
                 }
                 mistyDone[cellY] = true;
@@ -962,6 +1063,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             return (cornerX * CORNERS + cornerZ) * VALUES + v;
         }
 
+        // tan blows up at y -78; below the old floor it carries on in a straight line from where it stood at -64
+        private static double caveTan(int y) {
+            if (y >= DepthBands.SHALLOW_FLOOR) return Math.tan((float) y / CAVE_STRETCH_V);
+            double tan = Math.tan((float) DepthBands.SHALLOW_FLOOR / CAVE_STRETCH_V);
+            return tan + (1 + tan * tan) * (y - DepthBands.SHALLOW_FLOOR) / CAVE_STRETCH_V;
+        }
+
         private float[] layer(int cellY) {
             int pageIndex = cellY / PAGE_LAYERS;
             float[] page = layerPages[pageIndex];
@@ -970,8 +1078,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int layerBase = (cellY % PAGE_LAYERS) * LAYER_SIZE;
                 int y = (cellY + minCellY) * CELL;
                 // everything that depends on y alone is evaluated once per layer
-                double tanY = Math.tan((float) y / CAVE_STRETCH_V);
-                float tanYf = (float) Math.tan((float) y / CAVE_STRETCH_V);
+                double tanY = caveTan(y);
+                float tanYf = (float) tanY;
                 float y1 = (float) y / (CAVE_STRETCH_V * 0.5f);
                 float y2 = (float) y / 60;
                 float y3 = (float) y / 30;
@@ -1035,7 +1143,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getWorldHeight() {
-        return 512;
+        return 576;
     }
 
     @Override

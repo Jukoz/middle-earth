@@ -237,6 +237,83 @@ public class ImageUtils {
         }
     }
 
+    // The depth of the world's bottom from the biomes of the map, as grey levels of 0 to 64 blocks. A max filter first keeps a range's core
+    // at its full depth, then a wide gaussian lets the floor slope out under the foothills; the result is averaged down by step.
+    public static BufferedImage depth(BufferedImage biomes, int dilation, float sigma, float cutoff, int step) {
+        int width = biomes.getWidth();
+        int height = biomes.getHeight();
+        float[] depth = new float[width * height];
+        Map<Integer, Integer> byColor = new HashMap<>();
+        for(int z = 0; z < height; z++) {
+            for(int x = 0; x < width; x++) {
+                int rgb = biomes.getRGB(x, z);
+                Integer extra = byColor.get(rgb);
+                if(extra == null) {
+                    extra = MapBasedBiomePool.getBiomeByColor(rgb).getBiomeData().extraDepth;
+                    byColor.put(rgb, extra);
+                }
+                depth[z * width + x] = extra;
+            }
+        }
+
+        float[] dilated = depth.clone();
+        for(int z = 0; z < height; z++) {
+            for(int x = 0; x < width; x++) {
+                float value = depth[z * width + x];
+                if(value <= 0) continue;
+                for(int dz = -dilation; dz <= dilation; dz++) {
+                    int nz = z + dz;
+                    if(nz < 0 || nz >= height) continue;
+                    for(int dx = -dilation; dx <= dilation; dx++) {
+                        int nx = x + dx;
+                        if(nx < 0 || nx >= width || dx * dx + dz * dz > dilation * dilation) continue;
+                        if(dilated[nz * width + nx] < value) dilated[nz * width + nx] = value;
+                    }
+                }
+            }
+        }
+
+        int radius = (int) Math.ceil(sigma * 2.5f);
+        float[] kernel = new float[radius * 2 + 1];
+        float sum = 0;
+        for(int i = -radius; i <= radius; i++) {
+            kernel[i + radius] = (float) Math.exp(-(i * i) / (2 * sigma * sigma));
+            sum += kernel[i + radius];
+        }
+        for(int i = 0; i < kernel.length; i++) kernel[i] /= sum;
+        float[] across = new float[width * height];
+        for(int z = 0; z < height; z++) {
+            for(int x = 0; x < width; x++) {
+                float total = 0;
+                for(int i = -radius; i <= radius; i++) total += kernel[i + radius] * dilated[z * width + Math.max(0, Math.min(width - 1, x + i))];
+                across[z * width + x] = total;
+            }
+        }
+        float[] blurred = new float[width * height];
+        for(int z = 0; z < height; z++) {
+            for(int x = 0; x < width; x++) {
+                float total = 0;
+                for(int i = -radius; i <= radius; i++) total += kernel[i + radius] * across[Math.max(0, Math.min(height - 1, z + i)) * width + x];
+                blurred[z * width + x] = Math.max(0, total - cutoff) * MAX_DEPTH / (MAX_DEPTH - cutoff);
+            }
+        }
+
+        BufferedImage result = new BufferedImage(width / step, height / step, BufferedImage.TYPE_INT_RGB);
+        for(int z = 0; z < result.getHeight(); z++) {
+            for(int x = 0; x < result.getWidth(); x++) {
+                float total = 0;
+                for(int dz = 0; dz < step; dz++) {
+                    for(int dx = 0; dx < step; dx++) total += blurred[(z * step + dz) * width + x * step + dx];
+                }
+                int level = Math.round(total / (step * step) / MAX_DEPTH * 255);
+                result.setRGB(x, z, (level << 16) | (level << 8) | level);
+            }
+        }
+        return result;
+    }
+
+    public static final float MAX_DEPTH = 64;
+
     private static final int EDGE_BRUSH_SIZE = 3;
     public static BufferedImage edge(BufferedImage image) {
         int width = image.getWidth();

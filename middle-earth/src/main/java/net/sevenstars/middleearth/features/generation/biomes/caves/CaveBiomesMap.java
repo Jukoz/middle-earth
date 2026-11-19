@@ -18,10 +18,17 @@ public class CaveBiomesMap {
         caves.add(caveBiomeDTO);
     }
 
-    public RegistryKey<Biome> getClosestBiome(Vec2f coordinates) {
+    // falls back to the whole palette when nothing is allowed in the band
+    public RegistryKey<Biome> getClosestBiome(Vec2f coordinates, DepthBands.Band band) {
+        RegistryKey<Biome> biome = closest(coordinates, band);
+        return biome != null ? biome : closest(coordinates, null);
+    }
+
+    private RegistryKey<Biome> closest(Vec2f coordinates, DepthBands.Band band) {
         RegistryKey<Biome> biome = null;
         float currentDistance = 10.0f;
         for (CaveBiomeDTO biomeDTO: caves) {
+            if(band != null && !biomeDTO.bands.contains(band)) continue;
             float distance = biomeDTO.coordinates.distanceSquared(coordinates);
             if(distance < currentDistance) {
                 currentDistance = distance;

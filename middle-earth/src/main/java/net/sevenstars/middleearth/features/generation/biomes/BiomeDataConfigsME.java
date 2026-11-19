@@ -433,8 +433,10 @@ public class BiomeDataConfigsME {
     public static BiomeGenerationData foothillModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(FOOTHILL_NOISE_MODIFIER).heightModifier(FOOTHILL_HEIGHT_MODIFIER);
     public static BiomeGenerationData shireModifier = new BiomeGenerationData().expansionWeight(LAND_WEIGHT).noiseModifier(FOOTHILL_NOISE_MODIFIER).heightModifier(FOOTHILL_HEIGHT_MODIFIER);
     public static BiomeGenerationData mountainModifier = new BiomeGenerationData().expansionWeight(MOUNTAIN_WEIGHT).noiseModifier(MOUNTAIN_NOISE_MODIFIER).heightModifier(MOUNTAIN_HEIGHT_MODIFIER);
-    public static BiomeGenerationData mistyModifier = mountainModifier.ridges(RidgeAxis.NORTH_SOUTH, 13.7f);
-    public static BiomeGenerationData moriaModifier = mountainModifier.ridges(RidgeAxis.NORTH_SOUTH, 13.6f);
+    // the ranges the Dwarves delved in go all the way down
+    public static final int RANGE_DEPTH = 64;
+    public static BiomeGenerationData mistyModifier = mountainModifier.ridges(RidgeAxis.NORTH_SOUTH, 13.7f).extraDepth(RANGE_DEPTH);
+    public static BiomeGenerationData moriaModifier = mountainModifier.ridges(RidgeAxis.NORTH_SOUTH, 13.6f).extraDepth(RANGE_DEPTH);
     public static BiomeGenerationData ephelModifier = mountainModifier.ridges(RidgeAxis.NORTH_SOUTH, 12.5f);
     // Ered Nimrais is a little gentler than the rest
     public static BiomeGenerationData whiteModifier = mountainModifier.ridges(RidgeAxis.EAST_WEST, 9);
