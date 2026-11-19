@@ -148,5 +148,11 @@
       "middle-earth:cave_troll/cave_troll_step4",
       "middle-earth:cave_troll/cave_troll_step5"
     ]
+  },
+  "troll_slam": {
+    "subtitle": "sounds.middle-earth.troll_slam",
+    "sounds": [
+      "middle-earth:cave_troll/troll_slam"
+    ]
   }
 }

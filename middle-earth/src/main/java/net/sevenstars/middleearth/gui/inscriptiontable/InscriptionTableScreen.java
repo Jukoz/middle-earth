@@ -75,6 +75,9 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
                 EMPTY_SLOT_RUBY_TEXTURE,
                 EMPTY_SLOT_SAPPHIRE_TEXTURE));
 
+        // The word list shrinks when the catalyst changes
+        this.indexStartOffset = MathHelper.clamp(this.indexStartOffset, 0, Math.max(0, this.handler.getWords().size() - this.words.length));
+
         for (WidgetInscriptionButtonPage button : this.words){
             button.setSelected(this.selectedButtons.contains(button.index + this.indexStartOffset));
             button.setSelectedIndex(this.selectedButtons.contains(button.index  + this.indexStartOffset) ? this.selectedButtons.indexOf(button.index + this.indexStartOffset) : -1);
@@ -109,21 +112,22 @@ public class InscriptionTableScreen extends HandledScreen<InscriptionTableScreen
         for(int l = 0; l < 11; ++l) {
             this.words[l] = this.addDrawableChild(new WidgetInscriptionButtonPage(i + 5, k, l, button -> {
                 if (button instanceof WidgetInscriptionButtonPage wordButton) {
-                    if (button.isSelected() && !wordButton.hidden){
-                        if (!((WidgetInscriptionButtonPage) button).selected){
+                    Integer wordIndex = wordButton.index + this.indexStartOffset;
+                    List<String> available = handler.getWords();
+                    if (button.isSelected() && !wordButton.hidden && wordIndex < available.size()){
+                        String word = available.get(wordIndex);
+                        if (!wordButton.selected){
                             if (this.selectedWords.size() == 3){
-                                this.selectedWords.remove(this.selectedWords.getLast());
-                                ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, this.selectedWords.getLast()));
-                                this.selectedButtons.remove(this.selectedButtons.getLast());
+                                ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, this.selectedWords.removeLast()));
+                                this.selectedButtons.removeLast();
                             }
-                            this.selectedWords.add(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
-                            this.selectedButtons.add(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset);
+                            this.selectedWords.add(word);
+                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(true, word));
+                            this.selectedButtons.add(wordIndex);
                         } else {
-                            this.selectedWords.remove(handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset));
-                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, handler.getWords().get(((WidgetInscriptionButtonPage) button).index + this.indexStartOffset)));
-                            Object buttonIndex = ((WidgetInscriptionButtonPage) button).index + this.indexStartOffset;
-                            this.selectedButtons.remove(buttonIndex);
+                            this.selectedWords.remove(word);
+                            ClientPlayNetworking.send(new InscriptionWordUpdatePacket(false, word));
+                            this.selectedButtons.remove(wordIndex);
                         }
                     }
                     this.enchantText = Text.literal("awaiting runes").fillStyle(STYLE.withObfuscated(true));

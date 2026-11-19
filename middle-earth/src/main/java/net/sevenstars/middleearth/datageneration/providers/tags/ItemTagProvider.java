@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -57,6 +59,12 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> wooden_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_slabs"));
         TagKey<Item> wooden_vertical_slabs = TagKey.of(RegistryKeys.ITEM, Identifier.of(MiddleEarth.MOD_ID, "wooden_vertical_slabs"));
         TagKey<Item> wooden_fences = TagKey.of(RegistryKeys.ITEM, Identifier.of( "wooden_fences"));
+        TagKey<Item> wooden_stairs = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_stairs"));
+        TagKey<Item> wooden_doors = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_doors"));
+        TagKey<Item> wooden_trapdoors = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_trapdoors"));
+        TagKey<Item> wooden_pressure_plates = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_pressure_plates"));
+        TagKey<Item> wooden_buttons = TagKey.of(RegistryKeys.ITEM, Identifier.of("wooden_buttons"));
+        TagKey<Item> fence_gates = TagKey.of(RegistryKeys.ITEM, Identifier.of("fence_gates"));
         TagKey<Item> logs_that_burn = TagKey.of(RegistryKeys.ITEM, Identifier.of("logs_that_burn"));
         TagKey<Item> stone_crafting_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_crafting_materials"));
         TagKey<Item> stone_tool_materials = TagKey.of(RegistryKeys.ITEM, Identifier.of("stone_tool_materials"));
@@ -85,8 +93,13 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("daggers"))).add(WeaponEnchants.daggers.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("swords"))).add(WeaponEnchants.swords.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("spears"))).add(WeaponItemsME.spears.toArray(new Item[0]));
-        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(WeaponEnchants.weapons.toArray(new Item[0]));
+        // Bows, crossbows and shields are registered as weapons too, but melee enchantments don't belong on them
+        Item[] meleeWeapons = WeaponEnchants.weapons.stream()
+                .filter(item -> !(item instanceof RangedWeaponItem) && !(item instanceof ShieldItem))
+                .toArray(Item[]::new);
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/weapon"))).add(meleeWeapons);
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sword"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
+        valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/sharp_weapon"))).add(WeaponEnchants.sharpWeapons.toArray(new Item[0]));
 
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("minecraft", "enchantable/bow"))).add(Bows.bows.toArray(new Item[0]));
         valueLookupBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "tools/ranged_weapon"))).add(Bows.bows.toArray(new Item[0]));
@@ -320,6 +333,32 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
         Fences.fences.forEach(block -> {
             valueLookupBuilder(wooden_fences).add(block.asItem());
         });
+
+        WoodenVariants.stairs.forEach(block -> {
+            valueLookupBuilder(wooden_stairs).add(block.asItem());
+        });
+
+        WoodenVariants.doors.forEach(block -> {
+            valueLookupBuilder(wooden_doors).add(block.asItem());
+        });
+
+        WoodenVariants.trapdoors.forEach(block -> {
+            valueLookupBuilder(wooden_trapdoors).add(block.asItem());
+        });
+
+        WoodenVariants.pressurePlates.forEach(block -> {
+            valueLookupBuilder(wooden_pressure_plates).add(block.asItem());
+        });
+
+        Buttons.woodButtons.forEach(block -> {
+            valueLookupBuilder(wooden_buttons).add(block.asItem());
+        });
+
+        FenceGates.fenceGates.forEach(block -> {
+            valueLookupBuilder(fence_gates).add(block.asItem());
+        });
+        valueLookupBuilder(fence_gates).add(DecorativeBlockRegistryME.LARGE_BEECH_FENCE_GATE.asItem());
+        valueLookupBuilder(fence_gates).add(DecorativeBlockRegistryME.SIMPLE_LARCH_GATE.asItem());
 
         ModdedStrippedLogs.strippedLogs.forEach(block -> {
             valueLookupBuilder(mod_stripped_logs).add(block.asItem());

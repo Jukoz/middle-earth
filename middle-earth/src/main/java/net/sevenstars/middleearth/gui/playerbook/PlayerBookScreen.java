@@ -146,7 +146,9 @@ public class PlayerBookScreen extends Screen {
                 }
             }
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        boolean clicked = super.mouseClicked(mouseX, mouseY, button);
+        this.setFocused(null);
+        return clicked;
     }
 
     private void renderTooltip(DrawContext context, int mouseX, int mouseY) {

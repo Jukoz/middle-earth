@@ -4,6 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -17,6 +19,11 @@ public class ToggleableFireBlockEntity extends BlockEntity {
     public static void clientTick(World world, BlockPos pos, BlockState state, ToggleableFireBlockEntity campfire) {
         int i;
         Random random = world.random;
+        // About as often as a campfire, which crackles from random display ticks
+        if (random.nextInt(400) == 0) {
+            world.playSoundClient(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE,
+                    SoundCategory.BLOCKS, 0.5f + random.nextFloat(), random.nextFloat() * 0.7f + 0.6f, false);
+        }
         if (random.nextFloat() < 0.11f) {
             for (i = 0; i < random.nextInt(2) + 2; ++i) {
                 spawnSmokeParticle(world, pos, false);

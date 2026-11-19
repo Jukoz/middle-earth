@@ -17,6 +17,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -69,7 +70,7 @@ public class BellowsBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        player.swingHand(player.getActiveHand());
+        player.swingHand(Hand.MAIN_HAND);
         return this.pump(world, pos, state, player) ? ActionResult.SUCCESS : ActionResult.CONSUME;
     }
 

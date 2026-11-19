@@ -4,7 +4,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
-import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.utils.ItemTagsME;
 
 public class SackSlot extends Slot {
@@ -15,6 +14,6 @@ public class SackSlot extends Slot {
     @Override
     public boolean canInsert(ItemStack stack) {
         if(stack.isIn(ItemTagsME.SACKS) || stack.isIn(ItemTags.SHULKER_BOXES)) return false;
-        return super.canInsert(stack);
+        return stack.getItem().canBeNested() && super.canInsert(stack);
     }
 }

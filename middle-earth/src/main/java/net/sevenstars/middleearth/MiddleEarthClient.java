@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreen;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
@@ -69,11 +70,13 @@ import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaRenderer;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRenderer;
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
+import net.sevenstars.middleearth.client.TrollRiderCamera;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.artisantable.ArtisanTableScreen;
 import net.sevenstars.middleearth.gui.forge.ForgeAlloyingScreen;
 import net.sevenstars.middleearth.gui.inscriptiontable.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreen;
+import net.sevenstars.middleearth.gui.shapinganvil.ShapingAnvilScreenHandler;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
 import net.sevenstars.middleearth.gui.wood_pile.WoodPileScreen;
@@ -87,6 +90,7 @@ import net.sevenstars.api.network.connections.ConnectionToServer;
 import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
+import net.sevenstars.middleearth.registries.AtlasesME;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -106,9 +110,11 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        AtlasesME.registerAtlas();
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
         KeyInputHandler.register();
+        TrollRiderCamera.register();
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);
@@ -148,9 +154,11 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.CAVE_TROLL_SCREEN_HANDLER, CaveTrollScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
+        ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
         HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);

@@ -8,6 +8,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructureStart;
+import net.minecraft.util.math.BlockBox;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.world.ChunkRegion;
+import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
@@ -42,6 +49,14 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         float forSize = Math.max(length, width) * 2f;
         float angle = random.nextFloat() * 180;
 
+        int reach = (int) forSize;
+        int verticalReach = (int) baseHeight + 3;
+        BlockBox bounds = new BlockBox(blockPos.getX() - reach, blockPos.getY() - verticalReach, blockPos.getZ() - reach,
+                blockPos.getX() + reach, blockPos.getY() + verticalReach, blockPos.getZ() + reach);
+        if(intersectsStructure(structureWorldAccess, blockPos, bounds)) {
+            return false;
+        }
+
         for(int x = (int) -forSize; x <= forSize; ++x) {
             for(int z = (int) -forSize; z <= forSize; ++z) {
                 for(int y = (int) -baseHeight-3; y <= baseHeight+3; ++y) {
@@ -59,6 +74,29 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         }
 
         return true;
+    }
+
+    // Boulders generate after structures and would otherwise fill houses and mines
+    private static boolean intersectsStructure(StructureWorldAccess world, BlockPos origin, BlockBox bounds) {
+        if(!(world instanceof ChunkRegion region)) return false;
+        StructureAccessor structureAccessor = world.toServerWorld().getStructureAccessor().forRegion(region);
+
+        // Only the origin chunk and its neighbours are guaranteed to be readable while features generate
+        ChunkPos center = new ChunkPos(origin);
+        int minChunkX = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinX()), center.x - 1);
+        int maxChunkX = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxX()), center.x + 1);
+        int minChunkZ = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinZ()), center.z - 1);
+        int maxChunkZ = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxZ()), center.z + 1);
+        for(int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
+            for(int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
+                for(StructureStart start : structureAccessor.getStructureStarts(new ChunkPos(chunkX, chunkZ), structure -> true)) {
+                    for(StructurePiece piece : start.getChildren()) {
+                        if(piece.getBoundingBox().intersects(bounds)) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private boolean isPointInside(int x, int y, int z, float length, float width, float baseHeight, float angle, float randomNoise, Random random) {

@@ -88,15 +88,14 @@ public class SkullCandleBlock extends Block {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
             if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {
-                ItemStack itemStack = player.getStackInHand(hand);
+                ItemStack itemStack = player.getMainHandStack();
                 if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
                     extinguish(null, state, world, pos);
-                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                } else if (!state.get(LIT) && (itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH))) {
                     setLit(world, state, pos, true);
                 }
             }
@@ -106,7 +105,7 @@ public class SkullCandleBlock extends Block {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack itemStack = player.getMainHandStack();
         if(itemStack.isIn(ItemTags.CANDLES) && state.get(CANDLES) < 3) {
             stack.decrementUnlessCreative(1, player);
             world.setBlockState(pos, state.cycle(CANDLES));

@@ -168,7 +168,8 @@
               "options": [
                 "minecraft:swift_sneak",
                 "middle-earth:stealthy_trail",
-                "middle-earth:first_strike"
+                "middle-earth:first_strike",
+                "middle-earth:beheading"
               ]
             }
           ],

@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.wood_pile;
 
+import net.minecraft.block.Block;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -101,9 +102,11 @@ public class WoodPileBlockEntity extends LootableContainerBlockEntity implements
             stack.setCount(getMaxCountPerStack());
         }
         if(this.hasAmount(9)){
-            this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
+            BlockState oldState = this.getWorld().getBlockState(this.getPos());
+            BlockState fullState = DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 3)
-                    .with(Properties.HORIZONTAL_FACING, this.getWorld().getBlockState(this.getPos()).get(Properties.HORIZONTAL_FACING)));
+                    .with(Properties.HORIZONTAL_FACING, oldState.get(Properties.HORIZONTAL_FACING));
+            this.getWorld().setBlockState(this.getPos(), Block.pushEntitiesUpBeforeBlockChange(oldState, fullState, this.getWorld(), this.getPos()));
         } else if (this.hasAmount(5)){
             this.getWorld().setBlockState(this.getPos(), DecorativeBlockRegistryME.WOOD_PILE.getDefaultState()
                     .with(STAGE, 2)

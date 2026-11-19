@@ -49,6 +49,7 @@ import net.sevenstars.middleearth.block.special.structureManager.StructureManage
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.TrollEntity;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollEntity;
 import net.sevenstars.middleearth.entity.goals.*;
@@ -893,6 +894,9 @@ public class NpcEntity extends PathAwareEntity implements EquipmentHolder, Cross
 
     private boolean isHostileToward(Entity other) {
         if(other instanceof SnailEntity || other instanceof HostileEntity || other instanceof TrollEntity || other instanceof Pouncer)
+            return true;
+        // A wild cave troll attacks every NPC
+        if(other instanceof CaveTrollEntity caveTroll && !caveTroll.isTame())
             return true;
 
         if(!other.hasPassengers())

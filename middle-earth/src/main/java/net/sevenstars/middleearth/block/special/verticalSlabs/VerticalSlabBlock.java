@@ -2,6 +2,8 @@ package net.sevenstars.middleearth.block.special.verticalSlabs;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
@@ -228,5 +231,15 @@ public class VerticalSlabBlock extends Block implements Waterloggable {
         }
 
         return VerticalSlabShape.STRAIGHT;
+    }
+
+    @Override
+    public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
+        return !state.get(DOUBLE) && Waterloggable.super.tryFillWithFluid(world, pos, state, fluidState);
+    }
+
+    @Override
+    public boolean canFillWithFluid(@Nullable LivingEntity filler, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+        return !state.get(DOUBLE) && Waterloggable.super.canFillWithFluid(filler, world, pos, state, fluid);
     }
 }

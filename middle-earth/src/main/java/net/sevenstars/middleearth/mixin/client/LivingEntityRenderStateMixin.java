@@ -10,9 +10,9 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(LivingEntityRenderState.class)
 public class LivingEntityRenderStateMixin extends EntityRenderState implements ArmedEntityRenderStateAccess {
     @Unique
-    private ItemStack mainHandStack;
+    private ItemStack mainHandStack = ItemStack.EMPTY;
     @Unique
-    private ItemStack offHandStack;
+    private ItemStack offHandStack = ItemStack.EMPTY;
     @Unique
     private boolean restrained;
 

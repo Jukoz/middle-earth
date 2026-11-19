@@ -4,3 +4,4 @@ extendable method net/minecraft/entity/vehicle/VehicleEntity asItem ()Lnet/minec
 accessible method net/minecraft/block/AbstractCauldronBlock canBeFilledByDripstone (Lnet/minecraft/fluid/Fluid;)Z
 accessible method net/minecraft/block/entity/BlockEntityType <init> (Lnet/minecraft/block/entity/BlockEntityType$BlockEntityFactory;Ljava/util/Set;)V
 accessible class net/minecraft/client/render/item/HeldItemRenderer$HandRenderType
+accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;

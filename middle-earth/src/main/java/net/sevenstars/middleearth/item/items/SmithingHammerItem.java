@@ -15,7 +15,8 @@ import net.minecraft.world.World;
 public class SmithingHammerItem extends Item {
 
     public SmithingHammerItem(Settings settings, ToolMaterial material, float speed) {
-        super(settings.maxCount(1).attributeModifiers(createAttributeModifiers(speed)).maxDamage(material.durability()));
+        super(settings.maxCount(1).attributeModifiers(createAttributeModifiers(speed)).maxDamage(material.durability())
+                .repairable(material.repairItems()));
     }
 
     public static AttributeModifiersComponent createAttributeModifiers(float attackSpeed) {

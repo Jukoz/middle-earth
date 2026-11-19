@@ -5,6 +5,7 @@ import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
 import net.sevenstars.middleearth.item.DataComponentTypesME;
 import net.sevenstars.middleearth.item.dataComponents.WeaponTypeDataComponent;
@@ -27,6 +28,8 @@ public class CustomShieldItem extends ShieldItem {
                                 new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F), Optional.of(DamageTypeTags.BYPASSES_SHIELD),
                                 Optional.of(SoundEvents.ITEM_SHIELD_BLOCK), Optional.of(SoundEvents.ITEM_SHIELD_BREAK)))
                 .component(DataComponentTypes.BREAK_SOUND, SoundEvents.ITEM_SHIELD_BREAK)
+                // Planks, like the vanilla shield
+                .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
                 .component(DataComponentTypesME.WEAPON_TYPE_DATA, new WeaponTypeDataComponent(type.name)));
         this.type = type;
         instances.add(this);

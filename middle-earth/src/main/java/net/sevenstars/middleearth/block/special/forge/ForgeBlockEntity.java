@@ -348,6 +348,11 @@ public class ForgeBlockEntity extends BlockEntity implements ExtendedScreenHandl
             ForgeBlockEntity entity = forgeBlockEntity.get();
 
             if (entity.getStack(OUTPUT_SLOT).getMaxCount() <= entity.getStack(OUTPUT_SLOT).getCount()) return;
+            // A late extract packet can arrive after the forge has emptied
+            if (entity.currentMetal == MetalTypes.EMPTY) {
+                playFailedExtractSound(entity.getWorld(), pos);
+                return;
+            }
 
             RegistryWrapper.Impl<ArmorTrimMaterial>  armorTrimMaterialRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_MATERIAL);
             RegistryWrapper.Impl<ArmorTrimPattern>  armorTrimPatternRegistry = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.TRIM_PATTERN);

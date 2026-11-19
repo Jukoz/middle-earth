@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "middle-earth:beach_grass",
+    "middle-earth:brown_grass",
+    "middle-earth:coastal_panic_grass",
+    "middle-earth:sparse_grass",
+    "middle-earth:temperate_grass",
+    "middle-earth:wild_grass",
+    "middle-earth:blue_fescue",
+    "middle-earth:meadowgrass",
+    "middle-earth:grass_tuft",
+    "middle-earth:wheatgrass",
+    "middle-earth:wildergrass",
+    "middle-earth:short_hogweed"
+  ]
+}

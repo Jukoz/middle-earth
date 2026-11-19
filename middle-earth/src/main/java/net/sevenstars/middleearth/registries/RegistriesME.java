@@ -2,6 +2,14 @@ package net.sevenstars.middleearth.registries;
 
 import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
 import net.fabricmc.fabric.api.registry.*;
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.BedPart;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -11,6 +19,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -29,10 +38,11 @@ import net.sevenstars.middleearth.datageneration.content.tags.LeavesSets;
 import net.sevenstars.middleearth.datageneration.content.tags.Saplings;
 import net.sevenstars.middleearth.item.*;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegistriesME {
@@ -61,53 +71,35 @@ public class RegistriesME {
 
         //ashen_stone
 
-        if (MiddleEarth.IS_DEBUG){
-            try {
-                File aliases = new File("aliases.txt");
-
-                if (aliases.createNewFile()) {
-                    MiddleEarth.LOGGER.logInfoMsg("File created: " + aliases.getName());
-                } else {
-                    MiddleEarth.LOGGER.logWarn("File already exists.");
-                }
-            } catch (IOException e) {
-                MiddleEarth.LOGGER.logError("An error occurred.", e);
+        List<String> log = new ArrayList<>();
+        for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
+            String name = alias.name();
+            for (Map.Entry<String, String> map : specialAliases.entrySet()) {
+                name = name.replaceAll(map.getKey(), map.getValue());
             }
+            addAlias(alias.registry(), name, alias.name(), log);
+        }
+        for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
+            addAlias(alias.registry(), alias.oldName(), alias.newName(), log);
+        }
 
-            try {
-                FileWriter myWriter = new FileWriter("aliases.txt");
-                for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
-                    String name = alias.name();
-                    for (Map.Entry<String, String> map : specialAliases.entrySet()) {
-                        name = name.replaceAll(map.getKey(), map.getValue());
-                    }
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, name) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.name()) + "\r\n");
+        if (MiddleEarth.IS_DEBUG){
+            try (FileWriter writer = new FileWriter("aliases.txt")) {
+                for (String line : log) {
+                    writer.write(line + "\r\n");
                 }
-
-                for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                    alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
-                    myWriter.write(alias.registry().getKey().getValue().getPath() + ": " + Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()) + " -> " + Identifier.of(MiddleEarth.MOD_ID, alias.newName()) + "\r\n");
-                }
-
-                myWriter.close();
                 MiddleEarth.LOGGER.logTrace("Successfully wrote to the file.");
             } catch (IOException e) {
                 MiddleEarth.LOGGER.logError("RegistriesME :: An error occurred.", e);
             }
-        } else {
-            for (RegistryAliasesME.Alias alias: RegistryAliasesME.aliases) {
-                String name = alias.name();
-                for (Map.Entry<String, String> map : specialAliases.entrySet()) {
-                    name = name.replaceAll(map.getKey(), map.getValue());
-                }
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, name), Identifier.of(MiddleEarth.MOD_ID, alias.name()));
-            }
-
-            for (RegistryAliasesME.ManualAlias alias: RegistryAliasesME.manualAliases) {
-                alias.registry().addAlias(Identifier.of(MiddleEarth.OLD_MOD_ID, alias.oldName()), Identifier.of(MiddleEarth.MOD_ID, alias.newName()));
-            }
         }
+    }
+
+    private static void addAlias(Registry<?> registry, String oldName, String newName, List<String> log) {
+        Identifier oldId = Identifier.of(MiddleEarth.OLD_MOD_ID, oldName);
+        Identifier newId = Identifier.of(MiddleEarth.MOD_ID, newName);
+        registry.addAlias(oldId, newId);
+        log.add(registry.getKey().getValue().getPath() + ": " + oldId + " -> " + newId);
     }
 
     public static void registerToolTipAppenders() {
@@ -188,7 +180,7 @@ public class RegistriesME {
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.DRY_PINE_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(NatureBlockRegistryME.PINE_BRANCHES, 30, 60);
 
-        LeavesSets.leaves.forEach(block -> {
+        LeavesSets.getWoodSetLeaves().forEach(block -> {
             FlammableBlockRegistry.getDefaultInstance().add(block, 30, 60);
         });
     }
@@ -446,6 +438,18 @@ public class RegistriesME {
         }));
     }
 
+    // Vanilla only lists its own beds as villager homes
+    public static void registerBedPointsOfInterest() {
+        RegistryEntry<PointOfInterestType> home = Registries.POINT_OF_INTEREST_TYPE.getOrThrow(PointOfInterestTypes.HOME);
+        for (Block bed : List.of(DecorativeBlockRegistryME.FANCY_BED, DecorativeBlockRegistryME.FUR_BED, DecorativeBlockRegistryME.STRAW_BED)) {
+            for (BlockState state : bed.getStateManager().getStates()) {
+                if (state.get(BedBlock.PART) == BedPart.HEAD) {
+                    PointOfInterestTypes.POI_STATES_TO_TYPE.putIfAbsent(state, home);
+                }
+            }
+        }
+    }
+
     public static void registerComposterBlocks() {
         CompostingChanceRegistry registry = CompostingChanceRegistry.INSTANCE;
 
@@ -543,6 +547,12 @@ public class RegistriesME {
         registry.add(NatureBlockRegistryME.FLOWERING_LILY_PADS, 0.65f);
         registry.add(NatureBlockRegistryME.SMALL_LILY_PADS, 0.65f);
         registry.add(NatureBlockRegistryME.SMALL_FLOWERING_LILY_PADS, 0.65f);
+        registry.add(NatureBlockRegistryME.LARGE_LILY_PAD, 0.65f);
+        registry.add(NatureBlockRegistryME.LARGE_FLOWERING_LILY_PAD, 0.65f);
+        registry.add(NatureBlockRegistryME.DUCKWEED, 0.30f);
+        registry.add(NatureBlockRegistryME.WILLOW_VINES, 0.50f);
+        registry.add(NatureBlockRegistryME.MIRKWOOD_VINES, 0.50f);
+        registry.add(NatureBlockRegistryME.FROZEN_GROWTH, 0.30f);
         registry.add(NatureBlockRegistryME.RED_HEATHER_BUSH, 0.30f);
         registry.add(NatureBlockRegistryME.RUSHES, 0.30f);
         registry.add(NatureBlockRegistryME.BRAMBLES_OF_MORDOR, 0.10f);
@@ -603,7 +613,7 @@ public class RegistriesME {
         registry.add(NatureBlockRegistryME.ASPEN_SAPLING, 0.3F);
         registry.add(NatureBlockRegistryME.BEECH_SAPLING, 0.3F);
 
-        LeavesSets.leaves.forEach(block -> {
+        LeavesSets.getWoodSetLeaves().forEach(block -> {
             registry.add(block, 0.3F);
         });
 

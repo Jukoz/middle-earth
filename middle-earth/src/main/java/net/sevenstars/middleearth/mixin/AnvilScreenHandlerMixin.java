@@ -19,8 +19,8 @@ public class AnvilScreenHandlerMixin {
             var enchants = EnchantmentHelper.getEnchantments(stack);
             for (var entry : enchants.getEnchantmentEntries()) {
                 var enchant = entry.getKey();
-                if ((enchant.matchesKey(Enchantments.SHARPNESS) && entry.getIntValue() >= ServerConfigME.SHARPNESS_MAX_LEVEL)
-                        || (enchant.matchesKey(Enchantments.POWER) && entry.getIntValue() >= ServerConfigME.POWER_MAX_LEVEL)) {
+                if ((enchant.matchesKey(Enchantments.SHARPNESS) && entry.getIntValue() > ServerConfigME.SHARPNESS_MAX_LEVEL)
+                        || (enchant.matchesKey(Enchantments.POWER) && entry.getIntValue() > ServerConfigME.POWER_MAX_LEVEL)) {
                     outputInventory.setStack(slot, ItemStack.EMPTY);
                     return;
                 }

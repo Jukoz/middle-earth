@@ -4,7 +4,9 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Unit;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
@@ -68,10 +70,10 @@ public class ToolItemsME {
                     .component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE));
 
     public static final Item IRON_CHISEL = registerItemHandheld("iron_chisel",
-            Item::new, new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().maxCount(1).repairable(ItemTags.IRON_TOOL_MATERIALS)
                     .component(DataComponentTypes.MAX_DAMAGE, 4));
     public static final Item STEEL_CHISEL = registerItemHandheld("steel_chisel",
-            Item::new, new Item.Settings().maxCount(1)
+            Item::new, new Item.Settings().maxCount(1).repairable(ItemTagsME.STEEL_TOOL_MATERIALS)
                     .component(DataComponentTypes.MAX_DAMAGE, 16));
     public static final Item MITHRIL_CHISEL = registerItemHandheld("mithril_chisel",
             Item::new, new Item.Settings().maxCount(1));

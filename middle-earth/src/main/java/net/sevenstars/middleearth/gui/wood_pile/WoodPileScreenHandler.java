@@ -29,14 +29,6 @@ public class WoodPileScreenHandler extends ScreenHandler {
                 this.addSlot(new WoodPileSlot(inventory, j + i * 3, 62 + j * 18, 17 + i * 18));
             }
         }
-        for(i = 0; i < 3; ++i) {
-            for(j = 0; j < 9; ++j) {
-                this.addSlot(new WoodPileSlot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-        for(i = 0; i < 9; ++i) {
-            this.addSlot(new WoodPileSlot(playerInventory, i, 8 + i * 18, 142));
-        }
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -49,11 +41,12 @@ public class WoodPileScreenHandler extends ScreenHandler {
 
         if(invSlot.hasStack()) {
             ItemStack originalStack = invSlot.getStack();
+            stack = originalStack.copy();
             if(slot < this.inventory.size()) {
                 if(!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size() - 1, false)) {
+            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
                 return ItemStack.EMPTY;
             }
             if (originalStack.isEmpty()) {

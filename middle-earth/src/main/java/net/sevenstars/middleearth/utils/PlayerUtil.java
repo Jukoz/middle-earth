@@ -1,13 +1,17 @@
 package net.sevenstars.middleearth.utils;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
@@ -24,33 +28,32 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class PlayerUtil {
+    private static final TagKey<Block> CLIMBING_UNALLOWED_BLOCKS = TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("climbing_attribute_unallowed_blocks"));
+
     public static boolean isAgainstWall(PlayerEntity entity) {
-        Box boundingBox = entity.getBoundingBox();
         World world = entity.getWorld();
-        double testMovementAmount = 0.0001;
-
-        Vec3d testMovement = new Vec3d(testMovementAmount, 0.0, testMovementAmount);
-        List<VoxelShape> collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
-        Vec3d result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
-        if (!result.equals(testMovement)) {
-            return checkIfBlockIsAllowed(world, entity);
+        // Shrunk vertically so the floor and ceiling don't count as a wall
+        Box reach = entity.getBoundingBox().expand(0.01, -0.01, 0.01);
+        VoxelShape reachShape = VoxelShapes.cuboid(reach);
+        ShapeContext context = ShapeContext.of(entity);
+        BlockPos.Mutable pos = new BlockPos.Mutable();
+        // Starts one block lower to catch fences and walls, which are taller than a block
+        for (int x = MathHelper.floor(reach.minX); x <= MathHelper.floor(reach.maxX); x++) {
+            for (int y = MathHelper.floor(reach.minY) - 1; y <= MathHelper.floor(reach.maxY); y++) {
+                for (int z = MathHelper.floor(reach.minZ); z <= MathHelper.floor(reach.maxZ); z++) {
+                    pos.set(x, y, z);
+                    BlockState state = world.getBlockState(pos);
+                    if (state.isIn(CLIMBING_UNALLOWED_BLOCKS)) {
+                        continue;
+                    }
+                    VoxelShape shape = state.getCollisionShape(world, pos, context);
+                    if (!shape.isEmpty() && VoxelShapes.matchesAnywhere(shape.offset(x, y, z), reachShape, BooleanBiFunction.AND)) {
+                        return true;
+                    }
+                }
+            }
         }
-
-        testMovement = new Vec3d(-testMovementAmount, 0.0, -testMovementAmount);
-        collisions = world.getEntityCollisions(entity, boundingBox.stretch(testMovement));
-        result = Entity.adjustMovementForCollisions(entity, testMovement, boundingBox, world, collisions);
-        if (!result.equals(testMovement)) {
-            return checkIfBlockIsAllowed(world, entity);
-        }
-
         return false;
-    }
-
-    private static boolean checkIfBlockIsAllowed(World world, PlayerEntity player) {
-        BlockState blockstate = world.getBlockState(player.getBlockPos().offset(player.getHorizontalFacing()));
-        boolean isSolid = blockstate.isSolidBlock(world, player.getBlockPos());
-        boolean isAllowed = !blockstate.isIn(TagKey.of(RegistryKeys.BLOCK, MiddleEarth.id("climbing_attribute_unallowed_blocks")));
-        return isSolid && isAllowed;
     }
 
     public static boolean isOfRace(@NotNull PlayerEntity entity, @NotNull RaceType type){

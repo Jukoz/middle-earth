@@ -46,6 +46,7 @@ public class WallSilverLanternBlock extends SilverLanternBlock {
 
         for(int var5 = 0; var5 < var4; ++var5) {
             Direction direction = var3[var5];
+            if (direction.getAxis().isVertical()) continue;
             BlockState blockState = this.getDefaultState()
                     .with(HANGING, false)
                     .with(FACING, direction.getOpposite());
@@ -59,6 +60,8 @@ public class WallSilverLanternBlock extends SilverLanternBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        // Lanterns saved facing up or down show the standing model
+        if (state.get(FACING).getAxis().isVertical()) return super.getOutlineShape(state, world, pos, context);
         return switch (state.get(FACING)) {
             case SOUTH -> Block.createCuboidShape(6, -2, 10, 10, 11, 14);
             case EAST -> Block.createCuboidShape(10, -2, 6, 14, 11, 10);

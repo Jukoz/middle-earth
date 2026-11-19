@@ -26,7 +26,6 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -53,15 +52,16 @@ public abstract class AbstractToggleableFireBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        Hand hand = player.getActiveHand();
         if (!world.isClient && player.getAbilities().allowModifyWorld) {
             if(player.isInCreativeMode()){
                 world.setBlockState(pos, state.cycle(LIT));
             } else {
-                ItemStack itemStack = player.getStackInHand(hand);
+                ItemStack itemStack = player.getMainHandStack();
                 if (state.get(LIT) && itemStack.isIn(ItemTags.SHOVELS)) {
-                    extinguish((Entity)null, world, pos, state);
-                } else if (!state.get(LIT) && itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH)) {
+                    setLit(world, state, pos, false);
+                    world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    extinguish(null, world, pos, state);
+                } else if (!state.get(LIT) && (itemStack.isOf(Items.FLINT_AND_STEEL) || itemStack.isOf(Items.TORCH))) {
                     setLit(world, state, pos, true);
                 }
             }

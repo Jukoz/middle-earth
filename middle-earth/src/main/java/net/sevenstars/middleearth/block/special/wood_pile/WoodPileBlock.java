@@ -72,7 +72,7 @@ public class WoodPileBlock  extends BlockWithEntity implements BlockEntityProvid
             if (player.isInCreativeMode() && player.isSneaking()) {
                 world.setBlockState(pos, state.cycle(STAGE));
             } else {
-                if (addStackRightClick(world, pos, player, player.getActiveHand())) {
+                if (addStackRightClick(world, pos, player, Hand.MAIN_HAND)) {
                     NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
                     if (screenHandlerFactory != null) {
                         player.openHandledScreen(screenHandlerFactory);

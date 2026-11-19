@@ -498,7 +498,8 @@ public class TreePlacedFeatureRegistryME {
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(specialTree,
                         Blocks.OAK_SAPLING));
         register(context, UNCOMMON_WHITE_PALM_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatureRegistryME.WHITE_PALM_TREE_KEY),
-                VegetationPlacedFeatures.treeModifiers(rareTree));
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(rareTree,
+                        Blocks.OAK_SAPLING));
 
         register(context, ABUNDANT_PINE_PLACED_TREE_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(TreeConfiguredFeatureRegistryME.PINE_TREE_KEY),
                 VegetationPlacedFeatures.treeModifiersWithWouldSurvive(foothillsTree,

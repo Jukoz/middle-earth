@@ -41,6 +41,24 @@ public class RegistryAliasesME {
 
             add(new ManualAlias(Registries.BLOCK, "mud_brick_vertical_slab", "mud_brick_vertical_slab"));
             add(new ManualAlias(Registries.ITEM, "mud_brick_vertical_slab", "mud_brick_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "stone_brick_vertical_slab", "stone_brick_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "stone_brick_vertical_slab", "stone_brick_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "deepslate_tile_vertical_slab", "deepslate_tile_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "deepslate_tile_vertical_slab", "deepslate_tile_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "end_stone_brick_vertical_slab", "end_stone_brick_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "end_stone_brick_vertical_slab", "end_stone_brick_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "prismarine_brick_vertical_slab", "prismarine_brick_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "prismarine_brick_vertical_slab", "prismarine_brick_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "nether_brick_vertical_slab", "nether_brick_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "nether_brick_vertical_slab", "nether_brick_vertical_slab"));
+
+            add(new ManualAlias(Registries.BLOCK, "red_nether_brick_vertical_slab", "red_nether_brick_vertical_slab"));
+            add(new ManualAlias(Registries.ITEM, "red_nether_brick_vertical_slab", "red_nether_brick_vertical_slab"));
             
             add(new ManualAlias(Registries.BLOCK, "ashen_stone", "ashenstone"));
             add(new ManualAlias(Registries.ITEM, "ashen_stone", "ashenstone"));
