@@ -55,7 +55,7 @@ public class HostIndex {
         if (regions == null)
             return false;
 
-        int radiusSquared = radius * radius;
+        long radiusSquared = (long) radius * radius;
         int reach = Math.abs(radius);
         int fromX = (pos.getX() - reach) >> REGION_SHIFT, toX = (pos.getX() + reach) >> REGION_SHIFT;
         int fromZ = (pos.getZ() - reach) >> REGION_SHIFT, toZ = (pos.getZ() + reach) >> REGION_SHIFT;
@@ -79,7 +79,7 @@ public class HostIndex {
         return false;
     }
 
-    private static boolean anyWithin(Set<BlockPos> hosts, BlockPos pos, int radiusSquared) {
+    private static boolean anyWithin(Set<BlockPos> hosts, BlockPos pos, long radiusSquared) {
         for (BlockPos hostPos : hosts) {
             if (hostPos.getSquaredDistance(pos) <= radiusSquared)
                 return true;

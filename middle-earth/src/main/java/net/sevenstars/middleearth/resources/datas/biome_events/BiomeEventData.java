@@ -15,7 +15,6 @@ import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.PartyData;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnEventDataUtil;
-import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnCensus;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
@@ -129,16 +128,10 @@ public class BiomeEventData {
         return new SpawnPick(spawningData);
     }
 
-    // Once nothing else of ours refuses the spawn
-    public void commitSpawn(SpawnPick pick, EntityType<?> type, ServerWorld world, BlockPos pos) {
-        WildSpawnEventData spawningData = pick.data();
-        if(spawningData == null)
-            return;
-        spawningData.broadcastMessage(world, pos);
-        if(type == EntitiesME.NPC) {
-            SpawnGate.hold(world, pos, spawningData);
-        }
-        SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcClass(null) : null, pos);
+    // Waits for the entity to really spawn, see SpawnGate.commit
+    public void holdSpawn(SpawnPick pick, EntityType<?> type, ServerWorld world, BlockPos pos) {
+        if(pick.data() != null)
+            SpawnGate.hold(world, pos, type, pick.data());
     }
 
     public record ContextualizedBiomeData(NpcClass npcClass, @Nullable PartyData party, @Nullable Identifier job) {}

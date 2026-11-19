@@ -26,8 +26,11 @@ import java.util.WeakHashMap;
 public final class BedSpawning {
     // In ticks
     private static final int CHECK_INTERVAL = 20;
-    // Whether the bed is in a generated structure, found once per loaded block entity
-    private static final Map<BlockEntity, Boolean> IN_STRUCTURE = new WeakHashMap<>();
+    // An edit session can paste a build later, so the answer is rechecked
+    private static final int STRUCTURE_RECHECK = 6000;
+    private static final Map<BlockEntity, StructureCheck> IN_STRUCTURE = new WeakHashMap<>();
+
+    private record StructureCheck(boolean inside, long expires) {}
 
     private BedSpawning() {}
 
@@ -61,7 +64,12 @@ public final class BedSpawning {
     }
 
     private static boolean inStructure(ServerWorld world, BlockPos pos, BlockEntity blockEntity) {
-        return IN_STRUCTURE.computeIfAbsent(blockEntity, key -> GeneratedStructures.contains(world, pos));
+        StructureCheck check = IN_STRUCTURE.get(blockEntity);
+        if(check == null || world.getTime() >= check.expires() || world.getTime() < check.expires() - STRUCTURE_RECHECK) {
+            check = new StructureCheck(GeneratedStructures.contains(world, pos), world.getTime() + STRUCTURE_RECHECK);
+            IN_STRUCTURE.put(blockEntity, check);
+        }
+        return check.inside();
     }
 
     // From the build's generated data, including store and links. A bed it doesn't know, like one tagged

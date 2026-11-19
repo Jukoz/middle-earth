@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.resources.datas.common.EntityCategories;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TexturePresetDataPool {
     public static final Codec<TexturePresetDataPool> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -93,7 +94,7 @@ public class TexturePresetDataPool {
     }
 
     public EntityCategories getRandomCategory() {
-        Random random = new Random();
+        Random random = ThreadLocalRandom.current();
         boolean containsMale = this.presetsByCategory.containsKey(EntityCategories.MALE);
         boolean containsFemale = this.presetsByCategory.containsKey(EntityCategories.FEMALE);
         // Shared is not a valid sex
@@ -119,7 +120,7 @@ public class TexturePresetDataPool {
             WeightedPool<WeightedTexturePresetHolder> presets = data.presetsByCategory.get(entityCategories);
             presets = feedSharedToPresets(data, presets);
 
-            Random random = new Random();
+            Random random = ThreadLocalRandom.current();
             return new Identity(entityCategories, presets.get(random.nextInt(presets.size())));
         }
 

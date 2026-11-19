@@ -86,9 +86,9 @@ public record BedOccupant(Group group, Identifier place, String nestKind, String
                 Set<String> offered = new LinkedHashSet<>();
                 found.values().forEach(occupant -> offered.add(occupant.job()));
                 for(var key : NpcJobs.all()) {
-                    NpcJob job = NpcJobs.get(key.getValue());
+                    NpcJob job = NpcJobs.get(world.getRegistryManager(), key.getValue());
                     // Herders and travellers get their routine from their party
-                    if(job == null || !job.replacesName() || job.routine().isEmpty() || job.routine().get().getEntries().isEmpty() || offered.contains(key.getValue().toString()))
+                    if(job == null || !job.isTrade() || job.routine().isEmpty() || job.routine().get().getEntries().isEmpty() || offered.contains(key.getValue().toString()))
                         continue;
                     found.put(key.getValue().toString(), new BedOccupant(Group.COMMON, place.getId(), villager.nestKind(), key.getValue().toString(), villager.classes()));
                 }

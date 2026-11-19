@@ -57,14 +57,15 @@ public class BiomeEventDataLookup {
         if(pick == null)
             return false;
         if(type.getSpawnGroup() == SpawnGroup.MONSTER) {
-            if(!entities.containsKey(type)){
-                entities.put(type, new HashSet<>());
-            }
             if(!canSpawn(type))
                 return false;
         }
-        data.commitSpawn(pick, type, world, pos);
+        data.holdSpawn(pick, type, world, pos);
         return true;
+    }
+
+    public static void clear() {
+        entities.clear();
     }
 
     public static boolean canSpawn(EntityType<?> type) {

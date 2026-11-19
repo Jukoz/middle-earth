@@ -1,12 +1,17 @@
 package net.sevenstars.middleearth.resources.datas.biome_events;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.resources.datas.biome_events.data.SpawnCensus;
 import net.sevenstars.middleearth.resources.datas.biome_events.data.WildSpawnEventData;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,14 +32,22 @@ public class SpawnGate {
     // Per kind, so npcs waiting for night don't stop sheep spawning
     private record DisabledSpawn(ChunkPos chunk, EntityType<?> type) {}
 
-    private record PendingSpawn(WildSpawnEventData data, long expires) {}
+    private record PendingSpawn(WildSpawnEventData data, EntityType<?> type, long expires, boolean committed) {}
 
     private final Long2ObjectOpenHashMap<PendingSpawn> pending = new Long2ObjectOpenHashMap<>();
     private final HashMap<DisabledSpawn, Long> disabled = new HashMap<>();
 
     public static void register() {
         // World times, which a different save starts over
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> WORLDS.clear());
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            WORLDS.clear();
+            BiomeEventDataLookup.clear();
+        });
+        // Npcs commit from their own initialize, since their pick is used again
+        ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
+            if(entity instanceof MobEntity && !(entity instanceof NpcEntity) && entity.age == 0)
+                commit(world, entity);
+        });
     }
 
     private static SpawnGate of(World world) {
@@ -61,18 +74,38 @@ public class SpawnGate {
         gate.disabled.put(new DisabledSpawn(new ChunkPos(pos), type), world.getTime() + ticks);
     }
 
-    public static void hold(ServerWorld world, BlockPos pos, WildSpawnEventData data) {
+    // The check can still be refused further on, so nothing is announced or counted until the entity exists
+    public static void hold(ServerWorld world, BlockPos pos, EntityType<?> type, WildSpawnEventData data) {
         SpawnGate gate = of(world);
         if(gate.pending.size() >= MAXIMUM_PENDING)
             gate.pending.clear();
-        gate.pending.put(pos.asLong(), new PendingSpawn(data, world.getTime() + PENDING_LIFETIME));
+        gate.pending.put(pos.asLong(), new PendingSpawn(data, type, world.getTime() + PENDING_LIFETIME, false));
+    }
+
+    public static void commit(ServerWorld world, Entity entity) {
+        SpawnGate gate = of(world);
+        BlockPos pos = entity.getBlockPos();
+        PendingSpawn held = gate.pending.get(pos.asLong());
+        if(held == null || held.committed() || held.type() != entity.getType())
+            return;
+        if(world.getTime() > held.expires()) {
+            gate.pending.remove(pos.asLong());
+            return;
+        }
+        // An npc's pick stays for its data lookup
+        if(entity instanceof NpcEntity)
+            gate.pending.put(pos.asLong(), new PendingSpawn(held.data(), held.type(), held.expires(), true));
+        else
+            gate.pending.remove(pos.asLong());
+        held.data().broadcastMessage(world, pos);
+        SpawnCensus.expect(world, held.type(), entity instanceof NpcEntity ? held.data().getNpcClass(null) : null, pos);
     }
 
     // Only the event that made a pick can take it
     public static @Nullable WildSpawnEventData takeHeld(World world, BlockPos pos, List<WildSpawnEventData> events) {
         SpawnGate gate = of(world);
         PendingSpawn held = gate.pending.get(pos.asLong());
-        if(held == null || !events.contains(held.data()))
+        if(held == null || !held.committed() || !events.contains(held.data()))
             return null;
         gate.pending.remove(pos.asLong());
         return world.getTime() <= held.expires() ? held.data() : null;

@@ -44,7 +44,7 @@ public class NestSurvey {
         StructureFeatureData generated = registry.get(template);
         if(generated != null && !StructureFeaturesRegistry.isEdited(template))
             return generated;
-        StructureFeatureData live = StructureFeaturesRegistry.live(world.getStructureTemplateManager(), template);
+        StructureFeatureData live = StructureFeaturesRegistry.live(world.getStructureTemplateManager(), world.getRegistryManager(), template);
         return live != null ? live : generated;
     }
 

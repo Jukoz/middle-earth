@@ -15,6 +15,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
@@ -238,6 +239,10 @@ public class BedTagScreen extends EditorScreen<BedTagScreenHandler> {
         return Text.translatable(id.toTranslationKey("npc_type"));
     }
 
+    private static DynamicRegistryManager registries() {
+        return MinecraftClient.getInstance().getNetworkHandler().getRegistryManager();
+    }
+
     private static MutableText ui(String key, Object... arguments) {
         return Text.translatable("ui.%s.bed_tag.%s".formatted(MiddleEarth.MOD_ID, key), arguments);
     }
@@ -245,7 +250,7 @@ public class BedTagScreen extends EditorScreen<BedTagScreenHandler> {
     // Shown as a block name, like cook ... campfire, because builders place blocks, not station kinds
     private static @Nullable Text station(BedOccupant occupant) {
         Identifier job = occupant.job().isEmpty() ? null : Identifier.tryParse(occupant.job());
-        List<StationKind> kinds = job == null ? List.of() : NpcJobs.stationKinds(job);
+        List<StationKind> kinds = job == null ? List.of() : NpcJobs.stationKinds(registries(), job);
         return kinds.isEmpty() ? null : Text.literal(kinds.getFirst().blocks().getFirst().replace('_', ' '));
     }
 
@@ -297,7 +302,7 @@ public class BedTagScreen extends EditorScreen<BedTagScreenHandler> {
         line = heading(context, ui("card_job"), x, line + GAP - 2);
         context.drawTextWithShadow(textRenderer, ChoiceListWidget.readable(job.getPath()), x + GAP, line, EditorPanel.TEXT);
         line += textRenderer.fontHeight + LINE_GAP;
-        List<StationKind> kinds = NpcJobs.stationKinds(job);
+        List<StationKind> kinds = NpcJobs.stationKinds(registries(), job);
         if(!kinds.isEmpty()) {
             line = heading(context, ui("card_works_at"), x, line + GAP - 2);
             for(StationKind kind : kinds) {

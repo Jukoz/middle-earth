@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.nbt.NbtSizeTracker;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.structure.StructureTemplateManager;
@@ -122,11 +123,15 @@ public class StructureFeaturesRegistry {
     }
 
     public static @Nullable StructureFeatureData live(StructureTemplateManager manager, Identifier template) {
-        return LIVE.computeIfAbsent(template, id -> manager.getTemplate(id).map(found -> read(id, found.writeNbt(new NbtCompound())).data())).orElse(null);
+        return live(manager, null, template);
+    }
+
+    public static @Nullable StructureFeatureData live(StructureTemplateManager manager, @Nullable DynamicRegistryManager registries, Identifier template) {
+        return LIVE.computeIfAbsent(template, id -> manager.getTemplate(id).map(found -> read(id, registries, found.writeNbt(new NbtCompound())).data())).orElse(null);
     }
 
     private static Template read(Identifier templateId, Path file) throws IOException {
-        return read(templateId, NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes()));
+        return read(templateId, null, NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes()));
     }
 
     // What a template's blocks held, before off-limits filtering and grouping
@@ -147,7 +152,8 @@ public class StructureFeaturesRegistry {
         final Set<Identifier> pools = new TreeSet<>();
     }
 
-    private static Template read(Identifier templateId, NbtCompound root) {
+    // No registries is the generated data, which uses the built-in jobs
+    private static Template read(Identifier templateId, @Nullable DynamicRegistryManager registries, NbtCompound root) {
         NbtList palette = root.contains(PALETTE_KEY) ? root.getListOrEmpty(PALETTE_KEY) : root.getListOrEmpty(PALETTES_KEY).getListOrEmpty(0);
         NbtList blocks = root.getListOrEmpty(BLOCKS_KEY);
 
@@ -156,7 +162,7 @@ public class StructureFeaturesRegistry {
             classify(scan, blocks.getCompoundOrEmpty(i), palette);
         applyOffLimits(scan);
         List<List<BlockPos>> tables = tables(scan.tableBlocks, scan.seats);
-        List<StructureFeatureData.Bed> bedData = bedData(scan);
+        List<StructureFeatureData.Bed> bedData = bedData(scan, registries);
         return new Template(templateId, new StructureFeatureData(bedData, tables, scan.stations, scan.seats, scan.doors, scan.ladders, scan.markers, scan.managers),
                 scan.stores.size(), scan.pools, scan.unresolved, scan.managerIds);
     }
@@ -236,7 +242,7 @@ public class StructureFeaturesRegistry {
         scan.doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
     }
 
-    private static List<StructureFeatureData.Bed> bedData(Scan scan) {
+    private static List<StructureFeatureData.Bed> bedData(Scan scan, @Nullable DynamicRegistryManager registries) {
         List<StructureFeatureData.Bed> bedData = new ArrayList<>();
         // Prefer a barrel or chest: things brought to a campfire go on the fire, harvest included
         boolean anyBox = scan.stores.size() > scan.fires.size();
@@ -245,7 +251,7 @@ public class StructureFeaturesRegistry {
             Optional<BedTag> tag = scan.bedTags.get(i);
             // Things go near the work: the bed's link, or where its job will find one; else by the bed
             BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
-                    .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, scan.stations, scan.markers))).orElse(bed);
+                    .or(() -> tag.flatMap(BedTag::job).map(job -> registries == null ? NpcJobs.stationFor(job, bed, scan.stations, scan.markers) : NpcJobs.stationFor(registries, job, bed, scan.stations, scan.markers))).orElse(bed);
             BlockPos store = null;
             for(BlockPos candidate : scan.stores) {
                 if(anyBox && scan.fires.contains(candidate))
