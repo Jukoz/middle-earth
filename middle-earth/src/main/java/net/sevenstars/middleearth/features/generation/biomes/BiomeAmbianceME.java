@@ -18,6 +18,7 @@ import net.sevenstars.middleearth.features.generation.biomes.surface.MapBiomeDat
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 
 // The mood of a biome. Each biome picks one of the shared moods below where it is defined,
@@ -82,14 +83,29 @@ public final class BiomeAmbianceME {
     public static final BiomeAmbianceME ASH_MOUNTAINS = sky(0x3F3636, 0x2F2727)
             .withParticles(Particles.CINDERS)
             .withSounds(Sounds.MORDOR);
+    // The caves of the Misty Mountains from the top to the mithril: dark, so the fog of the depths reads as haze
+    public static final BiomeAmbianceME MISTY_CAVE = sky(0x0D1014, 0x12161B);
     // The caves below the Dwarves' delvings
     public static final BiomeAmbianceME NAMELESS_DEEPS = sky(0x0A0D12, 0x05070A)
             .withParticles(Particles.DRIPS);
     // The dry deeps, pale with dust
-    public static final BiomeAmbianceME GNAWED_TUNNELS = sky(0x8A857A, 0x9A9384)
+    public static final BiomeAmbianceME GNAWED_TUNNELS = sky(0x4A463E, 0x5A564D)
             .withParticles(Particles.DUSTFALL);
     public static final BiomeAmbianceME GLOWWORM_GROTTO = sky(0x0A1A1D, 0x0A1F22)
             .withParticles(Particles.GLINTS);
+
+    // Caves with fog of their own, in blocks from the camera and no matter the view distance: nothing is seen further than a ravine is wide
+    public static final float UNDERGROUND_FOG_START = 50;
+    public static final float UNDERGROUND_FOG_END = 105;
+    private static final Set<RegistryKey<Biome>> UNDERGROUND_FOG = Set.of(
+            BiomeKeyRegistryME.ICE_CAVE, BiomeKeyRegistryME.DRIPSTONE_CAVE, BiomeKeyRegistryME.MOUNTAIN_CAVE, BiomeKeyRegistryME.IZHERABAN_CAVE,
+            BiomeKeyRegistryME.LIMESTONE_CAVE, BiomeKeyRegistryME.DOLOMITE_CAVE, BiomeKeyRegistryME.BASIC_CAVE, BiomeKeyRegistryME.LUSH_CAVE,
+            BiomeKeyRegistryME.FUNGUS_CAVE, BiomeKeyRegistryME.MITHRIL_CAVE, BiomeKeyRegistryME.NAMELESS_DEEPS, BiomeKeyRegistryME.GNAWED_TUNNELS,
+            BiomeKeyRegistryME.GLOWWORM_GROTTO);
+
+    public static boolean hasUndergroundFog(RegistryKey<Biome> biome) {
+        return UNDERGROUND_FOG.contains(biome);
+    }
 
     private final int skyColor;
     private final int fogColor;

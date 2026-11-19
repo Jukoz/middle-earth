@@ -383,11 +383,32 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     private static final int STRUCTURE_MARGIN_ADAPT = 10;
+
+    // The structure starts the chunk references, like StructureAccessor.getStructureStarts, but a start chunk the region does not
+    // reach (a big mine's can be 8 chunks away) is skipped: asking for it throws.
+    private static List<StructureStart> reachableStarts(ChunkRegion region, Chunk chunk) {
+        List<StructureStart> starts = new ArrayList<>();
+        for (Map.Entry<Structure, it.unimi.dsi.fastutil.longs.LongSet> entry : chunk.getStructureReferences().entrySet()) {
+            for (long packed : entry.getValue()) {
+                int x = ChunkPos.getPackedX(packed);
+                int z = ChunkPos.getPackedZ(packed);
+                if (!region.isChunkLoaded(x, z)) continue;
+                try {
+                    Chunk startChunk = region.getChunk(x, z, ChunkStatus.STRUCTURE_STARTS, false);
+                    StructureStart start = startChunk == null ? null : startChunk.getStructureStart(entry.getKey());
+                    if (start != null && start.hasChildren()) starts.add(start);
+                } catch (RuntimeException exception) {
+                    // not available at this stage
+                }
+            }
+        }
+        return starts;
+    }
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
         long seed = region.getSeed();
-        List<StructureStart> structureStarts = structures.getStructureStarts(chunk.getPos(), s -> true);
+        List<StructureStart> structureStarts = reachableStarts(region, chunk);
         CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive(), seed, false);
         ColumnWriter out = new ColumnWriter(chunk);
         DepthBands.ChunkFloors floors = DepthBands.ChunkFloors.forChunk(middleEarthMapRuntime, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), seed);
@@ -747,7 +768,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final MistyCaves.Shaft[] shafts;
         private final float[][] shaftColumns; // per ravine and corner: distance across, half width
         private final MistyCaves.Lake[] lakes;
-        private final MistyCaves.Road[] roads;
         private final float[][] lakeWobble;
         private final int[] surfaceY;
         private final DepthBands.Edges[] cornerEdges; // null where the weight is 0
@@ -762,8 +782,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private int shaftMinY;
         private int shaftMaxY;
         private int lakeMinY;
-        private int roadMinY;
-        private int roadMaxY;
 
         // the blend weights and corner blends of the column being sampled; a stamp marks a slot as filled for that column
         private int columnX = -1;
@@ -827,7 +845,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 this.shafts = null;
                 this.shaftColumns = null;
                 this.lakes = null;
-                this.roads = null;
                 this.lakeWobble = null;
                 this.surfaceY = null;
                 this.cornerEdges = null;
@@ -845,7 +862,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.shafts = misty.shaftsNear(map, startX, startZ);
             this.shaftColumns = new float[shafts.length][CORNERS * CORNERS * 2];
             this.lakes = any ? misty.lakesNear(map, startX, startZ) : tunnels;
-            this.roads = misty.roadsNear(map, startX, startZ);
             this.lakeWobble = new float[lakes.length][16 * 16 * 2];
             for (int i = 0; i < lakes.length; i++) {
                 for (int x = 0; x < 16; x++) {
@@ -909,11 +925,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 shaftMaxY = range[1];
             }
             if (lakes.length > 0) lakeMinY = MistyCaves.lakeMinY(lakes);
-            if (roads.length > 0) {
-                int[] range = MistyCaves.roadRange(roads);
-                roadMinY = range[0];
-                roadMaxY = range[1];
-            }
         }
 
         boolean misty() {
@@ -942,7 +953,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         int sample(int x, int y, int z) {
             selectColumn(x - startX, z - startZ);
             if (misty == null) return baseSolid(x, y, z) ? STONE : AIR;
-            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY && roadApronAt(x, y, z)) return STONE;
             if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
                 int column = ((x - startX) * 16 + (z - startZ)) * 2;
                 for (int i = 0; i < lakes.length; i++) {
@@ -955,26 +965,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
                 }
             }
-            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY && roadOpenAt(x, y, z)) return AIR;
             return (gnawedRock(y) || baseSolid(x, y, z)) && mistySolid(x, y, z) ? STONE : AIR;
-        }
-
-        // the apron stone at a road mouth wins over everything, lake chambers and tunnels included: it only adds rock
-        private boolean roadApronAt(int x, int y, int z) {
-            float weight = weight();
-            if (weight <= 0) return false;
-            for (MistyCaves.Road road : roads) {
-                if (misty.roadApron(road, x, y, z)) return true;
-            }
-            return false;
-        }
-
-        private boolean roadOpenAt(int x, int y, int z) {
-            if (weight() <= 0) return false;
-            for (MistyCaves.Road road : roads) {
-                if (misty.roadOpen(road, x, y, z)) return true;
-            }
-            return false;
         }
 
         void setSurface(int x, int z, int y) {
@@ -1104,7 +1095,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for (int i = 0; i < shafts.length; i++) {
                     float halfWidth = shaftColumns[i][corner * 2 + 1];
                     if (halfWidth <= 0) continue;
-                    float scale = MistyCaves.shaftScale(shafts[i], y, cornerEdges[corner].floor(), cornerEdges[corner].top(DepthBands.Band.MIDDLE), wobbles[i]);
+                    float scale = MistyCaves.shaftScale(shafts[i], y, cornerEdges[corner], wobbles[i]);
                     if (scale <= 0) continue;
                     shaftMargin = Math.max(shaftMargin, MistyCaves.shaftMargin(scale, shaftColumns[i][corner * 2], halfWidth, w));
                 }

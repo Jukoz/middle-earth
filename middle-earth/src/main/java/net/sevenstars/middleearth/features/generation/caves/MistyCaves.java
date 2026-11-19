@@ -53,7 +53,6 @@ public final class MistyCaves {
     private static final int SHAFT_TAPER = 14;
     private static final int SHAFT_MIN_DEPTH = 20;
     private static final int SHAFT_MAX_REACH = 145; // half the length, the meander and the width
-    private static final int BRIDGE_CHANCE = 102; // out of 256
 
     private static final int RAVINE_MIN_LENGTH = 80;
     private static final int RAVINE_MAX_LENGTH = 200;
@@ -70,34 +69,28 @@ public final class MistyCaves {
     private static final int RAVINE_MIN_DROP = 60;
     private static final int RAVINE_MAX_DROP = 120;
     private static final int RAVINE_MITHRIL_DIP = 12; // lowest end of an ordinary ravine below the top of the mithril band
-    private static final int ABYSS_CHANCE = 51; // out of 256
-    private static final int ABYSS_STEP = 8; // blocks between the border checks along an abyss
 
-    private static final int ROAD_MIN_LENGTH = 40;
-    private static final int ROAD_MAX_LENGTH = 80;
-    private static final int ROAD_FLAT = 26; // straight and level from the crossing, past any rim and the apron
-    private static final int ROAD_RAMP = 10;
-    private static final int ROAD_TAPER = 6;
-    private static final int ROAD_SIDE = 8; // reach across the axis, meander included
-    private static final float ROAD_MEANDER = 3.5f;
-    private static final float ROAD_MAX_SLOPE = 0.15f;
-    private static final int ROAD_FROM_BOTTOM = 12;
-    private static final int ROAD_FROM_TOP = 8;
-    private static final int ROAD_SURFACE_MARGIN = 15;
-    private static final float ROAD_MIN_WIDTH = 11; // of the ravine at the deck
-    private static final float ROAD_MAX_WIDTH = 21;
-    private static final int ROAD_REACH = 110; // from a ravine centre: the crossing along it plus the road across it
-    private static final int ROAD_SECOND_LENGTH = 140;
-    private static final int ROAD_SECOND_CHANCE = 51; // out of 256
-    private static final int ROAD_SECOND_APART = 30;
-    private static final int ROAD_TRIES = 8;
-    private static final float ROAD_DECK_FROM = 0.6f; // share of the middle band, near the top where the ravine is widest
-    private static final float ROAD_DECK_TO = 0.88f;
-    private static final float RAVINE_BULGE = 0.5f; // extra half width where a road crosses
-    private static final int RAVINE_BULGE_REACH = 12; // blocks along the ravine each way
-    private static final int ROAD_SCAN = 14; // blocks from the crossing to look for a rim
-    private static final int ROAD_SURFACE_STEP = 8;
-    private static final int ROAD_APRON = 14; // blocks of solid floor past the rim, the landing included // blocks of solid floor past the shaft rim
+    // abysses: rare, huge, from the top of the upper band to the deep floor, on a coarser grid of their own
+    private static final int ABYSS_CELL = 640; // multiple of 16
+    private static final int ABYSS_EDGE = 120;
+    private static final int ABYSS_CHANCE = 110; // out of 256, about one ravine in eight in number
+    private static final int ABYSS_MAX_REACH = 300; // half the length, the meander and the width
+    private static final int ABYSS_MIN_LENGTH = 220;
+    private static final int ABYSS_MAX_LENGTH = 420;
+    private static final float ABYSS_MIN_HALF = 12;
+    private static final float ABYSS_MAX_HALF = 22;
+    private static final float ABYSS_MIN_MEANDER = 12;
+    private static final float ABYSS_MAX_MEANDER = 20;
+    private static final float ABYSS_NARROWING = 0.4f;
+    private static final int ABYSS_ROOF_MIN = 50; // blocks of rock above an abyss, with up to 28 more by the abyss: never closer than 30 to the surface
+    private static final int ABYSS_ROOF_STEP = 7;
+    private static final int ABYSS_TOP_TAPER = 24; // a rounded roof
+    private static final int ABYSS_DEEP_CLEARANCE = 3; // above the deep floor, so the bottom meets its water or rock
+    private static final int ABYSS_TOP_BOUND = 10000; // the real top is the cap of each column
+    private static final int LEDGE_PERIOD = 48;
+    private static final int LEDGE_THICKNESS = 4;
+    private static final float LEDGE_PINCH = 0.22f; // share of the width a shelf takes
+
 
     private static final int STREAM_MIN_THICKNESS = 24; // of the middle band
     private static final int STREAM_LEVEL_THICKNESS = 110; // one more level for every this many blocks of band, up to three
@@ -148,52 +141,39 @@ public final class MistyCaves {
         final float amplitude;
         final float meanderBase;
         final float taperLen;
+        final float narrowing;
         final int bottomY; // ignored by an abyss
         final int topY;
         final boolean abyss;
         final int spread;
-        final int middleBottom;
-        final int middleTop;
         final float wobble;
-        final boolean bridge;
-        final int bulge0; // distances along the ravine where it swells for a road, or MIN_VALUE
-        final int bulge1;
 
-        private Shaft(DepthBands.Edges edges, int x, int z, int h, boolean alongX, long seed) {
+        private Shaft(DepthBands.Edges edges, int x, int z, int h, boolean alongX, boolean abyss) {
             this.x = x;
             this.z = z;
             this.alongX = alongX;
-            int length = RAVINE_MIN_LENGTH + (mix(h, 3, 0) & 0xFFFF) % (RAVINE_MAX_LENGTH - RAVINE_MIN_LENGTH + 1);
+            this.abyss = abyss;
+            int length = abyss ? ABYSS_MIN_LENGTH + (mix(h, 3, 0) & 0xFFFF) % (ABYSS_MAX_LENGTH - ABYSS_MIN_LENGTH + 1)
+                    : RAVINE_MIN_LENGTH + (mix(h, 3, 0) & 0xFFFF) % (RAVINE_MAX_LENGTH - RAVINE_MIN_LENGTH + 1);
             this.len0 = Math.round(length * (0.4f + 0.2f * (mix(h, 13, 0) & 0xFF) / 255f));
             this.len1 = length - len0;
-            this.baseHalf = RAVINE_MIN_HALF + (RAVINE_MAX_HALF - RAVINE_MIN_HALF) * (mix(h, 14, 0) & 0xFF) / 255f;
-            this.amplitude = RAVINE_MIN_MEANDER + (RAVINE_MAX_MEANDER - RAVINE_MIN_MEANDER) * (mix(h, 15, 0) & 0xFF) / 255f;
+            float share = (mix(h, 14, 0) & 0xFF) / 255f;
+            this.baseHalf = abyss ? ABYSS_MIN_HALF + (ABYSS_MAX_HALF - ABYSS_MIN_HALF) * share : RAVINE_MIN_HALF + (RAVINE_MAX_HALF - RAVINE_MIN_HALF) * share;
+            float meander = (mix(h, 15, 0) & 0xFF) / 255f;
+            this.amplitude = abyss ? ABYSS_MIN_MEANDER + (ABYSS_MAX_MEANDER - ABYSS_MIN_MEANDER) * meander : RAVINE_MIN_MEANDER + (RAVINE_MAX_MEANDER - RAVINE_MIN_MEANDER) * meander;
             this.taperLen = length * (RAVINE_MIN_TAPER + (RAVINE_MAX_TAPER - RAVINE_MIN_TAPER) * (mix(h, 16, 0) & 0xFF) / 255f);
+            this.narrowing = abyss ? ABYSS_NARROWING : RAVINE_NARROWING;
             this.wobble = (mix(h, 6, 0) & 0xFFF);
             this.meanderBase = (float) SimplexNoise.noise(wobble + 17, 0);
             this.spread = (mix(h, 4, 0) & 0xFF) % SHAFT_FLOOR_SPREAD;
-            this.middleBottom = edges.middleBottom();
-            this.middleTop = edges.top(DepthBands.Band.MIDDLE);
-            this.topY = edges.at(DepthBands.Band.MIDDLE, SHAFT_TOP_FROM + (1 - SHAFT_TOP_FROM) * (mix(h, 5, 0) & 0xFF) / 255f);
-            int drop = RAVINE_MIN_DROP + (mix(h, 17, 0) & 0xFFFF) % (RAVINE_MAX_DROP - RAVINE_MIN_DROP + 1);
-            this.bottomY = Math.max(topY - drop, middleBottom - RAVINE_MITHRIL_DIP);
-            this.bridge = (mix(h, 12, 0) & 0xFF) < BRIDGE_CHANCE;
-            this.abyss = (mix(h, 18, 0) & 0xFF) < ABYSS_CHANCE && clearOfThemeBorders(seed);
-            this.bulge0 = crossingT(this, mix(x, z, 7311), 0);
-            this.bulge1 = crossingT(this, mix(x, z, 7311), 1);
-        }
-
-        // an abyss may only reach the deeps where no theme border is crossed under it
-        private boolean clearOfThemeBorders(long seed) {
-            int pad = Math.round(baseHalf * (1 + RAVINE_WIDTH_VARY)) + 2;
-            for (int t = -len0; t <= len1; t += ABYSS_STEP) {
-                int u = Math.round(ravineLateral(this, t));
-                for (int side = -1; side <= 1; side++) {
-                    int across = u + side * pad;
-                    if (DeepThemes.border(alongX ? x + t : x + across, alongX ? z + across : z + t, seed)) return false;
-                }
+            if (abyss) {
+                this.topY = ABYSS_TOP_BOUND;
+                this.bottomY = DepthBands.DEEP_FLOOR;
+            } else {
+                this.topY = edges.at(DepthBands.Band.MIDDLE, SHAFT_TOP_FROM + (1 - SHAFT_TOP_FROM) * (mix(h, 5, 0) & 0xFF) / 255f);
+                int drop = RAVINE_MIN_DROP + (mix(h, 17, 0) & 0xFFFF) % (RAVINE_MAX_DROP - RAVINE_MIN_DROP + 1);
+                this.bottomY = Math.max(topY - drop, edges.middleBottom() - RAVINE_MITHRIL_DIP);
             }
-            return true;
         }
 
         private boolean touches(int startX, int startZ, int size) {
@@ -203,45 +183,6 @@ public final class MistyCaves {
             int axisStart = alongX ? startX : startZ;
             int crossStart = alongX ? startZ : startX;
             return axis + len1 >= axisStart && axis - len0 <= axisStart + size - 1 && cross + pad >= crossStart && cross - pad <= crossStart + size - 1;
-        }
-    }
-
-    // a road crossing a ravine at right angles, starting at the point of the centreline it crosses
-    public static final class Road {
-        final Shaft shaft;
-        final boolean alongX;
-        final int index;
-        final int cx;
-        final int cz;
-        final int deckY;
-        final int minDeck;
-        final int minY;
-        final int maxY;
-        final int[] length = new int[2]; // negative then positive side
-        final float[] slope = new float[2];
-        int apronPositive; // where the apron stone starts on each side, along the road from the crossing; set with the fit
-        int apronNegative;
-
-        private Road(Shaft shaft, int index, int crossing, int deckY, int h) {
-            this.shaft = shaft;
-            this.alongX = !shaft.alongX;
-            this.index = index;
-            int lateral = Math.round(ravineLateral(shaft, crossing));
-            this.cx = shaft.x + (shaft.alongX ? crossing : lateral);
-            this.cz = shaft.z + (shaft.alongX ? lateral : crossing);
-            this.deckY = deckY;
-            this.minDeck = shaft.middleBottom;
-            int low = deckY;
-            int high = deckY;
-            for (int side = 0; side < 2; side++) {
-                length[side] = ROAD_MIN_LENGTH + (mix(h, 21 + side, index) & 0xFFFF) % (ROAD_MAX_LENGTH - ROAD_MIN_LENGTH + 1);
-                slope[side] = ROAD_MAX_SLOPE * ((mix(h, 23 + side, index) & 0xFFFF) / 32767.5f - 1);
-                int end = Math.max(minDeck, deckY + Math.round(slope[side] * (length[side] - ROAD_FLAT)));
-                low = Math.min(low, end);
-                high = Math.max(high, end);
-            }
-            this.minY = low - 4;
-            this.maxY = high + 4;
         }
     }
 
@@ -334,8 +275,6 @@ public final class MistyCaves {
     private static final Lake[] NO_LAKES = new Lake[0];
 
     private static final Shaft[] NO_SHAFTS = new Shaft[0];
-
-    private static final Road[] NO_ROADS = new Road[0];
 
     final int offsetX;
     final int offsetY;
@@ -508,40 +447,46 @@ public final class MistyCaves {
         return edges.floor() + CHAMBER_CLEARANCE - 4;
     }
 
-    // ravines whose reach touches the chunk, or an empty array
+    // ravines and abysses whose reach touches the chunk, or an empty array
     public Shaft[] shaftsNear(MiddleEarthMapRuntime map, int startX, int startZ) {
-        int minCellX = Math.floorDiv(startX - SHAFT_MAX_REACH, SHAFT_CELL);
-        int maxCellX = Math.floorDiv(startX + 15 + SHAFT_MAX_REACH, SHAFT_CELL);
-        int minCellZ = Math.floorDiv(startZ - SHAFT_MAX_REACH, SHAFT_CELL);
-        int maxCellZ = Math.floorDiv(startZ + 15 + SHAFT_MAX_REACH, SHAFT_CELL);
         Shaft[] found = NO_SHAFTS;
-        for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
-            for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
-                Shaft shaft = shaftInCell(map, cellX, cellZ, startX, startZ, SHAFT_MAX_REACH);
-                if (shaft == null || !shaft.touches(startX, startZ, 16)) continue;
-                Shaft[] grown = java.util.Arrays.copyOf(found, found.length + 1);
-                grown[found.length] = shaft;
-                found = grown;
+        for (boolean abyss : new boolean[]{false, true}) {
+            int cell = abyss ? ABYSS_CELL : SHAFT_CELL;
+            int reach = abyss ? ABYSS_MAX_REACH : SHAFT_MAX_REACH;
+            int minCellX = Math.floorDiv(startX - reach, cell);
+            int maxCellX = Math.floorDiv(startX + 15 + reach, cell);
+            int minCellZ = Math.floorDiv(startZ - reach, cell);
+            int maxCellZ = Math.floorDiv(startZ + 15 + reach, cell);
+            for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
+                for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
+                    Shaft shaft = shaftInCell(map, cellX, cellZ, startX, startZ, reach, abyss);
+                    if (shaft == null || !shaft.touches(startX, startZ, 16)) continue;
+                    Shaft[] grown = java.util.Arrays.copyOf(found, found.length + 1);
+                    grown[found.length] = shaft;
+                    found = grown;
+                }
             }
         }
         return found;
     }
 
-    private Shaft shaftInCell(MiddleEarthMapRuntime map, int cellX, int cellZ, int startX, int startZ, int reach) {
-        int h = mix(cellX + offsetX, cellZ + offsetZ, offsetY);
-        if ((h & 0xFF) >= SHAFT_CHANCE) return null;
-        int span = SHAFT_CELL - 2 * SHAFT_EDGE;
-        int x = cellX * SHAFT_CELL + SHAFT_EDGE + (mix(h, 1, 0) & 0xFFFF) % span;
-        int z = cellZ * SHAFT_CELL + SHAFT_EDGE + (mix(h, 2, 0) & 0xFFFF) % span;
+    private Shaft shaftInCell(MiddleEarthMapRuntime map, int cellX, int cellZ, int startX, int startZ, int reach, boolean abyss) {
+        int h = abyss ? mix(cellX + offsetZ + 5, cellZ + offsetX + 9, offsetY + 4001) : mix(cellX + offsetX, cellZ + offsetZ, offsetY);
+        if ((h & 0xFF) >= (abyss ? ABYSS_CHANCE : SHAFT_CHANCE)) return null;
+        int cell = abyss ? ABYSS_CELL : SHAFT_CELL;
+        int edge = abyss ? ABYSS_EDGE : SHAFT_EDGE;
+        int span = cell - 2 * edge;
+        int x = cellX * cell + edge + (mix(h, 1, 0) & 0xFFFF) % span;
+        int z = cellZ * cell + edge + (mix(h, 2, 0) & 0xFFFF) % span;
         if (x < startX - reach || x > startX + 15 + reach || z < startZ - reach || z > startZ + 15 + reach) return null;
         if (weight(map, x, z) < SHAFT_MIN_WEIGHT) return null;
-        // along the range, so north-south in the Misty Mountains; axis-aligned so the bridges cross square
+        // along the range, so north-south in the Misty Mountains
         boolean alongX = (mix(h, 19, 0) & 1) == 0;
         MapBasedCustomBiome biome = map.getBiome(x, z);
         BiomeGenerationData data = biome == null ? null : biome.getBiomeData();
         if (data != null && data.ridgeAxis == BiomeGenerationData.RidgeAxis.NORTH_SOUTH) alongX = false;
         if (data != null && data.ridgeAxis == BiomeGenerationData.RidgeAxis.EAST_WEST) alongX = true;
-        return new Shaft(edgesAt(map, x, z), x, z, h, alongX, seed);
+        return new Shaft(abyss ? null : edgesAt(map, x, z), x, z, h, alongX, abyss);
     }
 
     DepthBands.Edges edgesAt(MiddleEarthMapRuntime map, int x, int z) {
@@ -565,255 +510,37 @@ public final class MistyCaves {
         float fromEnd = Math.min(t + shaft.len0, shaft.len1 - t);
         float vary = 1 + RAVINE_WIDTH_VARY * (float) SimplexNoise.noise(shaft.wobble + 53, t / RAVINE_WIDTH_SCALE);
         out[index] = Math.abs(u - ravineLateral(shaft, t));
-        float bulge = 0;
-        if (shaft.bulge0 != Integer.MIN_VALUE) bulge = 1 - smoothstep(0, RAVINE_BULGE_REACH, Math.abs(t - shaft.bulge0));
-        if (shaft.bulge1 != Integer.MIN_VALUE) bulge = Math.max(bulge, 1 - smoothstep(0, RAVINE_BULGE_REACH, Math.abs(t - shaft.bulge1)));
-        out[index + 1] = shaft.baseHalf * vary * smoothstep(0, shaft.taperLen, fromEnd) * (1 + RAVINE_BULGE * bulge);
+        out[index + 1] = shaft.baseHalf * vary * smoothstep(0, shaft.taperLen, fromEnd);
     }
 
+    // the wall's ragged width with height, and for an abyss rock shelves that pinch it every so often
     public static float shaftWobble(Shaft shaft, int y) {
-        return 1 + 0.12f * (float) SimplexNoise.noise(shaft.wobble, y / 26f);
+        float wobble = 1 + 0.12f * (float) SimplexNoise.noise(shaft.wobble, y / 26f);
+        if (shaft.abyss) {
+            int k = Math.floorMod(y + (int) shaft.wobble, LEDGE_PERIOD);
+            wobble *= 1 - LEDGE_PINCH * (1 - smoothstep(0, LEDGE_THICKNESS, k));
+        }
+        return wobble;
     }
 
-    // the cross-section factor at this height, with the wobble of shaftWobble in a column with this deep floor and this top of the middle band; 0 where the ravine is closed
-    public static float shaftScale(Shaft shaft, int y, int floor, int top, float wobble) {
-        int bottom = shaft.abyss ? floor + SHAFT_FLOOR_CLEARANCE + shaft.spread : Math.max(shaft.bottomY, floor + SHAFT_FLOOR_CLEARANCE);
-        int ceiling = Math.min(shaft.topY, top);
+    // the cross-section factor at this height, with the wobble of shaftWobble, in a column with these band edges; 0 where the ravine is closed.
+    // An ordinary ravine stays in the middle band and above the mithril; an abyss runs from the top of the middle band, or 50 to 78 under the surface if that is lower, to the deep floor.
+    public static float shaftScale(Shaft shaft, int y, DepthBands.Edges edges, float wobble) {
+        int floor = edges.floor();
+        int bottom = shaft.abyss ? floor + (floor < DepthBands.SHALLOW_FLOOR ? ABYSS_DEEP_CLEARANCE : SHAFT_FLOOR_CLEARANCE) + shaft.spread % 3
+                : Math.max(shaft.bottomY, floor + SHAFT_FLOOR_CLEARANCE);
+        int ceiling = shaft.abyss ? Math.min(edges.top(DepthBands.Band.MIDDLE), edges.surface() - ABYSS_ROOF_MIN - ABYSS_ROOF_STEP * (shaft.spread % 5))
+                : Math.min(shaft.topY, edges.top(DepthBands.Band.MIDDLE));
         if (ceiling - bottom < SHAFT_MIN_DEPTH) return 0;
-        float envelope = smoothstep(bottom, bottom + SHAFT_TAPER, y) * (1 - smoothstep(ceiling - SHAFT_TAPER, ceiling, y));
+        int taper = shaft.abyss ? ABYSS_TOP_TAPER : SHAFT_TAPER;
+        float envelope = smoothstep(bottom, bottom + SHAFT_TAPER, y) * (1 - smoothstep(ceiling - taper, ceiling, y));
         float depth = MathHelper.clamp((ceiling - y) / (float) (ceiling - bottom), 0f, 1f);
-        return envelope * (1 - RAVINE_NARROWING * depth) * wobble;
+        return envelope * (1 - shaft.narrowing * depth) * wobble;
     }
 
     // open where positive
     public static float shaftMargin(float scale, float across, float halfWidth, float weight) {
         return halfWidth * scale * weight - across;
-    }
-
-    // Up to two roads across a bridge-rolled ravine, each at a deck height where the carved ravine takes a bridge and the road stays
-    // under the surface. A crossing that cannot take a bridge gets no road.
-    public Road[] roadsOf(MiddleEarthMapRuntime map, Shaft shaft) {
-        if (!shaft.bridge) return NO_ROADS;
-        int h = mix(shaft.x, shaft.z, 7311);
-        int middle = shaft.middleTop - shaft.middleBottom;
-        int lo = Math.max(shaft.bottomY + ROAD_FROM_BOTTOM, shaft.middleBottom + Math.round(ROAD_DECK_FROM * middle));
-        int hi = Math.min(shaft.topY - ROAD_FROM_TOP, shaft.middleBottom + Math.round(ROAD_DECK_TO * middle));
-        if (hi < lo) return NO_ROADS;
-        Road[] found = NO_ROADS;
-        for (int slot = 0; slot < 2; slot++) {
-            int crossing = crossingT(shaft, h, slot);
-            if (crossing == Integer.MIN_VALUE) break;
-            for (int attempt = 0; attempt < ROAD_TRIES; attempt++) {
-                int deck = lo + (mix(h, 30 + slot, attempt) & 0xFFFF) % (hi - lo + 1);
-                if (slot > 0 && found.length > 0 && Math.abs(deck - found[0].deckY) < 4) continue;
-                Road road = new Road(shaft, slot, crossing, deck, h);
-                BridgeFit fit = bridgeFit(map, road);
-                if (fit == null || !roadUnderSurface(road)) continue;
-                // the landings stand 2 blocks past the span ends; the apron starts 2 blocks short of the landings
-                int half = GoblinBridge.SPAN_LENGTH[fit.size()] / 2;
-                road.apronPositive = fit.shift() + half - 1;
-                road.apronNegative = fit.shift() - half + 1;
-                Road[] grown = java.util.Arrays.copyOf(found, found.length + 1);
-                grown[found.length] = road;
-                found = grown;
-                break;
-            }
-            if (slot == 0 && found.length == 0) break;
-        }
-        return found;
-    }
-
-    // where the bridge of a road goes: the span size and the blocks from the crossing to the rims
-    public record BridgeFit(int size, int shift) {
-    }
-
-    // Measured the way the sampler carves: the ravine's rim at the two deck rows, narrowed by the apron stone that starts
-    // inside the rim. The bridge is placed from this, so a road that has a fit always gets its bridge. The fit has to hold with
-    // the span ends inside rock on both sides; null when none does.
-    public BridgeFit bridgeFit(MiddleEarthMapRuntime map, Road road) {
-        Shaft shaft = road.shaft;
-        float weight = weight(map, road.cx, road.cz);
-        DepthBands.Edges edges = edgesAt(map, road.cx, road.cz);
-        float[] column = new float[2];
-        shaftColumn(shaft, road.cx, road.cz, column, 0);
-        float half = Float.MAX_VALUE;
-        for (int y = road.deckY - 1; y <= road.deckY; y++) {
-            half = Math.min(half, apronRim(shaft, column[1] * weight, y, edges));
-        }
-        // the road line runs across the ravine; its centre is the centreline's offset from the crossing block
-        float lateral = ravineLateral(shaft, shaft.alongX ? road.cx - shaft.x : road.cz - shaft.z);
-        float offset = lateral - Math.round(lateral);
-        if (half - Math.abs(offset) <= 0) return null;
-        int positive = -1;
-        int negative = -1;
-        for (int k = 1; k <= ROAD_SCAN && (positive < 0 || negative < 0); k++) {
-            if (positive < 0 && half - Math.abs(k - offset) <= 0) positive = k;
-            if (negative < 0 && half - Math.abs(-k - offset) <= 0) negative = k;
-        }
-        if (positive < 0 || negative < 0) return null;
-        int[] fit = GoblinBridge.fit(positive, negative);
-        return fit == null ? null : new BridgeFit(fit[0], fit[1]);
-    }
-
-    // the distance along the ravine of a road's crossing in the middle half of its length, or MIN_VALUE when there is none
-    private static int crossingT(Shaft shaft, int h, int slot) {
-        if (!shaft.bridge) return Integer.MIN_VALUE;
-        float share = (mix(h, 31 + slot * 8, 0) & 0xFFFF) / 65536f;
-        int first = Math.round(-0.5f * shaft.len0 + share * 0.5f * (shaft.len0 + shaft.len1));
-        if (slot == 0) return first;
-        if (shaft.len0 + shaft.len1 <= ROAD_SECOND_LENGTH || (mix(h, 40, 0) & 0xFF) >= ROAD_SECOND_CHANCE) return Integer.MIN_VALUE;
-        int second = first < 0 ? Math.round(0.1f * shaft.len1 + share * 0.4f * shaft.len1) : Math.round(-0.5f * shaft.len0 + share * 0.4f * shaft.len0);
-        return Math.abs(second - first) >= ROAD_SECOND_APART ? second : Integer.MIN_VALUE;
-    }
-
-    private boolean roadUnderSurface(Road road) {
-        for (int side = 0; side < 2; side++) {
-            int sign = side == 0 ? -1 : 1;
-            for (int a = 0; a <= road.length[side]; a += ROAD_SURFACE_STEP) {
-                int t = sign * a;
-                int u = roadLateral(road, t);
-                int x = road.cx + (road.alongX ? t : u);
-                int z = road.cz + (road.alongX ? u : t);
-                float surface = MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z);
-                if (surface - ROAD_SURFACE_MARGIN < roadDeck(road, t) + 4) return false;
-            }
-        }
-        return true;
-    }
-
-    // the road whose crossing point lies in this chunk, or null
-    public Road roadCrossingIn(MiddleEarthMapRuntime map, int chunkX, int chunkZ) {
-        int startX = chunkX << 4;
-        int startZ = chunkZ << 4;
-        int minCellX = Math.floorDiv(startX - ROAD_REACH, SHAFT_CELL);
-        int maxCellX = Math.floorDiv(startX + 15 + ROAD_REACH, SHAFT_CELL);
-        int minCellZ = Math.floorDiv(startZ - ROAD_REACH, SHAFT_CELL);
-        int maxCellZ = Math.floorDiv(startZ + 15 + ROAD_REACH, SHAFT_CELL);
-        for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
-            for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
-                int h = mix(cellX + offsetX, cellZ + offsetZ, offsetY);
-                if ((h & 0xFF) >= SHAFT_CHANCE || (mix(h, 12, 0) & 0xFF) >= BRIDGE_CHANCE) continue;
-                Shaft shaft = shaftInCell(map, cellX, cellZ, startX, startZ, ROAD_REACH);
-                if (shaft == null || !crossingMayBeIn(shaft, chunkX, chunkZ)) continue;
-                for (Road road : roadsOf(map, shaft)) {
-                    if (road.cx >> 4 == chunkX && road.cz >> 4 == chunkZ) return road;
-                }
-            }
-        }
-        return null;
-    }
-
-    // a cheap test before roadsOf: a crossing falls in the chunk
-    private static boolean crossingMayBeIn(Shaft shaft, int chunkX, int chunkZ) {
-        int h = mix(shaft.x, shaft.z, 7311);
-        for (int slot = 0; slot < 2; slot++) {
-            int crossing = crossingT(shaft, h, slot);
-            if (crossing == Integer.MIN_VALUE) continue;
-            int lateral = Math.round(ravineLateral(shaft, crossing));
-            int x = shaft.x + (shaft.alongX ? crossing : lateral);
-            int z = shaft.z + (shaft.alongX ? lateral : crossing);
-            if (x >> 4 == chunkX && z >> 4 == chunkZ) return true;
-        }
-        return false;
-    }
-
-    // roads whose reach touches the chunk, or an empty array
-    public Road[] roadsNear(MiddleEarthMapRuntime map, int startX, int startZ) {
-        return roadsNear(map, startX, startZ, 16);
-    }
-
-    // roads whose reach touches the square of this size
-    public Road[] roadsNear(MiddleEarthMapRuntime map, int startX, int startZ, int size) {
-        int minCellX = Math.floorDiv(startX - ROAD_REACH, SHAFT_CELL);
-        int maxCellX = Math.floorDiv(startX + size - 1 + ROAD_REACH, SHAFT_CELL);
-        int minCellZ = Math.floorDiv(startZ - ROAD_REACH, SHAFT_CELL);
-        int maxCellZ = Math.floorDiv(startZ + size - 1 + ROAD_REACH, SHAFT_CELL);
-        Road[] found = NO_ROADS;
-        for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
-            for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
-                Shaft shaft = shaftInCell(map, cellX, cellZ, startX, startZ, ROAD_REACH + size - 16);
-                if (shaft == null || !shaft.bridge) continue;
-                for (Road road : roadsOf(map, shaft)) {
-                    int axisLow = (road.alongX ? road.cx : road.cz) - road.length[0];
-                    int axisHigh = (road.alongX ? road.cx : road.cz) + road.length[1];
-                    int crossCentre = road.alongX ? road.cz : road.cx;
-                    int axisStart = road.alongX ? startX : startZ;
-                    int crossStart = road.alongX ? startZ : startX;
-                    if (axisHigh < axisStart || axisLow > axisStart + size - 1 || crossCentre + ROAD_SIDE < crossStart || crossCentre - ROAD_SIDE > crossStart + size - 1) continue;
-                    Road[] grown = java.util.Arrays.copyOf(found, found.length + 1);
-                    grown[found.length] = road;
-                    found = grown;
-                }
-            }
-        }
-        return found;
-    }
-
-    // t is the signed distance from the crossing along the road; the meander is across it
-    int roadLateral(Road road, int t) {
-        int a = Math.abs(t);
-        if (a <= ROAD_FLAT) return 0;
-        float ramp = smoothstep(ROAD_FLAT, ROAD_FLAT + ROAD_RAMP, a);
-        return Math.round(ROAD_MEANDER * ramp * (float) SimplexNoise.noise(road.shaft.wobble + 307 + road.index * 91 + (t < 0 ? 53 : 0), a / 45f));
-    }
-
-    static int roadDeck(Road road, int t) {
-        int a = Math.abs(t);
-        if (a <= ROAD_FLAT) return road.deckY;
-        return Math.max(road.minDeck, road.deckY + Math.round(road.slope[t < 0 ? 0 : 1] * (a - ROAD_FLAT)));
-    }
-
-    // solid under and beside the road mouth: the deck row and four rows below it, 7 wide, from just inside the rim outward
-    public boolean roadApron(Road road, int x, int y, int z) {
-        if (y > road.deckY || y < road.deckY - 4) return false;
-        int dx = x - road.cx;
-        int dz = z - road.cz;
-        int t = road.alongX ? dx : dz;
-        int u = road.alongX ? dz : dx;
-        if (Math.abs(t) > ROAD_FLAT || Math.abs(u) > 3) return false;
-        return t >= road.apronPositive || t <= road.apronNegative;
-    }
-
-    // the smaller of the ravine's own rim and the rim its column limits leave it
-    private static float apronRim(Shaft shaft, float halfWidth, int y, DepthBands.Edges edges) {
-        float wobble = shaftWobble(shaft, y);
-        float rim = halfWidth * shaftScale(shaft, y, shaft.bottomY, shaft.topY, wobble);
-        if (edges != null) rim = Math.min(rim, halfWidth * shaftScale(shaft, y, edges.floor(), edges.top(DepthBands.Band.MIDDLE), wobble));
-        return rim;
-    }
-
-    // clear rows of a road at this column: deck+1 to deck+4, or an empty range when the column is outside it
-    int roadFirstRow(Road road, int x, int z) {
-        int dx = x - road.cx;
-        int dz = z - road.cz;
-        int t = road.alongX ? dx : dz;
-        int u = road.alongX ? dz : dx;
-        if (Math.abs(t) >= road.length[t < 0 ? 0 : 1] || Math.abs(u) > ROAD_SIDE) return Integer.MIN_VALUE;
-        return roadDeck(road, t) + 1;
-    }
-
-    // open where the road carves: 3 wide and 3 tall above its deck row, rougher away from the ravine and tapering at the ends
-    public boolean roadOpen(Road road, int x, int y, int z) {
-        int dx = x - road.cx;
-        int dz = z - road.cz;
-        int t = road.alongX ? dx : dz;
-        int u = road.alongX ? dz : dx;
-        int a = Math.abs(t);
-        int length = road.length[t < 0 ? 0 : 1];
-        if (a >= length || Math.abs(u) > ROAD_SIDE) return false;
-        int rel = y - roadDeck(road, t);
-        if (rel < 1 || rel > 4) return false;
-        int across = Math.abs(u - roadLateral(road, t));
-        float open = Math.min(1, (length - a) / (float) ROAD_TAPER);
-        if (across > (open < 0.5f ? 0 : 1)) return false;
-        int height = 3;
-        if (open < 1) {
-            height = 1 + (int) (open * 3);
-        } else if (a > ROAD_FLAT) {
-            float rough = (float) SimplexNoise.noise((x + offsetX) / 4f, (z + offsetZ) / 4f);
-            height += rough > 0.35f ? 1 : rough < -0.5f ? -1 : 0;
-        }
-        return rel <= height;
     }
 
     // two thin sheets: a near-vertical one and a layered one that tilts, so the tube winds and slopes
@@ -1022,16 +749,6 @@ public final class MistyCaves {
         for (Shaft shaft : shafts) {
             min = Math.min(min, shaft.abyss ? DepthBands.DEEP_FLOOR : shaft.bottomY - 4);
             max = Math.max(max, shaft.topY);
-        }
-        return new int[]{min, max};
-    }
-
-    public static int[] roadRange(Road[] roads) {
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for (Road road : roads) {
-            min = Math.min(min, road.minY);
-            max = Math.max(max, road.maxY);
         }
         return new int[]{min, max};
     }

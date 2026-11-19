@@ -25,8 +25,6 @@ import java.util.Optional;
 // span and landing pieces placed by hand, aligned through their jigsaw blocks
 final class GoblinBridge {
     static final int[] SPAN_LENGTH = {13, 17, 21};
-    static final int END_ROCK_MIN = 2;
-    static final int END_ROCK_MAX = 4;
     static final int SPAN_SLACK = 2;
 
     private static final String[] SPAN_SIZES = {"short", "medium", "long"};
@@ -34,23 +32,6 @@ final class GoblinBridge {
     private static final Identifier CENTER = MiddleEarth.id("bridge_center");
 
     private GoblinBridge() {
-    }
-
-    // the span size and its shift along the road for rims this far from the crossing: both span ends have to end up 2 to 4 blocks
-    // inside the rock beyond the last air, so every landing starts on floor. null when no span fits.
-    static int[] fit(int toPositive, int toNegative) {
-        int centre = (toPositive - toNegative) / 2;
-        for (int size = 0; size < SPAN_LENGTH.length; size++) {
-            int half = SPAN_LENGTH[size] / 2;
-            for (int d = 0; d <= END_ROCK_MAX; d++) {
-                for (int shift : new int[]{centre + d, centre - d}) {
-                    int positive = shift + half - (toPositive - 1);
-                    int negative = half - shift - (toNegative - 1);
-                    if (positive >= END_ROCK_MIN && positive <= END_ROCK_MAX && negative >= END_ROCK_MIN && negative <= END_ROCK_MAX) return new int[]{size, shift};
-                }
-            }
-        }
-        return null;
     }
 
     // cells a landing occupies along the span axis, or -1 when its template is missing
