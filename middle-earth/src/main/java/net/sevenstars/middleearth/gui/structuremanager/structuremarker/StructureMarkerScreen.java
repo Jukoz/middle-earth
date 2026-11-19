@@ -187,10 +187,10 @@ public class StructureMarkerScreen extends EditorScreen<StructureMarkerScreenHan
             shownKind = kind;
             List<Choice> choices = new ArrayList<>();
             if(kind == MarkerKind.SPAWN_NPC) {
-                for(String nest : handler.getData().nests())
-                    choices.add(new Choice(nest, nestName(nest)));
+                for(Map.Entry<String, String> nest : handler.getData().nests().entrySet())
+                    choices.add(new Choice(nest.getKey(), nestName(nest.getKey(), nest.getValue())));
                 // An older marker stores only a kind, and its place comes from its manager
-                if(!current.isEmpty() && !handler.getData().nests().contains(current))
+                if(!current.isEmpty() && !handler.getData().nests().containsKey(current))
                     choices.add(new Choice(current, ChoiceListWidget.readable(current)));
             } else if(kind == MarkerKind.SPAWN_ANIMAL) {
                 for(String animal : handler.getData().animals())
@@ -216,10 +216,10 @@ public class StructureMarkerScreen extends EditorScreen<StructureMarkerScreenHan
     }
 
     // Brigand dungeon: bandit
-    private static Text nestName(String id) {
+    private static Text nestName(String id, String placeId) {
         Identifier nest = Identifier.tryParse(id);
-        Identifier place = nest == null ? null : BedTag.peopleNests().get(nest);
-        if(place == null)
+        Identifier place = Identifier.tryParse(placeId);
+        if(nest == null || place == null)
             return Text.literal(id);
         return Text.translatable(place.toTranslationKey("structure_manager_data")).append(": ").append(ChoiceListWidget.readable(BedTag.nestKindOf(nest)));
     }

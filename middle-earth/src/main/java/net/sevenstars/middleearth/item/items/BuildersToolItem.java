@@ -165,7 +165,7 @@ public class BuildersToolItem extends Item {
             }
             // On something that opens, the builder most likely wants the marker that keeps npcs out
             boolean opens = state.getBlock() instanceof NpcDoor || state.contains(Properties.OPEN);
-            data = StructureMarkerScreenData.create(pos, true, opens ? MarkerKind.OFF_LIMITS : MarkerKind.GUARD_POST, "", 1, false, hit.getSide().getAxis().isHorizontal() ? hit.getSide().getOpposite() : player.getHorizontalFacing());
+            data = StructureMarkerScreenData.create(player.getEntityWorld().getRegistryManager(), pos, true, opens ? MarkerKind.OFF_LIMITS : MarkerKind.GUARD_POST, "", 1, false, hit.getSide().getAxis().isHorizontal() ? hit.getSide().getOpposite() : player.getHorizontalFacing());
         }
         player.openHandledScreen(new ExtendedScreenHandlerFactory<StructureMarkerScreenData>() {
             @Override

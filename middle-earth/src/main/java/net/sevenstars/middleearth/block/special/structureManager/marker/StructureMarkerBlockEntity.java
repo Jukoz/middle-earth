@@ -93,7 +93,7 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
     }
 
     public StructureMarkerScreenData screenData() {
-        return StructureMarkerScreenData.create(pos, false, kind, value, count, respawns, getCachedState().get(StructureMarkerBlock.FACING));
+        return StructureMarkerScreenData.create(world.getRegistryManager(), pos, false, kind, value, count, respawns, getCachedState().get(StructureMarkerBlock.FACING));
     }
 
     @Override
