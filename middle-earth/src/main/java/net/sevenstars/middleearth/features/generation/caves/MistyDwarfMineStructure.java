@@ -35,7 +35,7 @@ import net.minecraft.world.gen.structure.StructureType;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
-import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
+import net.sevenstars.middleearth.features.generation.chunkgen.CaveProbe;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
 import java.util.ArrayDeque;
@@ -143,7 +143,7 @@ public final class MistyDwarfMineStructure extends Structure {
         boolean peaks = biome != null && PEAKS.contains(biome.getBiomeKey());
         if (context.random().nextInt(256) >= (peaks ? PEAKS_CHANCE : ELSEWHERE_CHANCE)) return Optional.empty();
         DepthBands.Edges edges = new MistyCaves(context.seed()).edgesAt(map, x, z);
-        MiddleEarthChunkGenerator.CaveProbe probe = new MiddleEarthChunkGenerator.CaveProbe(context.seed(), context.world());
+        CaveProbe probe = new CaveProbe(context.seed(), context.world());
         // the band is rolled once; a start the rock refuses is tried again higher or lower in the same band, so the share holds
         boolean delved = context.random().nextInt(3) < DELVED_DEEP;
         for (int attempt = 0; attempt < START_TRIES; attempt++) {
@@ -153,7 +153,7 @@ public final class MistyDwarfMineStructure extends Structure {
         return Optional.empty();
     }
 
-    private Optional<StructurePosition> tryStart(Context context, MiddleEarthChunkGenerator.CaveProbe probe, BlockPos pos) {
+    private Optional<StructurePosition> tryStart(Context context, CaveProbe probe, BlockPos pos) {
         if (airShare(probe, pos.getX() - 2, pos.getX() + 2, pos.getY(), pos.getY() + 2, pos.getZ() - 2, pos.getZ() + 2, 1) > START_MAX_AIR) return Optional.empty();
         Session session = new Session(context, probe, new MistyCaves(context.seed()));
         List<StructurePiece> all = JigsawAssembler.assemble(context, startPool, Optional.empty(), Optional.empty(), pos, size, TARGET_MAX, List.of(), session::fits, session::capFits, random(context, pos, 4100));
@@ -174,14 +174,14 @@ public final class MistyDwarfMineStructure extends Structure {
     // what one mine start needs while it grows: the rock probe, the depth bands of the columns it meets and the chunks it may fill
     private static final class Session {
         final Context context;
-        final MiddleEarthChunkGenerator.CaveProbe probe;
+        final CaveProbe probe;
         final MistyCaves caves;
         final BlockBox window;
         // the pieces of each bridge and the mine on its far side, by the piece the bridge starts from: they go when that piece does
         final Map<StructurePiece, List<StructurePiece>> links = new IdentityHashMap<>();
         private final Map<Long, DepthBands.Edges> edges = new HashMap<>();
 
-        Session(Context context, MiddleEarthChunkGenerator.CaveProbe probe, MistyCaves caves) {
+        Session(Context context, CaveProbe probe, MistyCaves caves) {
             this.context = context;
             this.probe = probe;
             this.caves = caves;
@@ -592,7 +592,7 @@ public final class MistyDwarfMineStructure extends Structure {
 
     private Optional<List<StructurePiece>> continueFrom(Session session, BlockPos opening, Direction out, int landing, List<BlockBox> taken, int count) {
         Context context = session.context;
-        MiddleEarthChunkGenerator.CaveProbe probe = session.probe;
+        CaveProbe probe = session.probe;
         int deckY = opening.getY() - 1;
         // the pieces stop short of the chasm, so the floor ahead of the opening is walked to its edge first; the span starts
         // at the opening and cuts its walkway through whatever rock lies between
@@ -705,7 +705,7 @@ public final class MistyDwarfMineStructure extends Structure {
         return random;
     }
 
-    private static float airShare(MiddleEarthChunkGenerator.CaveProbe probe, int minX, int maxX, int minY, int maxY, int minZ, int maxZ, int step) {
+    private static float airShare(CaveProbe probe, int minX, int maxX, int minY, int maxY, int minZ, int maxZ, int step) {
         int air = 0;
         int total = 0;
         for (int x = minX; x <= maxX; x += step) {

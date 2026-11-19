@@ -15,39 +15,35 @@ import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapConfigs;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapUtils;
 
-import java.awt.*;
+import java.util.Arrays;
 
-public class MiddleEarthHeightMap {
-    public static final int SMOOTH_BRUSH_SIZE = 4;
-    public static final int PERLIN_STRETCH_X = 210;
-    public static final int PERLIN_STRETCH_Y = 180;
-    public static final int PERLIN_STRETCH_X2 = 37;
-    public static final int PERLIN_STRETCH_Y2 = 37;
-    public static final int PERLIN_HEIGHT_RANGE = 53;
-    public static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
-    public static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
-    public static final int MOUNTAIN_START_HEIGHT = 32; // Height depending on the Biome Data.
-    public static final int PERLIN_HEIGHT_OFFSET = 8;
-    public static final int STONE_HEIGHT = 54;
-    public static final int HEIGHT = 8 + STONE_HEIGHT;
-    public static final int DIRT_HEIGHT = 3 + HEIGHT;
-    public static final int WATER_MAX = 24;
-    public static final float WATER_MULTIPLIER = 0.65f;
-    public static final float WATER_PERLIN_DIVIDER = 3.6f;
+public final class MiddleEarthHeightMap {
+    private static final int SMOOTH_BRUSH_SIZE = 4;
+    private static final int PERLIN_STRETCH_X = 210;
+    private static final int PERLIN_STRETCH_Y = 180;
+    private static final int PERLIN_STRETCH_X2 = 37;
+    private static final int PERLIN_STRETCH_Y2 = 37;
+    private static final int PERLIN_HEIGHT_RANGE = 53;
+    private static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
+    private static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
+    static final int MOUNTAIN_START_HEIGHT = 32; // Height depending on the Biome Data.
+    private static final int PERLIN_HEIGHT_OFFSET = 8;
+    private static final int WATER_MAX = 24;
+    private static final float WATER_MULTIPLIER = 0.65f;
+    private static final float WATER_PERLIN_DIVIDER = 3.6f;
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
     private static Float defaultWeightHeight = null;
 
     private static final float MIN_SHARE = 0.001f;
-    private static final ThreadLocal<float[]> MOUNTAIN_SHARES = ThreadLocal.withInitial(() -> new float[4]);
+    private static final ThreadLocal<float[]> MOUNTAIN_SHARES = ThreadLocal.withInitial(() -> new float[MountainRanges.VARIANTS]);
 
     // Above the start the terrain bends towards the ceiling (y values, not heights relative to DIRT_HEIGHT)
-    public static final int SOFT_CEILING_START = 380;
-    public static final int SOFT_CEILING = 430;
+    private static final int SOFT_CEILING_START = 380;
+    private static final int SOFT_CEILING = 430;
 
     private static Long SEED;
-    public MiddleEarthHeightMap(){
-        middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+    private MiddleEarthHeightMap() {
     }
 
     public static void setSeed(long newSeed){
@@ -83,13 +79,13 @@ public class MiddleEarthHeightMap {
         return height;
     }
 
-    public static float getImageNoiseModifier(int xWorld, int zWorld) {
+    private static float getImageNoiseModifier(int xWorld, int zWorld) {
         if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
 
         return (middleEarthMapRuntime.getHeightRgb(xWorld, zWorld) >> 8) & 0xFF;
     }
 
-    public static double getPerlinHeight(int x, int z) {
+    private static double getPerlinHeight(int x, int z) {
         x += getSeed();
         z += getSeed();
         double perlin = 1 * BlendedNoise.noise((double) x / PERLIN_STRETCH_X,(double) z / PERLIN_STRETCH_Y);
@@ -162,7 +158,7 @@ public class MiddleEarthHeightMap {
         float topRight = getImageHeight(x + PIXEL_WEIGHT, z);
         float bottomLeft = getImageHeight(x, z + PIXEL_WEIGHT);
         float bottomRight = getImageHeight(x + PIXEL_WEIGHT, z + PIXEL_WEIGHT);
-        return getHeightBetween(new float[]{topLeft, topRight, bottomLeft, bottomRight},
+        return getHeightBetween(topLeft, topRight, bottomLeft, bottomRight,
                 (float) (x % PIXEL_WEIGHT) / PIXEL_WEIGHT, (float) (z % PIXEL_WEIGHT) / PIXEL_WEIGHT);
     }
 
@@ -173,9 +169,9 @@ public class MiddleEarthHeightMap {
         return defaultWeightHeight;
     }
 
-    private static float getHeightBetween(float[] heights, float xPercent, float zPercent) {
-        float h1 = getMiddleHeight(heights[0], heights[1], xPercent);
-        float h2 = getMiddleHeight(heights[2], heights[3], xPercent);
+    private static float getHeightBetween(float topLeft, float topRight, float bottomLeft, float bottomRight, float xPercent, float zPercent) {
+        float h1 = getMiddleHeight(topLeft, topRight, xPercent);
+        float h2 = getMiddleHeight(bottomLeft, bottomRight, xPercent);
         return getMiddleHeight(h1, h2, zPercent);
     }
 
@@ -185,13 +181,17 @@ public class MiddleEarthHeightMap {
     }
 
     private static float getSmoothHeight(int x, int z) {
+        MiddleEarthMapUtils mapUtils = MiddleEarthMapUtils.getInstance();
+        float imageHeight = Float.NaN; // the same for every sample, read once when first needed
         float total = 0;
         for(int i = -SMOOTH_BRUSH_SIZE; i <= SMOOTH_BRUSH_SIZE; i++) {
             for(int j = -SMOOTH_BRUSH_SIZE; j <= SMOOTH_BRUSH_SIZE; j++) {
-                if(!MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x + i, z + j))
+                if(!mapUtils.isWorldCoordinateInBorder(x + i, z + j)) {
                     total += MapBasedBiomePool.defaultBiome.getHeight();
-                else
-                    total += getImageHeight(x, z);
+                } else {
+                    if(Float.isNaN(imageHeight)) imageHeight = getImageHeight(x, z);
+                    total += imageHeight;
+                }
             }
         }
 
@@ -230,7 +230,7 @@ public class MiddleEarthHeightMap {
             height -= (1 - percentage) * MiddleEarthChunkGenerator.getNoisyHeight(x, z) * 8;
         } else if(key == BiomeKeyRegistryME.DEAD_MARSHES || key == BiomeKeyRegistryME.DEAD_MARSHES_WATER) {
             float oldHeight = height;
-            height = MiddleEarthChunkGenerator.getMarshesHeight(x, z, height);
+            height = MiddleEarthChunkGenerator.getMarshesHeight(x, z);
             float percentage = Math.min(getImageNoiseModifier(x, z), 0.3f) / 0.3f;
             height = lerp(height, oldHeight, percentage);
         }
@@ -248,7 +248,9 @@ public class MiddleEarthHeightMap {
     // The 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples; each one is
     // computed when first asked for
     public static final class ChunkHeights {
-        public static final int SIZE = 16 + 3;
+        private static final int CHUNK_SIZE = 16;
+        private static final int SLOPE_MARGIN = 3;
+        public static final int SIZE = CHUNK_SIZE + SLOPE_MARGIN;
         private final long seed;
         private final int chunkX;
         private final int chunkZ;
@@ -258,7 +260,7 @@ public class MiddleEarthHeightMap {
             this.seed = seed;
             this.chunkX = chunkX;
             this.chunkZ = chunkZ;
-            java.util.Arrays.fill(heights, Float.NaN);
+            Arrays.fill(heights, Float.NaN);
         }
 
         public float at(int dx, int dz) {
@@ -291,17 +293,7 @@ public class MiddleEarthHeightMap {
     }
 
 
-    // Going to be useful for making roads with curves.
-    static float getPointOnBezierCurve(float h0, float h1, float h2, float t)
-    {
-        float a = lerp(h0, h1, t);
-        float b = lerp(h1, h2, t);
-        float d = lerp(a, b, t);
-
-        return d;
-    }
-
-    public static float lerp(float a, float b, float interpolation) {
+    private static float lerp(float a, float b, float interpolation) {
         return a + interpolation * (b - a);
     }
 

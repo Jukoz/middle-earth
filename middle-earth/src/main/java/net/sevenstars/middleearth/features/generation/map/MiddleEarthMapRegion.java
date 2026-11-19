@@ -11,9 +11,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ComponentSampleModel;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferInt;
+import java.awt.image.SinglePixelPackedSampleModel;
 import java.awt.image.WritableRaster;
 
-public class MiddleEarthMapRegion {
+public final class MiddleEarthMapRegion {
     public final static int CALC_REGION_SIZE = MiddleEarthMapConfigs.REGION_SIZE * MiddleEarthMapConfigs.PIXEL_WEIGHT;
     public final Vector2i coordinate;
     private final BufferedImage biomeImage;
@@ -29,9 +30,6 @@ public class MiddleEarthMapRegion {
         heightImage = FileUtils.getInstance().getRunImage(heightPath);
         biomePixels = biomeImage == null ? null : new Pixels(biomeImage);
         heightPixels = heightImage == null ? null : new Pixels(heightImage);
-
-        //MiddleEarth.LOGGER.sendChat(biomePath);
-        //MiddleEarth.LOGGER.sendChat(heightPath);
     }
 
     public MapBasedCustomBiome getBiome(int imageX, int imageY){
@@ -55,13 +53,8 @@ public class MiddleEarthMapRegion {
     public boolean isInRange(Vector2i playerCoord) {
         int middleCoordinateX = CALC_REGION_SIZE * (coordinate.x + 1) - CALC_REGION_SIZE / 2;
         int middleCoordinateZ = CALC_REGION_SIZE * (coordinate.y + 1) - CALC_REGION_SIZE / 2;
-        double distance = calculateDistance(playerCoord.x, playerCoord.y, middleCoordinateX, middleCoordinateZ);
-        //MiddleEarth.LOGGER.logDebugMsg("IsInRange : [%s,%s] = [%s]".formatted(coordinate.x, coordinate.y, distance));
+        double distance = Point2D.distance(playerCoord.x, playerCoord.y, middleCoordinateX, middleCoordinateZ);
         return distance < (CALC_REGION_SIZE / 2) + MiddleEarthMapConfigs.BIOME_VALIDATION_DIST_CHECK;
-    }
-
-    private double calculateDistance(double x1, double y1, double x2, double y2) {
-            return Point2D.distance(x1, y1, x2, y2);
     }
 
     // BufferedImage.getRGB allocates for every pixel; the common PNG layouts are read straight from their arrays, with
@@ -101,7 +94,7 @@ public class MiddleEarthMapRegion {
                 } else if ((type == BufferedImage.TYPE_INT_RGB || type == BufferedImage.TYPE_INT_ARGB)
                         && raster.getDataBuffer() instanceof DataBufferInt buffer && buffer.getNumBanks() == 1
                         && buffer.getOffset() == 0 && buffer.getSize() >= width * height
-                        && raster.getSampleModel() instanceof java.awt.image.SinglePixelPackedSampleModel model && model.getScanlineStride() == width) {
+                        && raster.getSampleModel() instanceof SinglePixelPackedSampleModel model && model.getScanlineStride() == width) {
                     kind = type == BufferedImage.TYPE_INT_RGB ? INT_RGB : INT_ARGB;
                     ints = buffer.getData();
                 }

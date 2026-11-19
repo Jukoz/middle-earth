@@ -11,42 +11,38 @@ import org.joml.Vector2i;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MiddleEarthMapRuntime {
-    Map<Vector2i, MiddleEarthMapRegion> regions;
-    HashMap<UUID, Vector2i> regionByUuids;
+    private static volatile MiddleEarthMapRuntime instance;
 
-
-    private static MiddleEarthMapRuntime single_instance = null;
-
+    // filled from the world generation threads
+    private final Map<Vector2i, MiddleEarthMapRegion> regions = new ConcurrentHashMap<>();
     private BufferedImage edgeImage;
     private float[] depths; // blocks, one per pixel of the depth map
     private int depthSize;
-    private MiddleEarthMapUtils middleEarthMapUtils;
+    private final MiddleEarthMapUtils middleEarthMapUtils;
 
-    private volatile int latestValidationTick = 0;
+    private volatile int latestValidationTick;
     private final AtomicInteger currentValidationBlockCount = new AtomicInteger();
     private final AtomicBoolean purging = new AtomicBoolean();
 
-    public static synchronized MiddleEarthMapRuntime getInstance()
-    {
-        if (single_instance == null)
-            single_instance = new MiddleEarthMapRuntime();
-
-        return single_instance;
+    public static MiddleEarthMapRuntime getInstance() {
+        MiddleEarthMapRuntime runtime = instance;
+        if (runtime == null) {
+            synchronized (MiddleEarthMapRuntime.class) {
+                runtime = instance;
+                if (runtime == null) instance = runtime = new MiddleEarthMapRuntime();
+            }
+        }
+        return runtime;
     }
 
-    public MiddleEarthMapRuntime() {
-        // filled from the world generation threads
-        regions = new ConcurrentHashMap<>();
-        regionByUuids = new HashMap<>();
+    private MiddleEarthMapRuntime() {
         edgeImage = MiddleEarthMapGeneration.getEdgeHeightImage();
         if(edgeImage == null) {
             String path = MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_EDGE_IMAGE_NAME;
@@ -96,9 +92,6 @@ public class MiddleEarthMapRuntime {
     }
 
     private static final int OUT_OF_BORDER_RGB = new Color(35, 48, 55).getRGB();
-    public Color getHeight(int posX, int posZ) {
-        return new Color(getHeightRgb(posX, posZ));
-    }
 
     public int getHeightRgb(int posX, int posZ) {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)){
@@ -131,12 +124,6 @@ public class MiddleEarthMapRuntime {
 
     private static int imageCoordinate(int pos){
         return (int)((float)pos / MiddleEarthMapConfigs.PIXEL_WEIGHT % MiddleEarthMapConfigs.REGION_SIZE);
-    }
-
-    private MiddleEarthMapRegion getRegionToUse(Vector2i regionCoordinate){
-        purgeRegions();
-
-        return regions.computeIfAbsent(regionCoordinate, MiddleEarthMapRegion::new);
     }
 
     // The last region a thread used, so a lookup in the same region allocates no key. It is dropped whenever a purge removed

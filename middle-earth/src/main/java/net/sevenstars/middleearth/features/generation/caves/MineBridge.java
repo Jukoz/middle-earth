@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.CaveProbe;
+import net.sevenstars.middleearth.features.generation.chunkgen.CaveProbe;
 
 import java.util.ArrayList;
 import java.util.List;

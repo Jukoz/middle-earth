@@ -4,6 +4,8 @@ import net.sevenstars.middleearth.features.generation.biomes.BiomeGenerationData
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
+import java.util.Arrays;
+
 // Which ridge variant a mountain column uses and how strongly, from the ridge settings of its biomes. The shares come
 // from a world-fixed lattice of averages over the surrounding map biomes, interpolated bilinearly, so they never jump
 // at a biome border and neighbouring chunks agree exactly.
@@ -13,6 +15,7 @@ final class MountainRanges {
     static final int ISOTROPIC = BiomeGenerationData.RidgeAxis.ISOTROPIC.ordinal();
     static final int SMOOTH = BiomeGenerationData.RidgeAxis.SMOOTH.ordinal(); // its amplitude is only a weight
 
+    static final int VARIANTS = 4; // one per ridge axis
     private static final int LATTICE = 32;
     private static final int SAMPLE_STEP = 24;
     private static final int SAMPLE_RADIUS = 3;
@@ -21,7 +24,7 @@ final class MountainRanges {
     private static final class Point {
         int ix = Integer.MIN_VALUE;
         int iz;
-        final float[] shares = new float[4];
+        final float[] shares = new float[VARIANTS];
     }
 
     private static final int CACHE_SIZE = 256;
@@ -39,7 +42,7 @@ final class MountainRanges {
         Point p10 = point(ix + 1, iz);
         Point p01 = point(ix, iz + 1);
         Point p11 = point(ix + 1, iz + 1);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < VARIANTS; i++) {
             float top = p00.shares[i] + fx * (p10.shares[i] - p00.shares[i]);
             float bottom = p01.shares[i] + fx * (p11.shares[i] - p01.shares[i]);
             out[i] = top + fz * (bottom - top);
@@ -61,7 +64,7 @@ final class MountainRanges {
     private static void fill(Point point, int x, int z) {
         MiddleEarthMapRuntime map = MiddleEarthMapRuntime.getInstance();
         float[] sums = point.shares;
-        java.util.Arrays.fill(sums, 0);
+        Arrays.fill(sums, 0);
         int count = 0;
         for (int i = -SAMPLE_RADIUS; i <= SAMPLE_RADIUS; i++) {
             for (int j = -SAMPLE_RADIUS; j <= SAMPLE_RADIUS; j++) {
@@ -76,6 +79,6 @@ final class MountainRanges {
             sums[ISOTROPIC] = new BiomeGenerationData().ridgeAmplitude;
             return;
         }
-        for (int i = 0; i < 4; i++) sums[i] /= count;
+        for (int i = 0; i < VARIANTS; i++) sums[i] /= count;
     }
 }

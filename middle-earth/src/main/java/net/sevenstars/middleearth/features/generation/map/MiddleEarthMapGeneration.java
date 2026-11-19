@@ -22,7 +22,7 @@ import java.util.zip.ZipInputStream;
 public class MiddleEarthMapGeneration {
     public static int CURRENT_ITERATION = 0;
 
-    private FileUtils fileUtils;
+    private final FileUtils fileUtils;
     private static final int WATER_BUFFER = 16;
     private static final float WATER_HEIGHT_MULTIPLIER = 1.0f;
     private static BufferedImage baseHeightImage;
@@ -204,7 +204,7 @@ public class MiddleEarthMapGeneration {
         return 0;
     }
 
-    private BufferedImage[][][] generateBiomes(BufferedImage initialImage, int missingIterationAmount) {
+    private void generateBiomes(BufferedImage initialImage, int missingIterationAmount) {
         int startingIteration = MiddleEarthMapConfigs.MAP_ITERATION + 1 - missingIterationAmount;
         if(startingIteration == 0){
             generateInitialBiomes(initialImage);
@@ -247,7 +247,6 @@ public class MiddleEarthMapGeneration {
                 MiddleEarth.LOGGER.logError("Error while generating biomes");
             }
         }
-        return new BufferedImage[0][][];
     }
 
     private void generateInitialBiomes(BufferedImage initialImage){
