@@ -84,8 +84,7 @@ public final class NpcFailureRecorder {
             return;
         recorded++;
         Failure failure = build(world, npc, key, who, task, phase, why, target, bed, home, path);
-        java.nio.file.Path dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
-        WRITER.execute(() -> write(dir, failure));
+        WRITER.execute(() -> write(failure));
     }
 
     // Reads the world, so it runs on the server thread
@@ -165,7 +164,8 @@ public final class NpcFailureRecorder {
         return new Failure(id, out, template.writeNbt(new NbtCompound()));
     }
 
-    private static void write(java.nio.file.Path dir, Failure failure) {
+    private static void write(Failure failure) {
+        var dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
         try {
             Files.createDirectories(dir);
             NbtIo.writeCompressed(failure.snapshot(), dir.resolve(failure.id() + SNAPSHOT_EXTENSION));
