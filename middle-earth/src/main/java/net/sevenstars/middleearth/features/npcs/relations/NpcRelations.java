@@ -28,6 +28,19 @@ public class NpcRelations {
         return standing(npc, other);
     }
 
+    public static boolean isEnemy(NpcEntity npc, Entity other) {
+        return of(npc, other) == Relation.ENEMY;
+    }
+
+    public static boolean isFriendly(NpcEntity npc, Entity other) {
+        return of(npc, other).isFriendly();
+    }
+
+    // Stray arrows from hunters don't hurt non-enemies
+    public static boolean isStrayHunterShot(NpcEntity npc, @Nullable Entity attacker) {
+        return attacker instanceof NpcEntity hunter && hunter != npc && hunter.getHuntTarget() != null && !isEnemy(npc, hunter);
+    }
+
     // By faction and kind. Own grudges are left out, except those against a mount's rider
     public static Relation standing(NpcEntity npc, Entity other) {
         if(other == npc)

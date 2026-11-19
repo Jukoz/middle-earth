@@ -2,23 +2,20 @@ package net.sevenstars.middleearth.features.npcs;
 
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.dev.NpcDebug;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.state.property.Properties;
 import net.sevenstars.middleearth.features.npcs.pathing.NpcMoveControl;
 import net.sevenstars.middleearth.features.npcs.pathing.NpcNavigation;
-import net.sevenstars.middleearth.features.npcs.pathing.NpcPathNodeMaker;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BlocksAttacksComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -39,7 +36,6 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.context.LootWorldContext;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -48,7 +44,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
-import net.minecraft.util.Uuids;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -56,11 +51,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.beasts.AbstractBeastEntity;
-import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 import net.sevenstars.middleearth.features.npcs.ai.NpcBrain;
@@ -69,13 +62,11 @@ import net.sevenstars.middleearth.features.npcs.data.NpcInitializationData;
 import net.sevenstars.middleearth.features.npcs.data.NpcTextureData;
 import net.sevenstars.middleearth.features.npcs.initializer.NpcEntityInitializer;
 import net.sevenstars.middleearth.features.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.features.npcs.relations.NpcAlarm;
 import net.sevenstars.middleearth.features.npcs.relations.NpcRelations;
 import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine;
 import net.sevenstars.middleearth.features.npcs.routine.PrisonCell;
-import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
-import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
-import net.sevenstars.middleearth.features.npcs.relations.Relation;
 import net.sevenstars.middleearth.features.npcs.renderer.NpcRenderedPart;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.minecraft.item.Item;
@@ -88,7 +79,6 @@ import net.sevenstars.middleearth.registries.content.races.RaceRegistry;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
-import net.sevenstars.middleearth.features.npcs.classes.NpcRegistry;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.features.npcs.classes.data.LootData;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
@@ -97,14 +87,9 @@ import net.sevenstars.middleearth.utils.ItemTagsME;
 import net.sevenstars.middleearth.utils.SpawnUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public class NpcEntity extends PathAwareEntity implements CrossbowUser {
@@ -188,25 +173,16 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // In blocks
     private static final int WAKE_RANGE = 16;
-    private static final int PARTY_RANGE = 64;
     private static final double FOLLOW_RANGE = 32.0;
-
-    private static final int GUARDS_TO_FLEE = 3;
 
     // In blocks
     private static final int HOME_STAND_RANGE = 5;
-    private static final int ALARM_RANGE = 24;
-    private static final int ALARM_HEIGHT_RANGE = 8;
-    private static final int HELP_RANGE = 16;
-
     // Rising faster than this means it's climbing out of water
     private static final double CLIMBING_OUT = 0.1;
 
     private static final double BASE_ATTACK_DAMAGE = 1.0;
     private static final float KNOCKBACK_SCALE = 0.5f;
     private static final double KNOCKBACK_SELF_SLOWDOWN = 0.6;
-    // Ticks. Vanilla forgets attackers after 5s, which would end fights with neutrals
-    private static final int GRUDGE_TICKS = 20 * 60;
     // Blocks, feet to feet. Races set their own; weapons add to it
     private static final double DEFAULT_REACH = 1.75;
     private static final float MOUNTED_REACH_BONUS = 0.5f;
@@ -221,30 +197,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final float BASE_ARROW_SPEED = 1.6F;
     private static final float CROSSBOW_ARROW_POWER = 1.25f;
     private static final float NO_INACCURACY = 0f;
-    private static final double ARROW_AIR_DRAG = 0.99;
-    private static final double MAX_ARROW_FLIGHT_TICKS = 200;
-    // AIM_STEP is ticks of flight per arc tried; AIM_BISECTIONS halves the interval
-    private static final double AIM_STEP = 0.5;
-    private static final int AIM_BISECTIONS = 30;
-
-    // In ticks
-    private static final int PRISON_CHECK_INTERVAL = 20;
-    private static final int ESCAPE_RANGE = 16;
-    // Blocks from the cell, and a walking speed multiplier
-    private static final int PRISON_STRAY_REACH = 3;
-    private static final double PRISONER_RETURN_SPEED = 0.8;
-    private static final int PRISON_STRAY_CHECKS = 3;
-    // Blocks from the cell's middle to aim for, tried in random directions
-    private static final int ESCAPE_DISTANCE = 16;
-    private static final int ESCAPE_TRIES = 2;
-    private static final double ESCAPE_SPEED = 1.2;
-
-    // In ticks
-    private static final int HATCH_CHECK_INTERVAL = 4;
-
-    // In blocks
-    private static final double HATCH_OPEN_DISTANCE = 3;
-    private static final double HATCH_CLOSE_DISTANCE = 3.5;
 
     // From the middle of the shoulders, lower and behind
     private static final double PASSENGER_OFFSET_Y = -0.3;
@@ -254,25 +206,16 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private static final String LOOT_TABLE_FOLDER = "entities/";
 
     // [FIELDS]
-    private @Nullable UUID partyLeader = null;
-    private @Nullable Float travelHeading = null;
-    private @Nullable BlockPos travelDestination = null;
-
-    private @Nullable BlockPos routineHome = null;
-    // Set by the nest's structure manager
-    private @Nullable BlockPos assignedBed = null;
-    private @Nullable BlockPos bedStand = null;
-    private @Nullable BlockPos store = null;
-    // Places the builder linked to its bed; the npc goes there first for work
-    private List<BlockPos> links = List.of();
+    private final NpcHousehold household = new NpcHousehold();
+    private final NpcParty party = new NpcParty(this);
+    private final NpcPrison prison = new NpcPrison(this);
+    private final NpcAlarm alarm = new NpcAlarm(this);
+    private final HatchOpener hatches = new HatchOpener(this);
 
     private boolean onOuting = false;
     private boolean farming = false;
     private @Nullable BlockPos invitedTo = null;
     private long invitedUntil = 0;
-    private @Nullable UUID escort = null;
-    // Saved, or a reloaded escort would follow its ward forever
-    private boolean escorting = false;
     private @Nullable ItemStack routineStowedItem = null;
     private boolean routineStowedMainHand = false;
     private @Nullable Vec3d sleptFrom = null;
@@ -280,30 +223,16 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private int talkUntil;
     private int talkSince;
 
-    private @Nullable PrisonCell prisonCell = null;
-    private int strayChecks = 0;
-    private boolean escaping = false;
-    private ItemStack confiscatedMain = ItemStack.EMPTY;
-    private ItemStack confiscatedOff = ItemStack.EMPTY;
-
-    private @Nullable UUID threatFaced = null;
-    private boolean fleesThreat = false;
-    private @Nullable UUID guardsCalledFor = null;
-    private long threatFacedUntil;
-    private long guardsCalledUntil;
-    // Grudges: offender -> expiry tick. Not saved
-    private final Map<UUID, Long> grudges = new HashMap<>();
-
     private @Nullable LivingEntity huntTarget = null;
     private @Nullable EntityType<?> huntKill = null;
     private int huntEndAge = 0;
 
-    private final Set<BlockPos> openedHatches = new HashSet<>();
     private boolean passingDoor = false;
 
     private String cachedJobText = "";
     private @Nullable Identifier cachedJobId = null;
     private @Nullable NpcJob cachedJob = null;
+    private boolean jobLookedUp = false;
     private @Nullable Identifier cachedFactionId = null;
     private @Nullable Faction cachedFaction = null;
     private boolean managerPresent = true;
@@ -463,70 +392,36 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         view.put(KeyStrings.DATA, NpcData.CODEC, this.retrieveNpcData());
         view.put(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC, this.retrieveNpcInitializationData());
         view.put(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC, this.retrieveNpcTextureData());
-        view.putNullable(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC, this.partyLeader);
-        view.putNullable(KeyStrings.TRAVEL_HEADING, Codec.FLOAT, this.travelHeading);
-        view.putNullable(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC, this.travelDestination);
-        view.putNullable(KeyStrings.ROUTINE_HOME, BlockPos.CODEC, this.routineHome);
+        household.write(view);
+        party.write(view);
+        prison.write(view);
         view.putNullable(KeyStrings.JOB, Identifier.CODEC, this.getJobId());
-        view.putNullable(KeyStrings.PRISON_CELL, PrisonCell.CODEC, this.prisonCell);
-        view.putBoolean(KeyStrings.ESCORTING, this.escorting);
-        view.putNullable(KeyStrings.ASSIGNED_BED, BlockPos.CODEC, this.assignedBed);
-        view.putNullable(KeyStrings.BED_STAND, BlockPos.CODEC, this.bedStand);
-        view.putNullable(KeyStrings.STORE, BlockPos.CODEC, this.store);
-        view.put(KeyStrings.LINKS, BlockPos.CODEC.listOf(), this.links);
         view.putNullable(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC, this.routineStowedItem);
-        view.put(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC, this.confiscatedMain);
-        view.put(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC, this.confiscatedOff);
         view.putBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, this.routineStowedMainHand);
     }
 
     @Override
     public void readCustomData(ReadView view) {
         super.readCustomData(view);
-        NpcData foundNpcData = view.read(KeyStrings.DATA, NpcData.CODEC).orElse(new NpcData());
-        NpcInitializationData foundNpcInitializationData = view.read(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData());
-        NpcTextureData foundNpcTextureData = view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData());
-        this.partyLeader = view.read(KeyStrings.PARTY_LEADER, Uuids.INT_STREAM_CODEC).orElse(null);
-        this.travelHeading = view.read(KeyStrings.TRAVEL_HEADING, Codec.FLOAT).orElse(null);
-        this.travelDestination = view.read(KeyStrings.TRAVEL_DESTINATION, BlockPos.CODEC).orElse(null);
-        this.routineHome = view.read(KeyStrings.ROUTINE_HOME, BlockPos.CODEC).orElse(null);
+        LegacyNpcSave.Saved found = new LegacyNpcSave.Saved(
+                view.read(KeyStrings.DATA, NpcData.CODEC).orElse(new NpcData()),
+                view.read(KeyStrings.INITIALIZATION_DATA, NpcInitializationData.CODEC).orElse(new NpcInitializationData()),
+                view.read(KeyStrings.TEXTURE_DATA, NpcTextureData.CODEC).orElse(new NpcTextureData()));
+        household.read(view);
+        party.read(view);
+        prison.read(view);
         this.setJob(view.read(KeyStrings.JOB, Identifier.CODEC).orElse(null));
-        this.prisonCell = view.read(KeyStrings.PRISON_CELL, PrisonCell.CODEC).orElse(null);
-        this.escorting = view.getBoolean(KeyStrings.ESCORTING, false);
-        this.assignedBed = view.read(KeyStrings.ASSIGNED_BED, BlockPos.CODEC).orElse(null);
-        this.bedStand = view.read(KeyStrings.BED_STAND, BlockPos.CODEC).orElse(null);
-        this.store = view.read(KeyStrings.STORE, BlockPos.CODEC).orElse(null);
-        this.links = view.read(KeyStrings.LINKS, BlockPos.CODEC.listOf()).orElse(List.of());
         this.routineStowedItem = view.read(KeyStrings.ROUTINE_STOWED_ITEM, ItemStack.OPTIONAL_CODEC).orElse(null);
-        this.confiscatedMain = view.read(KeyStrings.CONFISCATED_MAIN, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
-        this.confiscatedOff = view.read(KeyStrings.CONFISCATED_OFF, ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         this.routineStowedMainHand = view.getBoolean(KeyStrings.ROUTINE_STOWED_MAIN_HAND, false);
         clearRoutineProp();
 
-        Identifier savedClass = view.getOptionalReadView(KeyStrings.DATA).flatMap(data -> data.read("Type", Identifier.CODEC)).orElse(null);
-        NpcRegistry.Folded folded = savedClass == null ? null : NpcRegistry.FOLDED.get(savedClass);
-        if(folded != null) {
-            ReadView data = view.getOptionalReadView(KeyStrings.DATA).orElseThrow();
-            Registry<NpcClass> classes = getEntityWorld().getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
-            NpcClass base = classes.get(folded.npcClass().getValue());
-            foundNpcData = new NpcData(Optional.ofNullable(base).map(classes::getEntry), data.read("Category", Codec.STRING),
-                    data.read("SpawnReason", Codec.STRING), data.read("StructureManagerPos", BlockPos.CODEC));
-            if(getJobId() == null)
-                setJob(folded.job().getValue());
-        }
+        LegacyNpcSave.Saved saved = LegacyNpcSave.migrate(this, view, found);
 
-        String npcDataId = view.read("NpcDataId", Codec.STRING).orElse(null);
-        if(npcDataId != null){
-            foundNpcInitializationData = foundNpcInitializationData.withNpcClass(MiddleEarth.ofId(npcDataId));
-            foundNpcData = new NpcData();
-            foundNpcTextureData = new  NpcTextureData();
-        }
+        this.dataTracker.set(NPC_DATA, saved.data());
+        this.dataTracker.set(NPC_INITIALIZATION_DATA, saved.initialization());
+        this.dataTracker.set(NPC_TEXTURE_DATA, saved.texture());
 
-        this.dataTracker.set(NPC_DATA, foundNpcData);
-        this.dataTracker.set(NPC_INITIALIZATION_DATA, foundNpcInitializationData);
-        this.dataTracker.set(NPC_TEXTURE_DATA, foundNpcTextureData);
-
-        foundNpcInitializationData.tryToInitialize(this);
+        saved.initialization().tryToInitialize(this);
 
         this.updateAttackType();
     }
@@ -691,7 +586,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public void takeJob(Identifier job) {
         setJob(job);
         if(isPrisoner()) {
-            disarm();
+            prison.disarm();
             return;
         }
         NpcJob taken = getJob();
@@ -714,6 +609,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             cachedJobText = job;
             cachedJobId = job.isEmpty() ? null : Identifier.tryParse(job);
             cachedJob = null;
+            jobLookedUp = false;
         }
         return cachedJobId;
     }
@@ -722,8 +618,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         Identifier id = getJobId();
         if(id == null)
             return null;
-        if(cachedJob == null)
+        if(!jobLookedUp) {
             cachedJob = getEntityWorld().getRegistryManager().getOptional(DynamicRegistriesME.NPC_JOB).map(jobs -> jobs.get(id)).orElse(null);
+            jobLookedUp = true;
+        }
         return cachedJob;
     }
 
@@ -797,7 +695,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public void setOnOuting(boolean onOuting) {
         this.onOuting = onOuting;
         if(!onOuting)
-            this.escort = null;
+            party.clearEscort();
     }
 
     public boolean isFarming() {
@@ -834,34 +732,35 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public void setHousehold(@Nullable BlockPos bed, @Nullable BlockPos bedStand, @Nullable BlockPos store, List<BlockPos> links) {
-        this.assignedBed = bed;
-        this.bedStand = bedStand;
-        this.store = store;
-        this.links = links;
+        household.set(bed, bedStand, store, links);
     }
 
     public List<BlockPos> getLinks() {
-        return links;
+        return household.getLinks();
     }
 
     public @Nullable BlockPos getAssignedBed() {
-        return assignedBed;
+        return household.getAssignedBed();
     }
 
     public @Nullable BlockPos getBedStand() {
-        return bedStand;
+        return household.getBedStand();
     }
 
     public @Nullable BlockPos getStore() {
-        return store;
+        return household.getStore();
     }
 
     public @Nullable BlockPos getRoutineHome() {
-        return routineHome;
+        return household.getRoutineHome();
     }
 
     public void setRoutineHome(@Nullable BlockPos routineHome) {
-        this.routineHome = routineHome;
+        household.setRoutineHome(routineHome);
+    }
+
+    public NpcHousehold getHousehold() {
+        return household;
     }
 
     @Override
@@ -882,48 +781,48 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // [PARTY, TRAVEL AND ESCORT]
     public @Nullable UUID getPartyLeader() {
-        return partyLeader;
+        return party.getLeader();
     }
 
     public void setPartyLeader(@Nullable UUID partyLeader) {
-        this.partyLeader = partyLeader;
+        party.setLeader(partyLeader);
     }
 
     // In degrees
     public @Nullable Float getTravelHeading() {
-        return travelHeading;
+        return party.getTravelHeading();
     }
 
     public void setTravelHeading(@Nullable Float travelHeading) {
-        this.travelHeading = travelHeading;
+        party.setTravelHeading(travelHeading);
     }
 
     public @Nullable BlockPos getTravelDestination() {
-        return travelDestination;
+        return party.getTravelDestination();
     }
 
     public void setTravelDestination(@Nullable BlockPos travelDestination) {
-        this.travelDestination = travelDestination;
+        party.setTravelDestination(travelDestination);
     }
 
     public @Nullable UUID getEscort() {
-        return escort;
+        return party.getEscort();
     }
 
     public void escort(NpcEntity ward) {
-        ward.escort = getUuid();
-        this.escorting = true;
-        setPartyLeader(ward.getUuid());
+        party.escort(ward);
     }
 
     public boolean isEscorting() {
-        return escorting;
+        return party.isEscorting();
     }
 
     public void endEscort() {
-        if(escorting)
-            setPartyLeader(null);
-        escorting = false;
+        party.endEscort();
+    }
+
+    public NpcParty getParty() {
+        return party;
     }
 
     // [PRISON]
@@ -932,166 +831,46 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public @Nullable PrisonCell getPrisonCell() {
-        return prisonCell;
+        return prison.getCell();
     }
 
     public void setPrisonCell(@Nullable PrisonCell prisonCell) {
-        this.prisonCell = prisonCell;
+        prison.setCell(prisonCell);
     }
 
     public boolean isConfined() {
-        return prisonCell != null && isPrisoner();
+        return prison.isConfined();
     }
 
-    private void disarm() {
-        ItemStack main = getMainHandStack();
-        ItemStack off = getOffHandStack();
-        if(main.isEmpty() && off.isEmpty())
-            return;
-        if(!main.isEmpty() && confiscatedMain.isEmpty())
-            confiscatedMain = main.copy();
-        if(!off.isEmpty() && confiscatedOff.isEmpty())
-            confiscatedOff = off.copy();
-        equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-        equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-        updateAttackType();
-    }
-
-    private void rearm() {
-        if(!confiscatedMain.isEmpty())
-            equipStack(EquipmentSlot.MAINHAND, confiscatedMain);
-        if(!confiscatedOff.isEmpty())
-            equipStack(EquipmentSlot.OFFHAND, confiscatedOff);
-        confiscatedMain = ItemStack.EMPTY;
-        confiscatedOff = ItemStack.EMPTY;
-        updateAttackType();
-    }
-
-    private void tickPrison(ServerWorld world) {
-        if(!isPrisoner()) {
-            prisonCell = null;
-            return;
-        }
-        if(prisonCell.contains(getBlockPos())) {
-            strayChecks = 0;
-            if(getNavigation().isIdle())
-                escaping = false;
-            return;
-        }
-        // Only an escapee or a prisoner taken well away goes free. A stray walks back in, or is put back by its bed if it can't
-        if(escaping || prisonCell.distanceTo(getBlockPos()) > PRISON_STRAY_REACH) {
-            strayChecks = 0;
-            free(world);
-            return;
-        }
-        Path back = getNavigation().findPathTo(prisonCell.centerX(), getY(), prisonCell.centerZ(), 0);
-        if(++strayChecks <= PRISON_STRAY_CHECKS && back != null && back.reachesTarget()) {
-            getNavigation().startMovingAlong(back, PRISONER_RETURN_SPEED);
-        } else if(bedStand != null && prisonCell.contains(bedStand)) {
-            getNavigation().stop();
-            requestTeleport(bedStand.getX() + 0.5, bedStand.getY(), bedStand.getZ() + 0.5);
-            strayChecks = 0;
-        }
-    }
-
-    // Prisoners never open doors, so a path out means a gap, an open door or a broken wall
     public boolean tryEscape() {
-        if(!isConfined())
-            return false;
-        PrisonCell cell = prisonCell;
-        for(int i = 0; i < ESCAPE_TRIES; i++) {
-            float angle = random.nextFloat() * MathHelper.TAU;
-            BlockPos goal = BlockPos.ofFloored(cell.centerX() + MathHelper.cos(angle) * ESCAPE_DISTANCE, getY(), cell.centerZ() + MathHelper.sin(angle) * ESCAPE_DISTANCE);
-            Path path = getNavigation().findPathTo(goal, 1);
-            // A partial path counts, as long as it gets well clear
-            if(path != null && path.getEnd() != null && cell.distanceTo(path.getEnd().getBlockPos()) > PRISON_STRAY_REACH) {
-                escaping = true;
-                getNavigation().startMovingAlong(path, ESCAPE_SPEED);
-                return true;
-            }
-        }
-        return false;
+        return prison.tryEscape();
     }
 
     public boolean isEscaping() {
-        return escaping;
+        return prison.isEscaping();
     }
 
-    // Out of its cell it goes back to its own people and flees the place that held it
-    private void free(ServerWorld world) {
-        escaping = false;
-        PrisonCell cell = prisonCell;
-        BlockPos managerPos = getStructureManagerHostPos();
-        double centerX = cell.centerX();
-        double centerZ = cell.centerZ();
-        if(managerPos != null && world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4)) {
-            RoutineSite site = RoutineSites.forManager(world, managerPos);
-            if(site != null) {
-                centerX = site.getCenterX() + 0.5;
-                centerZ = site.getCenterZ() + 0.5;
-            }
-            NestHost.signalGone(world, managerPos, this);
-        }
-        prisonCell = null;
-        setJob(null);
-        rearm();
-        saveNpcData(retrieveNpcData().withoutStructureManagerPos());
-        routineHome = null;
-        assignedBed = null;
-        bedStand = null;
-        store = null;
-        links = List.of();
-        getNavigation().stop();
-        double awayX = getX() - centerX;
-        double awayZ = getZ() - centerZ;
-        float heading = awayX == 0 && awayZ == 0 ? random.nextFloat() * 360f
-                : (float) (MathHelper.atan2(-awayX, awayZ) * MathHelper.DEGREES_PER_RADIAN);
-        setTravelDestination(null);
-        setTravelHeading(heading);
-        escape(world);
-    }
-
-    // Fights a lone guard if armed, otherwise runs. Common folk don't count
-    private void escape(ServerWorld world) {
-        List<LivingEntity> enemies = world.getEntitiesByClass(LivingEntity.class, getBoundingBox().expand(ESCAPE_RANGE),
-                other -> other.isAlive() && !(other instanceof NpcEntity npc && npc.isTimid()) && canTarget(other) && canSee(other));
-        LivingEntity nearest = null;
-        for(LivingEntity enemy : enemies)
-            if(nearest == null || squaredDistanceTo(enemy) < squaredDistanceTo(nearest))
-                nearest = enemy;
-        if(nearest == null)
-            return;
-        if(enemies.size() == 1 && !getMainHandStack().isEmpty())
-            setTarget(nearest);
-        else
-            NpcBrain.flee(this, nearest);
+    public NpcPrison getPrison() {
+        return prison;
     }
 
     // [RELATIONS AND ALARM]
     @Override
     public boolean canTarget(LivingEntity target) {
-        return NpcRelations.of(this, target) == Relation.ENEMY && super.canTarget(target);
+        return NpcRelations.isEnemy(this, target) && super.canTarget(target);
     }
 
     @Override
     protected boolean isInSameTeam(Entity other) {
-        return NpcRelations.of(this, other).isFriendly();
+        return NpcRelations.isFriendly(this, other);
     }
 
-    // Only the wronged npc and those it called keep a grudge. A friendly npc's blow is a stray
     public void bearGrudge(LivingEntity offender) {
-        if(offender == this || getEntityWorld().isClient())
-            return;
-        if(offender instanceof NpcEntity && NpcRelations.standing(this, offender).isFriendly())
-            return;
-        long now = getEntityWorld().getTime();
-        grudges.values().removeIf(until -> until < now);
-        grudges.put(offender.getUuid(), now + GRUDGE_TICKS);
+        alarm.bearGrudge(offender);
     }
 
     public boolean hasGrudgeAgainst(Entity other) {
-        Long until = grudges.get(other.getUuid());
-        return until != null && until >= getEntityWorld().getTime();
+        return alarm.hasGrudgeAgainst(other);
     }
 
     @Override
@@ -1101,81 +880,26 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             bearGrudge(attacker);
     }
 
-    // Timid npcs commit to one response, or they'd run, turn and run again
     public boolean fleesFrom(LivingEntity threat) {
-        long now = getEntityWorld().getTime();
-        if(!threat.getUuid().equals(threatFaced) || threatFacedUntil < now) {
-            threatFaced = threat.getUuid();
-            threatFacedUntil = now + GRUDGE_TICKS;
-            fleesThreat = getEntityWorld() instanceof ServerWorld world && countGuards(world) >= GUARDS_TO_FLEE;
-            if(!fleesThreat && getEntityWorld() instanceof ServerWorld world)
-                callCommonFolk(world, threat);
-        }
-        return fleesThreat;
+        return alarm.fleesFrom(threat);
     }
 
     // Nowhere left to run near home
     public boolean isAtHome() {
+        BlockPos routineHome = getRoutineHome();
         return routineHome != null && getStructureManagerHostPos() != null && routineHome.isWithinDistance(getEntityPos(), HOME_STAND_RANGE);
     }
 
     public void callGuardsOnce(LivingEntity threat) {
-        long now = getEntityWorld().getTime();
-        if(threat.getUuid().equals(guardsCalledFor) && guardsCalledUntil >= now)
-            return;
-        guardsCalledFor = threat.getUuid();
-        guardsCalledUntil = now + GRUDGE_TICKS;
-        callGuards(threat);
-    }
-
-    private int countGuards(ServerWorld world) {
-        int count = 0;
-        for(NpcEntity other : neighbours(world)) {
-            if(!other.isTimid() && NpcRelations.of(other, this).isFriendly())
-                count++;
-        }
-        return count;
-    }
-
-    private void callCommonFolk(ServerWorld world, LivingEntity threat) {
-        for(NpcEntity other : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(HELP_RANGE, ALARM_HEIGHT_RANGE, HELP_RANGE),
-                other -> other != this && other.isAlive() && other.isTimid() && other.getTarget() == null)) {
-            if(!NpcRelations.of(other, this).isFriendly() || !other.canTarget(threat))
-                continue;
-            other.threatFaced = threat.getUuid();
-            other.threatFacedUntil = world.getTime() + GRUDGE_TICKS;
-            other.fleesThreat = false;
-            if(other.isSleeping())
-                other.wakeUp();
-            other.setTarget(threat);
-        }
-    }
-
-    private Set<NpcEntity> neighbours(ServerWorld world) {
-        Set<NpcEntity> neighbours = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != this && other.isAlive()));
-        BlockPos structureManagerPos = getStructureManagerHostPos();
-        if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)) {
-            for(UUID owner : NestHost.residents(world, structureManagerPos)) {
-                if(world.getEntity(owner) instanceof NpcEntity resident && resident != this && resident.isAlive())
-                    neighbours.add(resident);
-            }
-        }
-        return neighbours;
+        alarm.callGuardsOnce(threat);
     }
 
     public void callGuards(@Nullable LivingEntity threat) {
-        if(threat == null || !(getEntityWorld() instanceof ServerWorld world))
-            return;
-        for(NpcEntity guard : neighbours(world)) {
-            if(guard.isTimid() || guard.getTarget() != null || !NpcRelations.of(guard, this).isFriendly())
-                continue;
-            guard.bearGrudge(threat);
-            if(guard.canTarget(threat)) {
-                if(guard.isSleeping())
-                    guard.wakeUp();
-                guard.setTarget(threat);
-            }
-        }
+        alarm.callGuards(threat);
+    }
+
+    public NpcAlarm getAlarm() {
+        return alarm;
     }
 
     @Override
@@ -1184,7 +908,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             return true;
         }
         // Stray arrows from hunters don't hurt non-enemies
-        if(source.getAttacker() instanceof NpcEntity hunter && hunter != this && hunter.huntTarget != null && NpcRelations.of(this, hunter) != Relation.ENEMY)
+        if(NpcRelations.isStrayHunterShot(this, source.getAttacker()))
             return true;
         return super.isInvulnerableTo(world, source);
     }
@@ -1278,7 +1002,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
         PersistentProjectileEntity projectile = this.createArrowProjectile(projectileStack, pullProgress, weapon);
         float speed = BASE_ARROW_SPEED * powerModifier;
-        Vec3d aim = solveArrowAim(projectile.getEntityPos(), target, speed, projectile.getFinalGravity());
+        Vec3d aim = ArrowAim.solve(projectile.getEntityPos(), target, speed, projectile.getFinalGravity());
 
         if (this.getEntityWorld() instanceof ServerWorld serverWorld) {
             ProjectileEntity.spawnWithVelocity(
@@ -1301,55 +1025,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
         this.shootAt(target, 1, pullProgress, NO_INACCURACY);
-    }
-
-    // Steps the arrow like vanilla. Picks the flattest arc that reaches, else the furthest
-    private static Vec3d solveArrowAim(Vec3d origin, LivingEntity target, double speed, double gravity) {
-        Vec3d targetStart = new Vec3d(target.getX(), target.getBodyY(0.5), target.getZ());
-        Vec3d targetMovement = movementOf(target);
-
-        double bestTicks = -1;
-        double previousTicks = 0;
-        double closestTicks = 1;
-        double closestSpeedGap = Double.MAX_VALUE;
-        for (double ticks = AIM_STEP; ticks <= MAX_ARROW_FLIGHT_TICKS; ticks += AIM_STEP) {
-            double speedGap = requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks).length() - speed;
-            if (speedGap <= 0) {
-                // Needed speed falls then rises, so the first crossing is the flat shot
-                double low = previousTicks, high = ticks;
-                for (int i = 0; i < AIM_BISECTIONS; i++) {
-                    double mid = (low + high) / 2;
-                    if (requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, mid).length() <= speed) high = mid;
-                    else low = mid;
-                }
-                bestTicks = high;
-                break;
-            }
-            if (speedGap < closestSpeedGap) {
-                closestSpeedGap = speedGap;
-                closestTicks = ticks;
-            }
-            previousTicks = ticks;
-        }
-
-        double ticks = bestTicks > 0 ? bestTicks : closestTicks;
-        return requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks);
-    }
-
-    // Position change over the last tick, not velocity: friction has halved it and a mob on
-    // the ground still has downward velocity, which makes shots land short
-    private static Vec3d movementOf(LivingEntity target) {
-        if(target instanceof PlayerEntity)
-            return target.getMovement();
-        return new Vec3d(target.getX() - target.lastX, target.isOnGround() ? 0 : target.getY() - target.lastY, target.getZ() - target.lastZ);
-    }
-
-    private static Vec3d requiredLaunchVelocity(Vec3d origin, Vec3d targetStart, Vec3d targetMovement, double gravity, double ticks) {
-        // After n ticks: offset = v0 * k(n) - gravity / (1 - drag) * (n - k(n)) on y, where k(n) = (1 - drag^n) / (1 - drag).
-        double travel = (1 - Math.pow(ARROW_AIR_DRAG, ticks)) / (1 - ARROW_AIR_DRAG);
-        double fall = gravity / (1 - ARROW_AIR_DRAG) * (ticks - travel);
-        Vec3d offset = targetStart.add(targetMovement.multiply(ticks)).subtract(origin);
-        return new Vec3d(offset.x / travel, (offset.y + fall) / travel, offset.z / travel);
     }
 
     protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, @Nullable ItemStack shotFrom) {
@@ -1413,16 +1088,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             talk(Talk.NONE, 0);
         if(huntTarget != null)
             tickHunt();
-        if(age % HATCH_CHECK_INTERVAL == 0)
-            tickHatch(world);
+        hatches.tick(world);
         climbOutOfWater();
-        if(age % PRISON_CHECK_INTERVAL == 0 && isPrisoner())
-            disarm();
-        // Older saves have no cell, so hold it in the room by its bed
-        if(prisonCell == null && isPrisoner())
-            prisonCell = PrisonCell.around(world, bedStand != null ? bedStand : getBlockPos());
-        if(prisonCell != null && age % PRISON_CHECK_INTERVAL == 0)
-            tickPrison(world);
+        prison.tick(world);
         // Never drops a target set from outside: a dead or no-longer-enemy one blocks the rest
         LivingEntity target = getTarget();
         if(target != null && (!target.isAlive() || age % TARGET_CHECK_INTERVAL == 0 && (!canTarget(target) || isOutOfReach(target))))
@@ -1445,44 +1113,9 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     public void remove(RemovalReason reason) {
-        if(getEntityWorld() instanceof ServerWorld world) {
-            for(BlockPos hatch : openedHatches)
-                closeHatch(world, hatch);
-            openedHatches.clear();
-        }
+        if(getEntityWorld() instanceof ServerWorld world)
+            hatches.closeAll(world);
         super.remove(reason);
-    }
-
-    private void tickHatch(ServerWorld world) {
-        openedHatches.removeIf(hatch -> {
-            if(hatch.isWithinDistance(getEntityPos(), HATCH_CLOSE_DISTANCE))
-                return false;
-            closeHatch(world, hatch);
-            return true;
-        });
-        Path path = getNavigation().getCurrentPath();
-        if(path == null || path.isFinished())
-            return;
-        for(int i = path.getCurrentNodeIndex(); i < Math.min(path.getCurrentNodeIndex() + 2, path.getLength()); i++) {
-            BlockPos node = path.getNodePos(i);
-            for(BlockPos pos : new BlockPos[]{node, node.up()}) {
-                if(!pos.isWithinDistance(getEntityPos(), HATCH_OPEN_DISTANCE))
-                    continue;
-                BlockState state = world.getBlockState(pos);
-                if(NpcPathNodeMaker.isHatch(state) && !state.get(Properties.OPEN) && NpcDoor.opensFor(world, pos, state, this)) {
-                    world.setBlockState(pos, state.with(Properties.OPEN, true));
-                    openedHatches.add(pos);
-                }
-            }
-        }
-    }
-
-    private void closeHatch(ServerWorld world, BlockPos hatch) {
-        if(!world.isChunkLoaded(hatch.getX() >> 4, hatch.getZ() >> 4))
-            return;
-        BlockState opened = world.getBlockState(hatch);
-        if(NpcPathNodeMaker.isHatch(opened) && opened.get(Properties.OPEN))
-            world.setBlockState(hatch, opened.with(Properties.OPEN, false));
     }
 
     private void climbOutOfWater() {
@@ -1504,6 +1137,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     @Override
     public void wakeUp() {
         super.wakeUp();
+        BlockPos bedStand = getBedStand();
         Vec3d back = sleptFrom != null ? sleptFrom : bedStand != null ? Vec3d.ofBottomCenter(bedStand) : null;
         sleptFrom = null;
         if(back != null && !getEntityWorld().isClient() && back.squaredDistanceTo(getEntityPos()) < WAKE_RANGE * WAKE_RANGE)
@@ -1561,19 +1195,15 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public float getWidthScale() {
-        try{
-            return (float) this.getAttributeValue(EntityAttributesME.WIDTH_SCALE);
-        }
-        catch (Exception ignored){
-            return 1.0f;
-        }
+        EntityAttributeInstance scale = getAttributeInstance(EntityAttributesME.WIDTH_SCALE);
+        return scale == null ? 1.0f : (float) scale.getValue();
     }
 
     // [DEATH AND LOOT]
     @Override
     public void onDeath(DamageSource source) {
-        if(getEntityWorld() instanceof ServerWorld world && partyLeader == null && travelHeading != null)
-            handOverParty(world);
+        if(getEntityWorld() instanceof ServerWorld world)
+            party.onLeaderDeath(world);
         if(getVehicle() != null && getVehicle() instanceof LivingEntity vehicleEntity && vehicleEntity.getControllingPassenger() == this){
             vehicleEntity.equipStack(EquipmentSlot.SADDLE, Items.AIR.getDefaultStack());
             vehicleEntity.equipStack(EquipmentSlot.BODY, Items.AIR.getDefaultStack());
@@ -1591,22 +1221,6 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         BlockPos structureManagerPos = getStructureManagerHostPos();
         NestHost.signalGone(getEntityWorld(), structureManagerPos, this);
         super.onDeath(source);
-    }
-
-    private void handOverParty(ServerWorld world) {
-        NpcEntity heir = null;
-        for(NpcEntity follower : world.getEntitiesByClass(NpcEntity.class, getBoundingBox().expand(PARTY_RANGE), other -> other.isAlive() && getUuid().equals(other.getPartyLeader()))) {
-            if(heir == null) {
-                heir = follower;
-                follower.setPartyLeader(null);
-                follower.setTravelHeading(travelHeading);
-                follower.setTravelDestination(travelDestination);
-            } else {
-                follower.setPartyLeader(heir.getUuid());
-            }
-        }
-        if(heir != null)
-            FollowHerderGoal.handOver(world, this, heir, PARTY_RANGE);
     }
 
     private boolean canDropLoot(DamageSource damageSource){
