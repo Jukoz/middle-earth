@@ -28,6 +28,8 @@ import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.PaletteProvider;
 import net.minecraft.world.chunk.PalettedContainer;
 import net.minecraft.world.chunk.ProtoChunk;
+import net.minecraft.world.chunk.ReadableContainer;
+import net.minecraft.util.collection.PackedIntegerArray;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.StructureTerrainAdaptation;
 import net.minecraft.world.gen.StructureWeightSampler;
@@ -40,6 +42,7 @@ import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
+import net.sevenstars.middleearth.features.generation.caves.BlockBuffer;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
@@ -60,7 +63,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.LongStream;
 
 public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int MEDGON_LEVEL = -32;
@@ -411,6 +417,15 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         List<StructureStart> structureStarts = reachableStarts(region, chunk);
         CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive(), seed, false);
         ColumnWriter out = new ColumnWriter(chunk);
+        try {
+            fillColumns(region, chunk, bottomY, seed, structureStarts, caves, out);
+        } finally {
+            caves.release();
+            out.release();
+        }
+    }
+
+    private void fillColumns(ChunkRegion region, Chunk chunk, int bottomY, long seed, List<StructureStart> structureStarts, CaveSampler caves, ColumnWriter out) {
         DepthBands.ChunkFloors floors = DepthBands.ChunkFloors.forChunk(middleEarthMapRuntime, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), seed);
         if(floors == null) out.fillBedrock(DepthBands.SHALLOW_FLOOR);
         BlockPos.Mutable biomePos = new BlockPos.Mutable();
@@ -601,12 +616,15 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
 
                 if(ServerConfigME.ENABLE_PROCEDURAL_STRUCTURES) {
+                    // those write into the chunk directly, so what is buffered goes in first
+                    if(ProceduralStructures.writes(customHeightBiomeHeightData)) out.sync();
                     ProceduralStructures.generateStructures(customHeightBiomeHeightData, chunk, posX, (int) (DIRT_HEIGHT + height), posZ);
                 }
             }
         }
+        // the decorations read and write the same buffers, so the sections are built once, after them
+        caves.decorate(chunk, out);
         out.finish();
-        caves.decorate(chunk);
     }
 
     public static float caveBlendNoise(int x, int z, long seed) {
@@ -642,11 +660,28 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         }
     }
 
-    // Writes the column blocks straight into the chunk sections. ProtoChunk.setBlockState does the same plus light and
+    // Writes the column blocks into the chunk sections. ProtoChunk.setBlockState does the same plus light and
     // heightmap bookkeeping; light is not tracked before the INITIALIZE_LIGHT status, and the heightmaps are rebuilt
     // in finish() the way vanilla does after its noise fill. Other chunk types keep the regular path.
-    private static final class ColumnWriter {
+    // Each section the fill touches is first collected as a plain array of block states and turned into a section in one go,
+    // which spares the palette from growing block by block; the blocks are the same, only the palette order can differ.
+    private static final class ColumnWriter implements BlockBuffer {
         private static final PaletteProvider<BlockState> BLOCK_PALETTE = PaletteProvider.forBlockStates(Block.STATE_IDS);
+        private static final BlockState AIR = Blocks.AIR.getDefaultState();
+        private static final BlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
+        private static final int SECTION_BLOCKS = 16 * 16 * 16;
+        // the first builds are compared with their source, and a mismatch turns the shortcut off for good
+        private static final int CHECKED_BUILDS = 64;
+        private static final AtomicInteger builds = new AtomicInteger();
+        private static volatile boolean shortcut = true;
+
+        private static final class Pool {
+            boolean busy;
+            BlockState[][] arrays = new BlockState[0][];
+            final int[] indices = new int[SECTION_BLOCKS];
+        }
+
+        private static final ThreadLocal<Pool> POOL = ThreadLocal.withInitial(Pool::new);
 
         private final Chunk chunk;
         private final boolean direct;
@@ -654,6 +689,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final int startX;
         private final int startZ;
         private final BlockPos.Mutable pos = new BlockPos.Mutable();
+        private final Pool pool;
+        private final BlockState[][] active; // the section arrays in use, by section index
+        private final BlockState[] fills; // what each active array started as
+        private final boolean[] bedrockSections;
+        private boolean buffered;
 
         ColumnWriter(Chunk chunk) {
             this.chunk = chunk;
@@ -661,6 +701,21 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.sections = new ChunkSection[chunk.countVerticalSections()];
             this.startX = chunk.getPos().getStartX();
             this.startZ = chunk.getPos().getStartZ();
+            Pool pool = direct && shortcut ? POOL.get() : null;
+            if (pool != null && !pool.busy) {
+                pool.busy = true;
+                if (pool.arrays.length < sections.length) pool.arrays = Arrays.copyOf(pool.arrays, sections.length);
+                this.pool = pool;
+                this.buffered = true;
+                this.active = new BlockState[sections.length][];
+                this.fills = new BlockState[sections.length];
+                this.bedrockSections = new boolean[sections.length];
+            } else {
+                this.pool = null;
+                this.active = null;
+                this.fills = null;
+                this.bedrockSections = null;
+            }
         }
 
         boolean outOfHeightLimit(int y) {
@@ -674,10 +729,54 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 return;
             }
             int index = chunk.getSectionIndex(y);
+            if (buffered) {
+                BlockState[] array = active[index];
+                if (array == null) array = open(index);
+                if (array != null) {
+                    array[(y & 15) << 8 | z << 4 | x] = state;
+                    return;
+                }
+            }
             ChunkSection section = sections[index];
             if (section == null) section = sections[index] = chunk.getSection(index);
             if (section.isEmpty() && state.isOf(Blocks.AIR)) return;
             section.setBlockState(x, y & 15, z, state, false);
+        }
+
+        @Override
+        public BlockState get(int x, int y, int z) {
+            if (chunk.isOutOfHeightLimit(y)) return Blocks.VOID_AIR.getDefaultState();
+            if (!direct) return chunk.getBlockState(pos.set(x, y, z));
+            int index = chunk.getSectionIndex(y);
+            if (buffered) {
+                BlockState[] array = active[index];
+                if (array != null) return array[(y & 15) << 8 | (z - startZ) << 4 | (x - startX)];
+            }
+            ChunkSection section = sections[index] != null ? sections[index] : chunk.getSection(index);
+            return section.getBlockState(x - startX, y & 15, z - startZ);
+        }
+
+        @Override
+        public void put(int x, int y, int z, BlockState state) {
+            set(x - startX, y, z - startZ, state);
+        }
+
+        // null for a section that did not start out empty or bedrock, which takes the block by block path
+        private BlockState[] open(int index) {
+            ChunkSection section = sections[index] != null ? sections[index] : chunk.getSection(index);
+            BlockState fill;
+            if (bedrockSections[index]) fill = BEDROCK;
+            else if (section.isEmpty() && !section.hasAny(state -> state != AIR)) fill = AIR;
+            else {
+                sections[index] = section;
+                return null;
+            }
+            BlockState[] array = pool.arrays[index];
+            if (array == null) array = pool.arrays[index] = new BlockState[SECTION_BLOCKS];
+            Arrays.fill(array, fill);
+            active[index] = array;
+            fills[index] = fill;
+            return array;
         }
 
         // Every section below topY becomes one bedrock block, so each keeps a single palette entry
@@ -695,11 +794,91 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 ChunkSection section = new ChunkSection(new PalettedContainer<>(bedrock, BLOCK_PALETTE), chunk.getSection(index).getBiomeContainer());
                 chunk.getSectionArray()[index] = section;
                 sections[index] = section;
+                if (bedrockSections != null) bedrockSections[index] = true;
             }
         }
 
+        // everything buffered goes into the chunk, and the rest is written block by block
+        void sync() {
+            if (!buffered) return;
+            flush();
+            buffered = false;
+        }
+
+        private void flush() {
+            for (int index = 0; index < active.length; index++) {
+                BlockState[] array = active[index];
+                if (array == null) continue;
+                active[index] = null;
+                ChunkSection old = sections[index] != null ? sections[index] : chunk.getSection(index);
+                PalettedContainer<BlockState> container = build(array);
+                if (container != null) {
+                    ChunkSection section = new ChunkSection(container, old.getBiomeContainer());
+                    chunk.getSectionArray()[index] = section;
+                    sections[index] = section;
+                } else {
+                    sections[index] = old;
+                    for (int i = 0; i < SECTION_BLOCKS; i++) {
+                        if (array[i] != fills[index]) old.setBlockState(i & 15, i >> 8, i >> 4 & 15, array[i], false);
+                    }
+                }
+            }
+        }
+
+        // null when the shortcut cannot be trusted
+        private PalettedContainer<BlockState> build(BlockState[] array) {
+            if (!shortcut) return null;
+            List<BlockState> palette = new ArrayList<>();
+            int[] indices = pool.indices;
+            BlockState last = null;
+            int lastIndex = 0;
+            for (int i = 0; i < SECTION_BLOCKS; i++) {
+                BlockState state = array[i];
+                if (state != last) {
+                    int found = palette.indexOf(state);
+                    if (found < 0) {
+                        found = palette.size();
+                        palette.add(state);
+                    }
+                    last = state;
+                    lastIndex = found;
+                }
+                indices[i] = lastIndex;
+            }
+            if (palette.size() > 256) return null;
+            ReadableContainer.Serialized<BlockState> serialized;
+            if (palette.size() == 1) {
+                serialized = new ReadableContainer.Serialized<>(palette, Optional.empty());
+            } else {
+                int bits = Math.max(4, 32 - Integer.numberOfLeadingZeros(palette.size() - 1));
+                long[] data = new PackedIntegerArray(bits, SECTION_BLOCKS, indices).getData();
+                serialized = new ReadableContainer.Serialized<>(palette, Optional.of(LongStream.of(data)), bits);
+            }
+            PalettedContainer<BlockState> container = PalettedContainer.read(BLOCK_PALETTE, serialized).result().orElse(null);
+            if (container == null) {
+                shortcut = false;
+                return null;
+            }
+            if (builds.getAndIncrement() < CHECKED_BUILDS) {
+                for (int i = 0; i < SECTION_BLOCKS; i++) {
+                    if (container.get(i & 15, i >> 8, i >> 4 & 15) != array[i]) {
+                        shortcut = false;
+                        return null;
+                    }
+                }
+            }
+            return container;
+        }
+
         void finish() {
-            if (direct) Heightmap.populateHeightmaps(chunk, chunk.getStatus().getHeightmapTypes());
+            if (direct) {
+                if (buffered) flush();
+                Heightmap.populateHeightmaps(chunk, chunk.getStatus().getHeightmapTypes());
+            }
+        }
+
+        void release() {
+            if (pool != null) pool.busy = false;
         }
     }
 
@@ -747,6 +926,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private static final int CORNERS = 16 / CELL + 1;
         private static final int VALUES = 6;
         private static final int MISTY_LATTICE = 8;
+        private static final float CULL_MARGIN = 1e-4f;
         static final int AIR = 0;
         static final int STONE = 1;
         static final int WATER = 2;
@@ -759,10 +939,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private static final int MISTY_LAYER_SIZE = CORNERS * CORNERS * MistyCaves.VALUES;
         private final int layerCount;
         private final float[][] layerPages;
+        private final PagePool pool;
         private final boolean[] layerDone;
+        // per cell, 0 not decided yet, 1 every block of it is base-solid, 2 mixed or unknown; null for the probe
+        private final byte[] cellVerdict;
         private final MistyCaves misty;
         private final float[] mistyWeight; // null when no corner of the chunk is Misty
         private final float[] riftScale;
+        private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
         private final float[][] mistyPages;
         private final boolean[] mistyDone;
         private final MistyCaves.Shaft[] shafts;
@@ -803,13 +987,26 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final Map<Long, float[]> mistyCorners;
 
         CaveSampler(int startX, int startZ, int bottomY, int topY, long seed, boolean point) {
+            this.cellVerdict = point ? null : new byte[(CORNERS - 1) * (CORNERS - 1) * (Math.floorDiv(topY, CELL) - Math.floorDiv(bottomY, CELL) + 2)];
             this.baseCorners = point ? new HashMap<>() : null;
             this.mistyCorners = point ? new HashMap<>() : null;
             this.startX = startX;
             this.startZ = startZ;
             this.minCellY = Math.floorDiv(bottomY, CELL);
     this.layerCount = Math.floorDiv(topY, CELL) - minCellY + 2;
-            this.layerPages = new float[(layerCount + PAGE_LAYERS - 1) / PAGE_LAYERS][];
+            int pageCount = (layerCount + PAGE_LAYERS - 1) / PAGE_LAYERS;
+            // a page is only read for layers marked done since this sampler began, so pages can be reused as they are
+            PagePool pool = point ? null : PAGE_POOL.get();
+            if (pool != null && !pool.busy) {
+                pool.busy = true;
+                this.pool = pool;
+                if (pool.base.length < pageCount) pool.base = Arrays.copyOf(pool.base, pageCount);
+                if (pool.misty.length < pageCount) pool.misty = Arrays.copyOf(pool.misty, pageCount);
+                this.layerPages = pool.base;
+            } else {
+                this.pool = null;
+                this.layerPages = new float[pageCount][];
+            }
             this.layerDone = new boolean[layerCount];
             this.baseStamp = new int[layerCount * VALUES];
             this.baseBlend = new float[layerCount * VALUES];
@@ -840,6 +1037,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 this.misty = null;
                 this.mistyWeight = null;
                 this.riftScale = null;
+                this.streamGates = null;
                 this.mistyPages = null;
                 this.mistyDone = null;
                 this.shafts = null;
@@ -855,7 +1053,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.misty = candidate;
             this.mistyWeight = new float[CORNERS * CORNERS];
             this.riftScale = new float[CORNERS * CORNERS];
-            this.mistyPages = new float[layerPages.length][];
+            this.streamGates = new float[CORNERS * CORNERS];
+            Arrays.fill(streamGates, Float.NaN);
+            this.mistyPages = pool != null ? pool.misty : new float[pageCount][];
             this.mistyDone = new boolean[layerCount];
             this.mistyStamp = new int[layerCount * MistyCaves.VALUES];
             this.mistyBlend = new float[layerCount * MistyCaves.VALUES];
@@ -931,6 +1131,18 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             return misty != null;
         }
 
+        void release() {
+            if (pool != null) pool.busy = false;
+        }
+
+        private static final class PagePool {
+            boolean busy;
+            float[][] base = new float[0][];
+            float[][] misty = new float[0][];
+        }
+
+        private static final ThreadLocal<PagePool> PAGE_POOL = ThreadLocal.withInitial(PagePool::new);
+
         private void selectColumn(int localX, int localZ) {
             if (localX == columnX && localZ == columnZ) return;
             columnX = localX;
@@ -972,7 +1184,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             if (surfaceY != null) surfaceY[(x - startX) * 16 + (z - startZ)] = y;
         }
 
-        void decorate(Chunk chunk) {
+        void decorate(Chunk chunk, BlockBuffer blocks) {
             if (misty == null) return;
             float[] weights = new float[16 * 16];
             for (int x = 0; x < 16; x++) {
@@ -980,7 +1192,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     weights[x * 16 + z] = bilerp2(mistyWeight, x / CELL, z / CELL, (float) (x % CELL) / CELL, (float) (z % CELL) / CELL);
                 }
             }
-            MistyCaveDecorator.decorate(chunk, misty, lakes, surfaceY, weights);
+            MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights);
         }
 
         private boolean mistySolid(int x, int y, int z) {
@@ -1101,7 +1313,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
             }
             out[offset + MistyCaves.SHAFT] = shaftMargin;
-            out[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w, cornerEdges[corner]) : -1;
+            if (stream && w > 0 && Float.isNaN(streamGates[corner])) streamGates[corner] = misty.streamGate(x, z);
+            out[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w, cornerEdges[corner], streamGates[corner]) : -1;
         }
 
         // probe only: the same corner, evaluated alone
@@ -1139,6 +1352,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
         private boolean baseSolid(int x, int y, int z) {
             int cellY = Math.floorDiv(y, CELL) - minCellY;
+            if (cellVerdict != null) {
+                int slot = (cellX * (CORNERS - 1) + cellZ) * layerCount + cellY;
+                byte verdict = cellVerdict[slot];
+                if (verdict == 0) cellVerdict[slot] = verdict = (byte) (cellAllSolid(cellY) ? 1 : 2);
+                if (verdict == 1) return true;
+            }
             float fy = (float) Math.floorMod(y, CELL) / CELL;
 
             float noise = y < WATER_HEIGHT ? lerp3(cellY, 0, fy) : 0;
@@ -1150,6 +1369,46 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     + Math.abs(lerp3(cellY, 4, fy))
                     + Math.abs(lerp3(cellY, 5, fy));
             return spaghetti / 3 > 0.09f;
+        }
+
+        // A blended value is a convex combination of the 8 corners of its cell, so it stays between their minimum and
+        // maximum (up to a few ulps of float rounding, far below the margin). When every channel clears its threshold by
+        // the margin at all corners, each block of the cell is solid whatever the blend; anything closer is left to baseSolid.
+        private boolean cellAllSolid(int cellY) {
+            float[] low = layer(cellY);
+            float[] high = layer(cellY + 1);
+            int lowBase = (cellY % PAGE_LAYERS) * LAYER_SIZE;
+            int highBase = ((cellY + 1) % PAGE_LAYERS) * LAYER_SIZE;
+            int i00 = index(cellX, cellZ, 0);
+            int i10 = index(cellX + 1, cellZ, 0);
+            int i01 = index(cellX, cellZ + 1, 0);
+            int i11 = index(cellX + 1, cellZ + 1, 0);
+            boolean water = (cellY + minCellY) * CELL < WATER_HEIGHT;
+            float lowerBound = 0;
+            for (int v = 0; v < VALUES; v++) {
+                float min = low[lowBase + i00 + v];
+                float max = min;
+                for (int k = 0; k < 8; k++) {
+                    float[] page = k < 4 ? low : high;
+                    int base = k < 4 ? lowBase : highBase;
+                    int corner = (k & 3) == 0 ? i00 : (k & 3) == 1 ? i10 : (k & 3) == 2 ? i01 : i11;
+                    float value = page[base + corner + v];
+                    if (value < min) min = value;
+                    if (value > max) max = value;
+                }
+                if (v == 0) {
+                    if (water && max >= 0.4f - CULL_MARGIN) return false;
+                } else if (v == 1) {
+                    if (max >= 0.75f - CULL_MARGIN) return false;
+                } else if (v == 2) {
+                    if (max >= 0.8f - CULL_MARGIN) return false;
+                } else if (min > 0) {
+                    lowerBound += min;
+                } else if (max < 0) {
+                    lowerBound -= max;
+                }
+            }
+            return lowerBound / 3 > 0.09f + CULL_MARGIN;
         }
 
         private float lerp3(int cellY, int v, float fy) {
@@ -1205,7 +1464,19 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             final float y3;
             final float y4;
 
-            LayerY(int y) {
+            // everything in a LayerY depends on y alone, so one per height is shared by all chunks
+            private static final int TABLE_OFFSET = 2048;
+            private static final LayerY[] TABLE = new LayerY[4096];
+
+            static LayerY of(int y) {
+                int slot = y + TABLE_OFFSET;
+                if (slot < 0 || slot >= TABLE.length) return new LayerY(y);
+                LayerY layerY = TABLE[slot];
+                if (layerY == null) TABLE[slot] = layerY = new LayerY(y);
+                return layerY;
+            }
+
+            private LayerY(int y) {
                 this.tanY = caveTan(y);
                 this.tanYf = (float) tanY;
                 this.y1 = (float) y / (CAVE_STRETCH_V * 0.5f);
@@ -1244,7 +1515,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             if (values != null) return values;
             if (baseCorners.size() >= MAX_CORNERS) baseCorners.clear();
             values = new float[VALUES];
-            baseCorner(new LayerY((layer + minCellY) * CELL), startX + cornerX * CELL, startZ + cornerZ * CELL, values, 0);
+            baseCorner(LayerY.of((layer + minCellY) * CELL), startX + cornerX * CELL, startZ + cornerZ * CELL, values, 0);
             baseCorners.put(key, values);
             return values;
         }
@@ -1257,7 +1528,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int layerBase = (cellY % PAGE_LAYERS) * LAYER_SIZE;
                 int y = (cellY + minCellY) * CELL;
                 // everything that depends on y alone is evaluated once per layer
-                LayerY layerY = new LayerY(y);
+                LayerY layerY = LayerY.of(y);
                 for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                     for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
                         baseCorner(layerY, startX + cornerX * CELL, startZ + cornerZ * CELL, page, layerBase + index(cornerX, cornerZ, 0));

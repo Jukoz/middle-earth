@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.features.generation.biomes.surface;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeDataConfigsME;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -20,6 +21,8 @@ import java.util.Map;
  */
 public class MapBasedBiomePool {
     private static HashMap<Color, MapBasedCustomBiome> biomeHashMap;
+    // the same entries keyed by the low 24 bits of the colour, which is all Color.equals looks at
+    private static Int2ObjectOpenHashMap<MapBasedCustomBiome> biomeByRgb = new Int2ObjectOpenHashMap<>();
     public static List<RegistryKey<Biome>> coastalBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> waterBiomes = new ArrayList<>();
     public static List<RegistryKey<Biome>> riverbiomes = new ArrayList<>();
@@ -46,11 +49,12 @@ public class MapBasedBiomePool {
 
     public static void add(Color color, MapBasedCustomBiome biome) {
         biomeHashMap.put(color, biome);
+        biomeByRgb.put(color.getRGB() & 0xFFFFFF, biome);
     }
 
-    public static MapBasedCustomBiome getBiomeByColor(Integer rgb){
-        if(biomeHashMap.containsKey(new Color(rgb)))
-            return biomeHashMap.get(new Color(rgb));
+    public static MapBasedCustomBiome getBiomeByColor(int rgb){
+        MapBasedCustomBiome biome = biomeByRgb.get(rgb & 0xFFFFFF);
+        if(biome != null) return biome;
         throw new RuntimeException("MeBiomes::No registered biome has %s for color".formatted(rgb));
     }
 
@@ -60,6 +64,7 @@ public class MapBasedBiomePool {
 
     public static void loadBiomes() {
         biomeHashMap = new HashMap<>();
+        biomeByRgb = new Int2ObjectOpenHashMap<>();
 
         SubBiomes.loadSubBiomes();
         defaultBiome = new MapBasedCustomBiome(BiomeKeyRegistryME.OCEAN, -35, BiomeDataConfigsME.oceanModifier);

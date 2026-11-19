@@ -32,6 +32,7 @@ final class MistyCaveSetPieces {
     private static final Direction[] DIRECTIONS = {Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 
     private final Chunk chunk;
+    private final BlockBuffer blocks;
     private final MistyCaves caves;
     private final MistyCaves.Lake[] lakes;
     private final int[] surfaceY;
@@ -43,8 +44,9 @@ final class MistyCaveSetPieces {
     private final int[] floors = new int[MAX_FLOORS];
     private final BlockPos.Mutable pos = new BlockPos.Mutable();
 
-    MistyCaveSetPieces(Chunk chunk, MistyCaves caves, MistyCaves.Lake[] lakes, int[] surfaceY, float[] weights, DepthBands.Edges[] edges) {
+    MistyCaveSetPieces(Chunk chunk, BlockBuffer blocks, MistyCaves caves, MistyCaves.Lake[] lakes, int[] surfaceY, float[] weights, DepthBands.Edges[] edges) {
         this.chunk = chunk;
+        this.blocks = blocks;
         this.caves = caves;
         this.lakes = lakes;
         this.surfaceY = surfaceY;
@@ -290,18 +292,19 @@ final class MistyCaveSetPieces {
     }
 
     private boolean air(int x, int y, int z) {
-        return inside(x, z) && y >= chunk.getBottomY() && y <= topY && chunk.getBlockState(pos.set(x, y, z)).isAir();
+        return inside(x, z) && y >= chunk.getBottomY() && y <= topY && blocks.get(x, y, z).isAir();
     }
 
     private boolean solid(int x, int y, int z) {
         if (!inside(x, z) || y < chunk.getBottomY() || y > topY) return false;
-        BlockState state = chunk.getBlockState(pos.set(x, y, z));
-        return !state.isAir() && state.getFluidState().isEmpty() && state.isFullCube(chunk, pos);
+        BlockState state = blocks.get(x, y, z);
+        return !state.isAir() && state.getFluidState().isEmpty() && state.isFullCube(chunk, pos.set(x, y, z));
     }
 
     private boolean place(int x, int y, int z, BlockState state) {
         if (!air(x, y, z)) return false;
-        chunk.setBlockState(pos.set(x, y, z), state);
+        blocks.put(x, y, z, state);
+        pos.set(x, y, z);
         // ProtoChunk does not create block entities itself
         if (state.hasBlockEntity() && state.getBlock() instanceof BlockEntityProvider provider) {
             BlockEntity entity = provider.createBlockEntity(pos.toImmutable(), state);

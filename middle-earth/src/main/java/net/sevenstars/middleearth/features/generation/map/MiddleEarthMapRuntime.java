@@ -89,7 +89,7 @@ public class MiddleEarthMapRuntime {
     public MapBasedCustomBiome getBiome(int posX, int posZ) {
         if(!middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return MapBasedBiomePool.defaultBiome;
 
-        MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
+        MiddleEarthMapRegion region = regionAt(posX, posZ);
         if(region == null) return MapBasedBiomePool.defaultBiome;
 
         return region.getBiome(imageCoordinate(posX), imageCoordinate(posZ));
@@ -105,7 +105,7 @@ public class MiddleEarthMapRuntime {
             return OUT_OF_BORDER_RGB;
         }
 
-        MiddleEarthMapRegion region = getRegionToUse(middleEarthMapUtils.getRegionByWorldCoordinate(posX, posZ));
+        MiddleEarthMapRegion region = regionAt(posX, posZ);
         if(region == null) return OUT_OF_BORDER_RGB;
 
         return region.getHeightRgb(imageCoordinate(posX), imageCoordinate(posZ));
@@ -137,6 +137,34 @@ public class MiddleEarthMapRuntime {
         purgeRegions();
 
         return regions.computeIfAbsent(regionCoordinate, MiddleEarthMapRegion::new);
+    }
+
+    // The last region a thread used, so a lookup in the same region allocates no key. It is dropped whenever a purge removed
+    // regions, so a purged region is not kept alive by a thread.
+    private static final class LastRegion {
+        int x = Integer.MIN_VALUE;
+        int z;
+        int epoch;
+        MiddleEarthMapRegion region;
+    }
+
+    private static final ThreadLocal<LastRegion> LAST_REGION = ThreadLocal.withInitial(LastRegion::new);
+    private volatile int purgeEpoch;
+
+    private MiddleEarthMapRegion regionAt(int posX, int posZ) {
+        // the same cells as getRegionByWorldCoordinate: truncating division, twice
+        int regionX = posX / MiddleEarthMapConfigs.PIXEL_WEIGHT / MiddleEarthMapConfigs.REGION_SIZE;
+        int regionZ = posZ / MiddleEarthMapConfigs.PIXEL_WEIGHT / MiddleEarthMapConfigs.REGION_SIZE;
+        purgeRegions();
+        LastRegion last = LAST_REGION.get();
+        int epoch = purgeEpoch;
+        if (last.region != null && last.x == regionX && last.z == regionZ && last.epoch == epoch) return last.region;
+        MiddleEarthMapRegion region = regions.computeIfAbsent(new Vector2i(regionX, regionZ), MiddleEarthMapRegion::new);
+        last.x = regionX;
+        last.z = regionZ;
+        last.epoch = epoch;
+        last.region = region;
+        return region;
     }
 
     private void purgeRegions() {
@@ -179,6 +207,7 @@ public class MiddleEarthMapRuntime {
             for (Vector2i region : toPurge){
                 regions.remove(region);
             }
+            if (!toPurge.isEmpty()) purgeEpoch++;
         } catch(Exception exception){
             MiddleEarth.LOGGER.logError("%s : %s".formatted(toString(), exception.getMessage()));
         } finally {

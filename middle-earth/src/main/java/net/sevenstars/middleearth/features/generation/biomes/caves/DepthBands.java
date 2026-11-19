@@ -27,6 +27,9 @@ public final class DepthBands {
         DEEPS
     }
 
+    // Band.values() clones its array on every call
+    public static final Band[] BANDS = Band.values();
+
     // both ends inclusive
     public record Span(Band band, int bottom, int top) {
         public int height() {
@@ -90,8 +93,17 @@ public final class DepthBands {
     // null above the cave line, where the surface biome rules
     public static Span at(int y, Edges edges) {
         if(y >= edges.cap()) return null;
-        for(Band band : Band.values()) {
+        for(Band band : BANDS) {
             if(y >= edges.bottom(band) || band == Band.DEEPS) return new Span(band, edges.bottom(band), edges.top(band) - 1);
+        }
+        return null;
+    }
+
+    // the band of at(y, edges), without the span; null above the cave line
+    public static Band bandAt(int y, Edges edges) {
+        if(y >= edges.cap()) return null;
+        for(Band band : BANDS) {
+            if(y >= edges.bottom(band) || band == Band.DEEPS) return band;
         }
         return null;
     }

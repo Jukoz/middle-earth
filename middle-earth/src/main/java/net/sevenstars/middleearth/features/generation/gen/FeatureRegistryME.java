@@ -9,6 +9,7 @@ import net.sevenstars.middleearth.features.generation.worldfeatures.columns.*;
 import net.sevenstars.middleearth.features.generation.worldfeatures.deltas.DeltaFeature;
 import net.sevenstars.middleearth.features.generation.worldfeatures.growth.MultifaceStateFeature;
 import net.sevenstars.middleearth.features.generation.worldfeatures.growth.MultifaceStateFeatureConfig;
+import net.sevenstars.middleearth.features.generation.worldfeatures.ores.FastOreFeature;
 import net.sevenstars.middleearth.features.generation.worldfeatures.ores.OreFeature;
 import net.sevenstars.middleearth.features.generation.worldfeatures.ores.OreFeatureConfigME;
 import net.sevenstars.middleearth.features.generation.worldfeatures.ores.SurfaceOreFeature;
@@ -32,6 +33,7 @@ public class FeatureRegistryME {
     public static Feature<MultifaceStateFeatureConfig> MULTIFACE_PERSISTENT = register("multiface_persistent", new MultifaceStateFeature(MultifaceStateFeatureConfig.CODEC));
     public static Feature<ColumnsFeatureConfig> COLUMNS = register("columns", new ColumnsFeature(ColumnsFeatureConfig.CODEC));
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
+    public static Feature<net.minecraft.world.gen.feature.OreFeatureConfig> FAST_ORE = register("fast_ore", new FastOreFeature(net.minecraft.world.gen.feature.OreFeatureConfig.CODEC));
     public static Feature<OreFeatureConfigME> ORE = register("ore", new OreFeature(OreFeatureConfigME.CODEC));
     public static Feature<ChainFeatureConfig> CHAIN = register("chain", new ChainFeature(ChainFeatureConfig.CODEC));
     public static Feature<PlatedFoodFeatureConfig> PLATED_FOOD = register("plated_food", new PlatedFoodFeature(PlatedFoodFeatureConfig.CODEC));

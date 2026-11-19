@@ -373,49 +373,49 @@ public class CavesConfiguredFeatureRegistryME {
         registerGeode(RED_AGATE_GEODE, featureRegisterable, BlockRegistryME.RED_AGATE_BLOCK, BlockRegistryME.BUDDING_RED_AGATE, BlockRegistryME.SMALL_RED_AGATE_BUD,
                 BlockRegistryME.MEDIUM_RED_AGATE_BUD, BlockRegistryME.LARGE_RED_AGATE_BUD, BlockRegistryME.RED_AGATE_CLUSTER, Blocks.CALCITE);
 
-        ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dolomiteReplaceTest, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldDolomiteReplaceTest, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dolomiteReplaceTest, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldDolomiteReplaceTest, 42));
         // the deeps' own palettes, in the Medgon they are made of
-        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_MUD, Feature.ORE, deepsOre(Blocks.MUD, 33));
-        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CLAY, Feature.ORE, deepsOre(Blocks.CLAY, 17));
-        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_TUFF, Feature.ORE, deepsOre(Blocks.TUFF, 40));
-        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CALCITE, Feature.ORE, deepsOre(Blocks.CALCITE, 24));
-        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_GRAVEL, Feature.ORE, deepsOre(Blocks.GRAVEL, 20));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MUD, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mudList, 41));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_MUD, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.MUD, 33));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CLAY, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.CLAY, 17));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_TUFF, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.TUFF, 40));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CALCITE, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.CALCITE, 24));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_GRAVEL, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.GRAVEL, 20));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MUD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mudList, 41));
         ConfiguredFeatures.register(featureRegisterable, POOL_MUD, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.LUSH_GROUND_REPLACEABLE,
                 BlockStateProvider.of(Blocks.MUD), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(magmaList, 31, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(medgonTest, Blocks.OBSIDIAN.getDefaultState(), 27));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(magmaList, 31, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(medgonTest, Blocks.OBSIDIAN.getDefaultState(), 27));
         ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, FeatureRegistryME.SURFACE_ORE, new SurfaceOreFeatureConfig(baseStone, BlockRegistryME.STONE_MYCELIUM.getDefaultState(), 56));
         ConfiguredFeatures.register(featureRegisterable, POOL_MAGMA, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.BASE_STONE_OVERWORLD,
                 BlockStateProvider.of(Blocks.MAGMA_BLOCK), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ASH, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashList, 48, 0.2f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashenDirtList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dryDirtList, 37));
-        ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(packedIceList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blueIceList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GABBRO, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gabbroList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(galonnList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldGalonnList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GNEISS, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gneissList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gildedGreenTuffList, 40));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ASH, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashList, 48, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashenDirtList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dryDirtList, 37));
+        ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(packedIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blueIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GABBRO, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gabbroList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(galonnList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldGalonnList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GNEISS, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gneissList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gildedGreenTuffList, 40));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLDEN_GREEN_TUFF, FeatureRegistryME.ORE, new OreFeatureConfigME(goldenGreenTuffList, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 42, 0.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(izherAbanList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ZIGIL_ABAN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(zigilAbanList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldIzherAbanList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(limestoneList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldLimestoneList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SAND, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandStoneList, 37));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SCHIST, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(schistList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(snowList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(terracottaList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tuffList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(basaltList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blackstoneList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(izherAbanList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ZIGIL_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(zigilAbanList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldIzherAbanList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(limestoneList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldLimestoneList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAND, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandStoneList, 37));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SCHIST, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(schistList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(snowList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(terracottaList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tuffList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(basaltList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blackstoneList, 42));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, FeatureRegistryME.CLUSTER, new ClusterFeatureConfig(12,
                 StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_DOLOMITE.getDefaultState(), UniformIntProvider.create(3, 6),
@@ -498,16 +498,16 @@ public class CavesConfiguredFeatureRegistryME {
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
                 UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
 
-        ConfiguredFeatures.register(featureRegisterable, ORE_COAL, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(coalList, 17, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(copperList, 15, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TIN, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tinList, 12, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(lapisList, 6, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(leadList, 12, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(quartziteList, 21, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_IRON, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ironList, 10, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(silverList, 7, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_JADE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(jadeList, 16, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(goldList, 7, 0.42f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_COAL, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(coalList, 17, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(copperList, 15, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TIN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tinList, 12, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(lapisList, 6, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(leadList, 12, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(quartziteList, 21, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_IRON, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ironList, 10, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(silverList, 7, 0.5f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_JADE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(jadeList, 16, 0.5f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(goldList, 7, 0.42f));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
         ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(emeraldList, 5, 0.68f));
         ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(rubyList, 5, 0.68f));

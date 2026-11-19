@@ -545,10 +545,18 @@ public final class MistyCaves {
 
     // two thin sheets: a near-vertical one and a layered one that tilts, so the tube winds and slopes
     public float streamMargin(int x, int y, int z, float weight, DepthBands.Edges edges) {
+        return streamMargin(x, y, z, weight, edges, streamGate(x, z));
+    }
+
+    // depends on the column only
+    public float streamGate(int x, int z) {
+        return (float) SimplexNoise.noise((x + offsetX + 3301) / 200f, (z + offsetZ + 2711) / 200f);
+    }
+
+    public float streamMargin(int x, int y, int z, float weight, DepthBands.Edges edges, float gate) {
         float a = (float) SimplexNoise.noise((x + offsetX + 1201) / 64f, (y + offsetY) / 60f, (z + offsetZ + 733) / 64f);
         float tilted = y + STREAM_SLOPE * z;
         float b = (float) SimplexNoise.noise((x + offsetX + 2203) / 64f, (tilted + offsetY + 97) / 16f, (z + offsetZ + 1511) / 64f);
-        float gate = (float) SimplexNoise.noise((x + offsetX + 3301) / 200f, (z + offsetZ + 2711) / 200f);
         float margin = Math.min(1 - Math.abs(a) / STREAM_WIDTH_A, 1 - Math.abs(b) / STREAM_WIDTH_B);
         return margin - (1 - streamEnvelope(edges, y)) * 2f - (1 - smoothstep(-0.25f, 0.2f, gate)) * 2f - (1 - weight) * 2f;
     }

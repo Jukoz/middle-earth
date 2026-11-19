@@ -12,8 +12,12 @@ import net.minecraft.world.chunk.Chunk;
 public class ProceduralStructures {
     public static final int mapMultiplier = (int) Math.pow(2, MiddleEarthMapConfigs.MAP_ITERATION + MiddleEarthMapConfigs.PIXEL_WEIGHT - 2);
 
+    public static boolean writes(MapBasedCustomBiome biome) {
+        return biome.getBiomeKey() == BiomeKeyRegistryME.NAN_CURUNIR || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD  || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD_HILL;
+    }
+
     public static void generateStructures(MapBasedCustomBiome biome, Chunk chunk, int x, int y, int z) {
-        if(biome.getBiomeKey() == BiomeKeyRegistryME.NAN_CURUNIR || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD  || biome.getBiomeKey() == BiomeKeyRegistryME.ISENGARD_HILL) {
+        if(writes(biome)) {
             generateIsengard(chunk, x, y, z);
         }
     }

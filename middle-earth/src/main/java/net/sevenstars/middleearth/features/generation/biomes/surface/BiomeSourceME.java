@@ -97,8 +97,8 @@ public class BiomeSourceME extends BiomeSource {
 
         RegistryKey<Biome> processedBiome;
         if (j < column.caveBelow || j < column.marshCaveBelow) {
-            DepthBands.Span span = DepthBands.at(j, column.edges);
-            DepthBands.Band band = span == null ? DepthBands.Band.UPPER : span.band();
+            DepthBands.Band band = DepthBands.bandAt(j, column.edges);
+            if (band == null) band = DepthBands.Band.UPPER;
             RegistryKey<Biome> caveBiome = column.caveBiomes[band.ordinal()];
             // the deeps belong to every column with a floor below the usual one, whatever its cave type; which of them is up to the region
             if (band == DepthBands.Band.DEEPS && column.edges.floor() < DepthBands.SHALLOW_FLOOR) caveBiome = column.caveBiomes[band.ordinal()] = DeepThemes.at(i, k, MiddleEarthHeightMap.getSeed()).biome;
@@ -125,7 +125,7 @@ public class BiomeSourceME extends BiomeSource {
 
     @SuppressWarnings("unchecked")
     private static RegistryKey<Biome>[] newBandArray() {
-        return new RegistryKey[DepthBands.Band.values().length];
+        return new RegistryKey[DepthBands.BANDS.length];
     }
 
     private static final int COLUMN_CACHE_SIZE = 256;
