@@ -2598,97 +2598,98 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
 
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.WHITE_DYE),
                                 DecorativeItemsME.WHITE_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
+
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.BLACK_DYE),
                                 DecorativeItemsME.BLACK_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.BLUE_DYE),
                                 DecorativeItemsME.BLUE_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.BROWN_DYE),
                                 DecorativeItemsME.BROWN_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.CYAN_DYE),
                                 DecorativeItemsME.CYAN_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.GREEN_DYE),
                                 DecorativeItemsME.GREEN_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.GRAY_DYE),
                                 DecorativeItemsME.GRAY_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.LIGHT_BLUE_DYE),
                                 DecorativeItemsME.LIGHT_BLUE_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.LIGHT_GRAY_DYE),
                                 DecorativeItemsME.LIGHT_GRAY_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.LIME_DYE),
                                 DecorativeItemsME.LIME_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.MAGENTA_DYE),
                                 DecorativeItemsME.MAGENTA_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.ORANGE_DYE),
                                 DecorativeItemsME.ORANGE_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.PINK_DYE),
                                 DecorativeItemsME.PINK_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.PURPLE_DYE),
                                 DecorativeItemsME.PURPLE_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.RED_DYE),
                                 DecorativeItemsME.RED_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
                         .offerTo(exporter);
                 TransmuteRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS,
-                                Ingredient.ofItem(DecorativeItemsME.SACK),
+                                this.ingredientFromTag(ItemTagsME.SACKS),
                                 Ingredient.ofItem(Items.YELLOW_DYE),
                                 DecorativeItemsME.YELLOW_SACK)
                         .criterion(hasItem(DecorativeItemsME.SACK),conditionsFromItem(DecorativeItemsME.SACK))
