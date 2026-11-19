@@ -89,7 +89,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.NIGHT_RAIDER).asCivilian();
 
         MILITIA = new NpcClass(NpcRegistry.GUNDABAD_MILITIA.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -139,7 +139,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_WATCH);
 
         RIDER = new NpcClass(NpcRegistry.GUNDABAD_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -180,7 +180,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR), NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_GUNDABAD_PLATE_ARMOR), NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_RIDER);
 
         SCOUT = new NpcClass(NpcRegistry.GUNDABAD_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GUNDABAD_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -218,7 +218,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_BOW).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_SCOUT);
 
         WARRIOR = new NpcClass(NpcRegistry.GUNDABAD_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -266,7 +266,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_GREAT_EYE_PAINTED_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
 
         VETERAN = new NpcClass(NpcRegistry.GUNDABAD_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -314,7 +314,7 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_HEAVY_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.NIGHT_SOLDIER);
 
         LEADER = new NpcClass(NpcRegistry.GUNDABAD_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.GUNDABAD_HOBGOBLIN, List.of(
                 WeightedGearData.create()
@@ -341,15 +341,6 @@ public class GundabadNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GUNDABAD_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        GOBLIN.withRoutine(NpcRoutines.NIGHT_RAIDER);
-        MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
-        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
-        LEADER.withRoutine(NpcRoutines.NIGHT_LEADER);
-        GOBLIN.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.NIGHT_LEADER);
     }
 }

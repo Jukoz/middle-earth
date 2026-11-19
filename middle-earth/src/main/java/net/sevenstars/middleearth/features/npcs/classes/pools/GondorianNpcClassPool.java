@@ -79,7 +79,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_DAGGER))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.GATHERER_AND_FISHER).asCivilian();
 
         MILITIA = new NpcClass(NpcRegistry.GONDOR_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_PEASANT, List.of(
                 WeightedGearData.create()
@@ -168,7 +168,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create().withWeight(5))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.WATCH);
 
         SOLDIER = new NpcClass(NpcRegistry.GONDOR_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -197,7 +197,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create())
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.WATCH);
 
         ITHILIEN_RANGER = new NpcClass(NpcRegistry.GONDOR_ITHILIEN_RANGER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -225,7 +225,7 @@ public class GondorianNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.RANGER);
 
         KNIGHT = new NpcClass(NpcRegistry.GONDOR_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -260,7 +260,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.ELITE);
 
         VETERAN = new NpcClass(NpcRegistry.GONDOR_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -279,7 +279,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(WeightedItemData.create().withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.SOLDIER);
 
         CITADEL_GUARD = new NpcClass(NpcRegistry.GONDOR_CITADEL_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -294,7 +294,7 @@ public class GondorianNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_KNIGHT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.ELITE);
 
         FOUNTAIN_GUARD = new NpcClass(NpcRegistry.GONDOR_FOUNTAIN_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -303,7 +303,7 @@ public class GondorianNpcClassPool {
                         .add(EquipmentSlot.LEGS, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_LEGGINGS)))
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.GONDORIAN_FOUNTAIN_GUARD_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.GONDORIAN_FOUNTAIN_GUARD_SPEAR)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.ELITE);
 
         KING_GUARD = new NpcClass(NpcRegistry.GONDOR_KING_GUARD.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.GONDOR_SOLDIER, List.of(
                 WeightedGearData.create()
@@ -319,7 +319,7 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_KINGS_GUARD_TOWER_SHIELD).withWeight(8))
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_TOWER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.ELITE);
 
         LEADER = new NpcClass(NpcRegistry.GONDOR_LEADER.getValue(), RaceRegistry.HUMAN, FACTION,  TexturePresetsRegistry.GONDOR_LORD, List.of(
                 WeightedGearData.create()
@@ -339,18 +339,6 @@ public class GondorianNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_HERO_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_ORNAMENTED_KNIGHT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        PEASANT.withRoutine(NpcRoutines.GATHERER_AND_FISHER);
-        MILITIA.withRoutine(NpcRoutines.WATCH);
-        SOLDIER.withRoutine(NpcRoutines.WATCH);
-        ITHILIEN_RANGER.withRoutine(NpcRoutines.RANGER);
-        KNIGHT.withRoutine(NpcRoutines.ELITE);
-        VETERAN.withRoutine(NpcRoutines.SOLDIER);
-        CITADEL_GUARD.withRoutine(NpcRoutines.ELITE);
-        FOUNTAIN_GUARD.withRoutine(NpcRoutines.ELITE);
-        KING_GUARD.withRoutine(NpcRoutines.ELITE);
-        LEADER.withRoutine(NpcRoutines.LEADER);
-        PEASANT.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.LEADER);
     }
 }

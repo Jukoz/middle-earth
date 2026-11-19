@@ -76,7 +76,7 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_DAGGER).withWeight(2))
                                 .add(WeightedItemData.create().withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.GATHERER_AND_FISHER).asCivilian();
 
         MILITIA = new NpcClass(NpcRegistry.DALE_MILITIA.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -100,7 +100,7 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create(Items.SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.WATCH);
 
         SOLDIER = new NpcClass(NpcRegistry.DALE_SOLDIER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -131,7 +131,7 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BLUE_OVAL_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BLUE_BRACED_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.WATCH);
 
         ARCHER = new NpcClass(NpcRegistry.DALE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -159,7 +159,7 @@ public class DalishNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.HUNTING_WATCH);
 
         KNIGHT = new NpcClass(NpcRegistry.DALE_KNIGHT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -193,7 +193,7 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_BRACED_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.ELITE);
 
         ELITE_ARCHER = new NpcClass(NpcRegistry.DALE_ELITE_ARCHER.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_PEASANT, List.of(
                 WeightedGearData.create()
@@ -216,7 +216,7 @@ public class DalishNpcClassPool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_NOBLE_LONGBOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.ARCHER);
 
         VETERAN = new NpcClass(NpcRegistry.DALE_VETERAN.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_LORD, List.of(
                 WeightedGearData.create()
@@ -249,7 +249,7 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_OVAL_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.SOLDIER);
 
         SERGEANT = new NpcClass(NpcRegistry.DALE_SERGEANT.getValue(), RaceRegistry.HUMAN, FACTION, TexturePresetsRegistry.DALE_LORD, List.of(
                 WeightedGearData.create()
@@ -278,16 +278,6 @@ public class DalishNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_ROYAL_ROUND_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.DALISH_BARDING_HEAVY_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        PEASANT.withRoutine(NpcRoutines.GATHERER_AND_FISHER);
-        MILITIA.withRoutine(NpcRoutines.WATCH);
-        SOLDIER.withRoutine(NpcRoutines.WATCH);
-        ARCHER.withRoutine(NpcRoutines.HUNTING_WATCH);
-        KNIGHT.withRoutine(NpcRoutines.ELITE);
-        ELITE_ARCHER.withRoutine(NpcRoutines.ARCHER);
-        VETERAN.withRoutine(NpcRoutines.SOLDIER);
-        SERGEANT.withRoutine(NpcRoutines.LEADER);
-        PEASANT.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.LEADER);
     }
 }

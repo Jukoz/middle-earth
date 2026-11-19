@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.npcs.classes;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -25,16 +26,20 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class NpcClass {
+    private static final Codec<NbtCompound> GEAR_CODEC = NbtCompound.CODEC.flatXmap(NpcClass::checkGear, DataResult::success);
+    private static final Codec<NbtCompound> ATTRIBUTES_CODEC = NbtCompound.CODEC.flatXmap(NpcClass::checkAttributes, DataResult::success);
+
     public static final Codec<NpcClass> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(NpcClass::getId),
             Identifier.CODEC.fieldOf("race").forGetter(NpcClass::getRace),
             Identifier.CODEC.fieldOf("faction").forGetter(NpcClass::getFactionIdentifier),
             Identifier.CODEC.fieldOf("base_npc_texture").forGetter(NpcClass::getNpcTextureDataValue),
-            NbtCompound.CODEC.fieldOf("gear").forGetter(NpcClass::getGearDataValues),
-            NbtCompound.CODEC.fieldOf("npc_attributes").forGetter(NpcClass::getNpcAttributePool),
+            GEAR_CODEC.fieldOf("gear").forGetter(NpcClass::getGearDataValues),
+            ATTRIBUTES_CODEC.fieldOf("npc_attributes").forGetter(NpcClass::getNpcAttributePool),
             MountData.CODEC.optionalFieldOf("mount").forGetter(NpcClass::getOptionalMountData),
             LootData.CODEC.optionalFieldOf("loot").forGetter(NpcClass::getOptionalLootData),
             RoutineData.CODEC.optionalFieldOf("routine").forGetter(NpcClass::getOptionalRoutine),
@@ -46,11 +51,11 @@ public class NpcClass {
     private final Identifier factionId;
     private final Identifier npcTextureKey;
     private final WeightedPool<WeightedGearData> gearDatas;
-    private final HashMap<EntityCategories, AttributePool> npcAttributePools;
+    private final Map<EntityCategories, AttributePool> npcAttributePools;
     private final MountData mountData;
     private final LootData lootData;
-    private @Nullable RoutineData routine = null;
-    private boolean civilian = false;
+    private final @Nullable RoutineData routine;
+    private final boolean civilian;
 
     public NpcClass(Identifier id, Identifier raceId, Identifier factionId, Identifier npcTextureKey, NbtCompound gearDatas, NbtCompound npcAttributes, Optional<MountData> mount, Optional<LootData> lootData, Optional<RoutineData> routine, boolean civilian) {
         this.id = id;
@@ -78,19 +83,56 @@ public class NpcClass {
         this.routine = routine.orElse(null);
         this.civilian = civilian;
     }
-    public NpcClass(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, LootData lootData) {
+
+    private NpcClass(NpcClass base, @Nullable RoutineData routine, boolean civilian) {
+        this.id = base.id;
+        this.raceId = base.raceId;
+        this.factionId = base.factionId;
+        this.npcTextureKey = base.npcTextureKey;
+        this.gearDatas = base.gearDatas;
+        this.npcAttributePools = base.npcAttributePools;
+        this.mountData = base.mountData;
+        this.lootData = base.lootData;
+        this.routine = routine;
+        this.civilian = civilian;
+    }
+
+    public NpcClass(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, Map<EntityCategories, AttributePool> npcAttributePools, LootData lootData) {
         this(id, race, faction, npcTextureKey, weightedGearData, npcAttributePools, null, lootData);
     }
 
-    public NpcClass(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, HashMap<EntityCategories, AttributePool> npcAttributePools, MountData mount, LootData lootData) {
+    public NpcClass(Identifier id, RegistryKey<Race> race, RegistryKey<Faction> faction, RegistryKey<TexturePresetDataPool> npcTextureKey, List<WeightedGearData> weightedGearData, Map<EntityCategories, AttributePool> npcAttributePools, MountData mount, LootData lootData) {
         this.id = id;
         this.raceId = race.getValue();
         this.factionId = faction.getValue();
         this.npcTextureKey = npcTextureKey.getValue();
         this.gearDatas = new WeightedPool<>(weightedGearData);
-        this.npcAttributePools = npcAttributePools;
+        this.npcAttributePools = new HashMap<>(npcAttributePools);
         this.mountData = mount;
         this.lootData = lootData;
+        this.routine = null;
+        this.civilian = false;
+    }
+
+    private static DataResult<NbtCompound> checkGear(NbtCompound gear) {
+        if(gear.getList("pool").isEmpty())
+            return DataResult.error(() -> "gear has no 'pool' list");
+        NbtList pool = gear.getList("pool").get();
+        for(int i = 0; i < pool.size(); i++) {
+            if(pool.getCompound(i).isEmpty()) {
+                int index = i;
+                return DataResult.error(() -> "gear pool entry " + index + " is not a compound");
+            }
+        }
+        return DataResult.success(gear);
+    }
+
+    private static DataResult<NbtCompound> checkAttributes(NbtCompound attributes) {
+        for(var category : EntityCategories.values()) {
+            if(attributes.contains(category.name()) && attributes.getCompound(category.name()).isEmpty())
+                return DataResult.error(() -> "npc_attributes '" + category.name() + "' is not a compound");
+        }
+        return DataResult.success(attributes);
     }
 
     public Identifier getId() {
@@ -121,8 +163,7 @@ public class NpcClass {
         return routine;
     }
     public NpcClass withRoutine(RoutineData routine) {
-        this.routine = routine;
-        return this;
+        return new NpcClass(this, routine, civilian);
     }
 
     // No tool until its household assigns a trade
@@ -130,10 +171,8 @@ public class NpcClass {
         return civilian;
     }
     public NpcClass asCivilian() {
-        this.civilian = true;
-        return this;
+        return new NpcClass(this, routine, true);
     }
-
 
     private NbtCompound getGearDataValues() {
         NbtCompound nbt = new NbtCompound();

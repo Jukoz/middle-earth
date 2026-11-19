@@ -24,10 +24,14 @@ public class NpcNavigation extends MobNavigation {
     private static final float PLAN_LENGTH = 256;
     private static final float PLAN_SEARCH = 16;
     private static final int FOLLOW_TARGET_RANGE = 8;
+    // Hard cap on one planning search, whatever the multiplier
+    private static final int PLAN_NODES = 8192;
 
     // The game's multiplier is private, so keep a copy
     private float searchMultiplier = 1;
     private boolean planning = false;
+    // Set while the super constructor builds it, so no initialiser
+    private NpcPathNodeNavigator navigator;
 
     public NpcNavigation(MobEntity mob, World world) {
         super(mob, world);
@@ -57,10 +61,12 @@ public class NpcNavigation extends MobNavigation {
         planning = true;
         float before = searchMultiplier;
         setRangeMultiplier(PLAN_SEARCH);
+        navigator.capNodes(PLAN_NODES);
         try {
             Path path = findPathTo(target, 1);
             return path != null && path.reachesTarget() ? path : null;
         } finally {
+            navigator.capNodes(Integer.MAX_VALUE);
             setRangeMultiplier(before);
             planning = false;
         }
@@ -81,7 +87,8 @@ public class NpcNavigation extends MobNavigation {
     @Override
     protected PathNodeNavigator createPathNodeNavigator(int range) {
         this.nodeMaker = new NpcPathNodeMaker();
-        return new NpcPathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
+        navigator = new NpcPathNodeNavigator(this.nodeMaker, Math.max(range, SEARCH_NODES));
+        return navigator;
     }
 
     // A ladder board sits on one side, so aim for the middle of the free room or a wide npc sticks
@@ -105,7 +112,7 @@ public class NpcNavigation extends MobNavigation {
     }
 
     private static boolean isBoard(BlockState state) {
-        return state.isIn(BlockTags.CLIMBABLE) || NpcPathNodeMaker.isOpenBoard(state);
+        return state.isIn(BlockTags.CLIMBABLE) || BoardRules.isOpenBoard(state);
     }
 
     private static double freeMiddle(VoxelShape low, VoxelShape high, Direction.Axis axis) {
@@ -114,9 +121,9 @@ public class NpcNavigation extends MobNavigation {
         for(VoxelShape shape : new VoxelShape[]{low, high}) {
             if(shape.isEmpty())
                 continue;
-            if(shape.getMin(axis) <= 0 && shape.getMax(axis) < NpcPathNodeMaker.FAR_HALF)
+            if(shape.getMin(axis) <= 0 && shape.getMax(axis) < BoardRules.FAR_HALF)
                 from = Math.max(from, shape.getMax(axis));
-            else if(shape.getMax(axis) >= 1 && shape.getMin(axis) > NpcPathNodeMaker.FAR_HALF)
+            else if(shape.getMax(axis) >= 1 && shape.getMin(axis) > BoardRules.FAR_HALF)
                 to = Math.min(to, shape.getMin(axis));
         }
         return (from + to) / 2;

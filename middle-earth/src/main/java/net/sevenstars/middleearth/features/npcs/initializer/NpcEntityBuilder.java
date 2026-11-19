@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.features.npcs.initializer;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
@@ -15,7 +16,7 @@ public class NpcEntityBuilder {
         this.world = world;
         this.entity = new NpcEntity(EntitiesME.NPC, this.world);
         if(pos != null)
-            this.entity.setPosition(pos.toCenterPos());
+            this.entity.setPosition(Vec3d.ofBottomCenter(pos));
     }
 
     public NpcEntityBuilder withNpcClass(Identifier identifier) {

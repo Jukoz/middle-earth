@@ -19,6 +19,8 @@ import net.sevenstars.middleearth.utils.SpawnUtil;
 public class NpcPartySpawner {
     private static final int SPAWN_RADIUS = 3;
     private static final int SPAWN_ATTEMPTS = 6;
+    // Each round searches a wider ring before giving up
+    private static final int SPAWN_ROUNDS = 4;
     private static final int MAXIMUM_HEIGHT_DIFFERENCE = 4;
     private static final float FULL_TURN = 360f;
 
@@ -57,15 +59,18 @@ public class NpcPartySpawner {
 
     private static BlockPos findSpawnPos(ServerWorld world, NpcEntity leader, Random random) {
         BlockPos leaderPos = leader.getBlockPos();
-        for(int attempt = 0; attempt < SPAWN_ATTEMPTS; attempt++) {
-            int x = leaderPos.getX() + random.nextBetween(-SPAWN_RADIUS, SPAWN_RADIUS);
-            int z = leaderPos.getZ() + random.nextBetween(-SPAWN_RADIUS, SPAWN_RADIUS);
-            BlockPos pos = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-            if(Math.abs(pos.getY() - leaderPos.getY()) > MAXIMUM_HEIGHT_DIFFERENCE)
-                continue;
-            boolean hasRoom = world.isSpaceEmpty(EntitiesME.NPC.getSpawnBox(x + 0.5, pos.getY(), z + 0.5)) && world.getFluidState(pos).isEmpty();
-            if(hasRoom && SpawnUtil.canSpawn(pos, world, SpawnReason.EVENT))
-                return pos;
+        for(int round = 1; round <= SPAWN_ROUNDS; round++) {
+            int radius = SPAWN_RADIUS * round;
+            for(int attempt = 0; attempt < SPAWN_ATTEMPTS; attempt++) {
+                int x = leaderPos.getX() + random.nextBetween(-radius, radius);
+                int z = leaderPos.getZ() + random.nextBetween(-radius, radius);
+                BlockPos pos = new BlockPos(x, world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), z);
+                if(Math.abs(pos.getY() - leaderPos.getY()) > MAXIMUM_HEIGHT_DIFFERENCE)
+                    continue;
+                boolean hasRoom = world.isSpaceEmpty(EntitiesME.NPC.getSpawnBox(x + 0.5, pos.getY(), z + 0.5)) && world.getFluidState(pos).isEmpty();
+                if(hasRoom && SpawnUtil.canSpawn(pos, world, SpawnReason.EVENT))
+                    return pos;
+            }
         }
         return leaderPos;
     }

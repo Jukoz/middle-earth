@@ -53,12 +53,12 @@ public class BedTagEditing {
     // Null if the request asks for something that does not exist or fit, after logging why
     private static @Nullable BedTag tagFor(World world, BedTagHolder holder, BlockPos pos, String place, String nestKind, String job, String npcClass, boolean resetLinks) {
         Identifier jobId = job.isEmpty() ? null : Identifier.tryParse(job);
-        if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (jobId == null || NpcJobs.get(jobId) == null)) {
+        if(!BedTag.nestKinds().contains(nestKind) || !job.isEmpty() && (jobId == null || NpcJobs.get(world.getRegistryManager(), jobId) == null)) {
             StructureEditing.log("bed tag at %s refused: unknown nest kind `%s` or job `%s`".formatted(pos.toShortString(), nestKind, job));
             return null;
         }
         // The screen only offers jobs that fit, so a forged request must meet the same rule
-        if(jobId != null && !NpcJobs.fits(jobId, BedTag.folkOf(world.getRegistryManager(), nestKind), nestKind)) {
+        if(jobId != null && !NpcJobs.fits(world.getRegistryManager(), jobId, BedTag.folkOf(world.getRegistryManager(), nestKind), nestKind)) {
             StructureEditing.log("bed tag at %s refused: job `%s` does not fit `%s`, who are %s".formatted(pos.toShortString(), job, nestKind,
                     BedTag.folkOf(world.getRegistryManager(), nestKind)));
             return null;

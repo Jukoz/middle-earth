@@ -73,7 +73,7 @@ public class IsengardNpcClassPool {
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_SPEAR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.ELITE);
 
         SNAGA = new NpcClass(NpcRegistry.ISENGARD_ORC_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
                 WeightedGearData.create()
@@ -113,7 +113,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.NIGHT_FELLER).asCivilian();
 
 
         WARRIOR = new NpcClass(NpcRegistry.ISENGARD_ORC_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.ISENGARD_ORC, List.of(
@@ -159,7 +159,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.ROUND_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
 
         URUK_HAI_SOLDIER = new NpcClass(NpcRegistry.ISENGARD_URUK_HAI_SOLDIER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -199,7 +199,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.WATCH);
 
         URUK_HAI_SCOUT = new NpcClass(NpcRegistry.ISENGARD_URUK_HAI_SCOUT.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -226,7 +226,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_FALCHION))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_SPEAR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.SCOUT);
 
         URUK_HAI_VETERAN = new NpcClass(NpcRegistry.ISENGARD_URUK_HAI_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -257,7 +257,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_HAND_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_WHITE_PALMPRINT_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.SOLDIER);
 
 
         URUK_HAI_BERSERKER = new NpcClass(NpcRegistry.ISENGARD_URUK_HAI_BERSERKER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
@@ -280,7 +280,7 @@ public class IsengardNpcClassPool {
                                 .add(WeightedItemData.create(DecorativeItemsME.TORCH_OF_ORTHANC))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.SOLDIER);
 
         URUK_HAI_LEADER = new NpcClass(NpcRegistry.ISENGARD_URUK_HAI_LEADER.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.ISENGARD_URUK_HAI, List.of(
                 WeightedGearData.create()
@@ -301,16 +301,6 @@ public class IsengardNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.URUK_HAI_HEATER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        SNAGA.withRoutine(NpcRoutines.NIGHT_FELLER);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        URUK_HAI_SCOUT.withRoutine(NpcRoutines.SCOUT);
-        URUK_HAI_SOLDIER.withRoutine(NpcRoutines.WATCH);
-        ORTHANC_GUARD.withRoutine(NpcRoutines.ELITE);
-        URUK_HAI_VETERAN.withRoutine(NpcRoutines.SOLDIER);
-        URUK_HAI_BERSERKER.withRoutine(NpcRoutines.SOLDIER);
-        URUK_HAI_LEADER.withRoutine(NpcRoutines.LEADER);
-        SNAGA.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.LEADER);
     }
 }

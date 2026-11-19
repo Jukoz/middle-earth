@@ -65,7 +65,7 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_DAGGER))
                                 .add(WeightedItemData.create(WeaponItemsME.BRONZE_DAGGER))
                                 .add(WeightedItemData.create().withWeight(3)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.GATHERER).asCivilian();
 
         SENTINEL = new NpcClass(NpcRegistry.LOTHLORIEN_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -81,7 +81,7 @@ public class LorienNpcClassPool {
                         .add(EquipmentSlot.FEET, GearSlotPool.create(WeightedItemData.create(EquipmentItemsME.ELVEN_BOOTS)))
                         .add(EquipmentSlot.MAINHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SWORD)))
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create(WeightedItemData.create(WeaponItemsME.LORIEN_SHIELD)))
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.WATCH);
 
         RANGER = new NpcClass(NpcRegistry.LOTHLORIEN_RANGER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -104,7 +104,7 @@ public class LorienNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.HUNTING_WATCH);
 
         WARRIOR = new NpcClass(NpcRegistry.LOTHLORIEN_WARRIOR.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -131,7 +131,7 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.WATCH);
 
         KNIGHT = new NpcClass(NpcRegistry.LOTHLORIEN_KNIGHT.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -156,7 +156,7 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.ELITE);
 
         GUARD = new NpcClass(NpcRegistry.LOTHLORIEN_GUARD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -184,7 +184,7 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_LAURELS_SHIELD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_MALLORN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.ELITE);
 
         EGLADIL_SENTINEL = new NpcClass(NpcRegistry.LOTHLORIEN_EGLADIL_SENTINEL.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_ELF, List.of(
                 WeightedGearData.create()
@@ -207,7 +207,7 @@ public class LorienNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.ELITE);
 
         EGLADIL_COMMANDER = new NpcClass(NpcRegistry.LOTHLORIEN_EGLADIL_COMMANDER.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
                 WeightedGearData.create()
@@ -227,7 +227,7 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_SWORD))
                                 .add(WeightedItemData.create(WeaponItemsME.LORIEN_NOBLE_LONGBOW))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.LEADER);
 
         LORD = new NpcClass(NpcRegistry.LOTHLORIEN_LORD.getValue(), RaceRegistry.ELF, FACTION, TexturePresetsRegistry.LOTHLORIEN_LORD, List.of(
                 WeightedGearData.create()
@@ -250,17 +250,6 @@ public class LorienNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_LORD_SHIELD).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.GALADHRIM_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        CIVILIAN.withRoutine(NpcRoutines.GATHERER);
-        SENTINEL.withRoutine(NpcRoutines.WATCH);
-        RANGER.withRoutine(NpcRoutines.HUNTING_WATCH);
-        WARRIOR.withRoutine(NpcRoutines.WATCH);
-        KNIGHT.withRoutine(NpcRoutines.ELITE);
-        GUARD.withRoutine(NpcRoutines.ELITE);
-        EGLADIL_SENTINEL.withRoutine(NpcRoutines.ELITE);
-        EGLADIL_COMMANDER.withRoutine(NpcRoutines.LEADER);
-        LORD.withRoutine(NpcRoutines.LEADER);
-        CIVILIAN.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.LEADER);
     }
 }

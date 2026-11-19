@@ -139,19 +139,26 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public enum Talk {
-        NONE(false),
-        SAY(true),
-        ASK(true),
-        EXCLAIM(true),
-        LAUGH(true),
-        NOD(false);
+        NONE(false, -1),
+        SAY(true, 0),
+        ASK(true, 1),
+        EXCLAIM(true, 2),
+        LAUGH(true, 3),
+        NOD(false, 4);
 
         public static final List<Talk> SPOKEN = List.of(SAY, SAY, ASK, EXCLAIM, LAUGH);
         private static final Talk[] VALUES = values();
         private final boolean spoken;
+        // Column in the speech bubble texture
+        private final int bubble;
 
-        Talk(boolean spoken) {
+        Talk(boolean spoken, int bubble) {
             this.spoken = spoken;
+            this.bubble = bubble;
+        }
+
+        public int bubble() {
+            return bubble;
         }
 
         public boolean isSpoken() {

@@ -78,7 +78,7 @@ public class MordorNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.BLACK_NUMENOREAN_TOWER_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.NIGHT_ELITE);
 
         SNAGA = new NpcClass(NpcRegistry.MORDOR_SNAGA.getValue(), RaceRegistry.SNAGA, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -119,7 +119,7 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_WOODEN_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_PAINTED_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.NIGHT_WORKER).asCivilian();
 
         MILITIA = new NpcClass(NpcRegistry.MORDOR_MILITIA.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -174,7 +174,7 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_WATCH);
 
         SCOUT = new NpcClass(NpcRegistry.MORDOR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -225,7 +225,7 @@ public class MordorNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_SCOUT);
 
         WARRIOR = new NpcClass(NpcRegistry.MORDOR_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -293,7 +293,7 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GONDORIAN_CONVERTED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
 
         VETERAN = new NpcClass(NpcRegistry.MORDOR_VETERAN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -313,7 +313,7 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_SOLDIER);
 
         CAPTAIN = new NpcClass(NpcRegistry.MORDOR_CAPTAIN.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORDOR_BLACK_URUK, List.of(
                 WeightedGearData.create()
@@ -335,7 +335,7 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_HEAVY_SHIELD).withWeight(2))
                                 .add(WeightedItemData.create(WeaponItemsME.MORDOR_BLACK_ROUND_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_LEADER);
 
         DOL_GULDUR_SCOUT = new NpcClass(NpcRegistry.DOL_GULDUR_SCOUT.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -412,7 +412,7 @@ public class MordorNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_SCOUT);
 
         DOL_GULDUR_WARRIOR = new NpcClass(NpcRegistry.DOL_GULDUR_WARRIOR.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORDOR_ORC, List.of(
                 WeightedGearData.create()
@@ -469,17 +469,6 @@ public class MordorNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.DOL_GULDUR_HEAVY_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
-
-        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
-        MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        DOL_GULDUR_SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
-        BLACK_NUMENOREAN.withRoutine(NpcRoutines.NIGHT_ELITE);
-        SNAGA.withRoutine(NpcRoutines.NIGHT_WORKER);
-        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
-        CAPTAIN.withRoutine(NpcRoutines.NIGHT_LEADER);
-        DOL_GULDUR_WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        SNAGA.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
     }
 }

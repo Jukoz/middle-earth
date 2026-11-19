@@ -30,6 +30,7 @@ public class NpcPathNodeNavigator extends PathNodeNavigator {
     private final PathNode[] successors = new PathNode[MAXIMUM_SUCCESSORS];
     private final PathMinHeap heap = new PathMinHeap();
     private int nodes;
+    private int nodeCap = Integer.MAX_VALUE;
 
     public NpcPathNodeNavigator(PathNodeMaker maker, int nodes) {
         super(maker, nodes);
@@ -38,6 +39,10 @@ public class NpcPathNodeNavigator extends PathNodeNavigator {
     }
 
     // The game periodically resets this from the follow range, which would undo the larger search
+    void capNodes(int cap) {
+        this.nodeCap = cap;
+    }
+
     @Override
     public void setRange(int range) {
         this.nodes = Math.max(this.nodes, range);
@@ -66,7 +71,7 @@ public class NpcPathNodeNavigator extends PathNodeNavigator {
         heap.push(start);
         Set<TargetPathNode> reached = new HashSet<>();
         int visited = 0;
-        int most = (int) (nodes * rangeMultiplier);
+        int most = Math.min((int) (nodes * rangeMultiplier), nodeCap);
         while(!heap.isEmpty() && ++visited < most) {
             PathNode node = heap.pop();
             node.visited = true;

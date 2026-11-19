@@ -91,7 +91,7 @@ public class MoriaNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.NIGHT_WORKER).asCivilian();
 
 
         MILITIA = new NpcClass(NpcRegistry.MORIA_MILITIA.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
@@ -139,7 +139,7 @@ public class MoriaNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(3))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_WATCH);
 
         SCOUT = new NpcClass(NpcRegistry.MORIA_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -173,7 +173,7 @@ public class MoriaNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_CROSSBOW).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(1))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_SCOUT);
 
         WARRIOR = new NpcClass(NpcRegistry.MORIA_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -220,7 +220,7 @@ public class MoriaNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.RUINED_DWARVEN_REINFORCED_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
 
         RIDER = new NpcClass(NpcRegistry.MORIA_RIDER.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -254,7 +254,7 @@ public class MoriaNpcClassPool {
                                 .add(WeightedItemData.create(DecorativeBlockRegistryME.CRUDE_BROAD_CHAIN.asItem()))
                                 .add(WeightedItemData.create(Items.AIR).withWeight(2))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG), NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG), NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_RIDER);
 
         VETERAN = new NpcClass(NpcRegistry.MORIA_VETERAN.getValue(), RaceRegistry.ORC, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -305,7 +305,7 @@ public class MoriaNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD))
                         ).withWeight(4)
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_13_TO_20).withRoutine(NpcRoutines.NIGHT_SOLDIER);
 
         CHIEF = new NpcClass(NpcRegistry.MORIA_CHIEF.getValue(), RaceRegistry.URUK, FACTION, TexturePresetsRegistry.MORIA_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -331,15 +331,6 @@ public class MoriaNpcClassPool {
                         .add(EquipmentSlot.OFFHAND, GearSlotPool.create()
                                 .add(WeightedItemData.create(WeaponItemsME.MORIA_GOBLINS_HEAVY_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25);
-
-        MILITIA.withRoutine(NpcRoutines.NIGHT_WATCH);
-        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        GOBLIN.withRoutine(NpcRoutines.NIGHT_WORKER);
-        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
-        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
-        CHIEF.withRoutine(NpcRoutines.NIGHT_LEADER);
-        GOBLIN.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_15_TO_25).withRoutine(NpcRoutines.NIGHT_LEADER);
     }
 }

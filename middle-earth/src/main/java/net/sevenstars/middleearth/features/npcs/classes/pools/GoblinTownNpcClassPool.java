@@ -87,7 +87,7 @@ public class GoblinTownNpcClassPool {
                                 .add(WeightedItemData.create(Items.AIR).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_BONE_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_1_TO_4).withRoutine(NpcRoutines.NIGHT_WORKER).asCivilian();
 
         SCOUT = new NpcClass(NpcRegistry.GOBLIN_TOWN_SCOUT.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_GOBLIN, List.of(
                 WeightedGearData.create()
@@ -124,7 +124,7 @@ public class GoblinTownNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_CROSSBOW).withWeight(3))
                                 .add(WeightedItemData.create(WeaponItemsME.ORCISH_BOW).withWeight(1))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_3_TO_7).withRoutine(NpcRoutines.NIGHT_SCOUT);
 
         WARRIOR = new NpcClass(NpcRegistry.GOBLIN_TOWN_WARRIOR.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -181,7 +181,7 @@ public class GoblinTownNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_6_TO_10).withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
 
         RIDER = new NpcClass(NpcRegistry.GOBLIN_TOWN_RIDER.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_WARRIOR, List.of(
                 WeightedGearData.create()
@@ -229,7 +229,7 @@ public class GoblinTownNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_LEATHER_WOODEN_SHIELD))
                                 .add(WeightedItemData.create(Items.AIR))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR), NpcLoot.FROM_10_TO_16);
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, new MountData(EntitiesME.WARG).withArmor(EquipmentItemsME.WARG_REINFORCED_LEATHER_ARMOR), NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_RIDER);
 
 
         VETERAN = new NpcClass(NpcRegistry.GOBLIN_TOWN_VETERAN.getValue(), RaceRegistry.GOBLIN, FACTION, TexturePresetsRegistry.GOBLIN_TOWN_BRUTE, List.of(
@@ -262,13 +262,6 @@ public class GoblinTownNpcClassPool {
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_HEAVY_SHIELD).withWeight(4))
                                 .add(WeightedItemData.create(WeaponItemsME.GOBLIN_TOWN_BONE_WOODEN_SHIELD))
                         )
-        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16);
-
-        SCOUT.withRoutine(NpcRoutines.NIGHT_SCOUT);
-        WARRIOR.withRoutine(NpcRoutines.NIGHT_HUNTING_WATCH);
-        GOBLIN.withRoutine(NpcRoutines.NIGHT_WORKER);
-        RIDER.withRoutine(NpcRoutines.NIGHT_RIDER);
-        VETERAN.withRoutine(NpcRoutines.NIGHT_SOLDIER);
-        GOBLIN.asCivilian();
+        ), NpcRegistry.COMMON_NPC_ATTRIBUTES, NpcLoot.FROM_10_TO_16).withRoutine(NpcRoutines.NIGHT_SOLDIER);
     }
 }

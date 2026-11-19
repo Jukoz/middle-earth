@@ -18,7 +18,6 @@ import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class NpcInitializationData {
     public static final Codec<NpcInitializationData> CODEC;
@@ -78,8 +77,7 @@ public class NpcInitializationData {
         if(isRandom != null && isRandom){
             Registry<NpcClass> registry = world.getRegistryManager().getOrThrow(DynamicRegistriesME.NPC_CLASS);
             List<RegistryKey<NpcClass>> entryList =  registry.streamKeys().toList();
-            Random random = new Random();
-            RegistryKey<NpcClass> randomKey = entryList.get(random.nextInt(entryList.size()));
+            RegistryKey<NpcClass> randomKey = entryList.get(world.getRandom().nextInt(entryList.size()));
             this.npcClassId = randomKey.getValue();
             this.isRandom = false;
         }
@@ -91,9 +89,7 @@ public class NpcInitializationData {
                 return false;
             RegistryEntry<NpcClass> entry = registry.getEntry(npcClass);
             this.npcClassId = null;
-            EntityCategories category = null;
-            if(!npcClass.hasCategory(world, category))
-                category = npcClass.getNpcTextureData(world).getRandomCategory();
+            EntityCategories category = npcClass.getNpcTextureData(world).getRandomCategory();
 
             entity.saveCategory(category);
             entity.saveNpcClass(entry);

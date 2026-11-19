@@ -273,7 +273,7 @@ public class NpcEntityRenderer extends BipedEntityRenderer<NpcEntity, NpcEntityR
         matrices.push();
         matrices.translate(0f, state.height + BUBBLE_GAP - (state.hasVehicle ? SEATED_DROP : 0f) + (state.displayName != null ? LABEL_ROOM : 0f), 0f);
         matrices.multiply(cameraState.orientation);
-        float left = (state.talk.ordinal() - 1) / (float) BUBBLES;
+        float left = state.talk.bubble() / (float) BUBBLES;
         float right = left + 1f / BUBBLES;
         queue.submitCustom(matrices, RenderLayers.text(SPEECH_BUBBLES), (entry, vertexConsumer) -> {
             Matrix4f matrix = entry.getPositionMatrix();

@@ -20,7 +20,6 @@ import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +28,9 @@ public class NpcRegistry {
     private static final double COMMON_SPEED_MIN = 0.25;
     private static final double COMMON_SPEED_MAX = 0.35;
 
-    public static final HashMap<EntityCategories, AttributePool> COMMON_NPC_ATTRIBUTES = new HashMap<>(){{
-        put(EntityCategories.SHARED, new AttributePool().addElement(
+    public static final Map<EntityCategories, AttributePool> COMMON_NPC_ATTRIBUTES = Map.of(EntityCategories.SHARED, new AttributePool().addElement(
             AttributePoolElement.create(EntityAttributes.MOVEMENT_SPEED, COMMON_SPEED_MIN, COMMON_SPEED_MAX)
-        ));
-    }};
+    ));
 
     public static ArrayList<RegistryKey<NpcClass>> allNpcClasses;
 
