@@ -28,25 +28,31 @@ import net.minecraft.world.gen.structure.Structure;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.IdentityHashMap;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 // Jigsaw assembly for the mines: the placement rules of the vanilla generator, but a candidate only has to avoid the boxes of
 // the pieces already there (shrunk by one block, so walls can touch) and pass the caller's own test, with none of the free-space shapes
 final class JigsawAssembler {
+    private static final List<Block> FLOOR_BLOCKS = List.of(Blocks.COBBLESTONE, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
+    private static final int ROTATIONS = BlockRotation.values().length;
+
+    // floor columns by template manager (one per server, so a reload starts clean); chunks generate in parallel
+    private static final Map<StructureTemplateManager, Map<FloorKey, int[]>> FLOORS = Collections.synchronizedMap(new WeakHashMap<>());
+
     private final StructureTemplateManager manager;
     private final Registry<StructurePool> pools;
     private final Random random;
     private final Fit accept;
     private final Fit acceptEnd;
     private final List<BlockBox> boxes;
-    private static final List<Block> FLOOR_BLOCKS = List.of(Blocks.COBBLESTONE, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
-
     private final Map<StructurePoolElement, Variant[]> variants = new IdentityHashMap<>();
 
     // box, origin and the floor blocks of the template as x, y, z offsets from the origin
@@ -55,6 +61,9 @@ final class JigsawAssembler {
     }
 
     private record Variant(List<StructureTemplate.JigsawBlockInfo> jigsaws, BlockBox box, int[] floor) {
+    }
+
+    private record FloorKey(StructurePoolElement element, BlockRotation rotation) {
     }
 
     private record Queued(PoolStructurePiece piece, int depth) {
@@ -160,7 +169,7 @@ final class JigsawAssembler {
     }
 
     private Variant variant(StructurePoolElement element, BlockRotation rotation) {
-        Variant[] all = variants.computeIfAbsent(element, key -> new Variant[4]);
+        Variant[] all = variants.computeIfAbsent(element, key -> new Variant[ROTATIONS]);
         Variant variant = all[rotation.ordinal()];
         if (variant == null) {
             variant = new Variant(element.getStructureBlockInfos(manager, BlockPos.ORIGIN, rotation, random), element.getBoundingBox(manager, BlockPos.ORIGIN, rotation), floorColumns(element, rotation));
@@ -172,6 +181,10 @@ final class JigsawAssembler {
     // The floor blocks of the template (shell blocks with nothing of the template under them) as x, y, z offsets from the
     // origin; found through the template named in the element's codec
     private int[] floorColumns(StructurePoolElement element, BlockRotation rotation) {
+        return FLOORS.computeIfAbsent(manager, key -> new ConcurrentHashMap<>()).computeIfAbsent(new FloorKey(element, rotation), key -> findFloorColumns(element, rotation));
+    }
+
+    private int[] findFloorColumns(StructurePoolElement element, BlockRotation rotation) {
         JsonElement json = StructurePoolElement.CODEC.encodeStart(JsonOps.INSTANCE, element).result().orElse(null);
         Identifier id = json != null && json.isJsonObject() && json.getAsJsonObject().has("location") ? Identifier.tryParse(json.getAsJsonObject().get("location").getAsString()) : null;
         if (id == null) return new int[0];

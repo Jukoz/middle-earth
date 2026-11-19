@@ -28,6 +28,9 @@ final class MineBridge {
     static final int SPAN_SLACK = 2;
     private static final int FOOTING_REACH = 2; // rock this close under a footing's bottom layer holds it
     private static final int FOOTING_VOID = 4; // no column may leave more air than this under the footing
+    private static final int FOOTING_HALF_WIDTH = 2; // columns each side of the walkway centre
+    private static final int FOOTING_SHARE_NUM = 4; // four in five columns must be supported
+    private static final int FOOTING_SHARE_DEN = 5;
 
     private static final String[] SPAN_SIZES = {"short", "medium", "long"};
     private static final Identifier ANCHOR = MiddleEarth.id("bridge_anchor");
@@ -90,7 +93,7 @@ final class MineBridge {
         int supported = 0;
         int total = 0;
         for (int k = 0; k < length; k++) {
-            for (int side = -2; side <= 2; side++) {
+            for (int side = -FOOTING_HALF_WIDTH; side <= FOOTING_HALF_WIDTH; side++) {
                 total++;
                 int x = first.getX() + outward.getOffsetX() * k + sideX * side;
                 int z = first.getZ() + outward.getOffsetZ() * k + sideZ * side;
@@ -100,7 +103,7 @@ final class MineBridge {
                 if (air < FOOTING_REACH) supported++;
             }
         }
-        return supported * 5 >= total * 4;
+        return supported * FOOTING_SHARE_DEN >= total * FOOTING_SHARE_NUM;
     }
 
     // a landing whose jigsaw sits next to the given anchor cell and faces back at it
