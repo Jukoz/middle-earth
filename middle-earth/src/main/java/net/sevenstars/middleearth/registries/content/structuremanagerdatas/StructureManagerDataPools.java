@@ -24,8 +24,9 @@ public class StructureManagerDataPools {
 
     private static final List<StructureManagerData> ALL = new ArrayList<>();
 
+    // The pools as built in code, for datagen and reports. A running world reads its registry instead
     public static List<StructureManagerData> all() {
-        return ALL;
+        return List.copyOf(ALL);
     }
 
     public final static StructureManagerData BRIGAND_DUNGEON_NESTS;

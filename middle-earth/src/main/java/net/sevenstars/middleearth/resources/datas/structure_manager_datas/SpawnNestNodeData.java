@@ -4,13 +4,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class SpawnNestNodeData {
     public static final Codec<SpawnNestNodeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -61,11 +61,11 @@ public class SpawnNestNodeData {
         return !structureSpawnNestPools.isEmpty() && structureSpawnNestPools.stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC);
     }
 
-    public StructureSpawnNestPool getRandomPool() {
+    public StructureSpawnNestPool getRandomPool(Random random) {
         int total = 0;
         for(StructureSpawnNestPool pool : structureSpawnNestPools)
             total += Math.max(1, pool.getWeight());
-        int roll = new Random().nextInt(total);
+        int roll = random.nextInt(total);
         for(StructureSpawnNestPool pool : structureSpawnNestPools) {
             roll -= Math.max(1, pool.getWeight());
             if(roll < 0)

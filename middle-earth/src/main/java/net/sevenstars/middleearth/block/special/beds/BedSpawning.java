@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.special.structureManager.GeneratedStructures;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestLookup;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
@@ -17,12 +18,16 @@ import net.sevenstars.middleearth.resources.datas.structure_features.StructureFe
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.WeakHashMap;
 
 // Beds in a build being edited, or placed by a player, house nobody
 public final class BedSpawning {
     // In ticks
     private static final int CHECK_INTERVAL = 20;
+    // Whether the bed is in a generated structure, found once per loaded block entity
+    private static final Map<BlockEntity, Boolean> IN_STRUCTURE = new WeakHashMap<>();
 
     private BedSpawning() {}
 
@@ -32,8 +37,8 @@ public final class BedSpawning {
         if(state.get(BedBlock.PART) != BedPart.HEAD || !(blockEntity instanceof BedTagHolder holder) || !(blockEntity instanceof NestHost host))
             return;
         BedTag tag = holder.getBedTag();
-        SpawnNestNodeData data = tag == null ? null : StructureManagerService.nestFor(serverWorld, tag, Optional.empty());
-        if(data == null || !GeneratedStructures.contains(serverWorld, pos)) {
+        SpawnNestNodeData data = tag == null ? null : NestLookup.nestFor(serverWorld, tag, Optional.empty());
+        if(data == null || !inStructure(serverWorld, pos, blockEntity)) {
             if(host.getNest() != null) {
                 host.setNest(null);
                 StructureManagerService.unregisterHost(world, pos);
@@ -43,7 +48,7 @@ public final class BedSpawning {
         }
         SpawnNestManager nest = host.getNest();
         // Tagged again since, so it's someone else's now
-        if(nest == null || !nest.getId().equals(data.getId()) || !nest.getBedJob().equals(tag.job())) {
+        if(nest == null || !nest.getId().equals(data.getId()) || !nest.getHouseholdJob().equals(tag.job())) {
             SpawnNestManager previous = nest;
             nest = new SpawnNestManager(data, bedOf(serverWorld, pos, tag));
             if(previous != null)
@@ -53,6 +58,10 @@ public final class BedSpawning {
         }
         StructureManagerService.registerHost(world, pos);
         nest.tick(serverWorld.getTime(), serverWorld, pos);
+    }
+
+    private static boolean inStructure(ServerWorld world, BlockPos pos, BlockEntity blockEntity) {
+        return IN_STRUCTURE.computeIfAbsent(blockEntity, key -> GeneratedStructures.contains(world, pos));
     }
 
     // From the build's generated data, including store and links. A bed it doesn't know, like one tagged

@@ -1,6 +1,5 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
@@ -25,6 +24,7 @@ import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnN
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,80 +37,75 @@ public class SpawnNestManager {
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
             Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
-            BlockPos.CODEC.optionalFieldOf("bed").forGetter(manager -> Optional.ofNullable(manager.bed)),
-            Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.bedJob),
-            Identifier.CODEC.optionalFieldOf("bed_class").forGetter(manager -> manager.bedClass),
-            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> Optional.ofNullable(manager.store)),
-            BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(manager -> manager.links),
+            BlockPos.CODEC.optionalFieldOf("bed").forGetter(manager -> manager.household.map(Household::bed)),
+            Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.household.flatMap(Household::job)),
+            Identifier.CODEC.optionalFieldOf("bed_class").forGetter(manager -> manager.household.flatMap(Household::npcClass)),
+            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> manager.household.flatMap(Household::store)),
+            BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(manager -> manager.household.map(Household::links).orElse(List.of())),
             Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
-    ).apply(instance, SpawnNestManager::new));
+    ).apply(instance, SpawnNestManager::load));
 
     private static final int BED_SPAWN_RADIUS = 2;
     private static final int GUARD_COUNT_MARGIN = 48;
 
-    private Identifier id;
-    private ArrayList<UUID> entities;
+    // Single-person nest: the bed (the nest's origin), its job and its store. Links are the places
+    // the builder tied the bed to; empty means the npc finds its own work
+    public record Household(BlockPos bed, Optional<Identifier> job, Optional<Identifier> npcClass, Optional<BlockPos> store, List<BlockPos> links) {
+        public Household {
+            links = List.copyOf(links);
+        }
+    }
+
+    private final Identifier id;
+    private final List<UUID> entities = new ArrayList<>();
     private long respawnEventTriggerTick;
-    private int respawnTickDelay;
-    private BlockPos originPos;
-    private int spawnRadius;
+    private final int respawnTickDelay;
+    private final BlockPos originPos;
+    private final int spawnRadius;
+    private final Optional<Household> household;
+    // Above 0 for a nest with a set number of people: one per tagged bed, or a spawn_npc marker's count.
+    // 0 means the pool picks the number
+    private final int capacity;
 
-    // Single-person nest: the bed (the nest's origin), its job and its store
-    private @Nullable BlockPos bed = null;
-    private Optional<Identifier> bedJob = Optional.empty();
-    private Optional<Identifier> bedClass = Optional.empty();
-    private @Nullable BlockPos store = null;
-    // Places the builder tied the bed to. Empty means the npc finds its own work
-    private List<BlockPos> links = List.of();
-    // Above 0 for a nest with a set number of people: one per tagged bed, or a spawn_npc marker's count
-    private int capacity = 0;
-
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<Identifier> bedClass, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
-        this.bedClass = bedClass;
-        this.capacity = capacity;
-        this.bed = bed.orElse(null);
-        this.bedJob = bedJob;
-        this.store = store.orElse(null);
-        this.links = List.copyOf(links);
-        this.id = dataId;
-        this.entities =  Lists.newArrayList();
-        this.entities.addAll(dataEntities);
-        this.respawnEventTriggerTick = dataRespawnEventTriggerTick;
-        this.respawnTickDelay = dataRespawnTickDelay;
-        this.originPos = position;
+    private SpawnNestManager(Identifier id, List<UUID> entities, long respawnEventTriggerTick, int respawnTickDelay, BlockPos originPos, int spawnRadius, Optional<Household> household, int capacity) {
+        this.id = id;
+        this.entities.addAll(entities);
+        this.respawnEventTriggerTick = respawnEventTriggerTick;
+        this.respawnTickDelay = respawnTickDelay;
+        this.originPos = originPos;
         this.spawnRadius = spawnRadius;
+        this.household = household;
+        this.capacity = capacity;
     }
 
+    private static SpawnNestManager load(Identifier id, List<UUID> entities, long respawnEventTriggerTick, int respawnTickDelay, BlockPos originPos, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<Identifier> bedClass, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
+        Optional<Household> household = bed.map(pos -> new Household(pos, bedJob, bedClass, store, links));
+        return new SpawnNestManager(id, entities, respawnEventTriggerTick, respawnTickDelay, originPos, spawnRadius, household, capacity);
+    }
+
+    // The delay only applies to respawns. A new settlement fills at once
+    private static long freshTriggerTick(SpawnNestNodeData data) {
+        return -data.getRespawnTickDelay();
+    }
+
+    // A marker's nest
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius, int capacity) {
-        this(spawnNestNodeData, position, spawnRadius);
-        this.capacity = capacity;
+        this(spawnNestNodeData.getId(), List.of(), freshTriggerTick(spawnNestNodeData), spawnNestNodeData.getRespawnTickDelay(), position, spawnRadius, Optional.empty(), capacity);
     }
 
+    // A bed's nest
     public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, StructureFeatureData.Bed tagged) {
-        this(spawnNestNodeData, tagged.pos(), BED_SPAWN_RADIUS, 1);
-        this.bed = tagged.pos();
-        this.bedJob = tagged.tag().flatMap(BedTag::job);
-        this.bedClass = tagged.tag().flatMap(BedTag::npcClass);
-        this.store = tagged.store().orElse(null);
-        this.links = tagged.manual() ? tagged.links() : List.of();
-    }
-
-    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius) {
-        this.entities = new ArrayList<>();
-        this.id = spawnNestNodeData.getId();
-        this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
-        // The delay only applies to respawns. A new settlement fills at once
-        this.respawnEventTriggerTick = -spawnNestNodeData.getRespawnTickDelay();
-        this.originPos = position;
-        this.spawnRadius = spawnRadius;
+        this(spawnNestNodeData.getId(), List.of(), freshTriggerTick(spawnNestNodeData), spawnNestNodeData.getRespawnTickDelay(), tagged.pos(), BED_SPAWN_RADIUS,
+                Optional.of(new Household(tagged.pos(), tagged.tag().flatMap(BedTag::job), tagged.tag().flatMap(BedTag::npcClass), tagged.store(),
+                        tagged.manual() ? tagged.links() : List.of())), 1);
     }
 
     public Identifier getId() {
         return this.id;
     }
 
-    public ArrayList<UUID> getEntityUuids() {
-        return entities;
+    public List<UUID> getEntityUuids() {
+        return Collections.unmodifiableList(entities);
     }
 
     private long getRespawnEventTriggerTick() {
@@ -127,12 +122,12 @@ public class SpawnNestManager {
         return this.spawnRadius;
     }
 
-    public boolean isMarked() {
+    public boolean hasFixedCapacity() {
         return capacity > 0;
     }
 
-    public Optional<Identifier> getBedJob() {
-        return bedJob;
+    public Optional<Identifier> getHouseholdJob() {
+        return household.flatMap(Household::job);
     }
 
     public void addEntity(LivingEntity entity){
@@ -184,12 +179,13 @@ public class SpawnNestManager {
     }
 
     private void respawnAll(ServerWorld world, BlockPos structureManagerPos) {
-        SpawnNestNodeData data = StructureManagerService.findNest(world, id);
+        SpawnNestNodeData data = NestLookup.findNest(world, id);
 
         if(data != null){
-            StructureSpawnNestPool pool = data.getRandomPool();
+            StructureSpawnNestPool pool = data.getRandomPool(world.getRandom());
             BlockPos bedside = null;
-            if(bed != null) {
+            if(household.isPresent()) {
+                BlockPos bed = household.get().bed();
                 if(!world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
                     return;
                 if(!(world.getBlockState(bed).getBlock() instanceof BedBlock)) {
@@ -200,11 +196,9 @@ public class SpawnNestManager {
                 bedside = NestSurvey.standFor(world, bed);
             }
             RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
-            int entityAmountToSpawn = isMarked() ? capacity : pool.getEntityAmount();
+            int entityAmountToSpawn = hasFixedCapacity() ? capacity : pool.getEntityAmount(world.getRandom());
             for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = bedClass.isPresent() ? StructureManagerService.spawnNpcAt(world, bedClass.get(), bedside != null ? bedside : originPos)
-                        : bedside != null ? StructureManagerService.spawnEntityAt(world, pool, bedside)
-                        : StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
+                LivingEntity entityToAdd = spawnResident(world, pool, bedside);
                 if(entityToAdd instanceof NpcEntity npcEntity)
                     settle(npcEntity, data, world, structureManagerPos, site, bedside);
                 if(entityToAdd != null)
@@ -216,8 +210,18 @@ public class SpawnNestManager {
             this.respawnEventTriggerTick = world.getTime();
     }
 
+    private @Nullable LivingEntity spawnResident(ServerWorld world, StructureSpawnNestPool pool, @Nullable BlockPos bedside) {
+        Optional<Identifier> bedClass = household.flatMap(Household::npcClass);
+        if(bedClass.isPresent())
+            return NestSpawner.spawnNpcAt(world, bedClass.get(), bedside != null ? bedside : originPos);
+        if(bedside != null)
+            return NestSpawner.spawnEntityAt(world, pool, bedside);
+        return NestSpawner.spawnEntity(world, pool, originPos, spawnRadius);
+    }
+
     private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
-        Optional<Identifier> job = bed != null && bedJob.isPresent() ? bedJob : data.getJob();
+        Optional<Identifier> bedJob = getHouseholdJob();
+        Optional<Identifier> job = bedJob.isPresent() ? bedJob : data.getJob();
         if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
             job = guardDuty(world, structureManagerPos, site);
         job.ifPresent(npc::takeJob);
@@ -226,9 +230,9 @@ public class SpawnNestManager {
             PrisonCell cell = site == null ? null : site.findCell(npc.getBlockPos());
             npc.setPrisonCell(cell != null ? cell : PrisonCell.around(world, npc.getBlockPos()));
         }
-        if(bed != null)
-            npc.setHousehold(bed, bedside, store, links);
-        else if(isMarked())
+        if(household.isPresent())
+            npc.setHousehold(household.get().bed(), bedside, household.get().store().orElse(null), household.get().links());
+        else if(hasFixedCapacity())
             npc.setHousehold(null, null, null, List.of());
     }
 

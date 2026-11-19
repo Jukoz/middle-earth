@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.nbt.NbtSizeTracker;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -19,6 +20,7 @@ import net.sevenstars.middleearth.block.special.NpcDoor;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
@@ -45,10 +47,6 @@ public class StructureFeaturesRegistry {
     private static final String ORC_MANAGER_BLOCK = MiddleEarth.MOD_ID + ":orc_structure_manager";
     private static final String MANAGER_ID = "structure_manager.Identifier";
     private static final String MARKER_BLOCK = MiddleEarth.MOD_ID + ":structure_marker";
-    private static final String MARKER_ID = "structure_marker.MarkerId";
-    private static final String MARKER_VALUE = "structure_marker.Value";
-    private static final String MARKER_COUNT = "structure_marker.Count";
-    private static final String MARKER_RESPAWNS = "structure_marker.Respawns";
     private static final String JIGSAW_BLOCK = "minecraft:jigsaw";
     private static final int MINIMUM_TABLE_SEATS = 2;
 
@@ -116,6 +114,7 @@ public class StructureFeaturesRegistry {
 
     public static void clearLive() {
         LIVE.clear();
+        EDITED.clear();
     }
 
     public static boolean isEdited(Identifier template) {
@@ -130,118 +129,138 @@ public class StructureFeaturesRegistry {
         return read(templateId, NbtIo.readCompressed(file, NbtSizeTracker.ofUnlimitedBytes()));
     }
 
+    // What a template's blocks held, before off-limits filtering and grouping
+    private static class Scan {
+        final Set<Identifier> managerIds = new TreeSet<>();
+        final List<StructureFeatureData.Manager> managers = new ArrayList<>();
+        final List<BlockPos> beds = new ArrayList<>();
+        final List<Optional<BedTag>> bedTags = new ArrayList<>();
+        final List<BlockPos> stores = new ArrayList<>();
+        final List<BlockPos> fires = new ArrayList<>();
+        final List<BlockPos> seats = new ArrayList<>();
+        final List<BlockPos> doors = new ArrayList<>();
+        final List<BlockPos> ladders = new ArrayList<>();
+        final Set<BlockPos> tableBlocks = new HashSet<>();
+        final List<StructureFeatureData.Station> stations = new ArrayList<>();
+        final List<StructureFeatureData.Marker> markers = new ArrayList<>();
+        final Set<String> unresolved = new TreeSet<>();
+        final Set<Identifier> pools = new TreeSet<>();
+    }
+
     private static Template read(Identifier templateId, NbtCompound root) {
         NbtList palette = root.contains(PALETTE_KEY) ? root.getListOrEmpty(PALETTE_KEY) : root.getListOrEmpty(PALETTES_KEY).getListOrEmpty(0);
         NbtList blocks = root.getListOrEmpty(BLOCKS_KEY);
 
-        Set<Identifier> managerIds = new TreeSet<>();
-        List<StructureFeatureData.Manager> managers = new ArrayList<>();
-        List<BlockPos> beds = new ArrayList<>();
-        List<Optional<BedTag>> bedTags = new ArrayList<>();
-        List<BlockPos> stores = new ArrayList<>();
-        List<BlockPos> fires = new ArrayList<>();
-        List<BlockPos> seats = new ArrayList<>();
-        List<BlockPos> doors = new ArrayList<>();
-        List<BlockPos> ladders = new ArrayList<>();
-        Set<BlockPos> tableBlocks = new HashSet<>();
-        List<StructureFeatureData.Station> stations = new ArrayList<>();
-        List<StructureFeatureData.Marker> markers = new ArrayList<>();
-        Set<String> unresolved = new TreeSet<>();
-        Set<Identifier> pools = new TreeSet<>();
-        for(int i = 0; i < blocks.size(); i++) {
-            NbtCompound block = blocks.getCompoundOrEmpty(i);
-            NbtCompound state = palette.getCompoundOrEmpty(block.getInt(STATE_KEY, 0));
-            String name = state.getString(NAME_KEY, "");
-            NbtCompound properties = state.getCompoundOrEmpty(PROPERTIES_KEY);
-            NbtList at = block.getListOrEmpty(POS_KEY);
-            BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
-            if(name.equals(MANAGER_BLOCK) || name.equals(ORC_MANAGER_BLOCK)) {
-                Identifier id = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(MANAGER_ID, ""));
-                if(id != null)
-                    managerIds.add(id);
-                managers.add(new StructureFeatureData.Manager(pos, Optional.ofNullable(id)));
-                continue;
-            }
-            if(name.equals(MARKER_BLOCK)) {
-                NbtCompound markerData = block.getCompoundOrEmpty(NBT_KEY);
-                MarkerKind kind = markerKind(markerData.getString(MARKER_ID, ""));
-                if(kind != null)
-                    markers.add(new StructureFeatureData.Marker(kind, pos, facingOf(properties), markerData.getString(MARKER_VALUE, ""),
-                            markerData.getInt(MARKER_COUNT, 1), markerData.getBoolean(MARKER_RESPAWNS, false)));
-                continue;
-            }
-            if(name.equals(JIGSAW_BLOCK)) {
-                Identifier pool = Identifier.tryParse(block.getCompoundOrEmpty(NBT_KEY).getString(POOL_KEY, ""));
-                if(pool != null)
-                    pools.add(pool);
-                continue;
-            }
-            Block resolved = BuildFeatures.resolve(name);
-            if(resolved == null) {
-                unresolved.add(name);
-                continue;
-            }
-            if(BuildFeatures.BED.test(resolved)) {
-                if(properties.getString(PART_PROPERTY, "").equals(HEAD_PART)) {
-                    beds.add(pos);
-                    bedTags.add(tagOf(block.getCompoundOrEmpty(NBT_KEY).getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
-                }
-            }
-            if(BuildFeatures.STORE.test(resolved)) {
-                stores.add(pos);
-                if(resolved instanceof CampfireBlock)
-                    fires.add(pos);
-            }
-            if(BuildFeatures.SEAT.test(resolved))
-                seats.add(pos);
-            if(BuildFeatures.TABLE.test(resolved))
-                tableBlocks.add(pos);
-            if(BuildFeatures.LADDER.test(resolved))
-                ladders.add(pos);
-            if(BuildFeatures.DOOR.test(resolved) && isAnchor(resolved, properties))
-                doors.add(pos);
-            StationKind kind = BuildFeatures.stationOf(resolved);
-            if(kind != null)
-                stations.add(new StructureFeatureData.Station(kind, pos));
+        Scan scan = new Scan();
+        for(int i = 0; i < blocks.size(); i++)
+            classify(scan, blocks.getCompoundOrEmpty(i), palette);
+        applyOffLimits(scan);
+        List<List<BlockPos>> tables = tables(scan.tableBlocks, scan.seats);
+        List<StructureFeatureData.Bed> bedData = bedData(scan);
+        return new Template(templateId, new StructureFeatureData(bedData, tables, scan.stations, scan.seats, scan.doors, scan.ladders, scan.markers, scan.managers),
+                scan.stores.size(), scan.pools, scan.unresolved, scan.managerIds);
+    }
+
+    private static void classify(Scan scan, NbtCompound block, NbtList palette) {
+        NbtCompound state = palette.getCompoundOrEmpty(block.getInt(STATE_KEY, 0));
+        String name = state.getString(NAME_KEY, "");
+        NbtCompound properties = state.getCompoundOrEmpty(PROPERTIES_KEY);
+        NbtList at = block.getListOrEmpty(POS_KEY);
+        BlockPos pos = new BlockPos(at.getInt(0, 0), at.getInt(1, 0), at.getInt(2, 0));
+        NbtCompound data = block.getCompoundOrEmpty(NBT_KEY);
+        if(name.equals(MANAGER_BLOCK) || name.equals(ORC_MANAGER_BLOCK)) {
+            Identifier id = Identifier.tryParse(data.getString(MANAGER_ID, ""));
+            if(id != null)
+                scan.managerIds.add(id);
+            scan.managers.add(new StructureFeatureData.Manager(pos, Optional.ofNullable(id)));
+            return;
         }
+        if(name.equals(MARKER_BLOCK)) {
+            MarkerKind kind = markerKind(data.getString(StructureMarkerBlockEntity.MARKER_ID, ""));
+            if(kind != null)
+                scan.markers.add(new StructureFeatureData.Marker(kind, pos, facingOf(properties), data.getString(StructureMarkerBlockEntity.VALUE, ""),
+                        data.getInt(StructureMarkerBlockEntity.COUNT, 1), data.getBoolean(StructureMarkerBlockEntity.RESPAWNS, false)));
+            return;
+        }
+        if(name.equals(JIGSAW_BLOCK)) {
+            Identifier pool = Identifier.tryParse(data.getString(POOL_KEY, ""));
+            if(pool != null)
+                scan.pools.add(pool);
+            return;
+        }
+        Block resolved = BuildFeatures.resolve(name);
+        if(resolved == null) {
+            scan.unresolved.add(name);
+            return;
+        }
+        classifyFeature(scan, resolved, pos, properties, data);
+    }
+
+    private static void classifyFeature(Scan scan, Block resolved, BlockPos pos, NbtCompound properties, NbtCompound data) {
+        if(BuildFeatures.BED.test(resolved)) {
+            if(properties.getString(PART_PROPERTY, "").equals(HEAD_PART)) {
+                scan.beds.add(pos);
+                scan.bedTags.add(tagOf(data.getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
+            }
+        }
+        if(BuildFeatures.STORE.test(resolved)) {
+            scan.stores.add(pos);
+            if(resolved instanceof CampfireBlock)
+                scan.fires.add(pos);
+        }
+        if(BuildFeatures.SEAT.test(resolved))
+            scan.seats.add(pos);
+        if(BuildFeatures.TABLE.test(resolved))
+            scan.tableBlocks.add(pos);
+        if(BuildFeatures.LADDER.test(resolved))
+            scan.ladders.add(pos);
+        if(BuildFeatures.DOOR.test(resolved) && isAnchor(resolved, properties))
+            scan.doors.add(pos);
+        StationKind kind = BuildFeatures.stationOf(resolved);
+        if(kind != null)
+            scan.stations.add(new StructureFeatureData.Station(kind, pos));
+    }
+
+    private static void applyOffLimits(Scan scan) {
         Set<BlockPos> offLimits = new HashSet<>();
-        for(StructureFeatureData.Marker marker : markers) {
+        for(StructureFeatureData.Marker marker : scan.markers) {
             if(marker.kind() == MarkerKind.OFF_LIMITS)
                 offLimits.add(marker.pos().offset(marker.facing()));
         }
-        stores.removeIf(offLimits::contains);
-        fires.removeIf(offLimits::contains);
-        seats.removeIf(offLimits::contains);
-        tableBlocks.removeIf(offLimits::contains);
-        ladders.removeIf(offLimits::contains);
-        stations.removeIf(station -> offLimits.contains(station.pos()));
-        doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
-        List<List<BlockPos>> tables = tables(tableBlocks, seats);
+        scan.stores.removeIf(offLimits::contains);
+        scan.fires.removeIf(offLimits::contains);
+        scan.seats.removeIf(offLimits::contains);
+        scan.tableBlocks.removeIf(offLimits::contains);
+        scan.ladders.removeIf(offLimits::contains);
+        scan.stations.removeIf(station -> offLimits.contains(station.pos()));
+        scan.doors.removeIf(door -> offLimits.contains(door) || offLimits.contains(door.up()));
+    }
 
+    private static List<StructureFeatureData.Bed> bedData(Scan scan) {
         List<StructureFeatureData.Bed> bedData = new ArrayList<>();
         // Prefer a barrel or chest: things brought to a campfire go on the fire, harvest included
-        boolean anyBox = stores.size() > fires.size();
-        for(int i = 0; i < beds.size(); i++) {
-            BlockPos bed = beds.get(i);
-            Optional<BedTag> tag = bedTags.get(i);
+        boolean anyBox = scan.stores.size() > scan.fires.size();
+        for(int i = 0; i < scan.beds.size(); i++) {
+            BlockPos bed = scan.beds.get(i);
+            Optional<BedTag> tag = scan.bedTags.get(i);
             // Things go near the work: the bed's link, or where its job will find one; else by the bed
             BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
-                    .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, stations, markers))).orElse(bed);
+                    .or(() -> tag.flatMap(BedTag::job).map(job -> NpcJobs.stationFor(job, bed, scan.stations, scan.markers))).orElse(bed);
             BlockPos store = null;
-            for(BlockPos candidate : stores) {
-                if(anyBox && fires.contains(candidate))
+            for(BlockPos candidate : scan.stores) {
+                if(anyBox && scan.fires.contains(candidate))
                     continue;
                 if(store == null || candidate.getSquaredDistance(work) < store.getSquaredDistance(work))
                     store = candidate;
             }
             BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
-            if(picked != null && stores.contains(picked))
+            if(picked != null && scan.stores.contains(picked))
                 store = picked;
             List<BlockPos> links = tag.map(found -> found.links().stream().map(bed::add).toList()).orElse(List.of());
             bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false),
                     tag.flatMap(BedTag::manager).map(bed::add)));
         }
-        return new Template(templateId, new StructureFeatureData(bedData, tables, stations, seats, doors, ladders, markers, managers), stores.size(), pools, unresolved, managerIds);
+        return bedData;
     }
 
     private static Optional<BedTag> tagOf(NbtCompound tag) {
@@ -249,11 +268,7 @@ public class StructureFeaturesRegistry {
     }
 
     private static @Nullable MarkerKind markerKind(String name) {
-        for(MarkerKind kind : MarkerKind.values()) {
-            if(kind.asString().equals(name))
-                return kind;
-        }
-        return null;
+        return MarkerKind.CODEC.parse(NbtOps.INSTANCE, NbtString.of(name)).result().orElse(null);
     }
 
     private static Direction facingOf(NbtCompound properties) {

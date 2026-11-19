@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestLookup;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
@@ -52,7 +53,7 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         Registry<NpcClass> classes = registries.getOptional(DynamicRegistriesME.NPC_CLASS).orElse(null);
         boolean common = false;
         boolean fighters = false;
-        for(StructureManagerData manager : StructureManagerDataPools.all()) {
+        for(StructureManagerData manager : NestLookup.places(registries)) {
             SpawnNestNodeData nest = manager.findPeopleNest(nestKind);
             if(nest == null || classes == null)
                 continue;
@@ -87,32 +88,47 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         return withLinks(List.of(), false);
     }
 
+    // The no-argument versions read the static pools (datagen, the report, the client)
     public static synchronized List<String> nestKinds() {
-        if(nestKinds == null) {
-            TreeSet<String> found = new TreeSet<>();
-            for(StructureManagerData manager : StructureManagerDataPools.all()) {
-                for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
-                    if(nest.isPeople())
-                        found.add(nestKindOf(nest.getId()));
-                }
-            }
-            nestKinds = List.copyOf(found);
-        }
+        if(nestKinds == null)
+            nestKinds = nestKindsOf(StructureManagerDataPools.all());
         return nestKinds;
     }
 
+    public static List<String> nestKinds(DynamicRegistryManager registries) {
+        return nestKindsOf(NestLookup.places(registries));
+    }
+
     public static synchronized Map<Identifier, Identifier> peopleNests() {
-        if(peopleNests == null) {
-            Map<Identifier, Identifier> found = new TreeMap<>();
-            for(StructureManagerData place : StructureManagerDataPools.all()) {
-                for(SpawnNestNodeData nest : place.getNpcSpawnNest()) {
-                    if(nest.isPeople())
-                        found.put(nest.getId(), place.getId());
-                }
-            }
-            peopleNests = Collections.unmodifiableMap(found);
-        }
+        if(peopleNests == null)
+            peopleNests = peopleNestsOf(StructureManagerDataPools.all());
         return peopleNests;
+    }
+
+    public static Map<Identifier, Identifier> peopleNests(DynamicRegistryManager registries) {
+        return peopleNestsOf(NestLookup.places(registries));
+    }
+
+    private static List<String> nestKindsOf(Iterable<StructureManagerData> places) {
+        TreeSet<String> found = new TreeSet<>();
+        for(StructureManagerData manager : places) {
+            for(SpawnNestNodeData nest : manager.getNpcSpawnNest()) {
+                if(nest.isPeople())
+                    found.add(nestKindOf(nest.getId()));
+            }
+        }
+        return List.copyOf(found);
+    }
+
+    private static Map<Identifier, Identifier> peopleNestsOf(Iterable<StructureManagerData> places) {
+        Map<Identifier, Identifier> found = new TreeMap<>();
+        for(StructureManagerData place : places) {
+            for(SpawnNestNodeData nest : place.getNpcSpawnNest()) {
+                if(nest.isPeople())
+                    found.put(nest.getId(), place.getId());
+            }
+        }
+        return Collections.unmodifiableMap(found);
     }
 
     public static boolean placeHas(Identifier place, String nestKind) {

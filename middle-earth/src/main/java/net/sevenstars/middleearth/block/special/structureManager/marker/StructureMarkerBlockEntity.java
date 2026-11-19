@@ -25,6 +25,7 @@ import net.sevenstars.middleearth.block.registration.BlockEntityRegistryME;
 import net.sevenstars.middleearth.block.special.structureManager.GeneratedStructures;
 import net.sevenstars.middleearth.block.special.structureManager.features.MarkerAnimals;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
+import net.sevenstars.middleearth.block.special.structureManager.features.NestLookup;
 import net.sevenstars.middleearth.block.special.structureManager.features.SpawnNestManager;
 import net.sevenstars.middleearth.block.special.structureManager.features.StructureManagerService;
 import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreenData;
@@ -37,10 +38,10 @@ import java.util.Optional;
 
 public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<StructureMarkerScreenData>, NestHost {
     private static final String ID = "structure_marker";
-    private static final String MARKER_ID = "%s.MarkerId".formatted(ID);
-    private static final String VALUE = "%s.Value".formatted(ID);
-    private static final String COUNT = "%s.Count".formatted(ID);
-    private static final String RESPAWNS = "%s.Respawns".formatted(ID);
+    public static final String MARKER_ID = "%s.MarkerId".formatted(ID);
+    public static final String VALUE = "%s.Value".formatted(ID);
+    public static final String COUNT = "%s.Count".formatted(ID);
+    public static final String RESPAWNS = "%s.Respawns".formatted(ID);
     public static final int MAXIMUM_VALUE_LENGTH = 128;
     private static final String ANIMALS = "Animals";
     // In ticks, between checks of what a marker has spawned
@@ -176,7 +177,7 @@ public class StructureMarkerBlockEntity extends BlockEntity implements ExtendedS
     // People form a nest spawned on the marker. Animals are tracked apart and respawn only if set
     private void spawn(ServerWorld serverWorld) {
         if(kind == MarkerKind.SPAWN_NPC) {
-            SpawnNestNodeData data = StructureManagerService.nestForMarker(serverWorld, value, Optional.empty());
+            SpawnNestNodeData data = NestLookup.nestForMarker(serverWorld, value, Optional.empty());
             if(data == null)
                 return;
             if(nest == null || !nest.getId().equals(data.getId())) {
