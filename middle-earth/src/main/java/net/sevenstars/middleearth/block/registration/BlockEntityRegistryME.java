@@ -53,7 +53,25 @@ public class BlockEntityRegistryME {
 
     public static BlockEntityType<OldSkullBlockEntity> OLD_SKULL = register("old_skull", OldSkullBlockEntity::new, DecorativeBlockRegistryME.OLD_SKULL);
 
-    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new, DecorativeBlockRegistryME.SACK);
+    public static BlockEntityType<SackBlockEntity> SACK = register("sack", SackBlockEntity::new,
+            DecorativeBlockRegistryME.SACK,
+            DecorativeBlockRegistryME.WHITE_SACK,
+            DecorativeBlockRegistryME.BLACK_SACK,
+            DecorativeBlockRegistryME.BLUE_SACK,
+            DecorativeBlockRegistryME.BROWN_SACK,
+            DecorativeBlockRegistryME.CYAN_SACK,
+            DecorativeBlockRegistryME.GREEN_SACK,
+            DecorativeBlockRegistryME.GRAY_SACK,
+            DecorativeBlockRegistryME.LIGHT_BLUE_SACK,
+            DecorativeBlockRegistryME.LIGHT_GRAY_SACK,
+            DecorativeBlockRegistryME.LIME_SACK,
+            DecorativeBlockRegistryME.MAGENTA_SACK,
+            DecorativeBlockRegistryME.ORANGE_SACK,
+            DecorativeBlockRegistryME.PINK_SACK,
+            DecorativeBlockRegistryME.PURPLE_SACK,
+            DecorativeBlockRegistryME.RED_SACK,
+            DecorativeBlockRegistryME.YELLOW_SACK);
+
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = register("reinforced_chest", ReinforcedChestBlockEntity::new,
             DecorativeBlockRegistryME.REINFORCED_CHEST);
