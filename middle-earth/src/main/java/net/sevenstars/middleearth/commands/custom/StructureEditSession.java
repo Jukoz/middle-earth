@@ -86,6 +86,7 @@ public class StructureEditSession {
         ServerLifecycleEvents.SERVER_STARTED.register(SessionStore::restore);
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> endSingle(server, handler.getPlayer().getUuid()));
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            SessionStore.flush();
             SessionStore.clear();
             WorldFreeze.clear();
             TestStructures.clear();
@@ -142,9 +143,11 @@ public class StructureEditSession {
                 return other;
             }
         }
-        for(BlockPos pos : BlockPos.iterate(grown.getMinX(), grown.getMinY(), grown.getMinZ(), grown.getMaxX(), grown.getMaxY(), grown.getMaxZ())) {
-            if(!box.contains(pos) && world.isInBuildLimit(pos))
-                world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+        for(BlockBox added : BoxParts.without(grown, box)) {
+            for(BlockPos pos : BlockPos.iterate(added.getMinX(), added.getMinY(), added.getMinZ(), added.getMaxX(), added.getMaxY(), added.getMaxZ())) {
+                if(world.isInBuildLimit(pos))
+                    world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+            }
         }
         replace(piece, new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
         SessionStore.write(world.getServer());
@@ -161,9 +164,11 @@ public class StructureEditSession {
                 return other;
             }
         }
-        for(BlockPos pos : BlockPos.iterate(resized.getMinX(), resized.getMinY(), resized.getMinZ(), resized.getMaxX(), resized.getMaxY(), resized.getMaxZ())) {
-            if(!box.contains(pos) && world.isInBuildLimit(pos) && world.getBlockState(pos).isAir())
-                world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+        for(BlockBox added : BoxParts.without(resized, box)) {
+            for(BlockPos pos : BlockPos.iterate(added.getMinX(), added.getMinY(), added.getMinZ(), added.getMaxX(), added.getMaxY(), added.getMaxZ())) {
+                if(world.isInBuildLimit(pos) && world.getBlockState(pos).isAir())
+                    world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
+            }
         }
         replace(piece, new Piece(piece.template(), originOf(resized, piece.rotation()), piece.rotation(), resized, piece.loaded()));
         SessionStore.write(world.getServer());

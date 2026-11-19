@@ -28,6 +28,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 // Sessions by builder, kept in the world's save so they come back with it
 class SessionStore {
@@ -50,6 +56,12 @@ class SessionStore {
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
     private static final Set<UUID> RESTORED = ConcurrentHashMap.newKeySet();
     private static final Map<UUID, StructureEditSession> SESSIONS = new ConcurrentHashMap<>();
+    private static final AtomicReference<Pending> pending = new AtomicReference<>();
+    private static final ExecutorService WRITER = Executors.newSingleThreadExecutor(task -> {
+        Thread thread = new Thread(task, "middle-earth-structure-editing-writer");
+        thread.setDaemon(true);
+        return thread;
+    });
 
     // Falls back to the unclaimed restored session. A workspace game gives its player a new id every run
     static @Nullable StructureEditSession of(UUID builder) {
@@ -121,12 +133,31 @@ class SessionStore {
         }
         NbtCompound root = new NbtCompound();
         root.put(SESSIONS_KEY, sessions);
+        // Pieces' loaded snapshots are replaced whole, never edited, so sharing them with the writer is safe
+        pending.set(new Pending(server.getSavePath(WorldSavePath.ROOT).resolve(FILE), root));
+        WRITER.execute(SessionStore::writePending);
+    }
+
+    private record Pending(Path file, NbtCompound root) {}
+
+    // Only the latest snapshot is written, the ones queued behind it find nothing left
+    private static void writePending() {
+        Pending latest = pending.getAndSet(null);
+        if(latest == null)
+            return;
         try {
-            Path file = server.getSavePath(WorldSavePath.ROOT).resolve(FILE);
-            Files.createDirectories(file.getParent());
-            NbtIo.writeCompressed(root, file);
+            Files.createDirectories(latest.file().getParent());
+            NbtIo.writeCompressed(latest.root(), latest.file());
         } catch (IOException e) {
             MiddleEarth.LOGGER.logError("StructureEditSession :: could not keep the loaded structures with the world", e);
+        }
+    }
+
+    static void flush() {
+        try {
+            WRITER.submit(() -> {}).get(30, TimeUnit.SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            MiddleEarth.LOGGER.logError("StructureEditSession :: the loaded structures were not all written when the server stopped", e);
         }
     }
 
@@ -142,6 +173,7 @@ class SessionStore {
     }
 
     static void restore(MinecraftServer server) {
+        flush();
         SESSIONS.clear();
         RESTORED.clear();
         Path file = server.getSavePath(WorldSavePath.ROOT).resolve(FILE);

@@ -50,16 +50,36 @@ public class BuildSectionEditing {
     public static BlockPos blockFor(ServerWorld world, BlockBox box, List<BuildSections.Section> sections) {
         BlockPos corner = new BlockPos(box.getMinX(), box.getMinY(), box.getMinZ());
         BlockPos nearest = null;
-        for(BlockPos pos : BlockPos.iterate(box.getMinX() - 1, box.getMinY() - 1, box.getMinZ() - 1, box.getMaxX() + 1, box.getMaxY() + 1, box.getMaxZ() + 1)) {
-            int outside = (pos.getX() < box.getMinX() || pos.getX() > box.getMaxX() ? 1 : 0) + (pos.getY() < box.getMinY() || pos.getY() > box.getMaxY() ? 1 : 0)
-                    + (pos.getZ() < box.getMinZ() || pos.getZ() > box.getMaxZ() ? 1 : 0);
-            if(outside != 1 || nearest != null && nearest.getSquaredDistance(corner) <= pos.getSquaredDistance(corner))
-                continue;
-            if(!world.isInBuildLimit(pos) || !world.getBlockState(pos).isAir() || sections.stream().anyMatch(section -> section.box().contains(pos)))
-                continue;
-            nearest = pos.toImmutable();
+        BlockPos.Mutable pos = new BlockPos.Mutable();
+        // Same order as walking the whole cube, so ties go to the same block
+        for(int z = box.getMinZ() - 1; z <= box.getMaxZ() + 1; z++) {
+            int zOut = z < box.getMinZ() || z > box.getMaxZ() ? 1 : 0;
+            for(int y = box.getMinY() - 1; y <= box.getMaxY() + 1; y++) {
+                int rowOut = zOut + (y < box.getMinY() || y > box.getMaxY() ? 1 : 0);
+                if(rowOut > 1)
+                    continue;
+                // Inside the box's rows only the two blocks beside it count
+                int step = rowOut == 1 ? 1 : box.getBlockCountX() + 1;
+                int from = rowOut == 1 ? box.getMinX() : box.getMinX() - 1;
+                for(int x = from; x <= box.getMaxX() + (rowOut == 1 ? 0 : 1); x += step) {
+                    pos.set(x, y, z);
+                    if(nearest != null && nearest.getSquaredDistance(corner) <= pos.getSquaredDistance(corner))
+                        continue;
+                    if(!world.isInBuildLimit(pos) || !world.getBlockState(pos).isAir() || inAny(sections, pos))
+                        continue;
+                    nearest = pos.toImmutable();
+                }
+            }
         }
         return nearest != null ? nearest : corner.down();
+    }
+
+    private static boolean inAny(List<BuildSections.Section> sections, BlockPos pos) {
+        for(BuildSections.Section section : sections) {
+            if(section.box().contains(pos))
+                return true;
+        }
+        return false;
     }
 
     public static boolean place(ServerWorld world, ServerPlayerEntity player, Identifier id, BlockBox box, BlockPos at) {
@@ -321,17 +341,7 @@ public class BuildSectionEditing {
         List<BuildSections.Section> covered = new ArrayList<>();
         for(BuildSections.Section section : sections) {
             List<BlockBox> others = sections.stream().filter(other -> other.volume() < section.volume() && other.box().intersects(section.box())).map(BuildSections.Section::box).toList();
-            if(others.isEmpty())
-                continue;
-            BlockBox box = section.box();
-            boolean all = true;
-            for(BlockPos pos : BlockPos.iterate(box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ())) {
-                if(others.stream().noneMatch(other -> other.contains(pos))) {
-                    all = false;
-                    break;
-                }
-            }
-            if(all)
+            if(!others.isEmpty() && BoxParts.covers(others, section.box()))
                 covered.add(section);
         }
         return covered;

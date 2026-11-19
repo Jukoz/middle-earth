@@ -20,7 +20,6 @@ import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Locale;
 
 // Opens after two corners are clicked (new box or section). On a section's structure block, rename or remove
 public class BuildSectionScreen extends Screen {
@@ -96,7 +95,7 @@ public class BuildSectionScreen extends Screen {
     }
 
     private String typed() {
-        return name.getText().trim().toLowerCase(Locale.ROOT).replace(' ', '_');
+        return BuildSections.normalised(name.getText());
     }
 
     // A new section needs a valid name no other section uses, different from the one the box started in.

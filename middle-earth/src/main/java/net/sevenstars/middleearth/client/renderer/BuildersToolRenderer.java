@@ -11,6 +11,7 @@ import net.minecraft.block.enums.BedPart;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
@@ -55,6 +56,7 @@ public class BuildersToolRenderer {
     // Wall-clock, since game time is frozen while editing
     private static final int RESCAN_MILLIS = 500;
     private static final int RESCAN_DISTANCE = 2;
+    private static final int SCAN_BLOCKS_PER_FRAME = 8192;
     private static final float LABEL_TEXT_SCALE = 0.02f;
     private static final float STATION_TEXT_SCALE = 0.012f;
     private static final float LABEL_HEIGHT = 1.3f;
@@ -95,22 +97,50 @@ public class BuildersToolRenderer {
     private static final Map<Block, Integer> FEATURES = new IdentityHashMap<>();
     // Empty for non-stations, so they aren't looked up again
     private static final Map<Block, Optional<StationKind>> STATIONS = new IdentityHashMap<>();
-    private static final List<Bed> beds = new ArrayList<>();
-    private static final List<StructureFeatureData.Station> stations = new ArrayList<>();
-    private static final List<StructureFeatureData.Marker> markers = new ArrayList<>();
-    private static final List<BlockPos> stores = new ArrayList<>();
-    private static final Set<BlockPos> offLimits = new HashSet<>();
-    // Stores not put off limits
-    private static final Set<BlockPos> openStores = new HashSet<>();
-    // Where a bed with no picked store goes: campfires only when there is no chest or barrel
-    private static final List<BlockPos> nearestStores = new ArrayList<>();
-    private static final List<BlockPos> seats = new ArrayList<>();
-    private static final List<BlockPos> tables = new ArrayList<>();
-    private static final List<BlockPos> plainBeds = new ArrayList<>();
-    private static final Set<BlockPos> fields = new HashSet<>();
-    private static List<BuildSections.Section> sections = List.of();
-    private static final Map<BlockPos, String> plugs = new HashMap<>();
-    private static final Map<BlockPos, List<Box>> PLOTS = new HashMap<>();
+
+    // What one scan finds. The shown one is drawn while the next fills over several frames
+    private static class Scan {
+        final List<Bed> beds = new ArrayList<>();
+        final List<StructureFeatureData.Station> stations = new ArrayList<>();
+        final List<StructureFeatureData.Marker> markers = new ArrayList<>();
+        final List<BlockPos> stores = new ArrayList<>();
+        final Set<BlockPos> offLimits = new HashSet<>();
+        // Stores not put off limits
+        final Set<BlockPos> openStores = new HashSet<>();
+        // Where a bed with no picked store goes: campfires only when there is no chest or barrel
+        final List<BlockPos> nearestStores = new ArrayList<>();
+        final List<BlockPos> seats = new ArrayList<>();
+        final List<BlockPos> tables = new ArrayList<>();
+        final List<BlockPos> plainBeds = new ArrayList<>();
+        final Set<BlockPos> fields = new HashSet<>();
+        final Map<BlockPos, String> plugs = new HashMap<>();
+        final Map<BlockPos, List<Box>> plots = new HashMap<>();
+        List<BuildSections.Section> sections = List.of();
+        final BlockPos.Mutable cursor = new BlockPos.Mutable();
+        int minX, minY, minZ, maxX, maxY, maxZ;
+        int x, y, z;
+
+        void clear() {
+            beds.clear();
+            plainBeds.clear();
+            stations.clear();
+            fields.clear();
+            plots.clear();
+            markers.clear();
+            stores.clear();
+            offLimits.clear();
+            openStores.clear();
+            nearestStores.clear();
+            seats.clear();
+            tables.clear();
+            plugs.clear();
+            sections = List.of();
+        }
+    }
+
+    private static Scan shown = new Scan();
+    private static Scan building = new Scan();
+    private static boolean scanning = false;
     private static Map<Identifier, Set<StructurePool.Projection>> projections = Map.of();
     private static long projectionsReadAt = 0;
     private static ClientWorld scannedWorld;
@@ -171,83 +201,104 @@ public class BuildersToolRenderer {
     }
 
     private static void scan(ClientWorld world, BlockPos from) {
-        if(world == scannedWorld && Util.getMeasuringTimeMs() - scannedAt < RESCAN_MILLIS && scannedFrom.isWithinDistance(from, RESCAN_DISTANCE))
-            return;
-        scannedWorld = world;
-        scannedAt = Util.getMeasuringTimeMs();
-        scannedFrom = from;
-        beds.clear();
-        plainBeds.clear();
-        stations.clear();
-        fields.clear();
-        PLOTS.clear();
-        markers.clear();
-        stores.clear();
-        offLimits.clear();
-        openStores.clear();
-        nearestStores.clear();
-        seats.clear();
-        tables.clear();
-        sections = BuildSections.near(world, from);
-        plugs.clear();
-        for(BlockPos pos : BlockPos.iterate(from.add(-RANGE, -RANGE_HEIGHT, -RANGE), from.add(RANGE, RANGE_HEIGHT, RANGE))) {
-            BlockState state = world.getBlockState(pos);
-            if(state.isAir())
-                continue;
-            Block block = state.getBlock();
-            if(block == DecorativeBlockRegistryME.STRUCTURE_MARKER) {
-                if(world.getBlockEntity(pos) instanceof StructureMarkerBlockEntity marker)
-                    markers.add(new StructureFeatureData.Marker(marker.getKind(), pos.toImmutable(), state.get(StructureMarkerBlock.FACING), marker.getValue(), marker.getCount(), marker.getRespawns()));
-                continue;
-            }
-            if(block == Blocks.JIGSAW) {
-                if(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug)
-                    plugs.put(pos.toImmutable(), plugLabel(plug));
-                continue;
-            }
-            if(block instanceof BedBlock) {
-                if(state.get(BedBlock.PART) == BedPart.HEAD) {
-                    BlockPos head = pos.toImmutable();
-                    BedTagHolder.tagAt(world, pos).ifPresentOrElse(tag -> beds.add(new Bed(head, tag, List.of(), false)), () -> plainBeds.add(head));
+        if(scanning && world != scannedWorld)
+            scanning = false;
+        if(!scanning) {
+            if(world == scannedWorld && Util.getMeasuringTimeMs() - scannedAt < RESCAN_MILLIS && scannedFrom.isWithinDistance(from, RESCAN_DISTANCE))
+                return;
+            if(world != scannedWorld)
+                shown.clear();
+            scannedWorld = world;
+            scannedAt = Util.getMeasuringTimeMs();
+            scannedFrom = from;
+            building.clear();
+            building.sections = BuildSections.near(world, from);
+            building.minX = building.x = from.getX() - RANGE;
+            building.minY = building.y = from.getY() - RANGE_HEIGHT;
+            building.minZ = building.z = from.getZ() - RANGE;
+            building.maxX = from.getX() + RANGE;
+            building.maxY = from.getY() + RANGE_HEIGHT;
+            building.maxZ = from.getZ() + RANGE;
+            scanning = true;
+        }
+        Scan scan = building;
+        // Same order as BlockPos.iterate, x first
+        for(int left = SCAN_BLOCKS_PER_FRAME; left > 0 && scan.z <= scan.maxZ; left--) {
+            scanBlock(world, scan, scan.cursor.set(scan.x, scan.y, scan.z));
+            if(++scan.x > scan.maxX) {
+                scan.x = scan.minX;
+                if(++scan.y > scan.maxY) {
+                    scan.y = scan.minY;
+                    scan.z++;
                 }
-                continue;
             }
-            int features = FEATURES.computeIfAbsent(block, BuildersToolRenderer::featuresOf);
-            if((features & STORE_FEATURE) != 0)
-                stores.add(pos.toImmutable());
-            if((features & SEAT_FEATURE) != 0)
-                seats.add(pos.toImmutable());
-            if((features & TABLE_FEATURE) != 0)
-                tables.add(pos.toImmutable());
-            StationKind kind = STATIONS.computeIfAbsent(block, found -> Optional.ofNullable(BuildFeatures.stationOf(found))).orElse(null);
-            if(kind != null)
-                stations.add(new StructureFeatureData.Station(kind, pos.toImmutable()));
-            if(kind == StationKind.FIELD)
-                fields.add(pos.toImmutable());
         }
-        indexStores(world);
-        beds.replaceAll(BuildersToolRenderer::withLinks);
+        if(scan.z <= scan.maxZ)
+            return;
+        indexStores(world, scan);
+        DynamicRegistryManager registries = world.getRegistryManager();
+        scan.beds.replaceAll(bed -> withLinks(scan, registries, bed));
+        building = shown;
+        shown = scan;
+        building.clear();
+        scanning = false;
     }
 
-    private static void indexStores(ClientWorld world) {
-        for(StructureFeatureData.Marker marker : markers) {
+    private static void scanBlock(ClientWorld world, Scan scan, BlockPos.Mutable pos) {
+        BlockState state = world.getBlockState(pos);
+        if(state.isAir())
+            return;
+        Block block = state.getBlock();
+        if(block == DecorativeBlockRegistryME.STRUCTURE_MARKER) {
+            if(world.getBlockEntity(pos) instanceof StructureMarkerBlockEntity marker)
+                scan.markers.add(new StructureFeatureData.Marker(marker.getKind(), pos.toImmutable(), state.get(StructureMarkerBlock.FACING), marker.getValue(), marker.getCount(), marker.getRespawns()));
+            return;
+        }
+        if(block == Blocks.JIGSAW) {
+            if(world.getBlockEntity(pos) instanceof JigsawBlockEntity plug)
+                scan.plugs.put(pos.toImmutable(), plugLabel(plug));
+            return;
+        }
+        if(block instanceof BedBlock) {
+            if(state.get(BedBlock.PART) == BedPart.HEAD) {
+                BlockPos head = pos.toImmutable();
+                BedTagHolder.tagAt(world, pos).ifPresentOrElse(tag -> scan.beds.add(new Bed(head, tag, List.of(), false)), () -> scan.plainBeds.add(head));
+            }
+            return;
+        }
+        int features = FEATURES.computeIfAbsent(block, BuildersToolRenderer::featuresOf);
+        if((features & STORE_FEATURE) != 0)
+            scan.stores.add(pos.toImmutable());
+        if((features & SEAT_FEATURE) != 0)
+            scan.seats.add(pos.toImmutable());
+        if((features & TABLE_FEATURE) != 0)
+            scan.tables.add(pos.toImmutable());
+        StationKind kind = STATIONS.computeIfAbsent(block, found -> Optional.ofNullable(BuildFeatures.stationOf(found))).orElse(null);
+        if(kind != null)
+            scan.stations.add(new StructureFeatureData.Station(kind, pos.toImmutable()));
+        if(kind == StationKind.FIELD)
+            scan.fields.add(pos.toImmutable());
+    }
+
+    private static void indexStores(ClientWorld world, Scan scan) {
+        for(StructureFeatureData.Marker marker : scan.markers) {
             if(marker.kind() == MarkerKind.OFF_LIMITS)
-                offLimits.add(marker.pos().offset(marker.facing()));
+                scan.offLimits.add(marker.pos().offset(marker.facing()));
         }
-        for(BlockPos store : stores) {
-            if(!offLimits.contains(store))
-                openStores.add(store);
+        for(BlockPos store : scan.stores) {
+            if(!scan.offLimits.contains(store))
+                scan.openStores.add(store);
         }
-        boolean anyBox = openStores.stream().anyMatch(pos -> !(world.getBlockState(pos).getBlock() instanceof CampfireBlock));
-        for(BlockPos store : stores) {
-            if(!offLimits.contains(store) && !(anyBox && world.getBlockState(store).getBlock() instanceof CampfireBlock))
-                nearestStores.add(store);
+        boolean anyBox = scan.openStores.stream().anyMatch(pos -> !(world.getBlockState(pos).getBlock() instanceof CampfireBlock));
+        for(BlockPos store : scan.stores) {
+            if(!scan.offLimits.contains(store) && !(anyBox && world.getBlockState(store).getBlock() instanceof CampfireBlock))
+                scan.nearestStores.add(store);
         }
     }
 
-    private static Bed withLinks(Bed bed) {
-        List<BlockPos> links = linksOf(bed);
-        return new Bed(bed.pos(), bed.tag(), links, links.isEmpty() && needsStation(bed));
+    private static Bed withLinks(Scan scan, DynamicRegistryManager registries, Bed bed) {
+        List<BlockPos> links = linksOf(scan, registries, bed);
+        return new Bed(bed.pos(), bed.tag(), links, links.isEmpty() && needsStation(registries, bed));
     }
 
     private static int featuresOf(Block block) {
@@ -294,7 +345,7 @@ public class BuildersToolRenderer {
     }
 
     private static void drawBoxes() {
-        for(BuildSections.Section section : sections)
+        for(BuildSections.Section section : shown.sections)
             DebugDraw.box(Box.from(section.box()).expand(SECTION_MARGIN), sectionColor(section));
         BlockPos joinFrom = BuildersToolSelection.joinFrom();
         BlockPos joinTo = BuildersToolSelection.joinTo();
@@ -322,28 +373,28 @@ public class BuildersToolRenderer {
             drawSelected(selected);
             return;
         }
-        for(BlockPos pos : plainBeds)
+        for(BlockPos pos : shown.plainBeds)
             DebugDraw.box(pos, BED_PLAIN);
-        for(BlockPos pos : stores) {
-            if(!offLimits.contains(pos))
+        for(BlockPos pos : shown.stores) {
+            if(!shown.offLimits.contains(pos))
                 DebugDraw.box(pos, STORE);
         }
-        for(BlockPos pos : seats) {
-            if(!offLimits.contains(pos))
+        for(BlockPos pos : shown.seats) {
+            if(!shown.offLimits.contains(pos))
                 DebugDraw.box(pos, SEAT);
         }
-        for(BlockPos pos : tables) {
-            if(!offLimits.contains(pos))
+        for(BlockPos pos : shown.tables) {
+            if(!shown.offLimits.contains(pos))
                 DebugDraw.box(pos, TABLE);
         }
-        for(StructureFeatureData.Marker marker : markers)
+        for(StructureFeatureData.Marker marker : shown.markers)
             DebugDraw.box(marker.pos(), MARKER);
-        for(StructureFeatureData.Station station : stations) {
-            // Skip fields, they're hundreds of farmland blocks
-            if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
+        for(StructureFeatureData.Station station : shown.stations) {
+            // Skip shown.fields, they're hundreds of farmland blocks
+            if(station.kind() != StationKind.FIELD && !shown.offLimits.contains(station.pos()))
                 DebugDraw.box(station.pos(), stationColor(station.kind()));
         }
-        for(Bed bed : beds) {
+        for(Bed bed : shown.beds) {
             drawStore(bed);
             DebugDraw.box(bed.pos(), bed.lost() ? BED_LOST : BED_TAGGED);
             for(BlockPos link : bed.links()) {
@@ -368,11 +419,11 @@ public class BuildersToolRenderer {
 
     // A field is all farmland connected to the linked plot
     private static void drawLinked(BlockPos link, int color) {
-        if(!fields.contains(link)) {
+        if(!shown.fields.contains(link)) {
             DebugDraw.box(link, color);
             return;
         }
-        for(Box row : PLOTS.computeIfAbsent(link, BuildersToolRenderer::plotOf))
+        for(Box row : shown.plots.computeIfAbsent(link, BuildersToolRenderer::plotOf))
             DebugDraw.box(row, color);
     }
 
@@ -386,7 +437,7 @@ public class BuildersToolRenderer {
             for(Direction side : Direction.Type.HORIZONTAL) {
                 for(int rise = -1; rise <= 1; rise++) {
                     BlockPos next = cell.offset(side).up(rise);
-                    if(fields.contains(next) && plot.add(next))
+                    if(shown.fields.contains(next) && plot.add(next))
                         open.add(next);
                 }
             }
@@ -413,14 +464,14 @@ public class BuildersToolRenderer {
 
     // Solid: picked store. Dashed: nearest scanned one
     private static void drawStore(Bed bed) {
-        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(openStores::contains).orElse(null);
+        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(shown.openStores::contains).orElse(null);
         if(picked != null) {
             DebugDraw.line(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
             return;
         }
         BlockPos work = bed.links().isEmpty() ? bed.pos() : bed.links().getFirst();
         BlockPos nearest = null;
-        for(BlockPos store : nearestStores) {
+        for(BlockPos store : shown.nearestStores) {
             if(nearest == null || store.getSquaredDistance(work) < nearest.getSquaredDistance(work))
                 nearest = store;
         }
@@ -436,7 +487,7 @@ public class BuildersToolRenderer {
     }
 
     private static @Nullable Bed selectedBed(BlockPos selected) {
-        for(Bed bed : beds) {
+        for(Bed bed : shown.beds) {
             if(bed.pos().equals(selected))
                 return bed;
         }
@@ -444,10 +495,10 @@ public class BuildersToolRenderer {
     }
 
     // Hand-tied places, else the nearest station its job would use
-    private static List<BlockPos> linksOf(Bed bed) {
+    private static List<BlockPos> linksOf(Scan scan, DynamicRegistryManager registries, Bed bed) {
         if(bed.tag().manual())
             return bed.tag().links().stream().map(offset -> bed.pos().add(offset)).toList();
-        BlockPos station = bed.tag().job().map(job -> NpcJobs.stationFor(job, bed.pos(), stations, markers)).orElse(null);
+        BlockPos station = bed.tag().job().map(job -> NpcJobs.stationFor(registries, job, bed.pos(), scan.stations, scan.markers)).orElse(null);
         return station == null ? List.of() : List.of(station);
     }
 
@@ -460,8 +511,8 @@ public class BuildersToolRenderer {
     }
 
     // Not every job has a station or marker, e.g. hunters go into the wild
-    private static boolean needsStation(Bed bed) {
-        return bed.tag().job().filter(job -> !NpcJobs.stationKinds(job).isEmpty() || !NpcJobs.stationMarkers(job).isEmpty()).isPresent();
+    private static boolean needsStation(DynamicRegistryManager registries, Bed bed) {
+        return bed.tag().job().filter(job -> !NpcJobs.stationKinds(registries, job).isEmpty() || !NpcJobs.stationMarkers(registries, job).isEmpty()).isPresent();
     }
 
     private static void drawLabels() {
@@ -469,9 +520,9 @@ public class BuildersToolRenderer {
         if(preview != null)
             DebugDraw.label("%d x %d x %d".formatted(Math.round(preview.getLengthX()), Math.round(preview.getLengthY()), Math.round(preview.getLengthZ())),
                     new Vec3d(preview.getCenter().x, preview.maxY + PIECE_LABEL_HEIGHT, preview.getCenter().z), BOUNDS, PIECE_TEXT_SCALE);
-        for(Map.Entry<BlockPos, String> plug : plugs.entrySet())
+        for(Map.Entry<BlockPos, String> plug : shown.plugs.entrySet())
             label(plug.getValue(), plug.getKey(), PLUG, STATION_TEXT_SCALE);
-        for(BuildSections.Section section : sections)
+        for(BuildSections.Section section : shown.sections)
             DebugDraw.label(BuildSections.shortName(section.name()), new Vec3d(section.box().getCenter().getX() + 0.5, section.box().getMaxY() + PIECE_LABEL_HEIGHT,
                     section.box().getCenter().getZ() + 0.5), sectionColor(section), PIECE_TEXT_SCALE);
         BlockPos selected = BuildersToolSelection.selected();
@@ -486,14 +537,14 @@ public class BuildersToolRenderer {
             }
             return;
         }
-        for(BlockPos pos : plainBeds)
+        for(BlockPos pos : shown.plainBeds)
             label("free (wanderers)", pos, BED_PLAIN, LABEL_TEXT_SCALE);
-        for(Bed bed : beds)
+        for(Bed bed : shown.beds)
             label(bedLabel(bed), bed.pos(), bed.lost() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
-        for(StructureFeatureData.Marker marker : markers)
+        for(StructureFeatureData.Marker marker : shown.markers)
             label(markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
-        for(StructureFeatureData.Station station : stations) {
-            if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
+        for(StructureFeatureData.Station station : shown.stations) {
+            if(station.kind() != StationKind.FIELD && !shown.offLimits.contains(station.pos()))
                 label(station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
         }
     }

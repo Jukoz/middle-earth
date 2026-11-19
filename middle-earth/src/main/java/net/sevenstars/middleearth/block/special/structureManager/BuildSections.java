@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 // Each section is the box a structure block saves; rebuilt from the world, never stored
 public class BuildSections {
@@ -33,9 +34,13 @@ public class BuildSections {
         }
     }
 
+    public static String normalised(String typed) {
+        return typed.trim().toLowerCase(Locale.ROOT).replace(' ', '_');
+    }
+
     // Null if it can't name a template. No namespace means the mod's
     public static @Nullable Identifier named(String typed) {
-        String name = typed.trim();
+        String name = normalised(typed);
         if(name.isEmpty() || name.endsWith("/") || name.endsWith(":") || name.contains("//") || Arrays.asList(name.split("[/:]")).contains(".."))
             return null;
         return Identifier.tryParse(name.contains(":") ? name : MiddleEarth.MOD_ID + ":" + name);
