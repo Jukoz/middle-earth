@@ -1,13 +1,11 @@
 package net.sevenstars.middleearth.gui.structuremanager.bedtag;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
-import net.sevenstars.middleearth.network.packets.client2server.PacketBedTagUpdateRequest;
 
 public class BedTagScreenHandler extends ScreenHandler {
     private final BedTagScreenData data;
@@ -29,9 +27,5 @@ public class BedTagScreenHandler extends ScreenHandler {
 
     public BedTagScreenData getData() {
         return data;
-    }
-
-    public void save(String place, String nestKind, String job, String npcClass, boolean resetLinks) {
-        ClientPlayNetworking.send(new PacketBedTagUpdateRequest(data.pos(), place, nestKind, job, npcClass, resetLinks));
     }
 }

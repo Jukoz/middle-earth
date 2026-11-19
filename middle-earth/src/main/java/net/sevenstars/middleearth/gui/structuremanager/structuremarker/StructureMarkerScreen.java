@@ -2,10 +2,12 @@ package net.sevenstars.middleearth.gui.structuremanager.structuremarker;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.sevenstars.middleearth.gui.structuremanager.EditorScreen;
+import net.sevenstars.middleearth.network.packets.client2server.PacketStructureMarkerEditRequest;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,12 +16,10 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
 import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
 import java.util.Map;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.special.beds.BedTag;
 import net.minecraft.util.math.Direction;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Environment(value = EnvType.CLIENT)
-public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHandler> {
+public class StructureMarkerScreen extends EditorScreen<StructureMarkerScreenHandler> {
     private static final int KIND_WIDTH = 118;
     private static final int VALUE_WIDTH = 176;
     private static final int LEAST_LIST_HEIGHT = 56;
@@ -137,7 +137,7 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
                 .dimensions(right - 2 * BUTTON_WIDTH - GAP, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         if(!data.isNew())
             addDrawableChild(ButtonWidget.builder(ui("remove"), button -> {
-                handler.remove();
+                remove();
                 close();
             }).dimensions(left, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
@@ -145,11 +145,18 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
         refresh(data.value());
     }
 
+    private void remove() {
+        StructureMarkerScreenData data = handler.getData();
+        ClientPlayNetworking.send(new PacketStructureMarkerEditRequest(data.pos(), false, true, data.kind(), "", 1, false, data.facing()));
+    }
+
     private void save() {
         MarkerKind kind = selectedKind();
         boolean spawnsNpc = kind == MarkerKind.SPAWN_NPC;
         boolean spawnsAnimal = kind == MarkerKind.SPAWN_ANIMAL;
-        handler.save(kind, spawnsNpc || spawnsAnimal ? valueList.selectedValue() : "", spawnsNpc || spawnsAnimal ? count : 1, spawnsAnimal && respawns, facing);
+        StructureMarkerScreenData data = handler.getData();
+        ClientPlayNetworking.send(new PacketStructureMarkerEditRequest(data.pos(), data.isNew(), false, kind, spawnsNpc || spawnsAnimal ? valueList.selectedValue() : "",
+                spawnsNpc || spawnsAnimal ? count : 1, spawnsAnimal && respawns, facing));
         close();
     }
 
@@ -223,40 +230,13 @@ public class StructureMarkerScreen extends HandledScreen<StructureMarkerScreenHa
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
+    protected void submit() {
+        save();
     }
 
     @Override
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-    }
-
-    // A container screen closes on the inventory key, a letter players may want to type in search
-    @Override
-    public boolean keyPressed(KeyInput input) {
-        int keyCode = input.key();
-        if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
-            save();
-            return true;
-        }
-        if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
-            field.keyPressed(input);
-            return true;
-        }
-        return super.keyPressed(input);
-    }
-
-    // Container screens swallow the wheel, so pass it to the list under the mouse
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{kindList, valueList}) {
-            if(list != null && list.isMouseOver(mouseX, mouseY))
-                return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
-        }
-        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
-    }
-
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    protected ChoiceListWidget[] lists() {
+        return new ChoiceListWidget[]{kindList, valueList};
     }
 
     @Override

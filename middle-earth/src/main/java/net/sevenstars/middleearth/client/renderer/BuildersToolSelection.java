@@ -80,8 +80,7 @@ public class BuildersToolSelection {
     // Loaded structure pieces just get their bounds; elsewhere the builder names the section
     private static void finishBounds(PlayerEntity player, BlockPos anchor, BlockPos first, BlockPos second) {
         MinecraftClient client = MinecraftClient.getInstance();
-        StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
-        if(session != null && session.getDimension().equals(player.getEntityWorld().getRegistryKey()) && session.pieceContaining(anchor) != null) {
+        if(client.getServer() != null && StructureEditSession.pieceAt(player.getUuid(), player.getEntityWorld().getRegistryKey(), anchor) != null) {
             ClientPlayNetworking.send(new PacketStructureBoundsRequest(anchor, first, second, ""));
             return;
         }

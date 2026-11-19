@@ -5,9 +5,7 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.api.network.contexts.ServerPacketContext;
 import net.sevenstars.api.network.packets.ClientToServerPacket;
@@ -15,9 +13,6 @@ import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.BuildSections;
 import net.sevenstars.middleearth.block.special.structureManager.StructureEditing;
 import net.sevenstars.middleearth.commands.custom.BuildSectionEditing;
-import net.sevenstars.middleearth.commands.custom.StructureEditSession;
-
-import java.util.List;
 
 // Box between two corners becomes the build's saved part; with a name, a new section instead
 public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStructureBoundsRequest> {
@@ -60,74 +55,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
         player.getEntityWorld().getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, second) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
-            if(!StructureEditing.isNear(world, second, first) || !StructureEditing.isNear(world, second, anchor)) {
-                StructureEditing.log("bounds from %s to %s refused: %s or %s is far away or not loaded".formatted(first.toShortString(), second.toShortString(), first.toShortString(), anchor.toShortString()));
-                return;
-            }
-            BlockBox box = BlockBox.create(first, second);
-            int limit = StructureEditing.MAXIMUM_SIZE;
-            if(!world.isInBuildLimit(first) || !world.isInBuildLimit(second) || !BuildSectionEditing.fits(box)) {
-                StructureEditing.log("bounds from %s to %s refused: outside the world or over %d blocks a side".formatted(first.toShortString(), second.toShortString(), limit));
-                player.sendMessage(Text.translatable("ui.%s.structure_bounds.too_big".formatted(MiddleEarth.MOD_ID), limit), true);
-                return;
-            }
-            String size = "%dx%dx%d".formatted(box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ());
-            List<BuildSections.Section> sections = BuildSections.near(world, anchor);
-            if(!name.isBlank()) {
-                create(world, player, sections, box, size);
-                return;
-            }
-            StructureEditSession session = StructureEditSession.of(player.getUuid());
-            StructureEditSession.Piece piece = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session.pieceContaining(anchor);
-            if(piece != null) {
-                if(!session.isSpaced()) {
-                    player.sendMessage(Text.translatable("ui.%s.structure_bounds.view_only".formatted(MiddleEarth.MOD_ID)), true);
-                    return;
-                }
-                StructureEditSession.Piece inTheWay = session.resize(world, piece, box);
-                if(inTheWay != null)
-                    player.sendMessage(Text.translatable("ui.%s.structure_bounds.in_the_way".formatted(MiddleEarth.MOD_ID), inTheWay.template().getPath()), true);
-                else
-                    player.sendMessage(Text.translatable("ui.%s.structure_bounds.set".formatted(MiddleEarth.MOD_ID), piece.template().getPath(), size), true);
-                return;
-            }
-            BuildSections.Section section = BuildSections.at(sections, anchor);
-            if(section == null || !BuildSectionEditing.resize(world, section, box)) {
-                StructureEditing.log("bounds from %s to %s refused: the block at %s is in no build that is loaded".formatted(first.toShortString(), second.toShortString(), anchor.toShortString()));
-                player.sendMessage(Text.translatable("ui.%s.structure_bounds.no_build".formatted(MiddleEarth.MOD_ID)), true);
-                return;
-            }
-            player.sendMessage(Text.translatable("ui.%s.structure_bounds.set".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(section.name()), size), true);
+            BuildSectionEditing.setBounds(world, player, anchor, first, second, name);
         });
-    }
-
-    private void create(ServerWorld world, ServerPlayerEntity player, List<BuildSections.Section> sections, BlockBox box, String size) {
-        Identifier id = BuildSectionEditing.named(name);
-        if(id == null) {
-            player.sendMessage(Text.translatable("ui.%s.build_section.bad_name".formatted(MiddleEarth.MOD_ID)), true);
-            return;
-        }
-        if(world.getStructureTemplateManager().getTemplate(id).isPresent() || sections.stream().anyMatch(section -> section.name().equals(id.toString()))) {
-            StructureEditing.log("section %s not made: there is a template or a section of that name".formatted(id));
-            player.sendMessage(Text.translatable("ui.%s.build_section.taken".formatted(MiddleEarth.MOD_ID), id.getPath()), true);
-            return;
-        }
-        BlockPos at = BuildSectionEditing.blockFor(world, box, sections);
-        if(!world.isInBuildLimit(at) || !BuildSectionEditing.place(world, player, id, box, at)) {
-            player.sendMessage(Text.translatable("ui.%s.structure_bounds.no_build".formatted(MiddleEarth.MOD_ID)), true);
-            return;
-        }
-        StructureEditSession.beginSingle(world.getServer(), player.getUuid());
-        StructureEditing.log("new section %s, %s from %s to %s, structure block at %s".formatted(id, size, first.toShortString(), second.toShortString(), at.toShortString()));
-        player.sendMessage(Text.translatable("ui.%s.build_section.made".formatted(MiddleEarth.MOD_ID), id.getPath(), size), true);
-        List<BuildSections.Section> now = BuildSections.near(world, anchor);
-        List<BuildSections.Section> cutUp = BuildSectionEditing.cutUp(now);
-        for(BuildSections.Section whole : cutUp) {
-            BuildSectionEditing.remove(world, whole);
-            player.sendMessage(Text.translatable("ui.%s.build_section.cut_up".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(whole.name())), false);
-        }
-        // The section this was cut from still saves this part until the rest of it is cut up too
-        sections.stream().filter(section -> section.box().intersects(box) && !cutUp.contains(section)).findFirst().ifPresent(over ->
-                player.sendMessage(Text.translatable("ui.%s.build_section.overlaps".formatted(MiddleEarth.MOD_ID), BuildSections.pathOf(over.name()), over.name()), false));
     }
 }

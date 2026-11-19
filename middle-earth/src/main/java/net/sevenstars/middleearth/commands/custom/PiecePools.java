@@ -149,7 +149,7 @@ public class PiecePools {
         List<Pair<StructurePoolElement, Integer>> weights = new ArrayList<>(pool.getElementWeights());
         boolean any = false;
         for(Identifier template : templates) {
-            if(weights.stream().anyMatch(weighted -> StructureEditSession.templatesOf(weighted.getFirst()).contains(template)))
+            if(weights.stream().anyMatch(weighted -> StructureAssembly.templatesOf(weighted.getFirst()).contains(template)))
                 continue;
             StructurePoolElement element = StructurePoolElement.ofSingle(template.toString()).apply(StructurePool.Projection.RIGID);
             weights.add(Pair.of(element, DEFAULT_WEIGHT));

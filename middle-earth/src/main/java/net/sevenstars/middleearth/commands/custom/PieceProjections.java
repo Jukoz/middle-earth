@@ -36,7 +36,7 @@ public class PieceProjections {
         for(StructurePool pool : pools) {
             for(var weighted : pool.getElementWeights()) {
                 StructurePoolElement element = weighted.getFirst();
-                for(Identifier template : StructureEditSession.templatesOf(element))
+                for(Identifier template : StructureAssembly.templatesOf(element))
                     projections.computeIfAbsent(template, key -> EnumSet.noneOf(StructurePool.Projection.class)).add(element.getProjection());
             }
         }
@@ -53,7 +53,7 @@ public class PieceProjections {
             boolean any = false;
             for(var weighted : pool.getElementWeights()) {
                 StructurePoolElement element = weighted.getFirst();
-                if(StructureEditSession.templatesOf(element).contains(template) && element.getProjection() != projection) {
+                if(StructureAssembly.templatesOf(element).contains(template) && element.getProjection() != projection) {
                     element.setProjection(projection);
                     any = true;
                 }

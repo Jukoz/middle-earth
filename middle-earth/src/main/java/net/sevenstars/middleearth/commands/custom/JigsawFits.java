@@ -36,8 +36,7 @@ public class JigsawFits {
     }
 
     public static List<BlockPos> of(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
-        StructureEditSession session = StructureEditSession.of(player.getUuid());
-        StructureEditSession edited = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session;
+        StructureEditSession edited = StructureEditSession.ofIn(player.getUuid(), world.getRegistryKey());
         Plug clicked = plugAt(world, pos, edited);
         if(clicked == null)
             return List.of();
@@ -63,7 +62,7 @@ public class JigsawFits {
 
     private static Set<Identifier> templatesOf(StructurePool pool) {
         Set<Identifier> templates = new HashSet<>();
-        pool.getElementWeights().forEach(element -> templates.addAll(StructureEditSession.templatesOf(element.getFirst())));
+        pool.getElementWeights().forEach(element -> templates.addAll(StructureAssembly.templatesOf(element.getFirst())));
         return templates;
     }
 
@@ -85,7 +84,7 @@ public class JigsawFits {
         Set<ChunkPos> chunks = new HashSet<>();
         if(edited != null && edited.pieceContaining(around) != null) {
             for(StructureEditSession.Piece piece : edited.getPieces())
-                StructureEditSession.chunksOf(piece.box()).forEach(chunks::add);
+                PieceLayout.chunksOf(piece.box()).forEach(chunks::add);
         } else {
             edited = null;
             ChunkPos.stream(new ChunkPos(around), NEAR_CHUNKS).forEach(chunks::add);

@@ -89,7 +89,8 @@ public class BuildersToolRenderer {
     private static final int SEAT_FEATURE = 2;
     private static final int TABLE_FEATURE = 4;
 
-    private record Bed(BlockPos pos, BedTag tag) {}
+    // Links and lost are worked out once per scan
+    private record Bed(BlockPos pos, BedTag tag, List<BlockPos> links, boolean lost) {}
 
     private static final Map<Block, Integer> FEATURES = new IdentityHashMap<>();
     // Empty for non-stations, so they aren't looked up again
@@ -98,6 +99,11 @@ public class BuildersToolRenderer {
     private static final List<StructureFeatureData.Station> stations = new ArrayList<>();
     private static final List<StructureFeatureData.Marker> markers = new ArrayList<>();
     private static final List<BlockPos> stores = new ArrayList<>();
+    private static final Set<BlockPos> offLimits = new HashSet<>();
+    // Stores not put off limits
+    private static final Set<BlockPos> openStores = new HashSet<>();
+    // Where a bed with no picked store goes: campfires only when there is no chest or barrel
+    private static final List<BlockPos> nearestStores = new ArrayList<>();
     private static final List<BlockPos> seats = new ArrayList<>();
     private static final List<BlockPos> tables = new ArrayList<>();
     private static final List<BlockPos> plainBeds = new ArrayList<>();
@@ -143,8 +149,8 @@ public class BuildersToolRenderer {
 
     // Skips the piece they stand in (its walls show) unless its bounds are being set
     private static List<StructureEditSession.Piece> piecesAround(MinecraftClient client, PlayerEntity player) {
-        StructureEditSession session = client.getServer() == null ? null : StructureEditSession.of(player.getUuid());
-        if(session == null || !session.getDimension().equals(player.getEntityWorld().getRegistryKey()))
+        StructureEditSession session = client.getServer() == null ? null : StructureEditSession.ofIn(player.getUuid(), player.getEntityWorld().getRegistryKey());
+        if(session == null)
             return List.of();
         boolean settingBounds = BuildersToolSelection.boundsAnchor() != null;
         return session.getPieces().stream().filter(piece -> settingBounds || !piece.box().contains(player.getBlockPos())).toList();
@@ -177,6 +183,9 @@ public class BuildersToolRenderer {
         PLOTS.clear();
         markers.clear();
         stores.clear();
+        offLimits.clear();
+        openStores.clear();
+        nearestStores.clear();
         seats.clear();
         tables.clear();
         sections = BuildSections.near(world, from);
@@ -199,7 +208,7 @@ public class BuildersToolRenderer {
             if(block instanceof BedBlock) {
                 if(state.get(BedBlock.PART) == BedPart.HEAD) {
                     BlockPos head = pos.toImmutable();
-                    BedTagHolder.tagAt(world, pos).ifPresentOrElse(tag -> beds.add(new Bed(head, tag)), () -> plainBeds.add(head));
+                    BedTagHolder.tagAt(world, pos).ifPresentOrElse(tag -> beds.add(new Bed(head, tag, List.of(), false)), () -> plainBeds.add(head));
                 }
                 continue;
             }
@@ -216,6 +225,29 @@ public class BuildersToolRenderer {
             if(kind == StationKind.FIELD)
                 fields.add(pos.toImmutable());
         }
+        indexStores(world);
+        beds.replaceAll(BuildersToolRenderer::withLinks);
+    }
+
+    private static void indexStores(ClientWorld world) {
+        for(StructureFeatureData.Marker marker : markers) {
+            if(marker.kind() == MarkerKind.OFF_LIMITS)
+                offLimits.add(marker.pos().offset(marker.facing()));
+        }
+        for(BlockPos store : stores) {
+            if(!offLimits.contains(store))
+                openStores.add(store);
+        }
+        boolean anyBox = openStores.stream().anyMatch(pos -> !(world.getBlockState(pos).getBlock() instanceof CampfireBlock));
+        for(BlockPos store : stores) {
+            if(!offLimits.contains(store) && !(anyBox && world.getBlockState(store).getBlock() instanceof CampfireBlock))
+                nearestStores.add(store);
+        }
+    }
+
+    private static Bed withLinks(Bed bed) {
+        List<BlockPos> links = linksOf(bed);
+        return new Bed(bed.pos(), bed.tag(), links, links.isEmpty() && needsStation(bed));
     }
 
     private static int featuresOf(Block block) {
@@ -290,7 +322,6 @@ public class BuildersToolRenderer {
             drawSelected(selected);
             return;
         }
-        Set<BlockPos> offLimits = offLimits();
         for(BlockPos pos : plainBeds)
             DebugDraw.box(pos, BED_PLAIN);
         for(BlockPos pos : stores) {
@@ -313,23 +344,13 @@ public class BuildersToolRenderer {
                 DebugDraw.box(station.pos(), stationColor(station.kind()));
         }
         for(Bed bed : beds) {
-            List<BlockPos> links = linksOf(bed);
             drawStore(bed);
-            DebugDraw.box(bed.pos(), links.isEmpty() && needsStation(bed) ? BED_LOST : BED_TAGGED);
-            for(BlockPos link : links) {
+            DebugDraw.box(bed.pos(), bed.lost() ? BED_LOST : BED_TAGGED);
+            for(BlockPos link : bed.links()) {
                 drawLinked(link, BED_TAGGED);
                 drawLink(bed, link, BED_TAGGED);
             }
         }
-    }
-
-    private static Set<BlockPos> offLimits() {
-        Set<BlockPos> offLimits = new HashSet<>();
-        for(StructureFeatureData.Marker marker : markers) {
-            if(marker.kind() == MarkerKind.OFF_LIMITS)
-                offLimits.add(marker.pos().offset(marker.facing()));
-        }
-        return offLimits;
     }
 
     private static void drawSelected(BlockPos selected) {
@@ -339,7 +360,7 @@ public class BuildersToolRenderer {
             return;
         drawStore(bed);
         int color = bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC;
-        for(BlockPos link : linksOf(bed)) {
+        for(BlockPos link : bed.links()) {
             drawLinked(link, color);
             drawLink(bed, link, color);
         }
@@ -390,23 +411,16 @@ public class BuildersToolRenderer {
         return rows;
     }
 
-    // Solid: picked store. Dashed: nearest scanned one. Campfire only with no chest or barrel
+    // Solid: picked store. Dashed: nearest scanned one
     private static void drawStore(Bed bed) {
-        if(scannedWorld == null)
-            return;
-        Set<BlockPos> offLimits = offLimits();
-        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(pos -> stores.contains(pos) && !offLimits.contains(pos)).orElse(null);
+        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(openStores::contains).orElse(null);
         if(picked != null) {
             DebugDraw.line(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
             return;
         }
-        boolean anyBox = stores.stream().anyMatch(pos -> !offLimits.contains(pos) && !(scannedWorld.getBlockState(pos).getBlock() instanceof CampfireBlock));
-        List<BlockPos> links = linksOf(bed);
-        BlockPos work = links.isEmpty() ? bed.pos() : links.getFirst();
+        BlockPos work = bed.links().isEmpty() ? bed.pos() : bed.links().getFirst();
         BlockPos nearest = null;
-        for(BlockPos store : stores) {
-            if(offLimits.contains(store) || anyBox && scannedWorld.getBlockState(store).getBlock() instanceof CampfireBlock)
-                continue;
+        for(BlockPos store : nearestStores) {
             if(nearest == null || store.getSquaredDistance(work) < nearest.getSquaredDistance(work))
                 nearest = store;
         }
@@ -442,7 +456,7 @@ public class BuildersToolRenderer {
         Bed bed = selectedBed(bedPos);
         if(bed == null || bed.tag().manual())
             return List.of();
-        return linksOf(bed);
+        return bed.links();
     }
 
     // Not every job has a station or marker, e.g. hunters go into the wild
@@ -466,7 +480,7 @@ public class BuildersToolRenderer {
             if(bed == null)
                 return;
             label(bedLabel(bed), bed.pos(), SELECTED_BED, LABEL_TEXT_SCALE);
-            for(BlockPos link : linksOf(bed)) {
+            for(BlockPos link : bed.links()) {
                 label(MinecraftClient.getInstance().world.getBlockState(link).getBlock().getName().getString(), link,
                         bed.tag().manual() ? LINK_MANUAL : LINK_AUTOMATIC, STATION_TEXT_SCALE);
             }
@@ -475,10 +489,9 @@ public class BuildersToolRenderer {
         for(BlockPos pos : plainBeds)
             label("free (wanderers)", pos, BED_PLAIN, LABEL_TEXT_SCALE);
         for(Bed bed : beds)
-            label(bedLabel(bed), bed.pos(), needsStation(bed) && linksOf(bed).isEmpty() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
+            label(bedLabel(bed), bed.pos(), bed.lost() ? BED_LOST : BED_TAGGED, LABEL_TEXT_SCALE);
         for(StructureFeatureData.Marker marker : markers)
             label(markerLabel(marker), marker.pos(), MARKER, LABEL_TEXT_SCALE);
-        Set<BlockPos> offLimits = offLimits();
         for(StructureFeatureData.Station station : stations) {
             if(station.kind() != StationKind.FIELD && !offLimits.contains(station.pos()))
                 label(station.kind().asString(), station.pos(), stationColor(station.kind()), STATION_TEXT_SCALE);
@@ -487,9 +500,8 @@ public class BuildersToolRenderer {
 
     private static String bedLabel(Bed bed) {
         String job = bed.tag().job().map(Identifier::getPath).orElse("none");
-        boolean lost = needsStation(bed) && linksOf(bed).isEmpty();
         String who = bed.tag().npcClass().map(npcClass -> bed.tag().nestKind() + " (" + npcClass.getPath() + ")").orElse(bed.tag().nestKind());
-        return who + " / " + job + (bed.tag().manual() ? " (manual)" : "") + (lost ? " (no station)" : "");
+        return who + " / " + job + (bed.tag().manual() ? " (manual)" : "") + (bed.lost() ? " (no station)" : "");
     }
 
     // Looks like: spawn_animal: horse x2

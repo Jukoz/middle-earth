@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -30,6 +31,14 @@ public class BuildSections {
         boolean touches(Section other) {
             return box.expand(1).intersects(other.box);
         }
+    }
+
+    // Null if it can't name a template. No namespace means the mod's
+    public static @Nullable Identifier named(String typed) {
+        String name = typed.trim();
+        if(name.isEmpty() || name.endsWith("/") || name.endsWith(":") || name.contains("//") || Arrays.asList(name.split("[/:]")).contains(".."))
+            return null;
+        return Identifier.tryParse(name.contains(":") ? name : MiddleEarth.MOD_ID + ":" + name);
     }
 
     public static String pathOf(String name) {
@@ -75,6 +84,18 @@ public class BuildSections {
 
     public static @Nullable Section nearest(List<Section> sections, BlockPos pos) {
         return sections.stream().min(Comparator.comparingDouble(section -> section.box().getCenter().getSquaredDistance(pos))).orElse(null);
+    }
+
+    public static @Nullable Section atOrNearest(List<Section> sections, BlockPos pos) {
+        Section own = at(sections, pos);
+        return own != null ? own : nearest(sections, pos);
+    }
+
+    // Every section joined to the one at or nearest the position
+    public static List<Section> buildAround(World world, BlockPos pos) {
+        List<Section> near = near(world, pos);
+        Section own = atOrNearest(near, pos);
+        return own == null ? List.of() : buildOf(near, own);
     }
 
     public static List<Section> buildOf(List<Section> sections, Section of) {

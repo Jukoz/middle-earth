@@ -85,7 +85,7 @@ public class BuildSectionScreen extends Screen {
                 .dimensions(right - WIDE_BUTTON_WIDTH - GAP - BUTTON_WIDTH, buttonTop, BUTTON_WIDTH, BUTTON_HEIGHT).build());
         if(block != null)
             addDrawableChild(ButtonWidget.builder(Text.translatable(KEY + "remove"), button -> {
-                ClientPlayNetworking.send(new PacketSectionEditRequest(block, PacketSectionEditRequest.REMOVE, ""));
+                ClientPlayNetworking.send(new PacketSectionEditRequest(block, PacketSectionEditRequest.Edit.REMOVE, ""));
                 close();
             }).tooltip(Tooltip.of(Text.translatable(KEY + "remove_tip"))).dimensions(left, buttonTop, WIDE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
         else if(!current.isEmpty())
@@ -102,7 +102,7 @@ public class BuildSectionScreen extends Screen {
     // A new section needs a valid name no other section uses, different from the one the box started in.
     private void update() {
         String typed = typed();
-        Identifier id = typed.isEmpty() || typed.endsWith("/") ? null : Identifier.tryParse(typed.contains(":") ? typed : MiddleEarth.MOD_ID + ":" + typed);
+        Identifier id = BuildSections.named(typed);
         String why = null;
         if(typed.isEmpty())
             why = "say_empty";
@@ -121,7 +121,7 @@ public class BuildSectionScreen extends Screen {
 
     private void send(String section) {
         if(block != null)
-            ClientPlayNetworking.send(new PacketSectionEditRequest(block, PacketSectionEditRequest.RENAME, section));
+            ClientPlayNetworking.send(new PacketSectionEditRequest(block, PacketSectionEditRequest.Edit.RENAME, section));
         else
             ClientPlayNetworking.send(new PacketStructureBoundsRequest(anchor, first, second, section));
         close();

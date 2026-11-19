@@ -130,8 +130,7 @@ public class BuildersToolItem extends Item {
                 return;
             }
         }
-        StructureEditSession session = StructureEditSession.of(player.getUuid());
-        StructureEditSession.Piece piece = session == null ? null : session.getPieces().stream().filter(found -> found.box().contains(target)).findFirst().orElse(null);
+        StructureEditSession.Piece piece = StructureEditSession.pieceAt(player.getUuid(), world.getRegistryKey(), target);
         List<Direction> sides = new ArrayList<>();
         sides.add(clickedSide.getAxis().isHorizontal() ? clickedSide : player.getHorizontalFacing().getOpposite());
         for(Direction side : Direction.Type.HORIZONTAL) {

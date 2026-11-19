@@ -2,17 +2,18 @@ package net.sevenstars.middleearth.gui.structuremanager.bedtag;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.sevenstars.middleearth.gui.structuremanager.EditorScreen;
+import net.sevenstars.middleearth.network.packets.client2server.PacketBedTagUpdateRequest;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.gui.structuremanager.EditorPanel;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenTexts;
@@ -28,7 +29,6 @@ import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.features.npcs.classes.data.StationKind;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +38,7 @@ import java.util.Set;
 
 // Asks who lives here. The place defaults to what neighbouring beds got; a cell asks who's held
 @Environment(value = EnvType.CLIENT)
-public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
+public class BedTagScreen extends EditorScreen<BedTagScreenHandler> {
     private static final int PLACE_WIDTH = 108;
     private static final int LIST_WIDTH = 128;
     private static final int CARD_WIDTH = 118;
@@ -203,12 +203,16 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
         BedTagScreenData data = handler.getData();
         BedOccupant occupant = picked();
         if(occupant != null)
-            handler.save(occupant.place().toString(), occupant.nestKind(), occupant.job(), occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "", resetLinks);
+            send(occupant.place().toString(), occupant.nestKind(), occupant.job(), occupant.group() == BedOccupant.Group.OTHER ? classList.selectedValue() : "", resetLinks);
         else if(occupantList.selectedValue().equals(KEPT))
-            handler.save("", data.nestKind(), data.job(), data.npcClass(), resetLinks);
+            send("", data.nestKind(), data.job(), data.npcClass(), resetLinks);
         else
-            handler.save("", "", "", "", resetLinks);
+            send("", "", "", "", resetLinks);
         close();
+    }
+
+    private void send(String place, String nestKind, String job, String npcClass, boolean resetLinks) {
+        ClientPlayNetworking.send(new PacketBedTagUpdateRequest(handler.getData().pos(), place, nestKind, job, npcClass, resetLinks));
     }
 
     private static boolean isVillager(BedOccupant occupant) {
@@ -312,40 +316,13 @@ public class BedTagScreen extends HandledScreen<BedTagScreenHandler> {
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
+    protected void submit() {
+        save(false);
     }
 
     @Override
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-    }
-
-    // A container screen closes on the inventory key, a letter players may want to type in search
-    @Override
-    public boolean keyPressed(KeyInput input) {
-        int keyCode = input.key();
-        if(keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
-            save(false);
-            return true;
-        }
-        if(keyCode != GLFW.GLFW_KEY_ESCAPE && getFocused() instanceof TextFieldWidget field && field.isFocused()) {
-            field.keyPressed(input);
-            return true;
-        }
-        return super.keyPressed(input);
-    }
-
-    // Container screens swallow the wheel, so pass it to the list under the mouse
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        for(ChoiceListWidget list : new ChoiceListWidget[]{placeList, occupantList, classList}) {
-            if(list != null && list.visible && list.isMouseOver(mouseX, mouseY))
-                return list.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
-        }
-        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
-    }
-
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    protected ChoiceListWidget[] lists() {
+        return new ChoiceListWidget[]{placeList, occupantList, classList};
     }
 
     @Override
