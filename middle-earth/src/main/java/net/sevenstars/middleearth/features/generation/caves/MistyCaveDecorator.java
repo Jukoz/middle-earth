@@ -17,20 +17,32 @@ public final class MistyCaveDecorator {
     private static final float WORM_INNER = 0.8f; // squared share of the lake radius
     private static final float WORM_CLUSTER = 0.45f;
     private static final int WORM_CHANCE = 60; // out of 256, inside a cluster
+    private static final float WORM_CLUSTER_SCALE = 11;
+    private static final int WORM_HASH_SALT = 4801;
+    private static final int WORM_MAX_LENGTH = 6;
+
+    private static final float ICE_PATCH_SCALE = 7;
+    private static final float ICE_PATCH_MIN = -0.35f;
+    private static final float ICE_FLOOR_COLDNESS = 0.85f; // chance per unit of cold
+    private static final float ICE_WALL_COLDNESS = 0.35f;
+    private static final int ICE_PACKED_CHANCE = 115; // out of 256, else snow
+    private static final int SNOW_LAYER_CHANCE = 150; // out of 256, on a snow block floor
+    private static final int SNOW_MAX_LAYERS = 3;
+    private static final int CHUNK = 16;
 
     private MistyCaveDecorator() {
     }
 
     // weights and surface heights are indexed local x * 16 + local z
-    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, MistyCaves.Lake[] lakes, int[] surfaceY, float[] weights) {
+    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake[] lakes, int[] surfaceY, float[] weights) {
         int startX = chunk.getPos().getStartX();
         int startZ = chunk.getPos().getStartZ();
         BlockPos.Mutable pos = new BlockPos.Mutable();
-        for (MistyCaves.Lake lake : lakes) glowWorms(chunk, blocks, caves, lake, startX, startZ, pos);
-        DepthBands.Edges[] edges = new DepthBands.Edges[16 * 16];
-        for (int lx = 0; lx < 16; lx++) {
-            for (int lz = 0; lz < 16; lz++) {
-                int index = lx * 16 + lz;
+        for (Lake lake : lakes) glowWorms(chunk, blocks, caves, lake, startX, startZ, pos);
+        DepthBands.Edges[] edges = new DepthBands.Edges[CHUNK * CHUNK];
+        for (int lx = 0; lx < CHUNK; lx++) {
+            for (int lz = 0; lz < CHUNK; lz++) {
+                int index = lx * CHUNK + lz;
                 if (weights[index] < ICE_MIN_WEIGHT) continue;
                 int x = startX + lx;
                 int z = startZ + lz;
@@ -41,20 +53,20 @@ public final class MistyCaveDecorator {
         new MistyCaveSetPieces(chunk, blocks, caves, lakes, surfaceY, weights, edges).place();
     }
 
-    private static void glowWorms(Chunk chunk, BlockBuffer blocks, MistyCaves caves, MistyCaves.Lake lake, int startX, int startZ, BlockPos.Mutable pos) {
+    private static void glowWorms(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake lake, int startX, int startZ, BlockPos.Mutable pos) {
         BlockState worm = NatureBlockRegistryME.GLOWWORM_MAIN.getDefaultState();
         BlockState webbing = NatureBlockRegistryME.GLOWWORM_WEBBING.getDefaultState();
         int top = Math.min(lake.waterTop + (int) lake.ceilingMax() + 3, chunk.getTopYInclusive() - 1);
-        for (int lx = 0; lx < 16; lx++) {
-            for (int lz = 0; lz < 16; lz++) {
+        for (int lx = 0; lx < CHUNK; lx++) {
+            for (int lz = 0; lz < CHUNK; lz++) {
                 int x = startX + lx;
                 int z = startZ + lz;
                 float nx = (x - lake.x) / lake.rx;
                 float nz = (z - lake.z) / lake.rz;
                 if (nx * nx + nz * nz > WORM_INNER) continue;
-                float cluster = (float) SimplexNoise.noise((x + caves.offsetX) / 11f, (z + caves.offsetZ) / 11f);
+                float cluster = (float) SimplexNoise.noise((x + caves.offsetX) / WORM_CLUSTER_SCALE, (z + caves.offsetZ) / WORM_CLUSTER_SCALE);
                 if (cluster < WORM_CLUSTER) continue;
-                int h = MistyCaves.mix(x + caves.offsetX, z + caves.offsetZ, 4801);
+                int h = MistyCaves.mix(x + caves.offsetX, z + caves.offsetZ, WORM_HASH_SALT);
                 if ((h & 0xFF) >= WORM_CHANCE) continue;
                 for (int y = lake.waterTop + 1; y <= top; y++) {
                     if (!blocks.get(x, y, z).isAir()) break;
@@ -62,7 +74,7 @@ public final class MistyCaveDecorator {
                     pos.set(x, y + 1, z);
                     if (above.isAir() || !above.getFluidState().isEmpty()) continue;
                     if (!above.isFullCube(chunk, pos)) break;
-                    int length = 1 + ((h >>> 8) & 0xFF) % 6;
+                    int length = 1 + ((h >>> 8) & 0xFF) % WORM_MAX_LENGTH;
                     for (int i = 0; i < length; i++) {
                         pos.set(x, y - i, z);
                         if (y - i <= lake.waterTop || !blocks.get(x, y - i, z).isAir()) break;
@@ -95,25 +107,26 @@ public final class MistyCaveDecorator {
                     || (lz < 15 && blocks.get(x, y, z + 1).isAir()));
             if (!floor && !wall) continue;
             float cold = 1 - (surface - y) / (float) depth;
-            float patch = (float) SimplexNoise.noise((x + caves.offsetX) / 7f, (y + caves.offsetY) / 7f, (z + caves.offsetZ) / 7f);
-            if (patch < -0.35f) continue;
+            float patch = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_PATCH_SCALE, (y + caves.offsetY) / ICE_PATCH_SCALE, (z + caves.offsetZ) / ICE_PATCH_SCALE);
+            if (patch < ICE_PATCH_MIN) continue;
             int h = MistyCaves.mix(x + caves.offsetX, y + caves.offsetY, z + caves.offsetZ);
-            float roll = (h & 0xFF) / 255f;
-            boolean pick = ((h >>> 8) & 0xFF) < 115;
-            BlockState result = null;
-            if (floor) {
-                if (roll < cold * 0.85f) result = pick ? Blocks.PACKED_ICE.getDefaultState() : Blocks.SNOW_BLOCK.getDefaultState();
-            } else if (roll < cold * 0.35f) {
-                result = pick ? Blocks.PACKED_ICE.getDefaultState() : Blocks.SNOW_BLOCK.getDefaultState();
-            }
+            BlockState result = iceBlock(h, cold, floor);
             if (result == null) continue;
             blocks.put(x, y, z, result);
             // layers do not survive on ice
-            if (floor && result.isOf(Blocks.SNOW_BLOCK) && ((h >>> 16) & 0xFF) < 150) {
-                int layers = 1 + ((h >>> 24) & 0xFF) % 3;
+            if (floor && result.isOf(Blocks.SNOW_BLOCK) && ((h >>> 16) & 0xFF) < SNOW_LAYER_CHANCE) {
+                int layers = 1 + ((h >>> 24) & 0xFF) % SNOW_MAX_LAYERS;
                 carried = Blocks.SNOW.getDefaultState().with(SnowBlock.LAYERS, layers);
                 blocks.put(x, y + 1, z, carried);
             }
         }
+    }
+
+    // null where the roll leaves the rock bare
+    private static BlockState iceBlock(int h, float cold, boolean floor) {
+        float roll = (h & 0xFF) / 255f;
+        boolean packed = ((h >>> 8) & 0xFF) < ICE_PACKED_CHANCE;
+        if (roll >= cold * (floor ? ICE_FLOOR_COLDNESS : ICE_WALL_COLDNESS)) return null;
+        return packed ? Blocks.PACKED_ICE.getDefaultState() : Blocks.SNOW_BLOCK.getDefaultState();
     }
 }

@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
+import net.sevenstars.middleearth.features.generation.worldfeatures.ReachableChunks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -28,6 +29,8 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 
 public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
+    private static final int READABLE_CHUNK_RADIUS = 1;
+    private static final int VERTICAL_MARGIN = 3; // blocks of reach above and below the height
     private static final ImmutableList<Block> CANNOT_PLACE_ON_BLOCKS;
     private static final ImmutableList<Block> CANNOT_REPLACE_BLOCKS;
 
@@ -55,7 +58,7 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         float angle = random.nextFloat() * 180;
 
         int reach = (int) forSize;
-        int verticalReach = (int) baseHeight + 3;
+        int verticalReach = (int) baseHeight + VERTICAL_MARGIN;
         BlockBox bounds = new BlockBox(blockPos.getX() - reach, blockPos.getY() - verticalReach, blockPos.getZ() - reach,
                 blockPos.getX() + reach, blockPos.getY() + verticalReach, blockPos.getZ() + reach);
         if(intersectsStructure(structureWorldAccess, blockPos, bounds)) {
@@ -85,40 +88,34 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
     private static boolean intersectsStructure(StructureWorldAccess world, BlockPos origin, BlockBox bounds) {
         // Only the origin chunk and its neighbours are guaranteed to be readable while features generate
         ChunkPos center = new ChunkPos(origin);
-        int minChunkX = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinX()), center.x - 1);
-        int maxChunkX = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxX()), center.x + 1);
-        int minChunkZ = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinZ()), center.z - 1);
-        int maxChunkZ = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxZ()), center.z + 1);
+        int minChunkX = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinX()), center.x - READABLE_CHUNK_RADIUS);
+        int maxChunkX = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxX()), center.x + READABLE_CHUNK_RADIUS);
+        int minChunkZ = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinZ()), center.z - READABLE_CHUNK_RADIUS);
+        int maxChunkZ = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxZ()), center.z + READABLE_CHUNK_RADIUS);
         for(int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
             for(int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
-                Chunk chunk = reachable(world, chunkX, chunkZ, ChunkStatus.STRUCTURE_REFERENCES);
+                Chunk chunk = ReachableChunks.get(world, chunkX, chunkZ, ChunkStatus.STRUCTURE_REFERENCES);
                 if(chunk == null) continue;
                 for(Map.Entry<Structure, LongSet> entry : chunk.getStructureReferences().entrySet()) {
-                    Structure structure = entry.getKey();
-                    for(long packed : entry.getValue()) {
-                        // a start can be many chunks away, beyond what the generation region provides
-                        Chunk startChunk = reachable(world, ChunkPos.getPackedX(packed), ChunkPos.getPackedZ(packed), ChunkStatus.STRUCTURE_STARTS);
-                        if(startChunk == null) continue;
-                        StructureStart start = startChunk.getStructureStart(structure);
-                        if(start == null) continue;
-                        for(StructurePiece piece : start.getChildren()) {
-                            if(piece.getBoundingBox().intersects(bounds)) return true;
-                        }
-                    }
+                    if(startIntersects(world, entry.getKey(), entry.getValue(), bounds)) return true;
                 }
             }
         }
         return false;
     }
 
-    // null when the generation region does not reach that chunk at that status; it throws instead of answering
-    private static Chunk reachable(StructureWorldAccess world, int chunkX, int chunkZ, ChunkStatus status) {
-        if(!world.isChunkLoaded(chunkX, chunkZ)) return null;
-        try {
-            return world.getChunk(chunkX, chunkZ, status, false);
-        } catch(RuntimeException exception) {
-            return null;
+    private static boolean startIntersects(StructureWorldAccess world, Structure structure, LongSet starts, BlockBox bounds) {
+        for(long packed : starts) {
+            // a start can be many chunks away, beyond what the generation region provides
+            Chunk startChunk = ReachableChunks.get(world, ChunkPos.getPackedX(packed), ChunkPos.getPackedZ(packed), ChunkStatus.STRUCTURE_STARTS);
+            if(startChunk == null) continue;
+            StructureStart start = startChunk.getStructureStart(structure);
+            if(start == null) continue;
+            for(StructurePiece piece : start.getChildren()) {
+                if(piece.getBoundingBox().intersects(bounds)) return true;
+            }
         }
+        return false;
     }
 
     private boolean isPointInside(int x, int y, int z, float length, float width, float baseHeight, float angle, float randomNoise, Random random) {

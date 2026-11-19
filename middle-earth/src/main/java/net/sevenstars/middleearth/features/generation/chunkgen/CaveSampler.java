@@ -7,7 +7,10 @@ import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.caves.BlockBuffer;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
+import net.sevenstars.middleearth.features.generation.caves.Lake;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
+import net.sevenstars.middleearth.features.generation.caves.Shaft;
+import net.sevenstars.middleearth.features.generation.caves.Worm;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
@@ -92,15 +95,15 @@ final class CaveSampler {
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;
-    private final MistyCaves.Shaft[] shafts;
+    private final Shaft[] shafts;
     private final float[][] shaftColumns; // per ravine and corner: distance across, half width
-    private final MistyCaves.Lake[] lakes;
+    private final Lake[] lakes;
     private final float[][] lakeWobble;
     private final int[] surfaceY;
     private final DepthBands.Edges[] cornerEdges; // null where the weight is 0
     private final DeepThemes.Theme[] cornerThemes;
     private final boolean[] cornerBorders;
-    private MistyCaves.Worm[] worms; // only when a corner of the chunk lies in the gnawed deeps
+    private Worm[] worms; // only when a corner of the chunk lies in the gnawed deeps
     private int riftMinY = Integer.MAX_VALUE;
     private int chamberMinY = Integer.MAX_VALUE;
     private int chamberMaxY = Integer.MIN_VALUE;
@@ -169,7 +172,7 @@ final class CaveSampler {
         }
         // a lake tunnel runs out of the Misty region, and the chunks it passes through still carry it
         MistyCaves candidate = new MistyCaves(seed);
-        MistyCaves.Lake[] tunnels = any ? null : candidate.lakesNear(map, startX, startZ);
+        Lake[] tunnels = any ? null : candidate.lakesNear(map, startX, startZ);
         // and the gnawed deeps are bored by worms wherever the floor is deep, Misty or not
         boolean deepHere = false;
         for (int i = 0; i < lattice && !deepHere; i++) {
@@ -313,7 +316,7 @@ final class CaveSampler {
                 if (state == MistyCaves.LAKE_WATER) return WATER;
                 if (state == MistyCaves.LAKE_AIR) return AIR;
             }
-            for (MistyCaves.Lake lake : lakes) {
+            for (Lake lake : lakes) {
                 if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
             }
         }

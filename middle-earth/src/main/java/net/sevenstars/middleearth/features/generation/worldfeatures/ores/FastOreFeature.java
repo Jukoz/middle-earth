@@ -30,6 +30,8 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
     private static final int MAX_CACHED_TARGETS = 64;
     private static final int CACHE_SIZE = 8;
+    private static final int BLOB_STRIDE = 4;
+    private static final int RADIUS = 3; // offset in a blob
 
     private static final class Scratch {
         long[] visited = new long[256];
@@ -65,28 +67,28 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
     @Override
     public boolean generate(FeatureContext<OreFeatureConfig> context) {
         Random random = context.getRandom();
-        BlockPos blockPos = context.getOrigin();
-        StructureWorldAccess structureWorldAccess = context.getWorld();
-        OreFeatureConfig oreFeatureConfig = context.getConfig();
-        float f = random.nextFloat() * (float) Math.PI;
-        float g = oreFeatureConfig.size / 8.0F;
-        int i = MathHelper.ceil((oreFeatureConfig.size / 16.0F * 2.0F + 1.0F) / 2.0F);
-        double d = blockPos.getX() + Math.sin(f) * g;
-        double e = blockPos.getX() - Math.sin(f) * g;
-        double h = blockPos.getZ() + Math.cos(f) * g;
-        double j = blockPos.getZ() - Math.cos(f) * g;
-        double l = blockPos.getY() + random.nextInt(3) - 2;
-        double m = blockPos.getY() + random.nextInt(3) - 2;
-        int n = blockPos.getX() - MathHelper.ceil(g) - i;
-        int o = blockPos.getY() - 2 - i;
-        int p = blockPos.getZ() - MathHelper.ceil(g) - i;
-        int q = 2 * (MathHelper.ceil(g) + i);
-        int r = 2 * (2 + i);
+        BlockPos origin = context.getOrigin();
+        StructureWorldAccess world = context.getWorld();
+        OreFeatureConfig config = context.getConfig();
+        float angle = random.nextFloat() * (float) Math.PI;
+        float halfSpread = config.size / 8.0F;
+        int radiusPad = MathHelper.ceil((config.size / 16.0F * 2.0F + 1.0F) / 2.0F);
+        double startX = origin.getX() + Math.sin(angle) * halfSpread;
+        double endX = origin.getX() - Math.sin(angle) * halfSpread;
+        double startZ = origin.getZ() + Math.cos(angle) * halfSpread;
+        double endZ = origin.getZ() - Math.cos(angle) * halfSpread;
+        double startY = origin.getY() + random.nextInt(3) - 2;
+        double endY = origin.getY() + random.nextInt(3) - 2;
+        int minX = origin.getX() - MathHelper.ceil(halfSpread) - radiusPad;
+        int minY = origin.getY() - 2 - radiusPad;
+        int minZ = origin.getZ() - MathHelper.ceil(halfSpread) - radiusPad;
+        int horizontalSpan = 2 * (MathHelper.ceil(halfSpread) + radiusPad);
+        int verticalSpan = 2 * (2 + radiusPad);
 
-        for (int s = n; s <= n + q; s++) {
-            for (int t = p; t <= p + q; t++) {
-                if (o <= structureWorldAccess.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, s, t)) {
-                    return generateVeinPart(structureWorldAccess, random, oreFeatureConfig, d, e, h, j, l, m, n, o, p, q, r);
+        for (int x = minX; x <= minX + horizontalSpan; x++) {
+            for (int z = minZ; z <= minZ + horizontalSpan; z++) {
+                if (minY <= world.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, x, z)) {
+                    return generateVeinPart(world, random, config, startX, endX, startZ, endZ, startY, endY, minX, minY, minZ, horizontalSpan, verticalSpan);
                 }
             }
         }
@@ -100,47 +102,52 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
                 || type == BlockStateMatchRuleTest.class || type == AlwaysTrueRuleTest.class;
     }
 
+    // x, y, z and radius of each blob along the vein; a negative radius marks one swallowed by another
+    private static void fillBlobs(double[] blobs, int size, Random random, double startX, double endX, double startY, double endY, double startZ, double endZ) {
+        for (int k = 0; k < size; k++) {
+            float f = (float) k / size;
+            double d = MathHelper.lerp(f, startX, endX);
+            double e = MathHelper.lerp(f, startY, endY);
+            double g = MathHelper.lerp(f, startZ, endZ);
+            double h = random.nextDouble() * size / 16.0;
+            double l = ((MathHelper.sin((float) Math.PI * f) + 1.0F) * h + 1.0) / 2.0;
+            blobs[k * BLOB_STRIDE] = d;
+            blobs[k * BLOB_STRIDE + 1] = e;
+            blobs[k * BLOB_STRIDE + 2] = g;
+            blobs[k * BLOB_STRIDE + RADIUS] = l;
+        }
+    }
+
+    private static void dropOverlapping(double[] blobs, int size) {
+        for (int k = 0; k < size - 1; k++) {
+            if (blobs[k * BLOB_STRIDE + RADIUS] <= 0.0) continue;
+            for (int m = k + 1; m < size; m++) {
+                if (blobs[m * BLOB_STRIDE + RADIUS] <= 0.0) continue;
+                double d = blobs[k * BLOB_STRIDE] - blobs[m * BLOB_STRIDE];
+                double e = blobs[k * BLOB_STRIDE + 1] - blobs[m * BLOB_STRIDE + 1];
+                double g = blobs[k * BLOB_STRIDE + 2] - blobs[m * BLOB_STRIDE + 2];
+                double h = blobs[k * BLOB_STRIDE + RADIUS] - blobs[m * BLOB_STRIDE + RADIUS];
+                if (h * h > d * d + e * e + g * g) {
+                    if (h > 0.0) {
+                        blobs[m * BLOB_STRIDE + RADIUS] = -1.0;
+                    } else {
+                        blobs[k * BLOB_STRIDE + RADIUS] = -1.0;
+                    }
+                }
+            }
+        }
+    }
+
     private static boolean generateVeinPart(StructureWorldAccess world, Random random, OreFeatureConfig config, double startX, double endX,
                                             double startZ, double endZ, double startY, double endY, int x, int y, int z, int horizontalSize, int verticalSize) {
         int placed = 0;
         Scratch scratch = SCRATCH.get();
         scratch.clearVisited();
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        int j = config.size;
-        double[] ds = new double[j * 4];
-
-        for (int k = 0; k < j; k++) {
-            float f = (float) k / j;
-            double d = MathHelper.lerp(f, startX, endX);
-            double e = MathHelper.lerp(f, startY, endY);
-            double g = MathHelper.lerp(f, startZ, endZ);
-            double h = random.nextDouble() * j / 16.0;
-            double l = ((MathHelper.sin((float) Math.PI * f) + 1.0F) * h + 1.0) / 2.0;
-            ds[k * 4 + 0] = d;
-            ds[k * 4 + 1] = e;
-            ds[k * 4 + 2] = g;
-            ds[k * 4 + 3] = l;
-        }
-
-        for (int k = 0; k < j - 1; k++) {
-            if (!(ds[k * 4 + 3] <= 0.0)) {
-                for (int m = k + 1; m < j; m++) {
-                    if (!(ds[m * 4 + 3] <= 0.0)) {
-                        double d = ds[k * 4 + 0] - ds[m * 4 + 0];
-                        double e = ds[k * 4 + 1] - ds[m * 4 + 1];
-                        double g = ds[k * 4 + 2] - ds[m * 4 + 2];
-                        double h = ds[k * 4 + 3] - ds[m * 4 + 3];
-                        if (h * h > d * d + e * e + g * g) {
-                            if (h > 0.0) {
-                                ds[m * 4 + 3] = -1.0;
-                            } else {
-                                ds[k * 4 + 3] = -1.0;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        int size = config.size;
+        double[] blobs = new double[size * BLOB_STRIDE];
+        fillBlobs(blobs, size, random, startX, endX, startY, endY, startZ, endZ);
+        dropOverlapping(blobs, size);
 
         List<OreFeatureConfig.Target> targets = config.targets;
         int targetCount = targets.size();
@@ -160,12 +167,12 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
             ChunkSection section = null;
             // false while the current section holds no state any target accepts, so its blocks need no look
             boolean sectionMayMatch = true;
-            for (int m = 0; m < j; m++) {
-                double d = ds[m * 4 + 3];
+            for (int m = 0; m < size; m++) {
+                double d = blobs[m * BLOB_STRIDE + RADIUS];
                 if (!(d < 0.0)) {
-                    double e = ds[m * 4 + 0];
-                    double g = ds[m * 4 + 1];
-                    double h = ds[m * 4 + 2];
+                    double e = blobs[m * BLOB_STRIDE];
+                    double g = blobs[m * BLOB_STRIDE + 1];
+                    double h = blobs[m * BLOB_STRIDE + 2];
                     int n = Math.max(MathHelper.floor(e - d), x);
                     int o = Math.max(MathHelper.floor(g - d), y);
                     int p = Math.max(MathHelper.floor(h - d), z);
