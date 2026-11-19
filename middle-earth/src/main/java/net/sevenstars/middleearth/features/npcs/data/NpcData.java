@@ -23,62 +23,62 @@ public class NpcData {
     private RegistryEntry<NpcClass> npcClass;
     private EntityCategories category;
     private final SpawnReason spawnReason;
-    private final Optional<BlockPos> structureManagerPos;
+    private final Optional<BlockPos> hostPos;
 
     static {
         CODEC = RecordCodecBuilder.create((instance) -> instance.group(
                 DynamicRegistriesME.NPC_CLASS_CODEC.optionalFieldOf("Type").forGetter(NpcData::getOptionalNpcClass),
                 Codec.STRING.optionalFieldOf("Category").forGetter(NpcData::getOptionalCategory),
                 Codec.STRING.optionalFieldOf("SpawnReason").forGetter(NpcData::getOptionalSpawnReason),
-                BlockPos.CODEC.optionalFieldOf("StructureManagerPos").forGetter((data) -> data.structureManagerPos)
+                BlockPos.CODEC.optionalFieldOf("StructureManagerPos").forGetter((data) -> data.hostPos)
         ).apply(instance, NpcData::new));
 
         PACKET_CODEC = PacketCodec.tuple(
                 PacketCodecs.optional(PacketCodecs.registryEntry(DynamicRegistriesME.NPC_CLASS)), NpcData::getOptionalNpcClass,
                 PacketCodecs.optional(PacketCodecs.STRING), NpcData::getOptionalCategory,
                 PacketCodecs.optional(PacketCodecs.STRING), NpcData::getOptionalSpawnReason,
-                PacketCodecs.optional(BlockPos.PACKET_CODEC), NpcData::getOptionalStructureManagerPos,
+                PacketCodecs.optional(BlockPos.PACKET_CODEC), NpcData::getOptionalHostPos,
                 NpcData::new);
     }
 
-    public NpcData(Optional<RegistryEntry<NpcClass>> npcClass, Optional<String> category, Optional<String> spawnReason, Optional<BlockPos> structureManagerPos) {
+    public NpcData(Optional<RegistryEntry<NpcClass>> npcClass, Optional<String> category, Optional<String> spawnReason, Optional<BlockPos> hostPos) {
         this.npcClass = npcClass.orElse(null);
         this.category = category.map(value -> parseEnum(EntityCategories.class, value)).orElse(null);
         this.spawnReason = spawnReason.map(value -> parseEnum(SpawnReason.class, value)).orElse(null);
-        this.structureManagerPos = structureManagerPos == null ||  structureManagerPos.isEmpty() ? Optional.empty() : structureManagerPos;
+        this.hostPos = hostPos == null ||  hostPos.isEmpty() ? Optional.empty() : hostPos;
     }
 
-    public NpcData(RegistryEntry<NpcClass> npcClass, EntityCategories category, SpawnReason spawnReason, Optional<BlockPos> structureManagerPos) {
+    public NpcData(RegistryEntry<NpcClass> npcClass, EntityCategories category, SpawnReason spawnReason, Optional<BlockPos> hostPos) {
         this.npcClass = npcClass;
         this.category = category;
         this.spawnReason = spawnReason;
-        this.structureManagerPos = structureManagerPos == null || structureManagerPos.isEmpty() ? Optional.empty() : structureManagerPos;
+        this.hostPos = hostPos == null || hostPos.isEmpty() ? Optional.empty() : hostPos;
     }
 
     public NpcData() {
         this.npcClass = null;
         this.category = null;
         this.spawnReason = null;
-        this.structureManagerPos = Optional.empty();
+        this.hostPos = Optional.empty();
     }
 
     // [BUILDERS]
     public NpcData withNpcClass(RegistryEntry<NpcClass> npcClass) {
-        return new NpcData(npcClass, category, spawnReason, structureManagerPos);
+        return new NpcData(npcClass, category, spawnReason, hostPos);
     }
 
     public NpcData withCategory(EntityCategories category) {
-        return new NpcData(this.npcClass, category, this.spawnReason, this.structureManagerPos);
+        return new NpcData(this.npcClass, category, this.spawnReason, this.hostPos);
     }
 
     public NpcData withSpawnReason(SpawnReason spawnReason) {
-        return new NpcData(this.npcClass, this.category, spawnReason, this.structureManagerPos);
+        return new NpcData(this.npcClass, this.category, spawnReason, this.hostPos);
     }
 
-    public NpcData withStructureManagerPos(BlockPos structureManagerPos) {
-        return new NpcData(this.npcClass, this.category, this.spawnReason, Optional.of(structureManagerPos));
+    public NpcData withHostPos(BlockPos hostPos) {
+        return new NpcData(this.npcClass, this.category, this.spawnReason, Optional.of(hostPos));
     }
-    public NpcData withoutStructureManagerPos() {
+    public NpcData withoutHostPos() {
         return new NpcData(this.npcClass, this.category, this.spawnReason, Optional.empty());
     }
 
@@ -124,12 +124,12 @@ public class NpcData {
         return spawnReason != null ? Optional.of(spawnReason.name()) : Optional.empty();
     }
 
-    private Optional<BlockPos> getOptionalStructureManagerPos() {
-        return structureManagerPos;
+    private Optional<BlockPos> getOptionalHostPos() {
+        return hostPos;
     }
 
-    public BlockPos getStructureManagerPos() {
-        return structureManagerPos.orElse(null);
+    public BlockPos getHostPos() {
+        return hostPos.orElse(null);
     }
 
 

@@ -730,12 +730,12 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // [HOUSEHOLD AND MANAGER]
     public void assignHost(BlockPos host){
-        NpcData newNpcData = this.retrieveNpcData().withStructureManagerPos(host);
+        NpcData newNpcData = this.retrieveNpcData().withHostPos(host);
         this.saveNpcData(newNpcData);
     }
 
-    public BlockPos getStructureManagerHostPos() {
-        return this.retrieveNpcData().getStructureManagerPos();
+    public BlockPos getHostPos() {
+        return this.retrieveNpcData().getHostPos();
     }
 
     public void setHousehold(@Nullable BlockPos bed, @Nullable BlockPos bedStand, @Nullable BlockPos store, List<BlockPos> links) {
@@ -772,14 +772,14 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     public boolean isPersistent() {
-        BlockPos structureManagerPos = getStructureManagerHostPos();
-        if(structureManagerPos == null)
+        BlockPos hostPos = getHostPos();
+        if(hostPos == null)
             return super.isPersistent();
         // Skip unloaded chunks, reading the block entity would load them
         if(age >= managerCheckAge) {
             managerCheckAge = age + MANAGER_CHECK_INTERVAL;
-            if(getEntityWorld().isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4))
-                managerPresent = NestHost.isHost(getEntityWorld(), structureManagerPos);
+            if(getEntityWorld().isChunkLoaded(hostPos.getX() >> 4, hostPos.getZ() >> 4))
+                managerPresent = NestHost.isHost(getEntityWorld(), hostPos);
         }
         if(managerPresent)
             return true;
@@ -894,7 +894,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     // Nowhere left to run near home
     public boolean isAtHome() {
         BlockPos routineHome = getRoutineHome();
-        return routineHome != null && getStructureManagerHostPos() != null && routineHome.isWithinDistance(getEntityPos(), HOME_STAND_RANGE);
+        return routineHome != null && getHostPos() != null && routineHome.isWithinDistance(getEntityPos(), HOME_STAND_RANGE);
     }
 
     public void callGuardsOnce(LivingEntity threat) {
@@ -1225,8 +1225,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
                 abstractBeastEntity.resetTameness();
             }
         }
-        BlockPos structureManagerPos = getStructureManagerHostPos();
-        NestHost.signalGone(getEntityWorld(), structureManagerPos, this);
+        BlockPos hostPos = getHostPos();
+        NestHost.signalGone(getEntityWorld(), hostPos, this);
         super.onDeath(source);
     }
 

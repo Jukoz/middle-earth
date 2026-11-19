@@ -125,9 +125,9 @@ public class NpcAlarm {
 
     private Set<NpcEntity> neighbours(ServerWorld world) {
         Set<NpcEntity> neighbours = new LinkedHashSet<>(world.getEntitiesByClass(NpcEntity.class, npc.getBoundingBox().expand(ALARM_RANGE, ALARM_HEIGHT_RANGE, ALARM_RANGE), other -> other != npc && other.isAlive()));
-        BlockPos structureManagerPos = npc.getStructureManagerHostPos();
-        if(structureManagerPos != null && world.isChunkLoaded(structureManagerPos.getX() >> 4, structureManagerPos.getZ() >> 4)) {
-            for(UUID owner : NestHost.residents(world, structureManagerPos)) {
+        BlockPos hostPos = npc.getHostPos();
+        if(hostPos != null && world.isChunkLoaded(hostPos.getX() >> 4, hostPos.getZ() >> 4)) {
+            for(UUID owner : NestHost.residents(world, hostPos)) {
                 if(world.getEntity(owner) instanceof NpcEntity resident && resident != npc && resident.isAlive())
                     neighbours.add(resident);
             }

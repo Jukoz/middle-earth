@@ -114,7 +114,7 @@ class HuntingActivity extends RoutineActivity {
     }
 
     boolean leftToHunters(ServerWorld world) {
-        BlockPos managerPos = npc.getStructureManagerHostPos();
+        BlockPos managerPos = npc.getHostPos();
         if(NpcJobs.HUNTER.getValue().equals(npc.getJobId()) || managerPos == null || !isLoaded(world, managerPos))
             return false;
         for(UUID resident : NestHost.residents(world, managerPos)) {

@@ -64,7 +64,7 @@ final class FleeBehaviour extends Behaviour {
     private void flee(NpcEntity npc) {
         BlockPos home = npc.getRoutineHome();
         Vec3d destination = null;
-        if(home != null && npc.getStructureManagerHostPos() != null)
+        if(home != null && npc.getHostPos() != null)
             destination = NoPenaltyTargeting.findTo(npc, FLEE_DISTANCE, FLEE_HEIGHT, Vec3d.ofBottomCenter(home), HOME_ANGLE);
         if(destination == null && threat != null)
             destination = NoPenaltyTargeting.findFrom(npc, FLEE_DISTANCE, FLEE_HEIGHT, threat.getEntityPos());

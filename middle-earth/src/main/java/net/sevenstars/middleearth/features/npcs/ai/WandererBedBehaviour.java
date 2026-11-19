@@ -45,7 +45,7 @@ final class WandererBedBehaviour extends Behaviour {
             return false;
         boolean travelling = npc.getPartyLeader() != null || npc.getTravelHeading() != null;
         // Npcs that live somewhere have their own beds, and a raiding party won't sleep where it's raiding
-        return travelling && hasTriesLeft(world) && npc.getStructureManagerHostPos() == null && !npc.isEvil() && !npc.isConfined()
+        return travelling && hasTriesLeft(world) && npc.getHostPos() == null && !npc.isEvil() && !npc.isConfined()
                 && !npc.isSleeping() && !npc.hasVehicle() && npc.getTarget() == null && world.getTime() >= nextSearch;
     }
 

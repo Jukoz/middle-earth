@@ -129,7 +129,7 @@ public final class NpcFailureRecorder {
         out.add("bedStand", block(npc.getBedStand()));
         out.add("home", block(home));
         out.add("store", block(npc.getStore()));
-        out.add("manager", block(npc.getStructureManagerHostPos()));
+        out.add("manager", block(npc.getHostPos()));
         if(path != null) {
             JsonObject route = new JsonObject();
             route.addProperty("length", path.getLength());

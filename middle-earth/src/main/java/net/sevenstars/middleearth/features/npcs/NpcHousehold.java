@@ -9,7 +9,7 @@ import java.util.List;
 
 public class NpcHousehold {
     private @Nullable BlockPos routineHome = null;
-    // Set by the nest's structure manager
+    // Set by its nest
     private @Nullable BlockPos assignedBed = null;
     private @Nullable BlockPos bedStand = null;
     private @Nullable BlockPos store = null;

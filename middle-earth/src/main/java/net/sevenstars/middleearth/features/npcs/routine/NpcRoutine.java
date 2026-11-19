@@ -247,12 +247,12 @@ public class NpcRoutine {
             return false;
         }
         // A wild npc's camp is wherever it first stood
-        if(npc.getRoutineHome() == null && npc.getStructureManagerHostPos() == null)
+        if(npc.getRoutineHome() == null && npc.getHostPos() == null)
             npc.setRoutineHome(npc.getBlockPos());
         if(isResting(world, time))
             return false;
         // A rider stays with its mount through the night and has no bed to lie in
-        BlockPos restingHome = npc.getStructureManagerHostPos() == null || walker.riding() ? null : npc.getRoutineHome();
+        BlockPos restingHome = npc.getHostPos() == null || walker.riding() ? null : npc.getRoutineHome();
         if(restingHome != null && npc.isRestTime())
             return bedTime(world, time, restingHome);
         if(!isWatched(world)) {
@@ -348,14 +348,14 @@ public class NpcRoutine {
     }
 
     private boolean goHomeOffDuty(ServerWorld world, long time, BlockPos home) {
-        if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE))
+        if(npc.getHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE))
             return headHome(world);
         return false;
     }
 
     private @Nullable RoutineData.Activity pickActivity(ServerWorld world, RoutineData routine, BlockPos home, long time) {
         // Underground npcs stay in their halls. A wild npc has no house, so any roof is a cave
-        boolean underground = npc.getStructureManagerHostPos() == null ? isUnderCover(world, home) : RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
+        boolean underground = npc.getHostPos() == null ? isUnderCover(world, home) : RoutineSite.isEnclosed(world, home.getX(), home.getZ(), home.getY());
         boolean onDuty = routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift());
         // Elves need little sleep and keep company through the night
         if(!onDuty && (!npc.isElf() || npc.isRestTime()))
@@ -399,7 +399,7 @@ public class NpcRoutine {
     }
 
     private boolean drifted(ServerWorld world) {
-        BlockPos managerPos = npc.getStructureManagerHostPos();
+        BlockPos managerPos = npc.getHostPos();
         if(managerPos == null)
             return false;
         BlockPos home = npc.getRoutineHome();
@@ -420,7 +420,7 @@ public class NpcRoutine {
     }
 
     private boolean findSite(ServerWorld world) {
-        BlockPos managerPos = npc.getStructureManagerHostPos();
+        BlockPos managerPos = npc.getHostPos();
         if(managerPos != null) {
             // Fetched every start. A site forgotten meanwhile would differ from neighbours'
             RoutineSite found = RoutineSites.forManager(world, managerPos);
@@ -456,7 +456,7 @@ public class NpcRoutine {
         activity = picked;
         homeward = false;
         npc.setFarming(handler.isFarming());
-        npc.setOnOuting(npc.getStructureManagerHostPos() != null && handler.isOuting());
+        npc.setOnOuting(npc.getHostPos() != null && handler.isOuting());
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
         phase = Phase.GOING;
         failed = false;

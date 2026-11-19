@@ -153,7 +153,7 @@ public class NpcPrison {
     // Out of its cell it goes back to its own people and flees the place that held it
     private void free(ServerWorld world) {
         escaping = false;
-        BlockPos managerPos = npc.getStructureManagerHostPos();
+        BlockPos managerPos = npc.getHostPos();
         boolean managerLoaded = managerPos != null && world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4);
         Vec3d placeCentre = managerLoaded ? centreOfSite(world, managerPos) : new Vec3d(cell.centerX(), 0, cell.centerZ());
         if(managerLoaded)
@@ -161,7 +161,7 @@ public class NpcPrison {
         cell = null;
         npc.setJob(null);
         rearm();
-        npc.saveNpcData(npc.retrieveNpcData().withoutStructureManagerPos());
+        npc.saveNpcData(npc.retrieveNpcData().withoutHostPos());
         npc.getHousehold().clear();
         npc.getNavigation().stop();
         npc.getParty().setTravelDestination(null);

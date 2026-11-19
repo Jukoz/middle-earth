@@ -178,7 +178,7 @@ public class SpawnNestManager {
         }
     }
 
-    private void respawnAll(ServerWorld world, BlockPos structureManagerPos) {
+    private void respawnAll(ServerWorld world, BlockPos hostPos) {
         SpawnNestNodeData data = NestLookup.findNest(world, id);
 
         if(data != null){
@@ -195,16 +195,16 @@ public class SpawnNestManager {
                 }
                 bedside = NestSurvey.standFor(world, bed);
             }
-            RoutineSite site = RoutineSites.forManager(world, structureManagerPos);
+            RoutineSite site = RoutineSites.forManager(world, hostPos);
             int entityAmountToSpawn = hasFixedCapacity() ? capacity : pool.getEntityAmount(world.getRandom());
             for(int i = 0; i < entityAmountToSpawn; i ++){
                 LivingEntity entityToAdd = spawnResident(world, pool, bedside);
                 if(entityToAdd instanceof NpcEntity npcEntity)
-                    settle(npcEntity, data, world, structureManagerPos, site, bedside);
+                    settle(npcEntity, data, world, hostPos, site, bedside);
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
             }
-            world.markDirty(structureManagerPos);
+            world.markDirty(hostPos);
         }
         if(entities.isEmpty())
             this.respawnEventTriggerTick = world.getTime();
@@ -219,13 +219,13 @@ public class SpawnNestManager {
         return NestSpawner.spawnEntity(world, pool, originPos, spawnRadius);
     }
 
-    private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
+    private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos hostPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
         Optional<Identifier> bedJob = getHouseholdJob();
         Optional<Identifier> job = bedJob.isPresent() ? bedJob : data.getJob();
         if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
-            job = guardDuty(world, structureManagerPos, site);
+            job = guardDuty(world, hostPos, site);
         job.ifPresent(npc::takeJob);
-        npc.assignHost(structureManagerPos);
+        npc.assignHost(hostPos);
         if(npc.isPrisoner()) {
             PrisonCell cell = site == null ? null : site.findCell(npc.getBlockPos());
             npc.setPrisonCell(cell != null ? cell : PrisonCell.around(world, npc.getBlockPos()));
@@ -236,7 +236,7 @@ public class SpawnNestManager {
             npc.setHousehold(null, null, null, List.of());
     }
 
-    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site) {
+    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos hostPos, @Nullable RoutineSite site) {
         if(site == null)
             return Optional.of(NpcJobs.PATROL.getValue());
         int reach = site.getExtent() + GUARD_COUNT_MARGIN;

@@ -284,7 +284,7 @@ interface TravelMode {
 
         private @Nullable Vec3d nearHome(NpcEntity npc, @Nullable Vec3d target) {
             BlockPos home = npc.getRoutineHome();
-            if(target == null || home == null || npc.getStructureManagerHostPos() == null || home.isWithinDistance(target, HOME_LEASH))
+            if(target == null || home == null || npc.getHostPos() == null || home.isWithinDistance(target, HOME_LEASH))
                 return inField(npc, target) ? null : target;
             Vec3d back = NoPenaltyTargeting.findTo(npc, HOME_PULL_RANGE, HOME_PULL_HEIGHT, Vec3d.ofBottomCenter(home), MathHelper.HALF_PI);
             return inField(npc, back) ? null : back;

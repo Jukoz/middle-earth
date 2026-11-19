@@ -33,7 +33,7 @@ final class RaidBehaviour extends TargetBehaviour {
     }
 
     static boolean isRaiding(NpcEntity npc) {
-        return npc.isEvil() && npc.getEntityWorld().isNight() && npc.getStructureManagerHostPos() == null && !npc.isConfined();
+        return npc.isEvil() && npc.getEntityWorld().isNight() && npc.getHostPos() == null && !npc.isConfined();
     }
 
     @Override
