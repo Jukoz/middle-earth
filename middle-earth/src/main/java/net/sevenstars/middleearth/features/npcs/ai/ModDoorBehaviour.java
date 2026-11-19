@@ -23,6 +23,9 @@ final class ModDoorBehaviour extends Behaviour {
 
     private @Nullable BlockPos origin = null;
     private @Nullable BlockPos doorway = null;
+    // Found by canStart, taken on start
+    private @Nullable BlockPos nextOrigin = null;
+    private @Nullable BlockPos nextDoorway = null;
     private @Nullable BlockPos leftOpen = null;
     private @Nullable BlockPos leftOpenDoorway = null;
     private int heldTicks;
@@ -33,13 +36,6 @@ final class ModDoorBehaviour extends Behaviour {
 
     @Override
     boolean canStart(NpcEntity npc) {
-        // A door that couldn't shut because someone was in the way shuts once they've gone
-        if(leftOpen != null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(npc, leftOpenDoorway)) {
-            origin = leftOpen;
-            set(npc, false);
-            origin = null;
-            leftOpen = null;
-        }
         Path path = npc.getNavigation().getCurrentPath();
         if(path == null || path.isFinished())
             return false;
@@ -54,8 +50,8 @@ final class ModDoorBehaviour extends Behaviour {
                     continue;
                 if(npc.squaredDistanceTo(node.x + 0.5, npc.getY(), node.z + 0.5) > REACH * REACH)
                     return false;
-                origin = door.getAnchor(probe, state);
-                doorway = probe.toImmutable();
+                nextOrigin = door.getAnchor(probe, state);
+                nextDoorway = probe.toImmutable();
                 return true;
             }
         }
@@ -64,8 +60,22 @@ final class ModDoorBehaviour extends Behaviour {
 
     @Override
     void start(NpcEntity npc) {
+        origin = nextOrigin;
+        doorway = nextDoorway;
         heldTicks = 0;
         set(npc, true);
+    }
+
+    // A door that couldn't shut because someone was in the way shuts once they've gone
+    boolean canShutLeftOpen(NpcEntity npc) {
+        return leftOpen != null && doorway == null && (npc.age + npc.getId()) % 10 == 0 && !isBusy(npc, leftOpenDoorway);
+    }
+
+    void shutLeftOpen(NpcEntity npc) {
+        origin = leftOpen;
+        set(npc, false);
+        origin = null;
+        leftOpen = null;
     }
 
     @Override

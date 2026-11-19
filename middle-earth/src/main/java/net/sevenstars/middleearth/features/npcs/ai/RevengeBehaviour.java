@@ -23,14 +23,9 @@ final class RevengeBehaviour extends TargetBehaviour {
     @Override
     boolean canStart(NpcEntity npc) {
         LivingEntity attacker = npc.getAttacker();
-        // Common folk strike back unless they've run for the guards.
-        // At home there's nowhere left to run, so call the guards and fight
-        if(npc.isTimid() && attacker != null && !NpcRelations.of(npc, attacker).isFriendly()) {
-            if(npc.isAtHome())
-                npc.callGuardsOnce(attacker);
-            else if(npc.fleesFrom(attacker))
-                return false;
-        }
+        // Common folk strike back unless they've run for the guards. AlarmBehaviour has already decided
+        if(npc.isTimid() && attacker != null && !NpcRelations.of(npc, attacker).isFriendly() && !npc.isAtHome() && npc.fleesFrom(attacker))
+            return false;
         int attackedTime = npc.getLastAttackedTime();
         if(attackedTime == lastAttackedTime || attacker == null)
             return false;

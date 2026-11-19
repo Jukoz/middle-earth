@@ -22,10 +22,17 @@ abstract class Behaviour {
 
     private final int priority;
     private final int controls;
+    private final int needs;
 
-    Behaviour(int priority, int controls) {
+    // Needs controls to be free without taking them, so a behaviour with no controls can still wait on them
+    Behaviour(int priority, int controls, int needs) {
         this.priority = priority;
         this.controls = controls;
+        this.needs = needs;
+    }
+
+    Behaviour(int priority, int controls) {
+        this(priority, controls, controls);
     }
 
     Behaviour(int controls) {
@@ -40,11 +47,16 @@ abstract class Behaviour {
         return controls;
     }
 
+    int needs() {
+        return needs;
+    }
+
     // Also runs between think ticks
     boolean runsEveryTick() {
         return false;
     }
 
+    // Must not change anything but caches; effects belong in start and tick
     abstract boolean canStart(NpcEntity npc);
 
     abstract boolean shouldContinue(NpcEntity npc);

@@ -44,16 +44,20 @@ public class NpcBrain {
     public static Brain<NpcEntity> create(Brain<NpcEntity> brain, World world) {
         if(world.isClient())
             return brain;
+        ModDoorBehaviour modDoors = new ModDoorBehaviour();
         brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
-                new BehaviourTask(null, new RevengeBehaviour(), new EnemyBehaviour(), new RaidBehaviour(), new DoorBehaviour(), new ModDoorBehaviour(), new FleeCheckBehaviour()),
+                new BehaviourTask(null, new AlarmBehaviour(), new RevengeBehaviour(), new EnemyBehaviour(), new RaidBehaviour(), new DoorBehaviour(),
+                        new DoorShutBehaviour(modDoors), modDoors, new FleeCheckBehaviour()),
                 new StayAboveWaterTask<>(SWIM_CHANCE)
         ));
         brain.setTaskList(Activity.PANIC, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.PANIC, new FleeBehaviour(), new LookAtPlayerBehaviour())),
                 ImmutableSet.of(Pair.of(MemoryModulesME.FLEEING_FROM, MemoryModuleState.VALUE_PRESENT)));
         brain.setTaskList(ActivitiesME.CONFINED, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(ActivitiesME.CONFINED, new PrisonerBehaviour(), new LookAtPlayerBehaviour())));
+        WandererBedBehaviour wandererBed = new WandererBedBehaviour();
+        TravelBehaviour travel = new TravelBehaviour();
         // Attacks come last, so they can take over from the rest
         brain.setTaskList(Activity.IDLE, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.IDLE,
-                new RoutineBehaviour(), new WandererBedBehaviour(), new TravelBehaviour(), new LookAtPlayerBehaviour(), new LookAroundBehaviour(),
+                new RoutineBehaviour(), new WandererBedSearch(wandererBed), wandererBed, new StuckRescueBehaviour(travel), travel, new LookAtPlayerBehaviour(), new LookAroundBehaviour(),
                 new MeleeAttackBehaviour(), new BowAttackBehaviour(), new CrossbowAttackBehaviour())));
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);

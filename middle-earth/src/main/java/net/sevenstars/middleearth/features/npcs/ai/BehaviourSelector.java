@@ -51,7 +51,7 @@ final class BehaviourSelector {
 
     private boolean isFree(int wanted) {
         for(int i = 0; i < behaviours.length; i++)
-            if(running[i] && shares(i, wanted) && behaviours[wanted].priority() >= behaviours[i].priority())
+            if(running[i] && (behaviours[i].controls() & behaviours[wanted].needs()) != 0 && behaviours[wanted].priority() >= behaviours[i].priority())
                 return false;
         return true;
     }
@@ -69,9 +69,5 @@ final class BehaviourSelector {
     private void stop(int stopped, NpcEntity npc) {
         running[stopped] = false;
         behaviours[stopped].stop(npc);
-    }
-
-    private boolean shares(int first, int second) {
-        return (behaviours[first].controls() & behaviours[second].controls()) != 0;
     }
 }

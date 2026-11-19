@@ -23,9 +23,8 @@ public class NpcPrison {
     // In ticks
     private static final int CHECK_INTERVAL = 20;
     private static final int ESCAPE_RANGE = 16;
-    // Blocks from the cell, and a walking speed multiplier
+    // Blocks from the cell
     private static final int STRAY_REACH = 3;
-    private static final double RETURN_SPEED = 0.8;
     private static final int STRAY_CHECKS = 3;
     // Blocks from the cell's middle to aim for, tried in random directions
     private static final int ESCAPE_DISTANCE = 16;
@@ -34,6 +33,7 @@ public class NpcPrison {
 
     private final NpcEntity npc;
     private @Nullable PrisonCell cell = null;
+    private @Nullable Path returnPath = null;
     private int strayChecks = 0;
     private boolean escaping = false;
     private ItemStack confiscatedMain = ItemStack.EMPTY;
@@ -57,6 +57,13 @@ public class NpcPrison {
 
     public boolean isEscaping() {
         return escaping;
+    }
+
+    // The way back for a stray, which PrisonerBehaviour walks
+    public @Nullable Path takeReturnPath() {
+        Path path = returnPath;
+        returnPath = null;
+        return path;
     }
 
     void tick(ServerWorld world) {
@@ -97,6 +104,7 @@ public class NpcPrison {
     }
 
     private void checkCell(ServerWorld world) {
+        returnPath = null;
         if(!npc.isPrisoner()) {
             cell = null;
             return;
@@ -116,7 +124,7 @@ public class NpcPrison {
         Path back = npc.getNavigation().findPathTo(cell.centerX(), npc.getY(), cell.centerZ(), 0);
         BlockPos bedStand = npc.getBedStand();
         if(++strayChecks <= STRAY_CHECKS && back != null && back.reachesTarget()) {
-            npc.getNavigation().startMovingAlong(back, RETURN_SPEED);
+            returnPath = back;
         } else if(bedStand != null && cell.contains(bedStand)) {
             npc.getNavigation().stop();
             npc.requestTeleport(bedStand.getX() + 0.5, bedStand.getY(), bedStand.getZ() + 0.5);

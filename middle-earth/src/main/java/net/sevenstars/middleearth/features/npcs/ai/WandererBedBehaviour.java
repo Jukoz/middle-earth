@@ -19,6 +19,7 @@ final class WandererBedBehaviour extends Behaviour {
     private static final int SEARCH_RANGE = 48;
     private static final int SEARCH_INTERVAL = 40;
     private static final int WALK_LIMIT = 20 * 30;
+    private static final long DAY_LENGTH = 24000;
 
     private static final double BED_REACH = 2.5;
     private static final double BED_HEIGHT_REACH = 2;
@@ -26,6 +27,7 @@ final class WandererBedBehaviour extends Behaviour {
     private @Nullable BlockPos bed = null;
     private @Nullable RoutineSite site = null;
     private int tries = 0;
+    private long triedNight = -1;
     private long nextSearch = 0;
     private long walkDeadline = 0;
 
@@ -35,17 +37,20 @@ final class WandererBedBehaviour extends Behaviour {
 
     @Override
     boolean canStart(NpcEntity npc) {
-        if(!(npc.getEntityWorld() instanceof ServerWorld world))
+        return bed != null;
+    }
+
+    boolean mayLookForBed(NpcEntity npc) {
+        if(!(npc.getEntityWorld() instanceof ServerWorld world) || !world.isNight())
             return false;
-        if(!world.isNight()) {
-            tries = 0;
-            return false;
-        }
         boolean travelling = npc.getPartyLeader() != null || npc.getTravelHeading() != null;
         // Npcs that live somewhere have their own beds, and a raiding party won't sleep where it's raiding
-        if(!travelling || tries >= MAXIMUM_TRIES || npc.getStructureManagerHostPos() != null || npc.isEvil() || npc.isConfined()
-                || npc.isSleeping() || npc.hasVehicle() || npc.getTarget() != null || world.getTime() < nextSearch)
-            return false;
+        return travelling && hasTriesLeft(world) && npc.getStructureManagerHostPos() == null && !npc.isEvil() && !npc.isConfined()
+                && !npc.isSleeping() && !npc.hasVehicle() && npc.getTarget() == null && world.getTime() >= nextSearch;
+    }
+
+    void lookForBed(NpcEntity npc) {
+        ServerWorld world = (ServerWorld) npc.getEntityWorld();
         nextSearch = world.getTime() + SEARCH_INTERVAL + npc.getRandom().nextInt(SEARCH_INTERVAL);
 
         List<RoutineSite> sites = RoutineSites.near(world, npc.getBlockPos(), SEARCH_RANGE);
@@ -57,18 +62,17 @@ final class WandererBedBehaviour extends Behaviour {
             if(claimed != null) {
                 site = found;
                 bed = claimed;
-                return true;
+                return;
             }
         }
-        tries++;
-        return false;
+        countTry(world);
     }
 
     @Override
     void start(NpcEntity npc) {
         walkDeadline = npc.getEntityWorld().getTime() + WALK_LIMIT;
         if(!walkToBed(npc))
-            giveUp();
+            giveUp((ServerWorld) npc.getEntityWorld());
     }
 
     @Override
@@ -89,13 +93,13 @@ final class WandererBedBehaviour extends Behaviour {
         if(distanceX * distanceX + distanceZ * distanceZ <= BED_REACH * BED_REACH && Math.abs(bed.getY() - npc.getY()) <= BED_HEIGHT_REACH) {
             BlockState state = world.getBlockState(bed);
             if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.OCCUPIED)) {
-                giveUp();
+                giveUp(world);
                 return;
             }
             npc.getNavigation().stop();
             npc.lieDown(bed);
         } else if(npc.getNavigation().isIdle() && !walkToBed(npc)) {
-            giveUp();
+            giveUp(world);
         }
     }
 
@@ -117,8 +121,25 @@ final class WandererBedBehaviour extends Behaviour {
         return stand != null && npc.getNavigation().startMovingTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, NpcBrain.WALK_SPEED);
     }
 
-    private void giveUp() {
-        tries++;
+    private void giveUp(ServerWorld world) {
+        countTry(world);
         bed = null;
+    }
+
+    private boolean hasTriesLeft(ServerWorld world) {
+        return night(world) != triedNight || tries < MAXIMUM_TRIES;
+    }
+
+    // Tries start again each night
+    private void countTry(ServerWorld world) {
+        if(night(world) != triedNight) {
+            triedNight = night(world);
+            tries = 0;
+        }
+        tries++;
+    }
+
+    private static long night(ServerWorld world) {
+        return world.getTimeOfDay() / DAY_LENGTH;
     }
 }
