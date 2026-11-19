@@ -289,6 +289,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     private @Nullable UUID threatFaced = null;
     private boolean fleesThreat = false;
     private @Nullable UUID guardsCalledFor = null;
+    private long threatFacedUntil;
+    private long guardsCalledUntil;
     // Grudges: offender -> expiry tick. Not saved
     private final Map<UUID, Long> grudges = new HashMap<>();
 
@@ -536,6 +538,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     public NpcTextureData retrieveNpcTextureData() {
         return this.dataTracker.get(NPC_TEXTURE_DATA);
     }
+
+    public void giveUpInitializing() {
+        dataInitialized = true;
+    }
+
     public boolean hasTextureData(){
         return retrieveNpcTextureData().get(NpcRenderedPart.BODY) != null;
     }
@@ -1096,8 +1103,10 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // Timid npcs commit to one response, or they'd run, turn and run again
     public boolean fleesFrom(LivingEntity threat) {
-        if(!threat.getUuid().equals(threatFaced)) {
+        long now = getEntityWorld().getTime();
+        if(!threat.getUuid().equals(threatFaced) || threatFacedUntil < now) {
             threatFaced = threat.getUuid();
+            threatFacedUntil = now + GRUDGE_TICKS;
             fleesThreat = getEntityWorld() instanceof ServerWorld world && countGuards(world) >= GUARDS_TO_FLEE;
             if(!fleesThreat && getEntityWorld() instanceof ServerWorld world)
                 callCommonFolk(world, threat);
@@ -1111,9 +1120,11 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
     }
 
     public void callGuardsOnce(LivingEntity threat) {
-        if(threat.getUuid().equals(guardsCalledFor))
+        long now = getEntityWorld().getTime();
+        if(threat.getUuid().equals(guardsCalledFor) && guardsCalledUntil >= now)
             return;
         guardsCalledFor = threat.getUuid();
+        guardsCalledUntil = now + GRUDGE_TICKS;
         callGuards(threat);
     }
 
@@ -1132,6 +1143,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             if(!NpcRelations.of(other, this).isFriendly() || !other.canTarget(threat))
                 continue;
             other.threatFaced = threat.getUuid();
+            other.threatFacedUntil = world.getTime() + GRUDGE_TICKS;
             other.fleesThreat = false;
             if(other.isSleeping())
                 other.wakeUp();
@@ -1413,7 +1425,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
             tickPrison(world);
         // Never drops a target set from outside: a dead or no-longer-enemy one blocks the rest
         LivingEntity target = getTarget();
-        if(target != null && (!target.isAlive() || age % TARGET_CHECK_INTERVAL == 0 && !canTarget(target)))
+        if(target != null && (!target.isAlive() || age % TARGET_CHECK_INTERVAL == 0 && (!canTarget(target) || isOutOfReach(target))))
             setTarget(null);
         super.mobTick(world);
         if(age % WEAPON_CHECK_INTERVAL == 0)
@@ -1424,6 +1436,21 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
         if(hasVehicle()){
             rotate(getVehicle().getYaw(), false, getVehicle().getPitch(), false);
         }
+    }
+
+    // A sleeping target is a raid's, which reaches it through walls
+    private boolean isOutOfReach(LivingEntity target) {
+        return !target.isSleeping() && squaredDistanceTo(target) > getAttributeValue(EntityAttributes.FOLLOW_RANGE) * getAttributeValue(EntityAttributes.FOLLOW_RANGE);
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        if(getEntityWorld() instanceof ServerWorld world) {
+            for(BlockPos hatch : openedHatches)
+                closeHatch(world, hatch);
+            openedHatches.clear();
+        }
+        super.remove(reason);
     }
 
     private void tickHatch(ServerWorld world) {
@@ -1620,6 +1647,8 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     @Override
     protected void dropLoot(ServerWorld world, DamageSource damageSource, boolean causedByPlayer) {
+        if(getNpcClass() == null)
+            return;
         RegistryKey<LootTable> lootTableRegistryKey = RegistryKey.of(RegistryKeys.LOOT_TABLE, getNpcClass().getId().withPrefixedPath(LOOT_TABLE_FOLDER));
         LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(lootTableRegistryKey);
 

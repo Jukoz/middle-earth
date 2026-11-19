@@ -67,10 +67,17 @@ final class CrossbowAttackBehaviour extends AttackBehaviour {
         npc.setTarget(null);
         seeingTargetTicker = 0;
         if (npc.isUsingItem()) {
+            ItemStack crossbow = npc.getActiveItem();
             npc.clearActiveItem();
             npc.setCharging(false);
-            npc.getActiveItem().set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+            if (!crossbow.isEmpty()) {
+                crossbow.set(DataComponentTypes.CHARGED_PROJECTILES, ChargedProjectilesComponent.DEFAULT);
+            }
         }
+        npc.setNpcFlag(USING_ITEM_FLAG, false);
+        stage = Stage.UNCHARGED;
+        chargedTicksLeft = 0;
+        useTicks = 0;
     }
 
     @Override

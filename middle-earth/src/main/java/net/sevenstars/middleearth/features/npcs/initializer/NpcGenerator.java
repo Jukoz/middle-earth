@@ -60,7 +60,9 @@ public class NpcGenerator {
             spawnMount(npcEntity);
 
         } catch (Exception exception){
-            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s because of : %s | Triggered by %s", currentNpcClassId, exception.getLocalizedMessage(), currentStep));
+            MiddleEarth.LOGGER.logError(String.format("NpcEntityInitializer::Couldn't generate %s | Triggered by %s", currentNpcClassId, currentStep), exception);
+            // Stops tryToInitializeData retrying every tick
+            npcEntity.giveUpInitializing();
         }
     }
 
