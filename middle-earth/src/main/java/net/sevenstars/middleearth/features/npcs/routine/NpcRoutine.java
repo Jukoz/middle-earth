@@ -1,6 +1,9 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
@@ -109,6 +112,8 @@ public class NpcRoutine {
     boolean toBed = false;
     @Nullable BlockPos meetSeat = null;
     int carriedCount = 1;
+    // Taken out of a store, so it's put back or dropped rather than lost
+    boolean carriedFromStore = false;
     boolean homeward = false;
     @Nullable Direction facing = null;
 
@@ -228,7 +233,7 @@ public class NpcRoutine {
         long time = world.getTime();
         // Settled npcs that wandered off walk home. One that failed rests first
         if(time >= restUntil && time >= homeHeldUntil && drifted(world)) {
-            carried = null;
+            loseCarried(world);
             homeward = true;
             failed = false;
             startReturn(world);
@@ -318,7 +323,7 @@ public class NpcRoutine {
             restUntil = beds.bedHeldUntil;
             return false;
         }
-        carried = null;
+        loseCarried(world);
         toBed = beds.freeBed(world) != null;
         homeward = true;
         failed = false;
@@ -328,7 +333,7 @@ public class NpcRoutine {
 
     private boolean goHomeOffDuty(ServerWorld world, long time, BlockPos home) {
         if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
-            carried = null;
+            loseCarried(world);
             homeward = true;
             failed = false;
             startReturn(world);
@@ -432,15 +437,17 @@ public class NpcRoutine {
             npc.setRoutineHome(home);
             site = null;
         }
-        if(site == null)
-            site = RoutineSites.forWild(world, home, npc.getFactionIdentifier());
+        if(site != null && !site.isDropped()) {
+            site.touch(world.getTime());
+            return true;
+        }
+        site = RoutineSites.forWild(world, home, npc.getFactionIdentifier());
         return site != null;
     }
 
     private boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         lookTarget = null;
-        carried = null;
-        carriedCount = 1;
+        loseCarried(world);
         facing = null;
         if(picked == RoutineData.Activity.POST) {
             String noPost = post.claimPost(world, home);
@@ -652,6 +659,8 @@ public class NpcRoutine {
             // A bed behind a wall can't be stood on, so the doorstep is home enough
             finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
         } else {
+            if(activity == RoutineData.Activity.WORK)
+                station.holdStation(world.getTime());
             hold(activity, world.getTime());
             startReturn(world);
         }
@@ -756,6 +765,7 @@ public class NpcRoutine {
                     pos.getX(), pos.getY(), pos.getZ()));
         }
         failed = false;
+        loseCarried(world);
         sitting.standUp();
         meetSeat = null;
         table.companion = null;
@@ -764,16 +774,32 @@ public class NpcRoutine {
         toBed = false;
         phase = Phase.NONE;
         dropOff = null;
-        carriedCount = 1;
         station.clear();
         npc.setOnOuting(false);
         npc.setFarming(false);
-        carried = null;
         lookTarget = null;
         restUntil = world.getTime() + rest;
         npc.clearRoutineProp();
         if(npc.isSleeping())
             npc.wakeUp();
+    }
+
+    void loseCarried(ServerWorld world) {
+        if(carried != null && carriedFromStore) {
+            ItemStack left = new ItemStack(carried, carriedCount);
+            BlockPos source = dropOff();
+            Inventory inventory = source != null && isLoaded(world, source) ? RoutineStores.inventoryAt(world, source) : null;
+            if(inventory != null) {
+                left = HopperBlockEntity.transfer(null, inventory, left, null);
+                if(site != null)
+                    site.getStock().changed();
+            }
+            if(!left.isEmpty())
+                world.spawnEntity(new ItemEntity(world, npc.getX(), npc.getY(), npc.getZ(), left));
+        }
+        carried = null;
+        carriedCount = 1;
+        carriedFromStore = false;
     }
 
     private boolean isDark() {

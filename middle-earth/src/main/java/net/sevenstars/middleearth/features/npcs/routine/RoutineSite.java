@@ -159,6 +159,7 @@ public class RoutineSite {
     // -GAME_INTERVAL so the first lookup runs at once, without Long.MIN_VALUE overflowing
     private long gameSeenAt = -GAME_INTERVAL;
     private long lastUsed;
+    private boolean dropped = false;
 
     RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
         this.extent = extent;
@@ -198,6 +199,14 @@ public class RoutineSite {
     // Below water and leaves, so a lake's depth isn't underground
     private static int groundY(ServerWorld world, int x, int z) {
         return Math.min(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, x, z), world.getTopY(Heightmap.Type.OCEAN_FLOOR, x, z));
+    }
+
+    void drop() {
+        dropped = true;
+    }
+
+    boolean isDropped() {
+        return dropped;
     }
 
     public void touch(long time) {
@@ -480,7 +489,7 @@ public class RoutineSite {
             for(StructureFeatureData.Marker marker : getMarkers(MarkerKind.PATROL_POINT))
                 points.add(marker.pos());
             if(points.size() < MINIMUM_MARKED_ROUND_POINTS) {
-                patrolRoute = ring;
+                patrolRoute = new ArrayList<>(ring);
                 patrolArc = false;
                 int widest = -1;
                 double widestGap = ARC_GAP * ARC_GAP;
@@ -688,6 +697,7 @@ public class RoutineSite {
                     at++;
                 ring.add(at, new BlockPos(x, probeY, z));
                 ringPlanIndex.add(at, index);
+                patrolRoute = null;
                 return;
             }
         }
@@ -865,6 +875,7 @@ public class RoutineSite {
             if(!reached.containsKey(column(ring.get(i).getX(), ring.get(i).getZ()))) {
                 ring.remove(i);
                 ringPlanIndex.remove(i);
+                patrolRoute = null;
             }
         }
         grounds.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));

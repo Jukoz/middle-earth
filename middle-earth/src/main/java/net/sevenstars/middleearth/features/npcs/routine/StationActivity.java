@@ -87,6 +87,11 @@ class StationActivity extends RoutineActivity {
         super(routine);
     }
 
+    void holdStation(long time) {
+        if(workStation != null)
+            unusableStations.put(workStation, time + STATION_HOLD);
+    }
+
     void clear() {
         fetchFrom = null;
         order = null;
@@ -185,6 +190,7 @@ class StationActivity extends RoutineActivity {
         routine.site.getStock().changed();
         routine.carried = order.input();
         routine.carriedCount = order.count();
+        routine.carriedFromStore = true;
         routine.did("work", "took " + routine.carriedCount + " " + itemName(routine.carried) + " from the store at " + fetchFrom.toShortString() + " to make " + itemName(order.output()));
         routine.dropOff = fetchFrom;
         fetchFrom = null;

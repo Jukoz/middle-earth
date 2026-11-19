@@ -48,6 +48,7 @@ class RoutineReturn {
         if(world.getBlockState(store).getBlock() instanceof CampfireBlock) {
             world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + SMOKE_HEIGHT, store.getZ() + 0.5, SMOKE_PARTICLES, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPEED);
             routine.did("deliver", "put " + itemName(routine.carried) + " on the fire at " + store.toShortString());
+            routine.carried = null;
             return;
         }
         Inventory inventory = RoutineStores.inventoryAt(world, store);
@@ -60,6 +61,10 @@ class RoutineReturn {
         // A full store still counts as the work done
         routine.did("deliver", left.isEmpty() ? "stored " + itemName(routine.carried) + " in the store at " + store.toShortString()
                 : "found the store at " + store.toShortString() + " full, " + itemName(routine.carried) + " stays out");
+        if(left.isEmpty())
+            routine.carried = null;
+        else
+            routine.carriedCount = left.getCount();
     }
 
     void arriveHome(ServerWorld world, Random random) {
@@ -95,11 +100,13 @@ class RoutineReturn {
     // The pathfinder's closest point to a store may be the wrong side of a wall
     private BlockPos storeStand(ServerWorld world, BlockPos store) {
         if(!store.equals(standOf)) {
+            if(!isLoaded(world, store))
+                return store;
             standOf = store;
             BlockPos inside = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
-            storeStand = isLoaded(world, store) ? NestSurvey.standNextTo(world, store, inside) : null;
+            storeStand = NestSurvey.standNextTo(world, store, inside);
             // Reached across a barrel on a table or in a corner, from a floor that can see it
-            if(storeStand == null && isLoaded(world, store))
+            if(storeStand == null)
                 storeStand = NestSurvey.standInSight(world, store, inside, STORE_STAND_RADIUS);
         }
         return storeStand != null ? storeStand : store;

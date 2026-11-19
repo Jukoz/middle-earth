@@ -130,7 +130,12 @@ public class RoutineSites {
 
         long time = world.getTime();
         if(time % CLEANUP_INTERVAL == 0)
-            sites.sites.long2ObjectEntrySet().removeIf(entry -> entry.getValue().isReady() && time - entry.getValue().getLastUsed() > UNUSED_LIFETIME);
+            sites.sites.long2ObjectEntrySet().removeIf(entry -> {
+                boolean unused = entry.getValue().isReady() && time - entry.getValue().getLastUsed() > UNUSED_LIFETIME;
+                if(unused)
+                    entry.getValue().drop();
+                return unused;
+            });
         if(time % RETRY_INTERVAL == 0) {
             // A structure's site is also stored under each of its managers' keys
             for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {

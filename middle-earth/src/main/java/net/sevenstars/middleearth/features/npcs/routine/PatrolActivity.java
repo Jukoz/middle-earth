@@ -67,12 +67,17 @@ class PatrolActivity extends RoutineActivity {
                 routine.abandoned("cut its round short, no player near");
             routine.startReturn(world);
         } else {
+            int points = routine.site.getPatrolRoute().size();
+            if(points < MINIMUM_ROUTE_POINTS) {
+                routine.startReturn(world);
+                return;
+            }
             if(ringLeft <= 0) {
-                ringLeft = routine.site.getPatrolRoute().size();
+                ringLeft = points;
                 laps++;
             }
             routine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
-            nextWaypoint();
+            nextWaypoint(world);
         }
     }
 
@@ -99,11 +104,18 @@ class PatrolActivity extends RoutineActivity {
 
     void skipStretch() {
         ringLeft--;
-        nextWaypoint();
+        if(npc.getEntityWorld() instanceof ServerWorld world)
+            nextWaypoint(world);
     }
 
-    private void nextWaypoint() {
+    private void nextWaypoint(ServerWorld world) {
         List<BlockPos> ring = routine.site.getPatrolRoute();
+        if(ring.size() < MINIMUM_ROUTE_POINTS) {
+            routine.startReturn(world);
+            return;
+        }
+        // The route may have shrunk since the last point
+        ringIndex = Math.min(ringIndex, ring.size() - 1);
         int next = ringIndex + ringStep;
         // Turns back at the ends of a round broken by a lake or cliff
         if(routine.site.isPatrolArc() && (next < 0 || next >= ring.size())) {
@@ -111,7 +123,7 @@ class PatrolActivity extends RoutineActivity {
             next = ringIndex + ringStep;
         }
         ringIndex = Math.floorMod(next, ring.size());
-        routine.spot = npc.getEntityWorld() instanceof ServerWorld world ? routePoint(world, ring.get(ringIndex)) : ring.get(ringIndex);
+        routine.spot = routePoint(world, ring.get(ringIndex));
         routine.lookTarget = null;
         routine.phase = Phase.GOING;
         routine.walker.resetWalk();
