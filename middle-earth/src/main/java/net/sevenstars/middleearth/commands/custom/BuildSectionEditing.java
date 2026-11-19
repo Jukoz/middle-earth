@@ -119,7 +119,7 @@ public class BuildSectionEditing {
     }
 
     private static @Nullable Identifier templateAt(ServerWorld world, ServerPlayerEntity player, List<BuildSections.Section> sections, BlockPos pos) {
-        StructureEditSession session = StructureEditSession.claim(player.getUuid());
+        StructureEditSession session = StructureEditSession.of(player.getUuid());
         StructureEditSession.Piece piece = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session.pieceContaining(pos);
         if(piece != null)
             return piece.template();

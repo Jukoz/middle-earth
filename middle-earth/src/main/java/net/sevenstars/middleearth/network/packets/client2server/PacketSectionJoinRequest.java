@@ -49,6 +49,10 @@ public class PacketSectionJoinRequest extends ClientToServerPacket<PacketSection
             // The last plug clicked is the one the builder is at
             if(!StructureEditing.mayEdit(player, answerer) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
+            if(!StructureEditing.isNear(world, answerer, asker)) {
+                StructureEditing.log("join of %s and %s refused: far apart or not loaded".formatted(asker.toShortString(), answerer.toShortString()));
+                return;
+            }
             if(BuildSectionEditing.join(world, player, asker, answerer))
                 ServerPlayNetworking.send(player, new PacketJigsawFits(asker, JigsawFits.of(world, player, asker)));
         });

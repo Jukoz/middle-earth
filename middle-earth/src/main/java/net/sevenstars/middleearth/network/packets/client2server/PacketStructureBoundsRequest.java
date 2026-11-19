@@ -60,6 +60,10 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
         player.getEntityWorld().getServer().execute(() -> {
             if(!StructureEditing.mayEdit(player, second) || !(player.getEntityWorld() instanceof ServerWorld world))
                 return;
+            if(!StructureEditing.isNear(world, second, first) || !StructureEditing.isNear(world, second, anchor)) {
+                StructureEditing.log("bounds from %s to %s refused: %s or %s is far away or not loaded".formatted(first.toShortString(), second.toShortString(), first.toShortString(), anchor.toShortString()));
+                return;
+            }
             BlockBox box = BlockBox.create(first, second);
             int limit = StructureEditing.MAXIMUM_SIZE;
             if(!world.isInBuildLimit(first) || !world.isInBuildLimit(second) || !BuildSectionEditing.fits(box)) {
@@ -73,7 +77,7 @@ public class PacketStructureBoundsRequest extends ClientToServerPacket<PacketStr
                 create(world, player, sections, box, size);
                 return;
             }
-            StructureEditSession session = StructureEditSession.claim(player.getUuid());
+            StructureEditSession session = StructureEditSession.of(player.getUuid());
             StructureEditSession.Piece piece = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session.pieceContaining(anchor);
             if(piece != null) {
                 if(!session.isSpaced()) {

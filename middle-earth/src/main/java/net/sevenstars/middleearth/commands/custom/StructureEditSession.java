@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.commands.custom;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -159,12 +160,13 @@ public class StructureEditSession {
         return SESSIONS.get(RESTORED.iterator().next());
     }
 
+    // Takes over the restored session, so only for calls that change something
     public static @Nullable StructureEditSession claim(UUID builder) {
         if(SESSIONS.containsKey(builder)) {
             RESTORED.remove(builder);
             return SESSIONS.get(builder);
         }
-        if(RESTORED.size() != 1)
+        if(!FabricLoader.getInstance().isDevelopmentEnvironment() || RESTORED.size() != 1)
             return null;
         StructureEditSession restored = SESSIONS.remove(RESTORED.iterator().next());
         RESTORED.clear();
@@ -177,6 +179,7 @@ public class StructureEditSession {
 
     public static void register() {
         ServerLifecycleEvents.SERVER_STARTED.register(StructureEditSession::restore);
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> endSingle(server, handler.getPlayer().getUuid()));
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             SESSIONS.clear();
             RESTORED.clear();

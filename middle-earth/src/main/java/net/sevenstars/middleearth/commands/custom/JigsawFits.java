@@ -36,7 +36,7 @@ public class JigsawFits {
     }
 
     public static List<BlockPos> of(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
-        StructureEditSession session = StructureEditSession.claim(player.getUuid());
+        StructureEditSession session = StructureEditSession.of(player.getUuid());
         StructureEditSession edited = session == null || !session.getDimension().equals(world.getRegistryKey()) ? null : session;
         Plug clicked = plugAt(world, pos, edited);
         if(clicked == null)

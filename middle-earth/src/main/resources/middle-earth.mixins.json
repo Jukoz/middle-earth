@@ -33,6 +33,7 @@
     "PowderSnowBlockMixin",
     "RepairItemRecipeMixin",
     "ServerPlayerEntityMixin",
+    "StructureBlockBlockEntityMixin",
     "StructurePoolAccessor",
     "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",

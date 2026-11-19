@@ -70,6 +70,10 @@ public class PacketBedLinkRequest extends ClientToServerPacket<PacketBedLinkRequ
                 StructureEditing.log("link of bed %s to %s refused: more than %d blocks from the builder".formatted(bed.toShortString(), target.toShortString(), REACH));
                 return;
             }
+            if(!StructureEditing.isNear(player.getEntityWorld(), at, bed) || !StructureEditing.isNear(player.getEntityWorld(), at, target)) {
+                StructureEditing.log("link of bed %s to %s refused: not loaded".formatted(bed.toShortString(), target.toShortString()));
+                return;
+            }
             BlockState state = player.getEntityWorld().getBlockState(bed);
             if(!(state.getBlock() instanceof BedBlock) || state.get(BedBlock.PART) != BedPart.HEAD) {
                 StructureEditing.log("link of bed %s refused: no bed head there".formatted(bed.toShortString()));
