@@ -10,36 +10,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:rail",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 4,
-                "max": 12
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:torch",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 3,
-                "max": 10
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:coal",
           "weight": 10,
           "functions": [
@@ -48,7 +18,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 8
+                "max": 6
               }
             }
           ]
@@ -63,7 +33,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 3
               }
             }
           ]
@@ -78,7 +48,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 5
+                "max": 4
               }
             }
           ]
@@ -93,7 +63,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 3
               }
             }
           ]
@@ -108,15 +78,45 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bread",
-          "weight": 8,
+          "name": "minecraft:iron_nugget",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:tin_nugget",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint",
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -130,15 +130,71 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:lantern",
+          "name": "middle-earth:rope",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:candle",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:cram",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:pickaxe_head",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:shovel_head",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:iron_chisel",
           "weight": 2,
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
+              "function": "minecraft:set_damage",
+              "add": false,
+              "damage": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 1
+                "min": 0.3,
+                "max": 0.8
               }
             }
           ]
@@ -146,47 +202,15 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_pickaxe",
-          "weight": 3,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_damage",
               "add": false,
               "damage": {
                 "type": "minecraft:uniform",
-                "min": 0.5,
-                "max": 0.9
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:stone_pickaxe",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.4,
-                "max": 0.9
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_shovel",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "add": false,
-              "damage": {
-                "type": "minecraft:uniform",
-                "min": 0.5,
-                "max": 0.9
+                "min": 0.6,
+                "max": 0.95
               }
             }
           ]
@@ -217,23 +241,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:emerald",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "middle-earth:silver_nugget",
-          "weight": 3,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -241,6 +250,22 @@
                 "type": "minecraft:uniform",
                 "min": 1,
                 "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "middle-earth:dwarven_miner_helmet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "min": 0.5,
+                "max": 0.9
               }
             }
           ]
@@ -262,7 +287,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 10
+          "weight": 14
         }
       ]
     }

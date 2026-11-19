@@ -20,6 +20,8 @@ public class Caves {
 
     public static void register() {
         Registry.register(Registries.STRUCTURE_TYPE, MiddleEarth.id("misty_dwarf_mine"), MISTY_DWARF_MINE);
+        Registry.register(Registries.STRUCTURE_PROCESSOR, MiddleEarth.id("mine_shell"), MineShellProcessor.TYPE);
+        MineTunnelPiece.register();
         Registry.register(Registries.FEATURE, MiddleEarth.id("misty_mine_mithril"), MISTY_MINE_MITHRIL);
         Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, MiddleEarth.id("not_in_deeps"), NotInDeepsPlacementModifier.TYPE);
         // after every other cave feature; mountain caves outside the Misty Mountains share these biomes and the feature does nothing without a mine

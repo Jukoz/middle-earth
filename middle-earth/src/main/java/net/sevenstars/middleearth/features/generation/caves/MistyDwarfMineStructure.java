@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -90,18 +91,24 @@ public final class MistyDwarfMineStructure extends Structure {
     private static final int ROCK_CELLS = 6; // of the 9 cells beyond an opening
     private static final int TOP_MARGIN = 10; // of the middle band, kept clear above the mine
     private static final float START_MAX_AIR = 0.2f;
-    private static final float PIECE_MAX_AIR = 0.4f;
+    private static final float FLOOR_MAX_AIR = 0.02f; // of the floor blocks
+    private static final int FLOOR_MAX_POCKETS = 2;
+    private static final float VOLUME_MAX_AIR = 0.45f; // of the rock a piece is cut into
 
-    private static final int MAX_CONTINUATIONS = 3;
+    private static final int MAX_CONTINUATIONS = 4;
+    private static final int WAVE_BRIDGES = 2; // openings over a drop tried per growth wave
     private static final int CONTINUATION_SIZE = 4;
     private static final int CONTINUATION_MIN_PIECES = 2;
     private static final int CONTINUATION_TRIES = 16;
-    private static final int MAX_SHIFT = 3;
-    private static final int MIN_GAP = 11;
+    private static final int MAX_LEAD = 24;
+    private static final int JOIN_MAX = 4; // jigsaw cells apart, so up to three blocks of rock between two ends // blocks of floor walked from an opening to the edge of a chasm
+    private static final int MIN_GAP = 7;
     private static final int MAX_GAP = 23; // blocks of drop looked at beyond a mine opening
     private static final Identifier MINE_CORRIDOR = MiddleEarth.id("mine_corridor");
-    private static final int DROP_DEPTH = 6;
-    private static final float DROP_SHARE = 0.7f;
+    private static final int DROP_DEPTH = 4;
+    private static final float DROP_SHARE = 0.6f;
+    private static final int SPAN_SHORT_BY = 1; // a span may end this far short of the far rim, or reach up to SPAN_LONG_BY into the rock
+    private static final int SPAN_LONG_BY = 5;
 
     private static final Set<RegistryKey<Biome>> PEAKS = Set.of(
             BiomeKeyRegistryME.CARADHRAS_BASE, BiomeKeyRegistryME.CARADHRAS, BiomeKeyRegistryME.CARADHRAS_PEAKS,
@@ -151,11 +158,13 @@ public final class MistyDwarfMineStructure extends Structure {
         Session session = new Session(context, probe, new MistyCaves(context.seed()));
         List<StructurePiece> all = JigsawAssembler.assemble(context, startPool, Optional.empty(), Optional.empty(), pos, size, TARGET_MAX, List.of(), session::fits, session::capFits, random(context, pos, 4100));
         if (all.size() < MIN_PIECES) return Optional.empty();
-        grow(session, all, pos);
         Set<BlockPos> bridged = new HashSet<>();
+        Set<BlockPos> joined = new HashSet<>();
+        grow(session, all, pos, bridged);
+        joinNearbyEnds(session, all, joined);
         continueAcrossDrops(session, all, bridged);
-        sealLevels(session, all);
-        capOpenings(session, all, bridged);
+        sealLevels(session, all, joined);
+        capOpenings(session, all, bridged, joined);
         BlockBox first = all.get(0).getBoundingBox();
         StructurePiecesCollector collector = new StructurePiecesCollector();
         all.forEach(collector::addPiece);
@@ -168,6 +177,8 @@ public final class MistyDwarfMineStructure extends Structure {
         final MiddleEarthChunkGenerator.CaveProbe probe;
         final MistyCaves caves;
         final BlockBox window;
+        // the pieces of each bridge and the mine on its far side, by the piece the bridge starts from: they go when that piece does
+        final Map<StructurePiece, List<StructurePiece>> links = new IdentityHashMap<>();
         private final Map<Long, DepthBands.Edges> edges = new HashMap<>();
 
         Session(Context context, MiddleEarthChunkGenerator.CaveProbe probe, MistyCaves caves) {
@@ -193,8 +204,8 @@ public final class MistyDwarfMineStructure extends Structure {
         }
 
         // a cap or a piece started to seal an exit: inside the limits and with rock under it
-        boolean capFits(BlockBox box) {
-            return fits(box) && floored(box);
+        boolean capFits(BlockBox box, BlockPos origin, int[] floor) {
+            return fits(box, origin, floor) && floored(box);
         }
 
         boolean inBand(BlockBox box) {
@@ -210,15 +221,36 @@ public final class MistyDwarfMineStructure extends Structure {
             return box.getMaxY() > column.top(DepthBands.Band.MIDDLE) - TOP_MARGIN || box.getMinY() < column.bottom(DepthBands.Band.MITHRIL);
         }
 
-        // inside the limits and on rock: samples the row under the piece, its floor row and its middle row
-        boolean fits(BlockBox box) {
+        // Inside the limits, with rock under every column of the template's floor and not too much air in the volume. A cave pocket in
+        // the volume is dug through; a floor over a drop is not built, so a piece stops short of a chasm. The processor fills a dip
+        // of one block in the floor row over rock.
+        boolean fits(BlockBox box, BlockPos origin, int[] floor) {
             if (outOfBounds(box)) return false;
-            int middle = (box.getMinY() + box.getMaxY()) / 2;
-            int columns = ((box.getMaxX() - box.getMinX()) / 2 + 1) * ((box.getMaxZ() - box.getMinZ()) / 2 + 1);
-            float allowed = 3 * columns * PIECE_MAX_AIR;
             int air = 0;
-            // the same share as counting everything first, but a piece over a cave is refused after a few samples
-            for (int y : new int[]{box.getMinY() - 1, box.getMinY(), middle}) {
+            if (floor.length == 0) {
+                int under = box.getMinY() - 1;
+                float allowed = (box.getMaxX() - box.getMinX() + 1) * (box.getMaxZ() - box.getMinZ() + 1) * FLOOR_MAX_AIR;
+                for (int x = box.getMinX(); x <= box.getMaxX(); x++) {
+                    for (int z = box.getMinZ(); z <= box.getMaxZ(); z++) {
+                        if (!probe.solid(x, under, z) && ++air > allowed) return false;
+                    }
+                }
+            } else {
+                // a few floor blocks over a pocket may stay, never a run of them
+                int allowed = Math.min(FLOOR_MAX_POCKETS, (int) (floor.length / 3 * FLOOR_MAX_AIR));
+                for (int i = 0; i < floor.length; i += 3) {
+                    if (!probe.solid(origin.getX() + floor[i], origin.getY() + floor[i + 1] - 1, origin.getZ() + floor[i + 2]) && ++air > allowed) return false;
+                }
+            }
+            int cells = 0;
+            for (int y = box.getMinY() + 1; y <= box.getMaxY(); y += 2) {
+                for (int x = box.getMinX(); x <= box.getMaxX(); x += 2) {
+                    for (int z = box.getMinZ(); z <= box.getMaxZ(); z += 2) cells++;
+                }
+            }
+            float allowed = cells * VOLUME_MAX_AIR;
+            air = 0;
+            for (int y = box.getMinY() + 1; y <= box.getMaxY(); y += 2) {
                 for (int x = box.getMinX(); x <= box.getMaxX(); x += 2) {
                     for (int z = box.getMinZ(); z <= box.getMaxZ(); z += 2) {
                         if (!probe.solid(x, y, z) && ++air > allowed) return false;
@@ -228,10 +260,9 @@ public final class MistyDwarfMineStructure extends Structure {
             return true;
         }
     }
-
     // Waves: new layouts started from the open ends of the mine, the farthest first, so it stretches outwards.
     // Every layout is pruned like the first one and may not touch anything already there.
-    private void grow(Session session, List<StructurePiece> all, BlockPos origin) {
+    private void grow(Session session, List<StructurePiece> all, BlockPos origin, Set<BlockPos> bridged) {
         ChunkPos chunk = session.context.chunkPos();
         int target = TARGET_MIN + (MistyCaves.mix(chunk.x, chunk.z, 6100) & 0xFFFF) % (TARGET_MAX - TARGET_MIN + 1);
         List<BlockBox> taken = new ArrayList<>();
@@ -242,12 +273,17 @@ public final class MistyDwarfMineStructure extends Structure {
             List<Direction> facings = new ArrayList<>();
             collectJigsaws(session.context, all, positions, facings);
             List<Integer> open = new ArrayList<>();
+            List<Integer> drops = new ArrayList<>();
             for (int i = 0; i < positions.size(); i++) {
                 Direction out = facings.get(i);
                 if (out.getAxis() == Direction.Axis.Y || connected(positions, facings, i)) continue;
                 BlockPos front = positions.get(i).offset(out);
-                // an opening over a drop is left to the bridges
-                if (session.probe.solid(front.getX(), front.getY() - 1, front.getZ())) open.add(i);
+                // an opening over a drop is tried with a bridge instead
+                if (session.probe.solid(front.getX(), front.getY() - 1, front.getZ())) {
+                    open.add(i);
+                } else if (!bridged.contains(positions.get(i))) {
+                    drops.add(i);
+                }
             }
             final int waveIndex = wave;
             open.sort(Comparator.comparingLong(i -> {
@@ -260,10 +296,25 @@ public final class MistyDwarfMineStructure extends Structure {
             for (int n = 0; n < Math.min(starts, open.size()) && all.size() + added < target; n++) {
                 int index = open.get(n);
                 Optional<List<StructurePiece>> layout = layoutFrom(session, positions.get(index), facings.get(index), wave, target - all.size() - added, taken, session::fits);
-                if (layout.isEmpty()) continue;
+                if (layout.isEmpty()) {
+                    // nothing fits there, perhaps because a cave lies in the way: try to bridge it
+                    int before = all.size();
+                    if (tryBridge(session, all, positions.get(index), facings.get(index), bridged)) {
+                        all.subList(before, all.size()).forEach(piece -> taken.add(piece.getBoundingBox()));
+                        added += all.size() - before;
+                    }
+                    continue;
+                }
                 layout.get().forEach(piece -> taken.add(piece.getBoundingBox()));
                 all.addAll(layout.get());
                 added += layout.get().size();
+            }
+            for (int n = 0; n < Math.min(WAVE_BRIDGES, drops.size()) && bridged.size() < MAX_CONTINUATIONS; n++) {
+                int before = all.size();
+                if (tryBridge(session, all, positions.get(drops.get(n)), facings.get(drops.get(n)), bridged)) {
+                    all.subList(before, all.size()).forEach(piece -> taken.add(piece.getBoundingBox()));
+                    added += all.size() - before;
+                }
             }
             empty = added == 0 ? empty + 1 : 0;
         }
@@ -271,7 +322,7 @@ public final class MistyDwarfMineStructure extends Structure {
 
     // Level connectors lead somewhere or go. A level piece (two exits at different heights) needs both of them connected; a hub or
     // crossing with an exit well above its floor gets something attached there when it can, and keeps the exit when it cannot.
-    private void sealLevels(Session session, List<StructurePiece> all) {
+    private void sealLevels(Session session, List<StructurePiece> all, Set<BlockPos> joined) {
         for (int round = 0; round < SEAL_ROUNDS; round++) {
             List<BlockPos> positions = new ArrayList<>();
             List<Direction> facings = new ArrayList<>();
@@ -305,7 +356,7 @@ public final class MistyDwarfMineStructure extends Structure {
                 boolean required = low.size() == 1;
                 boolean sealed = true;
                 for (int j : high) {
-                    if (connected(positions, facings, j)) continue;
+                    if (connected(positions, facings, j) || joined.contains(positions.get(j))) continue;
                     if (attachSomething(session, positions.get(j), facings.get(j), taken, round, all)) {
                         changed = true;
                     } else if (required && high.size() == 1) {
@@ -313,7 +364,7 @@ public final class MistyDwarfMineStructure extends Structure {
                     }
                 }
                 for (int j : low) {
-                    if (!required || connected(positions, facings, j)) continue;
+                    if (!required || connected(positions, facings, j) || joined.contains(positions.get(j))) continue;
                     if (attachSomething(session, positions.get(j), facings.get(j), taken, round, all)) {
                         changed = true;
                     } else {
@@ -332,7 +383,7 @@ public final class MistyDwarfMineStructure extends Structure {
     // An opening that faces rock ends in a dead end piece, or in a plug of rubble that is placed even where it overlaps rock; both need rock under them.
     // One that leads into cave air stays open, as a natural break, and so do bridged and vertical ones. When neither fits inside
     // the depth bands, the piece with that opening goes, with whatever hangs off it, and the pieces beside it are checked again.
-    private void capOpenings(Session session, List<StructurePiece> all, Set<BlockPos> bridged) {
+    private void capOpenings(Session session, List<StructurePiece> all, Set<BlockPos> bridged, Set<BlockPos> joined) {
         for (int round = 0; round < CAP_ROUNDS; round++) {
             List<BlockPos> positions = new ArrayList<>();
             List<Direction> facings = new ArrayList<>();
@@ -349,9 +400,9 @@ public final class MistyDwarfMineStructure extends Structure {
             for (int i = 0; i < positions.size(); i++) {
                 Direction out = facings.get(i);
                 BlockPos opening = positions.get(i);
-                if (out.getAxis() == Direction.Axis.Y || bridged.contains(opening) || connected(positions, facings, i) || !facesRock(session, opening, out, taken)) continue;
+                if (out.getAxis() == Direction.Axis.Y || bridged.contains(opening) || joined.contains(opening) || connected(positions, facings, i) || !facesRock(session, opening, out, taken)) continue;
                 List<StructurePiece> cap = JigsawAssembler.assemble(session.context, endsPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), opening.offset(out), 1, Integer.MAX_VALUE, taken, session::capFits, session::capFits, random(session.context, opening, 9500));
-                if (cap.isEmpty()) cap = JigsawAssembler.assemble(session.context, plugsPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), opening.offset(out), 1, Integer.MAX_VALUE, taken, box -> session.inBand(box) && session.floored(box) && !overlaps(box, taken), session::capFits, random(session.context, opening, 9600));
+                if (cap.isEmpty()) cap = JigsawAssembler.assemble(session.context, plugsPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), opening.offset(out), 1, Integer.MAX_VALUE, taken, (box, origin, floor) -> session.inBand(box) && session.floored(box) && !overlaps(box, taken), session::capFits, random(session.context, opening, 9600));
                 if (cap.isEmpty() && owners.get(i) > 0) doomed.add(all.get(owners.get(i)));
                 cap.forEach(piece -> taken.add(piece.getBoundingBox()));
                 added.addAll(cap);
@@ -389,6 +440,19 @@ public final class MistyDwarfMineStructure extends Structure {
         return piece < ROCK_CELLS && solid >= ROCK_CELLS;
     }
 
+    // the pieces of a bridge may touch the pieces around them by a block, as the assembled ones may, but not share space with them
+    private static boolean overlapsPiece(List<StructurePiece> pieces, List<BlockBox> taken) {
+        for (StructurePiece piece : pieces) {
+            BlockBox box = piece.getBoundingBox();
+            for (BlockBox other : taken) {
+                if (box.getMinX() + 1 <= other.getMaxX() && box.getMaxX() - 1 >= other.getMinX()
+                        && box.getMinY() + 1 <= other.getMaxY() && box.getMaxY() - 1 >= other.getMinY()
+                        && box.getMinZ() + 1 <= other.getMaxZ() && box.getMaxZ() - 1 >= other.getMinZ()) return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean overlaps(BlockBox box, List<BlockBox> taken) {
         for (BlockBox other : taken) {
             if (box.intersects(other)) return true;
@@ -413,16 +477,19 @@ public final class MistyDwarfMineStructure extends Structure {
 
     // drops the piece and whatever was only reachable from the start through it
     private static void removeWithOrphans(Session session, List<StructurePiece> all, int index) {
-        List<StructurePiece> before = reachable(session.context, all);
-        all.remove(index);
-        List<StructurePiece> after = reachable(session.context, all);
+        List<StructurePiece> before = reachable(session, all);
+        session.links.remove(all.remove(index));
+        List<StructurePiece> after = reachable(session, all);
         for (StructurePiece piece : before) {
             if (!after.contains(piece)) all.remove(piece);
         }
     }
 
     // pieces linked to the first one through jigsaws
-    private static List<StructurePiece> reachable(Context context, List<StructurePiece> pieces) {
+    private static List<StructurePiece> reachable(Session session, List<StructurePiece> pieces) {
+        Context context = session.context;
+        Map<StructurePiece, Integer> indices = new IdentityHashMap<>();
+        for (int i = 0; i < pieces.size(); i++) indices.put(pieces.get(i), i);
         List<BlockPos> positions = new ArrayList<>();
         List<Direction> facings = new ArrayList<>();
         List<Integer> owners = new ArrayList<>();
@@ -444,6 +511,13 @@ public final class MistyDwarfMineStructure extends Structure {
         while (!queue.isEmpty()) {
             int index = queue.poll();
             result.add(pieces.get(index));
+            // a bridge, and the mine behind it, is reached through the piece it starts from
+            for (StructurePiece linked : session.links.getOrDefault(pieces.get(index), List.of())) {
+                Integer other = indices.get(linked);
+                if (other == null || seen[other]) continue;
+                seen[other] = true;
+                queue.add(other);
+            }
             for (int j = 0; j < positions.size(); j++) {
                 if (owners.get(j) != index) continue;
                 Integer other = at.get(positions.get(j).offset(facings.get(j)));
@@ -455,7 +529,7 @@ public final class MistyDwarfMineStructure extends Structure {
         return result;
     }
 
-    private Optional<List<StructurePiece>> layoutFrom(Session session, BlockPos opening, Direction out, int wave, int limit, List<BlockBox> taken, Predicate<BlockBox> accept) {
+    private Optional<List<StructurePiece>> layoutFrom(Session session, BlockPos opening, Direction out, int wave, int limit, List<BlockBox> taken, JigsawAssembler.Fit accept) {
         int size = WAVE_SIZE_MIN + (MistyCaves.mix(opening.getX(), opening.getZ(), 6400 + wave) & 0xFF) % WAVE_SIZE_SPREAD;
         List<StructurePiece> pieces = JigsawAssembler.assemble(session.context, corridorPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), opening.offset(out), size, limit, taken, accept, session::capFits, random(session.context, opening, 7000 + wave));
         return pieces.size() >= WAVE_MIN_PIECES ? Optional.of(pieces) : Optional.empty();
@@ -478,25 +552,35 @@ public final class MistyDwarfMineStructure extends Structure {
         return edges.at(DepthBands.Band.MIDDLE, share);
     }
 
-    // where an opening faces a drop, a goblin bridge to rock on the far side and a mine continuing from there
+    // where an opening faces a drop, a bridge to rock on the far side and a mine continuing from there
     private void continueAcrossDrops(Session session, List<StructurePiece> all, Set<BlockPos> bridged) {
         List<BlockPos> positions = new ArrayList<>();
         List<Direction> facings = new ArrayList<>();
+        collectJigsaws(session.context, all, positions, facings);
+        for (int i = 0; i < positions.size() && bridged.size() < MAX_CONTINUATIONS; i++) {
+            if (facings.get(i).getAxis() == Direction.Axis.Y || connected(positions, facings, i) || bridged.contains(positions.get(i))) continue;
+            tryBridge(session, all, positions.get(i), facings.get(i), bridged);
+        }
+    }
+
+    // a bridge from an open end, with the mine continuing on the far side; true when one was added
+    private boolean tryBridge(Session session, List<StructurePiece> all, BlockPos opening, Direction out, Set<BlockPos> bridged) {
+        if (bridged.size() >= MAX_CONTINUATIONS) return false;
+        int landing = MineBridge.landingLength(session.context.structureTemplateManager(), false);
+        if (landing < 0) return false;
         List<BlockBox> taken = new ArrayList<>();
         all.forEach(piece -> taken.add(piece.getBoundingBox()));
-        collectJigsaws(session.context, all, positions, facings);
-        int landing = GoblinBridge.landingLength(session.context.structureTemplateManager(), false);
-        if (landing < 0) return;
-        int count = 0;
-        for (int i = 0; i < positions.size() && count < MAX_CONTINUATIONS; i++) {
-            if (facings.get(i).getAxis() == Direction.Axis.Y || connected(positions, facings, i)) continue;
-            Optional<List<StructurePiece>> added = continueFrom(session, positions.get(i), facings.get(i), landing, taken, count);
-            if (added.isEmpty()) continue;
-            added.get().forEach(piece -> taken.add(piece.getBoundingBox()));
-            all.addAll(added.get());
-            bridged.add(positions.get(i));
-            count++;
+        Optional<List<StructurePiece>> added = continueFrom(session, opening, out, landing, taken, bridged.size());
+        if (added.isEmpty()) return false;
+        for (StructurePiece piece : all) {
+            if (piece.getBoundingBox().contains(opening)) {
+                session.links.computeIfAbsent(piece, key -> new ArrayList<>()).addAll(added.get());
+                break;
+            }
         }
+        all.addAll(added.get());
+        bridged.add(opening);
+        return true;
     }
 
     // true when another jigsaw sits on the cell in front of this opening
@@ -510,17 +594,18 @@ public final class MistyDwarfMineStructure extends Structure {
         Context context = session.context;
         MiddleEarthChunkGenerator.CaveProbe probe = session.probe;
         int deckY = opening.getY() - 1;
-        // the mine floor is the near landing: the span starts on the last cell in front of the opening that still has floor
-        int floor = 0;
-        while (floor < MAX_SHIFT) {
-            BlockPos cell = opening.offset(out, floor + 1);
-            if (!probe.solid(cell.getX(), deckY, cell.getZ()) || probe.solid(cell.getX(), deckY + 1, cell.getZ()) || probe.solid(cell.getX(), deckY + 2, cell.getZ())) break;
-            floor++;
+        // the pieces stop short of the chasm, so the floor ahead of the opening is walked to its edge first; the span starts
+        // at the opening and cuts its walkway through whatever rock lies between
+        int lead = 0;
+        while (lead < MAX_LEAD) {
+            BlockPos cell = opening.offset(out, lead + 1);
+            if (!probe.solid(cell.getX(), deckY, cell.getZ())) break;
+            lead++;
         }
         int gap = 0;
         int dropped = 0;
         while (gap < MAX_GAP) {
-            BlockPos cell = opening.offset(out, floor + gap + 1);
+            BlockPos cell = opening.offset(out, lead + gap + 1);
             if (probe.solid(cell.getX(), deckY, cell.getZ()) || probe.solid(cell.getX(), deckY + 1, cell.getZ())) break;
             boolean drop = true;
             for (int down = 1; down <= DROP_DEPTH && drop; down++) drop = !probe.solid(cell.getX(), deckY - down, cell.getZ());
@@ -528,28 +613,90 @@ public final class MistyDwarfMineStructure extends Structure {
             gap++;
         }
         if (gap < MIN_GAP || gap >= MAX_GAP || dropped < gap * DROP_SHARE) return Optional.empty();
+        // the walk to the edge is a plain tunnel, the span starts at the edge
+        MineTunnelPiece tunnel = lead > 0 ? tunnel(opening, out, 1, lead, deckY) : null;
+        // every span that reaches the far rim without overshooting too far is tried, shortest first
+        for (int span = 0; span < MineBridge.SPAN_LENGTH.length; span++) {
+            int length = MineBridge.SPAN_LENGTH[span];
+            int over = length - 1 - gap;
+            if (over < -SPAN_SHORT_BY || over > SPAN_LONG_BY) continue;
+            int hash = MistyCaves.mix(opening.getX(), opening.getZ(), 4243 + count);
+            Optional<List<StructurePiece>> bridge = MineBridge.bridge(context.structureTemplateManager(), probe, span, (MistyCaves.mix(hash, 1, 0) & 3) == 0, out,
+                    opening.offset(out, lead + (length - 1) / 2).withY(deckY),
+                    (MistyCaves.mix(hash, 2, 0) & 3) == 0, (MistyCaves.mix(hash, 3, 0) & 3) == 0, true, false, false);
+            if (bridge.isEmpty()) continue;
+            List<StructurePiece> built = new ArrayList<>(bridge.get());
+            if (tunnel != null) built.add(tunnel);
+            if (overlapsPiece(built, taken)) continue;
 
-        int span = -1;
-        for (int size = 0; size < GoblinBridge.SPAN_LENGTH.length && span < 0; size++) {
-            if (Math.abs(GoblinBridge.SPAN_LENGTH[size] - 1 - gap) <= GoblinBridge.SPAN_SLACK) span = size;
+            // the continuation starts right behind the far landing, with a corridor end facing back at it
+            BlockPos start = opening.offset(out, lead + length + landing).withY(deckY + 1);
+            List<BlockBox> blocked = new ArrayList<>(taken);
+            built.forEach(piece -> blocked.add(piece.getBoundingBox()));
+            List<StructurePiece> pieces = JigsawAssembler.assemble(context, corridorPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), start, CONTINUATION_SIZE, Integer.MAX_VALUE, blocked, session::fits, session::capFits, random(context, opening, 5000));
+            if (pieces.size() < CONTINUATION_MIN_PIECES) continue;
+            List<StructurePiece> result = new ArrayList<>(built);
+            result.addAll(pieces);
+            return Optional.of(result);
         }
-        if (span < 0) return Optional.empty();
-        int length = GoblinBridge.SPAN_LENGTH[span];
-        int hash = MistyCaves.mix(opening.getX(), opening.getZ(), 4243 + count);
-        Optional<List<StructurePiece>> bridge = GoblinBridge.bridge(context.structureTemplateManager(), probe, span, (MistyCaves.mix(hash, 1, 0) & 3) == 0, out,
-                opening.offset(out, floor + (length - 1) / 2).withY(deckY),
-                (MistyCaves.mix(hash, 2, 0) & 3) == 0, (MistyCaves.mix(hash, 3, 0) & 3) == 0, true, false, false);
-        if (bridge.isEmpty()) return Optional.empty();
+        return Optional.empty();
+    }
 
-        // the continuation starts right behind the far landing, with a corridor end facing back at it
-        BlockPos start = opening.offset(out, floor + length + landing).withY(deckY + 1);
-        List<BlockBox> blocked = new ArrayList<>(taken);
-        bridge.get().forEach(piece -> blocked.add(piece.getBoundingBox()));
-        List<StructurePiece> pieces = JigsawAssembler.assemble(context, corridorPool, Optional.of(MINE_CORRIDOR), Optional.of(out.getOpposite()), start, CONTINUATION_SIZE, Integer.MAX_VALUE, blocked, session::capFits, session::capFits, random(context, opening, 5000));
-        if (pieces.size() < CONTINUATION_MIN_PIECES) return Optional.empty();
-        List<StructurePiece> result = new ArrayList<>(bridge.get());
-        result.addAll(pieces);
-        return Optional.of(result);
+    // a 3 wide, 3 tall tunnel with its floor row, from the cell this far to the cell that far along out from the opening
+    private static MineTunnelPiece tunnel(BlockPos opening, Direction out, int from, int to, int floorY) {
+        BlockPos first = opening.offset(out, from);
+        BlockPos last = opening.offset(out, to);
+        int sideX = out.getOffsetZ();
+        int sideZ = out.getOffsetX();
+        return new MineTunnelPiece(new BlockBox(
+                Math.min(first.getX(), last.getX()) - Math.abs(sideX), floorY, Math.min(first.getZ(), last.getZ()) - Math.abs(sideZ),
+                Math.max(first.getX(), last.getX()) + Math.abs(sideX), floorY + 3, Math.max(first.getZ(), last.getZ()) + Math.abs(sideZ)));
+    }
+
+    // Two ends that face each other across a block or three of rock are joined by a tunnel. Without it the paths run side by side,
+    // and the plug or end that would close each of them seals the wall between them.
+    private void joinNearbyEnds(Session session, List<StructurePiece> all, Set<BlockPos> joined) {
+        List<BlockPos> positions = new ArrayList<>();
+        List<Direction> facings = new ArrayList<>();
+        List<Integer> owners = new ArrayList<>();
+        for (int i = 0; i < all.size(); i++) {
+            int before = positions.size();
+            collectJigsaws(session.context, List.of(all.get(i)), positions, facings);
+            for (int n = before; n < positions.size(); n++) owners.add(i);
+        }
+        List<StructurePiece> tunnels = new ArrayList<>();
+        for (int i = 0; i < positions.size(); i++) {
+            Direction out = facings.get(i);
+            BlockPos opening = positions.get(i);
+            if (out.getAxis() == Direction.Axis.Y || connected(positions, facings, i) || joined.contains(opening)) continue;
+            for (int distance = 2; distance <= JOIN_MAX; distance++) {
+                int other = positions.indexOf(opening.offset(out, distance));
+                if (other < 0 || facings.get(other) != out.getOpposite() || owners.get(other).equals(owners.get(i)) || joined.contains(positions.get(other))) continue;
+                MineTunnelPiece tunnel = tunnel(opening, out, 1, distance - 1, opening.getY() - 1);
+                if (!rockUnder(session, tunnel.getBoundingBox())) break;
+                StructurePiece a = all.get(owners.get(i));
+                StructurePiece b = all.get(owners.get(other));
+                session.links.computeIfAbsent(a, key -> new ArrayList<>()).add(tunnel);
+                session.links.computeIfAbsent(b, key -> new ArrayList<>()).add(tunnel);
+                session.links.computeIfAbsent(tunnel, key -> new ArrayList<>()).add(a);
+                session.links.get(tunnel).add(b);
+                tunnels.add(tunnel);
+                joined.add(opening);
+                joined.add(positions.get(other));
+                break;
+            }
+        }
+        all.addAll(tunnels);
+    }
+
+    // rock under every cell of the tunnel's floor, so a join never bridges a hole
+    private static boolean rockUnder(Session session, BlockBox box) {
+        for (int x = box.getMinX(); x <= box.getMaxX(); x++) {
+            for (int z = box.getMinZ(); z <= box.getMaxZ(); z++) {
+                if (!session.probe.solid(x, box.getMinY() - 1, z)) return false;
+            }
+        }
+        return true;
     }
 
     private static ChunkRandom random(Context context, BlockPos opening, int attempt) {

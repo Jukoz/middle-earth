@@ -103,6 +103,11 @@ public final class BiomeAmbianceME {
             BiomeKeyRegistryME.FUNGUS_CAVE, BiomeKeyRegistryME.MITHRIL_CAVE, BiomeKeyRegistryME.NAMELESS_DEEPS, BiomeKeyRegistryME.GNAWED_TUNNELS,
             BiomeKeyRegistryME.GLOWWORM_GROTTO);
 
+    // their particles fall from the ceiling
+    public static boolean fallsFromCeiling(RegistryKey<Biome> biome) {
+        return biome == BiomeKeyRegistryME.NAMELESS_DEEPS || biome == BiomeKeyRegistryME.GNAWED_TUNNELS;
+    }
+
     public static boolean hasUndergroundFog(RegistryKey<Biome> biome) {
         return UNDERGROUND_FOG.contains(biome);
     }
@@ -244,9 +249,10 @@ public final class BiomeAmbianceME {
         public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f).onlyUnderCover();
         public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f).onlyUnderCover();
 
-        public static final Particles DUSTFALL = new Particles(ParticleTypes.WHITE_ASH, 0.004f);
+        // rolled for every air block near the camera, but only the ones under a ceiling count (see ClientWorldMixin)
+        public static final Particles DUSTFALL = new Particles(ParticleTypes.WHITE_ASH, 0.025f);
         public static final Particles GLINTS = new Particles(ParticleTypes.GLOW, 0.0015f);
-        public static final Particles DRIPS = new Particles(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.002f);
+        public static final Particles DRIPS = new Particles(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.015f);
 
         public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);
         public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.025f);

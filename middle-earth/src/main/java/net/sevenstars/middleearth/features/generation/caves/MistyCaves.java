@@ -109,6 +109,7 @@ public final class MistyCaves {
     private static final float LAKE_WOBBLE = 0.32f;
     private static final float LAKE_DOME_WOBBLE = 0.25f;
     private static final int LAKE_SHELL = 5;
+    private static final int LAKE_ABYSS_GAP = 12; // blocks of rock kept between a lake and an abyss
     private static final int LAKE_WATER_MIN_Y = -95;
     private static final int LAKE_WATER_MAX_Y = -66;
     private static final int LAKE_FLOOR_CLEARANCE = 6; // shell bottom above the deep floor
@@ -517,8 +518,9 @@ public final class MistyCaves {
     public static float shaftWobble(Shaft shaft, int y) {
         float wobble = 1 + 0.12f * (float) SimplexNoise.noise(shaft.wobble, y / 26f);
         if (shaft.abyss) {
-            int k = Math.floorMod(y + (int) shaft.wobble, LEDGE_PERIOD);
-            wobble *= 1 - LEDGE_PINCH * (1 - smoothstep(0, LEDGE_THICKNESS, k));
+            // a shelf swells out of the wall and fades back into it, so it never hangs from a sharp underside
+            int k = Math.floorMod(y + (int) shaft.wobble + LEDGE_THICKNESS, LEDGE_PERIOD) - LEDGE_THICKNESS;
+            wobble *= 1 - LEDGE_PINCH * smoothstep(-LEDGE_THICKNESS, 0, k) * (1 - smoothstep(0, LEDGE_THICKNESS, k));
         }
         return wobble;
     }
@@ -633,8 +635,25 @@ public final class MistyCaves {
         return DeepThemes.at(x, z, seed) == DeepThemes.Theme.WET && !DeepThemes.border(x, z, seed);
     }
 
+    // an abyss runs through the basin or close to it
+    private boolean abyssBeside(MiddleEarthMapRuntime map, Lake lake) {
+        int reach = (int) (Math.max(lake.rx, lake.rz) * (1 + LAKE_WOBBLE)) + LAKE_SHELL + LAKE_ABYSS_GAP;
+        int minCellX = Math.floorDiv(lake.x - reach - ABYSS_MAX_REACH, ABYSS_CELL);
+        int maxCellX = Math.floorDiv(lake.x + reach + ABYSS_MAX_REACH, ABYSS_CELL);
+        int minCellZ = Math.floorDiv(lake.z - reach - ABYSS_MAX_REACH, ABYSS_CELL);
+        int maxCellZ = Math.floorDiv(lake.z + reach + ABYSS_MAX_REACH, ABYSS_CELL);
+        for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
+            for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
+                Shaft shaft = shaftInCell(map, cellX, cellZ, lake.x - 8, lake.z - 8, reach + ABYSS_MAX_REACH, true);
+                if (shaft != null && shaft.touches(lake.x - reach, lake.z - reach, 2 * reach + 1)) return true;
+            }
+        }
+        return false;
+    }
+
     private boolean computeFits(MiddleEarthMapRuntime map, Lake lake) {
         if (weight(map, lake.x, lake.z) < LAKE_MIN_WEIGHT || !wet(lake.x, lake.z)) return false;
+        if (abyssBeside(map, lake)) return false;
         float limit = lake.waterTop + lake.ceilingMax() + 1 + LAKE_SURFACE_CLEARANCE;
         if (surface(lake.x, lake.z) < limit) return false;
         for (int i = 0; i < 12; i++) {
