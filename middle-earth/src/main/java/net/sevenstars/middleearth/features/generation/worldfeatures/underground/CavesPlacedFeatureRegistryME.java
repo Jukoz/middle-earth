@@ -158,8 +158,14 @@ public class CavesPlacedFeatureRegistryME {
 
     // region DEEPS
     public static final RegistryKey<PlacedFeature> DEEPS_GLOW_LICHEN = registerKey("deeps_glow_lichen");
-    public static final RegistryKey<PlacedFeature> DEEPS_MOSS = registerKey("deeps_moss");
+    public static final RegistryKey<PlacedFeature> DEEPS_GLOWWORM = registerKey("deeps_glowworm");
+    public static final RegistryKey<PlacedFeature> DEEPS_AMANITA = registerKey("deeps_amanita");
+    public static final RegistryKey<PlacedFeature> DEEPS_MUD = registerKey("deeps_mud");
     public static final RegistryKey<PlacedFeature> DEEPS_CLAY = registerKey("deeps_clay");
+    public static final RegistryKey<PlacedFeature> DEEPS_TUFF = registerKey("deeps_tuff");
+    public static final RegistryKey<PlacedFeature> DEEPS_CALCITE = registerKey("deeps_calcite");
+    public static final RegistryKey<PlacedFeature> DEEPS_GRAVEL = registerKey("deeps_gravel");
+    public static final RegistryKey<PlacedFeature> DEEPS_POINTED_DRIPSTONE = registerKey("deeps_pointed_dripstone");
     // endregion
     public static final RegistryKey<PlacedFeature> SPRING_LAVA = registerKey("spring_lava");
 
@@ -284,6 +290,12 @@ public class CavesPlacedFeatureRegistryME {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatch = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> lushCavesClay = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.LUSH_CAVES_CLAY);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> glowLichen = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.GLOW_LICHEN);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedDripstone = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.POINTED_DRIPSTONE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> deepsMud = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DEEPS_ORE_MUD);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> deepsClay = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DEEPS_ORE_CLAY);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> deepsTuff = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DEEPS_ORE_TUFF);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> deepsCalcite = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DEEPS_ORE_CALCITE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> deepsGravel = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DEEPS_ORE_GRAVEL);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> mossPatchCeiling = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.MOSS_PATCH_CEILING);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> sporeBlossom = registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.SPORE_BLOSSOM);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> vines = registryEntryLookup.getOrThrow(VegetationConfiguredFeatures.VINES);
@@ -304,9 +316,9 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, ORE_DOLOMITE, oreDolomite, modifiersWithCount(4, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, oreOldDolomite, modifiersWithCount(24, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
         PlacedFeatures.register(featureRegisterable, ORE_DOLOMITE_ABUNDANT, oreDolomite, modifiersWithCount(25, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(300))));
-        PlacedFeatures.register(featureRegisterable, ORE_MAGMA, oreMagma, modifiersWithCount(11, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, ORE_MAGMA_ABUNDANT, oreMagma, modifiersWithCount(14, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(120))));
-        PlacedFeatures.register(featureRegisterable, ORE_OBSIDIAN, oreObsidian, modifiersWithCount(7, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-92), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL))));
+        PlacedFeatures.register(featureRegisterable, ORE_MAGMA, oreMagma, fire(modifiersWithCount(11, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL)))));
+        PlacedFeatures.register(featureRegisterable, ORE_MAGMA_ABUNDANT, oreMagma, fire(modifiersWithCount(14, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(120)))));
+        PlacedFeatures.register(featureRegisterable, ORE_OBSIDIAN, oreObsidian, fire(modifiersWithCount(7, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-92), YOffset.fixed(MiddleEarthChunkGenerator.MEDGON_LEVEL)))));
         PlacedFeatures.register(featureRegisterable, ORE_DIRT, oreDirt, modifiersWithCount(6, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, ORE_MUD, oreMud, modifiersWithCount(15, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, ORE_ASH, oreAsh, modifiersWithCount(21, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-48), YOffset.fixed(250))));
@@ -333,8 +345,8 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, ORE_SNOW, oreSnow, modifiersWithCount(18, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_TERRACOTTA, oreTerracotta, modifiersWithCount(17, HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(100))));
         PlacedFeatures.register(featureRegisterable, ORE_TUFF, oreTuff, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0))));
-        PlacedFeatures.register(featureRegisterable, ORE_BASALT, oreBasalt, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0))));
-        PlacedFeatures.register(featureRegisterable, ORE_BLACKSTONE, oreBlackstone, modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-64), YOffset.fixed(-32))));
+        PlacedFeatures.register(featureRegisterable, ORE_BASALT, oreBasalt, fire(modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-32), YOffset.fixed(0)))));
+        PlacedFeatures.register(featureRegisterable, ORE_BLACKSTONE, oreBlackstone, fire(modifiersWithCount(7, HeightRangePlacementModifier.uniform(YOffset.fixed(-64), YOffset.fixed(-32)))));
 
         PlacedFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, dolomiteCluster, CountPlacementModifier.of(UniformIntProvider.create(48, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, LARGE_DOLOMITE, largeDolomite, CountPlacementModifier.of(UniformIntProvider.create(10, 48)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of());
@@ -359,9 +371,9 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, POOL_MUD, poolMud, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, DISK_MYCELIUM, diskMycelium, modifiersWithCount(40, mushroomsRange));
 
-        PlacedFeatures.register(featureRegisterable, DELTA, delta, modifiersWithCount(5, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL))));
-        PlacedFeatures.register(featureRegisterable, PILLAR_BASALT, pillarBasalt, modifiersWithCount(2, nurgonRange));
-        PlacedFeatures.register(featureRegisterable, PILLAR_BLACKSTONE, pillarBlackstone, modifiersWithCount(2, medgonRange));
+        PlacedFeatures.register(featureRegisterable, DELTA, delta, fire(modifiersWithCount(5, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-128), YOffset.fixed(MiddleEarthChunkGenerator.DEEPSLATE_LEVEL)))));
+        PlacedFeatures.register(featureRegisterable, PILLAR_BASALT, pillarBasalt, fire(modifiersWithCount(2, nurgonRange)));
+        PlacedFeatures.register(featureRegisterable, PILLAR_BLACKSTONE, pillarBlackstone, fire(modifiersWithCount(2, medgonRange)));
         PlacedFeatures.register(featureRegisterable, PILLAR_PACKED_ICE, pillarPackedIce, modifiersWithCount(3,  HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(64))));
         PlacedFeatures.register(featureRegisterable, PILLAR_SMOOTH_SANDSTONE, pillarSmoothSandstone, modifiersWithCount(3, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(64))));
 
@@ -445,11 +457,19 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, CLASSIC_VINES_CAVE, vines, CountPlacementModifier.of(256), SquarePlacementModifier.of(), lushRange, BiomePlacementModifier.of());
 
         // the vanilla ones start no lower than -4
-        PlacedFeatures.register(featureRegisterable, DEEPS_GLOW_LICHEN, glowLichen, CountPlacementModifier.of(UniformIntProvider.create(60, 100)), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, DEEPS_MOSS, mossPatch, CountPlacementModifier.of(16), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, DEEPS_CLAY, lushCavesClay, CountPlacementModifier.of(12), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DEEPS_GLOW_LICHEN, glowLichen, CountPlacementModifier.of(UniformIntProvider.create(20, 40)), SquarePlacementModifier.of(), deepsRange, EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DEEPS_GLOWWORM, glowwormWebbing, CountPlacementModifier.of(30), SquarePlacementModifier.of(), deepsRange,
+                EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.IS_AIR, 12), RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, DEEPS_AMANITA, caveAmanita, modifiersWithCount(4, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_MUD, deepsMud, modifiersWithCount(8, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_CLAY, deepsClay, modifiersWithCount(8, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_TUFF, deepsTuff, modifiersWithCount(10, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_CALCITE, deepsCalcite, modifiersWithCount(8, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_GRAVEL, deepsGravel, modifiersWithCount(6, deepsRange));
+        PlacedFeatures.register(featureRegisterable, DEEPS_POINTED_DRIPSTONE, pointedDripstone, CountPlacementModifier.of(UniformIntProvider.create(60, 100)), SquarePlacementModifier.of(), deepsRange,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
-        PlacedFeatures.register(featureRegisterable, SPRING_LAVA, springLava, modifiersWithCount(20, HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL)) ));
+        PlacedFeatures.register(featureRegisterable, SPRING_LAVA, springLava, fire(modifiersWithCount(20, HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL)) )));
     }
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {
@@ -458,6 +478,13 @@ public class CavesPlacedFeatureRegistryME {
 
     private static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {
         return List.of(countModifier, SquarePlacementModifier.of(), heightModifier, BiomePlacementModifier.of());
+    }
+
+    // for the fire features: never in or just above the deeps
+    private static List<PlacementModifier> fire(List<PlacementModifier> modifiers) {
+        List<PlacementModifier> result = new java.util.ArrayList<>(modifiers);
+        result.add(NotInDeepsPlacementModifier.INSTANCE);
+        return result;
     }
 
     private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {

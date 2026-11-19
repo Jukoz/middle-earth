@@ -31,6 +31,8 @@ public class BiomeEventRegistry {
     public final static RegistryKey<BiomeEventData> MAGMA_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.MAGMA_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> MITHRIL_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.MITHRIL_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> NAMELESS_DEEPS = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.NAMELESS_DEEPS.getValue());
+    public final static RegistryKey<BiomeEventData> GNAWED_TUNNELS = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.GNAWED_TUNNELS.getValue());
+    public final static RegistryKey<BiomeEventData> GLOWWORM_GROTTO = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.GLOWWORM_GROTTO.getValue());
     public final static RegistryKey<BiomeEventData> DRY_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.DRY_CAVE.getValue());
     public final static RegistryKey<BiomeEventData> ICE_CAVE = DynamicRegistriesME.of(BIOME_EVENT_KEY, BiomeKeyRegistryME.ICE_CAVE.getValue());
     // endregion
@@ -188,6 +190,8 @@ public class BiomeEventRegistry {
         register(context, registryEntryLookup, MAGMA_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, MITHRIL_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, NAMELESS_DEEPS, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, GNAWED_TUNNELS, GenericHostilesBiomeEventPool.CAVE);
+        register(context, registryEntryLookup, GLOWWORM_GROTTO, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, DRY_CAVE, GenericHostilesBiomeEventPool.CAVE);
         register(context, registryEntryLookup, ICE_CAVE, GenericHostilesBiomeEventPool.CAVE);
 

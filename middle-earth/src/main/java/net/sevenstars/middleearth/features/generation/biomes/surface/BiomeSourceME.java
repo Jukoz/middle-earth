@@ -7,6 +7,7 @@ import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.caves.CaveBiomesME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.chunkgen.ProceduralStructures;
@@ -99,8 +100,8 @@ public class BiomeSourceME extends BiomeSource {
             DepthBands.Span span = DepthBands.at(j, column.edges);
             DepthBands.Band band = span == null ? DepthBands.Band.UPPER : span.band();
             RegistryKey<Biome> caveBiome = column.caveBiomes[band.ordinal()];
-            // the deeps belong to every column with a floor below the usual one, whatever its cave type
-            if (band == DepthBands.Band.DEEPS && column.edges.floor() < DepthBands.SHALLOW_FLOOR) caveBiome = column.caveBiomes[band.ordinal()] = BiomeKeyRegistryME.NAMELESS_DEEPS;
+            // the deeps belong to every column with a floor below the usual one, whatever its cave type; which of them is up to the region
+            if (band == DepthBands.Band.DEEPS && column.edges.floor() < DepthBands.SHALLOW_FLOOR) caveBiome = column.caveBiomes[band.ordinal()] = DeepThemes.at(i, k, MiddleEarthHeightMap.getSeed()).biome;
             if (caveBiome == null) caveBiome = column.caveBiomes[band.ordinal()] = getCaveBiome(i, k, column.mapBiome.getBiome(), band);
             processedBiome = caveBiome;
         } else {

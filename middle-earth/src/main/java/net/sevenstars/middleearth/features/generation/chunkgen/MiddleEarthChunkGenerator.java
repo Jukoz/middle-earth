@@ -38,6 +38,7 @@ import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
 import net.minecraft.world.gen.structure.Structure;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
@@ -56,6 +57,7 @@ import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -354,6 +356,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.FUNGUS_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.MITHRIL_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.NAMELESS_DEEPS),
+                    biomeRegistry.getOrThrow(BiomeKeyRegistryME.GNAWED_TUNNELS),
+                    biomeRegistry.getOrThrow(BiomeKeyRegistryME.GLOWWORM_GROTTO),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.BASALT_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.MAGMA_CAVE),
                     biomeRegistry.getOrThrow(BiomeKeyRegistryME.DRY_CAVE),
@@ -384,7 +388,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         int bottomY = chunk.getBottomY();
         long seed = region.getSeed();
         List<StructureStart> structureStarts = structures.getStructureStarts(chunk.getPos(), s -> true);
-        CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive(), seed);
+        CaveSampler caves = new CaveSampler(chunk.getPos().getStartX(), chunk.getPos().getStartZ(), bottomY, chunk.getTopYInclusive(), seed, false);
         ColumnWriter out = new ColumnWriter(chunk);
         DepthBands.ChunkFloors floors = DepthBands.ChunkFloors.forChunk(middleEarthMapRuntime, chunk.getPos().getStartX(), chunk.getPos().getStartZ(), seed);
         if(floors == null) out.fillBedrock(DepthBands.SHALLOW_FLOOR);
@@ -456,17 +460,29 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
                 int floor = floors == null ? DepthBands.SHALLOW_FLOOR : floors.floor(x, z);
                 if(floor < DepthBands.SHALLOW_FLOOR) {
-                    // lava sea over the deep floor; rock stands where a neighbour's sea is higher, and caves carve the rest
-                    int lavaTop = floor + DepthBands.LAVA_THICKNESS;
-                    int lavaCap = floors.lavaCap(x, z);
+                    // The deeps have no lava. Their bottom is water, bare rock or shallow water, by the region, with a rock wall across the
+                    // deeps where two regions meet and where the old lava sea of a shallow column lies next to them.
+                    DeepThemes.Theme theme = DeepThemes.at(posX, posZ, seed);
+                    DepthBands.Edges edges = DepthBands.Edges.of((int) (DIRT_HEIGHT + height), floor, caveBlendNoise);
+                    boolean wall = DeepThemes.border(posX, posZ, seed);
+                    int beside = floors.touchesShallow(x, z) ? LAVA_HEIGHT : Integer.MIN_VALUE;
+                    int water = theme == DeepThemes.Theme.WET ? DepthBands.BOTTOM_BAND : theme == DeepThemes.Theme.GROTTO ? DepthBands.SHALLOW_WATER : 0;
+                    // rock above this column's water, up to where a higher neighbour's water reaches, so none is left open to the side
+                    int sealed = water > 0 ? floors.highestFloor(x, z) + water : Integer.MIN_VALUE;
+                    boolean island = theme == DeepThemes.Theme.GROTTO && DeepThemes.island(posX, posZ, seed);
                     for(int y = bottomY; y <= floor; y++) {
                         out.set(x, y, z, Blocks.BEDROCK.getDefaultState());
                     }
-                    for(int y = floor + 1; y <= lavaTop; y++) {
-                        out.set(x, y, z, Blocks.LAVA.getDefaultState());
+                    for(int y = floor + 1; y <= floor + water; y++) {
+                        out.set(x, y, z, Blocks.WATER.getDefaultState());
                     }
                     for(int y = floor + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
-                        if(y > lavaTop && y <= lavaCap) {
+                        boolean solid = y <= beside
+                                || (theme == DeepThemes.Theme.GNAWED && y <= floor + DepthBands.BOTTOM_BAND)
+                                || (y > floor + water && y <= sealed)
+                                || (island && y <= floor + DepthBands.SHALLOW_WATER)
+                                || (wall && y < edges.top(DepthBands.Band.DEEPS) && !DeepThemes.passage(posX, y, posZ, edges, seed));
+                        if(solid) {
                             out.set(x, y, z, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
                         } else {
                             trySetBlock(caves, out, x, y, z, posX, posZ, StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState());
@@ -666,12 +682,22 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         }
     }
 
-    // answers what buildSurface would leave solid, for structure code; one sampler per chunk, kept only for the life of the probe
+    // answers what buildSurface would leave solid, for structure code; it lives as long as one structure start and holds
+    // bounded caches only: the per-chunk contexts of the most recent chunks, whose cave noise is evaluated one corner at a time
     public static final class CaveProbe {
+        private static final int MAX_CHUNKS = 128;
+        private static final int MAX_FLOORS = 1 << 16;
+
         private final long seed;
         private final int bottomY;
         private final int topY;
-        private final Map<Long, CaveSampler> samplers = new HashMap<>();
+        private final Map<Long, CaveSampler> samplers = new LinkedHashMap<>(16, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<Long, CaveSampler> eldest) {
+                return size() > MAX_CHUNKS;
+            }
+        };
+        private final Map<Long, Integer> floors = new HashMap<>();
 
         public CaveProbe(long seed, HeightLimitView world) {
             this.seed = seed;
@@ -682,9 +708,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         public boolean solid(int x, int y, int z) {
             if (y < bottomY) return true;
             if (y > topY) return false;
-            if (y < DepthBands.SHALLOW_FLOOR && y <= DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, seed)) return true;
-            CaveSampler sampler = samplers.computeIfAbsent(ChunkPos.toLong(x >> 4, z >> 4), key -> new CaveSampler(x & ~15, z & ~15, bottomY, topY, seed));
+            if (y < DepthBands.SHALLOW_FLOOR && y <= deepFloor(x, z)) return true;
+            CaveSampler sampler = samplers.computeIfAbsent(ChunkPos.toLong(x >> 4, z >> 4), key -> new CaveSampler(x & ~15, z & ~15, bottomY, topY, seed, true));
             return sampler.sample(x, y, z) == CaveSampler.STONE;
+        }
+
+        private int deepFloor(int x, int z) {
+            if (floors.size() >= MAX_FLOORS) floors.clear();
+            return floors.computeIfAbsent(ChunkPos.toLong(x, z), key -> DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, seed));
         }
     }
 
@@ -714,11 +745,15 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final float[][] mistyPages;
         private final boolean[] mistyDone;
         private final MistyCaves.Shaft[] shafts;
+        private final float[][] shaftColumns; // per ravine and corner: distance across, half width
         private final MistyCaves.Lake[] lakes;
         private final MistyCaves.Road[] roads;
         private final float[][] lakeWobble;
         private final int[] surfaceY;
         private final DepthBands.Edges[] cornerEdges; // null where the weight is 0
+        private final DeepThemes.Theme[] cornerThemes;
+        private final boolean[] cornerBorders;
+        private MistyCaves.Worm[] worms; // only when a corner of the chunk lies in the gnawed deeps
         private int riftMinY = Integer.MAX_VALUE;
         private int chamberMinY = Integer.MAX_VALUE;
         private int chamberMaxY = Integer.MIN_VALUE;
@@ -744,8 +779,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final float[] baseBlend;
         private int[] mistyStamp;
         private float[] mistyBlend;
+        // only for the probe: single corners evaluated on demand in place of whole layer pages, dropped when they get too many
+        private static final int MAX_CORNERS = 1024;
+        private final Map<Long, float[]> baseCorners;
+        private final Map<Long, float[]> mistyCorners;
 
-        CaveSampler(int startX, int startZ, int bottomY, int topY, long seed) {
+        CaveSampler(int startX, int startZ, int bottomY, int topY, long seed, boolean point) {
+            this.baseCorners = point ? new HashMap<>() : null;
+            this.mistyCorners = point ? new HashMap<>() : null;
             this.startX = startX;
             this.startZ = startZ;
             this.minCellY = Math.floorDiv(bottomY, CELL);
@@ -770,18 +811,28 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             // a lake tunnel runs out of the Misty region, and the chunks it passes through still carry it
             MistyCaves candidate = new MistyCaves(seed);
             MistyCaves.Lake[] tunnels = any ? null : candidate.lakesNear(map, startX, startZ);
-            if (!any && tunnels.length == 0) {
+            // and the gnawed deeps are bored by worms wherever the floor is deep, Misty or not
+            boolean deepHere = false;
+            for (int i = 0; i < lattice && !deepHere; i++) {
+                for (int j = 0; j < lattice && !deepHere; j++) {
+                    deepHere = DepthBands.deepFloor(map, startX + i * MISTY_LATTICE, startZ + j * MISTY_LATTICE, seed) < DepthBands.SHALLOW_FLOOR;
+                }
+            }
+            if (!any && !deepHere && tunnels.length == 0) {
                 this.misty = null;
                 this.mistyWeight = null;
                 this.riftScale = null;
                 this.mistyPages = null;
                 this.mistyDone = null;
                 this.shafts = null;
+                this.shaftColumns = null;
                 this.lakes = null;
                 this.roads = null;
                 this.lakeWobble = null;
                 this.surfaceY = null;
                 this.cornerEdges = null;
+                this.cornerThemes = null;
+                this.cornerBorders = null;
                 return;
             }
             this.misty = candidate;
@@ -792,6 +843,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.mistyStamp = new int[layerCount * MistyCaves.VALUES];
             this.mistyBlend = new float[layerCount * MistyCaves.VALUES];
             this.shafts = misty.shaftsNear(map, startX, startZ);
+            this.shaftColumns = new float[shafts.length][CORNERS * CORNERS * 2];
             this.lakes = any ? misty.lakesNear(map, startX, startZ) : tunnels;
             this.roads = misty.roadsNear(map, startX, startZ);
             this.lakeWobble = new float[lakes.length][16 * 16 * 2];
@@ -802,6 +854,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             }
             this.surfaceY = new int[16 * 16];
             this.cornerEdges = new DepthBands.Edges[CORNERS * CORNERS];
+            this.cornerThemes = new DeepThemes.Theme[CORNERS * CORNERS];
+            this.cornerBorders = new boolean[CORNERS * CORNERS];
             int ratio = MISTY_LATTICE / CELL;
             for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                 for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
@@ -818,13 +872,23 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     float w = top + (bottom - top) * fz;
                     int corner = cornerX * CORNERS + cornerZ;
                     mistyWeight[corner] = w;
-                    if (w <= 0) continue;
                     int cornerWorldX = startX + cornerX * CELL;
                     int cornerWorldZ = startZ + cornerZ * CELL;
-                    riftScale[corner] = w * misty.riftCluster(cornerWorldX, cornerWorldZ);
+                    int cornerFloor = DepthBands.deepFloor(map, cornerWorldX, cornerWorldZ, seed);
+                    boolean deep = cornerFloor < DepthBands.SHALLOW_FLOOR;
+                    if (w <= 0 && !deep) continue;
                     DepthBands.Edges edges = DepthBands.Edges.of((int) (DIRT_HEIGHT + MiddleEarthHeightMap.getCachedHeight(cornerWorldX, cornerWorldZ)),
-                            DepthBands.deepFloor(map, cornerWorldX, cornerWorldZ, seed), caveBlendNoise(cornerWorldX, cornerWorldZ, seed));
+                            cornerFloor, caveBlendNoise(cornerWorldX, cornerWorldZ, seed));
                     cornerEdges[corner] = edges;
+                    cornerThemes[corner] = deep ? DeepThemes.at(cornerWorldX, cornerWorldZ, seed) : DeepThemes.Theme.WET;
+                    cornerBorders[corner] = deep && DeepThemes.border(cornerWorldX, cornerWorldZ, seed);
+                    if (cornerThemes[corner] == DeepThemes.Theme.GNAWED) {
+                        if (worms == null) worms = misty.wormsNear(startX, startZ);
+                        chamberMinY = Math.min(chamberMinY, MistyCaves.chamberBottom(edges));
+                        chamberMaxY = Math.max(chamberMaxY, edges.top(DepthBands.Band.DEEPS));
+                    }
+                    if (w <= 0) continue;
+                    riftScale[corner] = w * misty.riftCluster(cornerWorldX, cornerWorldZ);
                     if (riftScale[corner] > 0) riftMinY = Math.min(riftMinY, MistyCaves.riftBottom(edges));
                     chamberMinY = Math.min(chamberMinY, MistyCaves.chamberBottom(edges));
                     chamberMaxY = Math.max(chamberMaxY, edges.top(DepthBands.Band.DEEPS));
@@ -835,6 +899,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
             }
             if (shafts.length > 0) {
+                for (int i = 0; i < shafts.length; i++) {
+                    for (int corner = 0; corner < CORNERS * CORNERS; corner++) {
+                        MistyCaves.shaftColumn(shafts[i], startX + corner / CORNERS * CELL, startZ + corner % CORNERS * CELL, shaftColumns[i], corner * 2);
+                    }
+                }
                 int[] range = MistyCaves.shaftRange(shafts);
                 shaftMinY = range[0];
                 shaftMaxY = range[1];
@@ -873,6 +942,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         int sample(int x, int y, int z) {
             selectColumn(x - startX, z - startZ);
             if (misty == null) return baseSolid(x, y, z) ? STONE : AIR;
+            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY && roadApronAt(x, y, z)) return STONE;
             if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
                 int column = ((x - startX) * 16 + (z - startZ)) * 2;
                 for (int i = 0; i < lakes.length; i++) {
@@ -885,25 +955,26 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
                 }
             }
-            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY) {
-                int road = roadAt(x, y, z);
-                if (road == STONE) return STONE;
-                if (road == AIR) return AIR;
-            }
-            return baseSolid(x, y, z) && mistySolid(x, y, z) ? STONE : AIR;
+            if (roads.length > 0 && y >= roadMinY && y <= roadMaxY && roadOpenAt(x, y, z)) return AIR;
+            return (gnawedRock(y) || baseSolid(x, y, z)) && mistySolid(x, y, z) ? STONE : AIR;
         }
 
-        // STONE for the apron at a road mouth, AIR inside a road, anything else when no road is involved
-        private int roadAt(int x, int y, int z) {
+        // the apron stone at a road mouth wins over everything, lake chambers and tunnels included: it only adds rock
+        private boolean roadApronAt(int x, int y, int z) {
             float weight = weight();
-            if (weight <= 0) return -1;
+            if (weight <= 0) return false;
             for (MistyCaves.Road road : roads) {
-                if (misty.roadApron(road, x, y, z, weight)) return STONE;
+                if (misty.roadApron(road, x, y, z)) return true;
             }
+            return false;
+        }
+
+        private boolean roadOpenAt(int x, int y, int z) {
+            if (weight() <= 0) return false;
             for (MistyCaves.Road road : roads) {
-                if (misty.roadOpen(road, x, y, z)) return AIR;
+                if (misty.roadOpen(road, x, y, z)) return true;
             }
-            return -1;
+            return false;
         }
 
         void setSurface(int x, int z, int y) {
@@ -927,7 +998,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
             boolean stream = y >= streamMinY && y <= streamMaxY;
             if (!rift && !chamber && !shaft && !stream) return true;
-            if (weight() <= 0) return true;
+            if (weight() <= 0 && !gnawedRock(y)) return true;
             int cellY = Math.floorDiv(y, CELL) - minCellY;
             float fy = (float) Math.floorMod(y, CELL) / CELL;
             if (rift && lerp3m(cellY, MistyCaves.RIFT, fy) > 0) return false;
@@ -965,12 +1036,23 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private float mistyBlend(int layer, int v) {
             int slot = layer * MistyCaves.VALUES + v;
             if (mistyStamp[slot] == stamp) return mistyBlend[slot];
-            float[] page = mistyLayer(layer);
-            int base = (layer % PAGE_LAYERS) * MISTY_LAYER_SIZE;
-            float c00 = page[base + (cellX * CORNERS + cellZ) * MistyCaves.VALUES + v];
-            float c10 = page[base + ((cellX + 1) * CORNERS + cellZ) * MistyCaves.VALUES + v];
-            float c01 = page[base + (cellX * CORNERS + cellZ + 1) * MistyCaves.VALUES + v];
-            float c11 = page[base + ((cellX + 1) * CORNERS + cellZ + 1) * MistyCaves.VALUES + v];
+            float c00;
+            float c10;
+            float c01;
+            float c11;
+            if (mistyCorners == null) {
+                float[] page = mistyLayer(layer);
+                int base = (layer % PAGE_LAYERS) * MISTY_LAYER_SIZE;
+                c00 = page[base + (cellX * CORNERS + cellZ) * MistyCaves.VALUES + v];
+                c10 = page[base + ((cellX + 1) * CORNERS + cellZ) * MistyCaves.VALUES + v];
+                c01 = page[base + (cellX * CORNERS + cellZ + 1) * MistyCaves.VALUES + v];
+                c11 = page[base + ((cellX + 1) * CORNERS + cellZ + 1) * MistyCaves.VALUES + v];
+            } else {
+                c00 = mistyCorner(layer, cellX, cellZ)[v];
+                c10 = mistyCorner(layer, cellX + 1, cellZ)[v];
+                c01 = mistyCorner(layer, cellX, cellZ + 1)[v];
+                c11 = mistyCorner(layer, cellX + 1, cellZ + 1)[v];
+            }
             float top = c00 + (c10 - c00) * fx;
             float bottom = c01 + (c11 - c01) * fx;
             float blend = top + (bottom - top) * fz;
@@ -991,34 +1073,77 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 boolean chamber = y >= chamberMinY && y <= chamberMaxY;
                 boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
                 boolean stream = y >= streamMinY && y <= streamMaxY;
-                float[] profiles = null;
-                if (shaft) {
-                    profiles = new float[shafts.length * 3];
-                    for (int i = 0; i < shafts.length; i++) misty.shaftProfile(shafts[i], y, profiles, i * 3);
-                }
+                float[] wobbles = shaftWobbles(y, shaft);
                 for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                     for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
                         int corner = cornerX * CORNERS + cornerZ;
-                        int offset = layerBase + corner * MistyCaves.VALUES;
-                        int x = startX + cornerX * CELL;
-                        int z = startZ + cornerZ * CELL;
-                        float w = mistyWeight[corner];
-                        layer[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner], cornerEdges[corner]) : -1;
-                        layer[offset + MistyCaves.CHAMBER] = chamber && w > 0 ? misty.chamberMargin(x, y, z, w, cornerEdges[corner]) : -1;
-                        float shaftMargin = -1;
-                        if (shaft && w > 0) {
-                            for (int i = 0; i < shafts.length; i++) {
-                                if (profiles[i * 3] <= 0) continue;
-                                shaftMargin = Math.max(shaftMargin, MistyCaves.shaftMargin(shafts[i], profiles[i * 3], profiles[i * 3 + 1], profiles[i * 3 + 2], x, y, z, w));
-                            }
-                        }
-                        layer[offset + MistyCaves.SHAFT] = shaftMargin;
-                        layer[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w, cornerEdges[corner]) : -1;
+                        mistyCorner(corner, y, rift, chamber, shaft, stream, wobbles, layer, layerBase + corner * MistyCaves.VALUES);
                     }
                 }
                 mistyDone[cellY] = true;
             }
             return page;
+        }
+
+        private float[] shaftWobbles(int y, boolean shaft) {
+            if (!shaft) return null;
+            float[] wobbles = new float[shafts.length];
+            for (int i = 0; i < shafts.length; i++) wobbles[i] = MistyCaves.shaftWobble(shafts[i], y);
+            return wobbles;
+        }
+
+        // the Misty channel margins of one corner at one height, written to out
+        private void mistyCorner(int corner, int y, boolean rift, boolean chamber, boolean shaft, boolean stream, float[] wobbles, float[] out, int offset) {
+            int x = startX + corner / CORNERS * CELL;
+            int z = startZ + corner % CORNERS * CELL;
+            float w = mistyWeight[corner];
+            out[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner], cornerEdges[corner]) : -1;
+            out[offset + MistyCaves.CHAMBER] = chamber && (w > 0 || cornerThemes[corner] == DeepThemes.Theme.GNAWED) ? chamberMargin(corner, x, y, z, w) : -1;
+            float shaftMargin = -1;
+            if (shaft && w > 0) {
+                for (int i = 0; i < shafts.length; i++) {
+                    float halfWidth = shaftColumns[i][corner * 2 + 1];
+                    if (halfWidth <= 0) continue;
+                    float scale = MistyCaves.shaftScale(shafts[i], y, cornerEdges[corner].floor(), cornerEdges[corner].top(DepthBands.Band.MIDDLE), wobbles[i]);
+                    if (scale <= 0) continue;
+                    shaftMargin = Math.max(shaftMargin, MistyCaves.shaftMargin(scale, shaftColumns[i][corner * 2], halfWidth, w));
+                }
+            }
+            out[offset + MistyCaves.SHAFT] = shaftMargin;
+            out[offset + MistyCaves.STREAM] = stream && w > 0 ? misty.streamMargin(x, y, z, w, cornerEdges[corner]) : -1;
+        }
+
+        // probe only: the same corner, evaluated alone
+        private float[] mistyCorner(int layer, int cornerX, int cornerZ) {
+            long key = (long) layer * 256 + cornerX * 16 + cornerZ;
+            float[] values = mistyCorners.get(key);
+            if (values != null) return values;
+            if (mistyCorners.size() >= MAX_CORNERS) mistyCorners.clear();
+            int y = (layer + minCellY) * CELL;
+            boolean rift = y >= riftMinY;
+            boolean chamber = y >= chamberMinY && y <= chamberMaxY;
+            boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
+            boolean stream = y >= streamMinY && y <= streamMaxY;
+            values = new float[MistyCaves.VALUES];
+            mistyCorner(cornerX * CORNERS + cornerZ, y, rift, chamber, shaft, stream, shaftWobbles(y, shaft), values, 0);
+            mistyCorners.put(key, values);
+            return values;
+        }
+
+        // the base caves leave the gnawed deeps to the worms
+        private boolean gnawedRock(int y) {
+            int corner = (cellX + (fx >= 0.5f ? 1 : 0)) * CORNERS + cellZ + (fz >= 0.5f ? 1 : 0);
+            return cornerThemes[corner] == DeepThemes.Theme.GNAWED && y < cornerEdges[corner].top(DepthBands.Band.DEEPS);
+        }
+
+        // the deep chambers of a region, its worm-bored tunnels, or nothing on a border
+        private float chamberMargin(int corner, int x, int y, int z, float weight) {
+            if (cornerBorders[corner]) return -1;
+            return switch (cornerThemes[corner]) {
+                case GNAWED -> MistyCaves.wormMargin(worms, x, y, z, 1f, cornerEdges[corner]); // whatever the Misty weight
+                case GROTTO -> misty.chamberMargin(x, y, z, weight, cornerEdges[corner], true);
+                default -> misty.chamberMargin(x, y, z, weight, cornerEdges[corner], false);
+            };
         }
 
         private boolean baseSolid(int x, int y, int z) {
@@ -1045,12 +1170,23 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private float baseBlend(int layer, int v) {
             int slot = layer * VALUES + v;
             if (baseStamp[slot] == stamp) return baseBlend[slot];
-            float[] page = layer(layer);
-            int base = (layer % PAGE_LAYERS) * LAYER_SIZE;
-            float c00 = page[base + index(cellX, cellZ, v)];
-            float c10 = page[base + index(cellX + 1, cellZ, v)];
-            float c01 = page[base + index(cellX, cellZ + 1, v)];
-            float c11 = page[base + index(cellX + 1, cellZ + 1, v)];
+            float c00;
+            float c10;
+            float c01;
+            float c11;
+            if (baseCorners == null) {
+                float[] page = layer(layer);
+                int base = (layer % PAGE_LAYERS) * LAYER_SIZE;
+                c00 = page[base + index(cellX, cellZ, v)];
+                c10 = page[base + index(cellX + 1, cellZ, v)];
+                c01 = page[base + index(cellX, cellZ + 1, v)];
+                c11 = page[base + index(cellX + 1, cellZ + 1, v)];
+            } else {
+                c00 = baseCorner(layer, cellX, cellZ)[v];
+                c10 = baseCorner(layer, cellX + 1, cellZ)[v];
+                c01 = baseCorner(layer, cellX, cellZ + 1)[v];
+                c11 = baseCorner(layer, cellX + 1, cellZ + 1)[v];
+            }
             float top = c00 + (c10 - c00) * fx;
             float bottom = c01 + (c11 - c01) * fx;
             float blend = top + (bottom - top) * fz;
@@ -1070,6 +1206,58 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             return tan + (1 + tan * tan) * (y - DepthBands.SHALLOW_FLOOR) / CAVE_STRETCH_V;
         }
 
+        private static final class LayerY {
+            final double tanY;
+            final float tanYf;
+            final float y1;
+            final float y2;
+            final float y3;
+            final float y4;
+
+            LayerY(int y) {
+                this.tanY = caveTan(y);
+                this.tanYf = (float) tanY;
+                this.y1 = (float) y / (CAVE_STRETCH_V * 0.5f);
+                this.y2 = (float) y / 60;
+                this.y3 = (float) y / 30;
+                this.y4 = (float) y / CAVE_STRETCH_V;
+            }
+        }
+
+        // the six base noise values of one corner
+        private static void baseCorner(LayerY layerY, int x, int z, float[] out, int offset) {
+            float noise = (float) SimplexNoise.noise(
+                    (float) x / CAVE_STRETCH_H, layerY.tanY, (float) z / CAVE_STRETCH_H);
+            noise += 0.5f * (float) SimplexNoise.noise(
+                    (float) x / (CAVE_STRETCH_H * 0.5f), layerY.y1, (float) z / (CAVE_STRETCH_H * 0.5f));
+            noise = noise / (1 + 0.5f);
+
+            float noise3 = (float) SimplexNoise.noise((float) x / 90, layerY.y2, (float) z / 90);
+            float miniNoise = (float) SimplexNoise.noise((float) x / 40, layerY.y3, (float) z / 40);
+
+            out[offset] = noise;
+            out[offset + 1] = noise3;
+            out[offset + 2] = miniNoise;
+            out[offset + 3] = (float) SimplexNoise.noise(
+                    (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), layerY.tanYf, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142);
+            out[offset + 4] = (float) SimplexNoise.noise(
+                    (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, layerY.y4, (float) x / SPAGHETTI_CAVE_STRETCH_H, 0);
+            out[offset + 5] = (float) SimplexNoise.noise(
+                    (float) (1243624 + z) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), layerY.y4, (float) x / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0);
+        }
+
+        // probe only: the same corner, evaluated alone
+        private float[] baseCorner(int layer, int cornerX, int cornerZ) {
+            long key = (long) layer * 256 + cornerX * 16 + cornerZ;
+            float[] values = baseCorners.get(key);
+            if (values != null) return values;
+            if (baseCorners.size() >= MAX_CORNERS) baseCorners.clear();
+            values = new float[VALUES];
+            baseCorner(new LayerY((layer + minCellY) * CELL), startX + cornerX * CELL, startZ + cornerZ * CELL, values, 0);
+            baseCorners.put(key, values);
+            return values;
+        }
+
         private float[] layer(int cellY) {
             int pageIndex = cellY / PAGE_LAYERS;
             float[] page = layerPages[pageIndex];
@@ -1078,35 +1266,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 int layerBase = (cellY % PAGE_LAYERS) * LAYER_SIZE;
                 int y = (cellY + minCellY) * CELL;
                 // everything that depends on y alone is evaluated once per layer
-                double tanY = caveTan(y);
-                float tanYf = (float) tanY;
-                float y1 = (float) y / (CAVE_STRETCH_V * 0.5f);
-                float y2 = (float) y / 60;
-                float y3 = (float) y / 30;
-                float y4 = (float) y / CAVE_STRETCH_V;
+                LayerY layerY = new LayerY(y);
                 for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                     for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
-                        int x = startX + cornerX * CELL;
-                        int z = startZ + cornerZ * CELL;
-                        int offset = layerBase + index(cornerX, cornerZ, 0);
-                        float noise = (float) SimplexNoise.noise(
-                                (float) x / CAVE_STRETCH_H, tanY, (float) z / CAVE_STRETCH_H);
-                        noise += 0.5f * (float) SimplexNoise.noise(
-                                (float) x / (CAVE_STRETCH_H * 0.5f), y1, (float) z / (CAVE_STRETCH_H * 0.5f));
-                        noise = noise / (1 + 0.5f);
-
-                        float noise3 = (float) SimplexNoise.noise((float) x / 90, y2, (float) z / 90);
-                        float miniNoise = (float) SimplexNoise.noise((float) x / 40, y3, (float) z / 40);
-
-                        page[offset] = noise;
-                        page[offset + 1] = noise3;
-                        page[offset + 2] = miniNoise;
-                        page[offset + 3] = (float) SimplexNoise.noise(
-                                (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), tanYf, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142);
-                        page[offset + 4] = (float) SimplexNoise.noise(
-                                (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, y4, (float) x / SPAGHETTI_CAVE_STRETCH_H, 0);
-                        page[offset + 5] = (float) SimplexNoise.noise(
-                                (float) (1243624 + z) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), y4, (float) x / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0);
+                        baseCorner(layerY, startX + cornerX * CELL, startZ + cornerZ * CELL, page, layerBase + index(cornerX, cornerZ, 0));
                     }
                 }
                 layerDone[cellY] = true;

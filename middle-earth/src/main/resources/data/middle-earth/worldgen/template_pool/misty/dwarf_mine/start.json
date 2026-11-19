@@ -21,6 +21,16 @@
         "processors": "middle-earth:misty_dwarf_mine_aged",
         "override_liquid_settings": "ignore_waterlogging"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/great_hall_pillared",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
     }
   ]
 }

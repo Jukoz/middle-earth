@@ -51,6 +51,11 @@ public class CavesConfiguredFeatureRegistryME {
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_DOLOMITE = registerKey("ore_dolomite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OLD_DOLOMITE = registerKey("ore_old_dolomite");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MUD = registerKey("ore_mud");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEEPS_ORE_MUD = registerKey("deeps_ore_mud");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEEPS_ORE_CLAY = registerKey("deeps_ore_clay");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEEPS_ORE_TUFF = registerKey("deeps_ore_tuff");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEEPS_ORE_CALCITE = registerKey("deeps_ore_calcite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEEPS_ORE_GRAVEL = registerKey("deeps_ore_gravel");
     public static final RegistryKey<ConfiguredFeature<?, ?>> POOL_MUD = registerKey("pool_mud");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_MAGMA = registerKey("ore_magma");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_OBSIDIAN = registerKey("ore_obsidian");
@@ -177,6 +182,10 @@ public class CavesConfiguredFeatureRegistryME {
     static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> oldDolomiteReplaceTest = List.of(
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()),
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()));
+    private static net.minecraft.world.gen.feature.OreFeatureConfig deepsOre(net.minecraft.block.Block block, int size) {
+        return new net.minecraft.world.gen.feature.OreFeatureConfig(List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, block.getDefaultState())), size);
+    }
+
     static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mudList = List.of(
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, Blocks.MUD.getDefaultState()),
             net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(baseStone, Blocks.MUD.getDefaultState()),
@@ -366,6 +375,12 @@ public class CavesConfiguredFeatureRegistryME {
 
         ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dolomiteReplaceTest, 64));
         ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldDolomiteReplaceTest, 42));
+        // the deeps' own palettes, in the Medgon they are made of
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_MUD, Feature.ORE, deepsOre(Blocks.MUD, 33));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CLAY, Feature.ORE, deepsOre(Blocks.CLAY, 17));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_TUFF, Feature.ORE, deepsOre(Blocks.TUFF, 40));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CALCITE, Feature.ORE, deepsOre(Blocks.CALCITE, 24));
+        ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_GRAVEL, Feature.ORE, deepsOre(Blocks.GRAVEL, 20));
         ConfiguredFeatures.register(featureRegisterable, ORE_MUD, Feature.ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mudList, 41));
         ConfiguredFeatures.register(featureRegisterable, POOL_MUD, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.LUSH_GROUND_REPLACEABLE,
                 BlockStateProvider.of(Blocks.MUD), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,

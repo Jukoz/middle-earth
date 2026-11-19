@@ -85,6 +85,11 @@ public final class BiomeAmbianceME {
     // The caves below the Dwarves' delvings
     public static final BiomeAmbianceME NAMELESS_DEEPS = sky(0x0A0D12, 0x05070A)
             .withParticles(Particles.DRIPS);
+    // The dry deeps, pale with dust
+    public static final BiomeAmbianceME GNAWED_TUNNELS = sky(0x8A857A, 0x9A9384)
+            .withParticles(Particles.DUSTFALL);
+    public static final BiomeAmbianceME GLOWWORM_GROTTO = sky(0x0A1A1D, 0x0A1F22)
+            .withParticles(Particles.GLINTS);
 
     private final int skyColor;
     private final int fogColor;
@@ -213,6 +218,8 @@ public final class BiomeAmbianceME {
         public static final Particles MOTES_SPARSE = new Particles(ParticleTypes.MYCELIUM, 0.006f).onlyUnderCover();
         public static final Particles STUFFY_AIR = new Particles(ParticleTypes.SPORE_BLOSSOM_AIR, 0.006f).onlyUnderCover();
 
+        public static final Particles DUSTFALL = new Particles(ParticleTypes.WHITE_ASH, 0.004f);
+        public static final Particles GLINTS = new Particles(ParticleTypes.GLOW, 0.0015f);
         public static final Particles DRIPS = new Particles(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.002f);
 
         public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);

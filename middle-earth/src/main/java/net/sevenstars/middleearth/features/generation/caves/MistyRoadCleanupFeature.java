@@ -14,6 +14,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -128,15 +129,29 @@ public class MistyRoadCleanupFeature extends Feature<DefaultFeatureConfig> {
         Set<Long> starts = new HashSet<>();
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
-                for (long packed : world.getChunk(chunkX + dx, chunkZ + dz).getStructureReferences(mine)) starts.add(packed);
+                Chunk chunk = reachable(world, chunkX + dx, chunkZ + dz, ChunkStatus.STRUCTURE_REFERENCES);
+                if (chunk == null) continue;
+                for (long packed : chunk.getStructureReferences(mine)) starts.add(packed);
             }
         }
         for (long packed : starts) {
-            Chunk startChunk = world.getChunk(ChunkPos.getPackedX(packed), ChunkPos.getPackedZ(packed));
+            // a start can be up to 8 chunks away, where only the structure starts of a chunk are available
+            Chunk startChunk = reachable(world, ChunkPos.getPackedX(packed), ChunkPos.getPackedZ(packed), ChunkStatus.STRUCTURE_STARTS);
+            if (startChunk == null) continue;
             StructureStart start = startChunk.getStructureStart(mine);
             if (start == null) continue;
             for (StructurePiece piece : start.getChildren()) boxes.add(piece.getBoundingBox());
         }
         return boxes;
+    }
+
+    // null when the generation region does not reach that chunk at that status; it throws instead of answering
+    private static Chunk reachable(StructureWorldAccess world, int chunkX, int chunkZ, ChunkStatus status) {
+        if (!world.isChunkLoaded(chunkX, chunkZ)) return null;
+        try {
+            return world.getChunk(chunkX, chunkZ, status, false);
+        } catch (RuntimeException exception) {
+            return null;
+        }
     }
 }

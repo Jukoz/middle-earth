@@ -21,8 +21,7 @@ public class MistyShaftPlacement extends StructurePlacement {
     @Override
     protected boolean isStartChunk(StructurePlacementCalculator calculator, int chunkX, int chunkZ) {
         // the structure seed is the world seed, the same one buildSurface hands to MistyCaves
-        MistyCaves.Shaft shaft = new MistyCaves(calculator.getStructureSeed()).shaftCenteredIn(MiddleEarthMapRuntime.getInstance(), chunkX, chunkZ);
-        return shaft != null && shaft.bridge;
+        return new MistyCaves(calculator.getStructureSeed()).roadCrossingIn(MiddleEarthMapRuntime.getInstance(), chunkX, chunkZ) != null;
     }
 
     @Override

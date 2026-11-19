@@ -1,0 +1,36 @@
+{
+  "name": "middle-earth:misty_dwarf_mine_levels",
+  "fallback": "middle-earth:misty/dwarf_mine/ends",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/level_shaft",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/level_stair_long",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/level_spiral",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

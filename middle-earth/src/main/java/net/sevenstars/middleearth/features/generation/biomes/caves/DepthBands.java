@@ -8,7 +8,8 @@ import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 public final class DepthBands {
     public static final int SHALLOW_FLOOR = -64;
     public static final int DEEP_FLOOR = -128;
-    public static final int LAVA_THICKNESS = 4;
+    public static final int BOTTOM_BAND = 4; // the depth of the bottom fluid of the wet deeps as well
+    public static final int SHALLOW_WATER = 2;
 
     public static final int UPPER_DEPTH = 16; // below the surface
     public static final int MIDDLE_DEPTH = 60; // below the surface
@@ -136,13 +137,16 @@ public final class DepthBands {
             return floors[(x + 1) * SIZE + z + 1];
         }
 
-        // The highest lava of the column or of the four around it. Rock must stand up to there, or lava would
-        // be left open against a neighbour whose sea lies lower.
-        public int lavaCap(int x, int z) {
-            int cap = floor(x, z);
-            cap = Math.max(cap, Math.max(floor(x - 1, z), floor(x + 1, z)));
-            cap = Math.max(cap, Math.max(floor(x, z - 1), floor(x, z + 1)));
-            return cap + LAVA_THICKNESS;
+        // the highest floor of the column and the four around it: where one is higher, its water stands higher too
+        public int highestFloor(int x, int z) {
+            int highest = Math.max(floor(x, z), floor(x - 1, z));
+            highest = Math.max(highest, Math.max(floor(x + 1, z), floor(x, z - 1)));
+            return Math.max(highest, floor(x, z + 1));
+        }
+
+        // true when a column beside this one has the usual floor, and so the old lava sea at -60: nothing of the deeps may touch it
+        public boolean touchesShallow(int x, int z) {
+            return floor(x - 1, z) >= SHALLOW_FLOOR || floor(x + 1, z) >= SHALLOW_FLOOR || floor(x, z - 1) >= SHALLOW_FLOOR || floor(x, z + 1) >= SHALLOW_FLOOR;
         }
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 
 final class MistyCaveSetPieces {
@@ -102,7 +103,9 @@ final class MistyCaveSetPieces {
                 boolean placed = false;
                 switch (type) {
                     case 0 -> {
-                        if (nearLake || floor < column.mithrilBottom() || (g & 3) == 0) {
+                        // only the gnawed deeps have bones
+                        boolean foreign = floor < column.mithrilBottom() && column.floor() < DepthBands.SHALLOW_FLOOR && DeepThemes.at(x, z, caves.seed) != DeepThemes.Theme.GNAWED;
+                        if (!foreign && (nearLake || floor < column.mithrilBottom() || (g & 3) == 0)) {
                             bones(x, floor, z, g);
                             placed = true;
                         }

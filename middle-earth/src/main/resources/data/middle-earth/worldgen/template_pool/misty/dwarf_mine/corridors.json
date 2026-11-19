@@ -41,6 +41,36 @@
         "processors": "middle-earth:misty_dwarf_mine_aged",
         "override_liquid_settings": "ignore_waterlogging"
       }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/gallery_long_a",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/gallery_long_b",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/gallery_side",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
     }
   ]
 }
