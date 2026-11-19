@@ -57,10 +57,6 @@ public class NpcRelations {
         return ofCreature(npc, other);
     }
 
-    public static boolean isRescueRefused(NpcEntity prisoner, PlayerEntity player) {
-        return ofPlayer(prisoner, player) == Relation.ENEMY;
-    }
-
     private static boolean involvesPrisoner(NpcEntity npc, Entity other) {
         return npc.isPrisoner() || other instanceof NpcEntity otherNpc && otherNpc.isPrisoner();
     }

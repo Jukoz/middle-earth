@@ -3,7 +3,6 @@ package net.sevenstars.middleearth.features.npcs;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
@@ -13,14 +12,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import net.sevenstars.middleearth.features.npcs.ai.NpcBrain;
-import net.sevenstars.middleearth.features.npcs.relations.NpcRelations;
 import net.sevenstars.middleearth.features.npcs.routine.PrisonCell;
 import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
 import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.UUID;
 
 public class NpcPrison {
     // In ticks
@@ -33,15 +30,12 @@ public class NpcPrison {
     private static final int ESCAPE_DISTANCE = 16;
     private static final int ESCAPE_TRIES = 2;
     private static final double ESCAPE_SPEED = 1.2;
-    // Blocks; a rescuer further off is lost
-    private static final double RESCUER_RANGE = 16;
 
     private final NpcEntity npc;
     private @Nullable PrisonCell cell = null;
     private @Nullable Path returnPath = null;
     private int strayChecks = 0;
     private boolean escaping = false;
-    private @Nullable UUID rescuer = null;
     private ItemStack confiscatedMain = ItemStack.EMPTY;
     private ItemStack confiscatedOff = ItemStack.EMPTY;
 
@@ -63,26 +57,6 @@ public class NpcPrison {
 
     public boolean isEscaping() {
         return escaping;
-    }
-
-    // Follows the player out once they open the way. Refused by someone its people are at war with
-    public boolean followRescuer(PlayerEntity player) {
-        if(!isConfined() || NpcRelations.isRescueRefused(npc, player))
-            return false;
-        rescuer = player.getUuid();
-        escaping = true;
-        return true;
-    }
-
-    public @Nullable PlayerEntity getRescuer() {
-        if(rescuer == null)
-            return null;
-        PlayerEntity player = npc.getEntityWorld().getPlayerByUuid(rescuer);
-        if(player != null && player.isAlive() && npc.squaredDistanceTo(player) <= RESCUER_RANGE * RESCUER_RANGE)
-            return player;
-        rescuer = null;
-        escaping = false;
-        return null;
     }
 
     // The way back for a stray, which PrisonerBehaviour walks
@@ -137,7 +111,7 @@ public class NpcPrison {
         }
         if(cell.contains(npc.getBlockPos())) {
             strayChecks = 0;
-            if(npc.getNavigation().isIdle() && rescuer == null)
+            if(npc.getNavigation().isIdle())
                 escaping = false;
             return;
         }
@@ -179,7 +153,6 @@ public class NpcPrison {
     // Out of its cell it goes back to its own people and flees the place that held it
     private void free(ServerWorld world) {
         escaping = false;
-        rescuer = null;
         BlockPos managerPos = npc.getHostPos();
         boolean managerLoaded = managerPos != null && world.isChunkLoaded(managerPos.getX() >> 4, managerPos.getZ() >> 4);
         Vec3d placeCentre = managerLoaded ? centreOfSite(world, managerPos) : new Vec3d(cell.centerX(), 0, cell.centerZ());
