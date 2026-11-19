@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.resources.datas.biome_events;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
@@ -62,6 +63,15 @@ public class BiomeEventDataLookup {
         }
         data.holdSpawn(pick, type, world, pos);
         return true;
+    }
+
+    // Load and unload cover spawns, deaths and chunks coming from or going to disk, so the cap counts loaded monsters
+    public static void register() {
+        ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
+            if(entity instanceof LivingEntity living)
+                addEntity(living);
+        });
+        ServerEntityEvents.ENTITY_UNLOAD.register((entity, world) -> removeEntity(entity.getType(), entity.getUuid()));
     }
 
     public static void clear() {

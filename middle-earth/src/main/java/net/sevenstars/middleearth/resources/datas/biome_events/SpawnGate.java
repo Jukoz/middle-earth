@@ -38,6 +38,7 @@ public class SpawnGate {
     private final HashMap<DisabledSpawn, Long> disabled = new HashMap<>();
 
     public static void register() {
+        BiomeEventDataLookup.register();
         // World times, which a different save starts over
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
             WORLDS.clear();

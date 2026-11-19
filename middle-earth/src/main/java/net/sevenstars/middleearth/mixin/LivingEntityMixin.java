@@ -27,7 +27,6 @@ import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.utils.TwoHandedItems;
 import net.sevenstars.middleearth.network.packets.server2client.PacketLivingEntityData;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -156,7 +155,6 @@ public abstract class LivingEntityMixin extends Entity {
         if (!(((Entity)this) instanceof LivingEntity livingEntity)) {
             return;
         }
-        BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
         // A nest doesn't look for missing people, so a discarded npc tells it here. Deaths are reported from NpcEntity.onDeath
         if(reason == Entity.RemovalReason.DISCARDED && livingEntity instanceof NpcEntity npc)
             NestHost.signalGone(npc.getEntityWorld(), npc.getHostPos(), npc);
