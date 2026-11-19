@@ -24,7 +24,7 @@ class RoutineSeat {
     // The floor side between this seat and the next is shut in, so getting up goes back where it sat from
     boolean sitDown(ServerWorld world) {
         Vec3d from = npc.getEntityPos();
-        if(routine.meetSeat == null || !routine.canSee(world, routine.meetSeat) || !SeatBlock.seat(world, routine.meetSeat, npc))
+        if(routine.meetSeat() == null || !routine.canSee(world, routine.meetSeat()) || !SeatBlock.seat(world, routine.meetSeat(), npc))
             return false;
         satFrom = from;
         return true;

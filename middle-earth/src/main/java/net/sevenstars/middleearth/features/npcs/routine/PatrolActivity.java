@@ -1,17 +1,17 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 
 import java.util.List;
 
-import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.ROUTINE_TIME_LIMIT;
 import static net.sevenstars.middleearth.features.npcs.routine.RoutineWalker.MAXIMUM_HEIGHT_CHANGE;
 
 class PatrolActivity extends RoutineActivity {
@@ -31,6 +31,36 @@ class PatrolActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return site.hasPatrolRound();
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return true;
+    }
+
+    @Override
+    boolean canBeMounted() {
+        return true;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return torchProp();
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "patrol";
+    }
+
+    @Override
+    String workingNote() {
+        return " (on watch)";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         List<BlockPos> route = routine.site.getPatrolRoute();
         if(route.size() < MINIMUM_ROUTE_POINTS)
@@ -43,17 +73,17 @@ class PatrolActivity extends RoutineActivity {
         laps = 0;
         ringStep = (npc.getUuid().hashCode() & 1) == 0 ? 1 : -1;
         ringLeft = route.size();
-        routine.spot = routePoint(world, route.get(ringIndex));
+        routine.setSpot(routePoint(world, route.get(ringIndex)));
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION);
+        routine.setPhaseEnd(time + WATCH_TIME + random.nextInt(WATCH_TIME_VARIATION));
         // A rider's place is further out than the ring
         double awayX = npc.getX() - routine.site.getCenterX();
         double awayZ = npc.getZ() - routine.site.getCenterZ();
-        routine.lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+        routine.setLookTarget(new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ));
     }
 
     @Override
@@ -76,7 +106,7 @@ class PatrolActivity extends RoutineActivity {
                 ringLeft = points;
                 laps++;
             }
-            routine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
+            routine.restartTimeLimit(world.getTime());
             nextWaypoint(world);
         }
     }
@@ -123,11 +153,7 @@ class PatrolActivity extends RoutineActivity {
             next = ringIndex + ringStep;
         }
         ringIndex = Math.floorMod(next, ring.size());
-        routine.spot = routePoint(world, ring.get(ringIndex));
-        routine.lookTarget = null;
-        routine.phase = Phase.GOING;
-        routine.walker.resetWalk();
-        routine.thinkCooldown = 0;
+        routine.walkOn(routePoint(world, ring.get(ringIndex)));
         routine.showProp();
     }
 }

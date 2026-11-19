@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -33,34 +35,59 @@ class FishingActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return !site.getShoreStands().isEmpty();
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return true;
+    }
+
+    @Override
+    boolean isOuting() {
+        return true;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return routine.ownsRod() ? null : Items.FISHING_ROD;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "fishing";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         Random random = npc.getRandom();
         int index = pickNear(routine.site.getShoreStands(), home, SPOT_RANGE + routine.site.getExtent(), random);
         if(index < 0)
             return routine.cannotStart(picked, "no shore within reach of home");
-        routine.spot = routine.site.getShoreStands().get(index);
-        routine.lookTarget = Vec3d.ofCenter(routine.site.getShoreWater(index));
+        routine.setSpot(routine.site.getShoreStands().get(index));
+        routine.setLookTarget(Vec3d.ofCenter(routine.site.getShoreWater(index)));
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + FISHING_TIME + random.nextInt(FISHING_TIME_VARIATION);
+        routine.setPhaseEnd(time + FISHING_TIME + random.nextInt(FISHING_TIME_VARIATION));
     }
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
             if(random.nextInt(FISH_ESCAPE_ONE_IN) != 0) {
-                routine.carried = random.nextBoolean() ? Items.COD : Items.SALMON;
-                routine.did("caught " + itemName(routine.carried));
+                routine.setCarried(random.nextBoolean() ? Items.COD : Items.SALMON);
+                routine.did("caught " + itemName(routine.carried()));
             } else
                 routine.abandoned("caught nothing");
             routine.startReturn(world);
-        } else if(routine.lookTarget != null && random.nextInt(FISH_SPLASH_ONE_IN) == 0) {
+        } else if(routine.lookTarget() != null && random.nextInt(FISH_SPLASH_ONE_IN) == 0) {
             npc.swingHand(Hand.MAIN_HAND);
-            world.spawnParticles(ParticleTypes.SPLASH, routine.lookTarget.x, routine.lookTarget.y + SPLASH_HEIGHT, routine.lookTarget.z, SPLASH_PARTICLES, SPLASH_SPREAD, 0, SPLASH_SPREAD, 0);
-            world.playSound(null, routine.lookTarget.x, routine.lookTarget.y, routine.lookTarget.z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, SPLASH_SOUND_VOLUME, 1f);
+            world.spawnParticles(ParticleTypes.SPLASH, routine.lookTarget().x, routine.lookTarget().y + SPLASH_HEIGHT, routine.lookTarget().z, SPLASH_PARTICLES, SPLASH_SPREAD, 0, SPLASH_SPREAD, 0);
+            world.playSound(null, routine.lookTarget().x, routine.lookTarget().y, routine.lookTarget().z, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.NEUTRAL, SPLASH_SOUND_VOLUME, 1f);
         }
     }
 }

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Set;
 
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST;
-import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.ROUTINE_TIME_LIMIT;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.isUnderCover;
 import static net.sevenstars.middleearth.features.npcs.routine.RoutineReturn.STORE_REACH;
 
@@ -89,29 +88,53 @@ class RoutineWalker {
         this.npc = routine.npc;
     }
 
+    // What the walk is for, which decides how near and how clearly in sight it must end
+    private record Goal(boolean storing, boolean sitting, boolean working, @Nullable BlockPos bed, boolean atStore) {
+        boolean bedding() {
+            return bed != null;
+        }
+    }
+
     void travel(ServerWorld world, @Nullable BlockPos target) {
         if(target == null) {
             routine.abandoned("has no home to go back to");
             routine.finish(world, REST);
             return;
         }
-        // The usual distance reaches through a wall, so a store behind it would be filled from the street
-        boolean storing = routine.phase == Phase.RETURNING && !routine.toBed && routine.carried != null && routine.dropOff() != null;
-        boolean sitting = routine.phase == Phase.GOING && routine.meetSeat != null;
-        boolean working = routine.phase == Phase.GOING && routine.activity == RoutineData.Activity.WORK;
-        // Close to a bed means seeing it, not a step away through the wall
-        BlockPos bed = routine.phase == Phase.RETURNING && routine.toBed ? routine.beds.freeBed(world) : null;
-        boolean bedding = bed != null;
-        BlockPos store = routine.dropOff();
-        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && routine.canSee(world, store);
-        // A seat boxed in by other seats and a table is only reachable from a corner, a bit further off
-        double arrival = sitting ? SEAT_ARRIVAL_DISTANCE : storing || working || bedding ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
-        if(target.isWithinDistance(mover().getEntityPos(), arrival) && (!bedding || routine.beds.canSeeBed(world, bed)) && (!working || routine.station.workTarget() == null || routine.canSee(world, routine.station.workTarget()))
-                && atStore && (!sitting || routine.canSee(world, routine.meetSeat))) {
+        Goal goal = goalOf(world);
+        if(hasArrived(world, target, goal)) {
             routine.arrive(world);
             return;
         }
-        // An unfollowable path keeps navigation busy while the npc goes nowhere
+        if(watchProgress(world, target))
+            return;
+        if(!mover().getNavigation().isIdle() || !RoutineSites.takePath(world))
+            return;
+        walkLeg(world, target, goal);
+    }
+
+    private Goal goalOf(ServerWorld world) {
+        // The usual distance reaches through a wall, so a store behind it would be filled from the street
+        boolean storing = routine.phase() == Phase.RETURNING && !routine.isToBed() && routine.carried() != null && routine.dropOff() != null;
+        boolean sitting = routine.phase() == Phase.GOING && routine.meetSeat() != null;
+        boolean working = routine.phase() == Phase.GOING && routine.activity == RoutineData.Activity.WORK;
+        // Close to a bed means seeing it, not a step away through the wall
+        BlockPos bed = routine.phase() == Phase.RETURNING && routine.isToBed() ? routine.beds.freeBed(world) : null;
+        BlockPos store = routine.dropOff();
+        boolean atStore = !storing || store != null && store.isWithinDistance(npc.getEntityPos(), STORE_REACH) && routine.canSee(world, store);
+        return new Goal(storing, sitting, working, bed, atStore);
+    }
+
+    private boolean hasArrived(ServerWorld world, BlockPos target, Goal goal) {
+        // A seat boxed in by other seats and a table is only reachable from a corner, a bit further off
+        double arrival = goal.sitting() ? SEAT_ARRIVAL_DISTANCE : goal.storing() || goal.working() || goal.bedding() ? STORE_ARRIVAL_DISTANCE : ARRIVAL_DISTANCE;
+        return target.isWithinDistance(mover().getEntityPos(), arrival) && (!goal.bedding() || routine.beds.canSeeBed(world, goal.bed()))
+                && (!goal.working() || routine.station.workTarget() == null || routine.canSee(world, routine.station.workTarget()))
+                && goal.atStore() && (!goal.sitting() || routine.canSee(world, routine.meetSeat()));
+    }
+
+    // An unfollowable path keeps navigation busy while the npc goes nowhere. True if it gave up
+    private boolean watchProgress(ServerWorld world, BlockPos target) {
         if(isGettingAlong()) {
             watchedThinks = 0;
         } else if(++watchedThinks >= WATCH_THINKS) {
@@ -122,12 +145,13 @@ class RoutineWalker {
             failures++;
             if(failures >= MAXIMUM_FAILURES) {
                 routine.giveUp(world, "stuck on the way to " + target.toShortString() + heldUp);
-                return;
+                return true;
             }
         }
-        if(!mover().getNavigation().isIdle() || !RoutineSites.takePath(world))
-            return;
+        return false;
+    }
 
+    private void walkLeg(ServerWorld world, BlockPos target, Goal goal) {
         legs++;
         // A stretch that got no closer led nowhere, unless walked to its end: the way to a loft can lead off first
         double distance = target.getSquaredDistance(mover().getEntityPos());
@@ -140,7 +164,8 @@ class RoutineWalker {
             idleLegs = 0;
         }
         boolean stalled = legs > 1 && !improved && lastLegMoved && (!walkedLeg || ++idleLegs > IDLE_LEGS);
-        if(stalled && routine.phase == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE && (!bedding || routine.beds.isInReach(bed) && routine.beds.canSeeBed(world, bed)) && atStore) {
+        if(stalled && routine.phase() == Phase.RETURNING && distance < HOME_DISTANCE * HOME_DISTANCE
+                && (!goal.bedding() || routine.beds.isInReach(goal.bed()) && routine.beds.canSeeBed(world, goal.bed())) && goal.atStore()) {
             routine.arrive(world);
             return;
         }
@@ -151,9 +176,9 @@ class RoutineWalker {
             return;
         Vec3d destination = legs > MAXIMUM_LEGS ? null : waypoints != null ? nextPlannedWaypoint() : nextLeg(world, target);
         // A bed up a stair round the back is further than the usual search looks
-        if(bedding)
+        if(goal.bedding())
             mover().getNavigation().setRangeMultiplier(BED_SEARCH);
-        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, bedding || working || storing ? 0 : 1, routine.speed);
+        boolean moving = destination != null && mover().getNavigation().startMovingTo(destination.x, destination.y, destination.z, goal.bedding() || goal.working() || goal.storing() ? 0 : 1, routine.speed);
         mover().getNavigation().resetRangeMultiplier();
         Path leg = mover().getNavigation().getCurrentPath();
         lastLegEnd = moving && leg != null && leg.reachesTarget() && leg.getEnd() != null ? leg.getEnd().getBlockPos() : null;
@@ -342,9 +367,6 @@ class RoutineWalker {
     }
 
     void newWalk(ServerWorld world) {
-        routine.lookTarget = null;
-        resetWalk();
-        routine.thinkCooldown = 0;
-        routine.deadline = world.getTime() + ROUTINE_TIME_LIMIT;
+        routine.freshWalk(world.getTime());
     }
 }

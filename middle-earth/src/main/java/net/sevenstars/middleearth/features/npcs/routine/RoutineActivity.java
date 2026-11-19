@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -26,6 +28,94 @@ abstract class RoutineActivity {
     RoutineActivity(NpcRoutine routine) {
         this.routine = routine;
         this.npc = routine.npc;
+    }
+
+    // Whether the site has what the activity needs
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return true;
+    }
+
+    // Offered off duty too
+    boolean isSocial(RoutineData.Activity kind) {
+        return false;
+    }
+
+    // Checked whether on duty or not
+    boolean canBeDone(ServerWorld world, RoutineData.Activity kind, BlockPos home) {
+        return true;
+    }
+
+    // Checked on duty only
+    boolean isPossible(ServerWorld world, RoutineData routineData, BlockPos home, long time) {
+        return true;
+    }
+
+    boolean isOutdoors() {
+        return false;
+    }
+
+    boolean canBeMounted() {
+        return false;
+    }
+
+    // Walking off from the spot isn't leaving the work
+    boolean isTiedToSpot() {
+        return true;
+    }
+
+    boolean isInCompany() {
+        return false;
+    }
+
+    // Sets out from a village to forage, hunt, fish or chop
+    boolean isOuting() {
+        return false;
+    }
+
+    boolean isFarming() {
+        return false;
+    }
+
+    // True if picking it only looks for company and starts nothing
+    boolean searchesOnly(ServerWorld world) {
+        return false;
+    }
+
+    // What it turns into when it can't be started as picked
+    RoutineData.Activity fallback(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        return picked;
+    }
+
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return null;
+    }
+
+    String label(RoutineData.Activity kind) {
+        return kind.asString();
+    }
+
+    String workingNote() {
+        return "";
+    }
+
+    // True if the failure is only logged and the round goes on
+    boolean skipOnGiveUp(ServerWorld world, String why) {
+        return false;
+    }
+
+    boolean canSkipStretch() {
+        return false;
+    }
+
+    void skipStretch() {
+    }
+
+    void held(long time) {
+    }
+
+    // Torch in the dark, for those who work without a tool
+    @Nullable Item torchProp() {
+        return routine.isDark() ? Items.TORCH : null;
     }
 
     // False if it couldn't start and was put on hold

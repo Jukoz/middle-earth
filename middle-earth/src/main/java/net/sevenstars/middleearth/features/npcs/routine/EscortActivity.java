@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
@@ -15,6 +16,17 @@ class EscortActivity extends RoutineActivity {
 
     EscortActivity(NpcRoutine routine) {
         super(routine);
+    }
+
+    @Override
+    boolean searchesOnly(ServerWorld world) {
+        findWard(world);
+        return true;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "escort";
     }
 
     void findWard(ServerWorld world) {

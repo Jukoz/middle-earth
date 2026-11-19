@@ -5,12 +5,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.FishingRodItem;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -22,7 +19,6 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.RaycastContext;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
-import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.dev.NpcDebug;
 import net.sevenstars.middleearth.dev.NpcFailureRecorder;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
@@ -87,18 +83,18 @@ public class NpcRoutine {
     final double speed;
 
     private int delay;
-    int thinkCooldown = 0;
-    Phase phase = Phase.NONE;
+    private int thinkCooldown = 0;
+    private Phase phase = Phase.NONE;
     RoutineData.Activity activity = RoutineData.Activity.PATROL;
     @Nullable RoutineSite site = null;
-    BlockPos spot = BlockPos.ORIGIN;
-    @Nullable Vec3d lookTarget = null;
-    @Nullable Item carried = null;
-    long phaseEnd = 0;
-    long deadline = 0;
+    private BlockPos spot = BlockPos.ORIGIN;
+    private @Nullable Vec3d lookTarget = null;
+    private @Nullable Item carried = null;
+    private long phaseEnd = 0;
+    private long deadline = 0;
     private long restUntil = 0;
     // Where carried goods go when it isn't the household's store, e.g. a woodcutter's logs go on the wood pile
-    @Nullable BlockPos dropOff = null;
+    private @Nullable BlockPos dropOff = null;
     private String interruptedBy = "";
     // Grows with each give-up so a stuck npc stops trying
     private final Map<RoutineData.Activity, Long> heldUntil = new EnumMap<>(RoutineData.Activity.class);
@@ -107,15 +103,15 @@ public class NpcRoutine {
     private long homeHeldUntil = 0;
     int homeStrikes = 0;
     // Set once the task is given up, so it isn't also counted as finished
-    boolean failed = false;
+    private boolean failed = false;
     private boolean ownsRod = false;
-    boolean toBed = false;
-    @Nullable BlockPos meetSeat = null;
-    int carriedCount = 1;
+    private boolean toBed = false;
+    private @Nullable BlockPos meetSeat = null;
+    private int carriedCount = 1;
     // Taken out of a store, so it's put back or dropped rather than lost
-    boolean carriedFromStore = false;
-    boolean homeward = false;
-    @Nullable Direction facing = null;
+    private boolean carriedFromStore = false;
+    private boolean homeward = false;
+    private @Nullable Direction facing = null;
 
     final RoutineWalker walker;
     final RoutineBed beds;
@@ -188,6 +184,7 @@ public class NpcRoutine {
         activities.put(RoutineData.Activity.PATROL, patrol);
         activities.put(RoutineData.Activity.INSPECT, inspect);
         activities.put(RoutineData.Activity.FOLLOW, follow);
+        activities.put(RoutineData.Activity.ESCORT, escort);
     }
 
     public boolean canStart() {
@@ -213,18 +210,28 @@ public class NpcRoutine {
             sitting.standUp();
             meetSeat = null;
         }
-        if(npc.getTarget() != null || (npc.hasVehicle() && !seated && !walker.riding()))
+        if(isBusyElsewhere(seated))
             return false;
         if(phase != Phase.NONE) {
-            if(world.getTime() > deadline && phase != Phase.RETURNING) {
-                // Still working when time is up counts as done, even a long shift at a post
-                if(phase != Phase.WORKING)
-                    abandoned("ran out of time");
-                startReturn(world);
-            }
+            if(world.getTime() > deadline && phase != Phase.RETURNING)
+                runOutOfTime(world);
             return true;
         }
+        return startNewTask(world);
+    }
 
+    private boolean isBusyElsewhere(boolean seated) {
+        return npc.getTarget() != null || (npc.hasVehicle() && !seated && !walker.riding());
+    }
+
+    // Still working when time is up counts as done, even a long shift at a post
+    private void runOutOfTime(ServerWorld world) {
+        if(phase != Phase.WORKING)
+            abandoned("ran out of time");
+        startReturn(world);
+    }
+
+    private boolean startNewTask(ServerWorld world) {
         delay = IDLE_DELAY + npc.getRandom().nextInt(IDLE_DELAY_VARIATION);
         if(isEscortOut(world))
             return false;
@@ -232,13 +239,8 @@ public class NpcRoutine {
             return false;
         long time = world.getTime();
         // Settled npcs that wandered off walk home. One that failed rests first
-        if(time >= restUntil && time >= homeHeldUntil && drifted(world)) {
-            loseCarried(world);
-            homeward = true;
-            failed = false;
-            startReturn(world);
-            return true;
-        }
+        if(time >= restUntil && time >= homeHeldUntil && drifted(world))
+            return headHome(world);
         RoutineData routine = npc.getRoutine();
         if(routine == null) {
             debug.debugWhyNot(world, "no routine");
@@ -247,13 +249,8 @@ public class NpcRoutine {
         // A wild npc's camp is wherever it first stood
         if(npc.getRoutineHome() == null && npc.getStructureManagerHostPos() == null)
             npc.setRoutineHome(npc.getBlockPos());
-        // Stops a village setting out all at once
-        if(restUntil == 0)
-            restUntil = time + npc.getRandom().nextInt(REST + REST_VARIATION);
-        if(time < restUntil && !npc.hasInvitation(time)) {
-            debug.debugWhyNot(world, "resting for " + (restUntil - time));
+        if(isResting(world, time))
             return false;
-        }
         // A rider stays with its mount through the night and has no bed to lie in
         BlockPos restingHome = npc.getStructureManagerHostPos() == null || walker.riding() ? null : npc.getRoutineHome();
         if(restingHome != null && npc.isRestTime())
@@ -269,7 +266,6 @@ public class NpcRoutine {
             delay = WAITING_DELAY + npc.getRandom().nextInt(WAITING_DELAY);
             return false;
         }
-
         if(!findSite(world))
             return false;
         site.touch(time);
@@ -279,7 +275,21 @@ public class NpcRoutine {
             delay = SITE_NOT_READY_DELAY;
             return false;
         }
+        return beginPicked(world, routine, home, time);
+    }
 
+    private boolean isResting(ServerWorld world, long time) {
+        // Stops a village setting out all at once
+        if(restUntil == 0)
+            restUntil = time + npc.getRandom().nextInt(REST + REST_VARIATION);
+        if(time < restUntil && !npc.hasInvitation(time)) {
+            debug.debugWhyNot(world, "resting for " + (restUntil - time));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean beginPicked(ServerWorld world, RoutineData routine, BlockPos home, long time) {
         table.hostingAt = npc.takeInvitation(time);
         if(table.hostingAt != null && !npc.isRestTime() && begin(world, RoutineData.Activity.VISIT, home))
             return true;
@@ -287,10 +297,8 @@ public class NpcRoutine {
         RoutineData.Activity picked = pickActivity(world, routine, home, time);
         if(NpcDebug.ENABLED && picked == null) debug.debugWhyNot(world, "nothing picked, on duty " + routine.getPeriod().isActive(world.getTimeOfDay(), npc.isNightShift()));
         for(int attempt = 0; attempt < PICK_ATTEMPTS && picked != null; attempt++) {
-            if(picked == RoutineData.Activity.ESCORT) {
-                escort.findWard(world);
+            if(activityFor(picked).searchesOnly(world))
                 return false;
-            }
             if(begin(world, picked, home))
                 return true;
             picked = pickActivity(world, routine, home, time);
@@ -308,6 +316,14 @@ public class NpcRoutine {
             npc.endEscort();
         }
         return false;
+    }
+
+    private boolean headHome(ServerWorld world) {
+        loseCarried(world);
+        homeward = true;
+        failed = false;
+        startReturn(world);
+        return true;
     }
 
     private boolean bedTime(ServerWorld world, long time, BlockPos restingHome) {
@@ -332,13 +348,8 @@ public class NpcRoutine {
     }
 
     private boolean goHomeOffDuty(ServerWorld world, long time, BlockPos home) {
-        if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE)) {
-            loseCarried(world);
-            homeward = true;
-            failed = false;
-            startReturn(world);
-            return true;
-        }
+        if(npc.getStructureManagerHostPos() != null && time >= homeHeldUntil && !home.isWithinDistance(npc.getBlockPos(), STRAY_DISTANCE))
+            return headHome(world);
         return false;
     }
 
@@ -361,31 +372,20 @@ public class NpcRoutine {
     }
 
     private boolean isPossible(ServerWorld world, RoutineData routine, RoutineData.Activity activity, BlockPos home, long time, boolean onDuty, boolean underground) {
-        if(!site.supports(activity) || isHeld(activity, time) || !onDuty && !isSocial(activity))
+        RoutineActivity handler = activityFor(activity);
+        if(!handler.isSupportedBy(site, activity) || isHeld(activity, time) || !onDuty && !handler.isSocial(activity))
             return false;
-        if(activity == RoutineData.Activity.VISIT) {
-            table.visitHousehold = table.householdToVisit(world, home);
-            if(table.visitHousehold == null)
-                return false;
-        }
+        if(!handler.canBeDone(world, activity, home))
+            return false;
         if(!onDuty)
             return true;
-        if(walker.riding() && !mounted(activity) || underground && isOutdoors(activity))
+        if(walker.riding() && !handler.canBeMounted() || underground && handler.isOutdoors())
             return false;
-        return switch (activity) {
-            case HUNT -> hunting.huntingGround(world, home, time) >= 0 && !hunting.leftToHunters(world);
-            case FARM -> farming.fieldsNeedWork(world, home);
-            case WORK -> station.hasWork(world, routine, home, time);
-            default -> true;
-        };
+        return handler.isPossible(world, routine, home, time);
     }
 
-    private boolean isOutdoors(RoutineData.Activity activity) {
-        return switch (activity) {
-            case HUNT, FORAGE, FISH, CHOP, PATROL -> true;
-            case INSPECT -> site.getMarkers(MarkerKind.GUARD_POST).isEmpty() && site.getMarkers(MarkerKind.ENTRANCE).isEmpty();
-            default -> false;
-        };
+    RoutineActivity activityFor(RoutineData.Activity kind) {
+        return activities.get(kind);
     }
 
     private boolean isHeld(RoutineData.Activity activity, long time) {
@@ -449,28 +449,14 @@ public class NpcRoutine {
         lookTarget = null;
         loseCarried(world);
         facing = null;
-        if(picked == RoutineData.Activity.POST) {
-            String noPost = post.claimPost(world, home);
-            if(noPost != null) {
-                fallsBack(picked, noPost + ", patrols instead");
-                picked = RoutineData.Activity.PATROL;
-            }
-        }
-        if(picked == RoutineData.Activity.FOLLOW && follow.findLord(world) == null) {
-            fallsBack(picked, "no lord to follow in this place, patrols instead");
-            picked = RoutineData.Activity.PATROL;
-        }
-        if(picked == RoutineData.Activity.COURT && site.getMarkers(MarkerKind.LORD_SEAT).isEmpty()) {
-            fallsBack(picked, "no lord seat marked in this build, sits at a table instead");
-            picked = RoutineData.Activity.TABLE;
-        }
-        if(!activities.get(picked).begin(world, picked, home))
+        picked = activityFor(picked).fallback(world, picked, home);
+        RoutineActivity handler = activityFor(picked);
+        if(!handler.begin(world, picked, home))
             return false;
         activity = picked;
         homeward = false;
-        npc.setFarming(picked == RoutineData.Activity.FARM);
-        npc.setOnOuting(npc.getStructureManagerHostPos() != null
-                && (picked == RoutineData.Activity.FORAGE || picked == RoutineData.Activity.HUNT || picked == RoutineData.Activity.FISH || picked == RoutineData.Activity.CHOP));
+        npc.setFarming(handler.isFarming());
+        npc.setOnOuting(npc.getStructureManagerHostPos() != null && handler.isOuting());
         ownsRod = npc.getMainHandStack().getItem() instanceof FishingRodItem;
         phase = Phase.GOING;
         failed = false;
@@ -502,10 +488,7 @@ public class NpcRoutine {
     }
 
     private boolean hasLeftWork() {
-        return switch (activity) {
-            case HUNT, FORAGE, FARM, FOLLOW -> false;
-            default -> !spot.isWithinDistance(npc.getEntityPos(), LEFT_WORK_DISTANCE);
-        };
+        return activityFor(activity).isTiedToSpot() && !spot.isWithinDistance(npc.getEntityPos(), LEFT_WORK_DISTANCE);
     }
 
     public void stop() {
@@ -547,9 +530,7 @@ public class NpcRoutine {
             return;
         }
         if(time > deadline && phase != Phase.RETURNING) {
-            if(phase != Phase.WORKING)
-                abandoned("ran out of time");
-            startReturn(world);
+            runOutOfTime(world);
             return;
         }
 
@@ -635,7 +616,8 @@ public class NpcRoutine {
 
     void giveUp(ServerWorld world, String why) {
         debug.debugWhy("GIVEUP", world, null, null);
-        if(phase != Phase.RETURNING && activity == RoutineData.Activity.INSPECT && inspect.skipStop(world, why))
+        RoutineActivity handler = activityFor(activity);
+        if(phase != Phase.RETURNING && handler.skipOnGiveUp(world, why))
             return;
         if(phase == Phase.RETURNING && toBed) {
             // Stopped short, but near enough to lie down
@@ -645,12 +627,12 @@ public class NpcRoutine {
             beds.goToBed(world);
             return;
         }
-        boolean skipsStretch = phase != Phase.RETURNING && activity == RoutineData.Activity.PATROL && patrol.canSkipStretch();
+        boolean skipsStretch = phase != Phase.RETURNING && handler.canSkipStretch();
         abandoned((skipsStretch ? "skipped a stretch of its round, " : "") + why);
         if(skipsStretch) {
             // Skip a blocked stretch, keep walking the rest
             failed = false;
-            patrol.skipStretch();
+            handler.skipStretch();
             return;
         }
         if(phase == Phase.RETURNING) {
@@ -659,8 +641,7 @@ public class NpcRoutine {
             // A bed behind a wall can't be stood on, so the doorstep is home enough
             finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
         } else {
-            if(activity == RoutineData.Activity.WORK)
-                station.holdStation(world.getTime());
+            handler.held(world.getTime());
             hold(activity, world.getTime());
             startReturn(world);
         }
@@ -693,7 +674,7 @@ public class NpcRoutine {
     }
 
     public boolean isInCompany() {
-        return phase == Phase.WORKING && (isSocial(activity) || activity == RoutineData.Activity.COURT);
+        return phase == Phase.WORKING && activityFor(activity).isInCompany();
     }
 
     boolean onDuty(ServerWorld world) {
@@ -703,10 +684,6 @@ public class NpcRoutine {
 
     @Nullable Vec3d facingTarget() {
         return facing == null ? null : new Vec3d(npc.getX() + facing.getOffsetX() * LOOK_DISTANCE, npc.getEyeY(), npc.getZ() + facing.getOffsetZ() * LOOK_DISTANCE);
-    }
-
-    private static boolean mounted(RoutineData.Activity activity) {
-        return activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.INSPECT;
     }
 
     void startReturn(ServerWorld world) {
@@ -749,10 +726,6 @@ public class NpcRoutine {
                 return true;
         }
         return sides.isEmpty();
-    }
-
-    private static boolean isSocial(RoutineData.Activity activity) {
-        return activity == RoutineData.Activity.VISIT || activity == RoutineData.Activity.TABLE;
     }
 
     void finish(ServerWorld world, int rest) {
@@ -802,7 +775,7 @@ public class NpcRoutine {
         carriedFromStore = false;
     }
 
-    private boolean isDark() {
+    boolean isDark() {
         long time = npc.getEntityWorld().getTimeOfDay() % DAY;
         return time >= DUSK && time < DAWN;
     }
@@ -811,22 +784,133 @@ public class NpcRoutine {
         Item prop = null;
         if(phase == Phase.RETURNING)
             prop = carried;
-        else if(phase == Phase.GOING || phase == Phase.WORKING) {
-            if((activity == RoutineData.Activity.PATROL || activity == RoutineData.Activity.POST || activity == RoutineData.Activity.FOLLOW || activity == RoutineData.Activity.INSPECT) && isDark())
-                prop = Items.TORCH;
-            else if(activity == RoutineData.Activity.FISH && !ownsRod)
-                prop = Items.FISHING_ROD;
-            else if(activity == RoutineData.Activity.FARM && !(npc.getMainHandStack().getItem() instanceof HoeItem))
-                prop = Items.IRON_HOE;
-            else if(activity == RoutineData.Activity.CHOP && !npc.getMainHandStack().isIn(ItemTags.AXES))
-                prop = Items.IRON_AXE;
-            else if(activity == RoutineData.Activity.MINE && !npc.getMainHandStack().isIn(ItemTags.PICKAXES))
-                prop = Items.IRON_PICKAXE;
-        }
+        else if(phase == Phase.GOING || phase == Phase.WORKING)
+            prop = activityFor(activity).prop(activity);
 
         if(prop == null)
             npc.clearRoutineProp();
         else
             npc.showRoutineProp(new ItemStack(prop));
+    }
+
+    boolean ownsRod() {
+        return ownsRod;
+    }
+
+    Phase phase() {
+        return phase;
+    }
+
+    BlockPos spot() {
+        return spot;
+    }
+
+    void setSpot(BlockPos spot) {
+        this.spot = spot;
+    }
+
+    @Nullable Vec3d lookTarget() {
+        return lookTarget;
+    }
+
+    void setLookTarget(@Nullable Vec3d lookTarget) {
+        this.lookTarget = lookTarget;
+    }
+
+    void setFacing(@Nullable Direction facing) {
+        this.facing = facing;
+    }
+
+    void setPhaseEnd(long phaseEnd) {
+        this.phaseEnd = phaseEnd;
+    }
+
+    @Nullable BlockPos meetSeat() {
+        return meetSeat;
+    }
+
+    void setMeetSeat(@Nullable BlockPos meetSeat) {
+        this.meetSeat = meetSeat;
+    }
+
+    boolean isToBed() {
+        return toBed;
+    }
+
+    void clearToBed() {
+        toBed = false;
+    }
+
+    boolean isHomeward() {
+        return homeward;
+    }
+
+    boolean hasFailed() {
+        return failed;
+    }
+
+    void clearFailure() {
+        failed = false;
+    }
+
+    // Phase changes for the walking, hunting and sleeping steps
+    void startChase() {
+        phase = Phase.HUNTING;
+    }
+
+    void sleep() {
+        phase = Phase.SLEEPING;
+    }
+
+    @Nullable Item carried() {
+        return carried;
+    }
+
+    void setCarried(@Nullable Item carried) {
+        this.carried = carried;
+    }
+
+    int carriedCount() {
+        return carriedCount;
+    }
+
+    void setCarriedCount(int carriedCount) {
+        this.carriedCount = carriedCount;
+    }
+
+    void setDropOff(@Nullable BlockPos dropOff) {
+        this.dropOff = dropOff;
+    }
+
+    void carryFromStore(Item item, int count, BlockPos store) {
+        carried = item;
+        carriedCount = count;
+        carriedFromStore = true;
+        dropOff = store;
+    }
+
+    // Walks to a new spot from scratch
+    void walkTo(BlockPos spot) {
+        this.spot = spot;
+        phase = Phase.GOING;
+        walker.resetWalk();
+    }
+
+    // Next stop of a round: nothing to look at on the way, thinks again at once
+    void walkOn(BlockPos spot) {
+        lookTarget = null;
+        walkTo(spot);
+        thinkCooldown = 0;
+    }
+
+    void restartTimeLimit(long time) {
+        deadline = time + ROUTINE_TIME_LIMIT;
+    }
+
+    void freshWalk(long time) {
+        lookTarget = null;
+        walker.resetWalk();
+        thinkCooldown = 0;
+        restartTimeLimit(time);
     }
 }

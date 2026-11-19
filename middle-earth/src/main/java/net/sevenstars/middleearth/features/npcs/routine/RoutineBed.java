@@ -10,7 +10,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import org.jetbrains.annotations.Nullable;
 
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.HOLD;
@@ -65,22 +64,22 @@ class RoutineBed {
     }
 
     void goToBed(ServerWorld world) {
-        routine.lookTarget = null;
+        routine.setLookTarget(null);
         npc.getNavigation().stop();
         npc.clearRoutineProp();
         BlockPos bed = freeBed(world);
         if(bed != null && isInReach(bed) && canSeeBed(world, bed)) {
-            routine.toBed = false;
+            routine.clearToBed();
             npc.lieDown(bed);
-            routine.phase = Phase.SLEEPING;
+            routine.sleep();
             bedStrikes = 0;
-            routine.failed = false;
+            routine.clearFailure();
         } else {
-            if(!routine.failed)
+            if(!routine.hasFailed())
                 routine.abandoned("bed", bed == null ? "its bed is gone or somebody lies in it" : !isInReach(bed) ? "could not get near its bed " + bed.toShortString()
                         : "its bed " + bed.toShortString() + " is behind a wall");
             // Left set until the failure is logged, so it records the route to the bed
-            routine.toBed = false;
+            routine.clearToBed();
             bedStrikes = Math.min(bedStrikes + 1, MAXIMUM_STRIKES);
             bedHeldUntil = world.getTime() + (long) HOLD * bedStrikes;
             routine.finish(world, NOTHING_TO_DO_REST);

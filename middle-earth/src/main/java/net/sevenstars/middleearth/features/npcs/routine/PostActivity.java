@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -22,6 +23,30 @@ class PostActivity extends RoutineActivity {
         super(routine);
     }
 
+    @Override
+    boolean canBeMounted() {
+        return true;
+    }
+
+    @Override
+    RoutineData.Activity fallback(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        String noPost = claimPost(world, home);
+        if(noPost == null)
+            return picked;
+        routine.fallsBack(picked, noPost + ", patrols instead");
+        return RoutineData.Activity.PATROL;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return torchProp();
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "on guard";
+    }
+
     // Null once claimed, else why there's no post
     @Nullable String claimPost(ServerWorld world, BlockPos home) {
         boolean sentry = routine.isSentry();
@@ -40,19 +65,19 @@ class PostActivity extends RoutineActivity {
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(claimed == null)
             return false;
-        routine.spot = claimed.pos();
-        routine.facing = claimed.facing();
+        routine.setSpot(claimed.pos());
+        routine.setFacing(claimed.facing());
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
-        routine.lookTarget = routine.facingTarget();
-        if(routine.lookTarget == null) {
+        routine.setPhaseEnd(time + POST_TIME + random.nextInt(POST_TIME_VARIATION));
+        routine.setLookTarget(routine.facingTarget());
+        if(routine.lookTarget() == null) {
             double awayX = npc.getX() - routine.site.getCenterX();
             double awayZ = npc.getZ() - routine.site.getCenterZ();
-            routine.lookTarget = new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ);
+            routine.setLookTarget(new Vec3d(npc.getX() + awayX, npc.getEyeY(), npc.getZ() + awayZ));
         }
     }
 
@@ -63,7 +88,7 @@ class PostActivity extends RoutineActivity {
             return;
         }
         if(routine.onDuty(world) && routine.isWatched(world))
-            routine.phaseEnd = time + POST_TIME + random.nextInt(POST_TIME_VARIATION);
+            routine.setPhaseEnd(time + POST_TIME + random.nextInt(POST_TIME_VARIATION));
         else
             routine.finish(world, REST + random.nextInt(REST_VARIATION));
     }

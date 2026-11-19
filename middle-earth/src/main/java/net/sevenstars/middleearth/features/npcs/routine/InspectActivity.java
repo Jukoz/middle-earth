@@ -1,10 +1,11 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 
@@ -12,7 +13,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.ROUTINE_TIME_LIMIT;
 
 class InspectActivity extends RoutineActivity {
     private static final int INSPECT_TIME = 20 * 6;
@@ -25,6 +25,36 @@ class InspectActivity extends RoutineActivity {
 
     InspectActivity(NpcRoutine routine) {
         super(routine);
+    }
+
+    @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return !site.getMarkers(MarkerKind.GUARD_POST).isEmpty() || !site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || site.hasRingRound();
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return routine.site.getMarkers(MarkerKind.GUARD_POST).isEmpty() && routine.site.getMarkers(MarkerKind.ENTRANCE).isEmpty();
+    }
+
+    @Override
+    boolean canBeMounted() {
+        return true;
+    }
+
+    @Override
+    boolean skipOnGiveUp(ServerWorld world, String why) {
+        return skipStop(world, why);
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return torchProp();
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "inspecting the posts";
     }
 
     @Override
@@ -55,22 +85,22 @@ class InspectActivity extends RoutineActivity {
             }
         }
         StructureFeatureData.Marker first = stops.poll();
-        routine.spot = first.pos();
-        routine.facing = first.facing();
+        routine.setSpot(first.pos());
+        routine.setFacing(first.facing());
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + INSPECT_TIME + random.nextInt(INSPECT_TIME_VARIATION);
-        routine.lookTarget = routine.facingTarget();
+        routine.setPhaseEnd(time + INSPECT_TIME + random.nextInt(INSPECT_TIME_VARIATION));
+        routine.setLookTarget(routine.facingTarget());
     }
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
         if(!done)
             return;
-        routine.did("inspect", "looked over the post at " + routine.spot.toShortString());
+        routine.did("inspect", "looked over the post at " + routine.spot().toShortString());
         if(stops.isEmpty() || !routine.onDuty(world))
             routine.startReturn(world);
         else
@@ -82,19 +112,15 @@ class InspectActivity extends RoutineActivity {
         if(stops.isEmpty())
             return false;
         routine.abandoned("skipped a post, " + why);
-        routine.failed = false;
+        routine.clearFailure();
         nextStop(world.getTime());
         return true;
     }
 
     private void nextStop(long time) {
         StructureFeatureData.Marker next = stops.poll();
-        routine.spot = next.pos();
-        routine.facing = next.facing();
-        routine.lookTarget = null;
-        routine.phase = Phase.GOING;
-        routine.walker.resetWalk();
-        routine.thinkCooldown = 0;
-        routine.deadline = time + ROUTINE_TIME_LIMIT;
+        routine.setFacing(next.facing());
+        routine.walkOn(next.pos());
+        routine.restartTimeLimit(time);
     }
 }

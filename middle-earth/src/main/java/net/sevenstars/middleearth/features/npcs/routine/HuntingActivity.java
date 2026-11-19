@@ -14,7 +14,6 @@ import net.sevenstars.middleearth.block.special.structureManager.features.NestHo
 import net.sevenstars.middleearth.entity.EntityTypeTagsME;
 import net.sevenstars.middleearth.entity.goals.FollowHerderGoal;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
@@ -48,17 +47,52 @@ class HuntingActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return !site.getGrounds().isEmpty();
+    }
+
+    @Override
+    boolean isPossible(ServerWorld world, RoutineData routineData, BlockPos home, long time) {
+        return huntingGround(world, home, time) >= 0 && !leftToHunters(world);
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return true;
+    }
+
+    @Override
+    boolean isOuting() {
+        return true;
+    }
+
+    @Override
+    boolean isTiedToSpot() {
+        return false;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "hunting";
+    }
+
+    @Override
+    String workingNote() {
+        return " (stalking)";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         int index = huntingGround(world, home, world.getTime());
         if(index < 0)
             return routine.cannotStart(picked, "no game seen about the place");
-        routine.spot = routine.site.getGrounds().get(index);
+        routine.setSpot(routine.site.getGrounds().get(index));
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + STALKING_TIME + random.nextInt(STALKING_TIME_VARIATION);
+        routine.setPhaseEnd(time + STALKING_TIME + random.nextInt(STALKING_TIME_VARIATION));
     }
 
     @Override
@@ -71,11 +105,11 @@ class HuntingActivity extends RoutineActivity {
             LivingEntity prey = findPrey(world);
             if(prey != null) {
                 npc.startHunt(prey, CHASE_TIME);
-                routine.phase = Phase.HUNTING;
+                routine.startChase();
             }
         } else if(random.nextInt(HUNT_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-            npc.getNavigation().startMovingTo(routine.spot.getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.spot.getY(),
-                    routine.spot.getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.speed * ROAM_SPEED);
+            npc.getNavigation().startMovingTo(routine.spot().getX() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.spot().getY(),
+                    routine.spot().getZ() + random.nextBetween(-HUNT_ROAM, HUNT_ROAM), routine.speed * ROAM_SPEED);
         }
     }
 
@@ -163,9 +197,9 @@ class HuntingActivity extends RoutineActivity {
         EntityType<?> kill = npc.takeHuntKill();
         if(kill == null)
             routine.abandoned("the prey got away");
-        routine.carried = kill == null ? null : RoutineGame.meatOf(kill);
-        if(routine.carried != null)
-            routine.did("killed " + Registries.ENTITY_TYPE.getId(kill).getPath() + ", carries " + itemName(routine.carried));
+        routine.setCarried(kill == null ? null : RoutineGame.meatOf(kill));
+        if(routine.carried() != null)
+            routine.did("killed " + Registries.ENTITY_TYPE.getId(kill).getPath() + ", carries " + itemName(routine.carried()));
         routine.startReturn(world);
         return npc.getTarget() == null;
     }

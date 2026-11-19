@@ -55,6 +55,52 @@ class TableActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return switch (kind) {
+            case VISIT -> site.hasHouseholdsToVisit();
+            case COURT -> !site.getMarkers(MarkerKind.LORD_SEAT).isEmpty() || site.hasTables();
+            default -> site.hasTables();
+        };
+    }
+
+    @Override
+    boolean isSocial(RoutineData.Activity kind) {
+        return kind != RoutineData.Activity.COURT;
+    }
+
+    @Override
+    boolean canBeDone(ServerWorld world, RoutineData.Activity kind, BlockPos home) {
+        if(kind != RoutineData.Activity.VISIT)
+            return true;
+        visitHousehold = householdToVisit(world, home);
+        return visitHousehold != null;
+    }
+
+    @Override
+    boolean isInCompany() {
+        return true;
+    }
+
+    @Override
+    RoutineData.Activity fallback(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        if(picked == RoutineData.Activity.COURT && routine.site.getMarkers(MarkerKind.LORD_SEAT).isEmpty()) {
+            routine.fallsBack(picked, "no lord seat marked in this build, sits at a table instead");
+            return RoutineData.Activity.TABLE;
+        }
+        return picked;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        boolean seated = npc.getVehicle() instanceof SeatEntity;
+        return switch (kind) {
+            case VISIT -> seated ? "visiting, seated" : "visiting";
+            case COURT -> seated ? "holding court, seated" : "holding court";
+            default -> seated ? "sitting at a table" : "table";
+        };
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(picked == RoutineData.Activity.VISIT)
             return beginVisit(world, picked, home);
@@ -66,10 +112,10 @@ class TableActivity extends RoutineActivity {
 
     private boolean beginVisit(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         if(hostingAt != null) {
-            routine.meetSeat = isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null;
-            BlockPos beside = routine.meetSeat == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
-            routine.spot = routine.meetSeat != null ? routine.standAt(world, routine.meetSeat) : beside != null ? beside : hostingAt;
-            routine.did("visit", "comes home to have a visitor over at " + routine.spot.toShortString());
+            routine.setMeetSeat(isLoaded(world, hostingAt) && SeatBlock.isFree(world, hostingAt) ? hostingAt : null);
+            BlockPos beside = routine.meetSeat() == null ? NestSurvey.standNextTo(world, hostingAt, npc.getBlockPos()) : null;
+            routine.setSpot(routine.meetSeat() != null ? routine.standAt(world, routine.meetSeat()) : beside != null ? beside : hostingAt);
+            routine.did("visit", "comes home to have a visitor over at " + routine.spot().toShortString());
             hostingAt = null;
             return true;
         }
@@ -78,24 +124,24 @@ class TableActivity extends RoutineActivity {
         if(household == null)
             return routine.cannotStart(picked, "no other household to call on");
         List<NpcEntity> hosts = hostsAt(world, household);
-        routine.meetSeat = routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE);
-        BlockPos hostSeat = routine.meetSeat == null ? null : routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE, routine.meetSeat);
+        routine.setMeetSeat(routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE));
+        BlockPos hostSeat = routine.meetSeat() == null ? null : routine.site.pickSeatNear(world, household, VISIT_SEAT_RANGE, routine.meetSeat());
         for(NpcEntity host : hosts)
             host.invite(hostSeat != null ? hostSeat : household, world.getTime() + INVITATION_TIME);
-        if(routine.meetSeat != null) {
-            routine.spot = routine.standAt(world, routine.meetSeat);
+        if(routine.meetSeat() != null) {
+            routine.setSpot(routine.standAt(world, routine.meetSeat()));
         } else {
             BlockPos beside = NestSurvey.standNextTo(world, household, npc.getBlockPos());
-            routine.spot = beside != null ? beside : household;
+            routine.setSpot(beside != null ? beside : household);
         }
         return true;
     }
 
     private boolean beginTable(ServerWorld world, RoutineData.Activity picked, BlockPos home, Random random) {
-        routine.meetSeat = routine.site.pickSeat(world, random, home, TABLE_RANGE);
-        if(routine.meetSeat == null)
+        routine.setMeetSeat(routine.site.pickSeat(world, random, home, TABLE_RANGE));
+        if(routine.meetSeat() == null)
             return routine.cannotStart(picked, "no free seat at any table");
-        routine.spot = routine.standAt(world, routine.meetSeat);
+        routine.setSpot(routine.standAt(world, routine.meetSeat()));
         return true;
     }
 
@@ -111,12 +157,12 @@ class TableActivity extends RoutineActivity {
                     && (seat == null || candidate.getSquaredDistance(seatMarker.pos()) < seat.getSquaredDistance(seatMarker.pos())))
                 seat = candidate;
         }
-        routine.facing = seatMarker.facing();
+        routine.setFacing(seatMarker.facing());
         if(seat != null) {
-            routine.meetSeat = seat;
-            routine.spot = routine.standAt(world, seat);
+            routine.setMeetSeat(seat);
+            routine.setSpot(routine.standAt(world, seat));
         } else {
-            routine.spot = seatMarker.pos();
+            routine.setSpot(seatMarker.pos());
         }
     }
 
@@ -131,17 +177,17 @@ class TableActivity extends RoutineActivity {
     private void arriveVisitOrTable(ServerWorld world, Random random, long time) {
         // Somebody quicker may have taken the seat. The table is still the place to be
         boolean seated = routine.sitting.sitDown(world);
-        routine.phaseEnd = seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION);
+        routine.setPhaseEnd(seated ? time + TEA_TIME + random.nextInt(TEA_TIME_VARIATION) : time + MEETING_TIME + random.nextInt(MEETING_TIME_VARIATION));
         companion = null;
-        routine.meetSeat = null;
+        routine.setMeetSeat(null);
     }
 
     private void arriveCourt(ServerWorld world, Random random, long time) {
         boolean seated = routine.sitting.sitDown(world);
-        routine.phaseEnd = time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION);
+        routine.setPhaseEnd(time + COURT_TIME + random.nextInt(COURT_TIME_VARIATION));
         routine.did("court", seated ? "sat down at the lord's seat" : "stands at the lord's seat");
         companion = null;
-        routine.meetSeat = null;
+        routine.setMeetSeat(null);
     }
 
     @Override
@@ -150,9 +196,9 @@ class TableActivity extends RoutineActivity {
             routine.finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(companion == null || !companion.isAlive() || npc.squaredDistanceTo(companion) > COMPANION_RANGE * COMPANION_RANGE) {
             companion = RoutineSites.takeEntitySearch(world) ? findCompanion(world) : null;
-            routine.lookTarget = routine.activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? routine.facingTarget() : null;
+            routine.setLookTarget(routine.activity == RoutineData.Activity.COURT && !(npc.getVehicle() instanceof SeatEntity) ? routine.facingTarget() : null);
         } else {
-            routine.lookTarget = companion.getEyePos();
+            routine.setLookTarget(companion.getEyePos());
             converse(random);
         }
     }

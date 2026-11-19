@@ -87,6 +87,26 @@ class StationActivity extends RoutineActivity {
         super(routine);
     }
 
+    @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return site.hasWorkStation();
+    }
+
+    @Override
+    boolean isPossible(ServerWorld world, RoutineData routineData, BlockPos home, long time) {
+        return hasWork(world, routineData, home, time);
+    }
+
+    @Override
+    void held(long time) {
+        holdStation(time);
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "at work";
+    }
+
     void holdStation(long time) {
         if(workStation != null)
             unusableStations.put(workStation, time + STATION_HOLD);
@@ -117,7 +137,7 @@ class StationActivity extends RoutineActivity {
             if(workAnimal == null)
                 return routine.cannotStart(picked, "no animal to see to");
             BlockPos byHorse = NestSurvey.standNextTo(world, workAnimal.getBlockPos(), npc.getBlockPos());
-            routine.spot = byHorse != null ? byHorse : workAnimal.getBlockPos();
+            routine.setSpot(byHorse != null ? byHorse : workAnimal.getBlockPos());
             return true;
         }
         BlockPos beside = null;
@@ -138,6 +158,8 @@ class StationActivity extends RoutineActivity {
             // A forge walled in on every side is for show
             if(beside != null) {
                 workStation = station;
+                if(RoutineStores.isHive(world, station))
+                    syncHive(world, station, time);
                 break;
             }
             unusableStations.put(station, time + STATION_HOLD);
@@ -145,13 +167,13 @@ class StationActivity extends RoutineActivity {
         if(beside == null)
             return routine.cannotStart(picked, stations.isEmpty() ? "no station of its trade nearby" : held ? "every station of its trade failed it lately"
                     : "no room to stand at any station of its trade");
-        routine.spot = beside;
+        routine.setSpot(beside);
         if(order != null) {
             fetchFrom = order.from();
             stationStand = beside;
             fuelFrom = RoutineStores.isOven(world, workStation) && planks == 0 ? woodSource(world, home) : null;
             woodNeeded = fuelFrom != null;
-            routine.spot = routine.standAt(world, fetchFrom);
+            routine.setSpot(routine.standAt(world, fetchFrom));
         }
         return true;
     }
@@ -188,13 +210,10 @@ class StationActivity extends RoutineActivity {
             return;
         }
         routine.site.getStock().changed();
-        routine.carried = order.input();
-        routine.carriedCount = order.count();
-        routine.carriedFromStore = true;
-        routine.did("work", "took " + routine.carriedCount + " " + itemName(routine.carried) + " from the store at " + fetchFrom.toShortString() + " to make " + itemName(order.output()));
-        routine.dropOff = fetchFrom;
+        routine.carryFromStore(order.input(), order.count(), fetchFrom);
+        routine.did("work", "took " + routine.carriedCount() + " " + itemName(routine.carried()) + " from the store at " + fetchFrom.toShortString() + " to make " + itemName(order.output()));
         fetchFrom = null;
-        routine.spot = fuelFrom != null ? routine.standAt(world, fuelFrom) : stationStand;
+        routine.setSpot(fuelFrom != null ? routine.standAt(world, fuelFrom) : stationStand);
         routine.walker.newWalk(world);
         routine.showProp();
     }
@@ -204,14 +223,14 @@ class StationActivity extends RoutineActivity {
         if(logInHand != null)
             routine.did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
         fuelFrom = null;
-        routine.spot = stationStand;
+        routine.setSpot(stationStand);
         routine.walker.newWalk(world);
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION);
-        routine.lookTarget = workStation == null ? null : Vec3d.ofCenter(workStation);
+        routine.setPhaseEnd(time + WORK_TIME + random.nextInt(WORK_TIME_VARIATION));
+        routine.setLookTarget(workStation == null ? null : Vec3d.ofCenter(workStation));
         if(logInHand != null) {
             planks += PLANKS_PER_LOG;
             world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, SPLIT_SOUND_VOLUME, 1f);
@@ -220,7 +239,7 @@ class StationActivity extends RoutineActivity {
         }
         if(woodNeeded && planks == 0) {
             routine.abandoned("has no wood for the oven at " + workStation.toShortString());
-            if(routine.carried != null)
+            if(routine.carried() != null)
                 routine.startReturn(world);
             else
                 routine.finish(world, REST);
@@ -239,16 +258,16 @@ class StationActivity extends RoutineActivity {
             world.setBlockState(workStation, hive.with(BeehiveBlock.HONEY_LEVEL, 0));
             routine.site.emptyHive(workStation, time);
             world.playSound(null, workStation, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.BLOCKS, 1f, 1f);
-            routine.carried = Items.HONEYCOMB;
+            routine.setCarried(Items.HONEYCOMB);
             routine.did("work", "took the honey from the hive at " + workStation.toShortString());
             routine.startReturn(world);
-        } else if(done && order != null && routine.carried != null) {
-            Item used = routine.carried;
-            routine.carried = order.output();
+        } else if(done && order != null && routine.carried() != null) {
+            Item used = routine.carried();
+            routine.setCarried(order.output());
             if(planks > 0 && workStation != null && RoutineStores.isOven(world, workStation))
                 planks--;
-            routine.did("work", "made " + itemName(routine.carried) + " from " + routine.carriedCount + " " + itemName(used) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
-            routine.carriedCount = 1;
+            routine.did("work", "made " + itemName(routine.carried()) + " from " + routine.carriedCount() + " " + itemName(used) + " at " + (workStation == null ? "its station" : workStation.toShortString()));
+            routine.setCarriedCount(1);
             order = null;
             routine.startReturn(world);
         } else if(done) {
@@ -257,7 +276,7 @@ class StationActivity extends RoutineActivity {
             routine.finish(world, REST + random.nextInt(REST_VARIATION));
         } else if(workAnimal != null) {
             workAnimal.getNavigation().stop();
-            routine.lookTarget = workAnimal.getEyePos();
+            routine.setLookTarget(workAnimal.getEyePos());
             if(random.nextInt(STABLE_SWING_ONE_IN) == 0)
                 npc.swingHand(Hand.MAIN_HAND);
             if(random.nextInt(STABLE_SOUND_ONE_IN) == 0)
@@ -273,6 +292,14 @@ class StationActivity extends RoutineActivity {
 
     // Settlement hives have no bees. If the honey isn't what was left, someone changed it, so reckon again
     private boolean hiveReady(ServerWorld world, BlockPos hive, long time) {
+        int found = world.getBlockState(hive).get(BeehiveBlock.HONEY_LEVEL);
+        long since = time - routine.site.hiveEmptiedAt(hive, time, found, found * DAY / FULL_HONEY);
+        routine.site.noteHiveLevel(hive, found);
+        return since >= HIVE_READY_TIME;
+    }
+
+    // Shows the honey it has grown by the time the npc sets out for it
+    private void syncHive(ServerWorld world, BlockPos hive, long time) {
         BlockState state = world.getBlockState(hive);
         int found = state.get(BeehiveBlock.HONEY_LEVEL);
         long since = time - routine.site.hiveEmptiedAt(hive, time, found, found * DAY / FULL_HONEY);
@@ -280,7 +307,6 @@ class StationActivity extends RoutineActivity {
         if(found != level)
             world.setBlockState(hive, state.with(BeehiveBlock.HONEY_LEVEL, level));
         routine.site.noteHiveLevel(hive, level);
-        return since >= HIVE_READY_TIME;
     }
 
     private boolean needsStock() {

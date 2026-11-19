@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -42,12 +45,37 @@ class ChoppingActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return !site.getTrees().isEmpty();
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return true;
+    }
+
+    @Override
+    boolean isOuting() {
+        return true;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return npc.getMainHandStack().isIn(ItemTags.AXES) ? null : Items.IRON_AXE;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "chopping";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         tree = nextTree(world, home);
         if(tree == null)
             return routine.cannotStart(picked, "no tree within reach of home");
-        routine.spot = routine.standAt(world, tree);
-        routine.lookTarget = Vec3d.ofCenter(tree.up());
+        routine.setSpot(routine.standAt(world, tree));
+        routine.setLookTarget(Vec3d.ofCenter(tree.up()));
         return true;
     }
 
@@ -82,19 +110,19 @@ class ChoppingActivity extends RoutineActivity {
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + CHOPPING_TIME + random.nextInt(CHOPPING_TIME_VARIATION);
+        routine.setPhaseEnd(time + CHOPPING_TIME + random.nextInt(CHOPPING_TIME_VARIATION));
     }
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
-            routine.carried = tree != null && world.getBlockState(tree).isIn(BlockTags.LOGS) ? world.getBlockState(tree).getBlock().asItem() : null;
-            if(routine.carried == null)
+            routine.setCarried(tree != null && world.getBlockState(tree).isIn(BlockTags.LOGS) ? world.getBlockState(tree).getBlock().asItem() : null);
+            if(routine.carried() == null)
                 routine.abandoned("the tree was gone");
             else
-                routine.did("carries " + itemName(routine.carried) + " from the tree at " + tree.toShortString());
+                routine.did("carries " + itemName(routine.carried()) + " from the tree at " + tree.toShortString());
             BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
-            routine.dropOff = routine.carried == null ? null : routine.site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE);
+            routine.setDropOff(routine.carried() == null ? null : routine.site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE));
             routine.startReturn(world);
         } else if(tree != null && random.nextInt(CHOP_SWING_ONE_IN) == 0) {
             npc.swingHand(Hand.MAIN_HAND);

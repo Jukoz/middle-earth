@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -7,7 +8,6 @@ import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
 import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 import net.sevenstars.middleearth.features.npcs.NpcEntity;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.entity.seat.SeatEntity;
 import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
@@ -18,7 +18,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST;
-import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.ROUTINE_TIME_LIMIT;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.isLoaded;
 import static net.sevenstars.middleearth.features.npcs.routine.RoutineWalker.ARRIVAL_DISTANCE;
 
@@ -46,6 +45,29 @@ class FollowActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isTiedToSpot() {
+        return false;
+    }
+
+    @Override
+    RoutineData.Activity fallback(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
+        if(findLord(world) != null)
+            return picked;
+        routine.fallsBack(picked, "no lord to follow in this place, patrols instead");
+        return RoutineData.Activity.PATROL;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return torchProp();
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "following its lord";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         beginFollow(world);
         return true;
@@ -54,13 +76,13 @@ class FollowActivity extends RoutineActivity {
     private void beginFollow(ServerWorld world) {
         NpcEntity lord = findLord(world);
         BlockPos stand = lord == null ? null : followSpot(world, lord);
-        routine.spot = stand != null ? stand : npc.getBlockPos();
+        routine.setSpot(stand != null ? stand : npc.getBlockPos());
         followCheck = FOLLOW_REPATH;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time;
+        routine.setPhaseEnd(time);
     }
 
     @Nullable NpcEntity findLord(ServerWorld world) {
@@ -84,7 +106,7 @@ class FollowActivity extends RoutineActivity {
 
     // A post while the lord sits at court, else a few blocks off him. Null if already there
     private @Nullable BlockPos followSpot(ServerWorld world, NpcEntity lord) {
-        routine.facing = null;
+        routine.setFacing(null);
         if(lord.getVehicle() instanceof SeatEntity && routine.site != null) {
             StructureFeatureData.Marker post = null;
             for(StructureFeatureData.Marker marker : routine.site.getMarkers(MarkerKind.GUARD_POST)) {
@@ -93,7 +115,7 @@ class FollowActivity extends RoutineActivity {
                     post = marker;
             }
             if(post != null) {
-                routine.facing = post.facing();
+                routine.setFacing(post.facing());
                 return npc.getBlockPos().isWithinDistance(post.pos(), ARRIVAL_DISTANCE) ? null : post.pos();
             }
         }
@@ -127,16 +149,16 @@ class FollowActivity extends RoutineActivity {
             routine.arrive(world);
             return false;
         }
-        if(!stand.isWithinDistance(routine.spot, FOLLOW_SPOT_SHIFT))
+        if(!stand.isWithinDistance(routine.spot(), FOLLOW_SPOT_SHIFT))
             routine.walker.resetLegs();
         routine.walker.steppedOff = false;
-        routine.spot = stand;
+        routine.setSpot(stand);
         return true;
     }
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
-        routine.deadline = time + ROUTINE_TIME_LIMIT;
+        routine.restartTimeLimit(time);
         if(!routine.onDuty(world) || !routine.isWatched(world)) {
             routine.startReturn(world);
             return;
@@ -149,16 +171,14 @@ class FollowActivity extends RoutineActivity {
         }
         BlockPos stand = followSpot(world, lord);
         if(stand != null) {
-            routine.spot = stand;
-            routine.phase = Phase.GOING;
-            routine.walker.resetWalk();
+            routine.walkTo(stand);
             followCheck = FOLLOW_REPATH;
             return;
         }
-        routine.lookTarget = routine.facingTarget();
-        if(routine.lookTarget == null) {
+        routine.setLookTarget(routine.facingTarget());
+        if(routine.lookTarget() == null) {
             Vec3d away = npc.getEntityPos().subtract(lord.getEntityPos()).multiply(1, 0, 1);
-            routine.lookTarget = away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z);
+            routine.setLookTarget(away.lengthSquared() < NO_HEADING ? null : new Vec3d(npc.getX() + away.x, npc.getEyeY(), npc.getZ() + away.z));
         }
         routine.showProp();
     }

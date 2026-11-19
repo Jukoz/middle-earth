@@ -43,12 +43,12 @@ class RoutineReturn {
     }
 
     private void deliver(ServerWorld world, BlockPos store) {
-        if(routine.carried == null)
+        if(routine.carried() == null)
             return;
         if(world.getBlockState(store).getBlock() instanceof CampfireBlock) {
             world.spawnParticles(ParticleTypes.SMOKE, store.getX() + 0.5, store.getY() + SMOKE_HEIGHT, store.getZ() + 0.5, SMOKE_PARTICLES, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPREAD, SMOKE_SPEED);
-            routine.did("deliver", "put " + itemName(routine.carried) + " on the fire at " + store.toShortString());
-            routine.carried = null;
+            routine.did("deliver", "put " + itemName(routine.carried()) + " on the fire at " + store.toShortString());
+            routine.setCarried(null);
             return;
         }
         Inventory inventory = RoutineStores.inventoryAt(world, store);
@@ -56,24 +56,24 @@ class RoutineReturn {
             routine.abandoned("its store " + store.toShortString() + " cannot hold anything");
             return;
         }
-        ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(routine.carried, routine.carriedCount), null);
+        ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(routine.carried(), routine.carriedCount()), null);
         routine.site.getStock().changed();
         // A full store still counts as the work done
-        routine.did("deliver", left.isEmpty() ? "stored " + itemName(routine.carried) + " in the store at " + store.toShortString()
-                : "found the store at " + store.toShortString() + " full, " + itemName(routine.carried) + " stays out");
+        routine.did("deliver", left.isEmpty() ? "stored " + itemName(routine.carried()) + " in the store at " + store.toShortString()
+                : "found the store at " + store.toShortString() + " full, " + itemName(routine.carried()) + " stays out");
         if(left.isEmpty())
-            routine.carried = null;
+            routine.setCarried(null);
         else
-            routine.carriedCount = left.getCount();
+            routine.setCarriedCount(left.getCount());
     }
 
     void arriveHome(ServerWorld world, Random random) {
         routine.homeStrikes = 0;
-        if(routine.toBed) {
+        if(routine.isToBed()) {
             routine.beds.goToBed(world);
             return;
         }
-        if(routine.carried != null) {
+        if(routine.carried() != null) {
             BlockPos store = routine.dropOff();
             if(store == null || routine.canSee(world, store))
                 npc.swingHand(Hand.MAIN_HAND);
@@ -87,11 +87,11 @@ class RoutineReturn {
     }
 
     @Nullable BlockPos returnTarget(ServerWorld world) {
-        if(routine.toBed) {
+        if(routine.isToBed()) {
             BlockPos bed = routine.beds.freeBed(world);
             if(bed != null)
                 return npc.getBedStand() != null ? npc.getBedStand() : bed;
-        } else if(routine.carried != null && routine.dropOff() != null) {
+        } else if(routine.carried() != null && routine.dropOff() != null) {
             return storeStand(world, routine.dropOff());
         }
         return npc.getRoutineHome();

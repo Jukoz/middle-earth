@@ -30,30 +30,55 @@ class ForagingActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return !site.getGrounds().isEmpty();
+    }
+
+    @Override
+    boolean isOutdoors() {
+        return true;
+    }
+
+    @Override
+    boolean isOuting() {
+        return true;
+    }
+
+    @Override
+    boolean isTiedToSpot() {
+        return false;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return "foraging";
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         Random random = npc.getRandom();
         int index = pickNear(routine.site.getGrounds(), home, SPOT_RANGE + routine.site.getExtent(), random);
         if(index < 0)
             return routine.cannotStart(picked, "no open ground within reach of home");
-        routine.spot = routine.site.getGrounds().get(index);
+        routine.setSpot(routine.site.getGrounds().get(index));
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = time + FORAGING_TIME + random.nextInt(FORAGING_TIME_VARIATION);
+        routine.setPhaseEnd(time + FORAGING_TIME + random.nextInt(FORAGING_TIME_VARIATION));
     }
 
     @Override
     void work(ServerWorld world, Random random, boolean done, long time) {
         if(done) {
             List<Item> forage = forage(world);
-            routine.carried = forage.get(random.nextInt(forage.size()));
+            routine.setCarried(forage.get(random.nextInt(forage.size())));
             routine.startReturn(world);
         } else if(random.nextInt(FORAGE_SWING_ONE_IN) == 0) {
             npc.swingHand(Hand.MAIN_HAND);
         } else if(random.nextInt(FORAGE_ROAM_ONE_IN) == 0 && npc.getNavigation().isIdle() && RoutineSites.takePath(world)) {
-            npc.getNavigation().startMovingTo(routine.spot.getX() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), routine.spot.getY(), routine.spot.getZ() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), routine.speed * ROAM_SPEED);
+            npc.getNavigation().startMovingTo(routine.spot().getX() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), routine.spot().getY(), routine.spot().getZ() + random.nextBetween(-FORAGE_ROAM, FORAGE_ROAM), routine.speed * ROAM_SPEED);
         }
     }
 
@@ -62,7 +87,7 @@ class ForagingActivity extends RoutineActivity {
         RoutineData data = npc.getRoutine();
         if(data != null && !data.getForage().isEmpty())
             return data.getForage();
-        List<Item> found = ForageTables.itemsAt(world, routine.spot);
+        List<Item> found = ForageTables.itemsAt(world, routine.spot());
         return found.isEmpty() ? DEFAULT_FORAGE : found;
     }
 }

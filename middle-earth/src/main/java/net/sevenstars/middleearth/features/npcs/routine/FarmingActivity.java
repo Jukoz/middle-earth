@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.HoeItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,7 +16,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldEvents;
-import net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.Phase;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,20 +48,50 @@ class FarmingActivity extends RoutineActivity {
     }
 
     @Override
+    boolean isSupportedBy(RoutineSite site, RoutineData.Activity kind) {
+        return site.hasFields();
+    }
+
+    @Override
+    boolean isPossible(ServerWorld world, RoutineData routineData, BlockPos home, long time) {
+        return fieldsNeedWork(world, home);
+    }
+
+    @Override
+    boolean isTiedToSpot() {
+        return false;
+    }
+
+    @Override
+    boolean isFarming() {
+        return true;
+    }
+
+    @Override
+    @Nullable Item prop(RoutineData.Activity kind) {
+        return npc.getMainHandStack().getItem() instanceof HoeItem ? null : Items.IRON_HOE;
+    }
+
+    @Override
+    String label(RoutineData.Activity kind) {
+        return fieldCell == null ? "farming" : "farming at " + fieldCell.toShortString();
+    }
+
+    @Override
     boolean begin(ServerWorld world, RoutineData.Activity picked, BlockPos home) {
         Random random = npc.getRandom();
         hiddenPlots.clear();
         fieldCell = nextFieldCell(world, home, npc.getBlockPos());
         if(fieldCell == null)
             return routine.cannotStart(picked, "no field near home needs work");
-        routine.spot = fieldCell.up();
+        routine.setSpot(fieldCell.up());
         farmingEnd = world.getTime() + FARMING_TIME + random.nextInt(FARMING_TIME_VARIATION);
         return true;
     }
 
     @Override
     void arrive(ServerWorld world, Random random, long time) {
-        routine.phaseEnd = farmingEnd;
+        routine.setPhaseEnd(farmingEnd);
     }
 
     @Override
@@ -81,15 +113,13 @@ class FarmingActivity extends RoutineActivity {
         if(fieldCell == null) {
             endFarming(world);
         } else if(!fieldCell.isWithinDistance(npc.getEntityPos(), FIELD_REACH)) {
-            routine.spot = fieldCell.up();
-            routine.phase = Phase.GOING;
-            routine.walker.resetWalk();
+            routine.walkTo(fieldCell.up());
         }
     }
 
     private void endFarming(ServerWorld world) {
         fieldCell = null;
-        if(routine.carried != null)
+        if(routine.carried() != null)
             routine.startReturn(world);
         else
             routine.finish(world, REST + npc.getRandom().nextInt(REST_VARIATION));
@@ -144,8 +174,8 @@ class FarmingActivity extends RoutineActivity {
             world.playSound(null, up, SoundEvents.ITEM_CROP_PLANT, SoundCategory.BLOCKS, 1f, 1f);
             routine.did("sowed " + Registries.BLOCK.getId(sown).getPath() + " at " + cell.toShortString());
         } else if(above.getBlock() instanceof CropBlock crop && crop.isMature(above)) {
-            routine.carried = FarmPlots.harvestOf(world, up, above);
-            routine.did("harvested " + itemName(routine.carried) + " at " + cell.toShortString());
+            routine.setCarried(FarmPlots.harvestOf(world, up, above));
+            routine.did("harvested " + itemName(routine.carried()) + " at " + cell.toShortString());
             world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, up, Block.getRawIdFromState(above));
             world.setBlockState(up, crop.withAge(0));
         } else {
