@@ -18,6 +18,7 @@ public final class NotInDeepsPlacementModifier extends AbstractConditionalPlacem
     public static final PlacementModifierType<NotInDeepsPlacementModifier> TYPE = () -> CODEC;
 
     private static final int MARGIN = 6; // blocks, up and sideways
+    private static final int[][] AROUND = {{0, 0}, {MARGIN, 0}, {-MARGIN, 0}, {0, MARGIN}, {0, -MARGIN}};
 
     private NotInDeepsPlacementModifier() {
     }
@@ -26,8 +27,7 @@ public final class NotInDeepsPlacementModifier extends AbstractConditionalPlacem
     protected boolean shouldPlace(FeaturePlacementContext context, Random random, BlockPos pos) {
         long seed = context.getWorld().getSeed();
         MiddleEarthMapRuntime map = MiddleEarthMapRuntime.getInstance();
-        int[][] around = {{0, 0}, {MARGIN, 0}, {-MARGIN, 0}, {0, MARGIN}, {0, -MARGIN}};
-        for (int[] offset : around) {
+        for (int[] offset : AROUND) {
             int x = pos.getX() + offset[0];
             int z = pos.getZ() + offset[1];
             if (DepthBands.deepFloor(map, x, z, seed) >= DepthBands.SHALLOW_FLOOR) continue;

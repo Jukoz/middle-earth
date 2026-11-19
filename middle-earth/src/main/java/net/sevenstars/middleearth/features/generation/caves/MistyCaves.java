@@ -11,6 +11,11 @@ import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkG
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public final class MistyCaves {
     // chain runs north-south, so rifts are stretched along Z
     private static final float RIFT_X = 16;
@@ -90,7 +95,6 @@ public final class MistyCaves {
     private static final int LEDGE_PERIOD = 48;
     private static final int LEDGE_THICKNESS = 4;
     private static final float LEDGE_PINCH = 0.22f; // share of the width a shelf takes
-
 
     private static final int STREAM_MIN_THICKNESS = 24; // of the middle band
     private static final int STREAM_LEVEL_THICKNESS = 110; // one more level for every this many blocks of band, up to three
@@ -450,8 +454,9 @@ public final class MistyCaves {
 
     // ravines and abysses whose reach touches the chunk, or an empty array
     public Shaft[] shaftsNear(MiddleEarthMapRuntime map, int startX, int startZ) {
-        Shaft[] found = NO_SHAFTS;
-        for (boolean abyss : new boolean[]{false, true}) {
+        List<Shaft> found = new ArrayList<>();
+        for (int pass = 0; pass < 2; pass++) {
+            boolean abyss = pass == 1;
             int cell = abyss ? ABYSS_CELL : SHAFT_CELL;
             int reach = abyss ? ABYSS_MAX_REACH : SHAFT_MAX_REACH;
             int minCellX = Math.floorDiv(startX - reach, cell);
@@ -462,13 +467,11 @@ public final class MistyCaves {
                 for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
                     Shaft shaft = shaftInCell(map, cellX, cellZ, startX, startZ, reach, abyss);
                     if (shaft == null || !shaft.touches(startX, startZ, 16)) continue;
-                    Shaft[] grown = java.util.Arrays.copyOf(found, found.length + 1);
-                    grown[found.length] = shaft;
-                    found = grown;
+                    found.add(shaft);
                 }
             }
         }
-        return found;
+        return found.isEmpty() ? NO_SHAFTS : found.toArray(NO_SHAFTS);
     }
 
     private Shaft shaftInCell(MiddleEarthMapRuntime map, int cellX, int cellZ, int startX, int startZ, int reach, boolean abyss) {
@@ -588,7 +591,7 @@ public final class MistyCaves {
         int maxCellX = Math.floorDiv(startX + 15 + LAKE_REACH, LAKE_CELL);
         int minCellZ = Math.floorDiv(startZ - LAKE_REACH, LAKE_CELL);
         int maxCellZ = Math.floorDiv(startZ + 15 + LAKE_REACH, LAKE_CELL);
-        Lake[] found = NO_LAKES;
+        List<Lake> found = new ArrayList<>();
         for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
             for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
                 int h = mix(cellX + offsetZ, cellZ + offsetX, offsetY + 977);
@@ -599,18 +602,21 @@ public final class MistyCaves {
                 Lake lake = new Lake(this, x, z, h);
                 if (!lake.touches(startX, startZ)) continue;
                 if (!lakeFits(map, lake)) continue;
-                Lake[] grown = java.util.Arrays.copyOf(found, found.length + 1);
-                grown[found.length] = lake;
-                found = grown;
+                found.add(lake);
             }
         }
-        return found;
+        return found.isEmpty() ? NO_LAKES : found.toArray(NO_LAKES);
     }
 
     private static final int FIT_CACHE_SIZE = 256;
-    private static final java.util.Map<java.util.List<Long>, Boolean> FITS = new java.util.LinkedHashMap<>() {
+    private static final float[] LAKE_FIT_SHARES = {0, 0.4f, 0.7f, 0.95f};
+    private record FitKey(long seed, int x, int z) {
+    }
+
+    // guarded by its own lock, since chunks generate in parallel
+    private static final Map<FitKey, Boolean> FITS = new LinkedHashMap<>() {
         @Override
-        protected boolean removeEldestEntry(java.util.Map.Entry<java.util.List<Long>, Boolean> eldest) {
+        protected boolean removeEldestEntry(Map.Entry<FitKey, Boolean> eldest) {
             return size() > FIT_CACHE_SIZE;
         }
     };
@@ -618,7 +624,7 @@ public final class MistyCaves {
     // the footprint must be Misty, with solid rock between the dome and the surface, the shell clear of the deep floor
     // and the tunnel clear of it all the way up
     private boolean lakeFits(MiddleEarthMapRuntime map, Lake lake) {
-        java.util.List<Long> key = java.util.List.of(seed, (long) lake.x, (long) lake.z);
+        FitKey key = new FitKey(seed, lake.x, lake.z);
         synchronized (FITS) {
             Boolean known = FITS.get(key);
             if (known != null) return known;
@@ -664,7 +670,7 @@ public final class MistyCaves {
         }
         for (int i = 0; i < 8; i++) {
             double angle = i * Math.PI / 4;
-            for (float share : new float[]{0, 0.4f, 0.7f, 0.95f}) {
+            for (float share : LAKE_FIT_SHARES) {
                 int x = lake.x + (int) (Math.cos(angle) * lake.rx * share);
                 int z = lake.z + (int) (Math.sin(angle) * lake.rz * share);
                 float inner = share / (1 - LAKE_WOBBLE);
