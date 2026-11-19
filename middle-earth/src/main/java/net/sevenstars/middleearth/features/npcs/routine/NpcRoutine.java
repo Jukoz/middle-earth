@@ -360,8 +360,6 @@ public class NpcRoutine {
         // Elves need little sleep and keep company through the night
         if(!onDuty && (!npc.isElf() || npc.isRestTime()))
             return null;
-        // Each task is judged once so the answers stay the same during the pick
-        table.visitHousehold = null;
         Set<RoutineData.Activity> possible = EnumSet.noneOf(RoutineData.Activity.class);
         for(RoutineData.Entry entry : routine.getEntries()) {
             RoutineData.Activity activity = entry.activity();
@@ -747,7 +745,7 @@ public class NpcRoutine {
         toBed = false;
         phase = Phase.NONE;
         dropOff = null;
-        station.clear();
+        station.clear(world);
         npc.setOnOuting(false);
         npc.setFarming(false);
         lookTarget = null;

@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.npcs.routine;
 
 import it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongArrayFIFOQueue;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -10,6 +11,7 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Heightmap;
 import net.sevenstars.middleearth.block.special.structureManager.features.NestSurvey;
@@ -71,6 +73,8 @@ class SiteSurvey {
     private static final int FLOOD_MARGIN = 8;
     // Max drop the flood steps down, it can't climb back
     private static final int FLOOD_DROP = 3;
+    // Columns flooded per scan step
+    private static final int FLOOD_COLUMNS = 128;
     private static final int UNLOADED = 0;
     private static final int WATER = 1;
     private static final int LAND = 2;
@@ -83,7 +87,8 @@ class SiteSurvey {
     // Half the structure's width, 0 in the wild
     private final int extent;
     private final float sampleScale;
-    private final List<BlockBox> buildings = new ArrayList<>();
+    // Buildings by the chunks they cover
+    private final Long2ObjectOpenHashMap<List<BlockBox>> buildings = new Long2ObjectOpenHashMap<>();
     private final Supplier<List<BlockPos>> doors;
     private final Runnable ringChanged;
 
@@ -105,6 +110,13 @@ class SiteSurvey {
     private final List<Integer> missedRing = new ArrayList<>();
     private final List<Integer> missedSamples = new ArrayList<>();
 
+    // Set while a flood runs, which spreads over scan steps
+    @Nullable private Long2IntOpenHashMap reached;
+    // Column to kind and height, so a column is classified once per flood
+    private final Long2IntOpenHashMap floodClasses = new Long2IntOpenHashMap();
+    private final LongArrayFIFOQueue open = new LongArrayFIFOQueue();
+    private int floodBound;
+
     SiteSurvey(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces,
                Supplier<List<BlockPos>> doors, Runnable ringChanged) {
         this.extent = extent;
@@ -118,8 +130,12 @@ class SiteSurvey {
         if(pieces != null) {
             // Roads and squares can be walked on, so they aren't buildings
             for(BlockBox piece : pieces) {
-                if(piece.getBlockCountY() >= BUILDING_HEIGHT)
-                    buildings.add(piece);
+                if(piece.getBlockCountY() < BUILDING_HEIGHT)
+                    continue;
+                for(int chunkX = piece.getMinX() >> 4; chunkX <= piece.getMaxX() >> 4; chunkX++) {
+                    for(int chunkZ = piece.getMinZ() >> 4; chunkZ <= piece.getMaxZ() >> 4; chunkZ++)
+                        buildings.computeIfAbsent(ChunkPos.toLong(chunkX, chunkZ), key -> new ArrayList<>()).add(piece);
+                }
             }
         }
         if(ringRadius > 0)
@@ -195,6 +211,8 @@ class SiteSurvey {
 
     // One sample per call, true when done
     boolean scanStep(ServerWorld world) {
+        if(reached != null)
+            return stepFlood(world);
         if(ready)
             return true;
 
@@ -204,9 +222,12 @@ class SiteSurvey {
         } else {
             int sample = (cursor - ringSteps) * 2;
             if(sample >= SAMPLES.length) {
-                keepReachable(world);
-                ready = true;
-                return true;
+                startFlood(world);
+                if(reached == null) {
+                    ready = true;
+                    return true;
+                }
+                return false;
             }
             int x = centerX + Math.round(SAMPLES[sample] * sampleScale);
             int z = centerZ + Math.round(SAMPLES[sample + 1] * sampleScale);
@@ -416,10 +437,13 @@ class SiteSurvey {
     }
 
     boolean hasMissed() {
-        return ready && (!missedRing.isEmpty() || !missedSamples.isEmpty());
+        return ready && reached == null && (!missedRing.isEmpty() || !missedSamples.isEmpty());
     }
 
-    void retryMissed(ServerWorld world) {
+    // True when it started a flood, which needs scan steps to finish
+    boolean retryMissed(ServerWorld world) {
+        if(reached != null)
+            return false;
         List<Integer> ringLeft = new ArrayList<>(missedRing);
         List<Integer> samplesLeft = new ArrayList<>(missedSamples);
         missedRing.clear();
@@ -435,62 +459,98 @@ class SiteSurvey {
                 missedSamples.add(sample);
         }
         if(missedRing.size() < ringLeft.size() || missedSamples.size() < samplesLeft.size())
-            keepReachable(world);
+            startFlood(world);
+        return reached != null;
     }
 
     // Flood from the doors: up 1 block, down a few, never water or roofs
-    private void keepReachable(ServerWorld world) {
+    private void startFlood(ServerWorld world) {
         ringChanged.run();
-        if(doors.get().isEmpty())
+        List<BlockPos> doorList = doors.get();
+        if(doorList.isEmpty())
             return;
         int bound = 0;
         for(List<BlockPos> spots : List.of(ring, grounds, trees, shoreStands)) {
             for(BlockPos spot : spots)
                 bound = Math.max(bound, Math.max(Math.abs(spot.getX() - centerX), Math.abs(spot.getZ() - centerZ)) + FLOOD_MARGIN);
         }
-        Long2IntOpenHashMap reached = new Long2IntOpenHashMap();
-        reached.defaultReturnValue(Integer.MIN_VALUE);
-        LongArrayFIFOQueue open = new LongArrayFIFOQueue();
-        for(BlockPos door : doors.get()) {
+        Long2IntOpenHashMap found = new Long2IntOpenHashMap();
+        found.defaultReturnValue(Integer.MIN_VALUE);
+        floodClasses.clear();
+        floodClasses.defaultReturnValue(Integer.MIN_VALUE);
+        open.clear();
+        reached = found;
+        for(BlockPos door : doorList) {
             for(int side = 0; side < 4; side++) {
                 int x = door.getX() + (side == 0 ? 1 : side == 1 ? -1 : 0);
                 int z = door.getZ() + (side == 2 ? 1 : side == 3 ? -1 : 0);
-                if(classify(world, x, z) == LAND && Math.abs(probeY - door.getY()) <= 1 && !isBuilding(x, probeY, z) && reached.putIfAbsent(column(x, z), probeY) == reached.defaultReturnValue())
+                if(floodClassify(world, x, z) == LAND && Math.abs(probeY - door.getY()) <= 1 && !isBuilding(x, probeY, z) && found.putIfAbsent(column(x, z), probeY) == found.defaultReturnValue())
                     open.enqueue(column(x, z));
             }
         }
-        if(open.isEmpty())
+        if(open.isEmpty()) {
+            reached = null;
             return;
-        while(!open.isEmpty()) {
+        }
+        floodBound = bound;
+    }
+
+    // True when the flood is done and the spots are pruned
+    private boolean stepFlood(ServerWorld world) {
+        Long2IntOpenHashMap found = reached;
+        for(int columns = 0; columns < FLOOD_COLUMNS && !open.isEmpty(); columns++) {
             long at = open.dequeueLong();
             int x = (int) (at >> 32);
             int z = (int) at;
-            int height = reached.get(at);
+            int height = found.get(at);
             for(int side = 0; side < 4; side++) {
                 int nextX = x + (side == 0 ? 1 : side == 1 ? -1 : 0);
                 int nextZ = z + (side == 2 ? 1 : side == 3 ? -1 : 0);
                 long next = column(nextX, nextZ);
-                if(Math.abs(nextX - centerX) > bound || Math.abs(nextZ - centerZ) > bound || reached.containsKey(next))
+                if(Math.abs(nextX - centerX) > floodBound || Math.abs(nextZ - centerZ) > floodBound || found.containsKey(next))
                     continue;
-                if(classify(world, nextX, nextZ) != LAND || probeY - height > 1 || height - probeY > FLOOD_DROP || isBuilding(nextX, probeY, nextZ))
+                if(floodClassify(world, nextX, nextZ) != LAND || probeY - height > 1 || height - probeY > FLOOD_DROP || isBuilding(nextX, probeY, nextZ))
                     continue;
-                reached.put(next, probeY);
+                found.put(next, probeY);
                 open.enqueue(next);
             }
         }
+        if(!open.isEmpty())
+            return false;
+        pruneUnreached(found);
+        reached = null;
+        floodClasses.clear();
+        ready = true;
+        return true;
+    }
+
+    private int floodClassify(ServerWorld world, int x, int z) {
+        long key = column(x, z);
+        int known = floodClasses.get(key);
+        if(known != Integer.MIN_VALUE) {
+            probeY = known >> 2;
+            return known & 3;
+        }
+        int kind = classify(world, x, z);
+        if(kind != UNLOADED)
+            floodClasses.put(key, (probeY << 2) | kind);
+        return kind;
+    }
+
+    private void pruneUnreached(Long2IntOpenHashMap found) {
         for(int i = ring.size() - 1; i >= 0; i--) {
-            if(!reached.containsKey(column(ring.get(i).getX(), ring.get(i).getZ()))) {
+            if(!found.containsKey(column(ring.get(i).getX(), ring.get(i).getZ()))) {
                 ring.remove(i);
                 ringPlanIndex.remove(i);
                 ringChanged.run();
             }
         }
-        grounds.removeIf(spot -> !reached.containsKey(column(spot.getX(), spot.getZ())));
+        grounds.removeIf(spot -> !found.containsKey(column(spot.getX(), spot.getZ())));
         // A trunk fills its own column, so it's reached from a neighbouring one
-        trees.removeIf(tree -> !reached.containsKey(column(tree.getX() + 1, tree.getZ())) && !reached.containsKey(column(tree.getX() - 1, tree.getZ()))
-                && !reached.containsKey(column(tree.getX(), tree.getZ() + 1)) && !reached.containsKey(column(tree.getX(), tree.getZ() - 1)));
+        trees.removeIf(tree -> !found.containsKey(column(tree.getX() + 1, tree.getZ())) && !found.containsKey(column(tree.getX() - 1, tree.getZ()))
+                && !found.containsKey(column(tree.getX(), tree.getZ() + 1)) && !found.containsKey(column(tree.getX(), tree.getZ() - 1)));
         for(int i = shoreStands.size() - 1; i >= 0; i--) {
-            if(!reached.containsKey(column(shoreStands.get(i).getX(), shoreStands.get(i).getZ()))) {
+            if(!found.containsKey(column(shoreStands.get(i).getX(), shoreStands.get(i).getZ()))) {
                 shoreStands.remove(i);
                 shoreWaters.remove(i);
             }
@@ -508,7 +568,11 @@ class SiteSurvey {
     }
 
     boolean isBuilding(int x, int y, int z) {
-        for(BlockBox box : buildings) {
+        List<BlockBox> boxes = buildings.get(ChunkPos.toLong(x >> 4, z >> 4));
+        if(boxes == null)
+            return false;
+        for(int i = 0; i < boxes.size(); i++) {
+            BlockBox box = boxes.get(i);
             if(x >= box.getMinX() && x <= box.getMaxX() && z >= box.getMinZ() && z <= box.getMaxZ() && y - box.getMinY() >= BUILDING_HEIGHT)
                 return true;
         }

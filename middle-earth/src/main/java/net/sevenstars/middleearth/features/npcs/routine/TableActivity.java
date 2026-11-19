@@ -47,7 +47,6 @@ class TableActivity extends RoutineActivity {
 
     // Seat at its own table a visitor asked it to take
     @Nullable BlockPos hostingAt = null;
-    @Nullable BlockPos visitHousehold = null;
     @Nullable NpcEntity companion = null;
 
     TableActivity(NpcRoutine routine) {
@@ -66,14 +65,6 @@ class TableActivity extends RoutineActivity {
     @Override
     boolean isSocial(RoutineData.Activity kind) {
         return kind != RoutineData.Activity.COURT;
-    }
-
-    @Override
-    boolean canBeDone(ServerWorld world, RoutineData.Activity kind, BlockPos home) {
-        if(kind != RoutineData.Activity.VISIT)
-            return true;
-        visitHousehold = householdToVisit(world, home);
-        return visitHousehold != null;
     }
 
     @Override
@@ -119,8 +110,7 @@ class TableActivity extends RoutineActivity {
             hostingAt = null;
             return true;
         }
-        BlockPos household = visitHousehold != null ? visitHousehold : householdToVisit(world, home);
-        visitHousehold = null;
+        BlockPos household = householdToVisit(world, home);
         if(household == null)
             return routine.cannotStart(picked, "no other household to call on");
         List<NpcEntity> hosts = hostsAt(world, household);

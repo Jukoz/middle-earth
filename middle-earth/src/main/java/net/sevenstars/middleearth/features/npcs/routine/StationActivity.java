@@ -2,10 +2,14 @@ package net.sevenstars.middleearth.features.npcs.routine;
 
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
@@ -82,6 +86,7 @@ class StationActivity extends RoutineActivity {
     private int planks = 0;
     @Nullable BlockPos fuelFrom = null;
     @Nullable Item logInHand = null;
+    @Nullable private BlockPos logFrom = null;
 
     StationActivity(NpcRoutine routine) {
         super(routine);
@@ -112,13 +117,26 @@ class StationActivity extends RoutineActivity {
             unusableStations.put(workStation, time + STATION_HOLD);
     }
 
-    void clear() {
+    void clear(ServerWorld world) {
+        returnLog(world);
         fetchFrom = null;
         order = null;
         stationStand = null;
         fuelFrom = null;
-        logInHand = null;
         workAnimal = null;
+    }
+
+    private void returnLog(ServerWorld world) {
+        if(logInHand == null)
+            return;
+        ItemStack left = new ItemStack(logInHand);
+        Inventory inventory = logFrom != null && isLoaded(world, logFrom) ? RoutineStores.inventoryAt(world, logFrom) : null;
+        if(inventory != null)
+            left = HopperBlockEntity.transfer(null, inventory, left, null);
+        if(!left.isEmpty())
+            world.spawnEntity(new ItemEntity(world, npc.getX(), npc.getY(), npc.getZ(), left));
+        logInHand = null;
+        logFrom = null;
     }
 
     @Override
@@ -220,8 +238,10 @@ class StationActivity extends RoutineActivity {
 
     private void arriveAtWoodPile(ServerWorld world) {
         logInHand = RoutineStores.takeFrom(world, fuelFrom, stack -> stack.isIn(ItemTags.LOGS));
-        if(logInHand != null)
+        if(logInHand != null) {
+            logFrom = fuelFrom;
             routine.did("work", "took " + itemName(logInHand) + " from " + fuelFrom.toShortString() + " for the oven");
+        }
         fuelFrom = null;
         routine.setSpot(stationStand);
         routine.walker.newWalk(world);
@@ -236,6 +256,7 @@ class StationActivity extends RoutineActivity {
             world.playSound(null, npc.getBlockPos(), SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, SPLIT_SOUND_VOLUME, 1f);
             routine.did("work", "split " + itemName(logInHand) + " into " + PLANKS_PER_LOG + " planks");
             logInHand = null;
+            logFrom = null;
         }
         if(woodNeeded && planks == 0) {
             routine.abandoned("has no wood for the oven at " + workStation.toShortString());

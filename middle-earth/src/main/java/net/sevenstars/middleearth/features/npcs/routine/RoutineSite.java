@@ -95,8 +95,8 @@ public class RoutineSite {
         return survey.hasMissed();
     }
 
-    void retryMissed(ServerWorld world) {
-        survey.retryMissed(world);
+    boolean retryMissed(ServerWorld world) {
+        return survey.retryMissed(world);
     }
 
     public List<BlockPos> getShoreStands() {

@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 public class RoutineSites {
     // All limits are per world, per tick
     private static final int SCAN_STEPS = 8;
+    private static final int RETRIES = 1;
     private static final int ROUTINE_STARTS = 1;
     private static final int PATH_REQUESTS = 3;
     private static final int ENTITY_SEARCHES = 1;
@@ -70,6 +71,7 @@ public class RoutineSites {
     private static class WorldSites {
         final Long2ObjectOpenHashMap<RoutineSite> sites = new Long2ObjectOpenHashMap<>();
         final ArrayDeque<RoutineSite> scanning = new ArrayDeque<>();
+        final ArrayDeque<RoutineSite> retrying = new ArrayDeque<>();
         long budgetTick = -1;
         int starts;
         int paths;
@@ -128,6 +130,12 @@ public class RoutineSites {
                 sites.scanning.poll();
         }
 
+        for(int retries = 0; retries < RETRIES && !sites.retrying.isEmpty(); retries++) {
+            RoutineSite site = sites.retrying.poll();
+            if(!site.isDropped() && site.hasMissed() && site.retryMissed(world))
+                sites.scanning.add(site);
+        }
+
         long time = world.getTime();
         if(time % CLEANUP_INTERVAL == 0)
             sites.sites.long2ObjectEntrySet().removeIf(entry -> {
@@ -139,8 +147,8 @@ public class RoutineSites {
         if(time % RETRY_INTERVAL == 0) {
             // A structure's site is also stored under each of its managers' keys
             for(RoutineSite site : new ReferenceOpenHashSet<>(sites.sites.values())) {
-                if(site.hasMissed())
-                    site.retryMissed(world);
+                if(site.hasMissed() && !sites.retrying.contains(site))
+                    sites.retrying.add(site);
             }
             sites.listNoEntry(world);
         }
