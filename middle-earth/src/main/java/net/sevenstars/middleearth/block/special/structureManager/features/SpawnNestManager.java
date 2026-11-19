@@ -143,13 +143,26 @@ public class SpawnNestManager {
     }
 
     public boolean removeEntity(LivingEntity entity){
-        if(entity.getEntityWorld().isClient() || !this.entities.contains(entity.getUuid()))
+        if(entity.getEntityWorld().isClient())
             return false;
-        this.entities.remove(entity.getUuid());
+        return removeUuid(entity.getUuid(), entity.getEntityWorld());
+    }
+
+    private boolean removeUuid(UUID uuid, World world){
+        if(!this.entities.remove(uuid))
+            return false;
         if(this.entities.isEmpty()){
-            beginRespawnSequence(entity.getEntityWorld());
+            beginRespawnSequence(world);
         }
         return true;
+    }
+
+    // A previous nest's people still live here
+    public void adopt(List<UUID> uuids){
+        for(UUID uuid : uuids){
+            if(!entities.contains(uuid))
+                entities.add(uuid);
+        }
     }
     private void beginRespawnSequence(World world) {
         this.respawnEventTriggerTick = world.getTime();
@@ -160,6 +173,11 @@ public class SpawnNestManager {
     }
 
     public void tick(long currentTick, ServerWorld world, BlockPos sourcePos) {
+        boolean left = false;
+        for(UUID uuid : GoneSignals.take(world, sourcePos))
+            left |= removeUuid(uuid, world);
+        if(left)
+            world.markDirty(sourcePos);
         if(canRespawn(currentTick)){
             respawnAll(world, sourcePos);
         }
@@ -194,7 +212,8 @@ public class SpawnNestManager {
             }
             world.markDirty(structureManagerPos);
         }
-        this.respawnEventTriggerTick = -1;
+        if(entities.isEmpty())
+            this.respawnEventTriggerTick = world.getTime();
     }
 
     private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos structureManagerPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {

@@ -38,8 +38,13 @@ public interface NestHost {
     }
 
     static void signalGone(World world, @Nullable BlockPos host, LivingEntity entity) {
-        if(world.isClient() || host == null || !world.isChunkLoaded(host.getX() >> 4, host.getZ() >> 4))
+        if(world.isClient() || host == null)
             return;
+        if(!world.isChunkLoaded(host.getX() >> 4, host.getZ() >> 4)) {
+            if(world instanceof ServerWorld serverWorld)
+                GoneSignals.queue(serverWorld, host, entity.getUuid());
+            return;
+        }
         BlockEntity blockEntity = world.getBlockEntity(host);
         if(blockEntity instanceof NestHost found && !blockEntity.isRemoved() && found.getNest() != null && found.getNest().removeEntity(entity))
             blockEntity.markDirty();

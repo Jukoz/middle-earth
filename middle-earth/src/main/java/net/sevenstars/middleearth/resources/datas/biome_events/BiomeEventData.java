@@ -52,6 +52,8 @@ public class BiomeEventData {
 
     private record DisabledSpawn(RegistryKey<World> world, ChunkPos chunk, EntityType<?> type) {}
 
+    public record SpawnPick(@Nullable WildSpawnEventData data) {}
+
     private record PendingSpawn(WildSpawnEventData data, long expires) {}
 
     private boolean shouldSpawnDefaultWhenUnmet;
@@ -132,15 +134,16 @@ public class BiomeEventData {
         return false;
     }
 
-    public boolean canSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
+    // Null refuses. No data means no event governs the type
+    public @Nullable SpawnPick pickSpawn(EntityType<?> type, ServerWorld world, BlockPos pos, Random random) {
         Identifier entityId = Registries.ENTITY_TYPE.getId(type);
         if(!hasEntityType(entityId))
-            return true;
+            return new SpawnPick(null);
         DisabledSpawn spawn = new DisabledSpawn(world.getRegistryKey(), new ChunkPos(pos), type);
         Long expiredTick = DISABLED_SPAWNS.get(spawn);
         if (expiredTick != null) {
             if(world.getTime() < expiredTick)
-                return false;
+                return null;
             DISABLED_SPAWNS.remove(spawn);
         }
 
@@ -150,8 +153,16 @@ public class BiomeEventData {
             if(DISABLED_SPAWNS.size() >= MAXIMUM_DISABLED_SPAWNS)
                 DISABLED_SPAWNS.values().removeIf(until -> until <= world.getTime());
             DISABLED_SPAWNS.put(spawn, world.getTime() + CHUNK_DISABLE_TICKS);
-            return false;
+            return null;
         }
+        return new SpawnPick(spawningData);
+    }
+
+    // Once nothing else of ours refuses the spawn
+    public void commitSpawn(SpawnPick pick, EntityType<?> type, ServerWorld world, BlockPos pos) {
+        WildSpawnEventData spawningData = pick.data();
+        if(spawningData == null)
+            return;
         spawningData.broadcastMessage(world, pos);
         if(type == EntitiesME.NPC) {
             if(PENDING_SPAWNS.size() >= MAXIMUM_PENDING_SPAWNS)
@@ -159,7 +170,6 @@ public class BiomeEventData {
             PENDING_SPAWNS.put(pos.asLong(), new PendingSpawn(spawningData, world.getTime() + PENDING_SPAWN_LIFETIME));
         }
         SpawnCensus.expect(world, type, type == EntitiesME.NPC ? spawningData.getNpcClass(null) : null, pos);
-        return true;
     }
 
     // World times, which a different save starts over

@@ -4,7 +4,11 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +34,7 @@ public class FollowHerderGoal extends Goal {
     private int cooldown = 0;
     private int missingChecks = 0;
     private Entity target = null;
+    private boolean released = false;
 
     public FollowHerderGoal(MobEntity animal, UUID herder, double speed) {
         this.animal = animal;
@@ -77,11 +82,25 @@ public class FollowHerderGoal extends Goal {
         }
     }
 
+    private static boolean isOwned(MobEntity animal) {
+        return animal instanceof TameableEntity tameable && tameable.isTamed()
+                || animal instanceof AbstractHorseEntity horse && horse.isTame()
+                || animal instanceof AbstractDonkeyEntity donkey && donkey.hasChest()
+                || !animal.getEquippedStack(EquipmentSlot.SADDLE).isEmpty();
+    }
+
     @Override
     public boolean canStart() {
+        if(released)
+            return false;
         if(--cooldown > 0)
             return false;
         cooldown = CHECK_INTERVAL;
+        if(isOwned(animal)) {
+            animal.removeCommandTag(TAG_PREFIX + herder);
+            released = true;
+            return false;
+        }
         target = animal.getEntityWorld().getEntity(herder);
         if(target == null || !target.isAlive()) {
             // Herders come and go with wild spawns, so an animal whose herder is gone goes too

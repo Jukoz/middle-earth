@@ -44,7 +44,10 @@ public final class BedSpawning {
         SpawnNestManager nest = host.getNest();
         // Tagged again since, so it's someone else's now
         if(nest == null || !nest.getId().equals(data.getId()) || !nest.getBedJob().equals(tag.job())) {
+            SpawnNestManager previous = nest;
             nest = new SpawnNestManager(data, bedOf(serverWorld, pos, tag));
+            if(previous != null)
+                nest.adopt(previous.getEntityUuids());
             host.setNest(nest);
             blockEntity.markDirty();
         }

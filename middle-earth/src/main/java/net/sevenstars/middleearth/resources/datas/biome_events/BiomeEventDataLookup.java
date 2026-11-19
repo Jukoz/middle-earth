@@ -53,17 +53,18 @@ public class BiomeEventDataLookup {
         if(dataRef == null)
             return true;
         BiomeEventData data = dataRef.value();
-        boolean canSpawn = data.canSpawn(type, world, pos, random);
-
-        if(!canSpawn)
+        BiomeEventData.SpawnPick pick = data.pickSpawn(type, world, pos, random);
+        if(pick == null)
             return false;
-        if(type.getSpawnGroup() != SpawnGroup.MONSTER)
-            return true;
-
-        if(!entities.containsKey(type)){
-            entities.put(type, new HashSet<>());
+        if(type.getSpawnGroup() == SpawnGroup.MONSTER) {
+            if(!entities.containsKey(type)){
+                entities.put(type, new HashSet<>());
+            }
+            if(!canSpawn(type))
+                return false;
         }
-        return canSpawn(type);
+        data.commitSpawn(pick, type, world, pos);
+        return true;
     }
 
     public static boolean canSpawn(EntityType<?> type) {
