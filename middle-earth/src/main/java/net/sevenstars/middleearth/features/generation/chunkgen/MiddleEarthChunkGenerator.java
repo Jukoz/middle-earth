@@ -927,13 +927,18 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private static final int VALUES = 6;
         private static final int MISTY_LATTICE = 8;
         private static final float CULL_MARGIN = 1e-4f;
+        private static final float SPAGHETTI_SCALE = 0.53f;
         static final int AIR = 0;
         static final int STONE = 1;
         static final int WATER = 2;
 
         private final int startX;
         private final int startZ;
+        // the base cave noise is sampled every 4 blocks of height, twice as far apart as in x and z; the Misty channels keep CELL
+        private static final int BASE_CELL_Y = 4;
         private final int minCellY;
+        private final int minBaseCellY;
+        private final int baseLayerCount;
         private static final int PAGE_LAYERS = 16;
         private static final int LAYER_SIZE = CORNERS * CORNERS * VALUES;
         private static final int MISTY_LAYER_SIZE = CORNERS * CORNERS * MistyCaves.VALUES;
@@ -987,29 +992,32 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         private final Map<Long, float[]> mistyCorners;
 
         CaveSampler(int startX, int startZ, int bottomY, int topY, long seed, boolean point) {
-            this.cellVerdict = point ? null : new byte[(CORNERS - 1) * (CORNERS - 1) * (Math.floorDiv(topY, CELL) - Math.floorDiv(bottomY, CELL) + 2)];
+            this.cellVerdict = point ? null : new byte[(CORNERS - 1) * (CORNERS - 1) * (Math.floorDiv(topY, BASE_CELL_Y) - Math.floorDiv(bottomY, BASE_CELL_Y) + 2)];
             this.baseCorners = point ? new HashMap<>() : null;
             this.mistyCorners = point ? new HashMap<>() : null;
             this.startX = startX;
             this.startZ = startZ;
             this.minCellY = Math.floorDiv(bottomY, CELL);
-    this.layerCount = Math.floorDiv(topY, CELL) - minCellY + 2;
-            int pageCount = (layerCount + PAGE_LAYERS - 1) / PAGE_LAYERS;
+            this.layerCount = Math.floorDiv(topY, CELL) - minCellY + 2;
+            this.minBaseCellY = Math.floorDiv(bottomY, BASE_CELL_Y);
+            this.baseLayerCount = Math.floorDiv(topY, BASE_CELL_Y) - minBaseCellY + 2;
+            int mistyPageCount = (layerCount + PAGE_LAYERS - 1) / PAGE_LAYERS;
+            int pageCount = (baseLayerCount + PAGE_LAYERS - 1) / PAGE_LAYERS;
             // a page is only read for layers marked done since this sampler began, so pages can be reused as they are
             PagePool pool = point ? null : PAGE_POOL.get();
             if (pool != null && !pool.busy) {
                 pool.busy = true;
                 this.pool = pool;
                 if (pool.base.length < pageCount) pool.base = Arrays.copyOf(pool.base, pageCount);
-                if (pool.misty.length < pageCount) pool.misty = Arrays.copyOf(pool.misty, pageCount);
+                if (pool.misty.length < mistyPageCount) pool.misty = Arrays.copyOf(pool.misty, mistyPageCount);
                 this.layerPages = pool.base;
             } else {
                 this.pool = null;
                 this.layerPages = new float[pageCount][];
             }
-            this.layerDone = new boolean[layerCount];
-            this.baseStamp = new int[layerCount * VALUES];
-            this.baseBlend = new float[layerCount * VALUES];
+            this.layerDone = new boolean[baseLayerCount];
+            this.baseStamp = new int[baseLayerCount * VALUES];
+            this.baseBlend = new float[baseLayerCount * VALUES];
 
             // weights sit on a world-fixed 8 block lattice and are interpolated to the corners
             int lattice = 16 / MISTY_LATTICE + 1;
@@ -1055,7 +1063,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             this.riftScale = new float[CORNERS * CORNERS];
             this.streamGates = new float[CORNERS * CORNERS];
             Arrays.fill(streamGates, Float.NaN);
-            this.mistyPages = pool != null ? pool.misty : new float[pageCount][];
+            this.mistyPages = pool != null ? pool.misty : new float[mistyPageCount][];
             this.mistyDone = new boolean[layerCount];
             this.mistyStamp = new int[layerCount * MistyCaves.VALUES];
             this.mistyBlend = new float[layerCount * MistyCaves.VALUES];
@@ -1351,14 +1359,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         }
 
         private boolean baseSolid(int x, int y, int z) {
-            int cellY = Math.floorDiv(y, CELL) - minCellY;
+            int cellY = Math.floorDiv(y, BASE_CELL_Y) - minBaseCellY;
             if (cellVerdict != null) {
-                int slot = (cellX * (CORNERS - 1) + cellZ) * layerCount + cellY;
+                int slot = (cellX * (CORNERS - 1) + cellZ) * baseLayerCount + cellY;
                 byte verdict = cellVerdict[slot];
                 if (verdict == 0) cellVerdict[slot] = verdict = (byte) (cellAllSolid(cellY) ? 1 : 2);
                 if (verdict == 1) return true;
             }
-            float fy = (float) Math.floorMod(y, CELL) / CELL;
+            float fy = (float) Math.floorMod(y, BASE_CELL_Y) / BASE_CELL_Y;
 
             float noise = y < WATER_HEIGHT ? lerp3(cellY, 0, fy) : 0;
             if (noise >= 0.4f
@@ -1383,7 +1391,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             int i10 = index(cellX + 1, cellZ, 0);
             int i01 = index(cellX, cellZ + 1, 0);
             int i11 = index(cellX + 1, cellZ + 1, 0);
-            boolean water = (cellY + minCellY) * CELL < WATER_HEIGHT;
+            boolean water = (cellY + minBaseCellY) * BASE_CELL_Y < WATER_HEIGHT;
             float lowerBound = 0;
             for (int v = 0; v < VALUES; v++) {
                 float min = low[lowBase + i00 + v];
@@ -1500,12 +1508,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             out[offset] = noise;
             out[offset + 1] = noise3;
             out[offset + 2] = miniNoise;
-            out[offset + 3] = (float) SimplexNoise.noise(
-                    (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), layerY.tanYf, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f), 57142);
-            out[offset + 4] = (float) SimplexNoise.noise(
-                    (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, layerY.y4, (float) x / SPAGHETTI_CAVE_STRETCH_H, 0);
-            out[offset + 5] = (float) SimplexNoise.noise(
-                    (float) (1243624 + z) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), layerY.y4, (float) x / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), 0);
+            // 3D simplex, each with its own shift so the three stay unrelated to each other and to the noises above. A 3D
+            // noise swings wider than the slice of a 4D one, so the scale keeps the same share of the rock inside the thin tunnels.
+            out[offset + 3] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
+                    (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 5714.2f, layerY.tanYf + 214.7f, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 321.9f);
+            out[offset + 4] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
+                    (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, layerY.y4 + 77.7f, (float) x / SPAGHETTI_CAVE_STRETCH_H);
+            out[offset + 5] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
+                    (float) (1243624 + z) / (SPAGHETTI_CAVE_STRETCH_H * 0.5f), layerY.y4 + 193.3f, (float) x / (SPAGHETTI_CAVE_STRETCH_H * 0.5f));
         }
 
         // probe only: the same corner, evaluated alone
@@ -1515,7 +1525,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             if (values != null) return values;
             if (baseCorners.size() >= MAX_CORNERS) baseCorners.clear();
             values = new float[VALUES];
-            baseCorner(LayerY.of((layer + minCellY) * CELL), startX + cornerX * CELL, startZ + cornerZ * CELL, values, 0);
+            baseCorner(LayerY.of((layer + minBaseCellY) * BASE_CELL_Y), startX + cornerX * CELL, startZ + cornerZ * CELL, values, 0);
             baseCorners.put(key, values);
             return values;
         }
@@ -1526,7 +1536,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             if (page == null) page = layerPages[pageIndex] = new float[PAGE_LAYERS * LAYER_SIZE];
             if (!layerDone[cellY]) {
                 int layerBase = (cellY % PAGE_LAYERS) * LAYER_SIZE;
-                int y = (cellY + minCellY) * CELL;
+                int y = (cellY + minBaseCellY) * BASE_CELL_Y;
                 // everything that depends on y alone is evaluated once per layer
                 LayerY layerY = LayerY.of(y);
                 for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
