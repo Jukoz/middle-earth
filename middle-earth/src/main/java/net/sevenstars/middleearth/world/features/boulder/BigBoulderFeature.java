@@ -3,6 +3,9 @@ package net.sevenstars.middleearth.world.features.boulder;
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
 
 import com.google.common.collect.ImmutableList;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import com.mojang.serialization.Codec;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
@@ -10,7 +13,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructureStart;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.world.ChunkRegion;
+import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.world.gen.structure.Structure;
+import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -18,6 +30,7 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 
 public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
+    private static final int START_READ_RADIUS = 8;
     private static final ImmutableList<Block> CANNOT_PLACE_ON_BLOCKS;
     private static final ImmutableList<Block> CANNOT_REPLACE_BLOCKS;
 
@@ -44,6 +57,14 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         float forSize = Math.max(length, width) * 2f;
         float angle = random.nextFloat() * 180;
 
+        int reach = (int) forSize;
+        int verticalReach = (int) baseHeight + 3;
+        BlockBox bounds = new BlockBox(blockPos.getX() - reach, blockPos.getY() - verticalReach, blockPos.getZ() - reach,
+                blockPos.getX() + reach, blockPos.getY() + verticalReach, blockPos.getZ() + reach);
+        if(intersectsStructure(structureWorldAccess, blockPos, bounds)) {
+            return false;
+        }
+
         for(int x = (int) -forSize; x <= forSize; ++x) {
             for(int z = (int) -forSize; z <= forSize; ++z) {
                 for(int y = (int) -baseHeight-3; y <= baseHeight+3; ++y) {
@@ -61,6 +82,45 @@ public class BigBoulderFeature extends Feature<BigBoulderFeatureConfig> {
         }
 
         return true;
+    }
+
+    // Boulders generate after structures and would otherwise fill houses and mines
+    private static boolean intersectsStructure(StructureWorldAccess world, BlockPos origin, BlockBox bounds) {
+        if(!(world instanceof ChunkRegion region)) return false;
+
+        // Only the origin chunk and its neighbours are guaranteed to be readable while features generate
+        ChunkPos center = region.getCenterPos();
+        ChunkPos originChunk = new ChunkPos(origin);
+        int minChunkX = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinX()), originChunk.x - 1);
+        int maxChunkX = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxX()), originChunk.x + 1);
+        int minChunkZ = Math.max(ChunkSectionPos.getSectionCoord(bounds.getMinZ()), originChunk.z - 1);
+        int maxChunkZ = Math.min(ChunkSectionPos.getSectionCoord(bounds.getMaxZ()), originChunk.z + 1);
+        Set<StructureStart> checked = new HashSet<>();
+        for(int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
+            for(int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
+                var references = region.getChunk(chunkX, chunkZ, ChunkStatus.STRUCTURE_REFERENCES).getStructureReferences();
+                // Most chunks touch no structure at all
+                if(references.isEmpty()) continue;
+                // Crash fix: If a structure is referenced from a chunk that is too far away, it is not readable
+                for(LongSet starts : references.values()) {
+                    for(long packed : starts) {
+                        ChunkPos start = new ChunkPos(packed);
+                        if(Math.max(Math.abs(start.x - center.x), Math.abs(start.z - center.z)) > START_READ_RADIUS) return true;
+                    }
+                }
+                for(Map.Entry<Structure, LongSet> entry : references.entrySet()) {
+                    for(long packed : entry.getValue()) {
+                        ChunkPos startChunk = new ChunkPos(packed);
+                        StructureStart start = region.getChunk(startChunk.x, startChunk.z, ChunkStatus.STRUCTURE_STARTS).getStructureStart(entry.getKey());
+                        if(start == null || !start.hasChildren() || !checked.add(start) || !start.getBoundingBox().intersects(bounds)) continue;
+                        for(StructurePiece piece : start.getChildren()) {
+                            if(piece.getBoundingBox().intersects(bounds)) return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private boolean isPointInside(int x, int y, int z, float length, float width, float baseHeight, float angle, float randomNoise, Random random) {
