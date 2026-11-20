@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.Block;
@@ -39,9 +40,11 @@ public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
 
     public static void register(){
+        // before the spawn chunks generate; set on join, they got seed 0
+        ServerWorldEvents.LOAD.register((server, world) -> MiddleEarthHeightMap.setSeed(world.getSeed()));
+
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
-            MiddleEarthHeightMap.setSeed(player.getEntityWorld().getSeed());
 
             StartInMiddleEarth.onJoin(player);
 
