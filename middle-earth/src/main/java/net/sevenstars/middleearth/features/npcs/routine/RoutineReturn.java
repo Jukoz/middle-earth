@@ -56,6 +56,7 @@ class RoutineReturn {
             routine.abandoned("its store " + store.toShortString() + " cannot hold anything");
             return;
         }
+        RoutineStores.rollLoot(world, store);
         ItemStack left = HopperBlockEntity.transfer(null, inventory, new ItemStack(routine.carried(), routine.carriedCount()), null);
         routine.site.getStock().changed();
         // A full store still counts as the work done

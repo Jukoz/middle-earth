@@ -4,6 +4,8 @@ import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.block.enums.ChestType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +28,16 @@ public final class RoutineStores {
             return ChestBlock.getInventory(chest, state, world, pos, true);
         BlockEntity entity = world.getBlockEntity(pos);
         return entity instanceof Inventory inventory ? inventory : null;
+    }
+
+    // Roll an unopened loot chest (both halves of a double) so a deposit lands on top of its loot
+    public static void rollLoot(ServerWorld world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if(world.getBlockEntity(pos) instanceof LootableContainerBlockEntity lootable)
+            lootable.generateLoot(null);
+        if(state.getBlock() instanceof ChestBlock && state.get(ChestBlock.CHEST_TYPE) != ChestType.SINGLE
+                && world.getBlockEntity(pos.offset(ChestBlock.getFacing(state))) instanceof LootableContainerBlockEntity other)
+            other.generateLoot(null);
     }
 
     public static boolean isHive(ServerWorld world, BlockPos pos) {

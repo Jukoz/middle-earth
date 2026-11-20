@@ -27,6 +27,7 @@ import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.features.npcs.classes.data.RoutineData;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -677,7 +678,13 @@ public class NpcRoutine {
     }
 
     @Nullable BlockPos dropOff() {
-        return dropOff != null ? dropOff : npc.getStore();
+        if(dropOff != null)
+            return dropOff;
+        if(npc.getStore() != null || site == null)
+            return npc.getStore();
+        // No store of its own, so the nearest one on the site
+        BlockPos from = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
+        return site.getStores().stream().min(Comparator.comparingDouble(store -> store.getSquaredDistance(from))).orElse(null);
     }
 
     // Floor beside a block. A bench seat has none, so it's reached across the next seat
@@ -738,17 +745,20 @@ public class NpcRoutine {
     }
 
     void loseCarried(ServerWorld world) {
-        if(carried != null && carriedFromStore) {
+        if(carried != null) {
             ItemStack left = new ItemStack(carried, carriedCount);
-            BlockPos source = dropOff();
+            BlockPos source = carriedFromStore ? dropOff() : null;
             Inventory inventory = source != null && isLoaded(world, source) ? RoutineStores.inventoryAt(world, source) : null;
             if(inventory != null) {
                 left = HopperBlockEntity.transfer(null, inventory, left, null);
                 if(site != null)
                     site.getStock().changed();
             }
-            if(!left.isEmpty())
+            // A wanderer with no settlement has nowhere to bring things, so what it carries is just gone
+            if(!left.isEmpty() && npc.getHostPos() != null) {
+                did("drop", "had nowhere to put " + itemName(carried) + ", dropped it");
                 world.spawnEntity(new ItemEntity(world, npc.getX(), npc.getY(), npc.getZ(), left));
+            }
         }
         carried = null;
         carriedCount = 1;
