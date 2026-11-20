@@ -28,6 +28,7 @@
     "LivingEntityMixin",
     "PigEntityMixin",
     "JigsawBlockMixin",
+    "JigsawStructureMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
     "PowderSnowBlockMixin",

@@ -20,6 +20,7 @@ import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.math.random.RandomSeed;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeCoords;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
@@ -715,10 +716,21 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return -4;
     }
 
+    // The floor heightmaps see through water, like vanilla's
     @Override
     public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
-        float worldHeight = 1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z);
-        return Math.max(64, (int)worldHeight);
+        int ground = (int) (1 + DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z));
+        if(heightmap == Heightmap.Type.OCEAN_FLOOR_WG || heightmap == Heightmap.Type.OCEAN_FLOOR)
+            return ground;
+        return Math.max(waterHeightAt(x, z, noiseConfig), ground);
+    }
+
+    private int waterHeightAt(int x, int z, NoiseConfig noiseConfig) {
+        MapBasedCustomBiome biome = null;
+        if(middleEarthMapUtils.isWorldCoordinateInBorder(x, z))
+            biome = MapBasedBiomePool.getBiome(getBiomeSource().getBiome(BiomeCoords.fromBlock(x), BiomeCoords.fromBlock(WATER_HEIGHT), BiomeCoords.fromBlock(z),
+                    noiseConfig.getMultiNoiseSampler()), x, z);
+        return (biome != null ? biome : MapBasedBiomePool.defaultBiome).getWaterHeight();
     }
 
     @Override
