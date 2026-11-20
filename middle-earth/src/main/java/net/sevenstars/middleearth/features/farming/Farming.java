@@ -1,8 +1,10 @@
 package net.sevenstars.middleearth.features.farming;
 
-public class Farming {
-    public static void register() {
-        FarmingBlocks.register();
-        FarmingItems.register();
+import net.sevenstars.middleearth.common.feature.Feature;
+
+public class Farming implements Feature {
+    @Override
+    public void register() {
+        Feature.load(FarmingBlocks.class, FarmingItems.class);
     }
 }

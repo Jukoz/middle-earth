@@ -1,13 +1,6 @@
 package net.sevenstars.middleearth.entity;
 
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferEntityRenderer;
+import net.sevenstars.middleearth.features.storage.block.coffers.CofferModels;
 
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.api.EnvType;
@@ -53,14 +46,14 @@ public class EntityModelsME {
 
         builder.put(EntityModelLayersME.REINFORCED_CHEST, ReinforcedChestEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.BELLOWS, BellowsBlockEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.LARCH_COFFER, LarchCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.PINE_COFFER, PineCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.SPRUCE_COFFER, SpruceCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.FIR_COFFER, FirCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.BEECH_COFFER, BeechCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.CHESTNUT_COFFER, ChestnutCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.OAK_COFFER, OakCofferEntityRenderer.getTexturedModelData());
-        builder.put(EntityModelLayersME.WILLOW_COFFER, WillowCofferEntityRenderer.getTexturedModelData());
+        builder.put(EntityModelLayersME.LARCH_COFFER, CofferModels.larch());
+        builder.put(EntityModelLayersME.PINE_COFFER, CofferModels.pine());
+        builder.put(EntityModelLayersME.SPRUCE_COFFER, CofferModels.spruce());
+        builder.put(EntityModelLayersME.FIR_COFFER, CofferModels.fir());
+        builder.put(EntityModelLayersME.BEECH_COFFER, CofferModels.beech());
+        builder.put(EntityModelLayersME.CHESTNUT_COFFER, CofferModels.chestnut());
+        builder.put(EntityModelLayersME.OAK_COFFER, CofferModels.oak());
+        builder.put(EntityModelLayersME.WILLOW_COFFER, CofferModels.willow());
         builder.put(EntityModelLayersME.OLD_SKULL, OldSkullBlockEntityRenderer.getTexturedModelData());
         builder.put(EntityModelLayersME.REINFORCED_BARREL, BarrelEntityModel.getTexturedModelData());
         builder.put(EntityModelLayersME.REINFORCED_BARREL_WATER_MASK, BarrelEntityModel.getBaseTexturedModelData());

@@ -113,6 +113,10 @@ public final class BiomeAmbianceME {
         return new BiomeAmbianceME(skyColor, fogColor, new Fog(start, end), particles, sounds);
     }
 
+    public BiomeAmbianceME withWeatherFog(float start, float end, float clearStart, float clearEnd) {
+        return new BiomeAmbianceME(skyColor, fogColor, new Fog(start, end, clearStart, clearEnd), particles, sounds);
+    }
+
     public BiomeAmbianceME withoutFog() {
         return new BiomeAmbianceME(skyColor, fogColor, null, particles, sounds);
     }
@@ -184,12 +188,18 @@ public final class BiomeAmbianceME {
         return color;
     }
 
-    public record Fog(float start, float end) {
+    public record Fog(float start, float end, float clearStart, float clearEnd) {
+        public Fog(float start, float end) {
+            this(start, end, start, end);
+        }
+
         public Fog {
             if(!(end > 0 && end <= 1))
                 throw new IllegalArgumentException("The fog end %s must be above 0 and at most 1".formatted(end));
             if(!(start < end && start >= -1))
                 throw new IllegalArgumentException("The fog start %s must be at least -1 and below the end %s".formatted(start, end));
+            if(!(clearEnd > 0 && clearEnd <= 1) || !(clearStart < clearEnd && clearStart >= -1))
+                throw new IllegalArgumentException("The clear fog %s to %s is out of range".formatted(clearStart, clearEnd));
         }
     }
 

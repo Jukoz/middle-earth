@@ -164,7 +164,8 @@ public class SpawnNestManager {
     }
 
     public boolean canRespawn(long time){
-        return (entities.isEmpty() && time > respawnEventTriggerTick + respawnTickDelay);
+        // 0 means it never spawned: fill at once rather than wait for the world to age past the delay
+        return entities.isEmpty() && (respawnEventTriggerTick == 0 || time > respawnEventTriggerTick + respawnTickDelay);
     }
 
     public void tick(long currentTick, ServerWorld world, BlockPos sourcePos) {

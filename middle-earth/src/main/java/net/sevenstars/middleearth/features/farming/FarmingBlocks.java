@@ -39,7 +39,4 @@ public class FarmingBlocks {
 
     public static final Block PIPEWEED_CROP = NatureBlockRegistryME.registerBlock("pipeweed_crop",
             PipeweedCropBlock::new, AbstractBlock.Settings.copy(Blocks.POTATOES), false);
-
-    public static void register() {
-    }
 }

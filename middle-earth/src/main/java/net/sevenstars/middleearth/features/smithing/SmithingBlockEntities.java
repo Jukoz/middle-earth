@@ -19,7 +19,4 @@ public class SmithingBlockEntities {
             SmithingBlocks.ORCISH_TREATED_ANVIL);
     public static BlockEntityType<BellowsBlockEntity> BELLOWS = BlockEntityRegistryME.register("bellows", BellowsBlockEntity::new,
             SmithingBlocks.BELLOWS);
-
-    public static void register() {
-    }
 }

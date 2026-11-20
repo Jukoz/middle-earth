@@ -384,9 +384,9 @@ public class MapBiomeData {
         addBiome(new BiomeData(BiomeKeyRegistryME.MISTY_MOUNTAINS_BASE, BiomeDataConfigsME.mistyMountainsBase, BiomeDataConfigsME.mistyMountainsLayers,
                 new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         addBiome(new BiomeData(BiomeKeyRegistryME.MISTY_MOUNTAINS, BiomeDataConfigsME.mistyMountains, BiomeDataConfigsME.mistyMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withFog(-0.1f, 0.2f), defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withWeatherFog(-0.1f, 0.2f, 0.45f, 1.0f), defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         addBiome(new BiomeData(BiomeKeyRegistryME.MISTY_MOUNTAINS_PEAKS, BiomeDataConfigsME.mistiesPeaks, BiomeDataConfigsME.mistyMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withFog(-0.1f, 0.2f).withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withWeatherFog(-0.1f, 0.2f, 0.45f, 1.0f).withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7777673, 7316862), CaveType.MISTIES));
         // MORDOR
         addBiome(new BiomeData(BiomeKeyRegistryME.MORDOR, BiomeDataConfigsME.mordor, BiomeDataConfigsME.ashenStoneLayers,
                 new BiomeColorsDTO(BiomeAmbianceME.ASH, 6450777, 1513734, 3550502, 2695966), CaveType.ASHEN));

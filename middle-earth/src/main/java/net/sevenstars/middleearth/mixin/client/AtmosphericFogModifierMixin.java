@@ -48,15 +48,19 @@ public class AtmosphericFogModifierMixin {
         Optional<RegistryKey<Biome>> biome = world.getBiome(camera.getBlockPos()).getKey();
         BiomeAmbianceME ambiance = biome.map(BiomeAmbianceME::of).orElse(null);
         BiomeAmbianceME.Fog biomeFog = ambiance == null ? null : ambiance.getFog();
+        // Rain/Snow thickens the fog
+        float wetness = world.getRainGradient(tickCounter.getTickProgress(false));
+        float targetStart = biomeFog == null ? 0 : MathHelper.lerp(wetness, biomeFog.clearStart(), biomeFog.start());
+        float targetEnd = biomeFog == null ? 0 : MathHelper.lerp(wetness, biomeFog.clearEnd(), biomeFog.end());
         if(biomeFog == null) {
             blend = approach(blend, 0, deltaTicks * BLEND_SPEED);
         } else {
             if(blend <= 0) {
-                fogStartMultiplier = biomeFog.start();
-                fogEndMultiplier = biomeFog.end();
+                fogStartMultiplier = targetStart;
+                fogEndMultiplier = targetEnd;
             } else {
-                fogStartMultiplier = approach(fogStartMultiplier, biomeFog.start(), deltaTicks * TRANSITION_SPEED);
-                fogEndMultiplier = approach(fogEndMultiplier, biomeFog.end(), deltaTicks * TRANSITION_SPEED);
+                fogStartMultiplier = approach(fogStartMultiplier, targetStart, deltaTicks * TRANSITION_SPEED);
+                fogEndMultiplier = approach(fogEndMultiplier, targetEnd, deltaTicks * TRANSITION_SPEED);
             }
             blend = approach(blend, 1, deltaTicks * BLEND_SPEED);
         }

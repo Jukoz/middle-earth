@@ -31,7 +31,4 @@ public class SmithingBlocks {
 
     public static final Block BELLOWS = BlockRegistrar.register("bellows",
             BellowsBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque());
-
-    public static void register() {
-    }
 }

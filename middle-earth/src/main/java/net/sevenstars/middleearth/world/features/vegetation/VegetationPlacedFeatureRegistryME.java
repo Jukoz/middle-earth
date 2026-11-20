@@ -66,6 +66,8 @@ public class VegetationPlacedFeatureRegistryME {
     public static final RegistryKey<PlacedFeature> FIELD_DRY_HEATHER = registerKey("field_dry_heather");
     public static final RegistryKey<PlacedFeature> FIELD_LAVENDER = registerKey("field_lavender");
     public static final RegistryKey<PlacedFeature> FIELD_WILD_WHEAT = registerKey("field_wild_wheat");
+    // Structures place features outside biome decoration, where a biome filter throws
+    public static final RegistryKey<PlacedFeature> STRUCTURE_FIELD_WILD_WHEAT = registerKey("structure_field_wild_wheat");
     public static final RegistryKey<PlacedFeature> FIELD_DEAD_NORMAL_HEATHER = registerKey("field_dead_normal_heather");
     public static final RegistryKey<PlacedFeature> FIELD_SPARSE_DEAD_NORMAL_HEATHER = registerKey("field_sparse_dead_normal_heather");
     public static final RegistryKey<PlacedFeature> FIELD_BLUE_FESCUE = registerKey("field_blue_fescue");
@@ -476,7 +478,8 @@ public class VegetationPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, FIELD_HEATHER, fieldHeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_DRY_HEATHER, fieldDryHeather, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_LAVENDER, fieldLavender, abundant, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
-        PlacedFeatures.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP);
+        PlacedFeatures.register(featureRegisterable, FIELD_WILD_WHEAT, fieldWildWeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, STRUCTURE_FIELD_WILD_WHEAT, fieldWildWeather, common, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP);
         PlacedFeatures.register(featureRegisterable, FIELD_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, scarce, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_SPARSE_DEAD_NORMAL_HEATHER, fieldDeadNormalHeather, sparse, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, FIELD_BLUE_FESCUE, fieldBlueFescue, occasional, SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of());

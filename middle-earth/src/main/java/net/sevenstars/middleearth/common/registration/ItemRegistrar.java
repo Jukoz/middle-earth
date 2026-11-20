@@ -13,7 +13,21 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ItemRegistrar {
-    // A null group keeps the item out of the creative tabs.
+    private final List<ItemStack> group;
+
+    private ItemRegistrar(List<ItemStack> group) {
+        this.group = group;
+    }
+
+    public static ItemRegistrar forGroup(List<ItemStack> group) {
+        return new ItemRegistrar(group);
+    }
+
+    public Item register(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+        return register(name, factory, settings, group);
+    }
+
+    // null group: not shown in any creative tab
     public static Item register(String name, Function<Item.Settings, Item> factory, Item.Settings settings, List<ItemStack> group) {
         Item item = factory.apply(settings.registryKey(BlockRegistrar.keyOfItem(name)));
         if (group != null) {

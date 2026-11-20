@@ -1,25 +1,21 @@
 package net.sevenstars.middleearth;
 
+import net.sevenstars.middleearth.common.feature.Feature;
+import net.sevenstars.middleearth.features.Features;
 import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
 
-import net.sevenstars.middleearth.features.farming.Farming;
 
-import net.sevenstars.middleearth.features.artisan.Artisan;
 
-import net.sevenstars.middleearth.features.inscription.Inscription;
 
-import net.sevenstars.middleearth.features.storage.Storage;
 
-import net.sevenstars.middleearth.features.cooking.Cooking;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.features.npcs.Npcs;
-import net.sevenstars.middleearth.features.smithing.Smithing;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.config.ClientConfigME;
@@ -70,8 +66,7 @@ public class MiddleEarth implements ModInitializer {
 	public void onInitialize() {
 		new FileUtils(getClass().getClassLoader());
 
-		// Creative tab order follows the order these classes load in, so these four load first, in this order.
-		// Items registered by a feature class come after everything else in their tab.
+		// Load order is creative tab order, so these four go first, in this order
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
 		StoneBlockSetRegistryME.registerModBlockSets();
@@ -110,12 +105,7 @@ public class MiddleEarth implements ModInitializer {
 		NatureBlockItemsME.registerModItems();
 		BlockRegistryME.registerModBlocks();
 		DecorativeBlockRegistryME.registerModBlocks();
-		Smithing.register();
-		Cooking.register();
-		Storage.register();
-		Inscription.register();
-		Artisan.register();
-		Farming.register();
+		Features.ALL.forEach(Feature::register);
 		NatureBlockRegistryME.registerModBlocks();
 		GenericBlockSetRegistryME.registerModBlockSets();
 

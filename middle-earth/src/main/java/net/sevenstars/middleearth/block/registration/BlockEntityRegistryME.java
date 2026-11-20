@@ -2,14 +2,6 @@ package net.sevenstars.middleearth.block.registration;
 
 import net.sevenstars.middleearth.features.storage.StorageBlocks;
 
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferBlockEntity;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferBlockEntity;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;

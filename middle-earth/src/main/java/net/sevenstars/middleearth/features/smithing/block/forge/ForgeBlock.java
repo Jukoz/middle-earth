@@ -106,15 +106,14 @@ public class ForgeBlock extends BlockWithEntity implements BlockEntityProvider {
             BlockPos topPos = pos.up();
             BlockState topState = world.getBlockState(topPos);
             if (topState.isOf(this) && topState.get(PART) == ForgePart.TOP) {
-                // The loot table only drops the forge from its top half, so break it here with the player's drop rules.
-                // Breaking the top needs nothing extra: the bottom follows through getStateForNeighborUpdate.
+                // Only the top half drops the forge
                 world.breakBlock(topPos, !player.isCreative() && player.canHarvest(topState), player);
             }
         }
         return super.onBreak(world, pos, state, player);
     }
 
-    // Covers every way a half can go that isn't a player breaking it (commands, pistons, explosions, replacing).
+    // Breaks this half when the other one goes, however it goes
     @Override
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         ForgePart part = state.get(PART);

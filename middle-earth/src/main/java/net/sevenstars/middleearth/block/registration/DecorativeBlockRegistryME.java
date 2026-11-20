@@ -2,14 +2,6 @@ package net.sevenstars.middleearth.block.registration;
 
 import net.sevenstars.middleearth.features.storage.block.CrateBlock;
 import net.sevenstars.middleearth.features.storage.block.ThinBarrelBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.BeechCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.ChestnutCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.FirCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.LarchCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.OakCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.PineCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.SpruceCofferBlock;
-import net.sevenstars.middleearth.features.storage.block.coffers.WillowCofferBlock;
 
 import net.sevenstars.middleearth.common.registration.BlockRegistrar;
 import net.minecraft.block.piston.PistonBehavior;
