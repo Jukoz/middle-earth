@@ -414,11 +414,6 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(floors == null) out.fillBedrock(DepthBands.SHALLOW_FLOOR);
         BlockPos.Mutable biomePos = new BlockPos.Mutable();
         MiddleEarthHeightMap.ChunkHeights heights = MiddleEarthHeightMap.getChunkHeights(chunkX, chunkZ);
-        float highest = Float.NEGATIVE_INFINITY;
-        for (int x = 0; x < CHUNK_SIZE; x++) {
-            for (int z = 0; z < CHUNK_SIZE; z++) highest = Math.max(highest, heights.at(x, z));
-        }
-        caves.openBlobs((int) (DIRT_HEIGHT + highest));
 
         for(int x = 0; x < CHUNK_SIZE; x++) {
             for(int z = 0; z < CHUNK_SIZE; z++) {

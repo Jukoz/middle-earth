@@ -40,9 +40,6 @@ final class CaveSampler {
     private static final int MISTY_LAYER_SIZE = CORNERS * CORNERS * MistyCaves.VALUES;
     // only for the probe: single corners evaluated on demand instead of whole layer pages, dropped when too many
     private static final int MAX_CORNERS = 1024;
-    private static final int MARGIN = 2; // blocks beyond the chunk the opening has to see
-    private static final int MARGIN_SPAN = CHUNK_SIZE + 2 * MARGIN;
-    private static final int MARGIN_CORNERS = CORNERS + 2;
     private static final int MISTY_LATTICE = 8;
     private static final float CULL_MARGIN = 1e-4f;
     private static final int ISLAND_BLOCKS = 12;
@@ -56,8 +53,6 @@ final class CaveSampler {
     private static final byte SOLID_CELL = 1;
     private static final byte CARVING_CELL = 2;
     // thinnest blob space kept, in blocks of depth below its surface, and the same in noise units where the field is flat
-    private static final float THIN_DEPTH = 1.2f;
-    private static final float THIN_FLOOR = 0.003f;
     private static final float SPAGHETTI_SCALE = 0.53f;
     private static final float SPAGHETTI_THRESHOLD = 0.09f;
     // per blob channel: the value from which it opens air
@@ -80,15 +75,8 @@ final class CaveSampler {
     // per cell, 0 not decided yet, else the verdict of cellVerdict; null for the probe, which keeps its own small map
     private final byte[] cellVerdict;
     private final float[] cellValues = new float[8 * VALUES];
-    private boolean[] thin; // blob air that openBlobs turned to rock, by column and height
-    private int thinMin;
-    private int thinHeight;
-    // verdicts of cells off the chunk's own grid and of the probe's, by cell (-1 to 8 each way) and layer; 0 until known
+    // the probe's verdicts, by cell (-1 to 8 each way) and layer; 0 until known
     private byte[] looseVerdicts;
-    // base corners one cell beyond the chunk, 11 x 11 around the 9 x 9, for opening blob air; by layer, filled as needed
-    private float[][] marginPages;
-    private boolean[] marginDone;
-    private Map<Long, Boolean> probeBlob;
     private final MistyCaves misty;
     private final float[] mistyWeight; // null when no corner of the chunk is Misty
     private final float[] riftScale;
@@ -625,7 +613,7 @@ final class CaveSampler {
         int carving = verdict - CARVING_CELL;
         float fy = (float) Math.floorMod(y, BASE_CELL_Y) / BASE_CELL_Y;
 
-        if (carving != 0 && blobCarves(carving, cellY, y, fy) && !thinAt(x - startX, y, z - startZ)) return false;
+        if (carving != 0 && blobCarves(carving, cellY, y, fy)) return false;
         // the spaghetti noises are blended signed and only then made absolute, which keeps the thin tunnels
         float spaghetti = Math.abs(lerp3(cellY, 3, fy))
                 + Math.abs(lerp3(cellY, 4, fy))
@@ -639,28 +627,9 @@ final class CaveSampler {
                 || ((carving & 4) != 0 && lerp3(cellY, 2, fy) >= BLOB_THRESHOLD_2);
     }
 
-    // x and z are local to the chunk
-    private boolean thinAt(int x, int y, int z) {
-        if (thin != null) return y >= thinMin && y < thinMin + thinHeight && thin[(x * CHUNK_SIZE + z) * thinHeight + y - thinMin];
-        return baseCorners != null && carvedThin(x, y, z);
-    }
-
-    // the value of one channel at a corner of the world-fixed grid, cx and cz from -1 to 9 along the chunk
+    // the value of one channel at a corner of the world-fixed grid, for the probe
     private float cornerValue(int layer, int cx, int cz, int v) {
-        if (baseCorners != null) return baseCorner(layer, cx, cz)[v];
-        if (cx >= 0 && cx < CORNERS && cz >= 0 && cz < CORNERS) return layer(layer)[(layer % PAGE_LAYERS) * LAYER_SIZE + index(cx, cz, v)];
-        if (marginPages == null) {
-            marginPages = new float[baseLayerCount][];
-            marginDone = new boolean[baseLayerCount * MARGIN_CORNERS * MARGIN_CORNERS];
-        }
-        float[] page = marginPages[layer];
-        if (page == null) page = marginPages[layer] = new float[MARGIN_CORNERS * MARGIN_CORNERS * VALUES];
-        int corner = (cx + 1) * MARGIN_CORNERS + cz + 1;
-        if (!marginDone[layer * MARGIN_CORNERS * MARGIN_CORNERS + corner]) {
-            baseCorner(LayerY.of((layer + minBaseCellY) * BASE_CELL_Y), startX + cx * CELL, startZ + cz * CELL, page, corner * VALUES);
-            marginDone[layer * MARGIN_CORNERS * MARGIN_CORNERS + corner] = true;
-        }
-        return page[corner * VALUES + v];
+        return baseCorner(layer, cx, cz)[v];
     }
 
     private void fillValues(int cx, int cz, int cellY) {
@@ -687,222 +656,7 @@ final class CaveSampler {
         return verdict;
     }
 
-    // blob air at a block of the world-fixed grid, x and z local to the chunk, -2 to 17: the same verdict and the
-    // same blend as the chunk's own columns use
-    private boolean blobAt(int x, int y, int z) {
-        int cx = Math.floorDiv(x, CELL);
-        int cz = Math.floorDiv(z, CELL);
-        int cellY = Math.floorDiv(y, BASE_CELL_Y) - minBaseCellY;
-        byte verdict = verdictAt(cx, cz, cellY);
-        int carving = verdict - CARVING_CELL;
-        if (verdict == SOLID_CELL || carving == 0) return false;
-        float fx = (float) (x - cx * CELL) / CELL;
-        float fz = (float) (z - cz * CELL) / CELL;
-        float fy = (float) Math.floorMod(y, BASE_CELL_Y) / BASE_CELL_Y;
-        return ((carving & 1) != 0 && y < WATER_HEIGHT && pointBlend(cellY, 0, cx, cz, fx, fz, fy) >= WATER_BLOB_THRESHOLD)
-                || ((carving & 2) != 0 && pointBlend(cellY, 1, cx, cz, fx, fz, fy) >= BLOB_THRESHOLD_1)
-                || ((carving & 4) != 0 && pointBlend(cellY, 2, cx, cz, fx, fz, fy) >= BLOB_THRESHOLD_2);
-    }
-
-    // the arithmetic of baseBlend and lerp3
-    private float pointBlend(int layer, int v, int cx, int cz, float fx, float fz, float fy) {
-        float b = bilerpCorners(layer, v, cx, cz, fx, fz);
-        float a = bilerpCorners(layer + 1, v, cx, cz, fx, fz);
-        return b + (a - b) * fy;
-    }
-
-    private float bilerpCorners(int layer, int v, int cx, int cz, float fx, float fz) {
-        float c00 = cornerValue(layer, cx, cz, v);
-        float c10 = cornerValue(layer, cx + 1, cz, v);
-        float c01 = cornerValue(layer, cx, cz + 1, v);
-        float c11 = cornerValue(layer, cx + 1, cz + 1, v);
-        float top = c00 + (c10 - c00) * fx;
-        float bottom = c01 + (c11 - c01) * fx;
-        return top + (bottom - top) * fz;
-    }
-
-    // the probe: a block of blob air is thin when no 3x3x3 cube of blob air covers it, as in openBlobs, but with the
-    // neighbourhood read straight off the grid, which needs no margin
-    private boolean carvedThin(int x, int y, int z) {
-        int top = (minBaseCellY + baseLayerCount - 1) * BASE_CELL_Y;
-        int bottom = minBaseCellY * BASE_CELL_Y;
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dz = -1; dz <= 1; dz++) {
-                for (int dy = -1; dy <= 1; dy++) {
-                    int cy = y + dy;
-                    if (cy < bottom || cy >= top) continue;
-                    if (probeCore(x + dx, cy, z + dz, bottom, top)) return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean probeCore(int x, int y, int z, int bottom, int top) {
-        if (!probeBlobAt(x, y, z)) return false;
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dz = -1; dz <= 1; dz++) {
-                for (int dy = -1; dy <= 1; dy++) {
-                    int cy = y + dy;
-                    if (cy >= bottom && cy < top && !probeBlobAt(x + dx, cy, z + dz)) return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean probeBlobAt(int x, int y, int z) {
-        if (probeBlob == null) probeBlob = new HashMap<>();
-        long key = ((long) y * 32 + (x + 8)) * 32 + (z + 8);
-        Boolean known = probeBlob.get(key);
-        if (known == null) {
-            if (probeBlob.size() >= 1 << 16) probeBlob.clear();
-            probeBlob.put(key, known = blobAt(x, y, z));
-        }
-        return known;
-    }
-
-    // blob air (channels 0 to 2) that no 3x3x3 cube of blob air covers is a crack or lens and becomes rock; others exempt
-    // morphological opening: each block is judged from blob air within two blocks, read off the world-fixed grid past the chunk edges
-    // and the filled height, so any chunk gives the same answer; only the world's own top and bottom count as air
-    void openBlobs(int yTop) {
-        if (cellVerdict == null) return;
-        int yMin = minBaseCellY * BASE_CELL_Y;
-        int worldEnd = (minBaseCellY + baseLayerCount - 1) * BASE_CELL_Y;
-        int yEnd = Math.min(yTop + 1 + 2 * MARGIN - 1, worldEnd);
-        int decideEnd = Math.min(yTop + 1, yEnd);
-        int height = yEnd - yMin;
-        if (height < 6) return;
-        boolean[] blob = new boolean[MARGIN_SPAN * MARGIN_SPAN * height];
-        byte[] cellHas = new byte[CHUNK_SIZE * CHUNK_SIZE * baseLayerCount]; // inner blob air by column and cell
-        if (!markChunkBlobs(blob, cellHas, yMin, yEnd, height)) return;
-        markRingBlobs(blob, cellHas, yMin, yEnd, height);
-        boolean[] core = findCores(blob, height);
-        thin = findUncovered(blob, core, yMin, decideEnd, height);
-        thinMin = yMin;
-        thinHeight = height;
-    }
-
-    private static int blobIndex(int x, int z, int height) {
-        return ((x + MARGIN) * MARGIN_SPAN + z + MARGIN) * height;
-    }
-
-    // blob air of the chunk's own columns; false when there is none
-    private boolean markChunkBlobs(boolean[] blob, byte[] cellHas, int yMin, int yEnd, int height) {
-        boolean any = false;
-        for (int lx = 0; lx < CHUNK_SIZE; lx++) {
-            for (int lz = 0; lz < CHUNK_SIZE; lz++) {
-                selectColumn(lx, lz);
-                for (int cellY = 0; (cellY + minBaseCellY) * BASE_CELL_Y < yEnd; cellY++) {
-                    int slot = (cellX * (CORNERS - 1) + cellZ) * baseLayerCount + cellY;
-                    byte verdict = cellVerdict[slot];
-                    if (verdict == 0) cellVerdict[slot] = verdict = cellVerdict(cellY);
-                    int carving = verdict - CARVING_CELL;
-                    if (verdict == SOLID_CELL || carving == 0) continue;
-                    for (int dy = 0; dy < BASE_CELL_Y; dy++) {
-                        int y = (cellY + minBaseCellY) * BASE_CELL_Y + dy;
-                        if (y >= yEnd) break;
-                        if (blobCarves(carving, cellY, y, (float) dy / BASE_CELL_Y)) {
-                            blob[blobIndex(lx, lz, height) + y - yMin] = true;
-                            cellHas[(lx * CHUNK_SIZE + lz) * baseLayerCount + cellY] = 1;
-                            any = true;
-                        }
-                    }
-                }
-            }
-        }
-        return any;
-    }
-
-    // the ring around the chunk, only where blob air lies within two blocks of it
-    private void markRingBlobs(boolean[] blob, byte[] cellHas, int yMin, int yEnd, int height) {
-        for (int x = -MARGIN; x < CHUNK_SIZE + MARGIN; x++) {
-            for (int z = -MARGIN; z < CHUNK_SIZE + MARGIN; z++) {
-                if (x >= 0 && x < CHUNK_SIZE && z >= 0 && z < CHUNK_SIZE) continue;
-                int fromX = Math.max(0, x - MARGIN);
-                int toX = Math.min(CHUNK_SIZE - 1, x + MARGIN);
-                int fromZ = Math.max(0, z - MARGIN);
-                int toZ = Math.min(CHUNK_SIZE - 1, z + MARGIN);
-                for (int cellY = 0; (cellY + minBaseCellY) * BASE_CELL_Y < yEnd; cellY++) {
-                    boolean near = false;
-                    for (int ix = fromX; ix <= toX && !near; ix++) {
-                        for (int iz = fromZ; iz <= toZ && !near; iz++) {
-                            for (int c = Math.max(0, cellY - 1); c <= Math.min(baseLayerCount - 1, cellY + 1); c++) {
-                                if (cellHas[(ix * CHUNK_SIZE + iz) * baseLayerCount + c] != 0) {
-                                    near = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (!near) continue;
-                    for (int dy = 0; dy < BASE_CELL_Y; dy++) {
-                        int y = (cellY + minBaseCellY) * BASE_CELL_Y + dy;
-                        if (y >= yEnd) break;
-                        if (blobAt(x, y, z)) blob[blobIndex(x, z, height) + y - yMin] = true;
-                    }
-                }
-            }
-        }
-    }
-
-    // a core is a block of blob air with blob air all round it; what lies beyond the world's top and bottom counts as air
-    private static boolean[] findCores(boolean[] blob, int height) {
-        boolean[] core = new boolean[blob.length];
-        for (int x = -1; x < CHUNK_SIZE + 1; x++) {
-            for (int z = -1; z < CHUNK_SIZE + 1; z++) {
-                for (int level = 0; level < height; level++) {
-                    if (!blob[blobIndex(x, z, height) + level]) continue;
-                    boolean inside = true;
-                    for (int dx = -1; dx <= 1 && inside; dx++) {
-                        for (int dz = -1; dz <= 1 && inside; dz++) {
-                            for (int dy = -1; dy <= 1; dy++) {
-                                int l = level + dy;
-                                if (l >= 0 && l < height && !blob[blobIndex(x + dx, z + dz, height) + l]) {
-                                    inside = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    core[blobIndex(x, z, height) + level] = inside;
-                }
-            }
-        }
-        return core;
-    }
-
-    // the chunk's blob air that no core covers, by column and height; null when there is none
-    private static boolean[] findUncovered(boolean[] blob, boolean[] core, int yMin, int decideEnd, int height) {
-        boolean[] result = null;
-        for (int lx = 0; lx < CHUNK_SIZE; lx++) {
-            for (int lz = 0; lz < CHUNK_SIZE; lz++) {
-                for (int level = 0; level < decideEnd - yMin; level++) {
-                    if (!blob[blobIndex(lx, lz, height) + level]) continue;
-                    boolean covered = false;
-                    for (int dx = -1; dx <= 1 && !covered; dx++) {
-                        for (int dz = -1; dz <= 1 && !covered; dz++) {
-                            for (int dy = -1; dy <= 1; dy++) {
-                                int l = level + dy;
-                                if (l >= 0 && l < height && core[blobIndex(lx + dx, lz + dz, height) + l]) {
-                                    covered = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (covered) continue;
-                    if (result == null) result = new boolean[CHUNK_SIZE * CHUNK_SIZE * height];
-                    result[(lx * CHUNK_SIZE + lz) * height + level] = true;
-                }
-            }
-        }
-        return result;
-    }
-
     // SOLID_CELL: nothing in the cell can be air; else CARVING_CELL plus a bit per blob channel (0 to 2) that may open air
-    // a blob channel counts only where a corner clears its threshold by the thinnest space kept (in blocks of its gradient, plus
-    // a floor for flat field tops); else its air there is a lens or crack and stays rock; corners are world-fixed, so chunks agree
     // the blend stays within the min and max of its 8 corners (rounding is far below CULL_MARGIN), so the spaghetti bound is safe
     private byte cellVerdict(int cellY) {
         float[] values = cellValues;
@@ -940,25 +694,7 @@ final class CaveSampler {
             if (v < 3) {
                 if (v == 0 && !water) continue;
                 float threshold = v == 0 ? WATER_BLOB_THRESHOLD : v == 1 ? BLOB_THRESHOLD_1 : BLOB_THRESHOLD_2;
-                if (max < threshold) continue;
-                // corner k: layer k / 4, then dz, then dx
-                float gx = 0;
-                float gz = 0;
-                float gy = 0;
-                for (int k = 0; k < 4; k++) {
-                    int dz = k >> 1;
-                    int dx = k & 1;
-                    for (int layer = 0; layer < 2; layer++) {
-                        if (dx == 0) gx += values[(layer * 4 + dz * 2 + 1) * VALUES + v] - values[(layer * 4 + dz * 2) * VALUES + v];
-                        if (dz == 0) gz += values[(layer * 4 + 2 + dx) * VALUES + v] - values[(layer * 4 + dx) * VALUES + v];
-                    }
-                    gy += values[(4 + k) * VALUES + v] - values[k * VALUES + v];
-                }
-                gx = gx / 4 / CELL;
-                gz = gz / 4 / CELL;
-                gy = gy / 4 / BASE_CELL_Y;
-                float margin = THIN_DEPTH * (float) Math.sqrt(gx * gx + gy * gy + gz * gz) + THIN_FLOOR;
-                if (max >= threshold + margin) carving |= 1 << v;
+                if (max >= threshold) carving |= 1 << v;
             } else if (min > 0) {
                 lowerBound += min;
             } else if (max < 0) {
@@ -1007,16 +743,7 @@ final class CaveSampler {
         return (cornerX * CORNERS + cornerZ) * VALUES + v;
     }
 
-    // tan blows up at y -78; below the old floor it carries on in a straight line from where it stood at -64
-    private static double caveTan(int y) {
-        if (y >= DepthBands.SHALLOW_FLOOR) return Math.tan((float) y / CAVE_STRETCH_V);
-        double tan = Math.tan((float) DepthBands.SHALLOW_FLOOR / CAVE_STRETCH_V);
-        return tan + (1 + tan * tan) * (y - DepthBands.SHALLOW_FLOOR) / CAVE_STRETCH_V;
-    }
-
     private static final class LayerY {
-        final double tanY;
-        final float tanYf;
         final float y1;
         final float y2;
         final float y3;
@@ -1035,8 +762,6 @@ final class CaveSampler {
         }
 
         private LayerY(int y) {
-            this.tanY = caveTan(y);
-            this.tanYf = (float) tanY;
             this.y1 = (float) y / (CAVE_STRETCH_V * 0.5f);
             this.y2 = (float) y / 60;
             this.y3 = (float) y / 30;
@@ -1047,7 +772,7 @@ final class CaveSampler {
     // the six base noise values of one corner
     private static void baseCorner(LayerY layerY, int x, int z, float[] out, int offset) {
         float noise = (float) SimplexNoise.noise(
-                (float) x / CAVE_STRETCH_H, layerY.tanY, (float) z / CAVE_STRETCH_H);
+                (float) x / CAVE_STRETCH_H, layerY.y4, (float) z / CAVE_STRETCH_H);
         noise += 0.5f * (float) SimplexNoise.noise(
                 (float) x / (CAVE_STRETCH_H * 0.5f), layerY.y1, (float) z / (CAVE_STRETCH_H * 0.5f));
         noise = noise / (1 + 0.5f);
@@ -1061,7 +786,7 @@ final class CaveSampler {
         // 3D simplex, each shifted so the three stay unrelated to each other and the noises above; 3D swings wider than a 4D slice,
         // so the scale keeps the same share of rock inside the thin tunnels
         out[offset + 3] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
-                (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 5714.2f, layerY.tanYf + 214.7f, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 321.9f);
+                (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 5714.2f, layerY.y4 + 214.7f, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 321.9f);
         out[offset + 4] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
                 (float) (98153 + z) / SPAGHETTI_CAVE_STRETCH_H, layerY.y4 + 77.7f, (float) x / SPAGHETTI_CAVE_STRETCH_H);
         out[offset + 5] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(

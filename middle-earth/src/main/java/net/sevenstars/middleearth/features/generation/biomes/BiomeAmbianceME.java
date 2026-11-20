@@ -86,8 +86,7 @@ public final class BiomeAmbianceME {
     // The caves of the Misty Mountains from the top to the mithril: dark, so the fog of the depths reads as haze
     public static final BiomeAmbianceME MISTY_CAVE = sky(0x0D1014, 0x12161B);
     // The caves below the Dwarves' delvings
-    public static final BiomeAmbianceME NAMELESS_DEEPS = sky(0x0A0D12, 0x05070A)
-            .withParticles(Particles.DRIPS);
+    public static final BiomeAmbianceME NAMELESS_DEEPS = sky(0x0A0D12, 0x05070A);
     // The dry deeps, pale with dust
     public static final BiomeAmbianceME GNAWED_TUNNELS = sky(0x4A463E, 0x5A564D)
             .withParticles(Particles.DUSTFALL);
@@ -105,7 +104,7 @@ public final class BiomeAmbianceME {
 
     // their particles fall from the ceiling
     public static boolean fallsFromCeiling(RegistryKey<Biome> biome) {
-        return biome == BiomeKeyRegistryME.NAMELESS_DEEPS || biome == BiomeKeyRegistryME.GNAWED_TUNNELS;
+        return biome == BiomeKeyRegistryME.GNAWED_TUNNELS;
     }
 
     public static boolean hasUndergroundFog(RegistryKey<Biome> biome) {
@@ -252,7 +251,6 @@ public final class BiomeAmbianceME {
         // rolled for every air block near the camera, but only the ones under a ceiling count (see ClientWorldMixin)
         public static final Particles DUSTFALL = new Particles(ParticleTypes.WHITE_ASH, 0.025f);
         public static final Particles GLINTS = new Particles(ParticleTypes.GLOW, 0.0015f);
-        public static final Particles DRIPS = new Particles(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.015f);
 
         public static final Particles SNOW_HEAVY = new Particles(ParticleTypes.SNOWFLAKE, 0.05f);
         public static final Particles SNOW = new Particles(ParticleTypes.SNOWFLAKE, 0.025f);
