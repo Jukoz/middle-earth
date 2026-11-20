@@ -80,13 +80,13 @@ public final class TradeRecipes {
         return worksFromStock(job) && !TRADES.get(job).lenient();
     }
 
-    // Picked at random so a kitchen with fish and mushrooms doesn't only cook fish
-    public static @Nullable Order order(ServerWorld world, SiteStock stock, @Nullable Identifier job, BlockPos home, int range, Random random) {
+    // What to make is random, so a kitchen doesn't only cook fish. Taken from the nearest store that has it
+    public static @Nullable Order order(ServerWorld world, SiteStock stock, @Nullable Identifier job, BlockPos home, Random random) {
         if(!worksFromStock(job))
             return null;
         Trade trade = TRADES.get(job);
         List<Order> possible = new ArrayList<>();
-        for(SiteStock.Holding holding : stock.near(world, home, range)) {
+        for(SiteStock.Holding holding : stock.all(world)) {
             for(Recipe recipe : trade.recipes()) {
                 if(recipe.inputs().contains(holding.item()) && holding.count() >= recipe.count())
                     possible.add(new Order(holding.place(), holding.item(), recipe.count(), recipe.output()));
@@ -97,7 +97,15 @@ public final class TradeRecipes {
                     possible.add(new Order(holding.place(), holding.item(), 1, cooked));
             }
         }
-        return possible.isEmpty() ? null : possible.get(random.nextInt(possible.size()));
+        if(possible.isEmpty())
+            return null;
+        Item output = possible.get(random.nextInt(possible.size())).output();
+        Order nearest = null;
+        for(Order candidate : possible) {
+            if(candidate.output() == output && (nearest == null || candidate.from().getSquaredDistance(home) < nearest.from().getSquaredDistance(home)))
+                nearest = candidate;
+        }
+        return nearest;
     }
 
     private static <T extends AbstractCookingRecipe> @Nullable Item cookedOf(ServerWorld world, RecipeType<T> type, Item raw) {

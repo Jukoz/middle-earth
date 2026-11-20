@@ -26,7 +26,6 @@ import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.REST_VARIATION;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.isLoaded;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.itemName;
-import static net.sevenstars.middleearth.features.npcs.routine.StationActivity.WORK_RANGE;
 
 class FarmingActivity extends RoutineActivity {
     private static final int FARMING_TIME = 20 * 90;
@@ -128,7 +127,7 @@ class FarmingActivity extends RoutineActivity {
     private @Nullable BlockPos nextFieldCell(ServerWorld world, BlockPos home, BlockPos from) {
         BlockPos best = null;
         boolean bestLinked = false;
-        for(BlockPos cell : routine.site.getFields(home, WORK_RANGE)) {
+        for(BlockPos cell : routine.site.getFields(home)) {
             if(hiddenPlots.contains(cell) || !isLoaded(world, cell) || !FarmPlots.needsWork(world, cell))
                 continue;
             boolean linked = isByLinkedField(cell);
@@ -149,7 +148,7 @@ class FarmingActivity extends RoutineActivity {
     }
 
     boolean fieldsNeedWork(ServerWorld world, BlockPos home) {
-        for(BlockPos cell : routine.site.getFields(home, WORK_RANGE)) {
+        for(BlockPos cell : routine.site.getFields(home)) {
             if(isLoaded(world, cell) && FarmPlots.needsWork(world, cell))
                 return true;
         }

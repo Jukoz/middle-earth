@@ -133,8 +133,8 @@ class SiteLayout {
         return markersByKind.getOrDefault(kind, List.of());
     }
 
-    List<BlockPos> getFields(BlockPos near, int range) {
-        return stationsNear(List.of(StationKind.FIELD), near, range);
+    List<BlockPos> getFields(BlockPos near) {
+        return stationsNear(List.of(StationKind.FIELD), near);
     }
 
     List<BlockPos> stationsOf(StationKind kind) {
@@ -146,10 +146,11 @@ class SiteLayout {
         return found;
     }
 
-    List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near, int range) {
+    // Nearest first
+    List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near) {
         List<BlockPos> found = new ArrayList<>();
         for(StructureFeatureData.Station station : stations) {
-            if(kinds.contains(station.kind()) && station.pos().isWithinDistance(near, range))
+            if(kinds.contains(station.kind()))
                 found.add(station.pos());
         }
         found.sort((a, b) -> Double.compare(a.getSquaredDistance(near), b.getSquaredDistance(near)));
@@ -164,8 +165,8 @@ class SiteLayout {
         return null;
     }
 
-    @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
-        List<BlockPos> found = stationsNear(kinds, near, range);
+    @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near) {
+        List<BlockPos> found = stationsNear(kinds, near);
         return found.isEmpty() ? null : found.getFirst();
     }
 

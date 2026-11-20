@@ -34,19 +34,14 @@ public final class SiteStock {
         stale = true;
     }
 
-    public List<Holding> near(ServerWorld world, BlockPos near, int range) {
+    public List<Holding> all(ServerWorld world) {
         count(world);
-        List<Holding> found = new ArrayList<>();
-        for(Holding holding : holdings) {
-            if(holding.place().isWithinDistance(near, range))
-                found.add(holding);
-        }
-        return found;
+        return holdings;
     }
 
-    public @Nullable Holding nearest(ServerWorld world, BlockPos near, int range, Predicate<Item> wanted, int count) {
+    public @Nullable Holding nearest(ServerWorld world, BlockPos near, Predicate<Item> wanted, int count) {
         Holding best = null;
-        for(Holding holding : near(world, near, range)) {
+        for(Holding holding : all(world)) {
             if(holding.count() >= count && wanted.test(holding.item())
                     && (best == null || holding.place().getSquaredDistance(near) < best.place().getSquaredDistance(near)))
                 best = holding;

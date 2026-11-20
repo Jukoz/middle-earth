@@ -38,6 +38,8 @@ public class RoutineSite {
     private @Nullable Identifier faction = null;
     // Faction path ids the structure is tagged with. Empty if unassigned
     private Set<String> owners = Set.of();
+    // A hall dug into a hill has no outside round to walk
+    private boolean patrols = true;
     private @Nullable List<BlockPos> patrolRoute = null;
     private boolean patrolArc = false;
     private List<Game> game = List.of();
@@ -139,7 +141,15 @@ public class RoutineSite {
     }
 
     boolean hasPatrolRound() {
-        return getPatrolRoute().size() >= MINIMUM_ROUND_POINTS;
+        return patrols && getPatrolRoute().size() >= MINIMUM_ROUND_POINTS;
+    }
+
+    public boolean hasPatrols() {
+        return patrols;
+    }
+
+    void setPatrols(boolean patrols) {
+        this.patrols = patrols;
     }
 
     boolean hasRingRound() {
@@ -265,24 +275,24 @@ public class RoutineSite {
         return layout.getMarkers(kind);
     }
 
-    public List<BlockPos> getFields(BlockPos near, int range) {
-        return layout.getFields(near, range);
+    public List<BlockPos> getFields(BlockPos near) {
+        return layout.getFields(near);
     }
 
     public List<BlockPos> stationsOf(StationKind kind) {
         return layout.stationsOf(kind);
     }
 
-    public List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near, int range) {
-        return layout.stationsNear(kinds, near, range);
+    public List<BlockPos> stationsNear(List<StationKind> kinds, BlockPos near) {
+        return layout.stationsNear(kinds, near);
     }
 
     public @Nullable StationKind stationKindAt(BlockPos pos) {
         return layout.stationKindAt(pos);
     }
 
-    public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near, int range) {
-        return layout.pickStation(kinds, near, range);
+    public @Nullable BlockPos pickStation(List<StationKind> kinds, BlockPos near) {
+        return layout.pickStation(kinds, near);
     }
 
     // Same floor first, else up to twice as far on any floor

@@ -49,8 +49,6 @@ class StationActivity extends RoutineActivity {
     private static final int WORK_TIME = 20 * 40;
     private static final int WORK_TIME_VARIATION = 20 * 40;
 
-    // From home. Nobody crosses town to use someone else's forge
-    static final int WORK_RANGE = 48;
     private static final int STABLE_RANGE = 12;
     // A hive fills over a day, and its honey is taken once it's been full another
     private static final int FULL_HONEY = 5;
@@ -146,7 +144,7 @@ class StationActivity extends RoutineActivity {
         unusableStations.values().removeIf(until -> until <= time);
         workStation = null;
         workAnimal = null;
-        order = TradeRecipes.order(world, routine.site.getStock(), npc.getJobId(), home, WORK_RANGE, npc.getRandom());
+        order = TradeRecipes.order(world, routine.site.getStock(), npc.getJobId(), home, npc.getRandom());
         woodNeeded = false;
         if(order == null && needsStock())
             return routine.cannotStart(picked, "nothing in any store for its trade to work with");
@@ -335,14 +333,14 @@ class StationActivity extends RoutineActivity {
     }
 
     private @Nullable BlockPos woodSource(ServerWorld world, BlockPos home) {
-        SiteStock.Holding logs = routine.site.getStock().nearest(world, home, WORK_RANGE, item -> item.getDefaultStack().isIn(ItemTags.LOGS), 1);
+        SiteStock.Holding logs = routine.site.getStock().nearest(world, home, item -> item.getDefaultStack().isIn(ItemTags.LOGS), 1);
         return logs == null ? null : logs.place();
     }
 
     // With no wood pile anywhere, the oven counts as already fired
     private boolean lacksWood(ServerWorld world, BlockPos station, BlockPos home) {
         return RoutineStores.isOven(world, station) && planks == 0 && woodSource(world, home) == null
-                && !routine.site.stationsNear(List.of(StationKind.WOOD_PILE), home, WORK_RANGE).isEmpty();
+                && !routine.site.stationsNear(List.of(StationKind.WOOD_PILE), home).isEmpty();
     }
 
     private boolean isStableWork() {
@@ -391,7 +389,7 @@ class StationActivity extends RoutineActivity {
             if(kind != null && data.getStations().contains(kind))
                 stations.add(link);
         }
-        for(BlockPos station : routine.site.stationsNear(data.getStations(), home, WORK_RANGE)) {
+        for(BlockPos station : routine.site.stationsNear(data.getStations(), home)) {
             if(!stations.contains(station))
                 stations.add(station);
         }
@@ -399,12 +397,12 @@ class StationActivity extends RoutineActivity {
     }
 
     boolean hasWork(ServerWorld world, RoutineData data, BlockPos home, long time) {
-        boolean ready = TradeRecipes.order(world, routine.site.getStock(), npc.getJobId(), home, WORK_RANGE, npc.getRandom()) != null;
+        boolean ready = TradeRecipes.order(world, routine.site.getStock(), npc.getJobId(), home, npc.getRandom()) != null;
         if(!ready && needsStock())
             return false;
         if(isStableWork())
             return findAnimal(world, home) != null;
-        for(BlockPos station : routine.site.stationsNear(data.getStations(), home, WORK_RANGE)) {
+        for(BlockPos station : routine.site.stationsNear(data.getStations(), home)) {
             if(!isLoaded(world, station))
                 continue;
             if(ready && lacksWood(world, station, home))

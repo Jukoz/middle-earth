@@ -22,7 +22,6 @@ import java.util.List;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.SPOT_RANGE;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.isLoaded;
 import static net.sevenstars.middleearth.features.npcs.routine.NpcRoutine.itemName;
-import static net.sevenstars.middleearth.features.npcs.routine.StationActivity.WORK_RANGE;
 
 class ChoppingActivity extends RoutineActivity {
     private static final int CHOPPING_TIME = 20 * 40;
@@ -122,7 +121,7 @@ class ChoppingActivity extends RoutineActivity {
             else
                 routine.did("carries " + itemName(routine.carried()) + " from the tree at " + tree.toShortString());
             BlockPos home = npc.getRoutineHome() != null ? npc.getRoutineHome() : npc.getBlockPos();
-            routine.setDropOff(routine.carried() == null ? null : routine.site.pickStation(List.of(StationKind.WOOD_PILE), home, WORK_RANGE));
+            routine.setDropOff(routine.carried() == null ? null : routine.site.pickStation(List.of(StationKind.WOOD_PILE), home));
             routine.startReturn(world);
         } else if(tree != null && random.nextInt(CHOP_SWING_ONE_IN) == 0) {
             npc.swingHand(Hand.MAIN_HAND);
