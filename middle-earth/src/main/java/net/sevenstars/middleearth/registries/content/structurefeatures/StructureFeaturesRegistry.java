@@ -139,6 +139,7 @@ public class StructureFeaturesRegistry {
         final Set<Identifier> managerIds = new TreeSet<>();
         final List<StructureFeatureData.Manager> managers = new ArrayList<>();
         final List<BlockPos> beds = new ArrayList<>();
+        final List<Direction> bedFacings = new ArrayList<>();
         final List<Optional<BedTag>> bedTags = new ArrayList<>();
         final List<BlockPos> stores = new ArrayList<>();
         final List<BlockPos> fires = new ArrayList<>();
@@ -206,6 +207,7 @@ public class StructureFeaturesRegistry {
         if(BuildFeatures.BED.test(resolved)) {
             if(properties.getString(PART_PROPERTY, "").equals(HEAD_PART)) {
                 scan.beds.add(pos);
+                scan.bedFacings.add(facingOf(properties));
                 scan.bedTags.add(tagOf(data.getCompoundOrEmpty(BedTagHolder.TAG_KEY)));
             }
         }
@@ -248,9 +250,10 @@ public class StructureFeaturesRegistry {
         boolean anyBox = scan.stores.size() > scan.fires.size();
         for(int i = 0; i < scan.beds.size(); i++) {
             BlockPos bed = scan.beds.get(i);
+            Direction facing = scan.bedFacings.get(i);
             Optional<BedTag> tag = scan.bedTags.get(i);
             // Things go near the work: the bed's link, or where its job will find one; else by the bed
-            BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> bed.add(found.links().getFirst()))
+            BlockPos work = tag.filter(BedTag::manual).filter(found -> !found.links().isEmpty()).map(found -> BedTag.placed(bed, facing, found.links().getFirst()))
                     .or(() -> tag.flatMap(BedTag::job).map(job -> registries == null ? NpcJobs.stationFor(job, bed, scan.stations, scan.markers) : NpcJobs.stationFor(registries, job, bed, scan.stations, scan.markers))).orElse(bed);
             BlockPos store = null;
             for(BlockPos candidate : scan.stores) {
@@ -259,12 +262,12 @@ public class StructureFeaturesRegistry {
                 if(store == null || candidate.getSquaredDistance(work) < store.getSquaredDistance(work))
                     store = candidate;
             }
-            BlockPos picked = tag.flatMap(BedTag::store).map(bed::add).orElse(null);
+            BlockPos picked = tag.flatMap(BedTag::store).map(offset -> BedTag.placed(bed, facing, offset)).orElse(null);
             if(picked != null && scan.stores.contains(picked))
                 store = picked;
-            List<BlockPos> links = tag.map(found -> found.links().stream().map(bed::add).toList()).orElse(List.of());
+            List<BlockPos> links = tag.map(found -> found.links().stream().map(offset -> BedTag.placed(bed, facing, offset)).toList()).orElse(List.of());
             bedData.add(new StructureFeatureData.Bed(bed, tag.map(BedTag::withoutLinks), Optional.ofNullable(store), links, tag.map(BedTag::manual).orElse(false),
-                    tag.flatMap(BedTag::manager).map(bed::add)));
+                    tag.flatMap(BedTag::manager).map(offset -> BedTag.placed(bed, facing, offset))));
         }
         return bedData;
     }

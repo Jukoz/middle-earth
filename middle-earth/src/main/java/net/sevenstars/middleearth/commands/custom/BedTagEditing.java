@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.commands.custom;
 
+import net.minecraft.util.math.Direction;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -105,7 +106,8 @@ public class BedTagEditing {
             return;
         }
         BedTag tag = holder.getBedTag();
-        BlockPos offset = target.subtract(bed);
+        Direction facing = BedTag.facingAt(world, bed);
+        BlockPos offset = BedTag.offsetTo(bed, facing, target);
         // A chest or barrel becomes the bed's store, and clicking it again unlinks it and the nearest store is
         // used. A fire is a place of work, not a store
         Block clicked = world.getBlockState(target).getBlock();
@@ -119,7 +121,7 @@ public class BedTagEditing {
         } else {
             for(BlockPos link : automatic) {
                 if(link.isWithinDistance(bed, REACH) && !link.equals(bed))
-                    links.add(link.subtract(bed));
+                    links.add(BedTag.offsetTo(bed, facing, link));
             }
         }
         boolean unlinked = links.remove(offset);

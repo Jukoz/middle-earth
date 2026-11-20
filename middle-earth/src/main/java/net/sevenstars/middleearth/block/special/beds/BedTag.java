@@ -10,7 +10,12 @@ import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 import net.minecraft.util.Identifier;
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.sevenstars.middleearth.registries.content.structuremanagerdatas.StructureManagerDataPools;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
@@ -22,7 +27,8 @@ import java.util.TreeMap;
 import java.util.Optional;
 import java.util.TreeSet;
 
-// Offsets are from the bed head so rotated templates stay valid. Empty job = the kind's default
+// Offsets from the bed head as if it pointed north, so they turn with the bed
+// Empty job = the kind's default
 // The manager offset is unused, kept so old templates load
 public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identifier> npcClass, List<BlockPos> links, boolean manual, Optional<BlockPos> manager,
                      Optional<Identifier> place, Optional<BlockPos> store) {
@@ -45,6 +51,37 @@ public record BedTag(String nestKind, Optional<Identifier> job, Optional<Identif
         FIGHTERS,
         PRISONERS,
         MIXED
+    }
+
+    public static BlockPos placed(BlockPos bed, Direction facing, BlockPos offset) {
+        return bed.add(offset.rotate(fromNorth(facing)));
+    }
+
+    public static BlockPos offsetTo(BlockPos bed, Direction facing, BlockPos target) {
+        return target.subtract(bed).rotate(toNorth(facing));
+    }
+
+    public static Direction facingAt(BlockView world, BlockPos bed) {
+        BlockState state = world.getBlockState(bed);
+        return state.contains(BedBlock.FACING) ? state.get(BedBlock.FACING) : Direction.NORTH;
+    }
+
+    private static BlockRotation toNorth(Direction facing) {
+        return switch (facing) {
+            case EAST -> BlockRotation.COUNTERCLOCKWISE_90;
+            case SOUTH -> BlockRotation.CLOCKWISE_180;
+            case WEST -> BlockRotation.CLOCKWISE_90;
+            default -> BlockRotation.NONE;
+        };
+    }
+
+    private static BlockRotation fromNorth(Direction facing) {
+        return switch (facing) {
+            case EAST -> BlockRotation.CLOCKWISE_90;
+            case SOUTH -> BlockRotation.CLOCKWISE_180;
+            case WEST -> BlockRotation.COUNTERCLOCKWISE_90;
+            default -> BlockRotation.NONE;
+        };
     }
 
     public static Folk folkOf(DynamicRegistryManager registries, String nestKind) {

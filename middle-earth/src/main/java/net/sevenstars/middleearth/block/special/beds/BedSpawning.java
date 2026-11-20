@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.block.special.beds;
 
+import net.minecraft.util.math.Direction;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -82,7 +83,8 @@ public final class BedSpawning {
                     return bed;
             }
         }
-        List<BlockPos> links = tag.manual() ? tag.links().stream().map(pos::add).toList() : List.of();
-        return new StructureFeatureData.Bed(pos, Optional.of(tag), tag.store().map(pos::add), links, tag.manual(), Optional.empty());
+        Direction facing = BedTag.facingAt(world, pos);
+        List<BlockPos> links = tag.manual() ? tag.links().stream().map(offset -> BedTag.placed(pos, facing, offset)).toList() : List.of();
+        return new StructureFeatureData.Bed(pos, Optional.of(tag), tag.store().map(offset -> BedTag.placed(pos, facing, offset)), links, tag.manual(), Optional.empty());
     }
 }

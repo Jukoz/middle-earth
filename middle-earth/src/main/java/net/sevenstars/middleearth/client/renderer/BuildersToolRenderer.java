@@ -462,9 +462,14 @@ public class BuildersToolRenderer {
         return rows;
     }
 
+    private static Direction facingOf(Bed bed) {
+        ClientWorld world = MinecraftClient.getInstance().world;
+        return world == null ? Direction.NORTH : BedTag.facingAt(world, bed.pos());
+    }
+
     // Solid: picked store. Dashed: nearest scanned one
     private static void drawStore(Bed bed) {
-        BlockPos picked = bed.tag().store().map(offset -> bed.pos().add(offset)).filter(shown.openStores::contains).orElse(null);
+        BlockPos picked = bed.tag().store().map(offset -> BedTag.placed(bed.pos(), facingOf(bed), offset)).filter(shown.openStores::contains).orElse(null);
         if(picked != null) {
             DebugDraw.line(Vec3d.ofCenter(bed.pos()), Vec3d.ofCenter(picked), STORE);
             return;
@@ -497,7 +502,7 @@ public class BuildersToolRenderer {
     // Hand-tied places, else the nearest station its job would use
     private static List<BlockPos> linksOf(Scan scan, DynamicRegistryManager registries, Bed bed) {
         if(bed.tag().manual())
-            return bed.tag().links().stream().map(offset -> bed.pos().add(offset)).toList();
+            return bed.tag().links().stream().map(offset -> BedTag.placed(bed.pos(), facingOf(bed), offset)).toList();
         BlockPos station = bed.tag().job().map(job -> NpcJobs.stationFor(registries, job, bed.pos(), scan.stations, scan.markers)).orElse(null);
         return station == null ? List.of() : List.of(station);
     }
