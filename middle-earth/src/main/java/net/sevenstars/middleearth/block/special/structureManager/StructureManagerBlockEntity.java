@@ -167,6 +167,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
     }
 
     public boolean subscribeNest(BlockPos nestPos, Identifier managerId, Identifier nestId, int spawnRadius) {
+        refreshManagerData();
         if(!enabled || managerId == null || structureManagerIdentifier == null || managerData == null || managerId.compareTo(this.structureManagerIdentifier) != 0)
             return false;
 
@@ -201,6 +202,7 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
             return;
 
         ServerWorld serverWorld = (ServerWorld) world;
+        refreshManagerData();
         if(structureNestList == null)
             return;
 
@@ -220,6 +222,12 @@ public class StructureManagerBlockEntity extends BlockEntity implements Extended
         }
         if(haveToDoWellnessCheck && !wellnessChecked)
             wellnessChecked = true;
+    }
+
+    // The pool data is looked up, not saved, so a manager loaded from disk has to fetch it again
+    private void refreshManagerData() {
+        if(managerData == null && enabled && structureManagerIdentifier != null && world != null && !world.isClient())
+            managerData = StructureManagerService.getStructureManagerData(world, structureManagerIdentifier);
     }
 
     private void tryToInitializeManager(World world){
