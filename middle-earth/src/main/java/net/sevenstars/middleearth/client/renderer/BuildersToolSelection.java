@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.client.renderer;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.BedBlock;
@@ -25,6 +26,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.block.special.beds.BedTagHolder;
 import net.sevenstars.middleearth.network.packets.client2server.PacketBedLinkRequest;
 import org.jetbrains.annotations.Nullable;
@@ -63,10 +65,10 @@ public class BuildersToolSelection {
         if(boundsAnchor == null) {
             boundsAnchor = pos;
             boundsFirst = null;
-            player.sendMessage(Text.translatable("ui.%s.structure_bounds.first".formatted(MiddleEarth.MOD_ID)), true);
+            // In chat so the cancel key stays in view
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.first".formatted(MiddleEarth.MOD_ID), KeyInputHandler.cancelBoundsKey.getBoundKeyLocalizedText()), false);
         } else if(starting && boundsFirst == null) {
-            boundsAnchor = null;
-            player.sendMessage(Text.translatable("ui.%s.structure_bounds.stopped".formatted(MiddleEarth.MOD_ID)), true);
+            cancelBounds(player);
         } else if(boundsFirst == null) {
             boundsFirst = pos;
             player.sendMessage(Text.translatable("ui.%s.structure_bounds.second".formatted(MiddleEarth.MOD_ID)), true);
@@ -75,6 +77,12 @@ public class BuildersToolSelection {
             boundsAnchor = null;
             boundsFirst = null;
         }
+    }
+
+    private static void cancelBounds(PlayerEntity player) {
+        boundsAnchor = null;
+        boundsFirst = null;
+        player.sendMessage(Text.translatable("ui.%s.structure_bounds.stopped".formatted(MiddleEarth.MOD_ID)), true);
     }
 
     // Loaded structure pieces just get their bounds; elsewhere the builder names the section
@@ -161,6 +169,12 @@ public class BuildersToolSelection {
     }
 
     public static void register() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while(KeyInputHandler.cancelBoundsKey.wasPressed()) {
+                if(boundsAnchor != null && client.player != null)
+                    cancelBounds(client.player);
+            }
+        });
         StructureEditing.sectionScreen = pos -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if(client.world == null)

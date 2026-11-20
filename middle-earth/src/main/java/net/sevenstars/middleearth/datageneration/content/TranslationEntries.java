@@ -737,12 +737,13 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "structure_block.mode.data"), "Data: a label the game's own structures read, not used by this mod. Click for the next mode");
             put(of(LangCategory.UI, "jigsaw_fits.some"), "Plugs that fit this one: %s");
             put(of(LangCategory.UI, "jigsaw_fits.none"), "No plug of what is loaded fits this one");
-            put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner. Sneak and left-click again to stop");
+            put(of(LangCategory.UI, "structure_bounds.first"), "Bounds: left-click the first corner, then the opposite one. Press %s to cancel");
             put(of(LangCategory.UI, "structure_bounds.second"), "Bounds: left-click the opposite corner");
             put(of(LangCategory.UI, "structure_bounds.stopped"), "Bounds left as they were");
             put(of(LangCategory.UI, "structure_bounds.set"), "%s is now saved as %s");
             put(of(LangCategory.UI, "structure_bounds.in_the_way"), "%s is in the way of those bounds");
             put(of(LangCategory.UI, "structure_bounds.too_big"), "Bounds are at most %s blocks a side");
+            put(of(LangCategory.UI, "structure_bounds.same_corner"), "Both corners are the same block. Bounds left as they were");
             put(of(LangCategory.UI, "structure_bounds.view_only"), "An assembled structure is only to look at. Use /structedit view spaced");
             put(of(LangCategory.UI, "structure_bounds.no_build"), "That block is in no build that is loaded");
             put(of(LangCategory.UI, "build_section.title"), "New section");
@@ -959,6 +960,7 @@ public class TranslationEntries {
 
             put(of(LangCategory.KEY, "category." + MiddleEarth.MOD_ID, "me"), "Middle-earth");
             put(of(LangCategory.KEY, "hood_state_toggle"), "Toggle Worn Hood state");
+            put(of(LangCategory.KEY, "cancel_bounds"), "Cancel Builder's Tool Bounds");
             put(of(LangCategory.KEY, "map_teleport"), "Map Teleport");
             put(of(LangCategory.KEY, "map_fullscreen_toggle"), "Toggle Map Fullscreen");
 

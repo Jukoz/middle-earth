@@ -41,7 +41,21 @@ public class StructureEditSession {
     // Always assembled in this chunk, then moved, so a seed gives the same pieces anywhere
     private static final ChunkPos ASSEMBLY_CHUNK = new ChunkPos(0, 0);
 
-    public record Piece(Identifier template, BlockPos origin, BlockRotation rotation, BlockBox box, NbtCompound loaded) {}
+    // Reach is all the piece has covered, so closing also clears what a shrink left behind
+    public record Piece(Identifier template, BlockPos origin, BlockRotation rotation, BlockBox box, NbtCompound loaded, BlockBox reach) {
+        public Piece(Identifier template, BlockPos origin, BlockRotation rotation, BlockBox box, NbtCompound loaded) {
+            this(template, origin, rotation, box, loaded, box);
+        }
+
+        Piece withBox(BlockBox resized) {
+            return new Piece(template, originOf(resized, rotation), rotation, resized, loaded, spanning(reach, resized));
+        }
+    }
+
+    private static BlockBox spanning(BlockBox first, BlockBox second) {
+        return new BlockBox(Math.min(first.getMinX(), second.getMinX()), Math.min(first.getMinY(), second.getMinY()), Math.min(first.getMinZ(), second.getMinZ()),
+                Math.max(first.getMaxX(), second.getMaxX()), Math.max(first.getMaxY(), second.getMaxY()), Math.max(first.getMaxZ(), second.getMaxZ()));
+    }
 
     public record Saved(List<Identifier> written, List<Identifier> conflicts) {}
 
@@ -149,7 +163,7 @@ public class StructureEditSession {
                     world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
             }
         }
-        replace(piece, new Piece(piece.template(), originOf(grown, piece.rotation()), piece.rotation(), grown, piece.loaded()));
+        replace(piece, piece.withBox(grown));
         SessionStore.write(world.getServer());
         StructureEditing.log("%s made bigger to the %s by %d: %s where it was %s".formatted(piece.template(), side.asString(), blocks, PieceLayout.describe(grown), PieceLayout.describe(box)));
         return null;
@@ -170,7 +184,7 @@ public class StructureEditSession {
                     world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState(), Block.NOTIFY_LISTENERS | Block.FORCE_STATE);
             }
         }
-        replace(piece, new Piece(piece.template(), originOf(resized, piece.rotation()), piece.rotation(), resized, piece.loaded()));
+        replace(piece, piece.withBox(resized));
         SessionStore.write(world.getServer());
         StructureEditing.log("%s given the bounds %s where it had %s".formatted(piece.template(), PieceLayout.describe(resized), PieceLayout.describe(box)));
         return null;
@@ -287,7 +301,7 @@ public class StructureEditSession {
         SessionStore.remove(builder);
         StructureEditing.log("closed %s, %d pieces taken out of the world".formatted(session.structure, session.pieces.size()));
         for(Piece piece : session.pieces)
-            TemplateSnapshot.fill(held, piece.box(), Blocks.AIR.getDefaultState());
+            TemplateSnapshot.fill(held, piece.reach(), Blocks.AIR.getDefaultState());
         SessionStore.write(world.getServer());
         WorldFreeze.pause(world.getServer());
         return true;

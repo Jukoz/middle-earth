@@ -51,6 +51,7 @@ class SessionStore {
     private static final String ROTATION = "rotation";
     private static final String ORIGIN = "origin";
     private static final String BOX = "box";
+    private static final String REACH = "reach";
     private static final String LOADED = "loaded";
 
     private static final Map<UUID, Integer> GAPS = new HashMap<>();
@@ -161,13 +162,18 @@ class SessionStore {
         }
     }
 
+    private static int[] corners(BlockBox box) {
+        return new int[]{box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ()};
+    }
+
     private static NbtCompound storedPiece(StructureEditSession.Piece piece) {
         NbtCompound storedPiece = new NbtCompound();
         storedPiece.putString(TEMPLATE, piece.template().toString());
         storedPiece.putString(ROTATION, piece.rotation().name());
         storedPiece.putIntArray(ORIGIN, new int[]{piece.origin().getX(), piece.origin().getY(), piece.origin().getZ()});
         BlockBox box = piece.box();
-        storedPiece.putIntArray(BOX, new int[]{box.getMinX(), box.getMinY(), box.getMinZ(), box.getMaxX(), box.getMaxY(), box.getMaxZ()});
+        storedPiece.putIntArray(BOX, corners(box));
+        storedPiece.putIntArray(REACH, corners(piece.reach()));
         storedPiece.put(LOADED, piece.loaded());
         return storedPiece;
     }
@@ -209,8 +215,11 @@ class SessionStore {
             int[] box = storedPiece.getIntArray(BOX).orElse(new int[0]);
             if(template == null || origin.length != 3 || box.length != 6)
                 continue;
+            // Older sessions only stored the box
+            int[] reach = storedPiece.getIntArray(REACH).filter(corners -> corners.length == 6).orElse(box);
             pieces.add(new StructureEditSession.Piece(template, new BlockPos(origin[0], origin[1], origin[2]), BlockRotation.valueOf(storedPiece.getString(ROTATION, BlockRotation.NONE.name())),
-                    new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), TemplateSnapshot.withoutSeeds(storedPiece.getCompoundOrEmpty(LOADED))));
+                    new BlockBox(box[0], box[1], box[2], box[3], box[4], box[5]), TemplateSnapshot.withoutSeeds(storedPiece.getCompoundOrEmpty(LOADED)),
+                    new BlockBox(reach[0], reach[1], reach[2], reach[3], reach[4], reach[5])));
         }
         UUID builder = UUID.fromString(stored.getString(BUILDER, ""));
         SESSIONS.put(builder, new StructureEditSession(RegistryKey.of(RegistryKeys.WORLD, dimension), structure, stored.getLong(SEED, 0),

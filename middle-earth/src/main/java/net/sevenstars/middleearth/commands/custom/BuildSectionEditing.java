@@ -158,6 +158,12 @@ public class BuildSectionEditing {
             StructureEditing.log("bounds from %s to %s refused: %s or %s is far away or not loaded".formatted(first.toShortString(), second.toShortString(), first.toShortString(), anchor.toShortString()));
             return;
         }
+        // Both corners on one block is a slip
+        if(first.equals(second)) {
+            StructureEditing.log("bounds at %s refused: both corners are the same block".formatted(first.toShortString()));
+            player.sendMessage(Text.translatable("ui.%s.structure_bounds.same_corner".formatted(MiddleEarth.MOD_ID)), true);
+            return;
+        }
         BlockBox box = BlockBox.create(first, second);
         int limit = StructureEditing.MAXIMUM_SIZE;
         if(!world.isInBuildLimit(first) || !world.isInBuildLimit(second) || !fits(box)) {

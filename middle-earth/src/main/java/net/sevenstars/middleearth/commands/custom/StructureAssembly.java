@@ -13,6 +13,7 @@ import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.HeightLimitView;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,16 +35,21 @@ class StructureAssembly {
     record Assembled(StructureStart start, boolean freeStanding) {}
 
     static StructureStart assemble(ServerWorld world, RegistryEntry<Structure> entry, Structure structure, long seed, HeightLimitView height, ChunkPos chunk) {
-        return structure.createStructureStart(entry, world.getRegistryKey(), world.getRegistryManager(),
-                world.getChunkManager().getChunkGenerator(), world.getChunkManager().getChunkGenerator().getBiomeSource(), world.getChunkManager().getNoiseConfig(),
-                world.getStructureTemplateManager(), seed, chunk, 0, height, biome -> true);
+        return assemble(world, world.getChunkManager().getChunkGenerator(), entry, structure, seed, height, chunk);
+    }
+
+    private static StructureStart assemble(ServerWorld world, ChunkGenerator generator, RegistryEntry<Structure> entry, Structure structure, long seed, HeightLimitView height, ChunkPos chunk) {
+        return structure.createStructureStart(entry, world.getRegistryKey(), world.getRegistryManager(), generator, generator.getBiomeSource(),
+                world.getChunkManager().getNoiseConfig(), world.getStructureTemplateManager(), seed, chunk, 0, height, biome -> true);
     }
 
     // Underground parts get cut short where the ground is thin, so use whichever version has more pieces
     static Assembled fullest(ServerWorld world, RegistryEntry<Structure> entry, long seed, ChunkPos chunk) {
         StructureStart start = assemble(world, entry, entry.value(), seed, world, chunk);
         Structure free = freeStanding(world, entry.value());
-        StructureStart freeStart = free == null ? null : assemble(world, entry, free, seed, ASSEMBLY_HEIGHT, chunk);
+        // Ground level with the start, so pieces joined by ground height line up
+        StructureStart freeStart = free == null ? null
+                : assemble(world, new LevelGround(world.getChunkManager().getChunkGenerator().getBiomeSource()), entry, free, seed, ASSEMBLY_HEIGHT, chunk);
         if(freeStart != null && freeStart.getChildren().size() > start.getChildren().size())
             return new Assembled(freeStart, true);
         return new Assembled(start, false);
@@ -58,7 +64,7 @@ class StructureAssembly {
         JsonObject data = json.getAsJsonObject();
         data.remove(PROJECT_TO_HEIGHTMAP_KEY);
         JsonObject height = new JsonObject();
-        height.addProperty(ABSOLUTE_KEY, 0);
+        height.addProperty(ABSOLUTE_KEY, LevelGround.GROUND_Y);
         data.add(START_HEIGHT_KEY, height);
         return Structure.STRUCTURE_CODEC.parse(ops, data).result().orElse(null);
     }
