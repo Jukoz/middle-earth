@@ -116,8 +116,10 @@ public class NpcJobs {
         return LORD_NESTS.contains(nestKind) || ELITE_NESTS.contains(nestKind);
     }
 
-    // Gates first while any are unmanned, then patrol
+    // Gates first, then patrol. Where nobody patrols every guard keeps a gate
     public static Identifier guardDuty(RoutineSite site, Iterable<? extends NpcEntity> residents) {
+        if(!site.hasPatrols())
+            return GATE_GUARD.getValue();
         int gates = 0;
         for(NpcEntity resident : residents) {
             if(resident.isAlive() && GATE_GUARD.getValue().equals(resident.getJobId()))

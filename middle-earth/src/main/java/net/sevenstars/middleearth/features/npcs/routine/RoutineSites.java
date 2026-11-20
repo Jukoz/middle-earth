@@ -12,6 +12,7 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.PoolStructurePiece;
@@ -56,6 +57,7 @@ public class RoutineSites {
     private static final int MINIMUM_RING_RADIUS = 10;
     private static final int MAXIMUM_RING_RADIUS = 40;
     private static final int RING_RADIUS_PADDING = 6;
+    private static final TagKey<Structure> NO_PATROL = TagKey.of(RegistryKeys.STRUCTURE, MiddleEarth.id("no_patrol"));
     private static final String FACTION_TAG_PREFIX = "faction/";
     private static final int CLEANUP_INTERVAL = 20 * 60;
     private static final int UNUSED_LIFETIME = 20 * 60 * 10;
@@ -307,7 +309,9 @@ public class RoutineSites {
         int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
         site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, extent, pieces);
         placesOf(world, sites, start, site);
-        site.setOwners(world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure()).streamTags()
+        RegistryEntry<Structure> structure = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure());
+        site.setPatrols(!structure.isIn(NO_PATROL));
+        site.setOwners(structure.streamTags()
                 .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
                 .map(tag -> tag.id().getPath().substring(FACTION_TAG_PREFIX.length())).collect(Collectors.toSet()));
         sites.sites.put(key, site);
