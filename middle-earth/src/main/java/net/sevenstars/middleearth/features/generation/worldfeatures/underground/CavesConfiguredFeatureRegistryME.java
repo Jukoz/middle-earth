@@ -176,187 +176,187 @@ public class CavesConfiguredFeatureRegistryME {
     // endregion
 
     // region LISTS
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> dolomiteReplaceTest = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> oldDolomiteReplaceTest = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()));
-    private static net.minecraft.world.gen.feature.OreFeatureConfig deepsOre(net.minecraft.block.Block block, int size) {
-        return new net.minecraft.world.gen.feature.OreFeatureConfig(List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, block.getDefaultState())), size);
+    static List<OreFeatureConfig.Target> dolomiteReplaceTest = List.of(
+            OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> oldDolomiteReplaceTest = List.of(
+            OreFeatureConfig.createTarget(baseStone, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.DOLOMITE_SET.oldBlocks.base().getDefaultState()));
+    private static OreFeatureConfig deepsOre(Block block, int size) {
+        return new OreFeatureConfig(List.of(OreFeatureConfig.createTarget(medgonTest, block.getDefaultState())), size);
     }
 
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mudList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, Blocks.MUD.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(baseStone, Blocks.MUD.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.MUD.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> ashList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> ashenDirtList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> dryDirtList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, BlockRegistryME.DRY_DIRT.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.DRY_DIRT.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> gabbroList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> galonnList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> oldGalonnList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> gneissList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> greenTuffList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> gildedGreenTuffList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> mudList = List.of(
+            OreFeatureConfig.createTarget(gonluinTest, Blocks.MUD.getDefaultState()),
+            OreFeatureConfig.createTarget(baseStone, Blocks.MUD.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.MUD.getDefaultState()));
+    static List<OreFeatureConfig.Target> ashList = List.of(
+            OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, BlockRegistryME.ASH_BLOCK.getDefaultState()));
+    static List<OreFeatureConfig.Target> ashenDirtList = List.of(
+            OreFeatureConfig.createTarget(ashenStoneTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, BlockRegistryME.ASHEN_DIRT.getDefaultState()));
+    static List<OreFeatureConfig.Target> dryDirtList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, BlockRegistryME.DRY_DIRT.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, BlockRegistryME.DRY_DIRT.getDefaultState()));
+    static List<OreFeatureConfig.Target> gabbroList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GABBRO_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> galonnList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> oldGalonnList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GALONN_SET.oldBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> gneissList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GNEISS_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> greenTuffList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> gildedGreenTuffList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
     static List<OreFeatureConfigME.Target> goldenGreenTuffList = List.of(
             OreFeatureConfigME.createTarget(stoneTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()),
             OreFeatureConfigME.createTarget(deepslateTest, StoneBlockSetRegistryME.GILDED_GREEN_TUFF_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> izherAbanList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> zigilAbanList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> oldIzherAbanList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> limestoneList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> oldLimestoneList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> schistList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> sandList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.SAND.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.SAND.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> sandStoneList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> snowList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.SNOW_BLOCK.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> packedIceList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.PACKED_ICE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.PACKED_ICE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> blueIceList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.BLUE_ICE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.BLUE_ICE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> terracottaList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.TERRACOTTA.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.TERRACOTTA.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> tuffList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, Blocks.TUFF.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> basaltList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, Blocks.SMOOTH_BASALT.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> blackstoneList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, Blocks.BLACKSTONE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> magmaList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, Blocks.MAGMA_BLOCK.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, Blocks.MAGMA_BLOCK.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> coalList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dolomiteTest, Blocks.COAL_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(greenTuffTest, Blocks.COAL_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.coal_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> copperList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dolomiteTest, Blocks.COPPER_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(greenTuffTest, Blocks.COPPER_ORE.getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.copper_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> tinList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dolomiteTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(greenTuffTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.tin_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.tin_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> lapisList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_LAPIS_ORE.getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> leadList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.lead_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.lead_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.lead_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> izherAbanList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> zigilAbanList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.ZIGILABAN_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> oldIzherAbanList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.IZHERABAN_SET.oldBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> limestoneList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> oldLimestoneList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.LIMESTONE_SET.oldBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> schistList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.SCHIST_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> sandList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.SAND.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.SAND.getDefaultState()));
+    static List<OreFeatureConfig.Target> sandStoneList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
+    static List<OreFeatureConfig.Target> snowList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.SNOW_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.SNOW_BLOCK.getDefaultState()));
+    static List<OreFeatureConfig.Target> packedIceList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.PACKED_ICE.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.PACKED_ICE.getDefaultState()));
+    static List<OreFeatureConfig.Target> blueIceList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.BLUE_ICE.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.BLUE_ICE.getDefaultState()));
+    static List<OreFeatureConfig.Target> terracottaList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.TERRACOTTA.getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.TERRACOTTA.getDefaultState()));
+    static List<OreFeatureConfig.Target> tuffList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, Blocks.TUFF.getDefaultState()));
+    static List<OreFeatureConfig.Target> basaltList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, Blocks.SMOOTH_BASALT.getDefaultState()));
+    static List<OreFeatureConfig.Target> blackstoneList = List.of(
+            OreFeatureConfig.createTarget(medgonTest, Blocks.BLACKSTONE.getDefaultState()));
+    static List<OreFeatureConfig.Target> magmaList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, Blocks.MAGMA_BLOCK.getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, Blocks.MAGMA_BLOCK.getDefaultState()));
+    static List<OreFeatureConfig.Target> coalList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.COAL_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dolomiteTest, Blocks.COAL_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, Blocks.COAL_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.coal_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COAL_ORE.getDefaultState()));
+    static List<OreFeatureConfig.Target> copperList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, Blocks.COPPER_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dolomiteTest, Blocks.COPPER_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, Blocks.COPPER_ORE.getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.copper_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_COPPER_ORE.getDefaultState()));
+    static List<OreFeatureConfig.Target> tinList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(blueTuffTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dolomiteTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(hematiteTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(galonnTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(greenTuffTest, OreStoneSetRegistryME.STONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(izherAbanTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, OreStoneSetRegistryME.ASHEN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(calciteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(dioriteTest, OreStoneSetRegistryME.CALCITE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(ironStoneTest, OreStoneSetRegistryME.IRONSTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, OreStoneSetRegistryME.KHAGALABAN.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, OreStoneSetRegistryME.LIMESTONE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(slateTest, OreStoneSetRegistryME.SLATE.tin_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.tin_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> lapisList = List.of(OreFeatureConfig.createTarget(deepslateTest, Blocks.DEEPSLATE_LAPIS_ORE.getDefaultState()));
+    static List<OreFeatureConfig.Target> leadList = List.of(
+            OreFeatureConfig.createTarget(deepslateTest, OreStoneSetRegistryME.DEEPSLATE.lead_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.lead_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.lead_ore().getDefaultState()));
 
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> quartziteList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(ashenStoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(gonluinTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> ironList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.iron_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.iron_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> silverList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.silver_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.silver_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> jadeList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> goldList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.gold_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.gold_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> emeraldList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.emerald_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.emerald_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> rubyList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.ruby_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.ruby_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> sapphireList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.sapphire_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.sapphire_ore().getDefaultState()));
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> adamentList = List.of(net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.adamant_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> quartziteList = List.of(
+            OreFeatureConfig.createTarget(stoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(ashenStoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(gonluinTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(limestoneTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(deepslateTest, StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> ironList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.iron_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.iron_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> silverList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.silver_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.silver_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> jadeList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, StoneBlockSetRegistryME.JADEITE_SET.baseBlocks.base().getDefaultState()));
+    static List<OreFeatureConfig.Target> goldList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.gold_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.gold_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> emeraldList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.emerald_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.emerald_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> rubyList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.ruby_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.ruby_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> sapphireList = List.of(
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.sapphire_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.sapphire_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> adamentList = List.of(OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.adamant_ore().getDefaultState()));
     // the band reaches up through the Nurgon rock
-    static List<net.minecraft.world.gen.feature.OreFeatureConfig.Target> mithrilList = List.of(
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()),
-            net.minecraft.world.gen.feature.OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.mithril_ore().getDefaultState()));
+    static List<OreFeatureConfig.Target> mithrilList = List.of(
+            OreFeatureConfig.createTarget(medgonTest, OreStoneSetRegistryME.MEDGON.mithril_ore().getDefaultState()),
+            OreFeatureConfig.createTarget(nurgonTest, OreStoneSetRegistryME.NURGON.mithril_ore().getDefaultState()));
     // endregion
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> featureRegisterable) {
@@ -373,49 +373,49 @@ public class CavesConfiguredFeatureRegistryME {
         registerGeode(RED_AGATE_GEODE, featureRegisterable, BlockRegistryME.RED_AGATE_BLOCK, BlockRegistryME.BUDDING_RED_AGATE, BlockRegistryME.SMALL_RED_AGATE_BUD,
                 BlockRegistryME.MEDIUM_RED_AGATE_BUD, BlockRegistryME.LARGE_RED_AGATE_BUD, BlockRegistryME.RED_AGATE_CLUSTER, Blocks.CALCITE);
 
-        ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dolomiteReplaceTest, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldDolomiteReplaceTest, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_DOLOMITE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(dolomiteReplaceTest, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_DOLOMITE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(oldDolomiteReplaceTest, 42));
         // the deeps' own palettes, in the Medgon they are made of
         ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_MUD, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.MUD, 33));
         ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CLAY, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.CLAY, 17));
         ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_TUFF, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.TUFF, 40));
         ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_CALCITE, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.CALCITE, 24));
         ConfiguredFeatures.register(featureRegisterable, DEEPS_ORE_GRAVEL, FeatureRegistryME.FAST_ORE, deepsOre(Blocks.GRAVEL, 20));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MUD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mudList, 41));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MUD, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(mudList, 41));
         ConfiguredFeatures.register(featureRegisterable, POOL_MUD, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.LUSH_GROUND_REPLACEABLE,
                 BlockStateProvider.of(Blocks.MUD), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(magmaList, 31, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(medgonTest, Blocks.OBSIDIAN.getDefaultState(), 27));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MAGMA, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(magmaList, 31, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OBSIDIAN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(medgonTest, Blocks.OBSIDIAN.getDefaultState(), 27));
         ConfiguredFeatures.register(featureRegisterable, DISK_MYCELIUM, FeatureRegistryME.SURFACE_ORE, new SurfaceOreFeatureConfig(baseStone, BlockRegistryME.STONE_MYCELIUM.getDefaultState(), 56));
         ConfiguredFeatures.register(featureRegisterable, POOL_MAGMA, Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchFeatureConfig(BlockTags.BASE_STONE_OVERWORLD,
                 BlockStateProvider.of(Blocks.MAGMA_BLOCK), PlacedFeatures.createEntry(registryEntryLookup.getOrThrow(UndergroundConfiguredFeatures.DRIPLEAF), new PlacementModifier[0]), VerticalSurfaceType.FLOOR,
                 ConstantIntProvider.create(3), 0.8f, 5, 0.1f, UniformIntProvider.create(4, 7), 0.7f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ASH, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashList, 48, 0.2f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ashenDirtList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(dryDirtList, 37));
-        ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(packedIceList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blueIceList, 33));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GABBRO, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gabbroList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(galonnList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldGalonnList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GNEISS, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gneissList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(gildedGreenTuffList, 40));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ASH, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(ashList, 48, 0.2f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ASHEN_DIRT, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(ashenDirtList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_DRY_DIRT, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(dryDirtList, 37));
+        ConfiguredFeatures.register(featureRegisterable, ORE_PACKED_ICE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(packedIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLUE_ICE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(blueIceList, 33));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GABBRO, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(gabbroList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GALONN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(galonnList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_GALONN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(oldGalonnList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GNEISS, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(gneissList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(greenTuffList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GILDED_GREEN_TUFF, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(gildedGreenTuffList, 40));
         ConfiguredFeatures.register(featureRegisterable, ORE_GOLDEN_GREEN_TUFF, FeatureRegistryME.ORE, new OreFeatureConfigME(goldenGreenTuffList, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 42, 0.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(izherAbanList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ZIGIL_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(zigilAbanList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldIzherAbanList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(limestoneList, 64));
-        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(oldLimestoneList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SAND, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sandStoneList, 37));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SCHIST, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(schistList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(snowList, 48));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(terracottaList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tuffList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(basaltList, 42));
-        ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(blackstoneList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(izherAbanList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ZIGIL_ABAN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(zigilAbanList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_IZHER_ABAN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(oldIzherAbanList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LIMESTONE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(limestoneList, 64));
+        ConfiguredFeatures.register(featureRegisterable, ORE_OLD_LIMESTONE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(oldLimestoneList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAND, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(sandList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SANDSTONE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(sandStoneList, 37));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SCHIST, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(schistList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SNOW, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(snowList, 48));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TERRACOTTA, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(terracottaList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TUFF, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(tuffList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BASALT, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(basaltList, 42));
+        ConfiguredFeatures.register(featureRegisterable, ORE_BLACKSTONE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(blackstoneList, 42));
 
         ConfiguredFeatures.register(featureRegisterable, DOLOMITE_CLUSTER, FeatureRegistryME.CLUSTER, new ClusterFeatureConfig(12,
                 StoneBlockSetRegistryME.DOLOMITE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_DOLOMITE.getDefaultState(), UniformIntProvider.create(3, 6),
@@ -498,22 +498,22 @@ public class CavesConfiguredFeatureRegistryME {
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
                 UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, Blocks.SMOOTH_SANDSTONE.getDefaultState()));
 
-        ConfiguredFeatures.register(featureRegisterable, ORE_COAL, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(coalList, 17, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(copperList, 15, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_TIN, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(tinList, 12, 0.25f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(lapisList, 6, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(leadList, 12, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(quartziteList, 21, 0.4f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_IRON, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(ironList, 10, 0.3f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(silverList, 7, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_JADE, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(jadeList, 16, 0.5f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, FeatureRegistryME.FAST_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(goldList, 7, 0.42f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(emeraldList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(rubyList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(sapphireList, 5, 0.68f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(adamentList, 3, 0.72f));
-        ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new net.minecraft.world.gen.feature.OreFeatureConfig(mithrilList, 1, 1.0f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_COAL, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(coalList, 17, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_COPPER, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(copperList, 15, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_TIN, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(tinList, 12, 0.25f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LAPIS, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(lapisList, 6, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_LEAD, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(leadList, 12, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_QUARTZITE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(quartziteList, 21, 0.4f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_IRON, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(ironList, 10, 0.3f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SILVER, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(silverList, 7, 0.5f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_JADE, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(jadeList, 16, 0.5f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD, FeatureRegistryME.FAST_ORE, new OreFeatureConfig(goldList, 7, 0.42f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_GOLD_GREEN_TUFF, Feature.SCATTERED_ORE, new OreFeatureConfig(greenTuffTest, Blocks.RAW_GOLD_BLOCK.getDefaultState(), 1, 1.0f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_EMERALD, Feature.SCATTERED_ORE, new OreFeatureConfig(emeraldList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_RUBY, Feature.SCATTERED_ORE, new OreFeatureConfig(rubyList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_SAPPHIRE, Feature.SCATTERED_ORE, new OreFeatureConfig(sapphireList, 5, 0.68f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_ADAMANT, Feature.SCATTERED_ORE, new OreFeatureConfig(adamentList, 3, 0.72f));
+        ConfiguredFeatures.register(featureRegisterable, ORE_MITHRIL, Feature.SCATTERED_ORE, new OreFeatureConfig(mithrilList, 1, 1.0f));
 
         ConfiguredFeatures.register(featureRegisterable, PATCH_CAVE_AMANITA, Feature.RANDOM_PATCH,
                 ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK,
@@ -609,7 +609,7 @@ public class CavesConfiguredFeatureRegistryME {
                 -16, 16, 0.05, 1));
     }
 
-    public static WeightedPool.Builder<net.minecraft.block.BlockState> get4StagesBlockBuilder(Block tiller) {
+    public static WeightedPool.Builder<BlockState> get4StagesBlockBuilder(Block tiller) {
         var builder = WeightedPool.<BlockState>builder();
         for (int i = 1; i <= 4; ++i) {
             for (Direction direction : Direction.Type.HORIZONTAL) {

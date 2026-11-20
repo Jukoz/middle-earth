@@ -20,6 +20,7 @@ import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CavesPlacedFeatureRegistryME {
@@ -482,7 +483,7 @@ public class CavesPlacedFeatureRegistryME {
 
     // for the fire features: never in or just above the deeps
     private static List<PlacementModifier> fire(List<PlacementModifier> modifiers) {
-        List<PlacementModifier> result = new java.util.ArrayList<>(modifiers);
+        List<PlacementModifier> result = new ArrayList<>(modifiers);
         result.add(NotInDeepsPlacementModifier.INSTANCE);
         return result;
     }

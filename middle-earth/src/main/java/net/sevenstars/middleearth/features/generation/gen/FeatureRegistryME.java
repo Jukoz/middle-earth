@@ -25,7 +25,7 @@ import net.sevenstars.middleearth.features.generation.worldfeatures.platedfood.P
 public class FeatureRegistryME {
     public static Feature<DeltaFeatureConfig> DELTA_FEATURE = register("delta_feature", new DeltaFeature(DeltaFeatureConfig.CODEC));
 
-    public static Feature<net.minecraft.world.gen.feature.OreFeatureConfig> SURFACE_ORE = register("surface_ore", new SurfaceOreFeature(net.minecraft.world.gen.feature.OreFeatureConfig.CODEC));
+    public static Feature<OreFeatureConfig> SURFACE_ORE = register("surface_ore", new SurfaceOreFeature(OreFeatureConfig.CODEC));
     public static Feature<ClusterFeatureConfig> CLUSTER = register("cluster", new ClusterFeature(ClusterFeatureConfig.CODEC));
     public static Feature<SmallPointedStoneFeatureConfig> SMALL_POINTED_STONE = register("small_pointed_stone", new SmallPointedStoneFeature(SmallPointedStoneFeatureConfig.CODEC));
     public static Feature<PillarFeatureConfig> PILLAR = register("pillar", new PillarFeature(PillarFeatureConfig.CODEC));
@@ -33,7 +33,7 @@ public class FeatureRegistryME {
     public static Feature<MultifaceStateFeatureConfig> MULTIFACE_PERSISTENT = register("multiface_persistent", new MultifaceStateFeature(MultifaceStateFeatureConfig.CODEC));
     public static Feature<ColumnsFeatureConfig> COLUMNS = register("columns", new ColumnsFeature(ColumnsFeatureConfig.CODEC));
     public static Feature<BigBoulderFeatureConfig> BIG_BOULDER = register("big_boulder", new BigBoulderFeature(BigBoulderFeatureConfig.CODEC));
-    public static Feature<net.minecraft.world.gen.feature.OreFeatureConfig> FAST_ORE = register("fast_ore", new FastOreFeature(net.minecraft.world.gen.feature.OreFeatureConfig.CODEC));
+    public static Feature<OreFeatureConfig> FAST_ORE = register("fast_ore", new FastOreFeature(OreFeatureConfig.CODEC));
     public static Feature<OreFeatureConfigME> ORE = register("ore", new OreFeature(OreFeatureConfigME.CODEC));
     public static Feature<ChainFeatureConfig> CHAIN = register("chain", new ChainFeature(ChainFeatureConfig.CODEC));
     public static Feature<PlatedFoodFeatureConfig> PLATED_FOOD = register("plated_food", new PlatedFoodFeature(PlatedFoodFeatureConfig.CODEC));
