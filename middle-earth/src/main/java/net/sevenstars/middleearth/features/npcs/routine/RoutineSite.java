@@ -48,8 +48,8 @@ public class RoutineSite {
     private long lastUsed;
     private boolean dropped = false;
 
-    RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
-        this.survey = new SiteSurvey(world, centerX, centerZ, enclosed, ringRadius, extent, pieces, layout::getDoors, this::forgetPatrolRoute);
+    RoutineSite(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, boolean ring, int extent, @Nullable List<BlockBox> pieces) {
+        this.survey = new SiteSurvey(world, centerX, centerZ, enclosed, ringRadius, ring, extent, pieces, layout::getDoors, this::forgetPatrolRoute);
         this.ringRadius = ringRadius;
     }
 

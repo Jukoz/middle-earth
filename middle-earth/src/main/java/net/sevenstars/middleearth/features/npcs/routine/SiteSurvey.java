@@ -117,7 +117,7 @@ class SiteSurvey {
     private final LongArrayFIFOQueue open = new LongArrayFIFOQueue();
     private int floodBound;
 
-    SiteSurvey(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces,
+    SiteSurvey(ServerWorld world, int centerX, int centerZ, boolean enclosed, int ringRadius, boolean ring, int extent, @Nullable List<BlockBox> pieces,
                Supplier<List<BlockPos>> doors, Runnable ringChanged) {
         this.extent = extent;
         this.sampleScale = Math.max(1f, (extent + SAMPLE_MARGIN) / (float) RADII[RADII.length - 1]);
@@ -138,7 +138,7 @@ class SiteSurvey {
                 }
             }
         }
-        if(ringRadius > 0)
+        if(ringRadius > 0 && ring)
             planRing(pieces);
         this.ready = enclosed;
     }

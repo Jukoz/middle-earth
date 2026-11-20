@@ -249,7 +249,7 @@ public class RoutineSites {
             if(start != null && start.hasChildren())
                 site = forStructure(world, sites, start);
             else
-                site = create(world, sites, managerPos.getX(), managerPos.getZ(), RoutineSite.isEnclosed(world, managerPos.getX(), managerPos.getZ(), managerPos.getY()), DEFAULT_RING_RADIUS, 0, null);
+                site = create(world, sites, managerPos.getX(), managerPos.getZ(), RoutineSite.isEnclosed(world, managerPos.getX(), managerPos.getZ(), managerPos.getY()), DEFAULT_RING_RADIUS, true, 0, null);
             if(site == null)
                 return null;
             sites.sites.put(key, site);
@@ -285,7 +285,7 @@ public class RoutineSites {
             return site;
         }
 
-        site = create(world, sites, centerX, centerZ, underground, 0, 0, null);
+        site = create(world, sites, centerX, centerZ, underground, 0, true, 0, null);
         sites.sites.put(wildKey, site);
         site.touch(world.getTime());
         return site;
@@ -307,10 +307,12 @@ public class RoutineSites {
             pieces.add(piece.getBoundingBox());
         int extent = Math.max(box.getBlockCountX(), box.getBlockCountZ()) / 2;
         int radius = MathHelper.clamp(extent + RING_RADIUS_PADDING, MINIMUM_RING_RADIUS, MAXIMUM_RING_RADIUS);
-        site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, extent, pieces);
-        placesOf(world, sites, start, site);
         RegistryEntry<Structure> structure = world.getRegistryManager().getOrThrow(RegistryKeys.STRUCTURE).getEntry(start.getStructure());
-        site.setPatrols(!structure.isIn(NO_PATROL));
+        boolean patrols = !structure.isIn(NO_PATROL);
+        // Nothing walks a ring where nobody patrols, so don't survey one
+        site = create(world, sites, center.getX(), center.getZ(), RoutineSite.isEnclosed(world, box), radius, patrols, extent, pieces);
+        placesOf(world, sites, start, site);
+        site.setPatrols(patrols);
         site.setOwners(structure.streamTags()
                 .filter(tag -> tag.id().getNamespace().equals(MiddleEarth.MOD_ID) && tag.id().getPath().startsWith(FACTION_TAG_PREFIX))
                 .map(tag -> tag.id().getPath().substring(FACTION_TAG_PREFIX.length())).collect(Collectors.toSet()));
@@ -372,8 +374,8 @@ public class RoutineSites {
         sites.listNoEntry(world, site);
     }
 
-    private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, int extent, @Nullable List<BlockBox> pieces) {
-        RoutineSite site = new RoutineSite(world, centerX, centerZ, enclosed, ringRadius, extent, pieces);
+    private static RoutineSite create(ServerWorld world, WorldSites sites, int centerX, int centerZ, boolean enclosed, int ringRadius, boolean ring, int extent, @Nullable List<BlockBox> pieces) {
+        RoutineSite site = new RoutineSite(world, centerX, centerZ, enclosed, ringRadius, ring, extent, pieces);
         if(!site.isReady())
             sites.scanning.add(site);
         return site;
