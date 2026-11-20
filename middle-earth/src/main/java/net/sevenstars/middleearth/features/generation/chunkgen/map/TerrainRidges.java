@@ -1,8 +1,7 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
-// Ridged mountain term after Tectonic's mountain_ridges: a low-frequency base, a ridged detail noise sampled at a
-// position pushed along the base gradient, and narrow weathering gullies. Everything is a pure function of position
-// and seed. The noise is hashed simplex, so unlike the 256-cell permutation tables it does not repeat.
+// ridged mountain term after Tectonic's mountain_ridges: low-frequency base, ridged detail noise sampled at a position
+// pushed along the base gradient, and narrow gullies; pure function of position and seed, hashed simplex so it never repeats
 final class TerrainRidges {
     // blocks per noise cell
     private static final double BASE_SCALE = 150;
@@ -11,9 +10,8 @@ final class TerrainRidges {
     private static final double WARP_SCALE = 260;
     private static final double WARP_STRENGTH = 35; // blocks
 
-    // Tectonic shifts the detail by |base(p) - base(p + 10)| * 3000 noise units, which is 1500 blocks per unit of
-    // difference. Here that gave a median shift of 3 cells and slopes of 80 degrees, so it is scaled down to a median
-    // shift of about 60 blocks.
+    // Tectonic shifts the detail by |base(p) - base(p + 10)| * 3000 noise units (1500 blocks per unit of difference): a median
+    // shift of 3 cells and 80 degree slopes here, so it is scaled down to a median shift of about 60 blocks
     private static final double GRADIENT_STEP = 10;
     private static final double SHIFT_BLOCKS_PER_UNIT = 250;
 

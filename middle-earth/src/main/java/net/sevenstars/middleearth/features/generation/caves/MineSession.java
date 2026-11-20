@@ -19,7 +19,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-// what one mine start needs while it grows: the rock probe, the depth bands of the columns it meets and the chunks it may fill
+// what a mine start needs while it grows: the rock probe, the depth bands of its columns and the chunks it may fill
 final class MineSession {
     // a structure's pieces are only placed in chunks within 8 chunks of its start chunk
     private static final int WINDOW_CHUNKS = 8;
@@ -36,7 +36,7 @@ final class MineSession {
     final Structure.Context context;
     final CaveProbe probe;
     final BlockBox window;
-    // the pieces of each bridge and the mine on its far side, by the piece the bridge starts from: they go when that piece does
+    // pieces of each bridge and the mine beyond it, by the piece the bridge starts from; they go when that piece does
     final Map<StructurePiece, List<StructurePiece>> links = new IdentityHashMap<>();
     private final MistyCaves caves;
     private final Map<Long, DepthBands.Edges> edges = new HashMap<>();
@@ -89,9 +89,8 @@ final class MineSession {
         return box.getMaxY() > column.top(DepthBands.Band.MIDDLE) - TOP_MARGIN || box.getMinY() < column.bottom(DepthBands.Band.MITHRIL);
     }
 
-    // Inside the limits, with rock under every column of the template's floor and not too much air in the volume. A cave pocket in
-    // the volume is dug through; a floor over a drop is not built, so a piece stops short of a chasm. The processor fills a dip
-    // of one block in the floor row over rock.
+    // inside the limits, rock under every floor column, not much air in the volume; a cave pocket in it is dug through
+    // a floor over a drop is not built, so pieces stop short of a chasm; the processor fills a one block dip over rock
     boolean fits(BlockBox box, BlockPos origin, int[] floor) {
         if (outOfBounds(box)) return false;
         return floorHolds(box, origin, floor) && volumeHolds(box);

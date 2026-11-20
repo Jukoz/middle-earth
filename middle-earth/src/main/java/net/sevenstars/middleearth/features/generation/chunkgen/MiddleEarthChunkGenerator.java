@@ -372,8 +372,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
     private static final int STRUCTURE_MARGIN_ADAPT = 10;
 
-    // The structure starts the chunk references, like StructureAccessor.getStructureStarts, but a start chunk the region does not
-    // reach (a big mine's can be 8 chunks away) is skipped: asking for it throws.
+    // structure starts the chunk references, like StructureAccessor.getStructureStarts, but a start chunk the region does not
+    // reach (a big mine's can be 8 chunks away) is skipped: asking for it throws
     private static List<StructureStart> reachableStarts(ChunkRegion region, Chunk chunk) {
         List<StructureStart> starts = new ArrayList<>();
         for (Map.Entry<Structure, LongSet> entry : chunk.getStructureReferences().entrySet()) {
@@ -571,8 +571,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return newHeight;
     }
 
-    // The deeps have no lava. Their bottom is water, bare rock or shallow water, by the region, with a rock wall across the
-    // deeps where two regions meet and where the old lava sea of a shallow column lies next to them.
+    // the deeps have no lava: the bottom is water, bare rock or shallow water by region, with a rock wall across the deeps
+    // where two regions meet and where the old lava sea of a shallow column lies beside them
     private static void fillDeepBottom(CaveSampler caves, ColumnWriter out, DepthBands.ChunkFloors floors, int bottomY, int x, int z, int posX, int posZ,
                                        int floor, int surfaceY, float caveBlendNoise, long seed) {
         DeepThemes.Theme theme = DeepThemes.at(posX, posZ, seed);

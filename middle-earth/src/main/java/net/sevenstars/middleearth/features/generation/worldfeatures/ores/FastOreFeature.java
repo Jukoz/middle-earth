@@ -23,9 +23,8 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 import java.util.Arrays;
 import java.util.List;
 
-// Vanilla's OreFeature with the same random calls in the same order and the same blocks placed. Only the bookkeeping differs:
-// the verdicts of the target rules are remembered per block state, the visited set is a reused array, and the section lookups
-// and the air check skip the allocations and repeated lookups.
+// vanilla's OreFeature with the same random calls in the same order and the same blocks; only the bookkeeping differs:
+// target rule verdicts are kept per block state, the visited set is a reused array, section lookups and air checks skip allocations
 public class FastOreFeature extends Feature<OreFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
     private static final int MAX_CACHED_TARGETS = 64;
@@ -151,8 +150,8 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
 
         List<OreFeatureConfig.Target> targets = config.targets;
         int targetCount = targets.size();
-        // A rule's verdict can be remembered per block state only when it reads nothing but the state; a rule that draws
-        // from the random (the Random* tests) is asked every time, exactly as before.
+        // a rule's verdict can be remembered per block state only when it reads nothing but the state; a rule that draws
+        // from the random (the Random* tests) is asked every time, exactly as before
         boolean cached = targetCount <= MAX_CACHED_TARGETS;
         for (int k = 0; k < targetCount && cached; k++) cached = deterministic(targets.get(k).target);
         scratch.cachedCount = 0;

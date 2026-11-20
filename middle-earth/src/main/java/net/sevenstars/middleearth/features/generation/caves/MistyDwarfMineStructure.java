@@ -57,7 +57,7 @@ public final class MistyDwarfMineStructure extends Structure {
     private static final int PLACEMENT_ROLL = 256; // the chances below are out of this, per start chunk of the placement
     private static final int PEAKS_CHANCE = 160;
     private static final int ELSEWHERE_CHANCE = 64;
-    private static final int BAND_ROLL = 3; // the starts in the upper half of the mithril band; the rest are in the lower half of the middle one
+    private static final int BAND_ROLL = 3; // 1 in 3 starts are delved (upper half of the mithril band), the rest in the lower half of the middle band
     private static final int DELVED_DEEP = 1;
     private static final int START_TRIES = 5;
     private static final float START_MAX_AIR = 0.2f;
@@ -149,7 +149,7 @@ public final class MistyDwarfMineStructure extends Structure {
         if (context.random().nextInt(PLACEMENT_ROLL) >= (peaks ? PEAKS_CHANCE : ELSEWHERE_CHANCE)) return Optional.empty();
         DepthBands.Edges edges = new MistyCaves(context.seed()).edgesAt(map, x, z);
         CaveProbe probe = new CaveProbe(context.seed(), context.world());
-        // the band is rolled once; a start the rock refuses is tried again higher or lower in the same band, so the share holds
+        // band rolled once; a start the rock refuses is retried higher or lower in the same band, so the share holds
         boolean delved = context.random().nextInt(BAND_ROLL) < DELVED_DEEP;
         for (int attempt = 0; attempt < START_TRIES; attempt++) {
             Optional<StructurePosition> position = tryStart(context, probe, new BlockPos(chunkPos.getStartX(), startY(edges, context.random(), delved), chunkPos.getStartZ()));
@@ -176,7 +176,6 @@ public final class MistyDwarfMineStructure extends Structure {
         return Optional.of(new StructurePosition(new BlockPos(first.getCenter().getX(), pos.getY(), first.getCenter().getZ()), Either.right(collector)));
     }
 
-    // the mines delve deep: a third start in the upper half of the mithril band, the rest in the lower half of the middle band
     private static int startY(DepthBands.Edges edges, Random random, boolean delved) {
         float share = random.nextFloat() * 0.5f;
         if (delved) return edges.at(DepthBands.Band.MITHRIL, 0.5f + share);
@@ -203,8 +202,8 @@ public final class MistyDwarfMineStructure extends Structure {
         return random;
     }
 
-    // Waves: new layouts started from the open ends of the mine, the farthest first, so it stretches outwards.
-    // Every layout is pruned like the first one and may not touch anything already there.
+    // waves: new layouts from the open ends of the mine, the farthest first, so it stretches outwards
+    // every layout is pruned like the first one and may not touch anything already there
     private void grow(MineSession session, List<StructurePiece> all, BlockPos origin, Set<BlockPos> bridged) {
         ChunkPos chunk = session.context.chunkPos();
         int target = TARGET_MIN + (MistyCaves.mix(chunk.x, chunk.z, TARGET_SALT) & MASK_16) % (TARGET_MAX - TARGET_MIN + 1);
@@ -281,8 +280,8 @@ public final class MistyDwarfMineStructure extends Structure {
         all.addAll(pieces);
     }
 
-    // Level connectors lead somewhere or go. A level piece (two exits at different heights) needs both of them connected; a hub or
-    // crossing with an exit well above its floor gets something attached there when it can, and keeps the exit when it cannot.
+    // level connectors lead somewhere or go: a level piece (exits at two heights) needs both connected; a hub or
+    // crossing with an exit well above its floor gets something attached there when it can, else keeps the exit
     private void sealLevels(MineSession session, List<StructurePiece> all, Set<BlockPos> joined) {
         for (int round = 0; round < SEAL_ROUNDS; round++) {
             MineOpenings openings = new MineOpenings(session, all);
@@ -340,9 +339,8 @@ public final class MistyDwarfMineStructure extends Structure {
         return changed;
     }
 
-    // An opening that faces rock ends in a dead end piece, or in a plug of rubble that is placed even where it overlaps rock; both need rock under them.
-    // One that leads into cave air stays open, as a natural break, and so do bridged and vertical ones. When neither fits inside
-    // the depth bands, the piece with that opening goes, with whatever hangs off it, and the pieces beside it are checked again.
+    // facing rock: dead end or rubble plug (even over rock), both need rock under; cave air, bridged, vertical stay open
+    // if nothing fits inside the bands the piece goes with whatever hangs off it, and its neighbours are rechecked
     private void capOpenings(MineSession session, List<StructurePiece> all, Set<BlockPos> bridged, Set<BlockPos> joined) {
         for (int round = 0; round < CAP_ROUNDS; round++) {
             MineOpenings openings = new MineOpenings(session, all);
@@ -375,7 +373,7 @@ public final class MistyDwarfMineStructure extends Structure {
                 (box, origin, floor) -> session.inBand(box) && session.floored(box) && !overlaps(box, taken), session::capFits, random(session.context, opening, CAP_PLUG_SALT));
     }
 
-    // mostly terrain rock in the 3 by 3 cells just beyond the opening; one that faces another piece is left as the blocked alcove it is
+    // mostly terrain rock in the 3 by 3 cells beyond the opening; one facing another piece stays a blocked alcove
     private static boolean facesRock(MineSession session, BlockPos opening, Direction out, List<BlockBox> taken) {
         BlockPos front = opening.offset(out);
         int sideX = out.getOffsetZ();
@@ -404,7 +402,7 @@ public final class MistyDwarfMineStructure extends Structure {
         return piece < ROCK_CELLS && solid >= ROCK_CELLS;
     }
 
-    // the pieces of a bridge may touch the pieces around them by a block, as the assembled ones may, but not share space with them
+    // bridge pieces may touch the pieces around them by a block, as assembled ones do, but not share space
     private static boolean overlapsPiece(List<StructurePiece> pieces, List<BlockBox> taken) {
         for (StructurePiece piece : pieces) {
             BlockBox box = piece.getBoundingBox();
@@ -519,8 +517,7 @@ public final class MistyDwarfMineStructure extends Structure {
         Context context = session.context;
         CaveProbe probe = session.probe;
         int deckY = opening.getY() - 1;
-        // the pieces stop short of the chasm, so the floor ahead of the opening is walked to its edge first; the span starts
-        // at the opening and cuts its walkway through whatever rock lies between
+        // the pieces stop short of the chasm, so the floor ahead of the opening is walked to its edge first
         int lead = 0;
         while (lead < MAX_LEAD) {
             BlockPos cell = opening.offset(out, lead + 1);
@@ -575,7 +572,7 @@ public final class MistyDwarfMineStructure extends Structure {
         return new int[]{gap, dropped};
     }
 
-    // a 3 wide, 3 tall tunnel with its floor row, from the cell this far to the cell that far along out from the opening
+    // a 3 wide, 3 tall tunnel with its floor row, from the cell this far to the cell that far out from the opening
     private static MineTunnelPiece tunnel(BlockPos opening, Direction out, int from, int to, int floorY) {
         BlockPos first = opening.offset(out, from);
         BlockPos last = opening.offset(out, to);
@@ -586,8 +583,8 @@ public final class MistyDwarfMineStructure extends Structure {
                 Math.max(first.getX(), last.getX()) + Math.abs(sideX), floorY + TUNNEL_HEIGHT, Math.max(first.getZ(), last.getZ()) + Math.abs(sideZ)));
     }
 
-    // Two ends that face each other across a block or three of rock are joined by a tunnel. Without it the paths run side by side,
-    // and the plug or end that would close each of them seals the wall between them.
+    // two ends facing each other across a block or three of rock are joined by a tunnel; else the paths run side by side,
+    // and the plug or end that would close each of them seals the wall between them
     private void joinNearbyEnds(MineSession session, List<StructurePiece> all, Set<BlockPos> joined) {
         MineOpenings openings = new MineOpenings(session, all);
         List<StructurePiece> tunnels = new ArrayList<>();

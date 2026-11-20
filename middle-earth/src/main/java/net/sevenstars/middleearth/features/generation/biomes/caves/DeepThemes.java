@@ -5,8 +5,7 @@ import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 
-// Which of the three deep biomes a column belongs to, in regions hundreds of blocks across.
-// The biome source and the chunk generation both ask here, so the blocks and the biome always agree.
+// which deep biome a column belongs to; biome source and chunk generation both ask, so they agree
 public final class DeepThemes {
     public enum Theme {
         WET(BiomeKeyRegistryME.NAMELESS_DEEPS),
@@ -54,7 +53,7 @@ public final class DeepThemes {
         return at(x + WALL, z, seed) != here || at(x - WALL, z, seed) != here || at(x, z + WALL, seed) != here || at(x, z - WALL, seed) != here;
     }
 
-    // A sparse slit of a few blocks through the rock wall of a border, at a height that follows the column's own deeps
+    // sparse slit through a border's rock wall, at a height that follows the column's own deeps
     public static boolean passage(int x, int y, int z, DepthBands.Edges edges, long seed) {
         if(BlendedNoise.noise((x + seed + PASSAGE_OFFSET) / PASSAGE_SCALE, (z + seed + PASSAGE_OFFSET) / PASSAGE_SCALE) <= PASSAGE_FROM) return false;
         int room = edges.top(DepthBands.Band.DEEPS) - edges.floor() - 2 * PASSAGE_CLEARANCE;

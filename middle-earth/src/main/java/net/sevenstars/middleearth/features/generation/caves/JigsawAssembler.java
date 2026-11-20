@@ -38,8 +38,8 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-// Jigsaw assembly for the mines: the placement rules of the vanilla generator, but a candidate only has to avoid the boxes of
-// the pieces already there (shrunk by one block, so walls can touch) and pass the caller's own test, with none of the free-space shapes
+// jigsaw assembly for the mines: vanilla placement rules, but a candidate only avoids the boxes of placed pieces
+// (shrunk by one block, so walls can touch) and passes the caller's own test; no free-space shapes
 final class JigsawAssembler {
     private static final List<Block> FLOOR_BLOCKS = List.of(Blocks.COBBLESTONE, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
     private static final int ROTATIONS = BlockRotation.values().length;
@@ -78,9 +78,8 @@ final class JigsawAssembler {
         this.boxes = new ArrayList<>(taken);
     }
 
-    // The pieces of a layout of the given size, the first one placed with the jigsaw of that name (facing the given way)
-    // on pos, or with its corner on pos when there is no name, and at most limit pieces. Pieces from a fallback pool are dead ends
-    // that someone may stand in, so they pass acceptEnd instead of accept. Empty when the first piece does not fit.
+    // first piece uses the named jigsaw (facing the given way) on pos, or its corner when no name; at most limit pieces
+    // fallback-pool pieces are dead ends someone may stand in, so they pass acceptEnd; empty when the first doesn't fit
     static List<StructurePiece> assemble(Structure.Context context, RegistryEntry<StructurePool> pool, Optional<Identifier> startJigsaw, Optional<Direction> startFacing,
                                          BlockPos pos, int size, int limit, List<BlockBox> taken, Fit accept, Fit acceptEnd, Random random) {
         JigsawAssembler assembler = new JigsawAssembler(context, random, accept, acceptEnd, taken);
@@ -178,8 +177,7 @@ final class JigsawAssembler {
         return variant;
     }
 
-    // The floor blocks of the template (shell blocks with nothing of the template under them) as x, y, z offsets from the
-    // origin; found through the template named in the element's codec
+    // floor blocks of the template (shell blocks with nothing of the template under them), as offsets from the origin
     private int[] floorColumns(StructurePoolElement element, BlockRotation rotation) {
         return FLOORS.computeIfAbsent(manager, key -> new ConcurrentHashMap<>()).computeIfAbsent(new FloorKey(element, rotation), key -> findFloorColumns(element, rotation));
     }

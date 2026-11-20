@@ -22,11 +22,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.LongStream;
 
-// Writes the column blocks into the chunk sections. ProtoChunk.setBlockState does the same plus light and
-// heightmap bookkeeping; light is not tracked before the INITIALIZE_LIGHT status, and the heightmaps are rebuilt
-// in finish() the way vanilla does after its noise fill. Other chunk types keep the regular path.
-// Each section the fill touches is first collected as a plain array of block states and turned into a section in one go,
-// which spares the palette from growing block by block; the blocks are the same, only the palette order can differ.
+// writes the column blocks into the chunk sections, skipping the light and heightmap bookkeeping of ProtoChunk.setBlockState
+// (light is untracked before INITIALIZE_LIGHT; finish() rebuilds heightmaps like vanilla); other chunk types use the regular path
+// touched sections are built from plain arrays in one go, so the palette does not grow block by block; palette order may differ
 final class ColumnWriter implements BlockBuffer {
     private static final PaletteProvider<BlockState> BLOCK_PALETTE = PaletteProvider.forBlockStates(Block.STATE_IDS);
     private static final BlockState AIR = Blocks.AIR.getDefaultState();
@@ -142,7 +140,7 @@ final class ColumnWriter implements BlockBuffer {
         return array;
     }
 
-    // Every section below topY becomes one bedrock block, so each keeps a single palette entry
+    // every section below topY becomes one bedrock block, so each keeps a single palette entry
     void fillBedrock(int topY) {
         for (int index = 0; chunk.getBottomY() + (index + 1) * 16 <= topY; index++) {
             if (!direct) {

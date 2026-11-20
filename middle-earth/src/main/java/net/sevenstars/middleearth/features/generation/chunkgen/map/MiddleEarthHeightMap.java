@@ -26,7 +26,7 @@ public final class MiddleEarthHeightMap {
     private static final int PERLIN_HEIGHT_RANGE = 53;
     private static final float MOUNTAIN_HEIGHT_RANGE = 3.5f;
     private static final float MOUNTAIN_EXPONENTIAL_HEIGHT = 1.02f;
-    static final int MOUNTAIN_START_HEIGHT = 32; // Height depending on the Biome Data.
+    static final int MOUNTAIN_START_HEIGHT = 32;
     private static final int PERLIN_HEIGHT_OFFSET = 8;
     private static final int WATER_MAX = 24;
     private static final float WATER_MULTIPLIER = 0.65f;
@@ -38,7 +38,7 @@ public final class MiddleEarthHeightMap {
     private static final float MIN_SHARE = 0.001f;
     private static final ThreadLocal<float[]> MOUNTAIN_SHARES = ThreadLocal.withInitial(() -> new float[MountainRanges.VARIANTS]);
 
-    // Above the start the terrain bends towards the ceiling (y values, not heights relative to DIRT_HEIGHT)
+    // above the start the terrain bends towards the ceiling (y values, not heights relative to DIRT_HEIGHT)
     private static final int SOFT_CEILING_START = 380;
     private static final int SOFT_CEILING = 430;
 
@@ -66,7 +66,7 @@ public final class MiddleEarthHeightMap {
         float blue = rgb & 0xFF;
         float height = (rgb >> 16) & 0xFF;
 
-        if(blue > 0) { // Water carver
+        if(blue > 0) { // water carver
             MapBasedCustomBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
             float percentage = (WATER_MAX - blue) / WATER_MAX;
             percentage = Math.max(0, Math.min(1, percentage));
@@ -133,8 +133,8 @@ public final class MiddleEarthHeightMap {
         return (float) additionalHeight;
     }
 
-    // Ridges where a range sets them, the old smooth two octaves for the Lonely Mountain; both are scaled by the
-    // caller with the same multiplier, so foothills stay smooth and the cores go jagged.
+    // ridges where a range sets them, the old smooth two octaves for the Lonely Mountain; both are scaled by the
+    // caller with the same multiplier, so foothills stay smooth and the cores go jagged
     private static double getMountainTerm(int x, int z) {
         float[] shares = MOUNTAIN_SHARES.get();
         MountainRanges.sharesAt(x, z, shares);
@@ -198,15 +198,15 @@ public final class MiddleEarthHeightMap {
         return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
     }
 
-    // The terrain height every system agrees on: the map and noise height, the sub biome hills, the Mount Doom cone,
-    // the Dead Marshes and the soft ceiling. Relative to MiddleEarthChunkGenerator.DIRT_HEIGHT.
+    // the terrain height every system agrees on: the map and noise height, the sub biome hills, the Mount Doom cone,
+    // the Dead Marshes and the soft ceiling; relative to MiddleEarthChunkGenerator.DIRT_HEIGHT
     public static float getHeight(int x, int z) {
         ChunkHeights heights = findChunkHeights(x >> 4, z >> 4);
         if(heights != null) return heights.at(x & 15, z & 15);
         return computeHeight(x, z);
     }
 
-    // Same value, remembered per chunk for the callers that ask for many columns of one chunk
+    // same value, remembered per chunk for the callers that ask for many columns of one chunk
     public static float getCachedHeight(int x, int z) {
         return getChunkHeights(x >> 4, z >> 4).at(x & 15, z & 15);
     }
@@ -245,7 +245,7 @@ public final class MiddleEarthHeightMap {
         return SOFT_CEILING_START + range * (float) Math.tanh((y - SOFT_CEILING_START) / range) - MiddleEarthChunkGenerator.DIRT_HEIGHT;
     }
 
-    // The 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples; each one is
+    // the 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples; each one is
     // computed when first asked for
     public static final class ChunkHeights {
         private static final int CHUNK_SIZE = 16;

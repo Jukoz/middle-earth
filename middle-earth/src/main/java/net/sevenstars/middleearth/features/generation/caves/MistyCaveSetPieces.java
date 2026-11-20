@@ -81,7 +81,7 @@ final class MistyCaveSetPieces {
 
     private void attempt(int h, int type, int x, int z, int index, DepthBands.Edges column) {
         boolean nearLake = type == BONES && nearLake(x, z);
-        // bones in the middle band and the deeps, scaffolds in the upper band and the top of the middle one, kits in the middle and mithril bands
+        // bones: middle band and deeps; scaffolds: upper band and top of the middle; kits: middle and mithril bands
         int low = switch (type) {
             case BONES -> column.floor() + FLOOR_CLEARANCE;
             case SCAFFOLD -> column.top(DepthBands.Band.MIDDLE) - (int) (SCAFFOLD_MIDDLE_SHARE * column.thickness(DepthBands.Band.MIDDLE));
@@ -181,7 +181,7 @@ final class MistyCaveSetPieces {
         return false;
     }
 
-    // The platform against the wall, in a frame of "depth" towards the wall and "off" along it
+    // the platform against the wall, in a frame of "depth" towards the wall and "off" along it
     private record Frame(int x, int y, int z, Direction toWall, int from, int length, int platformY, int inner, int outer) {
         int dx() {
             return toWall.getOffsetX();

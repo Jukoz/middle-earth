@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Mixin(ClientWorld.class)
 public class ClientWorldMixin {
-    // Rolled for each biome particle at a random block near the player
+    // rolled for each biome particle at a random block near the player
     @ModifyExpressionValue(method = "randomBlockDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/attribute/AmbientParticle;shouldAddParticle(Lnet/minecraft/util/math/random/Random;)Z"))
     private boolean keepParticlesUnderCover(boolean shouldAdd, @Local(argsOnly = true) BlockPos.Mutable pos) {
         if(!shouldAdd)

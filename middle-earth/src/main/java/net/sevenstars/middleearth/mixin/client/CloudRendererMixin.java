@@ -18,17 +18,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// The cloud plane is flat, so it would be drawn through the caves and ravines that reach up past it inside the tall mountains
+// the cloud plane is flat and would draw through caves and ravines that reach up past it in the tall mountains
 @Environment(EnvType.CLIENT)
 @Mixin(CloudRenderer.class)
 public class CloudRendererMixin {
-    // Blocks under the highest solid block of the camera's column that count as underground, and the way back out is a little shorter,
+    // blocks under the camera column's highest solid block that count as underground; the way back out is a little shorter,
     // so the clouds do not flicker at a cave mouth
     @Unique
     private static final double HIDE_BELOW = 4;
     @Unique
     private static final double SHOW_ABOVE = 1;
-    // Change of the cloud opacity per tick
+    // change of the cloud opacity per tick
     @Unique
     private static final float FADE_SPEED = 0.04f;
     @Unique
@@ -38,7 +38,7 @@ public class CloudRendererMixin {
     @Unique
     private static double lastTime = Double.NaN;
 
-    // Scales the opacity of the clouds by how far they have faded; the colour is argb
+    // scales the opacity of the clouds by how far they have faded; the colour is argb
     @ModifyVariable(method = "renderClouds", at = @At("HEAD"), argsOnly = true, index = 1)
     private int fadeClouds(int color, int unused, CloudRenderMode mode, float cloudHeight, Vec3d cameraPos, long time, float tickProgress) {
         ClientWorld world = MinecraftClient.getInstance().world;
@@ -58,7 +58,7 @@ public class CloudRendererMixin {
         return ColorHelper.withAlpha(Math.round(ColorHelper.getAlpha(color) * visibility), color);
     }
 
-    // Nothing to draw once they have faded out
+    // nothing to draw once they have faded out
     @Inject(method = "renderClouds", at = @At("HEAD"), cancellable = true)
     private void skipHiddenClouds(int color, CloudRenderMode mode, float cloudHeight, Vec3d cameraPos, long time, float tickProgress, CallbackInfo ci) {
         if(hidden && visibility <= 0)

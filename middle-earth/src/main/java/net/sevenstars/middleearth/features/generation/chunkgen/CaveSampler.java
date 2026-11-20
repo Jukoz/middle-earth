@@ -23,8 +23,8 @@ import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEart
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.WATER_HEIGHT;
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.caveBlendNoise;
 
-// Cave noise sampled every 2 blocks and blended in between, like vanilla's noise cells.
-// Corners sit on fixed world positions, so neighbouring chunks share their edges.
+// cave noise sampled every 2 blocks and blended in between, like vanilla's noise cells
+// corners sit on fixed world positions, so neighbouring chunks share their edges
 final class CaveSampler {
     private static final int CHUNK_SIZE = 16;
     private static final int CAVE_STRETCH_H = 60;
@@ -33,12 +33,12 @@ final class CaveSampler {
     private static final int CELL = 2;
     private static final int CORNERS = CHUNK_SIZE / CELL + 1;
     private static final int VALUES = 6;
-    // the base cave noise is sampled every 4 blocks of height, twice as far apart as in x and z; the Misty channels keep CELL
+    // base cave noise is sampled every 4 blocks of height, twice as far apart as in x and z; the Misty channels keep CELL
     private static final int BASE_CELL_Y = 4;
     private static final int PAGE_LAYERS = 16;
     private static final int LAYER_SIZE = CORNERS * CORNERS * VALUES;
     private static final int MISTY_LAYER_SIZE = CORNERS * CORNERS * MistyCaves.VALUES;
-    // only for the probe: single corners evaluated on demand in place of whole layer pages, dropped when they get too many
+    // only for the probe: single corners evaluated on demand instead of whole layer pages, dropped when too many
     private static final int MAX_CORNERS = 1024;
     private static final int MARGIN = 2; // blocks beyond the chunk the opening has to see
     private static final int MARGIN_SPAN = CHUNK_SIZE + 2 * MARGIN;
@@ -55,7 +55,7 @@ final class CaveSampler {
     private static final int ISLAND_BIG = 8;
     private static final byte SOLID_CELL = 1;
     private static final byte CARVING_CELL = 2;
-    // the thinnest blob space kept, in blocks of depth below its surface, and the same in noise units where the field is flat
+    // thinnest blob space kept, in blocks of depth below its surface, and the same in noise units where the field is flat
     private static final float THIN_DEPTH = 1.2f;
     private static final float THIN_FLOOR = 0.003f;
     private static final float SPAGHETTI_SCALE = 0.53f;
@@ -83,9 +83,9 @@ final class CaveSampler {
     private boolean[] thin; // blob air that openBlobs turned to rock, by column and height
     private int thinMin;
     private int thinHeight;
-    // verdicts of cells off the chunk's own grid and of the probe's, by cell (-1 to 8 each way) and layer, 0 until known
+    // verdicts of cells off the chunk's own grid and of the probe's, by cell (-1 to 8 each way) and layer; 0 until known
     private byte[] looseVerdicts;
-    // base corners one cell beyond the chunk, 11 x 11 around the 9 x 9, for the opening of blob air; by layer, filled as needed
+    // base corners one cell beyond the chunk, 11 x 11 around the 9 x 9, for opening blob air; by layer, filled as needed
     private float[][] marginPages;
     private boolean[] marginDone;
     private Map<Long, Boolean> probeBlob;
@@ -323,9 +323,8 @@ final class CaveSampler {
         return (gnawedRock(y) || baseSolid(x, y, z)) && mistySolid(x, y, z) ? STONE : AIR;
     }
 
-    // Small lumps of rock left loose beside a ravine or abyss (fewer than ISLAND_BLOCKS blocks, every neighbour of them air)
-    // are removed. Only a lump lying wholly inside the chunk, away from its outer columns, is judged, so the result does not
-    // depend on which chunk is generated: a lump that reaches a border is left by both chunks.
+    // loose lumps of rock beside a ravine or abyss (under ISLAND_BLOCKS blocks, all neighbours air) are removed
+    // only lumps wholly inside the chunk, clear of its outer columns, are judged, so chunks agree; border lumps stay
     void removeIslands(ColumnWriter out) {
         if (shafts == null || shafts.length == 0) return;
         int yMin = Math.max(shaftMinY - 2, minCellY * CELL + 2);
@@ -688,7 +687,7 @@ final class CaveSampler {
         return verdict;
     }
 
-    // blob air at a block of the world-fixed grid, x and z local to the chunk and from -2 to 17: the same verdict and the
+    // blob air at a block of the world-fixed grid, x and z local to the chunk, -2 to 17: the same verdict and the
     // same blend as the chunk's own columns use
     private boolean blobAt(int x, int y, int z) {
         int cx = Math.floorDiv(x, CELL);
@@ -763,11 +762,9 @@ final class CaveSampler {
         return known;
     }
 
-    // Blob air (channels 0 to 2) that no 3x3x3 cube of blob air covers is a crack or a lens, and becomes rock; the spaghetti
-    // tunnels and the Misty channels do not take part. The rule is a morphological opening. Each block is decided from the
-    // blob air within two blocks of it (a cube needs one, a cube's own blocks another), which is read off the world-fixed
-    // grid, past the chunk's edges and past the top and bottom of what it fills, so the answer does not depend on which
-    // chunk asks. Only the world's own top and bottom count as air.
+    // blob air (channels 0 to 2) that no 3x3x3 cube of blob air covers is a crack or lens and becomes rock; others exempt
+    // morphological opening: each block is judged from blob air within two blocks, read off the world-fixed grid past the chunk edges
+    // and the filled height, so any chunk gives the same answer; only the world's own top and bottom count as air
     void openBlobs(int yTop) {
         if (cellVerdict == null) return;
         int yMin = minBaseCellY * BASE_CELL_Y;
@@ -903,15 +900,10 @@ final class CaveSampler {
         return result;
     }
 
-    // SOLID_CELL: nothing in the cell can be air. Otherwise CARVING_CELL plus a bit for each blob channel (0 to 2) that may
-    // open air in it.
-    // A blob channel only counts in a cell where some corner clears its threshold by the depth of the thinnest space we
-    // keep, in blocks of the channel's own gradient (plus a floor for the flat tops of the field, where the gradient is
-    // nothing). Without such a corner the air of that channel in the cell is a lens or a crack thinner than that, and it
-    // stays rock. Everything is read off the corners of the one cell, which sit on world-fixed positions, so the answer
-    // is the same from whichever chunk asks.
-    // The blend of a cell stays between the minimum and maximum of its 8 corners (up to float rounding, far below
-    // CULL_MARGIN), so the spaghetti lower bound below is safe too.
+    // SOLID_CELL: nothing in the cell can be air; else CARVING_CELL plus a bit per blob channel (0 to 2) that may open air
+    // a blob channel counts only where a corner clears its threshold by the thinnest space kept (in blocks of its gradient, plus
+    // a floor for flat field tops); else its air there is a lens or crack and stays rock; corners are world-fixed, so chunks agree
+    // the blend stays within the min and max of its 8 corners (rounding is far below CULL_MARGIN), so the spaghetti bound is safe
     private byte cellVerdict(int cellY) {
         float[] values = cellValues;
         if (baseCorners == null) {
@@ -1066,8 +1058,8 @@ final class CaveSampler {
         out[offset] = noise;
         out[offset + 1] = noise3;
         out[offset + 2] = miniNoise;
-        // 3D simplex, each with its own shift so the three stay unrelated to each other and to the noises above. A 3D
-        // noise swings wider than the slice of a 4D one, so the scale keeps the same share of the rock inside the thin tunnels.
+        // 3D simplex, each shifted so the three stay unrelated to each other and the noises above; 3D swings wider than a 4D slice,
+        // so the scale keeps the same share of rock inside the thin tunnels
         out[offset + 3] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
                 (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 5714.2f, layerY.tanYf + 214.7f, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 321.9f);
         out[offset + 4] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(

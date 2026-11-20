@@ -26,8 +26,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Turns mithril ore that a mine has left touching air back into stone: the ore feature discards ore beside air,
-// but a mine in the next chunk can be placed after the ore beside it.
+// turns mithril ore that a mine has left touching air back into stone: the ore feature discards ore beside air,
+// but a mine in the next chunk can be placed after the ore beside it
 public class MistyMineMithrilFeature extends Feature<DefaultFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
 

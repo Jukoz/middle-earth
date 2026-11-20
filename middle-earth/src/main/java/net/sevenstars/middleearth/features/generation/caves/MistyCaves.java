@@ -26,7 +26,7 @@ public final class MistyCaves {
     private static final float RIFT_Y = 40;
     private static final float RIFT_Z = 80;
     private static final float RIFT_HALF_WIDTH = 0.16f;
-    // shares of the upper band's thickness: the rifts fade in from above its bottom and are fully open a little way into it
+    // shares of the upper band's thickness: rifts fade in from above its bottom, fully open a little way into it
     private static final float RIFT_TAPER = 0.15f;
     private static final float RIFT_FULL = 0.1f;
     private static final int RIFT_MIN_THICKNESS = 8;
@@ -172,7 +172,7 @@ public final class MistyCaves {
         return worms;
     }
 
-    // Open where positive: the radius of the nearest bore less the distance to it, so the tunnels are round with
+    // open where positive: the radius of the nearest bore less the distance to it, so the tunnels are round with
     // rounded ends and no thin sheets, and closed under the floor of the deeps and below the top of the band
     public static float wormMargin(Worm[] worms, int x, int y, int z, float weight, DepthBands.Edges edges) {
         float best = -WORM_MAX_RADIUS;
@@ -250,7 +250,7 @@ public final class MistyCaves {
         return shaft.amplitude * ((float) SimplexNoise.noise(shaft.wobble + 17, t / RAVINE_MEANDER_SCALE) - shaft.meanderBase);
     }
 
-    // out[index]: distance across from the centreline; out[index + 1]: half width of the ravine here before its depth profile, 0 beyond the ends
+    // out[index]: distance across the centreline; out[index + 1]: half width before depth profile, 0 beyond the ends
     public static void shaftColumn(Shaft shaft, int x, int z, float[] out, int index) {
         int t = shaft.alongX ? x - shaft.x : z - shaft.z;
         int u = shaft.alongX ? z - shaft.z : x - shaft.x;
@@ -276,8 +276,8 @@ public final class MistyCaves {
         return wobble;
     }
 
-    // the cross-section factor at this height, with the wobble of shaftWobble, in a column with these band edges; 0 where the ravine is closed.
-    // An ordinary ravine stays in the middle band and above the mithril; an abyss runs from the top of the middle band, or 50 to 78 under the surface if that is lower, to the deep floor.
+    // cross-section factor at this height, with shaftWobble, for a column with these band edges; 0 where closed
+    // ravine: middle band above the mithril; abyss: top of the middle band (or 50-78 under the surface if lower) to the floor
     public static float shaftScale(Shaft shaft, int y, DepthBands.Edges edges, float wobble) {
         int floor = edges.floor();
         int bottom = shaft.abyss ? floor + (floor < DepthBands.SHALLOW_FLOOR ? ABYSS_DEEP_CLEARANCE : SHAFT_FLOOR_CLEARANCE) + shaft.spread % 3

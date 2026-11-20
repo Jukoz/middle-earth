@@ -16,7 +16,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.sevenstars.middleearth.MiddleEarth;
 
-// A plain tunnel: the box is carved to air, and the floor under it is laid on rock. It joins two parts of a mine, or leads to a bridge.
+// plain tunnel: box carved to air, floor under it laid on rock; joins parts of a mine or leads to a bridge
 public final class MineTunnelPiece extends StructurePiece {
     public static final StructurePieceType TYPE = (context, nbt) -> new MineTunnelPiece(nbt);
 

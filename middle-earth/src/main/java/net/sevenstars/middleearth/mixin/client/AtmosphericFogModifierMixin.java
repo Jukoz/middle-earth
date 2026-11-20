@@ -26,10 +26,10 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 @Mixin(AtmosphericFogModifier.class)
 public class AtmosphericFogModifierMixin {
-    // Change of the fog multipliers per tick, so the fog shifts gradually between two foggy biomes
+    // change of the fog multipliers per tick, so the fog shifts gradually between two foggy biomes
     @Unique
     private static final float TRANSITION_SPEED = 0.004f;
-    // Change of the blend per tick, so the biome fog fades in and out of the vanilla fog
+    // change of the blend per tick, so the biome fog fades in and out of the vanilla fog
     @Unique
     private static final float BLEND_SPEED = 0.005f;
     @Unique
@@ -39,7 +39,7 @@ public class AtmosphericFogModifierMixin {
     // 0 is the vanilla fog only, 1 is the biome fog only
     @Unique
     private static float blend = 0;
-    // Change of the underground fog per tick, a couple of seconds from the surface to the dark
+    // change of the underground fog per tick, a couple of seconds from the surface to the dark
     @Unique
     private static final float UNDERGROUND_BLEND_SPEED = 0.02f;
     @Unique
@@ -64,7 +64,7 @@ public class AtmosphericFogModifierMixin {
         }
         BiomeAmbianceME ambiance = biome.map(BiomeAmbianceME::of).orElse(null);
         BiomeAmbianceME.Fog biomeFog = ambiance == null ? null : ambiance.getFog();
-        // Rain/Snow thickens the fog
+        // rain/Snow thickens the fog
         float wetness = world.getRainGradient(tickCounter.getTickProgress(false));
         float targetStart = biomeFog == null ? 0 : MathHelper.lerp(wetness, biomeFog.clearStart(), biomeFog.start());
         float targetEnd = biomeFog == null ? 0 : MathHelper.lerp(wetness, biomeFog.clearEnd(), biomeFog.end());
@@ -86,17 +86,17 @@ public class AtmosphericFogModifierMixin {
         float renderDistanceFogLength = MathHelper.clamp(viewDistance / 10.0F, 4.0F, 64.0F);
         float biomeFogStart = (viewDistance - renderDistanceFogLength) * fogStartMultiplier;
         float biomeFogEnd = viewDistance * fogEndMultiplier;
-        // Rain may already bring the vanilla fog closer than the biome does
+        // rain may already bring the vanilla fog closer than the biome does
         if(biomeFogEnd >= data.environmentalEnd)
             return;
-        // Vanilla fog ends at 1024 blocks, past the view distance
+        // vanilla fog ends at 1024 blocks, past the view distance
         float vanillaFogEnd = Math.min(data.environmentalEnd, viewDistance);
         data.environmentalStart = MathHelper.lerp(blend, Math.min(data.environmentalStart, vanillaFogEnd), biomeFogStart);
         data.environmentalEnd = MathHelper.lerp(blend, vanillaFogEnd, biomeFogEnd);
     }
 
-    // Vanilla leans the fog colour towards the sky and the sunrise by where the camera looks, which means nothing underground:
-    // there the colour is the biome's own, eased in and out with the underground fog. The renderer takes its clear colour from here too.
+    // vanilla leans the fog colour towards the sky and sunrise by where the camera looks, meaningless underground:
+    // there the colour is the biome's own, eased with the underground fog; the renderer's clear colour comes from here too
     @Inject(method = "getFogColor", at = @At("RETURN"), cancellable = true)
     private void undergroundFogColor(ClientWorld world, Camera camera, int viewDistance, float tickProgress, CallbackInfoReturnable<Integer> cir) {
         if(undergroundBlend <= 0)

@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// Miners leave the rock as it is: the shell blocks of the templates are skipped, so natural rock and natural air stay.
-// Only the floor row is laid, and only on rock. Supports, props and webs are kept only where something holds them.
+// miners leave the rock as it is: shell blocks of the templates are skipped, so natural rock and air stay
+// only the floor row is laid, and only on rock; supports, props and webs are kept only where something holds them
 public final class MineShellProcessor extends StructureProcessor {
     public static final MapCodec<MineShellProcessor> CODEC = MapCodec.unit(new MineShellProcessor());
     public static final StructureProcessorType<MineShellProcessor> TYPE = () -> CODEC;
@@ -69,8 +69,8 @@ public final class MineShellProcessor extends StructureProcessor {
         return null;
     }
 
-    // Supports bottom-up on what is under them, beams on a kept post or on rock, standing props on what is under them, hanging
-    // things on what is above, ladders on the wall behind; webs where they are attached.
+    // supports bottom-up on what is under them, beams on a kept post or rock, standing props on what is under them, hanging
+    // things on what is above, ladders on the wall behind; webs where they are attached
     @Override
     public List<StructureTemplate.StructureBlockInfo> reprocess(ServerWorldAccess world, BlockPos pos, BlockPos pivot, List<StructureTemplate.StructureBlockInfo> original,
                                                                 List<StructureTemplate.StructureBlockInfo> current, StructurePlacementData data) {

@@ -48,11 +48,11 @@ public class ProceduralStructures {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, i, z), isengardBlock, 0);
                 }
             }
-        } else if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // Ring hills (before walls)
+        } else if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // ring hills (before walls)
             if (distance > isengardRingRadius - isengardRingThickness - isengardRingHillThickness) {
                 float percentageDistance = Math.abs(Math.abs(isengardRingRadius - distance));
                 percentageDistance = (isengardRingThickness + isengardRingHillThickness) - percentageDistance;
-                float hillHeight = Math.min(3, 0.4f * percentageDistance); //(float) Math.pow(percentageDistance, 0.55f);
+                float hillHeight = Math.min(3, 0.4f * percentageDistance);
 
                 for(int i = -1; i < (int)hillHeight; i++) {
                     BlockState blockState = Blocks.DIRT.getDefaultState();
@@ -60,7 +60,7 @@ public class ProceduralStructures {
                     chunk.setBlockState(chunk.getPos().getBlockPos(x, y + i, z), blockState, 0);
                 }
 
-                if(distance < isengardRingRadius + isengardRingThickness) { // Walls
+                if(distance < isengardRingRadius + isengardRingThickness) { // walls
                     if (distance > isengardRingRadius - isengardRingThickness) {
                         Vec2f direction = (centerOrthanc.add(coordinates.negate())).normalize();
                         float dropHeight = (float) Math.pow(Math.abs(Math.abs(isengardRingRadius - distance) / 3), 2);
@@ -91,7 +91,7 @@ public class ProceduralStructures {
     public static float addRingHillsIsengard(int x, int z) {
         Vec2f coordinates = new Vec2f(x, z);
         float distance = (float) Math.sqrt(centerOrthanc.distanceSquared(coordinates));
-        if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // Around Walls
+        if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // around Walls
             if (distance > isengardRingRadius - isengardRingThickness - isengardRingHillThickness) {
                 float percentage = (isengardRingRadius - distance) / (isengardRingThickness + isengardRingHillThickness);
                 return (float) Math.pow(percentage, 0.7f);

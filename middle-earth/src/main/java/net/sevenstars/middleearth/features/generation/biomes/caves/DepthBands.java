@@ -44,8 +44,8 @@ public final class DepthBands {
     private DepthBands() {
     }
 
-    // The band edges of one column. The lower bands claim the rock first, so a low surface squeezes the upper ones out.
-    // The tops are exclusive, and the wobble is the stone layers' own.
+    // the band edges of one column; the lower bands claim the rock first, so a low surface squeezes the upper ones out
+    // tops are exclusive; the wobble is the stone layers' own
     public record Edges(int surface, int floor, int cap, int upperBottom, int middleBottom, int mithrilBottom) {
         public static Edges of(int surface, int floor, float blend) {
             int cap = surface - UPPER_DEPTH;
@@ -112,8 +112,8 @@ public final class DepthBands {
         return floorFor(x, z, map.getDepth(x, z), seed);
     }
 
-    // Whole blocks below -64 by the depth of the map. The wobble breaks up the contour lines of a gentle slope and fades out
-    // towards both ends, so a column with no depth stays exactly at the old floor.
+    // whole blocks below -64 by the depth of the map; the wobble breaks up contour lines on a gentle slope
+    // and fades towards both ends, so a column with no depth stays exactly at the old floor
     public static int floorFor(int x, int z, float depth, long seed) {
         if(depth <= 0) return SHALLOW_FLOOR;
         float share = Math.min(1, depth / (SHALLOW_FLOOR - DEEP_FLOOR));
@@ -122,7 +122,7 @@ public final class DepthBands {
         return Math.max(DEEP_FLOOR, Math.min(SHALLOW_FLOOR, Math.round(floor)));
     }
 
-    // Floors of one chunk and the ring of columns around it, for the lava sea
+    // floors of one chunk and the ring of columns around it, for the lava sea
     public static final class ChunkFloors {
         private static final int SIZE = 16 + 2;
         private final int[] floors = new int[SIZE * SIZE];
@@ -156,7 +156,7 @@ public final class DepthBands {
             return Math.max(highest, floor(x, z + 1));
         }
 
-        // true when a column beside this one has the usual floor, and so the old lava sea at -60: nothing of the deeps may touch it
+        // true when a neighbouring column has the usual floor (-64, under the old lava sea), which the deeps must not touch
         public boolean touchesShallow(int x, int z) {
             return floor(x - 1, z) >= SHALLOW_FLOOR || floor(x + 1, z) >= SHALLOW_FLOOR || floor(x, z - 1) >= SHALLOW_FLOOR || floor(x, z + 1) >= SHALLOW_FLOOR;
         }

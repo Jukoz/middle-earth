@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.features.generation.caves;
 
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
 
-// One worm-bored tunnel of the gnawed deeps: a straight axis with two slow waves across it, a round bore around that
+// one worm-bored tunnel of the gnawed deeps: a straight axis with two slow waves across it, a round bore around it
 public final class Worm {
     static final int WORM_CELL_XZ = 64;
     static final int WORM_CELL_Y = 48;

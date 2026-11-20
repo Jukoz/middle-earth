@@ -46,7 +46,7 @@ public final class Shaft {
     static final float ABYSS_MIN_MEANDER = 12;
     static final float ABYSS_MAX_MEANDER = 20;
     static final float ABYSS_NARROWING = 0.4f;
-    static final int ABYSS_ROOF_MIN = 50; // blocks of rock above an abyss, with up to 28 more by the abyss: never closer than 30 to the surface
+    static final int ABYSS_ROOF_MIN = 50; // blocks of rock above an abyss, plus 0 to 28 more in ABYSS_ROOF_STEPs by the abyss
     static final int ABYSS_ROOF_STEP = 7;
     static final int ABYSS_TOP_TAPER = 24; // a rounded roof
     static final int ABYSS_DEEP_CLEARANCE = 3; // above the deep floor, so the bottom meets its water or rock

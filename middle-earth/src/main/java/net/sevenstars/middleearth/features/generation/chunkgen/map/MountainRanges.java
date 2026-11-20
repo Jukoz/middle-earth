@@ -6,9 +6,8 @@ import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
 import java.util.Arrays;
 
-// Which ridge variant a mountain column uses and how strongly, from the ridge settings of its biomes. The shares come
-// from a world-fixed lattice of averages over the surrounding map biomes, interpolated bilinearly, so they never jump
-// at a biome border and neighbouring chunks agree exactly.
+// which ridge variant a mountain column uses and how strongly, from the ridge settings of its biomes; shares come from a
+// world-fixed lattice of averages over nearby map biomes, bilinearly interpolated: no jumps at biome borders, chunks agree
 final class MountainRanges {
     static final int NORTH_SOUTH = BiomeGenerationData.RidgeAxis.NORTH_SOUTH.ordinal();
     static final int EAST_WEST = BiomeGenerationData.RidgeAxis.EAST_WEST.ordinal();
