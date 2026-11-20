@@ -46,8 +46,8 @@ final class ArrowAim {
         return requiredLaunchVelocity(origin, targetStart, targetMovement, gravity, ticks);
     }
 
-    // Position change over the last tick, not velocity: friction has halved it and a mob on
-    // the ground still has downward velocity, which makes shots land short
+    // Position change over the last tick
+    // Dont use velocity: friction has halved it and a mob on the ground has downwards velocity
     private static Vec3d movementOf(LivingEntity target) {
         if(target instanceof PlayerEntity)
             return target.getMovement();

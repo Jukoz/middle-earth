@@ -184,7 +184,7 @@ public class NpcEntity extends PathAwareEntity implements CrossbowUser {
 
     // In blocks
     private static final int HOME_STAND_RANGE = 5;
-    // Rising faster than this means it's climbing out of water
+    // Climbing out of water velocity
     private static final double CLIMBING_OUT = 0.1;
 
     private static final double BASE_ATTACK_DAMAGE = 1.0;
