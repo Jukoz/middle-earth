@@ -1,5 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
+import net.sevenstars.middleearth.block.special.structureManager.features.NestHost;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -23,14 +24,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.item.utils.TwoHandedItems;
 import net.sevenstars.middleearth.network.packets.server2client.PacketLivingEntityData;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -39,6 +40,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+    // Fixed for a horse, minimum for any other mount
+    @Unique
+    private static final float NPC_HORSE_SPEED = 0.5f;
+    @Unique
+    private static final float MINIMUM_NPC_MOUNT_SPEED = 0.25f;
+
     @Shadow @Final protected EntityEquipment equipment;
 
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
@@ -130,18 +137,11 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getMovementSpeed()F", at = @At("RETURN"), cancellable = true)
     private void getMovementSpeed(CallbackInfoReturnable<Float> cir) {
-        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity npcEntity){
+        if(getControllingPassenger() != null && getControllingPassenger() instanceof NpcEntity){
             float currentValue = cir.getReturnValue();
-            float modifier = 1f;
-            float fightingModifier = 1f;
-            if(getControllingPassenger().getVehicle() instanceof HorseEntity){
-                currentValue = 0.5f;
-                fightingModifier = 2f;
-            }
-            if(npcEntity.isFighting()){
-                cir.setReturnValue(Math.max(currentValue * fightingModifier, 0.5f));
-            }
-            cir.setReturnValue(Math.max(currentValue * modifier, 0.25f));
+            if(getControllingPassenger().getVehicle() instanceof HorseEntity)
+                currentValue = NPC_HORSE_SPEED;
+            cir.setReturnValue(Math.max(currentValue, MINIMUM_NPC_MOUNT_SPEED));
         }
     }
     @WrapOperation(method = "applyClimbingSpeed", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z", ordinal = 0))
@@ -155,6 +155,8 @@ public abstract class LivingEntityMixin extends Entity {
         if (!(((Entity)this) instanceof LivingEntity livingEntity)) {
             return;
         }
-        BiomeEventDataLookup.removeEntity(livingEntity.getType(), livingEntity.getUuid());
+        // A nest doesn't look for missing people, so a discarded npc tells it here. Deaths are reported from NpcEntity.onDeath
+        if(reason == Entity.RemovalReason.DISCARDED && livingEntity instanceof NpcEntity npc)
+            NestHost.signalGone(npc.getEntityWorld(), npc.getHostPos(), npc);
     }
 }

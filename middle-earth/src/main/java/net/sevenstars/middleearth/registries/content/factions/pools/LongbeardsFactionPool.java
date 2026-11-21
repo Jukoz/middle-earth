@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.EreborNpcTypePool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.EreborNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -32,25 +32,24 @@ public class LongbeardsFactionPool {
         EREBOR = new Faction(FactionRegistry.LONGBEARDS_EREBOR, true, DispositionType.GOOD, FactionType.SUBFACTION, LONGBEARDS.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            EreborNpcTypePool.PEASANT,
-                            EreborNpcTypePool.MINER
+                            EreborNpcClassPool.PEASANT
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            EreborNpcTypePool.MILITIA
+                            EreborNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            EreborNpcTypePool.SOLDIER,
-                            EreborNpcTypePool.ARCHER
+                            EreborNpcClassPool.SOLDIER,
+                            EreborNpcClassPool.ARCHER
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            EreborNpcTypePool.ELITE
+                            EreborNpcClassPool.ELITE
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            EreborNpcTypePool.VETERAN,
-                            EreborNpcTypePool.GATEWARDEN
+                            EreborNpcClassPool.VETERAN,
+                            EreborNpcClassPool.GATEWARDEN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            EreborNpcTypePool.LEADER
+                            EreborNpcClassPool.LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(

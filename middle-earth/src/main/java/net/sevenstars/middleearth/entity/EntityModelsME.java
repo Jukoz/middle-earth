@@ -11,11 +11,11 @@ import net.sevenstars.middleearth.features.storage.block.reinforcedChest.Reinfor
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityModel;
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollModel;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityModel;
-import net.sevenstars.middleearth.entity.npcs.renderer.features.ear.EarModel;
-import net.sevenstars.middleearth.entity.npcs.renderer.features.feet.FeetModel;
-import net.sevenstars.middleearth.entity.npcs.renderer.features.hair.HairModel;
-import net.sevenstars.middleearth.entity.npcs.renderer.features.nose.NoseModel;
+import net.sevenstars.middleearth.features.npcs.renderer.NpcEntityModel;
+import net.sevenstars.middleearth.features.npcs.renderer.features.ear.EarModel;
+import net.sevenstars.middleearth.features.npcs.renderer.features.feet.FeetModel;
+import net.sevenstars.middleearth.features.npcs.renderer.features.hair.HairModel;
+import net.sevenstars.middleearth.features.npcs.renderer.features.nose.NoseModel;
 import net.sevenstars.middleearth.entity.spider.EnwebbedModel;
 import net.sevenstars.middleearth.entity.spider.larva.ShelobiteLarvaModel;
 import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerModel;

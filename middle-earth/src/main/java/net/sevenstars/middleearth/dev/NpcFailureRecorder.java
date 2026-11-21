@@ -1,0 +1,242 @@
+package net.sevenstars.middleearth.dev;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.command.argument.BlockPosArgumentType;
+import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.ai.pathing.PathNode;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.StructureTemplate;
+import net.minecraft.text.Text;
+import net.minecraft.util.WorldSavePath;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+// Records each distinct given-up task with what's needed to reproduce it, in run/npc-failures/
+// Also adds /npcpath, which asks an npc's pathfinder for a route to a block
+public final class NpcFailureRecorder {
+    private static final Gson GSON = new Gson();
+    // Margin so the route around a building is in the snapshot
+    private static final int MARGIN = 12;
+    private static final int MAXIMUM_ACROSS = 72;
+    private static final int MAXIMUM_HEIGHT = 32;
+    private static final int TARGET_IN_SNAPSHOT = 48;
+    private static final int MAXIMUM_RECORDS = 600;
+    private static final int MAXIMUM_NODES = 48;
+    private static final int MAXIMUM_RANGE = 4;
+    private static final int MAXIMUM_BUDGET = 16;
+    private static final int DEFAULT_RANGE = 0;
+    private static final int DEFAULT_BUDGET = 1;
+    private static final long TICKS_PER_DAY = 24000;
+    private static final long FLUSH_SECONDS = 10;
+    private static final String FAILURES_FOLDER = "npc-failures";
+    private static final String FAILURES_FILE = "failures.jsonl";
+    private static final String SNAPSHOT_EXTENSION = ".nbt";
+    private static final Set<String> SEEN = new HashSet<>();
+    // One thread, so lines of the file don't interleave
+    private static final ExecutorService WRITER = Executors.newSingleThreadExecutor(task -> {
+        Thread thread = new Thread(task, "npc-failure-writer");
+        thread.setDaemon(true);
+        return thread;
+    });
+    private static int recorded = 0;
+
+    private NpcFailureRecorder() {
+    }
+
+    private record Failure(String id, JsonObject json, NbtCompound snapshot) {}
+
+    public static void record(NpcEntity npc, String who, String task, String phase, String why, @Nullable BlockPos target,
+                              @Nullable BlockPos bed, @Nullable BlockPos home, @Nullable Path path) {
+        if(!(npc.getEntityWorld() instanceof ServerWorld world) || recorded >= MAXIMUM_RECORDS)
+            return;
+        BlockPos pos = npc.getBlockPos();
+        // Same npc kind giving up the same way at the same spot is one failure
+        String key = who + "|" + task + "|" + why.replaceAll("-?\\d+", "#") + "|" + (pos.getX() >> 1) + "," + pos.getY() + "," + (pos.getZ() >> 1);
+        if(!SEEN.add(key))
+            return;
+        recorded++;
+        Failure failure = build(world, npc, key, who, task, phase, why, target, bed, home, path);
+        WRITER.execute(() -> write(failure));
+    }
+
+    // Reads the world, so it runs on the server thread
+    private static Failure build(ServerWorld world, NpcEntity npc, String key, String who, String task, String phase, String why, @Nullable BlockPos target,
+                                 @Nullable BlockPos bed, @Nullable BlockPos home, @Nullable Path path) {
+        BlockPos pos = npc.getBlockPos();
+        // Save folder name, since copied worlds keep the first one's level name
+        String worldName = String.valueOf(world.getServer().getSavePath(WorldSavePath.ROOT).normalize().getFileName()).replaceAll("[^A-Za-z0-9_-]", "_");
+        String id = "%s-%d-%s".formatted(worldName, world.getTime(), Integer.toHexString(key.hashCode()));
+
+        BlockPos other = target != null && target.isWithinDistance(pos, TARGET_IN_SNAPSHOT) ? target : pos;
+        int minX = Math.min(pos.getX(), other.getX()) - MARGIN;
+        int minY = Math.min(pos.getY(), other.getY()) - MARGIN;
+        int minZ = Math.min(pos.getZ(), other.getZ()) - MARGIN;
+        int sizeX = Math.min(Math.abs(pos.getX() - other.getX()) + 2 * MARGIN + 1, MAXIMUM_ACROSS);
+        int sizeY = Math.min(Math.abs(pos.getY() - other.getY()) + 2 * MARGIN + 1, MAXIMUM_HEIGHT);
+        int sizeZ = Math.min(Math.abs(pos.getZ() - other.getZ()) + 2 * MARGIN + 1, MAXIMUM_ACROSS);
+        BlockPos origin = new BlockPos(minX, minY, minZ);
+
+        JsonObject out = new JsonObject();
+        out.addProperty("id", id);
+        out.addProperty("world", worldName);
+        out.addProperty("seed", world.getSeed());
+        out.addProperty("dimension", world.getRegistryKey().getValue().toString());
+        out.addProperty("gameTime", world.getTime());
+        out.addProperty("dayTime", world.getTimeOfDay() % TICKS_PER_DAY);
+        out.addProperty("who", who);
+        out.addProperty("uuid", npc.getUuidAsString());
+        out.addProperty("type", npc.getNpcClass() == null ? "?" : npc.getNpcClass().getId().toString());
+        out.addProperty("role", npc.getJobId() == null ? null : npc.getJobId().toString());
+        out.addProperty("task", task);
+        out.addProperty("phase", phase);
+        out.addProperty("why", why);
+        JsonArray at = new JsonArray();
+        at.add(npc.getX());
+        at.add(npc.getY());
+        at.add(npc.getZ());
+        out.add("pos", at);
+        out.addProperty("yaw", npc.getYaw());
+        out.addProperty("onGround", npc.isOnGround());
+        out.addProperty("inWater", npc.isTouchingWater());
+        out.addProperty("width", npc.getWidth());
+        out.addProperty("height", npc.getHeight());
+        out.add("target", block(target));
+        out.add("bed", block(bed));
+        out.add("bedStand", block(npc.getBedStand()));
+        out.add("home", block(home));
+        out.add("store", block(npc.getStore()));
+        out.add("manager", block(npc.getHostPos()));
+        if(path != null) {
+            JsonObject route = new JsonObject();
+            route.addProperty("length", path.getLength());
+            route.addProperty("index", path.getCurrentNodeIndex());
+            route.addProperty("reachesTarget", path.reachesTarget());
+            JsonArray nodes = new JsonArray();
+            for(int i = 0; i < Math.min(path.getLength(), MAXIMUM_NODES); i++) {
+                PathNode node = path.getNode(i);
+                JsonArray n = new JsonArray();
+                n.add(node.x);
+                n.add(node.y);
+                n.add(node.z);
+                n.add(node.type.name().toLowerCase());
+                nodes.add(n);
+            }
+            route.add("nodes", nodes);
+            out.add("path", route);
+        }
+        out.add("snapshotOrigin", block(origin));
+        JsonArray size = new JsonArray();
+        size.add(sizeX);
+        size.add(sizeY);
+        size.add(sizeZ);
+        out.add("snapshotSize", size);
+        out.addProperty("snapshot", id + SNAPSHOT_EXTENSION);
+        StructureTemplate template = new StructureTemplate();
+        template.saveFromWorld(world, origin, new Vec3i(sizeX, sizeY, sizeZ), false, List.of());
+        return new Failure(id, out, template.writeNbt(new NbtCompound()));
+    }
+
+    private static void write(Failure failure) {
+        var dir = FabricLoader.getInstance().getGameDir().resolve(FAILURES_FOLDER);
+        try {
+            Files.createDirectories(dir);
+            NbtIo.writeCompressed(failure.snapshot(), dir.resolve(failure.id() + SNAPSHOT_EXTENSION));
+            Files.writeString(dir.resolve(FAILURES_FILE), GSON.toJson(failure.json()) + "\n", StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch(IOException e) {
+            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not write the failure " + failure.id(), e);
+        }
+    }
+
+    // The writer is a daemon thread, so queued writes would be lost at exit
+    private static void flush() {
+        try {
+            WRITER.submit(() -> {}).get(FLUSH_SECONDS, TimeUnit.SECONDS);
+        } catch(InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch(ExecutionException | TimeoutException | RejectedExecutionException e) {
+            MiddleEarth.LOGGER.logError("NpcFailureRecorder :: could not flush the queued failures", e);
+        }
+    }
+
+    private static @Nullable JsonArray block(@Nullable BlockPos pos) {
+        if(pos == null)
+            return null;
+        JsonArray out = new JsonArray();
+        out.add(pos.getX());
+        out.add(pos.getY());
+        out.add(pos.getZ());
+        return out;
+    }
+
+    // /npcpath <npc> <x y z> [range] [range multiplier] prints the route node by node
+    public static void register() {
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> flush());
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            SEEN.clear();
+            recorded = 0;
+        });
+        CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> dispatcher.register(CommandManager.literal("npcpath")
+                .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
+                .then(CommandManager.argument("npc", EntityArgumentType.entity())
+                        .then(CommandManager.argument("to", BlockPosArgumentType.blockPos())
+                                .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"), BlockPosArgumentType.getBlockPos(context, "to"), DEFAULT_RANGE, DEFAULT_BUDGET))
+                                .then(CommandManager.argument("range", IntegerArgumentType.integer(0, MAXIMUM_RANGE))
+                                        .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"),
+                                                BlockPosArgumentType.getBlockPos(context, "to"), IntegerArgumentType.getInteger(context, "range"), DEFAULT_BUDGET))
+                                        .then(CommandManager.argument("budget", IntegerArgumentType.integer(1, MAXIMUM_BUDGET))
+                                                .executes(context -> path(context.getSource(), EntityArgumentType.getEntity(context, "npc"),
+                                                        BlockPosArgumentType.getBlockPos(context, "to"), IntegerArgumentType.getInteger(context, "range"), IntegerArgumentType.getInteger(context, "budget")))))))));
+    }
+
+    private static int path(ServerCommandSource source, Entity entity, BlockPos to, int range, int budget) {
+        if(!(entity instanceof NpcEntity npc)) {
+            source.sendError(Text.literal("not an npc"));
+            return 0;
+        }
+        npc.getNavigation().setRangeMultiplier(budget);
+        Path path = npc.getNavigation().findPathTo(to, range);
+        npc.getNavigation().resetRangeMultiplier();
+        if(path == null) {
+            source.sendFeedback(() -> Text.literal("no path at all"), false);
+            return 0;
+        }
+        PathNode end = path.getEnd();
+        source.sendFeedback(() -> Text.literal("path of %d nodes, reaches the target: %s, ends at %s".formatted(path.getLength(), path.reachesTarget(),
+                end == null ? "?" : end.x + "," + end.y + "," + end.z)), false);
+        StringBuilder nodes = new StringBuilder();
+        for(int i = 0; i < path.getLength(); i++) {
+            PathNode node = path.getNode(i);
+            nodes.append(node.x).append(',').append(node.y).append(',').append(node.z).append(' ').append(node.type.name().toLowerCase()).append(i + 1 < path.getLength() ? " | " : "");
+        }
+        source.sendFeedback(() -> Text.literal(nodes.toString()), false);
+        return path.reachesTarget() ? 1 : 0;
+    }
+}

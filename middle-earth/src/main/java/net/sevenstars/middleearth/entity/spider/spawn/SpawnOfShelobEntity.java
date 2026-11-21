@@ -44,7 +44,7 @@ import net.sevenstars.middleearth.entity.goals.SmartProjectileAttackGoal;
 import net.sevenstars.middleearth.entity.goals.SpiderPonceAtTargetGoal;
 import net.sevenstars.middleearth.entity.goals.interfaces.CooldownRangedAttackMob;
 import net.sevenstars.middleearth.entity.goals.interfaces.Shielder;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.entity.projectile.WebbedEntity;
 import net.sevenstars.middleearth.entity.spider.Pouncer;
 import net.sevenstars.middleearth.entity.spider.SpiderVariant;

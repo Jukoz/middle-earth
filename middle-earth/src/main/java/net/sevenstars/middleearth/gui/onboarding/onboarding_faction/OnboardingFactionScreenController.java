@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntitiesME;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResult;
 import net.sevenstars.middleearth.gui.utils.widgets.searchbar.SearchBarResultType;
@@ -30,7 +30,7 @@ import net.sevenstars.middleearth.resources.datas.factions.Faction;
 import net.sevenstars.middleearth.resources.datas.factions.FactionLookup;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceStatTooltip;
 import org.joml.Vector2d;
@@ -391,7 +391,7 @@ public class OnboardingFactionScreenController {
         Faction currentFaction = getCurrentFaction();
 
         if(!forced){
-            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcType().getRace() == selectedRace.getId())
+            if(currentNpcEntity != null && currentFaction != null && currentNpcEntity.getFactionIdentifier() == currentFaction.getId() && currentNpcEntity.getNpcClass().getRace() == selectedRace.getId())
                 return;
         }
 
@@ -401,7 +401,7 @@ public class OnboardingFactionScreenController {
         var idList = currentFaction.getAllNpcDatas().values().stream().flatMap(List::stream).toList();
 
         // filter list by race
-        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC_TYPE);
+        var optionalNpcRegistry = world.getRegistryManager().getOptional(DynamicRegistriesME.NPC_CLASS);
         if(optionalNpcRegistry.isEmpty())
             return;
 
@@ -421,8 +421,8 @@ public class OnboardingFactionScreenController {
             this.screen.elements.npcPreviewWidget.updateEntity(id, selectedRace, clientWorld, false);
     }
 
-    private boolean filterNpc(Registry<NpcType> registry, Identifier elementToFilter){
-        NpcType foundData = registry.get(elementToFilter);
+    private boolean filterNpc(Registry<NpcClass> registry, Identifier elementToFilter){
+        NpcClass foundData = registry.get(elementToFilter);
         if(foundData == null) return false;
 
         if(selectedRace == null)

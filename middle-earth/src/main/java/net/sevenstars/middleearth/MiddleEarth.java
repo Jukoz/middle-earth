@@ -15,6 +15,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
+import net.sevenstars.middleearth.features.npcs.Npcs;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.config.ClientConfigME;
@@ -26,6 +27,7 @@ import net.sevenstars.middleearth.entity.TrackedDataHandlerRegistryME;
 import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
 import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
 import net.sevenstars.middleearth.entity.ai.brain.SensorsME;
+import net.sevenstars.middleearth.features.npcs.ai.NpcSensors;
 import net.sevenstars.middleearth.event.EventRegistryME;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.item.*;
@@ -51,7 +53,6 @@ import net.sevenstars.middleearth.world.biomes.surface.MapBiomeData;
 import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.sevenstars.middleearth.world.gen.CustomWorldGeneration;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
-import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
@@ -75,6 +76,7 @@ public class MiddleEarth implements ModInitializer {
 		LOGGER.logInfoMsg("================ MiddleEarth ================");
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
+		Npcs.register();
 		EventRegistryME.register();
 		StartInMiddleEarth.register();
 		ServerConfigME.registerConfigs();
@@ -130,10 +132,10 @@ public class MiddleEarth implements ModInitializer {
 
 
 		EntitiesME.registerModEntities();
-		EntitySpawningME.addSpawns();
 
 		// Entity AI
 		SensorsME.registerModSensors();
+		NpcSensors.register();
 		ActivitiesME.registerModActivities();
 		MemoryModulesME.registerModMemoryModules();
 

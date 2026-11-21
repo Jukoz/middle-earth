@@ -5,14 +5,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.Optional;
-import java.util.Random;
 
-/// StructureSpawnNestPool is a list of npcs with spawn parameters such as weight, category, etc.
 public class StructureSpawnNestPool {
     public static final Codec<StructureSpawnNestPool> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             EntityType.CODEC.fieldOf("entity_type").forGetter(StructureSpawnNestPool::getEntityType),
@@ -57,7 +56,7 @@ public class StructureSpawnNestPool {
         this.maxAmount = Optional.empty();
     }
 
-    public StructureSpawnNestPool SetNpcData(RegistryKey<Faction> factionKey, RegistryKey<NpcType> npc){
+    public StructureSpawnNestPool SetNpcData(RegistryKey<Faction> factionKey, RegistryKey<NpcClass> npc){
         this.factionKey = Optional.of(factionKey);
         this.npcIdentifier = Optional.of(npc.getValue());
         return this;
@@ -81,11 +80,9 @@ public class StructureSpawnNestPool {
     public EntityType<?> getEntityType() {
         return entityType;
     }
-    public int getEntityAmount(){
-        if(maxAmount.isPresent()){
-            Random random = new Random();
-            return random.nextInt(amount, (maxAmount.get() + 1));
-        }
+    public int getEntityAmount(Random random){
+        if(maxAmount.isPresent())
+            return random.nextBetween(amount, maxAmount.get());
         return this.amount;
     }
     public Optional<Identifier> getNpcIdentifier() {

@@ -4,11 +4,12 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.MoriaNpcTypePool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.MoriaNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -26,23 +27,23 @@ public class MoriaFactionPool {
         MORIA = new Faction(FactionRegistry.MORIA, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MoriaNpcTypePool.GOBLIN
+                            MoriaNpcClassPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MoriaNpcTypePool.MILITIA,
-                            MoriaNpcTypePool.SCOUT
+                            MoriaNpcClassPool.MILITIA,
+                            MoriaNpcClassPool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MoriaNpcTypePool.WARRIOR
+                            MoriaNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MoriaNpcTypePool.RIDER
+                            MoriaNpcClassPool.RIDER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MoriaNpcTypePool.VETERAN
+                            MoriaNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MoriaNpcTypePool.CHIEF
+                            MoriaNpcClassPool.CHIEF
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -72,7 +73,7 @@ public class MoriaFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        );
+        ).withCreatures(FactionCreatures.friendlyToShadowBeasts());
 
     }
 }

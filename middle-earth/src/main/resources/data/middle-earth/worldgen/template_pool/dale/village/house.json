@@ -11,7 +11,7 @@
         "processors": "middle-earth:randomize_dale_road"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -20,25 +20,30 @@
         "processors": "middle-earth:randomize_dale_road"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:dale/village/bakery_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_dale_road"
+        "processors": "middle-earth:randomize_dale_road",
+        "name": "dale_bakery_house",
+        "max_count": 1,
+        "priority": true
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:dale/village/lumber_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_dale_road"
+        "processors": "middle-earth:randomize_dale_road",
+        "name": "dale_lumber_house",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -47,7 +52,7 @@
         "processors": "middle-earth:randomize_dale_road"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -56,31 +61,38 @@
         "processors": "middle-earth:randomize_dale_road"
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:dale/village/great_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_dale_road"
+        "processors": "middle-earth:randomize_dale_road",
+        "name": "dale_great_house",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:dale/village/smith_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_dale_road"
+        "processors": "middle-earth:randomize_dale_road",
+        "name": "dale_smith_house",
+        "max_count": 1,
+        "priority": true
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:dale/village/stables_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_dale_road"
+        "processors": "middle-earth:randomize_dale_road",
+        "name": "dale_stables_house",
+        "max_count": 1
       }
     }
   ]

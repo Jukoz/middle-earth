@@ -14,7 +14,7 @@ import net.sevenstars.middleearth.features.storage.block.reinforcedChest.Reinfor
 import net.sevenstars.middleearth.features.storage.block.sack.SackBlockEntity;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntity;
 import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.block.special.structureManager.nest.StructureNestBlockEntity;
+import net.sevenstars.middleearth.block.special.structureManager.marker.StructureMarkerBlockEntity;
 import net.sevenstars.middleearth.features.storage.block.wood_pile.WoodPileBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -28,8 +28,8 @@ public class BlockEntityRegistryME {
             DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER);
     public static BlockEntityType<StructureManagerBlockEntity> ORC_STRUCTURE_MANAGER = register("orc_structure_manager", StructureManagerBlockEntity::new,
             DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER);
-    public static BlockEntityType<StructureNestBlockEntity> STRUCTURE_NEST = register("structure_nest", StructureNestBlockEntity::new,
-            DecorativeBlockRegistryME.STRUCTURE_NEST);
+    public static BlockEntityType<StructureMarkerBlockEntity> STRUCTURE_MARKER = register("structure_marker", StructureMarkerBlockEntity::new,
+            DecorativeBlockRegistryME.STRUCTURE_MARKER);
 
 
     public static BlockEntityType<OldSkullBlockEntity> OLD_SKULL = register("old_skull", OldSkullBlockEntity::new, DecorativeBlockRegistryME.OLD_SKULL);

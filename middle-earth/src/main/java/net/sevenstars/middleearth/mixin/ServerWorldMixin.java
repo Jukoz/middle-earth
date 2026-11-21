@@ -1,18 +1,15 @@
 package net.sevenstars.middleearth.mixin;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.rule.GameRules;
-import net.sevenstars.middleearth.resources.datas.biome_events.BiomeEventDataLookup;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
@@ -46,12 +43,5 @@ public class ServerWorldMixin {
         if (overworld.getGameRules().getValue(GameRules.ADVANCE_WEATHER) && overworld.isRaining()) {
             overworld.resetWeather();
         }
-    }
-
-    @Inject(method = "spawnEntity", at = @At("TAIL"))
-    private void onSpawn(Entity entity, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue() || !(entity instanceof LivingEntity living))
-            return;
-        BiomeEventDataLookup.addEntity(living);
     }
 }

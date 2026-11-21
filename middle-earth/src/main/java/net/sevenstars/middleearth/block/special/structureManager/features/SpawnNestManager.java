@@ -1,28 +1,33 @@
 package net.sevenstars.middleearth.block.special.structureManager.features;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BedBlock;
-import net.minecraft.block.DoubleBlockProperties;
-import net.minecraft.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Uuids;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.block.special.structureManager.StructureManagerBlockEntity;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
+import net.sevenstars.middleearth.features.npcs.routine.PrisonCell;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSite;
+import net.sevenstars.middleearth.features.npcs.routine.RoutineSites;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
+import net.sevenstars.middleearth.resources.datas.structure_features.StructureFeatureData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureManagerData;
 import net.sevenstars.middleearth.resources.datas.structure_manager_datas.StructureSpawnNestPool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class SpawnNestManager {
     public static final Codec<SpawnNestManager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -31,45 +36,76 @@ public class SpawnNestManager {
             Codec.LONG.fieldOf("respawn_event_trigger_tick").forGetter(SpawnNestManager::getRespawnEventTriggerTick),
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestManager::getRespawnTickDelay),
             BlockPos.CODEC.fieldOf("origin_pos").forGetter(SpawnNestManager::getOriginPos),
-            Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius)
-    ).apply(instance, SpawnNestManager::new));
+            Codec.INT.fieldOf("spawn_radius").forGetter(SpawnNestManager::getSpawnRadius),
+            BlockPos.CODEC.optionalFieldOf("bed").forGetter(manager -> manager.household.map(Household::bed)),
+            Identifier.CODEC.optionalFieldOf("bed_role").forGetter(manager -> manager.household.flatMap(Household::job)),
+            Identifier.CODEC.optionalFieldOf("bed_class").forGetter(manager -> manager.household.flatMap(Household::npcClass)),
+            BlockPos.CODEC.optionalFieldOf("store").forGetter(manager -> manager.household.flatMap(Household::store)),
+            BlockPos.CODEC.listOf().optionalFieldOf("links", List.of()).forGetter(manager -> manager.household.map(Household::links).orElse(List.of())),
+            Codec.INT.optionalFieldOf("capacity", 0).forGetter(manager -> manager.capacity)
+    ).apply(instance, SpawnNestManager::load));
 
-    private static final String ID = "spawn_nest_data";
+    private static final int BED_SPAWN_RADIUS = 2;
+    private static final int GUARD_COUNT_MARGIN = 48;
 
-    private Identifier id;
-    private ArrayList<UUID> entities;
-    private long respawnEventTriggerTick;
-    private int respawnTickDelay;
-    private BlockPos originPos;
-    private int spawnRadius;
-
-    private List<BedBlock> beds = new ArrayList<>();
-
-    public SpawnNestManager(Identifier dataId, List<UUID> dataEntities, long dataRespawnEventTriggerTick, int dataRespawnTickDelay, BlockPos position, int spawnRadius) {
-        this.id = dataId;
-        this.entities =  Lists.newArrayList();
-        this.entities.addAll(dataEntities);
-        this.respawnEventTriggerTick = dataRespawnEventTriggerTick;
-        this.respawnTickDelay = dataRespawnTickDelay;
-        this.originPos = position;
-        this.spawnRadius = spawnRadius;
+    // Single-person nest: the bed (the nest's origin), its job and its store. Links are the places
+    // the builder tied the bed to; empty means the npc finds its own work
+    public record Household(BlockPos bed, Optional<Identifier> job, Optional<Identifier> npcClass, Optional<BlockPos> store, List<BlockPos> links) {
+        public Household {
+            links = List.copyOf(links);
+        }
     }
 
-    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius) {
-        this.entities = new ArrayList<UUID>();
-        this.id = spawnNestNodeData.getId();
-        this.respawnTickDelay = spawnNestNodeData.getRespawnTickDelay();
-        this.respawnEventTriggerTick = 0;
-        this.originPos = position;
+    private final Identifier id;
+    private final List<UUID> entities = new ArrayList<>();
+    private long respawnEventTriggerTick;
+    private final int respawnTickDelay;
+    private final BlockPos originPos;
+    private final int spawnRadius;
+    private final Optional<Household> household;
+    // Above 0 for a nest with a set number of people: one per tagged bed, or a spawn_npc marker's count.
+    // 0 means the pool picks the number
+    private final int capacity;
+
+    private SpawnNestManager(Identifier id, List<UUID> entities, long respawnEventTriggerTick, int respawnTickDelay, BlockPos originPos, int spawnRadius, Optional<Household> household, int capacity) {
+        this.id = id;
+        this.entities.addAll(entities);
+        this.respawnEventTriggerTick = respawnEventTriggerTick;
+        this.respawnTickDelay = respawnTickDelay;
+        this.originPos = originPos;
         this.spawnRadius = spawnRadius;
+        this.household = household;
+        this.capacity = capacity;
+    }
+
+    private static SpawnNestManager load(Identifier id, List<UUID> entities, long respawnEventTriggerTick, int respawnTickDelay, BlockPos originPos, int spawnRadius, Optional<BlockPos> bed, Optional<Identifier> bedJob, Optional<Identifier> bedClass, Optional<BlockPos> store, List<BlockPos> links, int capacity) {
+        Optional<Household> household = bed.map(pos -> new Household(pos, bedJob, bedClass, store, links));
+        return new SpawnNestManager(id, entities, respawnEventTriggerTick, respawnTickDelay, originPos, spawnRadius, household, capacity);
+    }
+
+    // The delay only applies to respawns. A new settlement fills at once
+    private static long freshTriggerTick(SpawnNestNodeData data) {
+        return -data.getRespawnTickDelay();
+    }
+
+    // A marker's nest
+    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, BlockPos position, int spawnRadius, int capacity) {
+        this(spawnNestNodeData.getId(), List.of(), freshTriggerTick(spawnNestNodeData), spawnNestNodeData.getRespawnTickDelay(), position, spawnRadius, Optional.empty(), capacity);
+    }
+
+    // A bed's nest
+    public SpawnNestManager(SpawnNestNodeData spawnNestNodeData, StructureFeatureData.Bed tagged) {
+        this(spawnNestNodeData.getId(), List.of(), freshTriggerTick(spawnNestNodeData), spawnNestNodeData.getRespawnTickDelay(), tagged.pos(), BED_SPAWN_RADIUS,
+                Optional.of(new Household(tagged.pos(), tagged.tag().flatMap(BedTag::job), tagged.tag().flatMap(BedTag::npcClass), tagged.store(),
+                        tagged.manual() ? tagged.links() : List.of())), 1);
     }
 
     public Identifier getId() {
         return this.id;
     }
 
-    public ArrayList<UUID> getEntityUuids() {
-        return entities;
+    public List<UUID> getEntityUuids() {
+        return Collections.unmodifiableList(entities);
     }
 
     private long getRespawnEventTriggerTick() {
@@ -86,35 +122,43 @@ public class SpawnNestManager {
         return this.spawnRadius;
     }
 
+    public boolean hasFixedCapacity() {
+        return capacity > 0;
+    }
+
+    public Optional<Identifier> getHouseholdJob() {
+        return household.flatMap(Household::job);
+    }
+
     public void addEntity(LivingEntity entity){
         if(entity.getEntityWorld().isClient())
             return;
 
-        UUID uuid = entity.getUuid();
-        if(this.entities == null)
-            this.entities = new ArrayList<UUID>();
-
-        this.entities.add(uuid);
+        this.entities.add(entity.getUuid());
     }
 
     public boolean removeEntity(LivingEntity entity){
-        if(entity.getEntityWorld().isClient() || !this.entities.contains(entity.getUuid()))
+        if(entity.getEntityWorld().isClient())
             return false;
-        this.entities.remove(entity.getUuid());
-        if(this.entities.isEmpty()){
-            beginRespawnSequence(entity.getEntityWorld());
-        }
-        return true;
+        return removeUuid(entity.getUuid(), entity.getEntityWorld());
     }
-    public void removeEntity(World world, UUID uuid){
-        if(world.isClient() || !this.entities.contains(uuid))
-            return;
-        this.entities.remove(uuid);
+
+    private boolean removeUuid(UUID uuid, World world){
+        if(!this.entities.remove(uuid))
+            return false;
         if(this.entities.isEmpty()){
             beginRespawnSequence(world);
         }
+        return true;
     }
 
+    // A previous nest's people still live here
+    public void adopt(List<UUID> uuids){
+        for(UUID uuid : uuids){
+            if(!entities.contains(uuid))
+                entities.add(uuid);
+        }
+    }
     private void beginRespawnSequence(World world) {
         this.respawnEventTriggerTick = world.getTime();
     }
@@ -124,85 +168,87 @@ public class SpawnNestManager {
         return entities.isEmpty() && (respawnEventTriggerTick == 0 || time > respawnEventTriggerTick + respawnTickDelay);
     }
 
-    public void tick(StructureManagerData structureManagerData, long currentTick, ServerWorld world, BlockPos sourcePos) {
+    public void tick(long currentTick, ServerWorld world, BlockPos sourcePos) {
+        boolean left = false;
+        for(UUID uuid : GoneSignals.take(world, sourcePos))
+            left |= removeUuid(uuid, world);
+        if(left)
+            world.markDirty(sourcePos);
         if(canRespawn(currentTick)){
-            respawnAll(structureManagerData, world, sourcePos);
+            respawnAll(world, sourcePos);
         }
     }
 
-    public void doWellnessCheck(StructureManagerData structureManagerData, World world, BlockPos sourcePos) {
-        if(entities != null && !entities.isEmpty()){
-            List<UUID> toRemove = new ArrayList<>();
-            for (UUID uuid : entities){ // Wellness check
-                var entity = world.getEntity(uuid);
-                if(entity == null || !entity.isAlive())
-                    toRemove.add(uuid);
-            }
-            for (UUID uuid : toRemove)
-                removeEntity(world, uuid);
-        }
-    }
-
-
-    private void respawnAll(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
-        if(structureManagerData == null)
-            return;
-        SpawnNestNodeData data = structureManagerData.getNpcSpawnNest(id);
+    private void respawnAll(ServerWorld world, BlockPos hostPos) {
+        SpawnNestNodeData data = NestLookup.findNest(world, id);
 
         if(data != null){
-            StructureSpawnNestPool pool = data.getRandomPool();
-            int entityAmountToSpawn = pool.getEntityAmount();
-            for(int i = 0; i < entityAmountToSpawn; i ++){
-                LivingEntity entityToAdd = StructureManagerService.spawnEntity(world, pool, originPos, spawnRadius);
-                if(entityToAdd instanceof NpcEntity npcEntity){
-                    npcEntity.assignStructureManager((StructureManagerBlockEntity) world.getBlockEntity(structureManagerPos));
+            StructureSpawnNestPool pool = data.getRandomPool(world.getRandom());
+            BlockPos bedside = null;
+            if(household.isPresent()) {
+                BlockPos bed = household.get().bed();
+                if(!world.isChunkLoaded(bed.getX() >> 4, bed.getZ() >> 4))
+                    return;
+                if(!(world.getBlockState(bed).getBlock() instanceof BedBlock)) {
+                    // A broken bed houses nobody. Check again after the usual wait
+                    this.respawnEventTriggerTick = world.getTime();
+                    return;
                 }
+                bedside = NestSurvey.standFor(world, bed);
+            }
+            RoutineSite site = RoutineSites.forManager(world, hostPos);
+            int entityAmountToSpawn = hasFixedCapacity() ? capacity : pool.getEntityAmount(world.getRandom());
+            for(int i = 0; i < entityAmountToSpawn; i ++){
+                LivingEntity entityToAdd = spawnResident(world, pool, bedside);
+                if(entityToAdd instanceof NpcEntity npcEntity)
+                    settle(npcEntity, data, world, hostPos, site, bedside);
                 if(entityToAdd != null)
                     addEntity(entityToAdd);
             }
-            world.markDirty(structureManagerPos);
+            world.markDirty(hostPos);
         }
-        this.respawnEventTriggerTick = -1;
+        if(entities.isEmpty())
+            this.respawnEventTriggerTick = world.getTime();
     }
 
-    public boolean computeDeath(LivingEntity entity) {
-        if (removeEntity(entity)) {
-            return true;
-        }
-        return false;
+    private @Nullable LivingEntity spawnResident(ServerWorld world, StructureSpawnNestPool pool, @Nullable BlockPos bedside) {
+        Optional<Identifier> bedClass = household.flatMap(Household::npcClass);
+        if(bedClass.isPresent())
+            return NestSpawner.spawnNpcAt(world, bedClass.get(), bedside != null ? bedside : originPos);
+        if(bedside != null)
+            return NestSpawner.spawnEntityAt(world, pool, bedside);
+        return NestSpawner.spawnEntity(world, pool, originPos, spawnRadius);
     }
 
-    public void forceRespawn(StructureManagerData structureManagerData, ServerWorld world, BlockPos structureManagerPos) {
-        for(var uuid : getEntityUuids()){
-            if(world.getEntity(uuid) instanceof LivingEntity livingEntity){
-                livingEntity.setRemoved(Entity.RemovalReason.DISCARDED);
-                MiddleEarth.LOGGER.logDebugMsg("Removed %s".formatted(uuid));
-            }
+    private void settle(NpcEntity npc, SpawnNestNodeData data, ServerWorld world, BlockPos hostPos, @Nullable RoutineSite site, @Nullable BlockPos bedside) {
+        Optional<Identifier> bedJob = getHouseholdJob();
+        Optional<Identifier> job = bedJob.isPresent() ? bedJob : data.getJob();
+        if(job.isEmpty() && (NpcJobs.isGuardNest(BedTag.nestKindOf(id)) || mansPosts(site, npc)))
+            job = guardDuty(world, hostPos, site);
+        job.ifPresent(npc::takeJob);
+        npc.assignHost(hostPos);
+        if(npc.isPrisoner()) {
+            npc.setPrisonCell(PrisonCell.around(world, npc.getBlockPos()));
         }
-        entities = new ArrayList<UUID>();
-
-        refreshBeds(structureManagerData, world);
-        respawnAll(structureManagerData, world, structureManagerPos);
+        if(household.isPresent())
+            npc.setHousehold(household.get().bed(), bedside, household.get().store().orElse(null), household.get().links());
+        else if(hasFixedCapacity())
+            npc.setHousehold(null, null, null, List.of());
     }
 
-    public void refreshBeds(StructureManagerData structureManagerData, World world){
-        // TODO : Connect with the @StructureManagerBlockEntity.fetchBeds() / Redistribute
+    private Optional<Identifier> guardDuty(ServerWorld world, BlockPos hostPos, @Nullable RoutineSite site) {
+        if(site == null)
+            return Optional.of(NpcJobs.PATROL.getValue());
+        int reach = site.getExtent() + GUARD_COUNT_MARGIN;
+        Box area = new Box(site.getCenterX() - reach, world.getBottomY(), site.getCenterZ() - reach, site.getCenterX() + reach, world.getTopYInclusive(), site.getCenterZ() + reach);
+        return Optional.of(NpcJobs.guardDuty(site, world.getEntitiesByClass(NpcEntity.class, area, NpcEntity::isAlive)));
+    }
 
-        BlockPos origin = getOriginPos();
-        int bedRadius = 10;
-        List<BlockPos> bedBlockPositions = new ArrayList<>();
-        BlockPos.findClosest(origin, bedRadius, 5, new Predicate<BlockPos>() {
-            @Override
-            public boolean test(BlockPos blockPos) {
-                var blockState = world.getBlockState(blockPos);
-                if(blockState.getBlock() instanceof BedBlock bedBlock){
-                    if(BedBlock.getBedPart(blockState) == DoubleBlockProperties.Type.FIRST){
-                        bedBlockPositions.add(blockPos);
-                    }
-                }
-                return false;
-            }
-        });
+    // A fighter stands guard where the build marks posts, like a watch tower. Elsewhere it keeps its kind's routine
+    private boolean mansPosts(@Nullable RoutineSite site, NpcEntity npc) {
+        NpcClass npcClass = npc.getNpcClass();
+        if(npcClass == null || npcClass.isCivilian())
+            return false;
+        return site != null && (!site.getMarkers(MarkerKind.ENTRANCE).isEmpty() || !site.getMarkers(MarkerKind.GUARD_POST).isEmpty());
     }
 }
-

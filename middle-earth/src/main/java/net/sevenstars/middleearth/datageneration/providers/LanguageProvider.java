@@ -6,12 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
 import net.sevenstars.middleearth.common.metal.MetalTypes;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.armor.backAttachments.BackAttachmentsME;
 import net.sevenstars.middleearth.item.utils.armor.helmetAttachments.HelmetAttachmentsME;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
-import net.sevenstars.middleearth.resources.datas.structure_manager_datas.SpawnNestNodeData;
+import net.sevenstars.middleearth.block.special.structureManager.marker.MarkerKind;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -66,6 +67,12 @@ public class LanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("item." + MiddleEarth.MOD_ID + "." + path, generateName(path));
         });
 
+        // The job replaces the noun: Shire Baker, Rohan Herdsman
+        NpcJobs.all().forEach(job -> {
+            String path = job.getValue().getPath();
+            translationBuilder.add("npc_role." + MiddleEarth.MOD_ID + "." + path, "%s " + generateName(path));
+        });
+
         TranslationEntries.itemEntries.forEach(item -> {
             translationBuilder.add(item, generateName(Registries.ITEM.getId(item).getPath()));
         });
@@ -102,7 +109,7 @@ public class LanguageProvider extends FabricLanguageProvider {
             createTranslation(translationBuilder, "faction", faction);
         });
 
-        TranslationEntries.npcTypeEntries.forEach(npcData -> {
+        TranslationEntries.npcClassEntries.forEach(npcData -> {
             createNpcDataTranslation(translationBuilder, "npc_type", npcData);
         });
 
@@ -112,10 +119,11 @@ public class LanguageProvider extends FabricLanguageProvider {
 
         TranslationEntries.structureManagerEntries.forEach(structureManagerData -> {
             createTranslation(translationBuilder, "structure_manager_data", structureManagerData.getId().getPath());
-            for(SpawnNestNodeData spawnNest : structureManagerData.getNpcSpawnNest()) {
-                createTranslation(translationBuilder, "structure_nest", spawnNest.getId().getPath());
-            }
         });
+
+        for(MarkerKind kind : MarkerKind.values()) {
+            createTranslation(translationBuilder, "structure_marker", kind.asString());
+        }
 
         TranslationEntries.spawnEntries.forEach(faction -> {
             createTranslation(translationBuilder, "spawn", faction);

@@ -50,6 +50,14 @@ public class InitialDiplomacy {
         return compound;
     }
 
+    public Identifier getFactionId() {
+        return factionId;
+    }
+
+    public AffinityLevel getAffinity() {
+        return affinity;
+    }
+
     public boolean isHostileToward(Identifier faction) {
         if(faction.equals(factionId)){
             return affinity == AffinityLevel.HOSTILE;

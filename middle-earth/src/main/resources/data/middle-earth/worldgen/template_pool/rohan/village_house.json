@@ -11,7 +11,7 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -20,7 +20,7 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -29,7 +29,7 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 3,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -38,7 +38,7 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -47,7 +47,7 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -56,58 +56,72 @@
         "processors": "middle-earth:randomize_rohan_road"
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:rohan/village/beekeeper_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_beekeeper",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "middle-earth:rohan/village/beekeeper_house_house_1",
+        "element_type": "middle-earth:rule_pool_element",
+        "location": "middle-earth:rohan/village/beekeeper_house_1",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_beekeeper",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:rohan/village/tower_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_tower_house",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 2,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:rohan/village/tower_house_1",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_tower_house",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:rohan/village/smith_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_smith",
+        "max_count": 1,
+        "priority": true
       }
     },
-	{
+    {
       "weight": 1,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:rohan/village/smith_house_1",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_rohan_road"
+        "processors": "middle-earth:randomize_rohan_road",
+        "name": "rohan_smith",
+        "max_count": 1,
+        "priority": true
       }
     }
   ]

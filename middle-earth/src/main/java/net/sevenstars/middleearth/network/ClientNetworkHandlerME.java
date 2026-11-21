@@ -21,5 +21,6 @@ public class ClientNetworkHandlerME extends ClientNetworkHandlerAPI {
         ClientPlayNetworking.registerGlobalReceiver(ShapingAnvilRecipePacket.ID, wrapClientHandler(connection, ShapingAnvilRecipePacket::process));
         ClientPlayNetworking.registerGlobalReceiver(ArtisanRecipePacket.ID, wrapClientHandler(connection, ArtisanRecipePacket::process));
         ClientPlayNetworking.registerGlobalReceiver(PacketOpenMapScreen.ID, wrapClientHandler(connection, PacketOpenMapScreen::process));
+        ClientPlayNetworking.registerGlobalReceiver(PacketJigsawFits.ID, wrapClientHandler(connection, PacketJigsawFits::process));
     }
 }

@@ -16,11 +16,14 @@ public class KeyInputHandler {
     public static final String ME_KEY_HOOD_STATE_TOGGLE = "key.%s.hood_state_toggle".formatted(MiddleEarth.MOD_ID);
     public static final String ME_KEY_MAP_TELEPORT = "key.%s.map_teleport".formatted(MiddleEarth.MOD_ID);
     public static final String ME_KEY_MAP_FULLSCREEN_TOGGLE = "key.%s.map_fullscreen_toggle".formatted(MiddleEarth.MOD_ID);
+    public static final String ME_KEY_CANCEL_BOUNDS = "key.%s.cancel_bounds".formatted(MiddleEarth.MOD_ID);
 
     public static KeyBinding hoodStateToggleKey;
     // Used in MapScreen
     public static KeyBinding mapTeleportKey;
     public static KeyBinding mapFullscreenToggle;
+    // Used by the builder's tool while picking corners
+    public static KeyBinding cancelBoundsKey;
 
     public static void registerKeyInputs(){
         var ref = new Object() {
@@ -59,6 +62,13 @@ public class KeyInputHandler {
                 ME_KEY_MAP_FULLSCREEN_TOGGLE,
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_M,
+                ME_KEY_CATEGORY
+        ));
+
+        cancelBoundsKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                ME_KEY_CANCEL_BOUNDS,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_X,
                 ME_KEY_CATEGORY
         ));
 

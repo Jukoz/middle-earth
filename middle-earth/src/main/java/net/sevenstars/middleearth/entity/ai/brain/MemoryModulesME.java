@@ -2,12 +2,12 @@ package net.sevenstars.middleearth.entity.ai.brain;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Memory;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.MiddleEarth;
 
 import java.util.Optional;
@@ -19,8 +19,7 @@ public class MemoryModulesME<U> {
     public static final MemoryModuleType<Integer> FOOD_EATEN_COUNT = register("food_eaten_count", Codec.INT);
     public static final MemoryModuleType<Boolean> TAME = register("tame", Codec.BOOL);
     public static final MemoryModuleType<Boolean> SITTING = register("sitting", Codec.BOOL);
-    public static final MemoryModuleType<BlockPos> ASSIGNED_BED_POS = register("assigned_bed_pos", BlockPos.CODEC);
-    public static final MemoryModuleType<BlockPos> STRUCTURE_MANAGER_HOST_POS = register("structure_manager_host_pos", BlockPos.CODEC);
+    public static final MemoryModuleType<LivingEntity> FLEEING_FROM = register("fleeing_from");
     private final Optional<Codec<Memory<U>>> codec;
 
     @VisibleForTesting

@@ -18,15 +18,15 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
-import net.sevenstars.middleearth.entity.npcs.NpcEntity;
-import net.sevenstars.middleearth.entity.npcs.data.NpcInitializationData;
-import net.sevenstars.middleearth.entity.npcs.initializer.NpcSpawnEggHelper;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+import net.sevenstars.middleearth.features.npcs.data.NpcInitializationData;
+import net.sevenstars.middleearth.features.npcs.initializer.NpcSpawnEggHelper;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.item.EggItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ItemGroupsUtil {
-    private static final Comparator<RegistryEntry<NpcType>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcType::getId));
+    private static final Comparator<RegistryEntry<NpcClass>> NPC_DATA_COMPARATOR = Comparator.comparing(RegistryEntry::value, Comparator.comparing(NpcClass::getId));
 
-    public static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcType> registryWrapper, Predicate<RegistryEntry<NpcType>> filter, RegistryWrapper.WrapperLookup lookup, ItemGroup.StackVisibility stackVisibility) {
+    public static void addNpcEggs(ItemGroup.Entries entries, RegistryWrapper.Impl<NpcClass> registryWrapper, Predicate<RegistryEntry<NpcClass>> filter, RegistryWrapper.WrapperLookup lookup, ItemGroup.StackVisibility stackVisibility) {
         Identifier randomSpawnEggId = MiddleEarth.id("npc_random_spawn_egg");
 
         ItemStack randomNpcSpawnEgg = new ItemStack(EggItemsME.NPC_SPAWN_EGG);

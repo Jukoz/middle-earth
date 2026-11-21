@@ -8,6 +8,7 @@ import net.sevenstars.middleearth.MiddleEarth;
 
 public class ActivitiesME {
     public static final Activity TAMED = register("tamed");
+    public static final Activity CONFINED = register("confined");
 
     private static Activity register(String id) {
         return Registry.register(Registries.ACTIVITY, id, new Activity(id));

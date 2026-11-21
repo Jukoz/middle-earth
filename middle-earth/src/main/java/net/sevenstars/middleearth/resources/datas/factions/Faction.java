@@ -27,17 +27,20 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.exceptions.FactionIdentifierException;
 import net.sevenstars.middleearth.registries.DynamicRegistriesME;
+import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcType;
-import net.sevenstars.middleearth.resources.datas.npc_types.NpcTypeLookup;
-import net.sevenstars.middleearth.resources.datas.npc_types.data.WeightedGearData;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClass;
+import net.sevenstars.middleearth.features.npcs.classes.NpcClassLookup;
+import net.sevenstars.middleearth.features.npcs.classes.data.WeightedGearData;
 import net.sevenstars.middleearth.resources.datas.races.Race;
 import net.sevenstars.middleearth.resources.datas.races.RaceLookup;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -58,7 +61,8 @@ public class Faction {
             NbtCompound.CODEC.optionalFieldOf("spawns").forGetter(Faction::getSpawnDataNbt),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_join").forGetter(Faction::getJoinCommands),
             Codec.list(Codec.STRING, 0, 5).optionalFieldOf("command_leave").forGetter(Faction::getLeaveCommands),
-            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList)
+            Codec.list(InitialDiplomacy.CODEC).fieldOf("initial_diplomacy").forGetter(Faction::getInitialDiplomaciesNbtList),
+            FactionCreatures.CODEC.optionalFieldOf("creatures").forGetter(faction -> faction.creatures.isEmpty() ? Optional.empty() : Optional.of(faction.creatures))
     ).apply(instance, Faction::new));
 
     public static final PacketCodec<ByteBuf, Faction> PACKET_CODEC = PacketCodecs.codec(CODEC);
@@ -78,6 +82,7 @@ public class Faction {
     private final List<InitialDiplomacy> initialDiplomacies;
 
     private List<Identifier> subFactions = null;
+    private FactionCreatures creatures = FactionCreatures.NONE;
     private List<String> joinCommands;
     private List<String> leaveCommands;
     private List<Race> races = null;
@@ -86,8 +91,10 @@ public class Faction {
 
     public Faction(String id, Integer factionSelectionOrderIndex, Boolean joinable, String disposition, String factionType,
                    Optional<Identifier> parentFaction, Optional<List<Identifier>> newSubFactions, Optional<NbtCompound> npcs,
-                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt) {
+                   Optional<NbtCompound> bannerDataNbt, Optional<NbtCompound> spawnsNbt, Optional<List<String>> joinCommands, Optional<List<String>> leaveCommands, List<InitialDiplomacy> initialDiplomaciesNbt,
+                   Optional<FactionCreatures> creatures) {
         this.id = MiddleEarth.ofId(id);
+        this.creatures = creatures.orElse(FactionCreatures.NONE);
 
         this.factionSelectionOrderIndex = factionSelectionOrderIndex; // TODO : Validation, rework this part in the future
 
@@ -140,7 +147,7 @@ public class Faction {
     }
 
     public Faction(RegistryKey<Faction> faction, Boolean joinable, DispositionType dispositionType, FactionType factionType, Identifier parentFactionId,
-                   List<Identifier> subFactions, HashMap<NpcRank, List<NpcType>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
+                   List<Identifier> subFactions, HashMap<NpcRank, List<NpcClass>> npcDatas, BannerData bannerData, SpawnDataHandler spawnDataHandler,
                    List<String> joinCommand, List<String> leaveCommand,
                    List<InitialDiplomacy> initialDiplomacies)
     {
@@ -173,7 +180,7 @@ public class Faction {
             this.npcDatasByRank = new HashMap<>();
             for(NpcRank rank : npcDatas.keySet()){
                 List<Identifier> listOfIdentifiers = new ArrayList<>();
-                for(NpcType data : npcDatas.get(rank)){
+                for(NpcClass data : npcDatas.get(rank)){
                     listOfIdentifiers.add(data.getId());
                 }
                 this.npcDatasByRank.put(rank, listOfIdentifiers);
@@ -312,14 +319,14 @@ public class Faction {
         return id.toString();
     }
 
-    public NpcType getRandomGear(World world, NpcRank npcRank, Race race) {
+    public NpcClass getRandomGear(World world, NpcRank npcRank, Race race) {
         if(!this.npcDatasByRank.containsKey(npcRank))
             return null;
-        List<NpcType> npcTypeList = NpcTypeLookup.getAllNpcTypesFromRace(world, getNpcPoolFromRank(npcRank), race.getId());
-        if(npcTypeList.isEmpty())
+        List<NpcClass> npcClassList = NpcClassLookup.getAllNpcClassesFromRace(world, getNpcPoolFromRank(npcRank), race.getId());
+        if(npcClassList.isEmpty())
             return null;
         Random random = new Random();
-        return npcTypeList.get(random.nextInt(0, npcTypeList.size()));
+        return npcClassList.get(random.nextInt(0, npcClassList.size()));
     }
 
     public WeightedGearData getPreviewGear(World world, Race selectedRace){
@@ -333,12 +340,12 @@ public class Faction {
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.VETERAN));
         identifiersToUse.addAll(getNpcPoolFromRank(NpcRank.LEADER));
 
-        List<NpcType> npcTypeList = NpcTypeLookup.getAllNpcTypesFromRace(world, identifiersToUse, selectedRace.getId());
-        if(npcTypeList.isEmpty())
+        List<NpcClass> npcClassList = NpcClassLookup.getAllNpcClassesFromRace(world, identifiersToUse, selectedRace.getId());
+        if(npcClassList.isEmpty())
             return WeightedGearData.Create();
         Random random = new Random();
-        NpcType foundNpcType = npcTypeList.get(random.nextInt(0, npcTypeList.size()));
-        return foundNpcType.getGear();
+        NpcClass foundNpcClass = npcClassList.get(random.nextInt(0, npcClassList.size()));
+        return foundNpcClass.getGear();
     }
 
     private List<Identifier> getNpcPoolFromRank(NpcRank npcRank) {
@@ -420,8 +427,8 @@ public class Faction {
 
         List<Identifier> allRaceIds = new ArrayList<>();
         for(NpcRank rank : this.npcDatasByRank.keySet()){
-            List<NpcType> datas = NpcTypeLookup.getAllNpcTypes(world, this.npcDatasByRank.get(rank));
-            for(NpcType data : datas){
+            List<NpcClass> datas = NpcClassLookup.getAllNpcClasses(world, this.npcDatasByRank.get(rank));
+            for(NpcClass data : datas){
                 if(data != null)
                     allRaceIds.add(data.getRace());
             }
@@ -489,6 +496,23 @@ public class Faction {
 
         Random random = new Random();
         return allNpcIds.get(random.nextInt(allNpcIds.size()));
+    }
+
+    public FactionCreatures getCreatures() {
+        return creatures;
+    }
+
+    public Faction withCreatures(FactionCreatures creatures) {
+        this.creatures = creatures;
+        return this;
+    }
+
+    public @Nullable AffinityLevel affinityToward(Identifier faction) {
+        for(InitialDiplomacy diplomacy : initialDiplomacies){
+            if(diplomacy.getFactionId().equals(faction))
+                return diplomacy.getAffinity();
+        }
+        return null;
     }
 
     public boolean isHostileToward(Identifier playerFaction) {

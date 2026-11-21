@@ -1,14 +1,14 @@
 package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
+import org.jetbrains.annotations.Nullable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.MiddleEarth;
+import net.sevenstars.middleearth.block.special.beds.BedTag;
 
 import java.util.List;
 
-/// StructureManagerData is used by StructureManagers. It's a data entity that stores the different properties necessary for
-/// Spawn Nests.
 public class StructureManagerData {
     public static final Codec<StructureManagerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(StructureManagerData::getIdString),
@@ -42,12 +42,20 @@ public class StructureManagerData {
         return spawnNestNodeData;
     }
 
-    public SpawnNestNodeData getNpcSpawnNest(Identifier idToCompare) {
-        for (var nest : spawnNestNodeData){
-            if(nest.getId().equals(idToCompare))
+    public @Nullable SpawnNestNodeData findSpawnNest(Identifier id) {
+        for(SpawnNestNodeData nest : spawnNestNodeData) {
+            if(nest.getId().equals(id))
                 return nest;
         }
-        MiddleEarth.LOGGER.logDebugMsg("StructureManagerData :: Couldn't find nest id : %s".formatted(idToCompare));
-        return spawnNestNodeData.getFirst();
+        return null;
+    }
+
+    // Animal nests and other managers' nests can share the last word
+    public @Nullable SpawnNestNodeData findPeopleNest(String nestKind) {
+        for(SpawnNestNodeData nest : spawnNestNodeData) {
+            if(nest.isPeople() && BedTag.nestKindOf(nest.getId()).equals(nestKind))
+                return nest;
+        }
+        return null;
     }
 }

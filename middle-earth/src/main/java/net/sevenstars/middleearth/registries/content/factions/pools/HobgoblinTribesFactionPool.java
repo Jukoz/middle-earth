@@ -5,11 +5,12 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.GundabadNpcTypePool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.GundabadNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -32,22 +33,22 @@ public class HobgoblinTribesFactionPool {
         GUNDABAD = new Faction(FactionRegistry.HOBGOBLIN_TRIBES_GUNDABAD, true, DispositionType.EVIL, FactionType.SUBFACTION, HOBGOBLIN_TRIBES.getId(),null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            GundabadNpcTypePool.GOBLIN
+                            GundabadNpcClassPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            GundabadNpcTypePool.MILITIA
+                            GundabadNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            GundabadNpcTypePool.SCOUT
+                            GundabadNpcClassPool.SCOUT
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            GundabadNpcTypePool.WARRIOR
+                            GundabadNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            GundabadNpcTypePool.VETERAN
+                            GundabadNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            GundabadNpcTypePool.LEADER
+                            GundabadNpcClassPool.LEADER
                     ));
                 }},
                 new BannerData(DyeColor.WHITE, List.of(
@@ -80,7 +81,7 @@ public class HobgoblinTribesFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        );
+        ).withCreatures(FactionCreatures.friendlyToShadowBeasts());
 
     }
 }

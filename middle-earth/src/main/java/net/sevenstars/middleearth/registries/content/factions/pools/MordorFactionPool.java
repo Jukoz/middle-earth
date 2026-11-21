@@ -9,12 +9,13 @@ import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnDataHandler;
 import net.sevenstars.middleearth.resources.datas.common.NpcRank;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.MordorNpcTypePool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.MordorNpcClassPool;
 import org.joml.Vector2d;
 
 import java.util.HashMap;
@@ -27,24 +28,24 @@ public class MordorFactionPool {
         MORDOR = new Faction(FactionRegistry.MORDOR, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            MordorNpcTypePool.SNAGA
+                            MordorNpcClassPool.SNAGA
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            MordorNpcTypePool.MILITIA
+                            MordorNpcClassPool.MILITIA
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            MordorNpcTypePool.WARRIOR
+                            MordorNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            MordorNpcTypePool.WARRIOR,
-                            MordorNpcTypePool.VETERAN
+                            MordorNpcClassPool.WARRIOR,
+                            MordorNpcClassPool.VETERAN
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            MordorNpcTypePool.VETERAN
+                            MordorNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            MordorNpcTypePool.CAPTAIN,
-                            MordorNpcTypePool.BLACK_NUMENOREAN
+                            MordorNpcClassPool.CAPTAIN,
+                            MordorNpcClassPool.BLACK_NUMENOREAN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -79,6 +80,6 @@ public class MordorFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.FRIENDLY),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        );
+        ).withCreatures(FactionCreatures.friendlyToShadowBeasts());
     }
 }

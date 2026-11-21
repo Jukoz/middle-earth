@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.item;
 
 import net.sevenstars.middleearth.common.registration.ItemRegistrar;
+import net.sevenstars.middleearth.item.items.BuildersToolItem;
 import net.minecraft.component.DataComponentTypes;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.block.registration.DecorativeBlockRegistryME;
@@ -62,8 +63,11 @@ public class DecorativeItemsME {
             (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MANAGER, settings), new Item.Settings());
     public static final Item ORC_STRUCTURE_MANAGER = registerItem("orc_structure_manager",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, settings), new Item.Settings());
-    public static final Item STRUCTURE_NEST = registerItem("structure_nest",
-            (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_NEST, settings), new Item.Settings());
+    public static final Item STRUCTURE_MARKER = registerItem("structure_marker",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.STRUCTURE_MARKER, settings), new Item.Settings());
+
+    public static final Item BUILDERS_TOOL = registerItem("builders_tool",
+            BuildersToolItem::new, new Item.Settings().maxCount(1));
 
     public static final Item BANDIT_TRIAL_SPAWNER = registerItem("brigand_trial_spawner",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.BRIGAND_TRIAL_SPAWNER, settings), new Item.Settings());

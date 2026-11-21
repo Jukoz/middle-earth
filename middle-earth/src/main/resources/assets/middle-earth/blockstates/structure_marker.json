@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "middle-earth:block/structure_marker"
+      }
+    }
+  ]
+}

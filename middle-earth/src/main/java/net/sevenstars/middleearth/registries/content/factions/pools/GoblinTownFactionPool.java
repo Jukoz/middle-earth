@@ -4,11 +4,12 @@ import net.minecraft.util.DyeColor;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.item.utils.BannerPatternsME;
 import net.sevenstars.middleearth.registries.content.factions.FactionRegistry;
-import net.sevenstars.middleearth.registries.content.npctypes.pools.GoblinTownNpcTypePool;
+import net.sevenstars.middleearth.features.npcs.classes.pools.GoblinTownNpcClassPool;
 import net.sevenstars.middleearth.resources.datas.common.AffinityLevel;
 import net.sevenstars.middleearth.resources.datas.common.DispositionType;
 import net.sevenstars.middleearth.resources.datas.common.FactionType;
 import net.sevenstars.middleearth.resources.datas.factions.Faction;
+import net.sevenstars.middleearth.resources.datas.factions.data.FactionCreatures;
 import net.sevenstars.middleearth.resources.datas.factions.data.BannerData;
 import net.sevenstars.middleearth.resources.datas.factions.data.InitialDiplomacy;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
@@ -26,22 +27,22 @@ public class GoblinTownFactionPool {
         GOBLIN_TOWN = new Faction(FactionRegistry.GOBLIN_TOWN, true, DispositionType.EVIL, FactionType.FACTION, null,null,
                 new HashMap<>(){{
                     put(NpcRank.CIVILIAN, List.of(
-                            GoblinTownNpcTypePool.GOBLIN
+                            GoblinTownNpcClassPool.GOBLIN
                     ));
                     put(NpcRank.MILITIA, List.of(
-                            GoblinTownNpcTypePool.SCOUT
+                            GoblinTownNpcClassPool.SCOUT
                     ));
                     put(NpcRank.SOLDIER, List.of(
-                            GoblinTownNpcTypePool.WARRIOR
+                            GoblinTownNpcClassPool.WARRIOR
                     ));
                     put(NpcRank.KNIGHT, List.of(
-                            GoblinTownNpcTypePool.RIDER
+                            GoblinTownNpcClassPool.RIDER
                     ));
                     put(NpcRank.VETERAN, List.of(
-                            GoblinTownNpcTypePool.VETERAN
+                            GoblinTownNpcClassPool.VETERAN
                     ));
                     put(NpcRank.LEADER, List.of(
-                            GoblinTownNpcTypePool.VETERAN
+                            GoblinTownNpcClassPool.VETERAN
                     ));
                 }},
                 new BannerData(DyeColor.BLACK, List.of(
@@ -70,7 +71,7 @@ public class GoblinTownFactionPool {
                         new InitialDiplomacy(FactionRegistry.WILD_GOBLINS, AffinityLevel.HOSTILE),
                         new InitialDiplomacy(FactionRegistry.BRIGAND, AffinityLevel.HOSTILE)
                 )
-        );
+        ).withCreatures(FactionCreatures.friendlyToShadowBeasts());
 
     }
 }

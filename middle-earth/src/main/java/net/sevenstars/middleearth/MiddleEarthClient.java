@@ -54,6 +54,8 @@ import net.sevenstars.middleearth.client.model.hand.HeldBannerEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.HeaterShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.KiteShieldEntityModel;
 import net.sevenstars.middleearth.client.model.hand.shields.RoundShieldEntityModel;
+import net.sevenstars.middleearth.client.renderer.BuildersToolRenderer;
+import net.sevenstars.middleearth.client.renderer.BuildersToolSelection;
 import net.sevenstars.middleearth.client.renderer.armor.*;
 import net.sevenstars.middleearth.client.renderer.handheld.HeaterShieldModelRenderer;
 import net.sevenstars.middleearth.client.renderer.handheld.HeldBannerModelRenderer;
@@ -61,6 +63,8 @@ import net.sevenstars.middleearth.client.renderer.handheld.KiteShieldModelRender
 import net.sevenstars.middleearth.client.renderer.handheld.RoundShieldModelRenderer;
 import net.sevenstars.middleearth.datageneration.content.models.*;
 import net.sevenstars.middleearth.datageneration.content.tags.Crops;
+import net.sevenstars.middleearth.dev.NpcDebug;
+import net.sevenstars.middleearth.dev.NpcDebugRenderer;
 import net.sevenstars.middleearth.entity.EntitiesME;
 import net.sevenstars.middleearth.entity.EntityModelsME;
 import net.sevenstars.middleearth.entity.barrel.BarrelEntityRenderer;
@@ -71,7 +75,7 @@ import net.sevenstars.middleearth.entity.beasts.trolls.petrified.PetrifiedTrollR
 import net.sevenstars.middleearth.entity.beasts.trolls.snow.SnowTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.trolls.stone.StoneTrollRenderer;
 import net.sevenstars.middleearth.entity.beasts.warg.WargRenderer;
-import net.sevenstars.middleearth.entity.npcs.renderer.NpcEntityRenderer;
+import net.sevenstars.middleearth.features.npcs.renderer.NpcEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.boulder.BoulderEntityRenderer;
 import net.sevenstars.middleearth.entity.projectile.smoke.SmokeRingProjectileRenderer;
 import net.sevenstars.middleearth.entity.projectile.spear.SpearEntityRenderer;
@@ -84,8 +88,8 @@ import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFa
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
 import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
-import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
-import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
+import net.sevenstars.middleearth.gui.structuremanager.bedtag.BedTagScreen;
+import net.sevenstars.middleearth.gui.structuremanager.structuremarker.StructureMarkerScreen;
 import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
@@ -115,6 +119,10 @@ public class MiddleEarthClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        if(NpcDebug.ENABLED)
+            NpcDebugRenderer.register();
+        BuildersToolRenderer.register();
+        BuildersToolSelection.register();
         AtlasesME.registerAtlas();
         ClientNetworkHandlerME.register(new ConnectionToServer());
 
@@ -142,7 +150,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntitiesME.SPAWN_OF_SHELOB, SpawnOfShelobRenderer::new);
         //EntityRendererRegistry.register(EntitiesME.BALROG, BalrogRenderer::new);
 
-
         EntityRendererRegistry.register(EntitiesME.FIRE_OF_ORTHANC, FireOfOrthancEntityRenderer::new);
         EntityRendererRegistry.register(EntitiesME.PEBBLE, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(EntitiesME.PINECONE, FlyingItemEntityRenderer::new);
@@ -154,11 +161,10 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.NPC, NpcEntityRenderer::new);
 
-
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
-        HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MARKER_SCREEN_HANDLER, StructureMarkerScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.BED_TAG_SCREEN_HANDLER, BedTagScreen::new);
 
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
@@ -177,7 +183,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ROUND_SHIELD_LAYER, RoundShieldEntityModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(HELD_BANNER_LAYER, HeldBannerEntityModel::getTexturedModelData);
-
 
         SpecialModelTypes.ID_MAPPER.put(Identifier.of(MiddleEarth.MOD_ID, "held_banner"), HeldBannerModelRenderer.Unbaked.CODEC);
 
@@ -654,7 +659,6 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ARKENSTONE, BlockRenderLayer.TRANSLUCENT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.WALL_ARKENSTONE, BlockRenderLayer.TRANSLUCENT);
 
-
         SimpleWoodChairModel.vanillaChairs.forEach(block -> {
             BlockRenderLayerMap.putBlock(block.base(), BlockRenderLayer.CUTOUT);
         });
@@ -664,7 +668,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.ORC_STRUCTURE_MANAGER, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_NEST, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(DecorativeBlockRegistryME.STRUCTURE_MARKER, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.MIRKWOOD_VINES, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(NatureBlockRegistryME.WILLOW_VINES, BlockRenderLayer.CUTOUT);

@@ -1,0 +1,109 @@
+package net.sevenstars.middleearth.features.npcs.ai;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.brain.Activity;
+import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleState;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.sensor.Sensor;
+import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
+import net.minecraft.entity.ai.brain.task.Task;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.ai.brain.ActivitiesME;
+import net.sevenstars.middleearth.entity.ai.brain.MemoryModulesME;
+import net.sevenstars.middleearth.features.npcs.NpcEntity;
+
+import java.util.List;
+import java.util.Optional;
+
+// The brain is built before the npc's fields, so nothing here may read them
+public class NpcBrain {
+    // Multiple of the npc's walking speed
+    public static final double WALK_SPEED = 0.8;
+    static final double BOW_ATTACK_SPEED = 1.0;
+
+    private static final float SWIM_CHANCE = 0.8F;
+    private static final int FIRST_ACTIVITY_PRIORITY = 10;
+
+    // First one that can run wins; panic needs the npc to be afraid
+    private static final List<Activity> PANIC_OR_IDLE = List.of(Activity.PANIC, Activity.IDLE);
+    private static final List<Activity> PANIC_OR_CONFINED = List.of(Activity.PANIC, ActivitiesME.CONFINED);
+
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(MemoryModulesME.FLEEING_FROM, MemoryModuleType.ATTACK_TARGET);
+    private static final ImmutableList<SensorType<? extends Sensor<? super NpcEntity>>> SENSORS = ImmutableList.of(NpcSensors.FLEE);
+
+    public static Brain.Profile<NpcEntity> createProfile() {
+        return Brain.createProfile(MEMORY_MODULES, SENSORS);
+    }
+
+    public static Brain<NpcEntity> create(Brain<NpcEntity> brain, World world) {
+        if(world.isClient())
+            return brain;
+        ModDoorBehaviour modDoors = new ModDoorBehaviour();
+        brain.setTaskList(Activity.CORE, 0, ImmutableList.of(
+                new BehaviourTask(null, new AlarmBehaviour(), new RevengeBehaviour(), new EnemyBehaviour(), new RaidBehaviour(), new DoorBehaviour(),
+                        new DoorShutBehaviour(modDoors), modDoors, new PartyLeaderBehaviour()),
+                new StayAboveWaterTask<>(SWIM_CHANCE)
+        ));
+        brain.setTaskList(Activity.PANIC, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.PANIC, new FleeBehaviour(), new LookAtPlayerBehaviour())),
+                ImmutableSet.of(Pair.of(MemoryModulesME.FLEEING_FROM, MemoryModuleState.VALUE_PRESENT)));
+        brain.setTaskList(ActivitiesME.CONFINED, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(ActivitiesME.CONFINED, new PrisonerBehaviour(), new LookAtPlayerBehaviour())));
+        WandererBedBehaviour wandererBed = new WandererBedBehaviour();
+        TravelBehaviour travel = new TravelBehaviour();
+        // Attacks come last, so they can take over from the rest
+        brain.setTaskList(Activity.IDLE, FIRST_ACTIVITY_PRIORITY, ImmutableList.of(new BehaviourTask(Activity.IDLE,
+                new RoutineBehaviour(), new WandererBedSearch(wandererBed), wandererBed, new StuckRescueBehaviour(travel), travel, new LookAtPlayerBehaviour(), new LookAroundBehaviour(),
+                new MeleeAttackBehaviour(), new BowAttackBehaviour(), new CrossbowAttackBehaviour())));
+        brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+        brain.setDefaultActivity(Activity.IDLE);
+        brain.resetPossibleActivities();
+        return brain;
+    }
+
+    public static void updateActivities(NpcEntity npc) {
+        Brain<NpcEntity> brain = npc.getBrain();
+        Optional<Activity> before = brain.getFirstPossibleNonCoreActivity();
+        brain.resetPossibleActivities(npc.isConfined() && !npc.isSleeping() ? PANIC_OR_CONFINED : PANIC_OR_IDLE);
+        if(before.equals(brain.getFirstPossibleNonCoreActivity()) || !(npc.getEntityWorld() instanceof ServerWorld world))
+            return;
+        // A task of an ended activity stops before the new one's tasks start
+        for(Task<? super NpcEntity> task : brain.getRunningTasks())
+            if(task instanceof BehaviourTask behaviours && behaviours.getActivity() != null && !brain.hasActivity(behaviours.getActivity()))
+                behaviours.stop(world, npc, world.getTime());
+    }
+
+    public static void stopAttack(NpcEntity npc) {
+        for(Task<? super NpcEntity> task : npc.getBrain().getRunningTasks())
+            if(task instanceof BehaviourTask behaviours)
+                behaviours.stopAll(npc, AttackBehaviour.class);
+    }
+
+    public static void flee(NpcEntity npc, LivingEntity threat) {
+        npc.getBrain().remember(MemoryModulesME.FLEEING_FROM, threat);
+        updateActivities(npc);
+    }
+
+    public static boolean isFleeing(NpcEntity npc) {
+        return isRunning(npc, FleeBehaviour.class);
+    }
+
+    public static boolean isRoutineRunning(NpcEntity npc) {
+        return isRunning(npc, RoutineBehaviour.class);
+    }
+
+    public static boolean isTravelling(NpcEntity npc) {
+        return isRunning(npc, TravelBehaviour.class);
+    }
+
+    private static boolean isRunning(NpcEntity npc, Class<? extends Behaviour> type) {
+        for(Task<? super NpcEntity> task : npc.getBrain().getRunningTasks())
+            if(task instanceof BehaviourTask behaviours && behaviours.isRunning(type))
+                return true;
+        return false;
+    }
+}

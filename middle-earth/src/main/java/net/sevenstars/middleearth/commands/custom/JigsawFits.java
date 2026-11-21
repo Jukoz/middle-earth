@@ -1,0 +1,104 @@
+package net.sevenstars.middleearth.commands.custom;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.JigsawBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.JigsawBlockEntity;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePools;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+// A plug asking for a pool piece fits plugs of its target name, rotated to meet it
+public class JigsawFits {
+    public static final int MAXIMUM_FITS = 512;
+    // In chunks. Search radius for a plug in no structure being edited
+    private static final int NEAR_CHUNKS = 4;
+
+    private record Plug(BlockPos pos, @Nullable Identifier template, RegistryKey<StructurePool> pool, Identifier name, Identifier target, Direction facing) {
+        boolean asks() {
+            return !pool.equals(StructurePools.EMPTY);
+        }
+    }
+
+    public static List<BlockPos> of(ServerWorld world, ServerPlayerEntity player, BlockPos pos) {
+        StructureEditSession edited = StructureEditSession.ofIn(player.getUuid(), world.getRegistryKey());
+        Plug clicked = plugAt(world, pos, edited);
+        if(clicked == null)
+            return List.of();
+        Registry<StructurePool> pools = world.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
+        List<BlockPos> fits = new ArrayList<>();
+        for(Plug other : plugs(world, pos, edited)) {
+            if(other.pos().equals(pos) || !meets(clicked.facing(), other.facing()))
+                continue;
+            if((joins(pools, clicked, other) || joins(pools, other, clicked)) && fits.size() < MAXIMUM_FITS)
+                fits.add(other.pos());
+        }
+        return fits;
+    }
+
+    private static boolean joins(Registry<StructurePool> pools, Plug asking, Plug joined) {
+        if(!asking.asks() || joined.name().equals(PiecePools.EMPTY) || !joined.name().equals(asking.target()))
+            return false;
+        if(joined.template() == null)
+            return true;
+        StructurePool pool = pools.get(asking.pool());
+        return pool != null && templatesOf(pool).contains(joined.template());
+    }
+
+    private static Set<Identifier> templatesOf(StructurePool pool) {
+        Set<Identifier> templates = new HashSet<>();
+        pool.getElementWeights().forEach(element -> templates.addAll(StructureAssembly.templatesOf(element.getFirst())));
+        return templates;
+    }
+
+    // Up meets down. Sideways plugs meet in any direction, since the piece can be rotated
+    private static boolean meets(Direction facing, Direction other) {
+        return facing.getAxis().isVertical() ? other == facing.getOpposite() : other.getAxis().isHorizontal();
+    }
+
+    private static @Nullable Plug plugAt(ServerWorld world, BlockPos pos, @Nullable StructureEditSession edited) {
+        BlockState state = world.getBlockState(pos);
+        if(!state.isOf(Blocks.JIGSAW) || !(world.getBlockEntity(pos) instanceof JigsawBlockEntity jigsaw))
+            return null;
+        StructureEditSession.Piece piece = edited == null ? null : edited.pieceContaining(pos);
+        Identifier template = piece == null ? null : piece.template();
+        return new Plug(pos.toImmutable(), template, jigsaw.getPool(), jigsaw.getName(), jigsaw.getTarget(), state.get(JigsawBlock.ORIENTATION).getFacing());
+    }
+
+    private static List<Plug> plugs(ServerWorld world, BlockPos around, @Nullable StructureEditSession edited) {
+        Set<ChunkPos> chunks = new HashSet<>();
+        if(edited != null && edited.pieceContaining(around) != null) {
+            for(StructureEditSession.Piece piece : edited.getPieces())
+                PieceLayout.chunksOf(piece.box()).forEach(chunks::add);
+        } else {
+            edited = null;
+            ChunkPos.stream(new ChunkPos(around), NEAR_CHUNKS).forEach(chunks::add);
+        }
+        List<Plug> plugs = new ArrayList<>();
+        for(ChunkPos chunk : chunks) {
+            if(!world.isChunkLoaded(chunk.x, chunk.z))
+                continue;
+            for(BlockEntity blockEntity : world.getChunk(chunk.x, chunk.z).getBlockEntities().values()) {
+                Plug plug = blockEntity instanceof JigsawBlockEntity ? plugAt(world, blockEntity.getPos(), edited) : null;
+                if(plug != null && (edited == null || plug.template() != null))
+                    plugs.add(plug);
+            }
+        }
+        return plugs;
+    }
+}

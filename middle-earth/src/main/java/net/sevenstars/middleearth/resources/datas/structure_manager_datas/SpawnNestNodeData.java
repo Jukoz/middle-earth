@@ -2,42 +2,48 @@ package net.sevenstars.middleearth.resources.datas.structure_manager_datas;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
+import net.sevenstars.middleearth.entity.EntitiesME;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJobs;
+import net.sevenstars.middleearth.features.npcs.jobs.NpcJob;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 
-/// NpcSpawnNest is a specific area where entities can spawn with the different parameters.
 public class SpawnNestNodeData {
     public static final Codec<SpawnNestNodeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("id").forGetter(SpawnNestNodeData::getId),
             Codec.INT.fieldOf("respawn_tick_delay").forGetter(SpawnNestNodeData::getRespawnTickDelay),
-            Codec.INT.fieldOf("bed_radius").forGetter(SpawnNestNodeData::getBedRadius),
-            Codec.list(StructureSpawnNestPool.CODEC).fieldOf("npc_pool").forGetter(SpawnNestNodeData::getNpcSpawnNestPool)
+            Codec.list(StructureSpawnNestPool.CODEC).fieldOf("npc_pool").forGetter(SpawnNestNodeData::getNpcSpawnNestPool),
+            Identifier.CODEC.optionalFieldOf("role").forGetter(SpawnNestNodeData::getJob)
     ).apply(instance, SpawnNestNodeData::new));
 
     private final Identifier id;
     private final int respawnTickDelay;
-    private int bedRadius;
+    private Optional<Identifier> job;
     private final List<StructureSpawnNestPool> structureSpawnNestPools;
 
-    public SpawnNestNodeData(Identifier id, int respawnTickDelay, int bedRadius, List<StructureSpawnNestPool> npcPools) {
+    public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools, Optional<Identifier> job) {
+        this.job = job;
         this.id = id;
         this.respawnTickDelay = respawnTickDelay;
-        this.bedRadius = bedRadius;
         this.structureSpawnNestPools = npcPools;
     }
 
     public SpawnNestNodeData(Identifier id, int respawnTickDelay, List<StructureSpawnNestPool> npcPools) {
-        this.id = id;
-        this.respawnTickDelay = respawnTickDelay;
-        this.bedRadius = 15;
-        this.structureSpawnNestPools = npcPools;
+        // Job comes from the nest name unless another is given
+        this(id, respawnTickDelay, npcPools, NpcJobs.forNest(id));
     }
 
-    public SpawnNestNodeData WithBedRadius(int radius){
-        this.bedRadius = radius;
+    public SpawnNestNodeData withJob(RegistryKey<NpcJob> job) {
+        this.job = Optional.of(job.getValue());
         return this;
+    }
+
+    public Optional<Identifier> getJob() {
+        return job;
     }
 
     public Identifier getId() {
@@ -47,15 +53,24 @@ public class SpawnNestNodeData {
     public int getRespawnTickDelay() {
         return this.respawnTickDelay;
     }
-    public int getBedRadius() {
-        return this.bedRadius;
-    }
     public List<StructureSpawnNestPool> getNpcSpawnNestPool() {
         return structureSpawnNestPools;
     }
 
-    public StructureSpawnNestPool getRandomPool() {
-        Random random = new Random();
-        return structureSpawnNestPools.get(random.nextInt(0, structureSpawnNestPools.size()));
+    public boolean isPeople() {
+        return !structureSpawnNestPools.isEmpty() && structureSpawnNestPools.stream().allMatch(pool -> pool.getEntityType() == EntitiesME.NPC);
+    }
+
+    public StructureSpawnNestPool getRandomPool(Random random) {
+        int total = 0;
+        for(StructureSpawnNestPool pool : structureSpawnNestPools)
+            total += Math.max(1, pool.getWeight());
+        int roll = random.nextInt(total);
+        for(StructureSpawnNestPool pool : structureSpawnNestPools) {
+            roll -= Math.max(1, pool.getWeight());
+            if(roll < 0)
+                return pool;
+        }
+        return structureSpawnNestPools.getLast();
     }
 }

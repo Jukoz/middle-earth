@@ -32,12 +32,16 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketOpenMapScreen.ID, PacketOpenMapScreen.CODEC);
+        PayloadTypeRegistry.playS2C().register(PacketJigsawFits.ID, PacketJigsawFits.CODEC);
 
         // REGISTRY : Client to server
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerShowAllEntities.ID, PacketStructureManagerShowAllEntities.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureNestUpdateBlockEntityRequest.ID, PacketStructureNestUpdateBlockEntityRequest.CODEC);
-        PayloadTypeRegistry.playC2S().register(PacketStructureManagerUpdateBlockEntityRequest.ID, PacketStructureManagerUpdateBlockEntityRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureMarkerEditRequest.ID, PacketStructureMarkerEditRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketBedTagUpdateRequest.ID, PacketBedTagUpdateRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketBedLinkRequest.ID, PacketBedLinkRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketStructureBoundsRequest.ID, PacketStructureBoundsRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketJigsawFitsRequest.ID, PacketJigsawFitsRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketSectionJoinRequest.ID, PacketSectionJoinRequest.CODEC);
+        PayloadTypeRegistry.playC2S().register(PacketSectionEditRequest.ID, PacketSectionEditRequest.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetAffiliation.ID, PacketSetAffiliation.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketSetRace.ID, PacketSetRace.CODEC);
         PayloadTypeRegistry.playC2S().register(PacketTeleportToDynamicWorldCoordinate.ID, PacketTeleportToDynamicWorldCoordinate.CODEC);
@@ -57,10 +61,13 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playC2S().register(HoodStateTogglePacket.ID, PacketCodecs.codec(MapCodec.unit(new HoodStateTogglePacket()).codec()));
 
         // Application [SERVER SIDE]
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerRespawnEntities.ID, wrapServerHandler(connection, PacketStructureManagerRespawnEntities::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerShowAllEntities.ID, wrapServerHandler(connection, PacketStructureManagerShowAllEntities::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureNestUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureNestUpdateBlockEntityRequest::process));
-        ServerPlayNetworking.registerGlobalReceiver(PacketStructureManagerUpdateBlockEntityRequest.ID, wrapServerHandler(connection, PacketStructureManagerUpdateBlockEntityRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureMarkerEditRequest.ID, wrapServerHandler(connection, PacketStructureMarkerEditRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketBedTagUpdateRequest.ID, wrapServerHandler(connection, PacketBedTagUpdateRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketBedLinkRequest.ID, wrapServerHandler(connection, PacketBedLinkRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketStructureBoundsRequest.ID, wrapServerHandler(connection, PacketStructureBoundsRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketJigsawFitsRequest.ID, wrapServerHandler(connection, PacketJigsawFitsRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketSectionJoinRequest.ID, wrapServerHandler(connection, PacketSectionJoinRequest::process));
+        ServerPlayNetworking.registerGlobalReceiver(PacketSectionEditRequest.ID, wrapServerHandler(connection, PacketSectionEditRequest::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetAffiliation.ID, wrapServerHandler(connection, PacketSetAffiliation::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketSetRace.ID, wrapServerHandler(connection, PacketSetRace::process));
         ServerPlayNetworking.registerGlobalReceiver(PacketTeleportToCurrentOverworldSpawn.ID, wrapServerHandler(connection, PacketTeleportToCurrentOverworldSpawn::process));

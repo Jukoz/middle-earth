@@ -285,6 +285,7 @@ public class BiomesME {
 
         SpawnSettingsBuilderME.addRareWarg(spawnSettings);
         SpawnSettingsBuilderME.addRabbits(spawnSettings);
+        if(!forest) SpawnSettingsBuilderME.addDeer(spawnSettings);
 
         addDefaultVegetation(generationSettings);
         BiomeFeaturesME.addCoarseDirtOre(vegetation);
@@ -453,6 +454,7 @@ public class BiomesME {
 
     public static void createBelfalasShoresBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        SpawnSettingsBuilderME.addSwan(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addGondorVegetation(generationSettings);
@@ -1128,7 +1130,6 @@ public class BiomesME {
 
     public static void createNindalf(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        SpawnSettingsBuilderME.addPlainsMobs(spawnSettings);
         SpawnSettingsBuilderME.addSwampMobs(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1487,6 +1488,7 @@ public class BiomesME {
     public static void createHaradBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         SpawnSettingsBuilderME.addHaradMobs(spawnSettings);
+        SpawnSettingsBuilderME.addCamel(spawnSettings);
         SpawnSettingsBuilderME.addFarmAnimals(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
@@ -1548,6 +1550,7 @@ public class BiomesME {
     public static void createHaradDesertBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         SpawnSettingsBuilderME.addHaradMobs(spawnSettings);
+        SpawnSettingsBuilderME.addCamel(spawnSettings);
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         addHaradDesertVegetation(generationSettings);
@@ -1673,7 +1676,6 @@ public class BiomesME {
 
     public static void createIthilienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, boolean wastes, boolean glade) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        SpawnSettingsBuilderME.addFarmAnimals(spawnSettings);
         SpawnSettingsBuilderME.addDeer(spawnSettings);
         SpawnSettingsBuilderME.addRabbits(spawnSettings);
         SpawnSettingsBuilderME.addRareWarg(spawnSettings);
@@ -1947,7 +1949,6 @@ public class BiomesME {
 
     public static void createLothlorienBiome(Registerable<Biome> context, RegistryKey<Biome> biomeRegistryKey, int step) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        SpawnSettingsBuilderME.addFarmAnimals(spawnSettings);
         SpawnSettingsBuilderME.addDeer(spawnSettings);
         SpawnSettingsBuilderME.addGreatHorn(spawnSettings);
         SpawnSettingsBuilderME.addSwan(spawnSettings);
