@@ -319,19 +319,24 @@ public class TranslationEntries {
 
             put("middle-earth.music.menu.swept_away", "Swept Away");
 
-             put(of(LangCategory.SOUNDS, "bellows_push"), "Bellows blowing");
-             put(of(LangCategory.SOUNDS, "chisel_hit"), "Chisel hits");
-             put(of(LangCategory.SOUNDS, "chisel_enchant"), "Chisel enchants");
-             put(of(LangCategory.SOUNDS, "nazgul_fade"), "Nazgûl fading");
-             put(of(LangCategory.SOUNDS, "nazgul_scream"), "Nazgûl screaming");
-             put(of(LangCategory.SOUNDS, "pipe_refill"), "Pipe refills");
-             put(of(LangCategory.SOUNDS, "pipe_exhale"), "Pipe exhales");
-             put(of(LangCategory.SOUNDS, "pipe_ignite"), "Pipe ignites");
-             put(of(LangCategory.SOUNDS, "orc_drum"), "Orc drums");
-             put(of(LangCategory.SOUNDS, "great_horn_idle"), "Great Horn grunts");
-             put(of(LangCategory.SOUNDS, "great_horn_hurt"), "Great Horn hurts");
-             put(of(LangCategory.SOUNDS, "great_horn_call"), "Great Horn bugles");
-             put(of(LangCategory.SOUNDS, "great_horn_death"), "Great Horn dies");
+            put(of(LangCategory.SOUNDS, "bellows_push"), "Bellows blowing");
+            // NOTE: SoundsME registers the three chisel hits separately,
+            //        so the whole family has to be declared, not a single "chisel_hit"
+            put(of(LangCategory.SOUNDS, "chisel_hit_first"), "Chisel hits");
+            put(of(LangCategory.SOUNDS, "chisel_hit_second"), "Chisel hits");
+            put(of(LangCategory.SOUNDS, "chisel_hit_third"), "Chisel hits");
+            put(of(LangCategory.SOUNDS, "chisel_enchant"), "Chisel enchants");
+            put(of(LangCategory.SOUNDS, "nazgul_fade"), "Nazgûl fading");
+            put(of(LangCategory.SOUNDS, "nazgul_scream"), "Nazgûl screaming");
+            put(of(LangCategory.SOUNDS, "pipe_refill"), "Pipe refills");
+            put(of(LangCategory.SOUNDS, "pipe_exhale"), "Pipe exhales");
+            put(of(LangCategory.SOUNDS, "pipe_ignite"), "Pipe ignites");
+            put(of(LangCategory.SOUNDS, "pipe_cough"), "Pipe coughs");
+            put(of(LangCategory.SOUNDS, "orc_drum"), "Orc drums");
+            put(of(LangCategory.SOUNDS, "great_horn_idle"), "Great Horn grunts");
+            put(of(LangCategory.SOUNDS, "great_horn_hurt"), "Great Horn hurts");
+            put(of(LangCategory.SOUNDS, "great_horn_call"), "Great Horn bugles");
+            put(of(LangCategory.SOUNDS, "great_horn_death"), "Great Horn dies");
 
             put(of(LangCategory.SOUNDS, "cave_troll_death"), "Cave Troll dies");
             put(of(LangCategory.SOUNDS, "cave_troll_hurt"), "Cave Troll hurts");
@@ -345,6 +350,7 @@ public class TranslationEntries {
             put(of(LangCategory.CONTAINER, "inscription_table"), "Inscription Table");
             put(of(LangCategory.CONTAINER, "small_crate"), "Small Crate");
             put(of(LangCategory.CONTAINER, "thin_barrel"), "Thin Barrel");
+            put(of(LangCategory.CONTAINER, "wood_pile"), "Wood Pile");
             put(of(LangCategory.SCREEN, "larch_coffer"), "Larch Coffer");
             put(of(LangCategory.SCREEN, "pine_coffer"), "Pine Coffer");
             put(of(LangCategory.SCREEN, "spruce_coffer"), "Spruce Coffer");
@@ -826,6 +832,8 @@ public class TranslationEntries {
             put(of(LangCategory.UI, "search.label"), "Search...");
             put(of(LangCategory.UI, "search.toggle_button"), "Search Bar Toggle");
             put(of(LangCategory.UI, "search.screen_click_button"), "Screen Click Button");
+
+            put(of(LangCategory.UI, "selection.none"), "None");
 
 
             put(of(LangCategory.KEY, "category." + MiddleEarth.MOD_ID, "me"), "Middle-earth");
