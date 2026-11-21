@@ -897,6 +897,44 @@ public class TranslationEntries {
             put("attribute.modifiers." + RacePools.RaceAttributes.TOTAL_DAMAGE_MODIFIER.getPath(), "Add Total Damage Multiplied");
             put("attribute.modifiers.creative_mode_block_range", "Creative Mode Block Range");
             put("attribute.modifiers.creative_mode_entity_range", "Creative Mode Entity Range");
+
+            // TODO: make config translatable keys auto-generate
+            // pairs
+
+            // client config
+            put(of(LangCategory.CONFIG, "client.section.title"), "Client Configs");
+            put(of(LangCategory.CONFIG, "client.comment.title.line_1"), "This file stores client configuration options for the Middle-earth mod.");
+            put(of(LangCategory.CONFIG, "client.comment.gui"), "GUI configurations");
+            put(of(LangCategory.CONFIG, "client.description.gui.line_1"), "Should you see the map overlay button in the middle-earth map gui?");
+            put(of(LangCategory.CONFIG, "client.comment.npc"), "NPC simplified model");
+            put(of(LangCategory.CONFIG, "client.description.npc.line_1"), "Should you see the experimental npc visuals, or use the simplified version.");
+            put(of(LangCategory.CONFIG, "client.comment.lod"), "LOD distance for NPCs");
+            put(of(LangCategory.CONFIG, "client.description.lod.line_1"), "Distance of rendering armor on NPCs");
+            put(of(LangCategory.CONFIG, "client.description.lod.line_2"), "Distance of rendering NPCs features (long hair, ears, etc.)");
+            put(of(LangCategory.CONFIG, "client.comment.glint"), "Glint config");
+            put(of(LangCategory.CONFIG, "client.description.glint.line_1"), "Should glint be disabled in middle-earth");
+
+            // server config / common config
+            put(of(LangCategory.CONFIG, "server.section.title"), "Server Configs");
+            put(of(LangCategory.CONFIG, "server.comment.title.line_1"), "This file stores server/host configuration options for the Middle-earth mod.");
+            put(of(LangCategory.CONFIG, "server.comment.world"), "World configurations");
+            put(of(LangCategory.CONFIG, "server.description.world.line_1"), "Should players respawn at their selected spawn location in Middle-earth if they die without having a bed assigned?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_2"), "Should players be able to return to the overworld by reusing the starlight phial?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_3"), "Should procedural structures (such as Orthanc) generate in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.description.world.line_4"), "Maximum amount of non-persistent entity per type in Middle-earth");
+            put(of(LangCategory.CONFIG, "server.comment.player"), "PlayerFactionData configurations");
+            put(of(LangCategory.CONFIG, "server.description.player.line_1"), "Should players be allowed to change factions when they use the starlight phial?");
+            put(of(LangCategory.CONFIG, "server.description.player.line_2"), "Should players keep their race when returning to the Overworld");
+            put(of(LangCategory.CONFIG, "server.description.player.line_3"), "Amount of time before teleporting");
+            put(of(LangCategory.CONFIG, "server.comment.mount"), "Mount configurations");
+            put(of(LangCategory.CONFIG, "server.description.mount.line_1"), "Should players and NPCs be allowed to ride broadhoof goats?");
+            put(of(LangCategory.CONFIG, "server.comment.food"), "Food configurations");
+            put(of(LangCategory.CONFIG, "server.description.food.line_1"), "Should players be allowed to craft golden apples and golden carrots in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.comment.golem"), "Golem configurations");
+            put(of(LangCategory.CONFIG, "server.description.golem.line_1"), "Should players be allowed to place golems with block patterns in Middle-earth?");
+            put(of(LangCategory.CONFIG, "server.comment.enchant"), "Enchants configurations");
+            put(of(LangCategory.CONFIG, "server.description.enchant.line_1"), "What is the maximum level a sharpness can have in an anvil output");
+            put(of(LangCategory.CONFIG, "server.description.enchant.line_2"), "What is the maximum level a power can have in an anvil output");
         }
     };
 

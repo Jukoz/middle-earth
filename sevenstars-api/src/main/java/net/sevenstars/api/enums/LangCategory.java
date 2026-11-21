@@ -2,6 +2,7 @@ package net.sevenstars.api.enums;
 
 public enum LangCategory {
     NONE(""),
+    CONFIG("config"),
     TOOLTIP("tooltip"),
     SCREEN("screen"),
     CONTAINER("container"),
