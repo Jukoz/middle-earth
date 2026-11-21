@@ -414,6 +414,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(floors == null) out.fillBedrock(DepthBands.SHALLOW_FLOOR);
         BlockPos.Mutable biomePos = new BlockPos.Mutable();
         MiddleEarthHeightMap.ChunkHeights heights = MiddleEarthHeightMap.getChunkHeights(chunkX, chunkZ);
+        BakedBoulders boulders = new BakedBoulders(getBiomeSource(), chunkX, chunkZ, seed, structureStarts);
 
         for(int x = 0; x < CHUNK_SIZE; x++) {
             for(int z = 0; z < CHUNK_SIZE; z++) {
@@ -503,6 +504,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         out.set(x, y, z, Blocks.WATER.getDefaultState());
                     }
                 }
+
+                if(!riftMouth && !boulders.isEmpty()) boulders.write(out, x, z, posX, posZ);
 
                 if(ServerConfigME.ENABLE_PROCEDURAL_STRUCTURES) {
                     // those write into the chunk directly, so what is buffered goes in first
