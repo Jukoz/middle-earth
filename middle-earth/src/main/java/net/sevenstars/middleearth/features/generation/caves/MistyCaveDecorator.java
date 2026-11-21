@@ -4,12 +4,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
+
+import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 
 public final class MistyCaveDecorator {
     private static final float ICE_MIN_WEIGHT = 0.5f;
@@ -21,13 +24,16 @@ public final class MistyCaveDecorator {
     private static final int WORM_HASH_SALT = 4801;
     private static final int WORM_MAX_LENGTH = 6;
 
-    private static final float ICE_PATCH_SCALE = 7;
-    private static final float ICE_PATCH_MIN = -0.35f;
-    private static final float ICE_FLOOR_COLDNESS = 0.85f; // chance per unit of cold
-    private static final float ICE_WALL_COLDNESS = 0.35f;
-    private static final int ICE_PACKED_CHANCE = 115; // out of 256, else snow
-    private static final int SNOW_LAYER_CHANCE = 150; // out of 256, on a snow block floor
-    private static final int SNOW_MAX_LAYERS = 3;
+    private static final float ICE_SHEET = 10; // noise scale, so ice comes in sheets
+    private static final float ICE_SPREAD = 1.7f;
+    private static final float BLUE_ICE = 0.55f;
+    private static final int COLD_FULL = 18; // fully cold this deep, gone COLD_FADE further down
+    private static final int COLD_FADE = 50;
+    private static final int ENTRANCE_COLD = 60; // reach of the cold from a mouth
+    private static final float SNOW_COLD = 0.55f; // colder floors are snow, the rest ice
+    private static final float LAYER_COLD = 0.75f;
+    private static final float SNOW_LAYER_SCALE = 5;
+    private static final float ICICLE_CHANCE = 0.3f; // per unit of cold
     private static final int CHUNK = 16;
 
     private MistyCaveDecorator() {
@@ -50,7 +56,7 @@ public final class MistyCaveDecorator {
                 ice(chunk, blocks, caves, x, z, lx, lz, surfaceY[index], edges[index].upperBottom(), pos, entrances);
             }
         }
-        new MistyCaveSetPieces(chunk, blocks, caves, lakes, surfaceY, weights, edges).place();
+        new MistyCaveSetPieces(chunk, blocks, caves, surfaceY, weights, edges).place();
     }
 
     private static void glowWorms(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake lake, int startX, int startZ, BlockPos.Mutable pos) {
@@ -86,20 +92,19 @@ public final class MistyCaveDecorator {
         }
     }
 
-    // entrances dress their own rock
+    // rock an entrance dresses itself
     private static boolean entranceRock(Entrance[] entrances, int x, int y, int z) {
         for (Entrance entrance : entrances) {
-            if (!entrance.inBox(x, y, z)) continue;
+            if (!entrance.box.contains(x, y, z)) continue;
             if (entrance.carves(x, y + 1, z) || entrance.carves(x + 1, y, z) || entrance.carves(x - 1, y, z)
                     || entrance.carves(x, y, z + 1) || entrance.carves(x, y, z - 1)) return true;
         }
         return false;
     }
 
-    // the cold reaches down through the upper band, fading out at its bottom
+    // cold from the surface and the entrances: sheets of ice and snow near them, bare rock deeper down
     private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int surface, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances) {
-        int bottom = Math.max(chunk.getBottomY() + 1, upperBottom);
-        int depth = Math.max(1, surface - upperBottom);
+        int bottom = Math.max(chunk.getBottomY() + 2, Math.min(upperBottom, Galleries.layerFloor(caves, x, z) - 2));
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
         // the block above is read once and carried to the next step; it is replaced when a snow layer goes there
         BlockState carried = null;
@@ -109,35 +114,46 @@ public final class MistyCaveDecorator {
             if (state.isAir() || !state.getFluidState().isEmpty() || !state.isFullCube(chunk, pos.set(x, y, z))) continue;
             BlockState above = blocks.get(x, y + 1, z);
             carried = above;
+            // the galleries' own ice and snow
+            if (state.isOf(Blocks.ICE) || state.isOf(Blocks.PACKED_ICE) || state.isOf(Blocks.BLUE_ICE) || state.isOf(Blocks.SNOW_BLOCK)) continue;
             boolean floor = above.isAir();
-            boolean wall = !floor
-                    && ((lx > 0 && blocks.get(x - 1, y, z).isAir())
+            boolean ceiling = blocks.get(x, y - 1, z).isAir();
+            boolean wall = (lx > 0 && blocks.get(x - 1, y, z).isAir())
                     || (lx < 15 && blocks.get(x + 1, y, z).isAir())
                     || (lz > 0 && blocks.get(x, y, z - 1).isAir())
-                    || (lz < 15 && blocks.get(x, y, z + 1).isAir()));
-            if (!floor && !wall) continue;
-            if (entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
-            float cold = 1 - (surface - y) / (float) depth;
-            float patch = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_PATCH_SCALE, (y + caves.offsetY) / ICE_PATCH_SCALE, (z + caves.offsetZ) / ICE_PATCH_SCALE);
-            if (patch < ICE_PATCH_MIN) continue;
-            int h = MistyCaves.mix(x + caves.offsetX, y + caves.offsetY, z + caves.offsetZ);
-            BlockState result = iceBlock(h, cold, floor);
-            if (result == null) continue;
-            blocks.put(x, y, z, result);
-            // layers do not survive on ice
-            if (floor && result.isOf(Blocks.SNOW_BLOCK) && ((h >>> 16) & 0xFF) < SNOW_LAYER_CHANCE) {
-                int layers = 1 + ((h >>> 24) & 0xFF) % SNOW_MAX_LAYERS;
-                carried = Blocks.SNOW.getDefaultState().with(SnowBlock.LAYERS, layers);
-                blocks.put(x, y + 1, z, carried);
+                    || (lz < 15 && blocks.get(x, y, z + 1).isAir());
+            if (!floor && !ceiling && !wall) continue;
+            float cold = cold(entrances, x, y, z, surface);
+            if (cold <= 0 || entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
+            float sheet = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_SHEET, (y + caves.offsetY) / ICE_SHEET, (z + caves.offsetZ) / ICE_SHEET);
+            if (sheet < 1 - ICE_SPREAD * cold) continue;
+            if (floor) {
+                boolean snow = cold > SNOW_COLD;
+                blocks.put(x, y, z, snow ? Blocks.SNOW_BLOCK.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+                if (snow && cold > LAYER_COLD) {
+                    float drift = (float) SimplexNoise.noise((x + caves.offsetZ) / SNOW_LAYER_SCALE, (z + caves.offsetX) / SNOW_LAYER_SCALE);
+                    int layers = MathHelper.clamp(1 + (int) ((drift + 1) * 1.2f), 1, 3);
+                    carried = Blocks.SNOW.getDefaultState().with(SnowBlock.LAYERS, layers);
+                    blocks.put(x, y + 1, z, carried);
+                }
+                continue;
+            }
+            blocks.put(x, y, z, sheet > BLUE_ICE ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+            if (ceiling && y - 2 >= bottom && blocks.get(x, y - 2, z).isAir()) {
+                int h = MistyCaves.mix(x + caves.offsetX, y + caves.offsetY, z + caves.offsetZ);
+                if ((h & 0xFF) < 256 * ICICLE_CHANCE * cold) blocks.put(x, y - 1, z, NatureBlockRegistryME.SHORT_ICICLES.getDefaultState());
             }
         }
     }
 
-    // null where the roll leaves the rock bare
-    private static BlockState iceBlock(int h, float cold, boolean floor) {
-        float roll = (h & 0xFF) / 255f;
-        boolean packed = ((h >>> 8) & 0xFF) < ICE_PACKED_CHANCE;
-        if (roll >= cold * (floor ? ICE_FLOOR_COLDNESS : ICE_WALL_COLDNESS)) return null;
-        return packed ? Blocks.PACKED_ICE.getDefaultState() : Blocks.SNOW_BLOCK.getDefaultState();
+    private static float cold(Entrance[] entrances, int x, int y, int z, int surface) {
+        float cold = MathHelper.clamp(1 - (surface - y - COLD_FULL) / (float) COLD_FADE, 0f, 1f);
+        for (Entrance entrance : entrances) {
+            if (!entrance.box.contains(x, y, z)) continue;
+            float d = (float) Math.sqrt(sq(x + 0.5f - entrance.mx) + sq(y - entrance.floorY) + sq(z + 0.5f - entrance.mz));
+            cold = Math.max(cold, 1 - d / ENTRANCE_COLD);
+        }
+        return cold;
     }
+
 }

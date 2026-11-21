@@ -2,33 +2,32 @@ package net.sevenstars.middleearth.features.generation.caves;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.Chunk;
-import net.sevenstars.middleearth.block.registration.NatureBlockRegistryME;
-import net.sevenstars.middleearth.block.special.DroopingIciclesBlock;
 import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
+import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.smoothstep;
+import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.DIRT_HEIGHT;
 
-// a cave mouth in a steep Misty hillside: a passage runs level into the slope, then down until it meets a rift
-// at most one per cell, at the steepest of a few spots, and only where the passage really reaches a rift
+// a cave mouth in a steep Misty hillside, its passage running level into the slope and then down into a gallery hall;
+// at most one per cell, at the steepest of a few spots
 public final class Entrance {
     public enum Kind { HILLSIDE, PORCH, OUTFLOW, ICE }
 
     static final int CELL = 384;
     private static final int CELL_EDGE = 64;
-    private static final int CHANCE = 190; // out of 256, before the slope and the rift have their say
+    private static final int CHANCE = 190; // out of 256
     private static final int CANDIDATES = 24;
     private static final int TRIES = 6;
     private static final int SALT = 7741;
@@ -39,11 +38,13 @@ public final class Entrance {
     private static final float MIN_WEIGHT = 0.95f;
     private static final float END_WEIGHT = 0.6f;
     private static final int OUTFLOW_MAX_Y = 210;
-    private static final float[] HEADINGS = {0f, 0.45f, -0.45f}; // radians off straight uphill
-    private static final int ROOF_COVER = 3; // rock over the passage once it is in the hill
-    private static final float CONNECT_MARGIN = 0.03f;
+    private static final int AIM_REACH = 110;
+    private static final float AIM_CONE = 0.35f; // cosine of the widest turn from straight uphill, about 70 degrees
+    private static final int MIN_RUN = 10;
+    private static final float MAX_GRADE = 0.6f;
+    private static final int ROOF_COVER = 3;
 
-    private static final int OUTSIDE = 4; // the passage starts this far out from the mouth, over the falling slope
+    private static final int OUTSIDE = 4; // the passage starts this far out, over the falling slope
     private static final float FLARE = 0.4f;
     private static final float FLARE_DEPTH = 7;
     private static final float WALL = 0.35f; // share of the height with straight walls, the rest is the arch
@@ -51,45 +52,40 @@ public final class Entrance {
     private static final float WOBBLE_SCALE = 5;
     private static final int APRON = 9;
     private static final int ICE_DEPTH = 22;
-    private static final int ICICLE_CHANCE = 60; // out of 256, under an ice ceiling
+    private static final int ICICLE_CHANCE = 60; // out of 256
     private static final float GROOVE = 0.75f;
-    static final int REACH = 110; // furthest any block of an entrance lies from its mouth, sideways
+    private static final int REACH = 110; // furthest any block lies from the mouth, sideways
 
-    private static final Map<Long, Entrance> CACHE = new ConcurrentHashMap<>();
-    private static final Entrance NONE = new Entrance();
-    private static final int CACHE_LIMIT = 8192;
-    private static volatile long cacheSeed = Long.MIN_VALUE;
+    private static final CellCache<Entrance> CACHE = new CellCache<>(8192);
+    private static final Entrance[] NONE = new Entrance[0];
 
-    final Kind kind;
     final float mx;
     final float mz;
-    final int floorY; // first air block at the mouth
-    final float dx; // into the hill
-    final float dz;
-    final float halfWidth;
-    final float height;
-    final float level; // level stretch before the descent
-    final float grade;
-    final float length;
-    final float wiggle;
-    final float freq;
-    final float phase;
-    final float room; // radius of the chamber at the end
-    final float hallWidth; // the porch only
-    final float hallHeight;
-    final float hallDepth;
-    final int hash;
-    final int noiseX;
-    final int noiseZ;
-    final int minX, maxX, minZ, maxZ, minY, maxY;
+    final int floorY; // first air at the mouth
+    final Box box;
+    private final Kind kind;
+    private final float dx; // into the hill
+    private final float dz;
+    private final float halfWidth;
+    private final float height;
+    private final float level; // level stretch before the descent
+    private final float grade;
+    private final float length;
+    private final int bottom; // the hall's floor, where the passage levels out
+    private final float wiggle;
+    private final float freq;
+    private final float phase;
+    private final float room; // the chamber at the end
+    private final float hallWidth; // the porch only
+    private final float hallHeight;
+    private final float hallDepth;
+    private final float lateral; // nothing carves further than this across the axis
+    private final int hash;
+    private final int noiseX;
+    private final int noiseZ;
 
-    private Entrance() {
-        kind = null;
-        mx = mz = dx = dz = halfWidth = height = level = grade = length = wiggle = freq = phase = room = hallWidth = hallHeight = hallDepth = 0;
-        floorY = hash = noiseX = noiseZ = minX = maxX = minZ = maxZ = minY = maxY = 0;
-    }
-
-    private Entrance(Kind kind, int x, int surfaceY, int z, float dx, float dz, int h, MistyCaves misty) {
+    // down to target at the hall's wall, run blocks in, then level to reach
+    private Entrance(Kind kind, int x, int surfaceY, int z, float dx, float dz, int h, MistyCaves misty, float run, float reach, int target) {
         this.kind = kind;
         this.mx = x + 0.5f;
         this.mz = z + 0.5f;
@@ -102,7 +98,7 @@ public final class Entrance {
         float r1 = (mix(h, 1, 0) & 0xFF) / 255f;
         float r2 = (mix(h, 2, 0) & 0xFF) / 255f;
         float r3 = (mix(h, 3, 0) & 0xFF) / 255f;
-        // the porch's crack is narrow, so it barely bends or it pinches shut on the diagonal
+        // the porch's crack is narrow, and bending would pinch it shut on the diagonal
         this.wiggle = kind == Kind.PORCH ? 1.5f : 2 + 4 * r3;
         this.freq = (float) (Math.PI * 2 / (30 + 25 * r1));
         this.phase = (float) (Math.PI * 2 * r2);
@@ -111,12 +107,10 @@ public final class Entrance {
                 hallWidth = 6 + 2.5f * r1;
                 hallHeight = 6 + 2 * r2;
                 hallDepth = 12 + 5 * r3;
-                // the crack at the back is the way on
+                // the crack at the back
                 halfWidth = 1f;
                 height = 4 + r2;
                 level = hallDepth * 0.8f;
-                grade = 0.6f;
-                length = level + 34 + 10 * r1;
                 room = 4.5f;
             }
             case OUTFLOW -> {
@@ -124,8 +118,6 @@ public final class Entrance {
                 halfWidth = 1.8f + 0.6f * r1;
                 height = 3.5f + r2;
                 level = 11;
-                grade = 0.35f;
-                length = 46 + 12 * r3;
                 room = 5;
             }
             case ICE -> {
@@ -133,8 +125,6 @@ public final class Entrance {
                 halfWidth = 2.8f + 1.2f * r1;
                 height = 5.5f + 2.5f * r2;
                 level = 8;
-                grade = 0.45f;
-                length = 38 + 16 * r3;
                 room = 6;
             }
             default -> {
@@ -142,30 +132,27 @@ public final class Entrance {
                 halfWidth = 2.6f + 1.6f * r1;
                 height = 5 + 4 * r2;
                 level = 6;
-                grade = 0.45f;
-                length = 36 + 20 * r3;
                 room = 5 + 2 * r1;
             }
         }
-        float side = Math.max(Math.max(halfWidth * (1 + FLARE), hallWidth), room) * (1 + WOBBLE) + wiggle + APRON + 2;
+        this.length = reach;
+        this.bottom = target;
+        this.grade = (surfaceY - target) / Math.max(1, run - level);
+        float widest = Math.max(Math.max(halfWidth * (1 + FLARE), hallWidth), room);
+        // the centre line strays up to twice the wiggle; the chamber sits on it
+        this.lateral = 2 * wiggle + widest * (1 + WOBBLE * Galleries.NOISE_BOUND) + 1;
+        float side = widest * (1 + WOBBLE) + wiggle + APRON + 2;
         float ex = mx + dx * (length + room);
         float ez = mz + dz * (length + room);
         float sx = mx - dx * (OUTSIDE + APRON);
         float sz = mz - dz * (OUTSIDE + APRON);
-        this.minX = (int) Math.floor(Math.min(ex, sx) - side);
-        this.maxX = (int) Math.ceil(Math.max(ex, sx) + side);
-        this.minZ = (int) Math.floor(Math.min(ez, sz) - side);
-        this.maxZ = (int) Math.ceil(Math.max(ez, sz) + side);
-        this.minY = floorAt(length) - (int) room - 2;
-        this.maxY = floorY + (int) Math.ceil(Math.max(height * (1 + FLARE), hallHeight) * (1 + WOBBLE)) + 2;
+        this.box = new Box((int) Math.floor(Math.min(ex, sx) - side), (int) Math.ceil(Math.max(ex, sx) + side),
+                floorAt(length) - (int) room - 2, floorY + (int) Math.ceil(Math.max(height * (1 + FLARE), hallHeight) * (1 + WOBBLE)) + 2,
+                (int) Math.floor(Math.min(ez, sz) - side), (int) Math.ceil(Math.max(ez, sz) + side));
     }
 
-    // the entrances whose blocks may reach into a chunk
     public static Entrance[] near(MistyCaves misty, MiddleEarthMapRuntime map, int startX, int startZ) {
-        if (cacheSeed != misty.seed) {
-            CACHE.clear();
-            cacheSeed = misty.seed;
-        }
+        CACHE.forSeed(misty.seed);
         List<Entrance> found = null;
         int minCellX = Math.floorDiv(startX - REACH, CELL);
         int maxCellX = Math.floorDiv(startX + 15 + REACH, CELL);
@@ -173,23 +160,16 @@ public final class Entrance {
         int maxCellZ = Math.floorDiv(startZ + 15 + REACH, CELL);
         for (int cellX = minCellX; cellX <= maxCellX; cellX++) {
             for (int cellZ = minCellZ; cellZ <= maxCellZ; cellZ++) {
-                long key = (long) cellX << 32 | (cellZ & 0xFFFFFFFFL);
-                Entrance entrance = CACHE.get(key);
-                if (entrance == null) {
-                    entrance = inCell(misty, map, cellX, cellZ);
-                    if (entrance == null) entrance = NONE;
-                    if (CACHE.size() >= CACHE_LIMIT) CACHE.clear();
-                    CACHE.put(key, entrance);
-                }
-                if (entrance == NONE || entrance.maxX < startX || entrance.minX > startX + 15 || entrance.maxZ < startZ || entrance.minZ > startZ + 15) continue;
+                int cx = cellX;
+                int cz = cellZ;
+                Entrance entrance = CACHE.get(CellCache.key(cellX, cellZ), key -> inCell(misty, map, cx, cz));
+                if (entrance == null || !entrance.box.touchesChunk(startX, startZ)) continue;
                 if (found == null) found = new ArrayList<>(1);
                 found.add(entrance);
             }
         }
-        return found == null ? NO_ENTRANCES : found.toArray(NO_ENTRANCES);
+        return found == null ? NONE : found.toArray(NONE);
     }
-
-    static final Entrance[] NO_ENTRANCES = new Entrance[0];
 
     private static Entrance inCell(MistyCaves misty, MiddleEarthMapRuntime map, int cellX, int cellZ) {
         int h = mix(cellX, cellZ, Long.hashCode(misty.seed) ^ SALT);
@@ -210,7 +190,7 @@ public final class Entrance {
             float gz = (height(x, z + SLOPE_STEP) - height(x, z - SLOPE_STEP)) / (2 * SLOPE_STEP);
             float slope = (float) Math.sqrt(gx * gx + gz * gz);
             if (slope < MIN_SLOPE) continue;
-            // insertion by slope, steepest first
+            // steepest first
             int at = count++;
             while (at > 0 && slopes[at - 1] < slope) {
                 xs[at] = xs[at - 1];
@@ -234,11 +214,25 @@ public final class Entrance {
             Kind kind = kind(map, x, z, surfaceY, slopes[i], h);
             float ux = gxs[i] / slopes[i];
             float uz = gzs[i] / slopes[i];
-            for (float turn : HEADINGS) {
-                float cos = MathHelper.cos(turn);
-                float sin = MathHelper.sin(turn);
-                Entrance entrance = new Entrance(kind, x, surfaceY, z, ux * cos - uz * sin, ux * sin + uz * cos, mix(h, i, 31), misty);
-                if (entrance.covered() && entrance.inMisty(map) && entrance.connects(misty, map)) return entrance;
+            // aim into the hill at a hall: ones that lead on first, then the nearest
+            GalleryLayout layout = GalleryLayout.of(misty, map);
+            List<Hall> halls = layout.hallsAround(x, z, AIM_REACH);
+            Map<Hall, Integer> links = new HashMap<>();
+            for (Hall hall : halls) links.put(hall, layout.tunnelsOf(hall, false).size());
+            halls.sort((a, b) -> links.get(a) > 0 != links.get(b) > 0 ? (links.get(a) > 0 ? -1 : 1)
+                    : Float.compare(sq(a.x - x) + sq(a.z - z), sq(b.x - x) + sq(b.z - z)));
+            for (Hall hall : halls) {
+                float hx = hall.x - x - 0.5f;
+                float hz = hall.z - z - 0.5f;
+                float distance = (float) Math.sqrt(hx * hx + hz * hz);
+                float ax = hx / distance;
+                float az = hz / distance;
+                if (ax * ux + az * uz < AIM_CONE) continue;
+                float run = distance - hall.radius() * 0.9f;
+                float reach = distance - hall.radius() * 0.4f;
+                Entrance entrance = new Entrance(kind, x, surfaceY, z, ax, az, mix(h, i, 31), misty, run, reach, hall.floor);
+                if (run - entrance.level < MIN_RUN || entrance.grade < 0 || entrance.grade > MAX_GRADE) continue;
+                if (entrance.covered() && entrance.inMisty(map) && entrance.reaches(hall) && entrance.walks(layout.carving(false))) return entrance;
             }
         }
         return null;
@@ -262,9 +256,8 @@ public final class Entrance {
         return MiddleEarthHeightMap.getHeight(x, z);
     }
 
-    // rock over the whole passage once it is past the mouth
+    // rock over the passage past the mouth, and ground rising behind the mouth so a thin ridge is not pierced
     private boolean covered() {
-        // the ground keeps rising behind the mouth, so a thin ridge is not pierced before the roof closes
         for (float s = 2; s < level + 4; s += 2) {
             float rise = Math.min(s * 0.6f, height + ROOF_COVER);
             if (DIRT_HEIGHT + height((int) Math.floor(centreX(s)), (int) Math.floor(centreZ(s))) < floorY + rise) return false;
@@ -279,24 +272,28 @@ public final class Entrance {
         return true;
     }
 
-    // so every chunk the passage crosses has the Misty caves to meet it
     private boolean inMisty(MiddleEarthMapRuntime map) {
         return MistyCaves.weight(map, (int) centreX(length * 0.5f), (int) centreZ(length * 0.5f)) >= END_WEIGHT
                 && MistyCaves.weight(map, (int) centreX(length), (int) centreZ(length)) >= END_WEIGHT;
     }
 
-    // some of the far half of the passage or its chamber opens onto a rift
-    private boolean connects(MistyCaves misty, MiddleEarthMapRuntime map) {
-        for (float s = length * 0.5f; s <= length + room; s += 2) {
-            float along = Math.min(s, length);
-            int x = (int) Math.floor(centreX(along) + dx * (s - along));
-            int z = (int) Math.floor(centreZ(along) + dz * (s - along));
-            int floor = floorAt(along);
-            for (int y = floor; y < floor + height; y += 2) {
-                if (misty.riftMarginAt(map, x, y, z) > CONNECT_MARGIN) return true;
-            }
-        }
-        return false;
+    // into the hall without a drop, say where it crosses a tunnel
+    private boolean walks(Walk.Carving galleries) {
+        Walk.Carving air = (x, y, z) -> carves(x, y, z) || galleries.at(x, y, z);
+        float s = kind == Kind.PORCH ? hallDepth * 0.5f : level + 3;
+        int x = (int) Math.floor(centreX(s));
+        int z = (int) Math.floor(centreZ(s));
+        int y = floorAt(s);
+        while (y > box.minY() && air.at(x, y - 1, z)) y--;
+        return Walk.reaches(air, x, y, z, (int) Math.floor(centreX(length)), bottom, (int) Math.floor(centreZ(length)), (int) length + 8);
+    }
+
+    // ends on the hall's floor, inside it
+    private boolean reaches(Hall hall) {
+        float s = length - 1;
+        int x = (int) Math.floor(centreX(s));
+        int z = (int) Math.floor(centreZ(s));
+        return Math.abs(floorAt(s) - hall.floor) <= 1 && hall.carves(x, hall.floor + 1, z) && hall.holds(x + 0.5f, z + 0.5f);
     }
 
     private float centre(float s) {
@@ -313,30 +310,21 @@ public final class Entrance {
     }
 
     private int floorAt(float s) {
-        return floorY - (int) (grade * Math.max(0, s - level));
-    }
-
-    boolean inBox(int x, int z) {
-        return x >= minX && x <= maxX && z >= minZ && z <= maxZ;
-    }
-
-    boolean inBox(int x, int y, int z) {
-        return y >= minY && y <= maxY && inBox(x, z);
+        return Math.max(bottom, floorY - (int) Math.ceil(grade * Math.max(0, s - level)));
     }
 
     // the mouth and the ground in front of it
     public boolean aroundMouth(int x, int z) {
-        return inBox(x, z) && along(x, z) < level + hallDepth + 6;
+        return box.containsColumn(x, z) && along(x, z) < level + hallDepth + 6;
     }
 
-    // air of the entrance
     public boolean carves(int x, int y, int z) {
-        if (!inBox(x, y, z)) return false;
+        if (!box.contains(x, y, z)) return false;
         float rx = x + 0.5f - mx;
         float rz = z + 0.5f - mz;
         float s = rx * dx + rz * dz;
         float u = rz * dx - rx * dz;
-        if (s < -OUTSIDE || s > length + room) return false;
+        if (s < -OUTSIDE || s > length + room || Math.abs(u) > lateral) return false;
         float wob = 1 + WOBBLE * (float) SimplexNoise.noise((x + noiseX) / WOBBLE_SCALE, y / WOBBLE_SCALE, (z + noiseZ) / WOBBLE_SCALE);
         if (kind == Kind.PORCH && hall(s, u, y, wob)) return true;
         if (passage(s, u, y, wob)) return true;
@@ -375,7 +363,6 @@ public final class Entrance {
         return sq((x + 0.5f - cx) / r) + sq((y + 0.5f - cy) / (r * 0.7f)) + sq((z + 0.5f - cz) / r) < 1;
     }
 
-    // along the passage and across it, from the mouth
     private float along(int x, int z) {
         return (x + 0.5f - mx) * dx + (z + 0.5f - mz) * dz;
     }
@@ -384,43 +371,44 @@ public final class Entrance {
         return (z + 0.5f - mz) * dx - (x + 0.5f - mx) * dz;
     }
 
-    // scree below the mouth, then the dressing of its rock: ice, a porch floor, a spring
-    // only blocks of this chunk are written, and every choice is a hash of its own position, so chunks agree
+    // scree below the mouth, then the rock round the passage: ice, a porch floor, a spring;
+    // only this chunk's blocks, each choice from a position or a hash, so chunks agree
     public void dress(Chunk chunk, BlockBuffer blocks, int[] surfaceY) {
         int startX = chunk.getPos().getStartX();
         int startZ = chunk.getPos().getStartZ();
         BlockPos.Mutable pos = new BlockPos.Mutable();
-        int fromX = Math.max(minX, startX);
-        int toX = Math.min(maxX, startX + 15);
-        int fromZ = Math.max(minZ, startZ);
-        int toZ = Math.min(maxZ, startZ + 15);
+        int fromX = Math.max(box.minX(), startX);
+        int toX = Math.min(box.maxX(), startX + 15);
+        int fromZ = Math.max(box.minZ(), startZ);
+        int toZ = Math.min(box.maxZ(), startZ + 15);
+        if (fromX > toX || fromZ > toZ) return;
+        CarveMask air = new CarveMask(this::carves, fromX - 1, toX + 1, box.minY() - 2, box.maxY() + 2, fromZ - 1, toZ + 1);
         for (int x = fromX; x <= toX; x++) {
             for (int z = fromZ; z <= toZ; z++) {
-                apron(blocks, x, z, surfaceY[(x - startX) * 16 + (z - startZ)]);
-                for (int y = minY - 1; y <= maxY + 1; y++) {
-                    if (carves(x, y, z)) continue;
+                apron(blocks, air, x, z, surfaceY[(x - startX) * 16 + (z - startZ)]);
+                for (int y = box.minY() - 1; y <= box.maxY() + 1; y++) {
+                    if (air.at(x, y, z)) continue;
                     BlockState state = blocks.get(x, y, z);
                     if (state.isAir() || !state.getFluidState().isEmpty()) continue;
-                    boolean floor = carves(x, y + 1, z);
-                    boolean ceiling = carves(x, y - 1, z);
-                    boolean wall = carves(x + 1, y, z) || carves(x - 1, y, z) || carves(x, y, z + 1) || carves(x, y, z - 1);
+                    boolean floor = air.at(x, y + 1, z);
+                    boolean ceiling = air.at(x, y - 1, z);
+                    boolean wall = air.at(x + 1, y, z) || air.at(x - 1, y, z) || air.at(x, y, z + 1) || air.at(x, y, z - 1);
                     if (!floor && !ceiling && !wall) continue;
-                    rock(chunk, blocks, pos, x, y, z, floor, ceiling);
+                    rock(chunk, blocks, air, pos, x, y, z, floor, ceiling);
                 }
             }
         }
     }
 
-    private void apron(BlockBuffer blocks, int x, int z, int surface) {
+    private void apron(BlockBuffer blocks, CarveMask air, int x, int z, int surface) {
         float s = along(x, z);
         if (s > 1 || s < -APRON) return;
         float side = Math.max(halfWidth * (1 + FLARE), hallWidth) + 2;
         float u = Math.abs(across(x, z));
         if (u > side) return;
-        if (carves(x, surface, z)) return;
+        if (air.at(x, surface, z)) return;
         BlockState top = blocks.get(x, surface, z);
         if (top.isAir() || !top.getFluidState().isEmpty()) return;
-        // a fan of patches, not single blocks
         float fan = (1 + Math.min(0, s) / APRON) * (1 - u / side);
         float patch = 0.5f + 0.5f * (float) SimplexNoise.noise((x + noiseX) / 3.5, (z + noiseZ) / 3.5);
         if (0.9f * fan + 0.5f * patch < 0.8f) return;
@@ -433,14 +421,13 @@ public final class Entrance {
         blocks.put(x, surface, z, scree);
     }
 
-    private void rock(Chunk chunk, BlockBuffer blocks, BlockPos.Mutable pos, int x, int y, int z, boolean floor, boolean ceiling) {
+    private void rock(Chunk chunk, BlockBuffer blocks, CarveMask air, BlockPos.Mutable pos, int x, int y, int z, boolean floor, boolean ceiling) {
         float s = along(x, z);
-        // patches of loose floor rather than single blocks
         float patch = (float) SimplexNoise.noise((x + noiseZ) / 2.5, y / 2.5, (z + noiseX) / 2.5);
         switch (kind) {
             case ICE -> {
                 if (s > ICE_DEPTH) return;
-                // whole sheets near the mouth, breaking into patches further in
+                // sheets near the mouth, patches further in
                 float ice = (float) SimplexNoise.noise((x + noiseX) / 3.0, y / 3.0, (z + noiseZ) / 3.0);
                 if (ice < 1.4f * s / ICE_DEPTH - 0.6f) return;
                 if (floor) {
@@ -449,7 +436,7 @@ public final class Entrance {
                 }
                 blocks.put(x, y, z, ice > 0.45f ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
                 int drip = (mix(hash, z * 13 + y, x) >>> 16) & 0xFF;
-                if (ceiling && drip < ICICLE_CHANCE && carves(x, y - 2, z)) icicles(blocks, x, y - 1, z, drip);
+                if (ceiling && drip < ICICLE_CHANCE && air.at(x, y - 2, z)) Icicles.hang(blocks, x, y - 1, z, drip < ICICLE_CHANCE / 2 && air.at(x, y - 3, z));
             }
             case PORCH -> {
                 if (!floor || s > hallDepth || y != floorY - 1) return;
@@ -459,7 +446,7 @@ public final class Entrance {
             case OUTFLOW -> {
                 if (!floor || s > level) return;
                 if (Math.abs(across(x, z) - centre(s)) < GROOVE) {
-                    // the spring rises under the roof, where it cannot freeze, and runs out down a groove once the chunk is loaded
+                    // the spring rises under the roof, where it cannot freeze, and runs out once the chunk loads
                     if (roofed(blocks, x, y + 1, z)) {
                         blocks.put(x, y, z, Blocks.WATER.getDefaultState());
                         chunk.markBlockForPostProcessing(pos.set(x, y, z));
@@ -481,27 +468,10 @@ public final class Entrance {
     }
 
     private boolean roofed(BlockBuffer blocks, int x, int y, int z) {
-        for (int up = y; up <= maxY + 4; up++) {
+        for (int up = y; up <= box.maxY() + 4; up++) {
             if (!blocks.get(x, up, z).isAir()) return true;
         }
         return false;
     }
 
-    private void icicles(BlockBuffer blocks, int x, int y, int z, int pick) {
-        if (pick < ICICLE_CHANCE / 2 && carves(x, y - 2, z)) {
-            blocks.put(x, y, z, NatureBlockRegistryME.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.UPPER));
-            blocks.put(x, y - 1, z, NatureBlockRegistryME.DROOPING_ICICLES.getDefaultState().with(DroopingIciclesBlock.HALF, DoubleBlockHalf.LOWER));
-        } else {
-            blocks.put(x, y, z, NatureBlockRegistryME.SHORT_ICICLES.getDefaultState());
-        }
-    }
-
-    private static float sq(float v) {
-        return v * v;
-    }
-
-    private static float smoothstep(float edge0, float edge1, float x) {
-        float t = MathHelper.clamp((x - edge0) / (edge1 - edge0), 0f, 1f);
-        return t * t * (3 - 2 * t);
-    }
 }

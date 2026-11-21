@@ -522,7 +522,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             }
         }
         // the decorations read and write the same buffers, so the sections are built once, after them
-        caves.dressEntrances(chunk, out);
+        caves.dressOpenings(chunk, out);
         caves.removeIslands(out);
         caves.decorate(chunk, out);
         out.finish();
@@ -658,9 +658,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return lowest;
     }
 
-    // the top few blocks are rock whatever the caves below, except where an entrance cuts in
+    // the top few blocks are rock whatever the caves below, except where an entrance or a chimney cuts in
     private static void setSkin(CaveSampler caves, ColumnWriter out, int x, int y, int z, int posX, int posZ, BlockState blockState) {
-        if(!caves.entranceAt(posX, y, posZ)) out.set(x, y, z, blockState);
+        if(!caves.openingAt(posX, y, posZ)) out.set(x, y, z, blockState);
     }
 
     private static void trySetBlock(CaveSampler caves, ColumnWriter out, int x, int y, int z, int posX, int posZ, BlockState blockState) {

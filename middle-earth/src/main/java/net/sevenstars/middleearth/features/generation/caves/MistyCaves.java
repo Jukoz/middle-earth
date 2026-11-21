@@ -21,23 +21,8 @@ import static net.sevenstars.middleearth.features.generation.caves.Shaft.*;
 import static net.sevenstars.middleearth.features.generation.caves.Worm.*;
 
 public final class MistyCaves {
-    // chain runs north-south, so rifts are stretched along Z
-    private static final float RIFT_X = 16;
-    private static final float RIFT_Y = 40;
-    private static final float RIFT_Z = 80;
-    private static final float RIFT_HALF_WIDTH = 0.16f;
-    // shares of the upper band's thickness: rifts fade in from above its bottom, fully open a little way into it
-    private static final float RIFT_TAPER = 0.15f;
-    private static final float RIFT_FULL = 0.1f;
-    private static final int RIFT_MIN_THICKNESS = 8;
-
     private static final int CHAMBER_CLEARANCE = DepthBands.BOTTOM_BAND + 3; // above the deep floor
     private static final int CHAMBER_TOP_FADE = 6;
-    // rifts close this far under the lowest ground nearby, so none opens in a slope or cliff
-    private static final int RIFT_SKIN = 14;
-    private static final int RIFT_SKIN_FADE = 6;
-    public static final int RIFT_SKIN_REACH = 8;
-    public static final int RIFT_SKIN_STEP = 8; // the ground is read on a world-fixed lattice this coarse
 
     // fade distances for the weight, in blocks
     private static final int WEIGHT_INNER_RADIUS = 24;
@@ -58,11 +43,10 @@ public final class MistyCaves {
     public static final int LAKE_WATER = 2;
     public static final int LAKE_STONE = 3;
 
-    public static final int VALUES = 4;
-    public static final int RIFT = 0;
-    public static final int CHAMBER = 1;
-    public static final int SHAFT = 2;
-    public static final int STREAM = 3;
+    public static final int VALUES = 3;
+    public static final int CHAMBER = 0;
+    public static final int SHAFT = 1;
+    public static final int STREAM = 2;
 
     private static final Lake[] NO_LAKES = new Lake[0];
 
@@ -106,58 +90,6 @@ public final class MistyCaves {
     static boolean isMisty(MiddleEarthMapRuntime map, int x, int z) {
         MapBasedCustomBiome biome = map.getBiome(x, z);
         return biome != null && biome.getBiome() != null && biome.getBiome().getCaveType() == CaveType.MISTIES;
-    }
-
-    // clusters of rifts: 0 where there are none
-    public float riftCluster(int x, int z) {
-        float gate = (float) SimplexNoise.noise((x + offsetX) / 240f, (z + offsetZ) / 400f);
-        return smoothstep(-0.1f, 0.35f, gate);
-    }
-
-    // open where positive; scale is weight * cluster, top from riftTop
-    public float riftMargin(int x, int y, int z, float scale, DepthBands.Edges edges, int top) {
-        float n = (float) SimplexNoise.noise((x + offsetX) / RIFT_X, (y + offsetY) / RIFT_Y, (z + offsetZ) / RIFT_Z);
-        n += 0.25f * (float) SimplexNoise.noise((x + offsetX) / (RIFT_X * 0.5f), (y + offsetY) / (RIFT_Y * 0.5f), (z + offsetZ) / (RIFT_Z * 0.5f));
-        n /= 1.25f;
-        float skin = MathHelper.clamp((top - y) / (float) RIFT_SKIN_FADE, 0f, 1f);
-        return RIFT_HALF_WIDTH * scale * riftEnvelope(edges, y) * skin - Math.abs(n);
-    }
-
-    // the highest y a rift may open at, under the lowest ground around a column
-    public static int riftTop(int x, int z) {
-        float low = MiddleEarthHeightMap.getHeight(x, z);
-        for (int i = Math.floorDiv(x - RIFT_SKIN_REACH + RIFT_SKIN_STEP - 1, RIFT_SKIN_STEP); i <= Math.floorDiv(x + RIFT_SKIN_REACH, RIFT_SKIN_STEP); i++) {
-            for (int j = Math.floorDiv(z - RIFT_SKIN_REACH + RIFT_SKIN_STEP - 1, RIFT_SKIN_STEP); j <= Math.floorDiv(z + RIFT_SKIN_REACH, RIFT_SKIN_STEP); j++) {
-                low = Math.min(low, MiddleEarthHeightMap.getHeight(i * RIFT_SKIN_STEP, j * RIFT_SKIN_STEP));
-            }
-        }
-        return riftTopOver(low);
-    }
-
-    public static int riftTopOver(float lowestHeight) {
-        return (int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + lowestHeight) - RIFT_SKIN;
-    }
-
-    // the rift margin of one block, worked out alone the way a sampler corner does
-    float riftMarginAt(MiddleEarthMapRuntime map, int x, int y, int z) {
-        float scale = weight(map, x, z) * riftCluster(x, z);
-        if (scale <= 0) return -1;
-        DepthBands.Edges edges = DepthBands.Edges.of((int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z)),
-                DepthBands.deepFloor(map, x, z, seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed));
-        return riftMargin(x, y, z, scale, edges, riftTop(x, z));
-    }
-
-    // the lowest y a rift can open at in a column, or the cap when it has none
-    public static int riftBottom(DepthBands.Edges edges) {
-        int thickness = edges.thickness(DepthBands.Band.UPPER);
-        if (thickness < RIFT_MIN_THICKNESS) return edges.cap();
-        return edges.upperBottom() - (int) (RIFT_TAPER * thickness);
-    }
-
-    private static float riftEnvelope(DepthBands.Edges edges, int y) {
-        int thickness = edges.thickness(DepthBands.Band.UPPER);
-        if (thickness < RIFT_MIN_THICKNESS) return 0;
-        return smoothstep(edges.upperBottom() - RIFT_TAPER * thickness, edges.upperBottom() + RIFT_FULL * thickness, y);
     }
 
     // tall stretches the chambers upwards, for the grotto
@@ -599,7 +531,7 @@ public final class MistyCaves {
         return v * v;
     }
 
-    private static float smoothstep(float edge0, float edge1, float x) {
+    static float smoothstep(float edge0, float edge1, float x) {
         float t = MathHelper.clamp((x - edge0) / (edge1 - edge0), 0f, 1f);
         return t * t * (3 - 2 * t);
     }

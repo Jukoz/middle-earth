@@ -4,10 +4,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -27,19 +31,21 @@ import net.minecraft.world.tick.ScheduledTickView;
 
 import java.util.Objects;
 
-public class SkeletonBlock extends Block {
+// waterloggable, so flowing water fills around it instead of washing it away
+public class SkeletonBlock extends Block implements Waterloggable {
     private static final int MAX_POSES = 9;
     public static final IntProperty POSE = IntProperty.of("pose", 1, MAX_POSES);
     public static final EnumProperty<Direction> HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public SkeletonBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(POSE, 1));
+        this.setDefaultState((this.stateManager.getDefaultState()).with(HORIZONTAL_FACING, Direction.NORTH).with(POSE, 1).with(WATERLOGGED, false));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING, POSE);
+        builder.add(HORIZONTAL_FACING, POSE, WATERLOGGED);
     }
 
     @Override
@@ -57,13 +63,20 @@ public class SkeletonBlock extends Block {
         if (blockState.isOf(this)) {
             return blockState.cycle(POSE).with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
         } else {
-            return Objects.requireNonNull(super.getPlacementState(ctx)).with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+            return Objects.requireNonNull(super.getPlacementState(ctx)).with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
+                    .with(WATERLOGGED, blockState.getFluidState().getFluid() == Fluids.WATER);
         }
     }
 
     protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
+        if (state.get(WATERLOGGED)) tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() :
                 super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+    }
+
+    @Override
+    protected FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
