@@ -63,7 +63,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int CAVE_NOISE = 5;
     private static final int CHUNK_SIZE = 16;
-    private static final int SLOPE_SAMPLE_OFFSET = 2;
+    private static final int SLOPE_SAMPLE_OFFSET = 4; // the height lattice
     private static final int CLIFF_REACH = 2; // columns each way whose ground a cliff face reaches down to
     private static final int MAX_CLIFF_FACE = 48;
     private static final int MOUNT_DOOM_LAVA_TOP = 100;
@@ -635,7 +635,8 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) (x + seed) / 24f,  (double) (z + seed) / 24f)) - CAVE_NOISE);
     }
 
-    // from both sides of the column, so the two sides of a ridge or a cliff read the same
+    // from both sides of the column, a whole height lattice cell each way: closer samples step from cell to cell, and
+    // where a slope sits on a biome's threshold that laid strips of stone and grass along it
     private static float getTerrainSlope(MiddleEarthHeightMap.ChunkHeights heights, int x, int z) {
         int offset = SLOPE_SAMPLE_OFFSET;
         float eastSlope = Math.abs((heights.at(x + offset, z) - heights.at(x - offset, z)) / (2 * offset));

@@ -279,11 +279,11 @@ public final class MiddleEarthHeightMap {
         return SOFT_CEILING_START + range * (float) Math.tanh((y - SOFT_CEILING_START) / range) - MiddleEarthChunkGenerator.DIRT_HEIGHT;
     }
 
-    // the 16x16 columns of a chunk plus a margin of 3 on every side for the slope samples, blended from lattice corners
+    // the 16x16 columns of a chunk plus a margin of 4 on every side for the slope samples, blended from lattice corners
     // that are each computed when first needed
     public static final class ChunkHeights {
         private static final int CHUNK_SIZE = 16;
-        public static final int MARGIN = 3;
+        public static final int MARGIN = 4;
         private static final int CORNER_OFFSET = (MARGIN + LATTICE - 1) / LATTICE; // corners west and north of the chunk
         private static final int CORNERS = CORNER_OFFSET + (CHUNK_SIZE + MARGIN) / LATTICE + 2;
         private final long seed;
