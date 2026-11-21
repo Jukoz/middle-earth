@@ -112,6 +112,14 @@ public class MiddleEarthMapGeneration {
         MiddleEarth.LOGGER.logInfoMsg("Validating initial map BIOME colors;");
         if(!validateBaseColors(initialMap)) return;
 
+        // the base height comes from the map as painted; river heads are trimmed against it before anything else is baked
+        MiddleEarth.LOGGER.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
+        if(!validateBaseHeightDatas()){
+            MiddleEarth.LOGGER.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
+            generateBaseHeightImage(initialMap);
+        }
+        initialMap = RiverHeads.trim(initialMap, baseHeightImage);
+
         MiddleEarth.LOGGER.logInfoMsg("Validating BIOME generation availability;");
         int iterationToGenerate = (MiddleEarthMapConfigs.FORCE_GENERATION)
                 ? MiddleEarthMapConfigs.MAP_ITERATION + 1
@@ -122,10 +130,8 @@ public class MiddleEarthMapGeneration {
             generateBiomes(initialMap, iterationToGenerate);
         }
 
-        MiddleEarth.LOGGER.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
-        if(!validateBaseHeightDatas()){
-            MiddleEarth.LOGGER.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");
-            generateBaseHeightImage(initialMap);
+        if(fileUtils.getRunImage(MiddleEarthMapConfigs.BASE_HEIGHT_PATH + MiddleEarthMapConfigs.BASE_EDGE_IMAGE_NAME) == null) {
+            MiddleEarth.LOGGER.logInfoMsg("Begin EDGE generation;");
             generateBaseEdgeImage(initialMap);
         }
 

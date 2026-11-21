@@ -23,7 +23,7 @@ public class MiddleEarthMapConfigs {
     public static final int FULL_MAP_SIZE = (int) (REGION_SIZE * Math.pow(2, MAP_ITERATION) * PIXEL_WEIGHT);
 
     // Part of the folder the baked map data lives in, so a changed bake is picked up instead of the old files
-    public static final String MAP_DATA_VERSION = MiddleEarth.MOD_VERSION + "-terrain4";
+    public static final String MAP_DATA_VERSION = MiddleEarth.MOD_VERSION + "-terrain5";
     public static final String MOD_DATA_ROOT = "data/";
     public static final String MOD_DATA_MOD_ROOT = "data/me/";
     public static final String MOD_DATA = "data/me/%s".formatted(MAP_DATA_VERSION);

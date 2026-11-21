@@ -26,8 +26,6 @@ public final class ImageUtils {
     private static final float GAUSSIAN_SIGMA = 3.81f;
     public static final float MAX_DEPTH = 64;
 
-    private static final Random random = new Random();
-
     public static BufferedImage fetchResourceImage(String path) throws IOException {
         URL resource = ImageUtils.class.getClassLoader().getResource(path);
         BufferedImage img = ImageIO.read(resource);
@@ -92,7 +90,7 @@ public final class ImageUtils {
 
 
                 try {
-                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
+                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences, x, y);
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                     colorOccurences.clear();
                 } catch (Exception exception) {
@@ -124,7 +122,7 @@ public final class ImageUtils {
                     colorOccurences.add(result.getRGB(x, y + 1));
 
                 try {
-                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences);
+                    Integer color = getMostOccuringColorFromBiomeList(colorOccurences, x, y);
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                 } catch (Exception exception) {
                     //MiddleEarth.LOGGER.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
@@ -135,7 +133,7 @@ public final class ImageUtils {
         return result;
     }
 
-    private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list) throws Exception {
+    private static Integer getMostOccuringColorFromBiomeList(ArrayList<Integer> list, int x, int y) throws Exception {
         if(list.isEmpty()){
             MiddleEarth.LOGGER.logError("ImageUtils::getMostCommonColor - List was empty!");
             return null;
@@ -167,7 +165,13 @@ public final class ImageUtils {
 
         if(list.size() == 1)
             return list.get(0);
-        return list.get(random.nextInt(0, list.size()));
+        // a tie goes by position, so the same map always bakes the same
+        list.sort(null);
+        int h = x * 0x27d4eb2d ^ y * 0x165667b1;
+        h ^= h >>> 15;
+        h *= 0x2c1b3c6d;
+        h ^= h >>> 12;
+        return list.get(Math.floorMod(h, list.size()));
     }
 
     private static int getExpansionWeight(Integer integer) throws Exception{
