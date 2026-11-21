@@ -1,19 +1,15 @@
 package net.sevenstars.middleearth;
 
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.resource.SynchronousResourceReloader;
 import net.sevenstars.middleearth.common.feature.ClientFeature;
+import net.sevenstars.middleearth.config.ClientConfigME;
+import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.features.ClientFeatures;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
-
-
-
-
-
-
-
-
-
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey;
@@ -120,6 +116,15 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         KeyInputHandler.register();
         ClientTickEvents.END_CLIENT_TICK.register(OnboardingFactionScreenController::tickPendingMandatory);
+
+        // Register configs after client language files are loaded, and refresh comments on language switch
+        Identifier configReloaderId = MiddleEarth.id("config_localization_reloader");
+        ResourceLoader clientResourceLoader = ResourceLoader.get(ResourceType.CLIENT_RESOURCES);
+        clientResourceLoader.registerReloader(configReloaderId, (SynchronousResourceReloader) manager -> {
+            ServerConfigME.registerOrRefreshLocalization();
+            ClientConfigME.registerOrRefreshLocalization();
+        });
+        clientResourceLoader.addReloaderOrdering(ResourceReloaderKeys.Client.LANGUAGES, configReloaderId);
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);

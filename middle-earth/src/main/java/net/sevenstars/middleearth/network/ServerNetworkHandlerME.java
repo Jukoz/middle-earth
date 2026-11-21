@@ -32,6 +32,7 @@ public class ServerNetworkHandlerME extends ServerNetworkHandlerAPI {
         PayloadTypeRegistry.playS2C().register(ShapingAnvilRecipePacket.ID, ShapingAnvilRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(ArtisanRecipePacket.ID, ArtisanRecipePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(PacketOpenMapScreen.ID, PacketOpenMapScreen.CODEC);
+        PayloadTypeRegistry.playS2C().register(PacketConfigAction.ID, PacketConfigAction.CODEC);
 
         // REGISTRY : Client to server
         PayloadTypeRegistry.playC2S().register(PacketStructureManagerRespawnEntities.ID, PacketStructureManagerRespawnEntities.CODEC);

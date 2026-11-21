@@ -2,11 +2,12 @@ package net.sevenstars.api.enums;
 
 public enum LangCategory {
     NONE(""),
+    CONFIG("config"),
     TOOLTIP("tooltip"),
     SCREEN("screen"),
     CONTAINER("container"),
     ADVANCEMENTS("advancements"),
-    ITEM_GROUP("item_group"),
+    ITEM_GROUP("itemGroup"),
     EFFECT("effect"),
     ENCHANTMENT("enchantment"),
     BLOCK("block"),

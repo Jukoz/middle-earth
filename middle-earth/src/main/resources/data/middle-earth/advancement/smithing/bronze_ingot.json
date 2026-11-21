@@ -5,10 +5,10 @@
       "count": 1
     },
     "title": {
-      "translate": "advancements.smithing.bronze_ingot.title"
+      "translate": "advancements.middle-earth.smithing.bronze_ingot.title"
     },
     "description": {
-      "translate": "advancements.smithing.bronze_ingot.description"
+      "translate": "advancements.middle-earth.smithing.bronze_ingot.description"
     },
     "frame": "task",
     "show_toast": true,
