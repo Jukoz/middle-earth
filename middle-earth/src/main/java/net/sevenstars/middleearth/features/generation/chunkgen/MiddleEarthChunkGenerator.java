@@ -39,6 +39,7 @@ import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 import net.sevenstars.middleearth.features.generation.biomes.BlocksLayeringData;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.SlopeMap;
 import net.sevenstars.middleearth.features.generation.biomes.surface.*;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapConfigs;
@@ -62,7 +63,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     public static final int DIRT_HEIGHT = 3 + HEIGHT;
     public static final int CAVE_NOISE = 5;
     private static final int CHUNK_SIZE = 16;
-    private static final int SLOPE_SAMPLE_OFFSET = 3;
+    private static final int SLOPE_SAMPLE_OFFSET = 2;
+    private static final int CLIFF_REACH = 2; // columns each way whose ground a cliff face reaches down to
+    private static final int MAX_CLIFF_FACE = 48;
     private static final int MOUNT_DOOM_LAVA_TOP = 100;
     private static final int MOUNT_DOOM_MAGMA_BELOW = 110;
 
@@ -490,6 +493,13 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                         out.set(x, y, z, underSurfaceState);
                     }
                     out.set(x, surfaceY, z, surfaceBlock.getDefaultState());
+                    // a cliff shows its face down to the ground beside it, so that face is all the cliff block rather
+                    // than a crust over the soil and the layers, which differ from column to column
+                    if(!belowWater && isCliff(biomeData.getBiome().getSlopeMap(), slopeAngle)) {
+                        BlockState cliffState = surfaceBlock.getDefaultState();
+                        int bottom = surfaceY - Math.min(MAX_CLIFF_FACE, (int) Math.ceil(height - lowestNeighbour(heights, x, z)) + 1);
+                        for(int y = surfaceY - 1; y >= bottom; y--) trySetBlock(caves, out, x, y, z, posX, posZ, cliffState);
+                    }
                 }
 
                 if(biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM || biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM_PIT) {
@@ -627,17 +637,26 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         return (float) ((2 * CAVE_NOISE * BlendedNoise.noise((double) (x + seed) / 24f,  (double) (z + seed) / 24f)) - CAVE_NOISE);
     }
 
+    // from both sides of the column, so the two sides of a ridge or a cliff read the same
     private static float getTerrainSlope(MiddleEarthHeightMap.ChunkHeights heights, int x, int z) {
         int offset = SLOPE_SAMPLE_OFFSET;
-        float height = heights.at(x, z);
-        float eastHeight = heights.at(x + offset, z);
-        float southHeight = heights.at(x, z + offset);
+        float eastSlope = Math.abs((heights.at(x + offset, z) - heights.at(x - offset, z)) / (2 * offset));
+        float southSlope = Math.abs((heights.at(x, z + offset) - heights.at(x, z - offset)) / (2 * offset));
+        return (float) Math.toDegrees(Math.atan((eastSlope + southSlope) / 2));
+    }
 
-        float eastSlope = Math.abs((eastHeight - height) / offset);
-        float southSlope = Math.abs((southHeight - height) / offset);
-        float highestSlope = (eastSlope + southSlope) / 2;
+    // steep enough for the last block of the biome's slopes, its bare rock
+    private static boolean isCliff(SlopeMap slopes, float angle) {
+        List<SlopeMap.SlopeData> datas = slopes.slopeDatas;
+        return datas.size() > 1 && angle > datas.get(datas.size() - 2).angle;
+    }
 
-        return (float) Math.toDegrees(Math.atan(highestSlope));
+    private static float lowestNeighbour(MiddleEarthHeightMap.ChunkHeights heights, int x, int z) {
+        float lowest = Float.MAX_VALUE;
+        for(int d = 1; d <= CLIFF_REACH; d++) {
+            lowest = Math.min(lowest, Math.min(Math.min(heights.at(x + d, z), heights.at(x - d, z)), Math.min(heights.at(x, z + d), heights.at(x, z - d))));
+        }
+        return lowest;
     }
 
     private static void trySetBlock(CaveSampler caves, ColumnWriter out, int x, int y, int z, int posX, int posZ, BlockState blockState) {

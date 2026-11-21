@@ -304,9 +304,9 @@ public class BiomeDataConfigsME {
             .addSlopeData(44, Blocks.SANDSTONE)
             .addSlopeData(56, Blocks.STONE)
             .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
-    public static SlopeMap harad = new SlopeMap().addSlopeData(32, Blocks.SAND)
-            .addSlopeData(45, Blocks.SANDSTONE)
-            .addSlopeData(60, Blocks.STONE)
+    // sand up the lee of the steepest dunes
+    public static SlopeMap harad = new SlopeMap().addSlopeData(50, Blocks.SAND)
+            .addSlopeData(60, Blocks.SANDSTONE)
             .addSlopeData(MAX_ANGLE, Blocks.TERRACOTTA);
     public static SlopeMap ocean = new SlopeMap().addSlopeData(30, Blocks.GRAVEL)
             .addSlopeData(36, BlockRegistryME.RIVER_SAND)

@@ -279,13 +279,13 @@ public final class MiddleEarthHeightMap {
         return SOFT_CEILING_START + range * (float) Math.tanh((y - SOFT_CEILING_START) / range) - MiddleEarthChunkGenerator.DIRT_HEIGHT;
     }
 
-    // the 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples, blended from
-    // lattice corners that are each computed when first needed
+    // the 16x16 columns of a chunk plus a margin of 3 on every side for the slope samples, blended from lattice corners
+    // that are each computed when first needed
     public static final class ChunkHeights {
         private static final int CHUNK_SIZE = 16;
-        private static final int SLOPE_MARGIN = 3;
-        public static final int SIZE = CHUNK_SIZE + SLOPE_MARGIN;
-        private static final int CORNERS = SIZE / LATTICE + 2;
+        public static final int MARGIN = 3;
+        private static final int CORNER_OFFSET = (MARGIN + LATTICE - 1) / LATTICE; // corners west and north of the chunk
+        private static final int CORNERS = CORNER_OFFSET + (CHUNK_SIZE + MARGIN) / LATTICE + 2;
         private final long seed;
         private final int chunkX;
         private final int chunkZ;
@@ -300,15 +300,15 @@ public final class MiddleEarthHeightMap {
 
         // not remembered per column: the blend and the hill lookup are cheap next to a corner
         public float at(int dx, int dz) {
-            int i = dx / LATTICE;
-            int k = dz / LATTICE;
+            int i = Math.floorDiv(dx, LATTICE);
+            int k = Math.floorDiv(dz, LATTICE);
             float fx = (float) (dx - i * LATTICE) / LATTICE;
             float fz = (float) (dz - k * LATTICE) / LATTICE;
             return finish((chunkX << 4) + dx, (chunkZ << 4) + dz, bilerp(corner(i, k), corner(i + 1, k), corner(i, k + 1), corner(i + 1, k + 1), fx, fz));
         }
 
         private float corner(int i, int k) {
-            int index = k * CORNERS + i;
+            int index = (k + CORNER_OFFSET) * CORNERS + i + CORNER_OFFSET;
             float height = corners[index];
             if(Float.isNaN(height)) {
                 height = getUnraisedHeight((chunkX << 4) + i * LATTICE, (chunkZ << 4) + k * LATTICE);

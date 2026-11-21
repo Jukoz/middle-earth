@@ -34,6 +34,8 @@ final class BakedBoulders {
     private static final int MAX_SLOTS = 16; // boulder features a biome may list, each rolled in turn like a placed feature; the most now is 9
     private static final int SURFACE_BIOME_Y = 320;
     private static final int STRUCTURE_CLEARANCE = 2;
+    private static final int SLOPE_STEP = 2;
+    private static final double MAX_SLOPE = 0.36; // rise per block, about 20 degrees
     private static final int RATE_SAMPLES = 4096;
 
     private record Kind(BigBoulderFeatureConfig config, float rate) {
@@ -85,12 +87,21 @@ final class BakedBoulders {
             float height = config.height + unit(hash, 4) * config.randomSize;
             float reach = Math.max(length, width) + config.randomness;
             if (x + reach < chunkX << 4 || x - reach > (chunkX << 4) + 15 || z + reach < chunkZ << 4 || z - reach > (chunkZ << 4) + 15) continue;
-            int surfaceY = (int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z));
+            float ground = MiddleEarthHeightMap.getHeight(x, z);
+            if (steep(x, z)) continue;
+            int surfaceY = (int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + ground);
             // a feature on water found nothing to stand on
             if (surfaceY < MiddleEarthMapRuntime.getInstance().getBiome(x, z).getWaterHeight()) continue;
             double angle = Math.toRadians(unit(hash, 5) * 180);
             boulders.add(new Boulder(config, x, surfaceY + 1, z, length, width, height, (float) Math.cos(angle), (float) Math.sin(angle), hash));
         }
+    }
+
+    // boulders rest on level ground, a slope would leave one hanging off its side
+    private static boolean steep(int x, int z) {
+        float east = MiddleEarthHeightMap.getHeight(x + SLOPE_STEP, z) - MiddleEarthHeightMap.getHeight(x - SLOPE_STEP, z);
+        float south = MiddleEarthHeightMap.getHeight(x, z + SLOPE_STEP) - MiddleEarthHeightMap.getHeight(x, z - SLOPE_STEP);
+        return Math.sqrt(east * east + south * south) / (2 * SLOPE_STEP) > MAX_SLOPE;
     }
 
     // the blocks of the boulders in one column, over whatever the column holds

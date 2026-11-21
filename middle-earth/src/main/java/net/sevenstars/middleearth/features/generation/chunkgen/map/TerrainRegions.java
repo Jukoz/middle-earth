@@ -91,7 +91,10 @@ final class TerrainRegions {
     private static final double FACTOR = 5.6; // Tectonic's squash outside the windswept band, dunes are added after it
     private static final double SEA = 63.52;
     private static final double SELECTOR_SKEW = 0; // Tectonic's 0.1 leaves half its regions flat, these are chosen per biome
-    private static final float WATER_FADE = 10; // blue of the baked height map at which a landform is gone, as for the named hills
+    private static final float WETLAND_WATER_FADE = 3; // quicker for the wetlands
+    private static final float WATER_FADE = 10;
+    private static final double SHORE_START = 1; // blocks above the water where a landform starts to show
+    private static final double SHORE_WIDTH = 6; // and over which it comes in fully // blue of the baked height map at which a landform is gone, as for the named hills
 
     private TerrainRegions() {
     }
@@ -108,11 +111,15 @@ final class TerrainRegions {
         float fade = Math.max(0, 1 - water / WATER_FADE);
         if (fade <= 0) return height;
 
+        // and where the ground already lies at the water line: rivers and their banks keep their shape
+        double surface = MiddleEarthChunkGenerator.DIRT_HEIGHT + height;
+        int waterHeight = MiddleEarthMapRuntime.getInstance().getBiome(x, z).getWaterHeight();
+        float shore = (float) Math.clamp((surface - waterHeight - SHORE_START) / SHORE_WIDTH, 0, 1);
+
         long seed = MiddleEarthHeightMap.getSeed();
         TectonicRegions.In in = INPUTS.get();
         fill(in, x, z, seed);
         double hm = Math.clamp(1.2 + 0.4 * TectonicNoise.HEIGHT_MULTIPLIER.at(x, z, seed), 0.8, 1.6);
-        double surface = MiddleEarthChunkGenerator.DIRT_HEIGHT + height;
         double change = 0;
         for (Landform landform : ALL) {
             float share = shares[landform.ordinal()];
@@ -130,7 +137,9 @@ final class TerrainRegions {
             }
             if (landform == Landform.DUNES) blocks += BLOCKS_PER_UNIT * dunes(in) / FACTOR;
             if (landform == Landform.JUNGLE) blocks += BLOCKS_PER_UNIT * pillars(in);
-            change += share * blocks;
+            // wetlands belong at the water line but stay out of the rivers, where their ponds would break the river
+            // into patches; everything else fades out towards the water line
+            change += share * blocks * (landform == Landform.WETLAND ? Math.max(0, 1 - water / WETLAND_WATER_FADE) : shore);
         }
         return height + (float) (fade * change);
     }
