@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.Block;
@@ -19,13 +20,16 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
@@ -42,6 +46,17 @@ public class EventRegistryME {
     public static void register(){
         // before the spawn chunks generate; set on join, they got seed 0
         ServerWorldEvents.LOAD.register((server, world) -> MiddleEarthHeightMap.setSeed(world.getSeed()));
+
+        // The client passes so the attack packet still reaches the server, which swaps the rider's hit for the troll's
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            if(player.getVehicle() instanceof CaveTrollEntity troll && troll != entity && troll.getControllingPassenger() == player) {
+                if(world instanceof ServerWorld serverWorld) {
+                    troll.riderSwing(serverWorld, player, entity);
+                    return ActionResult.FAIL;
+                }
+            }
+            return ActionResult.PASS;
+        });
 
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();

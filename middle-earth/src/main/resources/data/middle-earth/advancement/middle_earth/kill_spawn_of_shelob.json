@@ -19,7 +19,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.kill_spawn_of_shelob.description"
+      "translate": "advancements.middle-earth.middle_earth.kill_spawn_of_shelob.description"
     },
     "frame": "goal",
     "hidden": false,
@@ -29,7 +29,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.kill_spawn_of_shelob.title"
+      "translate": "advancements.middle-earth.middle_earth.kill_spawn_of_shelob.title"
     }
   },
   "requirements": [

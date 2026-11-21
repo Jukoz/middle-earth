@@ -44,6 +44,7 @@ public class ItemTagsME {
     public static TagKey<Item> MUSHROOMS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("mushrooms"));
     public static TagKey<Item> BONES = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("bones"));
     public static TagKey<Item> DIRT = TagKey.of(RegistryKeys.ITEM, Identifier.of("dirt"));
+    public static TagKey<Item> SACKS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("sacks"));
 
     public static TagKey<Item> HORSE_ARMORS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("horse_armor"));
     public static TagKey<Item> WARG_ARMORS = TagKey.of(RegistryKeys.ITEM, MiddleEarth.id("warg_armor"));

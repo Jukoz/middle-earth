@@ -19,5 +19,6 @@ public class CommandRegistryME {
         CommandRegistrationCallback.EVENT.register(CommandInformation::register);
         CommandRegistrationCallback.EVENT.register(CommandDimensionTeleport::register);
         CommandRegistrationCallback.EVENT.register(CommandLocateBiome::register);
+        CommandRegistrationCallback.EVENT.register(CommandConfig::register);
     }
 }

@@ -13,7 +13,7 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancements.middle_earth.strawberry.description"
+      "translate": "advancements.middle-earth.middle_earth.strawberry.description"
     },
     "frame": "task",
     "hidden": false,
@@ -23,7 +23,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.strawberry.title"
+      "translate": "advancements.middle-earth.middle_earth.strawberry.title"
     }
   },
   "requirements": [

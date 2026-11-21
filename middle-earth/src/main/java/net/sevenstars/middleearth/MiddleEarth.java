@@ -1,24 +1,18 @@
 package net.sevenstars.middleearth;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.sevenstars.middleearth.common.feature.Feature;
 import net.sevenstars.middleearth.features.Features;
 import net.sevenstars.middleearth.features.building.GenericBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.building.WoodBlockSetRegistryME;
-
-
-
-
 import net.sevenstars.middleearth.features.generation.Generation;
-
-
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.sevenstars.api.enums.LangCategory;
 import net.sevenstars.api.utils.ModLogger;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
-import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.config.ServerConfigME;
 import net.sevenstars.middleearth.enchantments.EnchantmentsME;
 import net.sevenstars.middleearth.entity.EntitiesME;
@@ -69,8 +63,11 @@ public class MiddleEarth implements ModInitializer {
 
 		ServerNetworkHandlerME.register(new ConnectionToClient());
 		EventRegistryME.register();
-		ServerConfigME.registerConfigs();
-		ClientConfigME.registerConfigs();
+		// register on server start
+		// *** FABRIC EVENT ***
+		ServerLifecycleEvents.SERVER_STARTING.register(
+				server -> ServerConfigME.registerConfigs()
+		);
 
 		RecipesME.registerRecipes();
 		DataComponentTypesME.registerModComponentTypes();

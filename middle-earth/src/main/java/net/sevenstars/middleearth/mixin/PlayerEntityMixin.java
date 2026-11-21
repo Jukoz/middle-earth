@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
 import net.sevenstars.middleearth.utils.PlayerUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -103,7 +104,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         PlayerMovementData.resetAFK((IEntityDataSaver) this);
     }
 
-
+    // While steering a cave troll the troll does the hitting
+    @Inject(method = "getAttackCooldownProgressPerTick", at = @At("HEAD"), cancellable = true)
+    private void useTrollSwingCooldown(CallbackInfoReturnable<Float> cir) {
+        if(this.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == (Object)this) {
+            cir.setReturnValue(troll.getRiderSwingCooldownTicks());
+        }
+    }
+    
     @Inject(method = "createPlayerAttributes", require = 1, allow = 1, at = @At("RETURN"))
     private static void createPlayerAttributesInject(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info){
         info.getReturnValue().add(EntityAttributesME.POWDERED_SNOW_IMMUNITY);

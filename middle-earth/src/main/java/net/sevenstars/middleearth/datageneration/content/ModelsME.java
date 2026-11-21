@@ -53,6 +53,9 @@ public class ModelsME {
 
     public static final Model PATH_BLOCK;
 
+    public static final Model SACK_BLOCK;
+    public static final Model SACK_BLOCK_OPEN;
+
     private static Model block(String parent, TextureKey... requiredTextureKeys) {
         return new Model(Optional.of(Identifier.of(MiddleEarth.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
@@ -106,5 +109,8 @@ public class ModelsME {
         CROP_VINE = block("crop_no_shade_template", TextureKey.CROP);
 
         PATH_BLOCK = block("path_template", TextureKey.PARTICLE, TextureKey.TOP, TextureKey.SIDE, TextureKey.BOTTOM);
+
+        SACK_BLOCK = block("sack_template", TextureKey.ALL, TextureKey.PARTICLE);
+        SACK_BLOCK_OPEN = block("sack_open_template", TextureKey.ALL, TextureKey.PARTICLE);
     }
 }

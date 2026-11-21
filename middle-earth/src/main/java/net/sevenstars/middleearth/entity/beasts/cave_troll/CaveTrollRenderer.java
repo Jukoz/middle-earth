@@ -9,6 +9,7 @@ import net.minecraft.util.Util;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollDroolFeatureRenderer;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollBannerFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollHeldItemFeatureRenderer;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.feature.CaveTrollSaddleFeatureRenderer;
 
@@ -23,6 +24,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         this.addFeature(new CaveTrollDroolFeatureRenderer(this));
         this.addFeature(new CaveTrollSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new CaveTrollHeldItemFeatureRenderer(this));
+        this.addFeature(new CaveTrollBannerFeatureRenderer(this, context.getEntityModels()));
     }
 
     @Override
@@ -69,6 +71,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         state.stopSleepingAnimationState = troll.stopSleepingAnimationState;
         state.roaringAnimationState = troll.roaringAnimationState;
         state.smashingAnimationState = troll.smashingAnimationState;
+        state.handSwingProgress = troll.getHandSwingProgress(f);
         state.isSprinting = troll.isSprinting();
         state.isCharging = troll.isCharging();
         state.isEnraged = troll.isEnraged();

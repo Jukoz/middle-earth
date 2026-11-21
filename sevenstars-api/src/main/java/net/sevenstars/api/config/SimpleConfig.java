@@ -29,6 +29,7 @@ import net.fabricmc.loader.api.FabricLoader;import net.sevenstars.api.SevenStars
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import java.util.Scanner;
 
 public class SimpleConfig {
 
-    private final HashMap<String, String> config = new HashMap<>();
+    private HashMap<String, String> config = new HashMap<>();
     private final ConfigRequest request;
     private boolean broken = false;
     private static final String FILE_TYPE = ".toml";
@@ -105,20 +106,24 @@ public class SimpleConfig {
     private void createConfig() throws IOException {
 
         // try creating missing files
-        request.file.getParentFile().mkdirs();
+        File parent = request.file.getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
+        }
         Files.createFile( request.file.toPath() );
 
         // write default config data
-        PrintWriter writer = new PrintWriter(request.file, "UTF-8");
-        writer.write( request.getConfig() );
-        writer.close();
+        try (PrintWriter writer = new PrintWriter(request.file, StandardCharsets.UTF_8)) {
+            writer.write( request.getConfig() );
+        }
 
     }
 
     private void loadConfig() throws IOException {
-        Scanner reader = new Scanner( request.file );
-        for( int line = 1; reader.hasNextLine(); line ++ ) {
-            parseConfigEntry( reader.nextLine(), line );
+        try (Scanner reader = new Scanner(request.file, StandardCharsets.UTF_8)) {
+            for( int line = 1; reader.hasNextLine(); line ++ ) {
+                parseConfigEntry( reader.nextLine(), line );
+            }
         }
     }
 
@@ -246,6 +251,79 @@ public class SimpleConfig {
     public boolean delete() {
         SevenStarsApi.LOGGER.logWarn( "Config '" + request.filename + "' was removed from existence! Restart the game to regenerate it." );
         return request.file.delete();
+    }
+
+    public void reload() {
+        HashMap<String, String> oldConfig = new HashMap<>(this.config);
+        this.config.clear();
+        this.broken = false;
+
+        try {
+            loadConfig();
+        } catch (Exception e) {
+            SevenStarsApi.LOGGER.logError("Config '" + this.request.filename + "' failed to reload!", e);
+            this.broken = true;
+            this.config = oldConfig;
+        }
+    }
+
+    /**
+     * Rewrites the config file using the given provider (e.g. after a language change)
+     * while preserving all existing user-configured values.
+     */
+    public void refreshComments(DefaultConfig newProvider) {
+        this.request.provider(newProvider);
+
+        if (this.request.file.exists()) {
+            reload();
+            if (this.broken) {
+                return;
+            }
+        }
+
+        String merged = mergeTemplateWithValues(this.request.getConfig(), this.config);
+
+        try {
+            if (this.request.file.exists()) {
+                String existing = Files.readString(this.request.file.toPath(), StandardCharsets.UTF_8);
+                if (existing.equals(merged)) {
+                    return;
+                }
+            } else {
+                File parent = this.request.file.getParentFile();
+                if (parent != null) {
+                    parent.mkdirs();
+                }
+            }
+
+            Files.writeString(this.request.file.toPath(), merged, StandardCharsets.UTF_8);
+            reload();
+        } catch (IOException e) {
+            SevenStarsApi.LOGGER.logError("Config '" + this.request.filename + "' failed to refresh comments!", e);
+        }
+    }
+
+    private static String mergeTemplateWithValues(String template, HashMap<String, String> values) {
+        String[] lines = template.split("\n", -1);
+        StringBuilder sb = new StringBuilder(template.length());
+        for (int i = 0; i < lines.length; i++) {
+            String line = lines[i];
+            if (!line.isEmpty() && !line.trim().startsWith("#") && !line.contains(ConfigProvider.COMMENT_PREFIX)) {
+                String[] parts = line.split("=", 2);
+                if (parts.length == 2) {
+                    String key = parts[0].replace(" ", "");
+                    String currentVal = values.get(key);
+                    if (currentVal != null) {
+                        line = parts[0] + "=" + currentVal;
+                    }
+                }
+            }
+            sb.append(line);
+            if (i < lines.length - 1) {
+                sb.append('\n');
+            }
+        }
+        return sb.toString();
     }
 
 }
