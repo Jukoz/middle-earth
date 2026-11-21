@@ -62,7 +62,7 @@ public class TrollRiderCamera {
     }
 
     public static View compute(Entity rider, float tickProgress) {
-        World world = rider.getWorld();
+        World world = rider.getEntityWorld();
         Entity vehicle = rider.getVehicle();
         long now = System.nanoTime();
         double dt = MathHelper.clamp((now - lastFrameNanos) / 1.0E9, 0.0, 0.1);
@@ -109,7 +109,7 @@ public class TrollRiderCamera {
         if(cameraPos == null) {
             return null;
         }
-        World world = rider.getWorld();
+        World world = rider.getEntityWorld();
         Vec3d eye = rider.getCameraPosVec(tickProgress);
         Vec3d look = rider.getRotationVec(tickProgress);
 

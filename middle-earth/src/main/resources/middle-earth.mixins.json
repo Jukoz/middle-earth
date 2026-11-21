@@ -48,7 +48,7 @@
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",
     "client.CameraMixin",
-    "client.GameRendererMixin",
+    "client.ClientPlayerEntityMixin",
     "client.GuiRendererMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",

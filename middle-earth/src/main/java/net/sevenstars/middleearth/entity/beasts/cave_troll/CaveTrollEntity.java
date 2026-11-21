@@ -311,7 +311,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
 
     @Override
     public void openInventory(PlayerEntity player) {
-        if(!this.getWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && this.isTame()) {
+        if(!this.getEntityWorld().isClient() && (!this.hasPassengers() || this.hasPassenger(player)) && this.isTame()) {
             player.openHandledScreen(new ExtendedScreenHandlerFactory<Integer>() {
                 @Override
                 public Integer getScreenOpeningData(ServerPlayerEntity player) {
@@ -398,7 +398,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
             if(jumpHeld && !this.riderJumpHeld && this.isCharging() && this.isSmashing() && this.age - this.smashingTime < DOWNSWING_TICK) {
                 this.setCharging(false);
                 this.smashingTime = this.age - DOWNSWING_TICK;
-                this.getWorld().sendEntityStatus(this, SKIP_TO_SLAM_STATUS);
+                this.getEntityWorld().sendEntityStatus(this, SKIP_TO_SLAM_STATUS);
             }
             this.riderJumpHeld = jumpHeld;
 
@@ -458,7 +458,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         }
 
         float charge = rider.getAttackCooldownProgress(0.5f);
-        rider.resetLastAttackedTicks();
+        rider.resetTicksSinceLastAttack();
         this.swingHand(Hand.MAIN_HAND);
 
         float damage = (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * (0.2f + charge * charge * 0.8f) + PLAYER_RIDER_DAMAGE_BONUS;
@@ -481,7 +481,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     private void knockAway(LivingEntity target, double strength) {
-        knockAway(target, this.getPos(), strength);
+        knockAway(target, this.getEntityPos(), strength);
     }
 
     private static boolean isWithinSmashRadius(Box box, Vec3d impact) {
@@ -491,10 +491,10 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     }
 
     private void knockAway(LivingEntity target, Vec3d origin, double strength) {
-        Vec3d away = target.getPos().subtract(origin).getHorizontal().normalize();
+        Vec3d away = target.getEntityPos().subtract(origin).getHorizontal().normalize();
         target.takeKnockback(strength, -away.x, -away.z);
         // Player velocity is client authoritative unless flagged
-        target.velocityModified = true;
+        target.knockedBack = true;
     }
 
     @Override
@@ -724,7 +724,7 @@ public class CaveTrollEntity extends AbstractBeastEntity {
         if(this.getControllingPassenger() instanceof PlayerEntity) {
             return PLAYER_RIDER_DAMAGE_BONUS;
         }
-        return this.hasControllingPassenger() ? this.getWorld().getDifficulty().getId() * 2 : 0.0f;
+        return this.hasControllingPassenger() ? this.getEntityWorld().getDifficulty().getId() * 2 : 0.0f;
     }
 
     // Player-sourced, so world difficulty does not scale it
@@ -738,13 +738,13 @@ public class CaveTrollEntity extends AbstractBeastEntity {
     public void smashAttack(float strength) { // Strength goes from 0 to 100
         setSmashing(false);
         // The fists land in front of the troll; everything within the radius and up to SMASH_HEIGHT off the ground is hit
-        Vec3d impact = this.getPos().add(Vec3d.fromPolar(0.0f, this.getBodyYaw()).multiply(SMASH_REACH));
+        Vec3d impact = this.getEntityPos().add(Vec3d.fromPolar(0.0f, this.getBodyYaw()).multiply(SMASH_REACH));
         Box box = new Box(impact.subtract(SMASH_RADIUS, 0, SMASH_RADIUS), impact.add(SMASH_RADIUS, SMASH_HEIGHT, SMASH_RADIUS));
 
         double weaponDamage = getWeaponModifier(EntityAttributes.ATTACK_DAMAGE, "base_attack_damage");
 
-        List<Entity> entities = this.getWorld().getOtherEntities(this, box);
-        World world = this.getWorld();
+        List<Entity> entities = this.getEntityWorld().getOtherEntities(this, box);
+        World world = this.getEntityWorld();
         float riderBonus = riderDamageBonus();
 
         if(world instanceof ServerWorld serverWorld) {

@@ -24,7 +24,24 @@ public class StorageBlockEntities {
 
     public static BlockEntityType<CofferBlockEntity> WILLOW_COFFER = BlockEntityRegistryME.register("willow_coffer", (pos, state) -> new CofferBlockEntity(StorageBlockEntities.WILLOW_COFFER, pos, state), StorageBlocks.WILLOW_COFFER);
 
-    public static BlockEntityType<SackBlockEntity> SACK = BlockEntityRegistryME.register("sack", SackBlockEntity::new, StorageBlocks.SACK);
+    public static BlockEntityType<SackBlockEntity> SACK = BlockEntityRegistryME.register("sack", SackBlockEntity::new,
+            StorageBlocks.SACK,
+            StorageBlocks.WHITE_SACK,
+            StorageBlocks.BLACK_SACK,
+            StorageBlocks.BLUE_SACK,
+            StorageBlocks.BROWN_SACK,
+            StorageBlocks.CYAN_SACK,
+            StorageBlocks.GREEN_SACK,
+            StorageBlocks.GRAY_SACK,
+            StorageBlocks.LIGHT_BLUE_SACK,
+            StorageBlocks.LIGHT_GRAY_SACK,
+            StorageBlocks.LIME_SACK,
+            StorageBlocks.MAGENTA_SACK,
+            StorageBlocks.ORANGE_SACK,
+            StorageBlocks.PINK_SACK,
+            StorageBlocks.PURPLE_SACK,
+            StorageBlocks.RED_SACK,
+            StorageBlocks.YELLOW_SACK);
 
     public static BlockEntityType<ReinforcedChestBlockEntity> REINFORCED_CHEST = BlockEntityRegistryME.register("reinforced_chest", ReinforcedChestBlockEntity::new,
             StorageBlocks.REINFORCED_CHEST);
