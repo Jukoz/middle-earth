@@ -299,6 +299,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsStoneTools.add(OreStoneSetRegistryME.CALCITE.copper_ore());
         needsStoneTools.add(OreStoneSetRegistryME.CALCITE.tin_ore());
+        needsIronTools.add(OreStoneSetRegistryME.CALCITE.silver_ore());
+        needsIronTools.add(OreStoneSetRegistryME.CALCITE.gold_ore());
 
         needsStoneTools.add(OreStoneSetRegistryME.SLATE.copper_ore());
         needsStoneTools.add(OreStoneSetRegistryME.SLATE.tin_ore());

@@ -21,7 +21,7 @@ public class OreStoneSetRegistryME {
     public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
             List.of(ORES.TIN_ORE), Blocks.STONE);
     public static OreRockSet CALCITE = registerOreSet("calcite_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE), Blocks.CALCITE);
 
     public static OreRockSet ASHEN = registerOreSet("ashen_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSetRegistryME.ASHENSTONE_SET.baseBlocks.base());
