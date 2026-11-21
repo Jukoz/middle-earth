@@ -29,6 +29,8 @@
     "PigEntityMixin",
     "JigsawBlockMixin",
     "JigsawStructureMixin",
+    "StructurePoolBasedGeneratorMixin",
+    "StructurePoolGeneratorMixin",
     "PlayerEntityMixin",
     "PotionEntityMixin",
     "PowderSnowBlockMixin",
