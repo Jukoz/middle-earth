@@ -34,6 +34,7 @@ public class CaveBiomesME {
     public static CaveBiomesMap elvenCaves = new CaveBiomesMap();
     public static CaveBiomesMap forodCaves = new CaveBiomesMap();
     public static CaveBiomesMap mountainCaves = new CaveBiomesMap();
+    public static CaveBiomesMap whiteMountainCaves = new CaveBiomesMap();
     public static CaveBiomesMap mistyCaves = new CaveBiomesMap();
     public static CaveBiomesMap lonelyMountainCaves = new CaveBiomesMap();
     public static CaveBiomesMap haradCaves = new CaveBiomesMap();
@@ -72,6 +73,14 @@ public class CaveBiomesME {
         mountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LUSH_CAVE, new Vec2f(-1.25f,-1.1f)));
         mountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.FUNGUS_CAVE, new Vec2f(0f,-1.1f)));
 
+        // limestone country: plain karst with dripstone, no gems or gold outside Aglarond
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LIMESTONE_CAVE, new Vec2f(-1.0f,1.0f)));
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(1.0f,1.0f)));
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LIMESTONE_CAVE, new Vec2f(0.0f,0.0f)));
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LIMESTONE_CAVE, new Vec2f(1.0f,-0.5f)));
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MOUNTAIN_CAVE, new Vec2f(-1.0f,-0.5f)));
+        whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.BASIC_CAVE, new Vec2f(0.0f,-1.1f)));
+
         // the Misty Mountains by depth band; the middle one is the mountain palette
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.ICE_CAVE, new Vec2f(-0.6f,0.3f), DepthBands.Band.UPPER));
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(0.6f,0.3f), DepthBands.Band.UPPER));
@@ -108,6 +117,7 @@ public class CaveBiomesME {
                 case HARAD -> haradCaves.getClosestBiome(coordinates, band);
                 case MISTIES -> mistyCaves.getClosestBiome(coordinates, band);
                 case MOUNTAINS -> mountainCaves.getClosestBiome(coordinates, band);
+                case WHITE_MOUNTAINS -> whiteMountainCaves.getClosestBiome(coordinates, band);
                 case LONELY_MOUNTAIN -> lonelyMountainCaves.getClosestBiome(coordinates, band);
                 default -> defaultCaves.getClosestBiome(coordinates, band);
             };
@@ -131,12 +141,20 @@ public class CaveBiomesME {
         context.register(BiomeKeyRegistryME.NAMELESS_DEEPS, createNamelessDeeps(context, new BiomeColorsDTO(BiomeAmbianceME.NAMELESS_DEEPS, 0x0B1620, 0x01030A, 0x2A2F33, 0x2A2F33)));
         context.register(BiomeKeyRegistryME.GNAWED_TUNNELS, createGnawedTunnels(context, new BiomeColorsDTO(BiomeAmbianceME.GNAWED_TUNNELS, 0x6E6A60, 0x4A4740, 0x9A9384, 0x9A9384)));
         context.register(BiomeKeyRegistryME.GLOWWORM_GROTTO, createGlowwormGrotto(context, new BiomeColorsDTO(BiomeAmbianceME.GLOWWORM_GROTTO, 0x1E5C62, 0x04161A, 0x2F5E4F, 0x2F5E4F)));
+        context.register(BiomeKeyRegistryME.GLITTERING_CAVES, createGlitteringCaves(context, new BiomeColorsDTO(BiomeAmbianceME.GLITTERING_CAVES, 0x2E6A7A, 0x07181E, 10338918, 10604137)));
 
         context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
         context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
 
         context.register(BiomeKeyRegistryME.DRY_CAVE, createDryCave(context, new BiomeColorsDTO(BiomeAmbianceME.CLEAR, defaultWater, defaultWaterFog, 10928742, 11259497)));
         context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(BiomeAmbianceME.MISTY_CAVE, defaultWater, defaultWaterFog, 11121530, 10990723)));
+    }
+
+    // Aglarond dresses itself; no features, so nothing grows over the formations
+    public static Biome createGlitteringCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, false);
     }
 
     public static Biome createBasicCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {

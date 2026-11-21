@@ -41,6 +41,7 @@ import net.sevenstars.middleearth.features.generation.biomes.BlocksLayeringData;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.SlopeMap;
 import net.sevenstars.middleearth.features.generation.biomes.surface.*;
+import net.sevenstars.middleearth.features.generation.chunkgen.map.HelmsDeep;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapConfigs;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
@@ -356,6 +357,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.NAMELESS_DEEPS),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.GNAWED_TUNNELS),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.GLOWWORM_GROTTO),
+            biomeRegistry.getOrThrow(BiomeKeyRegistryME.GLITTERING_CAVES),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.BASALT_CAVE),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.MAGMA_CAVE),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.DRY_CAVE),
@@ -491,6 +493,10 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     setSkin(caves, out, x, y, z, posX, posZ, underSurfaceState);
                 }
                 setSkin(caves, out, x, surfaceY, z, posX, posZ, surfaceBlock.getDefaultState());
+                if(HelmsDeep.stream(posX, posZ) && !belowWater && !caves.opensBelow(posX, surfaceY, posZ)) {
+                    out.set(x, surfaceY, z, Blocks.WATER.getDefaultState());
+                    chunk.markBlockForPostProcessing(new BlockPos(posX, surfaceY, posZ));
+                }
                 // a cliff shows its face down to the ground beside it, so that face is all the cliff block rather
                 // than a crust over the soil and the layers, which differ from column to column
                 if(!belowWater && isCliff(biomeData.getBiome().getSlopeMap(), slopeAngle)) {

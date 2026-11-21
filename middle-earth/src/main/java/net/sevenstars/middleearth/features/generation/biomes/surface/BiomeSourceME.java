@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.features.generation.biomes.surface;
 
+import net.sevenstars.middleearth.features.generation.caves.Aglarond;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -96,7 +98,9 @@ public class BiomeSourceME extends BiomeSource {
         }
 
         RegistryKey<Biome> processedBiome;
-        if (j < column.caveBelow || j < column.marshCaveBelow) {
+        if (j < column.caveBelow && Aglarond.of(column.seed).holds(i, j, k)) {
+            processedBiome = BiomeKeyRegistryME.GLITTERING_CAVES;
+        } else if (j < column.caveBelow || j < column.marshCaveBelow) {
             DepthBands.Band band = DepthBands.bandAt(j, column.edges);
             if (band == null) band = DepthBands.Band.UPPER;
             RegistryKey<Biome> caveBiome = column.caveBiomes[band.ordinal()];

@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
+import net.sevenstars.middleearth.features.generation.caves.Aglarond;
 import net.sevenstars.middleearth.features.generation.caves.BlockBuffer;
 import net.sevenstars.middleearth.features.generation.caves.Entrance;
 import net.sevenstars.middleearth.features.generation.caves.Galleries;
@@ -83,6 +84,7 @@ final class CaveSampler {
     private final float[] mistyWeight; // null when no corner of the chunk is Misty
     private final Entrance[] entrances;
     private final Galleries galleries;
+    private final Aglarond aglarond; // null where the Glittering Caves are far off
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;
@@ -174,6 +176,8 @@ final class CaveSampler {
         }
         this.entrances = Entrance.near(candidate, map, startX, startZ);
         this.galleries = Galleries.near(candidate, map, startX, startZ);
+        Aglarond glittering = Aglarond.of(seed);
+        this.aglarond = glittering.touchesChunk(startX, startZ) ? glittering : null;
         if (!any && !deepHere && tunnels.length == 0) {
             this.misty = null;
             this.mistyWeight = null;
@@ -297,6 +301,11 @@ final class CaveSampler {
 
     int sample(int x, int y, int z) {
         selectColumn(x - startX, z - startZ);
+        if (aglarond != null) {
+            if (aglarond.carves(x, y, z)) return AIR;
+            if (aglarond.water(x, y, z)) return WATER;
+            if (aglarond.quiet(x, y, z)) return STONE;
+        }
         if (misty == null) return openingAt(x, y, z) || !baseSolid(x, y, z) ? AIR : galleryWater(x, y, z) ? WATER : STONE;
         if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
             int column = ((x - startX) * CHUNK_SIZE + (z - startZ)) * 2;
@@ -320,8 +329,13 @@ final class CaveSampler {
     }
 
     // an entrance or a gallery, which may cut through the surface
+    // the Glittering Caves open at or just under this block
+    boolean opensBelow(int x, int y, int z) {
+        return aglarond != null && (aglarond.carves(x, y, z) || aglarond.carves(x, y - 1, z));
+    }
+
     boolean openingAt(int x, int y, int z) {
-        return entrances.length > 0 && entranceAt(x, y, z) || !galleries.isEmpty() && galleries.carves(x, y, z);
+        return aglarond != null && aglarond.carves(x, y, z) || entrances.length > 0 && entranceAt(x, y, z) || !galleries.isEmpty() && galleries.carves(x, y, z);
     }
 
     // the layer under the Misty surface, where only the halls and tunnels open
@@ -498,6 +512,7 @@ final class CaveSampler {
 
     void dressOpenings(Chunk chunk, BlockBuffer blocks) {
         if (!galleries.isEmpty()) galleries.dress(chunk, blocks);
+        if (aglarond != null) aglarond.dress(chunk, blocks);
         for (Entrance entrance : entrances) entrance.dress(chunk, blocks, surfaceY);
     }
 

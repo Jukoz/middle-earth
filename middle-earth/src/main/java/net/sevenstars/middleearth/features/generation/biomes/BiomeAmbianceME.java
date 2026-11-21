@@ -92,6 +92,9 @@ public final class BiomeAmbianceME {
             .withParticles(Particles.DUSTFALL);
     public static final BiomeAmbianceME GLOWWORM_GROTTO = sky(0x0A1A1D, 0x0A1F22)
             .withParticles(Particles.GLINTS);
+    // Aglarond: dark until a torch is lit, and the drip of water into still pools
+    public static final BiomeAmbianceME GLITTERING_CAVES = sky(0x0B0D10, 0x0E1014)
+            .withSounds(Sounds.DRIPS);
 
     // Caves with fog of their own, in blocks from the camera and no matter the view distance: nothing is seen further than a ravine is wide
     public static final float UNDERGROUND_FOG_START = 50;
@@ -198,7 +201,7 @@ public final class BiomeAmbianceME {
             biome.setEnvironmentAttribute(EnvironmentAttributes.AMBIENT_SOUNDS_AUDIO, AmbientSounds.CAVE);
         } else {
             biome.setEnvironmentAttribute(EnvironmentAttributes.AMBIENT_SOUNDS_AUDIO, new AmbientSounds(
-                    Optional.of(sounds.loop()),
+                    Optional.ofNullable(sounds.loop()),
                     Optional.of(new BiomeMoodSound(sounds.mood(), Sounds.MOOD_TICK_DELAY, Sounds.MOOD_BLOCK_SEARCH_EXTENT, Sounds.MOOD_OFFSET)),
                     List.of(new BiomeAdditionsSound(sounds.additions(), Sounds.ADDITIONS_TICK_CHANCE))));
         }
@@ -279,6 +282,7 @@ public final class BiomeAmbianceME {
         public static final Sounds MORDOR = new Sounds(SoundEvents.AMBIENT_NETHER_WASTES_LOOP, SoundEvents.AMBIENT_NETHER_WASTES_MOOD, SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS);
         public static final Sounds HAUNTED = new Sounds(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_LOOP, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS);
         public static final Sounds MIRKWOOD = new Sounds(SoundEvents.AMBIENT_WARPED_FOREST_LOOP, SoundEvents.AMBIENT_WARPED_FOREST_MOOD, SoundEvents.AMBIENT_WARPED_FOREST_ADDITIONS);
+        public static final Sounds DRIPS = new Sounds(null, SoundEvents.AMBIENT_CAVE, RegistryEntry.of(SoundEvents.BLOCK_POINTED_DRIPSTONE_DRIP_WATER));
         public static final Sounds SPIDER_NESTS = new Sounds(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP, SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS);
     }
 }

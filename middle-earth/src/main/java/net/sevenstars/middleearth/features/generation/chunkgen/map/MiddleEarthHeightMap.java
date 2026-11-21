@@ -234,9 +234,18 @@ public final class MiddleEarthHeightMap {
         return finish(x, z, blended);
     }
 
-    // the named hills go on per column, the smallest mounds are narrower than the lattice
+    // the named hills and Helm's Deep go on per column, both finer than the lattice
     private static float finish(int x, int z, float blended) {
-        return softCeiling(MapHills.raise(x, z, blended));
+        return softCeiling(HelmsDeep.carve(x, z, MapHills.raise(x, z, blended)));
+    }
+
+    // with the named hills but before Helm's Deep is cut
+    static float getRaisedHeight(int x, int z) {
+        int x0 = Math.floorDiv(x, LATTICE) * LATTICE;
+        int z0 = Math.floorDiv(z, LATTICE) * LATTICE;
+        float fx = (float) (x - x0) / LATTICE;
+        float fz = (float) (z - z0) / LATTICE;
+        return MapHills.raise(x, z, bilerp(getUnraisedHeight(x0, z0), getUnraisedHeight(x0 + LATTICE, z0), getUnraisedHeight(x0, z0 + LATTICE), getUnraisedHeight(x0 + LATTICE, z0 + LATTICE), fx, fz));
     }
 
     private static float bilerp(float c00, float c10, float c01, float c11, float fx, float fz) {

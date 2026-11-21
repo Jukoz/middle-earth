@@ -8,5 +8,6 @@ public enum CaveType {
     HARAD,
     LONELY_MOUNTAIN,
     MISTIES,
-    MOUNTAINS
+    MOUNTAINS,
+    WHITE_MOUNTAINS
 }

@@ -589,11 +589,11 @@ public class MapBiomeData {
                 new BiomeColorsDTO(BiomeAmbianceME.COLD_HAZE.withParticles(Particles.DUST), 5141697, 460593, 8881498, 10328434)));
         // WHITE MOUNTAINS
         addBiome(new BiomeData(BiomeKeyRegistryME.WHITE_MOUNTAINS_BASE, BiomeDataConfigsME.whiteMountains, BiomeDataConfigsME.whiteMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.WHITE_MOUNTAINS));
         addBiome(new BiomeData(BiomeKeyRegistryME.WHITE_MOUNTAINS, BiomeDataConfigsME.whiteMountains, BiomeDataConfigsME.whiteMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7183466, 7513204), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND, defaultWater, defaultWaterFog, 7183466, 7513204), CaveType.WHITE_MOUNTAINS));
         addBiome(new BiomeData(BiomeKeyRegistryME.WHITE_MOUNTAINS_PEAKS, BiomeDataConfigsME.whitePeaks, BiomeDataConfigsME.whiteMountainsLayers,
-                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.MOUNTAINS));
+                new BiomeColorsDTO(BiomeAmbianceME.HIGHLAND.withParticles(Particles.SNOW), defaultWater, defaultWaterFog, 7185769, 6857066), CaveType.WHITE_MOUNTAINS));
         // WOODLANDS
         addBiome(new BiomeData(BiomeKeyRegistryME.WOODLAND_REALM, BiomeDataConfigsME.loamPlains, BiomeDataConfigsME.limeStoneTravertineLayers,
                 new BiomeColorsDTO(BiomeAmbianceME.WOODLAND_REALM, 4492967, 471355, 3960119, 3370029), CaveType.ELVEN));

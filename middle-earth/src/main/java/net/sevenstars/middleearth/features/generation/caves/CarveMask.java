@@ -28,6 +28,60 @@ final class CarveMask implements Walk.Carving {
         }
     }
 
+    private static final int[][] SIDES = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
+
+    // lumps of rock of at most `limit` blocks with carving all round are counted as carved; they depend only on
+    // the shape, so neighbouring chunks agree
+    void clearIslands(int limit) {
+        boolean[] loose = new boolean[air.length];
+        int[][] lump = new int[limit + 1][];
+        for (int x = 0; x < sizeX; x++) {
+            for (int z = 0; z < sizeZ; z++) {
+                for (int y = 0; y < sizeY; y++) {
+                    int i = (x * sizeZ + z) * sizeY + y;
+                    if (air[i] || loose[i] || !touchesAir(x0 + x, y0 + y, z0 + z)) continue;
+                    int size = lump(x0 + x, y0 + y, z0 + z, limit, lump);
+                    if (size > limit) continue;
+                    for (int k = 0; k < size; k++) {
+                        int dx = lump[k][0] - x0, dy = lump[k][1] - y0, dz = lump[k][2] - z0;
+                        if (dx >= 0 && dy >= 0 && dz >= 0 && dx < sizeX && dy < sizeY && dz < sizeZ) loose[(dx * sizeZ + dz) * sizeY + dy] = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < air.length; i++) air[i] |= loose[i];
+    }
+
+    private boolean touchesAir(int x, int y, int z) {
+        for (int[] side : SIDES) {
+            if (at(x + side[0], y + side[1], z + side[2])) return true;
+        }
+        return false;
+    }
+
+    // the rock joined to a block, given up once it passes the limit
+    private int lump(int x, int y, int z, int limit, int[][] found) {
+        int size = 0;
+        found[size++] = new int[]{x, y, z};
+        for (int head = 0; head < size; head++) {
+            int[] p = found[head];
+            for (int[] side : SIDES) {
+                int nx = p[0] + side[0], ny = p[1] + side[1], nz = p[2] + side[2];
+                if (at(nx, ny, nz) || contains(found, size, nx, ny, nz)) continue;
+                if (size > limit) return size;
+                found[size++] = new int[]{nx, ny, nz};
+            }
+        }
+        return size;
+    }
+
+    private static boolean contains(int[][] found, int size, int x, int y, int z) {
+        for (int k = 0; k < size; k++) {
+            if (found[k][0] == x && found[k][1] == y && found[k][2] == z) return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean at(int x, int y, int z) {
         int dx = x - x0;
