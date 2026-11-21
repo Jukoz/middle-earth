@@ -21,7 +21,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.brigand_dungeon.description"
+      "translate": "advancements.middle-earth.middle_earth.brigand_dungeon.description"
     },
     "frame": "task",
     "hidden": false,
@@ -31,7 +31,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.brigand_dungeon.title"
+      "translate": "advancements.middle-earth.middle_earth.brigand_dungeon.title"
     }
   },
   "requirements": [

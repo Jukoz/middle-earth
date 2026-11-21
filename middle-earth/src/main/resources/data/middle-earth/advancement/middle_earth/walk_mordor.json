@@ -38,7 +38,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_mordor.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_mordor.description"
     },
     "frame": "task",
     "hidden": false,
@@ -48,7 +48,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_mordor.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_mordor.title"
     }
   },
   "requirements": [

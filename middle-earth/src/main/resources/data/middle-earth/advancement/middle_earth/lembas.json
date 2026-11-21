@@ -16,14 +16,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.middle_earth.lembas.description"
+      "translate": "advancements.middle-earth.middle_earth.lembas.description"
     },
     "icon": {
       "count": 1,
       "id": "middle-earth:lembas"
     },
     "title": {
-      "translate": "advancements.middle_earth.lembas.title"
+      "translate": "advancements.middle-earth.middle_earth.lembas.title"
     },
     "announce_to_chat": true
   },

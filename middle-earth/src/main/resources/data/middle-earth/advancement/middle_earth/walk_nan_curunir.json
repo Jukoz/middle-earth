@@ -25,7 +25,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_nan_curunir.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_nan_curunir.description"
     },
     "frame": "task",
     "icon": {
@@ -34,7 +34,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_nan_curunir.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_nan_curunir.title"
     }
   },
   "requirements": [

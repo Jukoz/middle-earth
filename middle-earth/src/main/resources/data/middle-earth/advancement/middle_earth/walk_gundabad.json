@@ -25,7 +25,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.middle_earth.enter_gundabad.description"
+      "translate": "advancements.middle-earth.middle_earth.enter_gundabad.description"
     },
     "frame": "task",
     "hidden": false,
@@ -35,7 +35,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.enter_gundabad.title"
+      "translate": "advancements.middle-earth.middle_earth.enter_gundabad.title"
     }
   },
   "requirements": [

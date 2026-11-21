@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.dwarven_lantern.description"
+      "translate": "advancements.middle-earth.smithing.dwarven_lantern.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.dwarven_lantern.title"
+      "translate": "advancements.middle-earth.smithing.dwarven_lantern.title"
     }
   },
   "requirements": [

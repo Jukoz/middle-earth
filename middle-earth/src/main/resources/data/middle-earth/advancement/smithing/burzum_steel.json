@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.smithing.burzum_steel.description"
+      "translate": "advancements.middle-earth.smithing.burzum_steel.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.smithing.burzum_steel.title"
+      "translate": "advancements.middle-earth.smithing.burzum_steel.title"
     }
   },
   "requirements": [
