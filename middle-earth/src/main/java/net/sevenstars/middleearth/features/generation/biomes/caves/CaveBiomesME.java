@@ -174,6 +174,7 @@ public class CaveBiomesME {
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_GABBRO);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_GNEISS);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_SCHIST);
+        undergroundOres.add(CavesPlacedFeatureRegistryME.POINTED_CALCITE);
 
         addBasicFeatures(generationSettings, true);
 
@@ -286,6 +287,7 @@ public class CaveBiomesME {
         undergroundOres.add(CavesPlacedFeatureRegistryME.LIMESTONE_CLUSTER);
         undergroundOres.add(CavesPlacedFeatureRegistryME.LARGE_LIMESTONE);
         undergroundOres.add(CavesPlacedFeatureRegistryME.POINTED_LIMESTONE);
+        undergroundOres.add(CavesPlacedFeatureRegistryME.POINTED_CALCITE);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_LIMESTONE_ABUNDANT);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_OLD_LIMESTONE);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
@@ -393,6 +395,7 @@ public class CaveBiomesME {
         addDeepOres();
         undergroundOres.add(CavesPlacedFeatureRegistryME.DEEPS_TUFF);
         undergroundOres.add(CavesPlacedFeatureRegistryME.DEEPS_CALCITE);
+        undergroundOres.add(CavesPlacedFeatureRegistryME.DEEPS_POINTED_CALCITE);
         undergroundOres.add(CavesPlacedFeatureRegistryME.DEEPS_GRAVEL);
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
@@ -422,6 +425,7 @@ public class CaveBiomesME {
         generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, NetherPlacedFeatures.SMALL_BASALT_COLUMNS);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_ASH);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_ASHEN_DIRT);
+        undergroundOres.add(CavesPlacedFeatureRegistryME.POINTED_BASALT);
         undergroundOres.add(MiscPlacedFeatures.DISK_GRAVEL);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
@@ -435,6 +439,7 @@ public class CaveBiomesME {
         generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, NetherPlacedFeatures.DELTA);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_MAGMA_ABUNDANT);
         undergroundOres.add(CavesPlacedFeatureRegistryME.ORE_ASHEN_DIRT);
+        undergroundOres.add(CavesPlacedFeatureRegistryME.POINTED_BASALT);
 
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }

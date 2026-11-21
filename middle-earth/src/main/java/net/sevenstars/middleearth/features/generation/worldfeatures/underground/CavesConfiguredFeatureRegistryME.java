@@ -26,6 +26,7 @@ import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.floatprovider.ClampedNormalFloatProvider;
 import net.minecraft.util.math.floatprovider.UniformFloatProvider;
@@ -33,6 +34,7 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.BlockFilterPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.EnvironmentScanPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.placementmodifier.RandomOffsetPlacementModifier;
@@ -40,6 +42,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class CavesConfiguredFeatureRegistryME {
     public static final RegistryKey<ConfiguredFeature<?, ?>> AMETHYST_GEODE = registerKey("amethyst_geode");
@@ -103,6 +106,9 @@ public class CavesConfiguredFeatureRegistryME {
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIMESTONE_CLUSTER = registerKey("limestone_cluster");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LARGE_LIMESTONE = registerKey("large_limestone");
     public static final RegistryKey<ConfiguredFeature<?, ?>> POINTED_LIMESTONE = registerKey("pointed_limestone");
+
+    public static final RegistryKey<ConfiguredFeature<?, ?>> POINTED_CALCITE = registerKey("pointed_calcite");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> POINTED_BASALT = registerKey("pointed_basalt");
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BASALT = registerKey("pillar_basalt");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PILLAR_BLACKSTONE = registerKey("pillar_blackstone");
@@ -475,15 +481,17 @@ public class CavesConfiguredFeatureRegistryME {
         ConfiguredFeatures.register(featureRegisterable, LARGE_LIMESTONE, FeatureRegistryME.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
                 UniformFloatProvider.create(0.0f, 0.3f), 4, 0.6f, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState()));
-        ConfiguredFeatures.register(featureRegisterable, POINTED_LIMESTONE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfig(RegistryEntryList.of(
-                PlacedFeatures.createEntry(FeatureRegistryME.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
-                        EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
-                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1))), PlacedFeatures.createEntry(
-                                FeatureRegistryME.SMALL_POINTED_STONE,
-                        new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
-                        EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
-                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1))))));
+        // calcite walls get calcite spikes instead
+        ConfiguredFeatures.register(featureRegisterable, POINTED_LIMESTONE, Feature.SIMPLE_RANDOM_SELECTOR, pointedStone(
+                new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
+                offset -> BlockPredicate.not(BlockPredicate.matchingBlocks(offset, Blocks.CALCITE))));
+        // these two only grow from rock that is already theirs, with smaller patches
+        ConfiguredFeatures.register(featureRegisterable, POINTED_CALCITE, Feature.SIMPLE_RANDOM_SELECTOR, pointedStone(
+                new SmallPointedStoneFeatureConfig(0.2F, Blocks.CALCITE.getDefaultState(), BlockRegistryME.POINTED_CALCITE.getDefaultState(), 0.3F, 0.3F, 0.3F),
+                offset -> BlockPredicate.matchingBlocks(offset, Blocks.CALCITE)));
+        ConfiguredFeatures.register(featureRegisterable, POINTED_BASALT, Feature.SIMPLE_RANDOM_SELECTOR, pointedStone(
+                new SmallPointedStoneFeatureConfig(0.2F, Blocks.BASALT.getDefaultState(), BlockRegistryME.POINTED_BASALT.getDefaultState(), 0.3F, 0.3F, 0.3F),
+                offset -> BlockPredicate.matchingBlocks(offset, Blocks.BASALT, Blocks.POLISHED_BASALT, Blocks.SMOOTH_BASALT)));
 
         ConfiguredFeatures.register(featureRegisterable, PILLAR_BASALT, FeatureRegistryME.PILLAR, new PillarFeatureConfig(30, UniformIntProvider.create(3, 19),
                 UniformFloatProvider.create(0.4f, 2.0f), 0.33f, UniformFloatProvider.create(0.3f, 0.9f), UniformFloatProvider.create(0.4f, 1.0f),
@@ -591,6 +599,19 @@ public class CavesConfiguredFeatureRegistryME {
 
         ConfiguredFeatures.register(featureRegisterable, SPRING_LAVA, Feature.SPRING_FEATURE, new SpringFeatureConfig(Fluids.LAVA.getDefaultState(),
                 true, 4, 1, RegistryEntryList.of(Block::getRegistryEntry, StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base(), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base())));
+    }
+
+    // a stalagmite on the floor or a stalactite from the ceiling, where anchor holds for the rock it hangs from
+    private static SimpleRandomFeatureConfig pointedStone(SmallPointedStoneFeatureConfig config, Function<Vec3i, BlockPredicate> anchor) {
+        return new SimpleRandomFeatureConfig(RegistryEntryList.of(
+                PlacedFeatures.createEntry(FeatureRegistryME.SMALL_POINTED_STONE, config,
+                        EnvironmentScanPlacementModifier.of(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
+                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(1)),
+                        BlockFilterPlacementModifier.of(anchor.apply(new Vec3i(0, -1, 0)))),
+                PlacedFeatures.createEntry(FeatureRegistryME.SMALL_POINTED_STONE, config,
+                        EnvironmentScanPlacementModifier.of(Direction.UP, BlockPredicate.solid(), BlockPredicate.IS_AIR_OR_WATER, 12),
+                        RandomOffsetPlacementModifier.vertically(ConstantIntProvider.create(-1)),
+                        BlockFilterPlacementModifier.of(anchor.apply(new Vec3i(0, 1, 0))))));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {

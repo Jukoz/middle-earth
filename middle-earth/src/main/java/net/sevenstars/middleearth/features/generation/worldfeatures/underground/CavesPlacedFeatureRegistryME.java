@@ -86,6 +86,9 @@ public class CavesPlacedFeatureRegistryME {
     public static final RegistryKey<PlacedFeature> LARGE_LIMESTONE = registerKey("large_limestone");
     public static final RegistryKey<PlacedFeature> POINTED_LIMESTONE = registerKey("pointed_limestone");
 
+    public static final RegistryKey<PlacedFeature> POINTED_CALCITE = registerKey("pointed_calcite");
+    public static final RegistryKey<PlacedFeature> POINTED_BASALT = registerKey("pointed_basalt");
+
     public static final RegistryKey<PlacedFeature> POOL_MUD = registerKey("pool_mud");
     public static final RegistryKey<PlacedFeature> DISK_MYCELIUM = registerKey("disk_mycelium");
 
@@ -167,6 +170,7 @@ public class CavesPlacedFeatureRegistryME {
     public static final RegistryKey<PlacedFeature> DEEPS_CALCITE = registerKey("deeps_calcite");
     public static final RegistryKey<PlacedFeature> DEEPS_GRAVEL = registerKey("deeps_gravel");
     public static final RegistryKey<PlacedFeature> DEEPS_POINTED_DRIPSTONE = registerKey("deeps_pointed_dripstone");
+    public static final RegistryKey<PlacedFeature> DEEPS_POINTED_CALCITE = registerKey("deeps_pointed_calcite");
     // endregion
     public static final RegistryKey<PlacedFeature> SPRING_LAVA = registerKey("spring_lava");
 
@@ -232,6 +236,8 @@ public class CavesPlacedFeatureRegistryME {
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> limestoneCluster = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.LIMESTONE_CLUSTER);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> largeLimestone = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.LARGE_LIMESTONE);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedLimestone = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.POINTED_LIMESTONE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedCalcite = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.POINTED_CALCITE);
+        RegistryEntry.Reference<ConfiguredFeature<?, ?>> pointedBasalt = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.POINTED_BASALT);
 
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> poolMud = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.POOL_MUD);
         RegistryEntry.Reference<ConfiguredFeature<?, ?>> diskMycelium = registryEntryLookup.getOrThrow(CavesConfiguredFeatureRegistryME.DISK_MYCELIUM);
@@ -369,6 +375,12 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, POINTED_LIMESTONE, pointedLimestone, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
+        // fewer tries than the others; they only take where the rock is already calcite or basalt
+        PlacedFeatures.register(featureRegisterable, POINTED_CALCITE, pointedCalcite, CountPlacementModifier.of(UniformIntProvider.create(64, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 3)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
+        PlacedFeatures.register(featureRegisterable, POINTED_BASALT, pointedBasalt, CountPlacementModifier.of(UniformIntProvider.create(64, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 3)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
+
         PlacedFeatures.register(featureRegisterable, POOL_MUD, poolMud, modifiersWithCount(9, HeightRangePlacementModifier.trapezoid(YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL), YOffset.fixed(120))));
         PlacedFeatures.register(featureRegisterable, DISK_MYCELIUM, diskMycelium, modifiersWithCount(40, mushroomsRange));
 
@@ -469,6 +481,9 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, DEEPS_GRAVEL, deepsGravel, modifiersWithCount(6, deepsRange));
         PlacedFeatures.register(featureRegisterable, DEEPS_POINTED_DRIPSTONE, pointedDripstone, CountPlacementModifier.of(UniformIntProvider.create(60, 100)), SquarePlacementModifier.of(), deepsRange,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
+
+        PlacedFeatures.register(featureRegisterable, DEEPS_POINTED_CALCITE, pointedCalcite, CountPlacementModifier.of(UniformIntProvider.create(40, 64)), SquarePlacementModifier.of(), deepsRange,
+                CountPlacementModifier.of(UniformIntProvider.create(1, 3)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
         PlacedFeatures.register(featureRegisterable, SPRING_LAVA, springLava, fire(modifiersWithCount(20, HeightRangePlacementModifier.trapezoid(YOffset.getBottom(), YOffset.fixed(MiddleEarthChunkGenerator.NURGON_LEVEL)) )));
     }
