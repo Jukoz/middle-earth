@@ -22,7 +22,6 @@ final class TerrainRegions {
         DOUBLE_VALLEY(Family.CLUB, 3, 5),
         BADLANDS(Family.CLUB, 5, 1),
         TIERS(Family.SPADE, 3, 3),
-        HOT_RIDGES(Family.SPADE, 5, 1),
         WETLAND(Family.DIAMOND, 3, 4),
         DUNES(Family.DIAMOND, 5, 1),
         JUNGLE(Family.HEART, 4, 5);
@@ -43,6 +42,7 @@ final class TerrainRegions {
 
     private static final Map<RegistryKey<Biome>, Landform> LANDFORMS = new HashMap<>();
 
+    // checked against the lore: Tolkien seldom gives the lie of the land, so most of these only go unchallenged
     static {
         assign(Landform.ROLLING_HILLS, BiomeKeyRegistryME.ROHAN, BiomeKeyRegistryME.ROHAN_FIELD, BiomeKeyRegistryME.THE_WOLD,
                 BiomeKeyRegistryME.THE_WOLD_WHEAT_FIELD, BiomeKeyRegistryME.ENEDWAITH, BiomeKeyRegistryME.ENEDWAITH_FIELD,
@@ -52,20 +52,22 @@ final class TerrainRegions {
                 BiomeKeyRegistryME.SOUTHEAST_RHOVANION, BiomeKeyRegistryME.SOUTHEAST_RHOVANION_FIELD, BiomeKeyRegistryME.RHUN,
                 BiomeKeyRegistryME.RHUN_FIELD, BiomeKeyRegistryME.GREY_PLAINS, BiomeKeyRegistryME.GUNDABAD_PLAINS,
                 BiomeKeyRegistryME.IRON_HILLS_PLAINS, BiomeKeyRegistryME.DORWINION, BiomeKeyRegistryME.DORWINION_LAVENDER_FIELD,
-                BiomeKeyRegistryME.DALE, BiomeKeyRegistryME.SHIRE, BiomeKeyRegistryME.SHIRE_EDGE, BiomeKeyRegistryME.EREGION,
-                BiomeKeyRegistryME.EREGION_GLADE, BiomeKeyRegistryME.THE_ANGLE);
-        assign(Landform.PLATEAU, BiomeKeyRegistryME.OLD_RHUDAUR, BiomeKeyRegistryME.GORGOROTH, BiomeKeyRegistryME.DESOLATED_LANDS);
-        assign(Landform.COLD_PLATEAU, BiomeKeyRegistryME.FORODWAITH, BiomeKeyRegistryME.OLD_ANGMAR, BiomeKeyRegistryME.WITHERED_HEATH,
-                BiomeKeyRegistryME.NORTHERN_WASTELANDS, BiomeKeyRegistryME.SOUTHERN_FOROCHEL);
-        assign(Landform.SINGLE_VALLEY, BiomeKeyRegistryME.DUNLAND, BiomeKeyRegistryME.NORTHERN_DUNLAND_GLADE, BiomeKeyRegistryME.LAMEDON,
-                BiomeKeyRegistryME.BLACKROOT_VALE, BiomeKeyRegistryME.TROLLSHAWS);
+                BiomeKeyRegistryME.SHIRE, BiomeKeyRegistryME.SHIRE_EDGE, BiomeKeyRegistryME.EREGION, BiomeKeyRegistryME.EREGION_GLADE,
+                BiomeKeyRegistryME.THE_ANGLE, BiomeKeyRegistryME.DUNLAND, BiomeKeyRegistryME.NORTHERN_DUNLAND_GLADE,
+                BiomeKeyRegistryME.LEBENNIN, BiomeKeyRegistryME.GONDOR, BiomeKeyRegistryME.NURN, BiomeKeyRegistryME.EASTERN_NURN,
+                BiomeKeyRegistryME.UMBAR);
+        // Gorgoroth a high plain, and the rest of Mordor level with it
+        assign(Landform.PLATEAU, BiomeKeyRegistryME.GORGOROTH, BiomeKeyRegistryME.MORDOR);
+        assign(Landform.COLD_PLATEAU, BiomeKeyRegistryME.FORODWAITH, BiomeKeyRegistryME.OLD_ANGMAR, BiomeKeyRegistryME.NORTHERN_WASTELANDS);
+        // the Withered Heath a long narrow valley between two ranges, Dale between two arms of Erebor, Rhudaur all ridges
+        assign(Landform.SINGLE_VALLEY, BiomeKeyRegistryME.LAMEDON, BiomeKeyRegistryME.BLACKROOT_VALE, BiomeKeyRegistryME.TROLLSHAWS,
+                BiomeKeyRegistryME.WITHERED_HEATH, BiomeKeyRegistryME.DALE, BiomeKeyRegistryME.OLD_RHUDAUR);
         assign(Landform.DOUBLE_VALLEY, BiomeKeyRegistryME.ITHILIEN, BiomeKeyRegistryME.ITHILIEN_GLADE, BiomeKeyRegistryME.ITHILIEN_WASTES,
                 BiomeKeyRegistryME.ITHILIEN_WASTES_GLADE);
-        assign(Landform.BADLANDS, BiomeKeyRegistryME.HARONDOR, BiomeKeyRegistryME.HARAD, BiomeKeyRegistryME.TOROGWAITH);
-        assign(Landform.TIERS, BiomeKeyRegistryME.LEBENNIN, BiomeKeyRegistryME.BELFALAS, BiomeKeyRegistryME.GONDOR,
-                BiomeKeyRegistryME.LOSSARNACH, BiomeKeyRegistryME.DRUWAITH_IAUR, BiomeKeyRegistryME.NURN, BiomeKeyRegistryME.EASTERN_NURN,
+        // no lore for Torogwaith either way; Harad and Harondor are only desert land, so they keep the painted terrain
+        assign(Landform.BADLANDS, BiomeKeyRegistryME.TOROGWAITH);
+        assign(Landform.TIERS, BiomeKeyRegistryME.BELFALAS, BiomeKeyRegistryME.LOSSARNACH, BiomeKeyRegistryME.DRUWAITH_IAUR,
                 BiomeKeyRegistryME.NURN_EDGE);
-        assign(Landform.HOT_RIDGES, BiomeKeyRegistryME.UMBAR, BiomeKeyRegistryME.MORDOR);
         assign(Landform.WETLAND, BiomeKeyRegistryME.NINDALF, BiomeKeyRegistryME.LONG_MARSHES, BiomeKeyRegistryME.MIRKWOOD_MARSHES,
                 BiomeKeyRegistryME.NORTHERN_MIRKWOOD_MARSHES, BiomeKeyRegistryME.NORTHERN_MIRKWOOD_SWAMP, BiomeKeyRegistryME.MIRKWOOD_SWAMP,
                 BiomeKeyRegistryME.ETHIR_ANDUIN);
