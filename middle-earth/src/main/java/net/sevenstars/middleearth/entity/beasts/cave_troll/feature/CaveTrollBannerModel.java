@@ -23,7 +23,8 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
     private final ModelPart[] poles;
     private final ModelPart[] flags;
 
-    public CaveTrollBannerModel(ModelPart root) {
+    // Poles and flags use different textures, so each gets its own model
+    public CaveTrollBannerModel(ModelPart root, boolean showFlags) {
         super(root);
 
         ModelPart platform = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs").getChild("platform");
@@ -45,6 +46,10 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
         for(ModelPart part : this.flags) {
             part.xScale = part.yScale = part.zScale = SCALE;
         }
+        for(int i = 0; i < 2; i++) {
+            this.poles[i].visible = !showFlags;
+            this.flags[i].visible = showFlags;
+        }
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -65,19 +70,5 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
         }
 
         return TexturedModelData.of(modelData, 64, 64);
-    }
-
-    public void showPoles() {
-        for(int i = 0; i < 2; i++) {
-            this.poles[i].visible = true;
-            this.flags[i].visible = false;
-        }
-    }
-
-    public void showFlags() {
-        for(int i = 0; i < 2; i++) {
-            this.poles[i].visible = false;
-            this.flags[i].visible = true;
-        }
     }
 }

@@ -57,6 +57,39 @@ public class StorageBlocks {
     public static final Block SACK = DecorativeBlockRegistryME.registerBlock("sack",
             SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
 
+    public static final Block WHITE_SACK = DecorativeBlockRegistryME.registerBlock("white_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WHITE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block BLACK_SACK = DecorativeBlockRegistryME.registerBlock("black_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.BLACK).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block BLUE_SACK = DecorativeBlockRegistryME.registerBlock("blue_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.WATER_BLUE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block BROWN_SACK = DecorativeBlockRegistryME.registerBlock("brown_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block CYAN_SACK = DecorativeBlockRegistryME.registerBlock("cyan_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.CYAN).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block GREEN_SACK = DecorativeBlockRegistryME.registerBlock("green_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.EMERALD_GREEN).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block GRAY_SACK = DecorativeBlockRegistryME.registerBlock("gray_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.GRAY).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIGHT_BLUE_SACK = DecorativeBlockRegistryME.registerBlock("light_blue_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIGHT_GRAY_SACK = DecorativeBlockRegistryME.registerBlock("light_gray_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_GRAY).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block LIME_SACK = DecorativeBlockRegistryME.registerBlock("lime_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.LIME).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block MAGENTA_SACK = DecorativeBlockRegistryME.registerBlock("magenta_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_MAGENTA).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block ORANGE_SACK = DecorativeBlockRegistryME.registerBlock("orange_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block PINK_SACK = DecorativeBlockRegistryME.registerBlock("pink_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PINK).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block PURPLE_SACK = DecorativeBlockRegistryME.registerBlock("purple_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PALE_PURPLE).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block RED_SACK = DecorativeBlockRegistryME.registerBlock("red_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).sounds(BlockSoundGroup.WOOL).nonOpaque());
+    public static final Block YELLOW_SACK = DecorativeBlockRegistryME.registerBlock("yellow_sack",
+            SackBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).sounds(BlockSoundGroup.WOOL).nonOpaque());
+
     public static final Block WOOD_PILE = DecorativeBlockRegistryME.registerBlock("wood_pile",
             WoodPileBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1.0f).nonOpaque());
 }
