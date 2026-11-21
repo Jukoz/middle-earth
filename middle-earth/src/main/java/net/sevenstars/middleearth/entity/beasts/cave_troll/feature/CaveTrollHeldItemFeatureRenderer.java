@@ -19,6 +19,7 @@ public class CaveTrollHeldItemFeatureRenderer extends FeatureRenderer<CaveTrollE
 
     @Override
     public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, CaveTrollEntityRenderState state, float limbAngle, float limbDistance) {
+        matrices.push();
         this.getContextModel().setArmAngle(matrices);
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
@@ -26,6 +27,7 @@ public class CaveTrollHeldItemFeatureRenderer extends FeatureRenderer<CaveTrollE
         matrices.scale(1.5f,1.5f,1.5f);
 
         state.handItemState.render(matrices, queue, light, OverlayTexture.DEFAULT_UV, state.outlineColor);
+        matrices.pop();
     }
 
 }

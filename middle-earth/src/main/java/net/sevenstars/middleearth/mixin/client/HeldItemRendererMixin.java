@@ -2,6 +2,7 @@ package net.sevenstars.middleearth.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.item.items.weapons.ranged.CustomCrossbowWeaponItem;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -10,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,6 +54,18 @@ public class HeldItemRendererMixin {
         return (stack.getItem() instanceof CustomCrossbowWeaponItem || stack.isOf(Items.CROSSBOW)) && CrossbowItem.isCharged(stack);
     }
 
+
+    // The mace has a super long cooldown so remove the weird weapon raising animation.
+    @WrapOperation(method = "updateHeldItems", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/network/ClientPlayerEntity;getAttackCooldownProgress(F)F"))
+    private float updateHeldItems(ClientPlayerEntity player, float baseTime, Operation<Float> original) {
+        if(player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == player) {
+            return 1.0f;
+        }
+        float progress = original.call(player, baseTime);
+        float cooldownTicks = player.getAttackCooldownProgressPerTick();
+        return cooldownTicks > 20.0f ? MathHelper.clamp(progress * cooldownTicks / 20.0f, 0.0f, 1.0f) : progress;
+    }
 
     @WrapOperation(method = "renderFirstPersonItem", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 0))

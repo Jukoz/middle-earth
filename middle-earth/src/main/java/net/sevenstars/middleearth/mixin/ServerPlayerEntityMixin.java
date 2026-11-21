@@ -9,6 +9,7 @@ import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
@@ -16,6 +17,7 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.WorldProperties;
 import net.minecraft.world.World;
 import net.sevenstars.middleearth.entity.EntityAttributesME;
+import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntity;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.factions.data.SpawnData;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
@@ -169,6 +171,15 @@ public class ServerPlayerEntityMixin extends PlayerEntity {
                 }
                 data.resetDelversFearCount();
             }
+        }
+    }
+
+    // While steering a cave troll the troll does the hitting
+    @Inject(method = "swingHand", at = @At("TAIL"))
+    private void swingRiddenTroll(Hand hand, CallbackInfo ci) {
+        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
+        if(hand == Hand.MAIN_HAND && player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == player) {
+            troll.swingHand(Hand.MAIN_HAND);
         }
     }
 }

@@ -343,6 +343,7 @@ public class TranslationEntries {
             put(of(LangCategory.SOUNDS, "cave_troll_idle"), "Cave Troll grunts");
             put(of(LangCategory.SOUNDS, "cave_troll_roar"), "Cave Troll roars");
             put(of(LangCategory.SOUNDS, "cave_troll_step"), "Cave Troll steps");
+            put(of(LangCategory.SOUNDS, "troll_slam"), "Troll slams");
 
             put(of(LangCategory.SCREEN, "forge"), "Forge");
             put(of(LangCategory.SCREEN, "structure_manager"), "Structure Manager");

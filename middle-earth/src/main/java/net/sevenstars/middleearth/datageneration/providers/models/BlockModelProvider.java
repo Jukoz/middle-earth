@@ -657,6 +657,10 @@ public class BlockModelProvider extends FabricModelProvider {
             registerWoodChairModelBlockStates(blockStateModelGenerator, chair.base());
         }
 
+        for(Block sack : SackModel.sacks){
+            registerSack(blockStateModelGenerator,sack);
+        }
+
 
         for (SimpleVerticalSlabModel.VerticalSlab verticalSlab : SimpleVerticalSlabModel.vanillaVerticalSlabs) {
             String id = String.valueOf(Registries.BLOCK.getId(verticalSlab.block()));
@@ -724,7 +728,6 @@ public class BlockModelProvider extends FabricModelProvider {
             baseTextureId = baseTextureId.replaceAll("_wood", "_log").replaceAll("_hyphae", "_stem").replaceAll("treated_log", "treated_wood").replaceAll("aged_log", "aged_wood");
             registerVanillaVerticalSlabModelBlockStates(blockStateModelGenerator, verticalSlab.verticalSlab(), verticalSlab.block(), baseTextureId);
         }
-
         SimpleTopWaterModel.topWaterBlocks.forEach(block -> {
             registerTopWaterblock(blockStateModelGenerator, block);
         });
@@ -1561,6 +1564,24 @@ public class BlockModelProvider extends FabricModelProvider {
             TextureMap textureMap = TextureMap.crop(TextureMap.getSubId(block, string));
             return createWeightedVariant(ModelsME.CROP_VINE.upload(block, string, textureMap, blockStateModelGenerator.modelCollector));
         })));
+    }
+
+    public final void registerSack(BlockStateModelGenerator blockStateModelGenerator, Block block){
+        Identifier texture = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath());
+        WeightedVariant weightedVariant = createWeightedVariant(ModelsME.SACK_BLOCK.upload(block,
+                new TextureMap().put(TextureKey.ALL, texture).put(TextureKey.PARTICLE, texture), blockStateModelGenerator.modelCollector));
+
+        Identifier textureOpen = Identifier.of(MiddleEarth.MOD_ID, "block/" + Registries.BLOCK.getId(block).getPath()+"_open");
+        WeightedVariant weightedVariantOpen = createWeightedVariant(ModelsME.SACK_BLOCK_OPEN.upload(block, "_open",
+                new TextureMap().put(TextureKey.ALL, textureOpen).put(TextureKey.PARTICLE, textureOpen), blockStateModelGenerator.modelCollector));
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).with(
+                BlockStateVariantMap.models(Properties.OPEN)
+                        .register(false,weightedVariant)
+                        .register(true,weightedVariantOpen)
+        ));
+
+        //blockStateModelGenerator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
     }
 
     public static TextureMap paneAndTopForEdgeCustom(Block block, Block top) {

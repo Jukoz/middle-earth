@@ -4,6 +4,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
 public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState> {
     private final Animation walkingAnimation;
@@ -18,6 +19,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
     private final Animation smashingAnimation;
 
     private final ModelPart rightArm;
+    private final ModelPart leftArm;
     private final ModelPart upperBody;
     private final ModelPart rootChild;
     private final ModelPart chain;
@@ -28,6 +30,7 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         rootChild = root.getChild("root");
         upperBody = rootChild.getChild("body_no_legs");
         rightArm = upperBody.getChild("ArmRight");
+        leftArm = upperBody.getChild("ArmLeft");
         chain = upperBody.getChild("body_no_limbs").getChild("Head").getChild("chain");
 
         walkingAnimation = CaveTrollAnimations.PASSIVE_WALK.createAnimation(root);
@@ -132,10 +135,19 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         chain.visible = state.isTame;
 
         if(!state.isSprinting && !(state.conrollingPassenger != null && state.conrollingPassenger.isSprinting()) && !state.isCharging) {
-            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 10.0f, 10.0f);
+            this.walkingAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, CaveTrollEntity.WALK_ANIMATION_SPEED, 10.0f);
         }
         else {
-            this.chaseAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 2.0f, 2.0f);
+            this.chaseAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, CaveTrollEntity.RUN_ANIMATION_SPEED, 2.0f);
+        }
+
+        // Keep the arms raised for the slam while the legs walk
+        if(state.smashingAnimationState.isRunning()) {
+            this.rightArm.resetTransform();
+            this.leftArm.resetTransform();
+        }
+        else if(state.handSwingProgress > 0.0f) {
+            swingRightArm(state.handSwingProgress);
         }
 
         this.scavengingAnimation.apply(state.scavengingAnimationState, state.age);
@@ -146,6 +158,22 @@ public class CaveTrollEntityModel extends EntityModel<CaveTrollEntityRenderState
         this.stopSleepingAnimation.apply(state.stopSleepingAnimationState, state.age);
         this.roaringAnimation.apply(state.roaringAnimationState, state.age);
         this.smashingAnimation.apply(state.smashingAnimationState, state.age);
+    }
+
+    // The player's arm swing (BipedEntityModel.animateArms), on the club arm
+    private void swingRightArm(float progress) {
+        float twist = MathHelper.sin(MathHelper.sqrt(progress) * MathHelper.TAU) * 0.2f;
+        this.upperBody.yaw += twist;
+
+        float eased = 1.0f - progress;
+        eased *= eased;
+        eased *= eased;
+        eased = 1.0f - eased;
+        float swing = MathHelper.sin(eased * MathHelper.PI);
+        float follow = MathHelper.sin(progress * MathHelper.PI) * 0.7f * 0.75f;
+        this.rightArm.pitch -= swing * 1.2f + follow;
+        this.rightArm.yaw += twist * 2.0f;
+        this.rightArm.roll += MathHelper.sin(progress * MathHelper.PI) * -0.4f;
     }
 
     public void setArmAngle(MatrixStack matrices) {

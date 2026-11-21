@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.sevenstars.middleearth.gui.cavetroll.CaveTrollScreen;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
@@ -76,6 +77,7 @@ import net.sevenstars.middleearth.entity.spider.scuttler.ShelobiteScuttlerRender
 import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
+import net.sevenstars.middleearth.client.TrollRiderCamera;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
@@ -121,6 +123,7 @@ public class MiddleEarthClient implements ClientModInitializer {
             ClientConfigME.registerOrRefreshLocalization();
         });
         clientResourceLoader.addReloaderOrdering(ResourceReloaderKeys.Client.LANGUAGES, configReloaderId);
+        TrollRiderCamera.register();
 
         EntityModelsME.getModels();
         BooleanProperties.ID_MAPPER.put(MiddleEarth.id("sneak_attack"), SneakAttackProperty.CODEC);
@@ -158,6 +161,13 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(EntitiesME.SEAT_ENTITY, SeatRenderer::new);
         //HandledScreens.register(ModScreenHandlers.CROCKPOT_SCREEN_HANDLER, CrockpotScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.FORGE_ALLOYING_SCREEN_HANDLER, ForgeAlloyingScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.CAVE_TROLL_SCREEN_HANDLER, CaveTrollScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.ARTISAN_SCREEN_HANDLER, ArtisanTableScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.INSCRIPTION_SCREEN_HANDLER, InscriptionTableScreen::new);
+        HandledScreens.register(ScreenHandlerRegistryME.TREATED_ANVIL_SCREEN_HANDLER, ShapingAnvilScreen::new);
+        ShapingAnvilScreenHandler.clientInputChanged = ShapingAnvilScreen::clearOpenOutputs;
+        HandledScreens.register(ScreenHandlerRegistryME.WOOD_PILE_SCREEN_HANDLER, WoodPileScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_MANAGER_SCREEN_HANDLER, StructureManagerScreen::new);
         HandledScreens.register(ScreenHandlerRegistryME.STRUCTURE_NEST_SCREEN_HANDLER, StructureNestScreen::new);
 

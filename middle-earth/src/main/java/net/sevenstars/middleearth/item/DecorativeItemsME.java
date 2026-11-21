@@ -74,8 +74,38 @@ public class DecorativeItemsME {
     public static final Item SPIDER_VAULT = registerItem("spider_vault",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.SPIDER_VAULT, settings), new Item.Settings());
 
-    // A full sack can't go in a bundle or another container, like a shulker box
-
+    public static final Item WHITE_SACK = registerItem("white_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.WHITE_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item BLACK_SACK = registerItem("black_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.BLACK_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item BLUE_SACK = registerItem("blue_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.BLUE_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item BROWN_SACK = registerItem("brown_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.BROWN_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item CYAN_SACK = registerItem("cyan_sack",
+                (settings) -> new BlockItem(DecorativeBlockRegistryME.CYAN_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item GREEN_SACK = registerItem("green_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.GREEN_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item GRAY_SACK = registerItem("gray_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.GRAY_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item LIGHT_BLUE_SACK = registerItem("light_blue_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.LIGHT_BLUE_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item LIGHT_GRAY_SACK = registerItem("light_gray_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.LIGHT_GRAY_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item LIME_SACK = registerItem("lime_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.LIME_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item MAGENTA_SACK = registerItem("magenta_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.MAGENTA_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item ORANGE_SACK = registerItem("orange_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.ORANGE_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item PINK_SACK = registerItem("pink_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.PINK_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item PURPLE_SACK = registerItem("purple_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.PURPLE_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item RED_SACK = registerItem("red_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.RED_SACK, settings), new Item.Settings().maxCount(1));
+    public static final Item YELLOW_SACK = registerItem("yellow_sack",
+            (settings) -> new BlockItem(DecorativeBlockRegistryME.YELLOW_SACK, settings), new Item.Settings().maxCount(1));
 
     public static final Item BASALT_STATUE = registerItem("basalt_statue",
             (settings) -> new BlockItem(DecorativeBlockRegistryME.BASALT_STATUE, settings), new Item.Settings()

@@ -2,7 +2,9 @@ package net.sevenstars.middleearth.features.storage.gui.sack;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
+import net.sevenstars.middleearth.utils.ItemTagsME;
 
 public class SackSlot extends Slot {
     public SackSlot(Inventory inventory, int index, int x, int y) {
@@ -11,6 +13,7 @@ public class SackSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
+        if(stack.isIn(ItemTagsME.SACKS) || stack.isIn(ItemTags.SHULKER_BOXES)) return false;
         return stack.getItem().canBeNested() && super.canInsert(stack);
     }
 }
