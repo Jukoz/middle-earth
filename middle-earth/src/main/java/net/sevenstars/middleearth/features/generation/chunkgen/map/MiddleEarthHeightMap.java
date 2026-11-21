@@ -3,6 +3,7 @@ package net.sevenstars.middleearth.features.generation.chunkgen.map;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.biome.Biome;
+import net.sevenstars.middleearth.features.generation.biomes.BiomeGenerationData;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.biomes.surface.SubBiome;
 import net.sevenstars.middleearth.features.generation.biomes.surface.SubBiomes;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 
 public final class MiddleEarthHeightMap {
     private static final int SMOOTH_BRUSH_SIZE = 4;
+    private static final int LATTICE = 4;
     private static final int PERLIN_STRETCH_X = 210;
     private static final int PERLIN_STRETCH_Y = 180;
     private static final int PERLIN_STRETCH_X2 = 37;
@@ -36,6 +38,9 @@ public final class MiddleEarthHeightMap {
     private static Float defaultWeightHeight = null;
 
     private static final float MIN_SHARE = 0.001f;
+    private static final double RIDGE_BLOCKS = 25.6;
+    private static final float DEFAULT_RIDGE_AMPLITUDE = new BiomeGenerationData().ridgeAmplitude;
+    private static final float RIDGE_RAMP = 2; // mountain multiplier at which the ridges are full
     private static final ThreadLocal<float[]> MOUNTAIN_SHARES = ThreadLocal.withInitial(() -> new float[MountainRanges.VARIANTS]);
 
     // above the start the terrain bends towards the ceiling (y values, not heights relative to DIRT_HEIGHT)
@@ -125,7 +130,7 @@ public final class MiddleEarthHeightMap {
         if(biomeHeight >= MOUNTAIN_START_HEIGHT) {
             float multiplier = (biomeHeight / MOUNTAIN_START_HEIGHT) - 1;
             biomeHeight += biomeHeight * multiplier * MOUNTAIN_EXPONENTIAL_HEIGHT;
-            perlin += multiplier * getMountainTerm(x, z);
+            perlin += getMountainTerm(x, z, multiplier);
         }
 
         additionalHeight = biomeHeight + perlin;
@@ -133,24 +138,31 @@ public final class MiddleEarthHeightMap {
         return (float) additionalHeight;
     }
 
-    // ridges where a range sets them, the old smooth two octaves for the Lonely Mountain; both are scaled by the
-    // caller with the same multiplier, so foothills stay smooth and the cores go jagged
-    private static double getMountainTerm(int x, int z) {
+    // Tectonic's ridges where a range sets them, the old smooth two octaves for the Lonely Mountain, in blocks
+    private static double getMountainTerm(int x, int z, float multiplier) {
         float[] shares = MOUNTAIN_SHARES.get();
         MountainRanges.sharesAt(x, z, shares);
         double term = 0;
+        // like Tectonic's jaggedness: none on the foothills, full in the cores
+        double ramp = Math.min(1, multiplier / RIDGE_RAMP);
         if(shares[MountainRanges.NORTH_SOUTH] > MIN_SHARE)
-            term += shares[MountainRanges.NORTH_SOUTH] * TerrainRidges.ridge(x, z, TerrainRidges.NORTH_SOUTH, getSeed());
+            term += shares[MountainRanges.NORTH_SOUTH] * ramp * ridge(x, z, TerrainRidges.NORTH_SOUTH);
         if(shares[MountainRanges.EAST_WEST] > MIN_SHARE)
-            term += shares[MountainRanges.EAST_WEST] * TerrainRidges.ridge(x, z, TerrainRidges.EAST_WEST, getSeed());
+            term += shares[MountainRanges.EAST_WEST] * ramp * ridge(x, z, TerrainRidges.EAST_WEST);
         if(shares[MountainRanges.ISOTROPIC] > MIN_SHARE)
-            term += shares[MountainRanges.ISOTROPIC] * TerrainRidges.ridge(x, z, TerrainRidges.ISOTROPIC, getSeed());
+            term += shares[MountainRanges.ISOTROPIC] * ramp * ridge(x, z, TerrainRidges.ISOTROPIC);
         if(shares[MountainRanges.SMOOTH] > MIN_SHARE) {
             double smooth = MOUNTAIN_EXPONENTIAL_HEIGHT * MOUNTAIN_HEIGHT_RANGE * BlendedNoise.noise((double) x / PERLIN_STRETCH_X2, (double) z / PERLIN_STRETCH_Y2);
             smooth += (MOUNTAIN_HEIGHT_RANGE / 2) * BlendedNoise.noise((double) (2 * x) / PERLIN_STRETCH_X2, (double) (2 * z) / PERLIN_STRETCH_Y2);
-            term += shares[MountainRanges.SMOOTH] * smooth;
+            term += shares[MountainRanges.SMOOTH] * multiplier * smooth;
         }
         return term;
+    }
+
+    // Tectonic raises the land by 0.6 - ridges, 0.2 * 128 blocks per unit at most; a share is the range's amplitude,
+    // so a range at the usual amplitude gets exactly that
+    private static double ridge(int x, int z, double[] stretch) {
+        return RIDGE_BLOCKS / DEFAULT_RIDGE_AMPLITUDE * (0.6 - TerrainRidges.ridges(x, z, stretch, getSeed()));
     }
 
     private static float getBiomeWeightHeight(int x, int z) {
@@ -211,8 +223,26 @@ public final class MiddleEarthHeightMap {
         return getChunkHeights(x >> 4, z >> 4).at(x & 15, z & 15);
     }
 
+    // worked out every LATTICE blocks and blended between, like Tectonic's cells: a quarter of the noise per column
+    // to the power of two, and no detail finer than the map's own pixels
     private static float computeHeight(int x, int z) {
-        return softCeiling(MapHills.raise(x, z, getUnraisedHeight(x, z)));
+        int x0 = Math.floorDiv(x, LATTICE) * LATTICE;
+        int z0 = Math.floorDiv(z, LATTICE) * LATTICE;
+        float fx = (float) (x - x0) / LATTICE;
+        float fz = (float) (z - z0) / LATTICE;
+        float blended = bilerp(getUnraisedHeight(x0, z0), getUnraisedHeight(x0 + LATTICE, z0), getUnraisedHeight(x0, z0 + LATTICE), getUnraisedHeight(x0 + LATTICE, z0 + LATTICE), fx, fz);
+        return finish(x, z, blended);
+    }
+
+    // the named hills go on per column, the smallest mounds are narrower than the lattice
+    private static float finish(int x, int z, float blended) {
+        return softCeiling(MapHills.raise(x, z, blended));
+    }
+
+    private static float bilerp(float c00, float c10, float c01, float c11, float fx, float fz) {
+        float top = c00 + (c10 - c00) * fx;
+        float bottom = c01 + (c11 - c01) * fx;
+        return top + (bottom - top) * fz;
     }
 
     // the height before the named hills are added
@@ -249,30 +279,40 @@ public final class MiddleEarthHeightMap {
         return SOFT_CEILING_START + range * (float) Math.tanh((y - SOFT_CEILING_START) / range) - MiddleEarthChunkGenerator.DIRT_HEIGHT;
     }
 
-    // the 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples; each one is
-    // computed when first asked for
+    // the 16x16 columns of a chunk plus a margin of 3 to the east and south for the slope samples, blended from
+    // lattice corners that are each computed when first needed
     public static final class ChunkHeights {
         private static final int CHUNK_SIZE = 16;
         private static final int SLOPE_MARGIN = 3;
         public static final int SIZE = CHUNK_SIZE + SLOPE_MARGIN;
+        private static final int CORNERS = SIZE / LATTICE + 2;
         private final long seed;
         private final int chunkX;
         private final int chunkZ;
-        private final float[] heights = new float[SIZE * SIZE];
+        private final float[] corners = new float[CORNERS * CORNERS];
 
         private ChunkHeights(long seed, int chunkX, int chunkZ) {
             this.seed = seed;
             this.chunkX = chunkX;
             this.chunkZ = chunkZ;
-            Arrays.fill(heights, Float.NaN);
+            Arrays.fill(corners, Float.NaN);
         }
 
+        // not remembered per column: the blend and the hill lookup are cheap next to a corner
         public float at(int dx, int dz) {
-            int index = dz * SIZE + dx;
-            float height = heights[index];
+            int i = dx / LATTICE;
+            int k = dz / LATTICE;
+            float fx = (float) (dx - i * LATTICE) / LATTICE;
+            float fz = (float) (dz - k * LATTICE) / LATTICE;
+            return finish((chunkX << 4) + dx, (chunkZ << 4) + dz, bilerp(corner(i, k), corner(i + 1, k), corner(i, k + 1), corner(i + 1, k + 1), fx, fz));
+        }
+
+        private float corner(int i, int k) {
+            int index = k * CORNERS + i;
+            float height = corners[index];
             if(Float.isNaN(height)) {
-                height = computeHeight((chunkX << 4) + dx, (chunkZ << 4) + dz);
-                heights[index] = height;
+                height = getUnraisedHeight((chunkX << 4) + i * LATTICE, (chunkZ << 4) + k * LATTICE);
+                corners[index] = height;
             }
             return height;
         }

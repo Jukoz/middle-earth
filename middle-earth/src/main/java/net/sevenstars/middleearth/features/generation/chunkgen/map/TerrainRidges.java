@@ -1,25 +1,21 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
-// ridged mountain term after Tectonic's mountain_ridges: low-frequency base, ridged detail noise sampled at a position
-// pushed along the base gradient, and narrow gullies; pure function of position and seed, hashed simplex so it never repeats
+// Tectonic's mountain_ridges: a 150 block base plus detail whose dominant octave is 32 blocks, sampled where the
+// base slope pushes it, so ribs and gullies shear across the flanks; pure function of position and seed, hashed
+// simplex so it never repeats. Callers sample it every 4 blocks and blend, as Tectonic does, or it turns to stripes
 final class TerrainRidges {
     // blocks per noise cell
-    private static final double BASE_SCALE = 150;
-    private static final double DETAIL_SCALE = 96;
-    private static final double WEATHER_SCALE = 24;
-    private static final double WARP_SCALE = 260;
-    private static final double WARP_STRENGTH = 35; // blocks
+    private static final double BASE_SCALE = 218;
+    private static final double DETAIL_SCALE = 46;
 
-    // Tectonic shifts the detail by |base(p) - base(p + 10)| * 3000 noise units (1500 blocks per unit of difference): a median
-    // shift of 3 cells and 80 degree slopes here, so it is scaled down to a median shift of about 60 blocks
-    private static final double GRADIENT_STEP = 10;
-    private static final double SHIFT_BLOCKS_PER_UNIT = 250;
-
+    // sized so the push and the spread of the value match Tectonic's: a median push of 31 blocks, |ridges| median 0.19
+    private static final double BASE_AMPLITUDE = 0.5;
+    private static final double DETAIL_AMPLITUDE = 0.3;
     private static final double DETAIL_WEIGHT = 0.6;
-    private static final double GULLY_WEIGHT = 0.12;
-    private static final double RIDGE_POWER = 2;
-    private static final double GULLY_WIDTH = 0.25; // widens the gullies, a block is much coarser than a density cell
-    private static final double BIAS = 0.3; // mean of 0.6 * ridged detail, so the term is centred on the base height
+
+    // the base is compared 5.9 blocks away and the difference moves the detail 1500 blocks per unit
+    private static final double SLOPE_STEP = 5.9;
+    private static final double SHIFT_BLOCKS_PER_UNIT = 1500;
 
     // stretch factors of the noise space per axis; the larger one lengthens the ridges along that axis
     static final double[] NORTH_SOUTH = {1, 2.2};
@@ -30,9 +26,6 @@ final class TerrainRidges {
     private static final int SALT_BASE2 = 0x2c1b3c6d;
     private static final int SALT_DETAIL = 0x297a2d39;
     private static final int SALT_DETAIL2 = 0x3a2d8b17;
-    private static final int SALT_WEATHER = 0x4cf5ad43;
-    private static final int SALT_WARP_X = 0x5bd1e995;
-    private static final int SALT_WARP_Z = 0x6c8e9cf5;
 
     private static final double F2 = 0.5 * (Math.sqrt(3) - 1);
     private static final double G2 = (3 - Math.sqrt(3)) / 6;
@@ -52,42 +45,23 @@ final class TerrainRidges {
     private TerrainRidges() {
     }
 
-    // about -1.4 in the gullies up to +1.4 on the crests, before the amplitude of the range
-    static double ridge(double x, double z, double[] stretch, long seed) {
-        double warpX = x + WARP_STRENGTH * noise(x / WARP_SCALE + offset(seed, SALT_WARP_X), z / WARP_SCALE, SALT_WARP_X);
-        double warpZ = z + WARP_STRENGTH * noise(x / WARP_SCALE, z / WARP_SCALE + offset(seed, SALT_WARP_Z), SALT_WARP_Z);
-        double px = warpX / stretch[0];
-        double pz = warpZ / stretch[1];
-
+    // Tectonic's ridges value, about -0.6 to 0.6; the land stands high where it is low
+    static double ridges(double x, double z, double[] stretch, long seed) {
+        double px = x / stretch[0];
+        double pz = z / stretch[1];
         double base = base(px, pz, seed);
-        double slopeX = Math.abs(base - base(px + GRADIENT_STEP / stretch[0], pz, seed));
-        double slopeZ = Math.abs(base - base(px, pz + GRADIENT_STEP / stretch[1], seed));
-        double shiftX = slopeX * SHIFT_BLOCKS_PER_UNIT;
-        double shiftZ = slopeZ * SHIFT_BLOCKS_PER_UNIT;
-
+        double shiftX = SHIFT_BLOCKS_PER_UNIT * Math.abs(base - base(px + SLOPE_STEP, pz, seed));
+        double shiftZ = SHIFT_BLOCKS_PER_UNIT * Math.abs(base - base(px, pz + SLOPE_STEP, seed));
         double dx = (px + shiftX) / DETAIL_SCALE;
         double dz = (pz + shiftZ) / DETAIL_SCALE;
-        double detail = (noise(dx + offset(seed, SALT_DETAIL), dz, SALT_DETAIL)
+        double detail = DETAIL_AMPLITUDE * (noise(dx + offset(seed, SALT_DETAIL), dz, SALT_DETAIL)
                 + 0.2 * noise(dx / 2 + offset(seed, SALT_DETAIL2), dz / 2, SALT_DETAIL2)) / 1.2;
-        // the square root rounds the crest, which |detail| alone leaves as a sharp crease
-        double crest = Math.sqrt(detail * detail + 0.01) - 0.1;
-        double ridged = Math.pow(1 - Math.min(1, crest), RIDGE_POWER);
-
-        double gully = gully(noise(px / WEATHER_SCALE + offset(seed, SALT_WEATHER), pz / WEATHER_SCALE, SALT_WEATHER));
-        return base + DETAIL_WEIGHT * ridged - BIAS - GULLY_WEIGHT * gully;
+        return base + DETAIL_WEIGHT * detail;
     }
 
     private static double base(double px, double pz, long seed) {
-        return noise(px / BASE_SCALE + offset(seed, SALT_BASE), pz / BASE_SCALE, SALT_BASE)
-                + 0.2 * noise(px / (BASE_SCALE / 2) + offset(seed, SALT_BASE2), pz / (BASE_SCALE / 2), SALT_BASE2);
-    }
-
-    // Tectonic's weathering: one minus a clamped hermite spline of |noise|, from (0.025, 0, slope 20) to (1, 1, slope 0)
-    private static double gully(double n) {
-        double t = (Math.abs(n) * GULLY_WIDTH - 0.025) / 0.975;
-        if (t <= 0) return 1;
-        double value = 19.5 * (t * t * t - 2 * t * t + t) + (-2 * t * t * t + 3 * t * t);
-        return 1 - Math.min(1, value);
+        return BASE_AMPLITUDE * (noise(px / BASE_SCALE + offset(seed, SALT_BASE), pz / BASE_SCALE, SALT_BASE)
+                + 0.2 * noise(px / (BASE_SCALE / 2) + offset(seed, SALT_BASE2), pz / (BASE_SCALE / 2), SALT_BASE2)) / 1.2;
     }
 
     // seed as a bounded shift of the noise cells

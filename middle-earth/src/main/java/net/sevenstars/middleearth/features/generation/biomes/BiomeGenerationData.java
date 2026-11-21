@@ -5,7 +5,7 @@ public class BiomeGenerationData {
     public enum RidgeAxis { NORTH_SOUTH, EAST_WEST, ISOTROPIC, SMOOTH }
 
     public RidgeAxis ridgeAxis = RidgeAxis.ISOTROPIC;
-    public float ridgeAmplitude = 11; // blocks per unit of ridge noise and of mountain multiplier
+    public float ridgeAmplitude = 11; // strength of the ridges, 11 gives Tectonic's
     public int extraDepth; // blocks the bottom of the world lies below y -64, 0 to 64; the map bake spreads it out into the foothills
     public byte[] biomeWeight;
     public double noiseModifier; /** Between 0 and 2; */
