@@ -34,7 +34,7 @@ public final class MistyCaveDecorator {
     }
 
     // weights and surface heights are indexed local x * 16 + local z
-    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake[] lakes, int[] surfaceY, float[] weights) {
+    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake[] lakes, int[] surfaceY, float[] weights, Entrance[] entrances) {
         int startX = chunk.getPos().getStartX();
         int startZ = chunk.getPos().getStartZ();
         BlockPos.Mutable pos = new BlockPos.Mutable();
@@ -47,7 +47,7 @@ public final class MistyCaveDecorator {
                 int x = startX + lx;
                 int z = startZ + lz;
                 edges[index] = DepthBands.Edges.of(surfaceY[index], DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, caves.seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, caves.seed));
-                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY[index], edges[index].upperBottom(), pos);
+                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY[index], edges[index].upperBottom(), pos, entrances);
             }
         }
         new MistyCaveSetPieces(chunk, blocks, caves, lakes, surfaceY, weights, edges).place();
@@ -86,8 +86,18 @@ public final class MistyCaveDecorator {
         }
     }
 
+    // entrances dress their own rock
+    private static boolean entranceRock(Entrance[] entrances, int x, int y, int z) {
+        for (Entrance entrance : entrances) {
+            if (!entrance.inBox(x, y, z)) continue;
+            if (entrance.carves(x, y + 1, z) || entrance.carves(x + 1, y, z) || entrance.carves(x - 1, y, z)
+                    || entrance.carves(x, y, z + 1) || entrance.carves(x, y, z - 1)) return true;
+        }
+        return false;
+    }
+
     // the cold reaches down through the upper band, fading out at its bottom
-    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int surface, int upperBottom, BlockPos.Mutable pos) {
+    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int surface, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances) {
         int bottom = Math.max(chunk.getBottomY() + 1, upperBottom);
         int depth = Math.max(1, surface - upperBottom);
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
@@ -106,6 +116,7 @@ public final class MistyCaveDecorator {
                     || (lz > 0 && blocks.get(x, y, z - 1).isAir())
                     || (lz < 15 && blocks.get(x, y, z + 1).isAir()));
             if (!floor && !wall) continue;
+            if (entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
             float cold = 1 - (surface - y) / (float) depth;
             float patch = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_PATCH_SCALE, (y + caves.offsetY) / ICE_PATCH_SCALE, (z + caves.offsetZ) / ICE_PATCH_SCALE);
             if (patch < ICE_PATCH_MIN) continue;

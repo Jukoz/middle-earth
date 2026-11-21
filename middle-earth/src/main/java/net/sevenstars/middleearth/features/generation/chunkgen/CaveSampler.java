@@ -6,6 +6,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DeepThemes;
 import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.caves.BlockBuffer;
+import net.sevenstars.middleearth.features.generation.caves.Entrance;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.Lake;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
@@ -80,6 +81,8 @@ final class CaveSampler {
     private final MistyCaves misty;
     private final float[] mistyWeight; // null when no corner of the chunk is Misty
     private final float[] riftScale;
+    private final int[] riftTops;
+    private final Entrance[] entrances;
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;
@@ -168,10 +171,12 @@ final class CaveSampler {
                 deepHere = DepthBands.deepFloor(map, startX + i * MISTY_LATTICE, startZ + j * MISTY_LATTICE, seed) < DepthBands.SHALLOW_FLOOR;
             }
         }
+        this.entrances = Entrance.near(candidate, map, startX, startZ);
         if (!any && !deepHere && tunnels.length == 0) {
             this.misty = null;
             this.mistyWeight = null;
             this.riftScale = null;
+            this.riftTops = null;
             this.streamGates = null;
             this.mistyPages = null;
             this.mistyDone = null;
@@ -179,7 +184,7 @@ final class CaveSampler {
             this.shaftColumns = null;
             this.lakes = null;
             this.lakeWobble = null;
-            this.surfaceY = null;
+            this.surfaceY = entrances.length > 0 ? new int[CHUNK_SIZE * CHUNK_SIZE] : null;
             this.cornerEdges = null;
             this.cornerThemes = null;
             this.cornerBorders = null;
@@ -188,6 +193,7 @@ final class CaveSampler {
         this.misty = candidate;
         this.mistyWeight = new float[CORNERS * CORNERS];
         this.riftScale = new float[CORNERS * CORNERS];
+        this.riftTops = new int[CORNERS * CORNERS];
         this.streamGates = new float[CORNERS * CORNERS];
         Arrays.fill(streamGates, Float.NaN);
         this.mistyPages = pool != null ? pool.misty : new float[mistyPageCount][];
@@ -208,6 +214,7 @@ final class CaveSampler {
         this.cornerThemes = new DeepThemes.Theme[CORNERS * CORNERS];
         this.cornerBorders = new boolean[CORNERS * CORNERS];
         int ratio = MISTY_LATTICE / CELL;
+        float[] lows = null;
         for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
             for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
                 int i = Math.min(cornerX / ratio, lattice - 2);
@@ -240,7 +247,11 @@ final class CaveSampler {
                 }
                 if (w <= 0) continue;
                 riftScale[corner] = w * misty.riftCluster(cornerWorldX, cornerWorldZ);
-                if (riftScale[corner] > 0) riftMinY = Math.min(riftMinY, MistyCaves.riftBottom(edges));
+                if (riftScale[corner] > 0) {
+                    riftMinY = Math.min(riftMinY, MistyCaves.riftBottom(edges));
+                    if (lows == null) lows = riftLows(startX, startZ);
+                    riftTops[corner] = riftTop(lows, cornerWorldX, cornerWorldZ, edges.surface());
+                }
                 chamberMinY = Math.min(chamberMinY, MistyCaves.chamberBottom(edges));
                 chamberMaxY = Math.max(chamberMaxY, edges.top(DepthBands.Band.DEEPS));
                 if (MistyCaves.streamBand(edges)) {
@@ -260,6 +271,35 @@ final class CaveSampler {
             shaftMaxY = range[1];
         }
         if (lakes.length > 0) lakeMinY = MistyCaves.lakeMinY(lakes);
+    }
+
+    // ground heights on the world-fixed lattice around the chunk that rift tops are taken from
+    private static float[] riftLows(int startX, int startZ) {
+        int step = MistyCaves.RIFT_SKIN_STEP;
+        int reach = MistyCaves.RIFT_SKIN_REACH;
+        int from = Math.floorDiv(startX - reach, step);
+        int fromZ = Math.floorDiv(startZ - reach, step);
+        int size = Math.floorDiv(startX + CHUNK_SIZE + reach, step) - from + 1;
+        float[] lows = new float[size * size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) lows[i * size + j] = MiddleEarthHeightMap.getHeight((from + i) * step, (fromZ + j) * step);
+        }
+        return lows;
+    }
+
+    private int riftTop(float[] lows, int x, int z, int surface) {
+        int step = MistyCaves.RIFT_SKIN_STEP;
+        int reach = MistyCaves.RIFT_SKIN_REACH;
+        int from = Math.floorDiv(startX - reach, step);
+        int fromZ = Math.floorDiv(startZ - reach, step);
+        int size = (int) Math.round(Math.sqrt(lows.length));
+        float low = surface - DIRT_HEIGHT;
+        for (int i = Math.floorDiv(x - reach + step - 1, step); i <= Math.floorDiv(x + reach, step); i++) {
+            for (int j = Math.floorDiv(z - reach + step - 1, step); j <= Math.floorDiv(z + reach, step); j++) {
+                low = Math.min(low, lows[(i - from) * size + j - fromZ]);
+            }
+        }
+        return MistyCaves.riftTopOver(low);
     }
 
     void release() {
@@ -295,7 +335,7 @@ final class CaveSampler {
 
     int sample(int x, int y, int z) {
         selectColumn(x - startX, z - startZ);
-        if (misty == null) return baseSolid(x, y, z) ? STONE : AIR;
+        if (misty == null) return entrances.length > 0 && entranceAt(x, y, z) || !baseSolid(x, y, z) ? AIR : STONE;
         if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
             int column = ((x - startX) * CHUNK_SIZE + (z - startZ)) * 2;
             for (int i = 0; i < lakes.length; i++) {
@@ -308,6 +348,7 @@ final class CaveSampler {
                 if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
             }
         }
+        if (entrances.length > 0 && entranceAt(x, y, z)) return AIR;
         return (gnawedRock(y) || baseSolid(x, y, z)) && mistySolid(x, y, z) ? STONE : AIR;
     }
 
@@ -433,7 +474,7 @@ final class CaveSampler {
                 weights[x * CHUNK_SIZE + z] = bilerp2(mistyWeight, x / CELL, z / CELL, (float) (x % CELL) / CELL, (float) (z % CELL) / CELL);
             }
         }
-        MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights);
+        MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights, entrances);
     }
 
     private boolean mistySolid(int x, int y, int z) {
@@ -460,13 +501,23 @@ final class CaveSampler {
         return lerp3m(Math.floorDiv(y, CELL) - minCellY, MistyCaves.SHAFT, (float) Math.floorMod(y, CELL) / CELL) > 0;
     }
 
-    // true where a rift breaks through the surface skin
-    boolean mouthOpen(int x, int z, int surfaceY) {
-        if (misty == null) return false;
-        int localX = x - startX;
-        int localZ = z - startZ;
-        float w = bilerp2(mistyWeight, localX / CELL, localZ / CELL, (float) (localX % CELL) / CELL, (float) (localZ % CELL) / CELL);
-        return misty.mouthOpen(x, z, w, surfaceY);
+    boolean entranceAt(int x, int y, int z) {
+        for (Entrance entrance : entrances) {
+            if (entrance.carves(x, y, z)) return true;
+        }
+        return false;
+    }
+
+    // inside the ground plan of an entrance, where no boulder goes
+    boolean nearEntrance(int x, int z) {
+        for (Entrance entrance : entrances) {
+            if (entrance.aroundMouth(x, z)) return true;
+        }
+        return false;
+    }
+
+    void dressEntrances(Chunk chunk, BlockBuffer blocks) {
+        for (Entrance entrance : entrances) entrance.dress(chunk, blocks, surfaceY);
     }
 
     private static float bilerp2(float[] grid, int cellX, int cellZ, float fx, float fz) {
@@ -549,7 +600,7 @@ final class CaveSampler {
         int x = startX + corner / CORNERS * CELL;
         int z = startZ + corner % CORNERS * CELL;
         float w = mistyWeight[corner];
-        out[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner], cornerEdges[corner]) : -1;
+        out[offset + MistyCaves.RIFT] = rift && riftScale[corner] > 0 ? misty.riftMargin(x, y, z, riftScale[corner], cornerEdges[corner], riftTops[corner]) : -1;
         out[offset + MistyCaves.CHAMBER] = chamber && (w > 0 || cornerThemes[corner] == DeepThemes.Theme.GNAWED) ? chamberMargin(corner, x, y, z, w) : -1;
         float shaftMargin = -1;
         if (shaft && w > 0) {

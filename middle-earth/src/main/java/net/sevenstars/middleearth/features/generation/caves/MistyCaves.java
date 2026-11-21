@@ -33,9 +33,11 @@ public final class MistyCaves {
 
     private static final int CHAMBER_CLEARANCE = DepthBands.BOTTOM_BAND + 3; // above the deep floor
     private static final int CHAMBER_TOP_FADE = 6;
-    private static final int MOUTH_MIN_SURFACE_Y = 110;
-    private static final float MOUTH_MIN_WEIGHT = 0.95f;
-    private static final float MOUTH_GATE = 0.5f;
+    // rifts close this far under the lowest ground nearby, so none opens in a slope or cliff
+    private static final int RIFT_SKIN = 14;
+    private static final int RIFT_SKIN_FADE = 6;
+    public static final int RIFT_SKIN_REACH = 8;
+    public static final int RIFT_SKIN_STEP = 8; // the ground is read on a world-fixed lattice this coarse
 
     // fade distances for the weight, in blocks
     private static final int WEIGHT_INNER_RADIUS = 24;
@@ -101,7 +103,7 @@ public final class MistyCaves {
         return smoothstep(0.5f, 1f, misty / 13f);
     }
 
-    private static boolean isMisty(MiddleEarthMapRuntime map, int x, int z) {
+    static boolean isMisty(MiddleEarthMapRuntime map, int x, int z) {
         MapBasedCustomBiome biome = map.getBiome(x, z);
         return biome != null && biome.getBiome() != null && biome.getBiome().getCaveType() == CaveType.MISTIES;
     }
@@ -112,12 +114,37 @@ public final class MistyCaves {
         return smoothstep(-0.1f, 0.35f, gate);
     }
 
-    // open where positive; scale is weight * cluster
-    public float riftMargin(int x, int y, int z, float scale, DepthBands.Edges edges) {
+    // open where positive; scale is weight * cluster, top from riftTop
+    public float riftMargin(int x, int y, int z, float scale, DepthBands.Edges edges, int top) {
         float n = (float) SimplexNoise.noise((x + offsetX) / RIFT_X, (y + offsetY) / RIFT_Y, (z + offsetZ) / RIFT_Z);
         n += 0.25f * (float) SimplexNoise.noise((x + offsetX) / (RIFT_X * 0.5f), (y + offsetY) / (RIFT_Y * 0.5f), (z + offsetZ) / (RIFT_Z * 0.5f));
         n /= 1.25f;
-        return RIFT_HALF_WIDTH * scale * riftEnvelope(edges, y) - Math.abs(n);
+        float skin = MathHelper.clamp((top - y) / (float) RIFT_SKIN_FADE, 0f, 1f);
+        return RIFT_HALF_WIDTH * scale * riftEnvelope(edges, y) * skin - Math.abs(n);
+    }
+
+    // the highest y a rift may open at, under the lowest ground around a column
+    public static int riftTop(int x, int z) {
+        float low = MiddleEarthHeightMap.getHeight(x, z);
+        for (int i = Math.floorDiv(x - RIFT_SKIN_REACH + RIFT_SKIN_STEP - 1, RIFT_SKIN_STEP); i <= Math.floorDiv(x + RIFT_SKIN_REACH, RIFT_SKIN_STEP); i++) {
+            for (int j = Math.floorDiv(z - RIFT_SKIN_REACH + RIFT_SKIN_STEP - 1, RIFT_SKIN_STEP); j <= Math.floorDiv(z + RIFT_SKIN_REACH, RIFT_SKIN_STEP); j++) {
+                low = Math.min(low, MiddleEarthHeightMap.getHeight(i * RIFT_SKIN_STEP, j * RIFT_SKIN_STEP));
+            }
+        }
+        return riftTopOver(low);
+    }
+
+    public static int riftTopOver(float lowestHeight) {
+        return (int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + lowestHeight) - RIFT_SKIN;
+    }
+
+    // the rift margin of one block, worked out alone the way a sampler corner does
+    float riftMarginAt(MiddleEarthMapRuntime map, int x, int y, int z) {
+        float scale = weight(map, x, z) * riftCluster(x, z);
+        if (scale <= 0) return -1;
+        DepthBands.Edges edges = DepthBands.Edges.of((int) (MiddleEarthChunkGenerator.DIRT_HEIGHT + MiddleEarthHeightMap.getHeight(x, z)),
+                DepthBands.deepFloor(map, x, z, seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed));
+        return riftMargin(x, y, z, scale, edges, riftTop(x, z));
     }
 
     // the lowest y a rift can open at in a column, or the cap when it has none
@@ -566,14 +593,6 @@ public final class MistyCaves {
         h *= 0x846CA68B;
         h ^= h >>> 16;
         return h;
-    }
-
-    // true where a rift breaks through the surface skin
-    public boolean mouthOpen(int x, int z, float weight, int surfaceY) {
-        if (weight < MOUTH_MIN_WEIGHT || surfaceY < MOUTH_MIN_SURFACE_Y) return false;
-        float gate = (float) SimplexNoise.noise((x + offsetX + 901) / 70f, (z + offsetZ + 433) / 70f);
-        if (gate < MOUTH_GATE) return false;
-        return riftMargin(x, surfaceY - 5, z, weight * riftCluster(x, z), DepthBands.Edges.of(surfaceY, DepthBands.SHALLOW_FLOOR, MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed))) > 0.02f;
     }
 
     static float sq(float v) {

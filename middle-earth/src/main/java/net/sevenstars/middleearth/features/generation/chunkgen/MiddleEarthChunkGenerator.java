@@ -468,8 +468,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     }
                 }
                 caves.setSurface(posX, posZ, surfaceY);
-                boolean riftMouth = caves.mouthOpen(posX, posZ, surfaceY);
-                if(!riftMouth) out.set(x, (int) (HEIGHT + height - 2), z, layers.getLast().block.getDefaultState());
+                setSkin(caves, out, x, (int) (HEIGHT + height - 2), z, posX, posZ, layers.getLast().block.getDefaultState());
 
                 Block surfaceBlock = biomeData.getBiome().getSlopeMap().slopeDatas.getFirst().block;
                 Block soilBlock = soilBelow(surfaceBlock);
@@ -486,20 +485,18 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     else underSurfaceBlock = surfaceBlock;
                 }
 
-                if(!riftMouth) {
-                    BlockState underSurfaceState = underSurfaceBlock.getDefaultState();
-                    out.set(x, (int) (HEIGHT + height - 1), z, underSurfaceState);
-                    for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
-                        out.set(x, y, z, underSurfaceState);
-                    }
-                    out.set(x, surfaceY, z, surfaceBlock.getDefaultState());
-                    // a cliff shows its face down to the ground beside it, so that face is all the cliff block rather
-                    // than a crust over the soil and the layers, which differ from column to column
-                    if(!belowWater && isCliff(biomeData.getBiome().getSlopeMap(), slopeAngle)) {
-                        BlockState cliffState = surfaceBlock.getDefaultState();
-                        int bottom = surfaceY - Math.min(MAX_CLIFF_FACE, (int) Math.ceil(height - lowestNeighbour(heights, x, z)) + 1);
-                        for(int y = surfaceY - 1; y >= bottom; y--) trySetBlock(caves, out, x, y, z, posX, posZ, cliffState);
-                    }
+                BlockState underSurfaceState = underSurfaceBlock.getDefaultState();
+                setSkin(caves, out, x, (int) (HEIGHT + height - 1), z, posX, posZ, underSurfaceState);
+                for(int y = (int) (HEIGHT + height); y < DIRT_HEIGHT + height; y++) {
+                    setSkin(caves, out, x, y, z, posX, posZ, underSurfaceState);
+                }
+                setSkin(caves, out, x, surfaceY, z, posX, posZ, surfaceBlock.getDefaultState());
+                // a cliff shows its face down to the ground beside it, so that face is all the cliff block rather
+                // than a crust over the soil and the layers, which differ from column to column
+                if(!belowWater && isCliff(biomeData.getBiome().getSlopeMap(), slopeAngle)) {
+                    BlockState cliffState = surfaceBlock.getDefaultState();
+                    int bottom = surfaceY - Math.min(MAX_CLIFF_FACE, (int) Math.ceil(height - lowestNeighbour(heights, x, z)) + 1);
+                    for(int y = surfaceY - 1; y >= bottom; y--) trySetBlock(caves, out, x, y, z, posX, posZ, cliffState);
                 }
 
                 if(biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM || biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM_PIT) {
@@ -515,7 +512,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     }
                 }
 
-                if(!riftMouth && !boulders.isEmpty()) boulders.write(out, x, z, posX, posZ);
+                if(!boulders.isEmpty() && !caves.nearEntrance(posX, posZ)) boulders.write(out, x, z, posX, posZ);
 
                 if(ServerConfigME.ENABLE_PROCEDURAL_STRUCTURES) {
                     // those write into the chunk directly, so what is buffered goes in first
@@ -525,6 +522,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             }
         }
         // the decorations read and write the same buffers, so the sections are built once, after them
+        caves.dressEntrances(chunk, out);
         caves.removeIslands(out);
         caves.decorate(chunk, out);
         out.finish();
@@ -657,6 +655,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             lowest = Math.min(lowest, Math.min(Math.min(heights.at(x + d, z), heights.at(x - d, z)), Math.min(heights.at(x, z + d), heights.at(x, z - d))));
         }
         return lowest;
+    }
+
+    // the top few blocks are rock whatever the caves below, except where an entrance cuts in
+    private static void setSkin(CaveSampler caves, ColumnWriter out, int x, int y, int z, int posX, int posZ, BlockState blockState) {
+        if(!caves.entranceAt(posX, y, posZ)) out.set(x, y, z, blockState);
     }
 
     private static void trySetBlock(CaveSampler caves, ColumnWriter out, int x, int y, int z, int posX, int posZ, BlockState blockState) {
