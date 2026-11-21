@@ -211,7 +211,7 @@ public final class MiddleEarthHeightMap {
     }
 
     // the terrain height every system agrees on: the map and noise height, the sub biome hills, the Mount Doom cone,
-    // the Dead Marshes, the named hills and the soft ceiling; relative to MiddleEarthChunkGenerator.DIRT_HEIGHT
+    // the Dead Marshes, Tectonic's regions, the named hills and the soft ceiling; relative to MiddleEarthChunkGenerator.DIRT_HEIGHT
     public static float getHeight(int x, int z) {
         ChunkHeights heights = findChunkHeights(x >> 4, z >> 4);
         if(heights != null) return heights.at(x & 15, z & 15);
@@ -245,7 +245,7 @@ public final class MiddleEarthHeightMap {
         return top + (bottom - top) * fz;
     }
 
-    // the height before the named hills are added
+    // the height before the named hills are added, with Tectonic's regions
     static float getUnraisedHeight(int x, int z) {
         float height = getPerlinMapHeight(x, z);
 
@@ -269,7 +269,7 @@ public final class MiddleEarthHeightMap {
             float percentage = Math.min(getImageNoiseModifier(x, z), 0.3f) / 0.3f;
             height = lerp(height, oldHeight, percentage);
         }
-        return height;
+        return TerrainRegions.raise(x, z, height);
     }
 
     private static float softCeiling(float height) {

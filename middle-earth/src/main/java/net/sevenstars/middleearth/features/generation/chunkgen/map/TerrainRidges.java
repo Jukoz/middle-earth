@@ -65,7 +65,7 @@ final class TerrainRidges {
     }
 
     // seed as a bounded shift of the noise cells
-    private static double offset(long seed, int salt) {
+    static double offset(long seed, int salt) {
         return Math.floorMod(hash((int) seed, (int) (seed >>> 32), salt), 65536);
     }
 
