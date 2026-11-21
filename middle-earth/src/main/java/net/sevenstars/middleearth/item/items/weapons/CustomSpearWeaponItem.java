@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.sevenstars.middleearth.item.utils.WeaponTypesME;
 import net.minecraft.item.ToolMaterial;
 
-public class CustomSpearWeaponItem extends ReachWeaponItem {
+public class CustomSpearWeaponItem extends Item {
     private static final float BASE_STRENGTH = 0.75f;
     private static final float CHARGE_STRENGTH = 1.75f;
     private static final int STRENGTH_CHARGE_TIME = 20;
@@ -13,7 +13,7 @@ public class CustomSpearWeaponItem extends ReachWeaponItem {
     public WeaponTypesME type;
 
     public CustomSpearWeaponItem(ToolMaterial toolMaterial, Item.Settings settings) {
-        super(toolMaterial, WeaponTypesME.SPEAR, settings);
+        super(settings);
         this.type = WeaponTypesME.SPEAR;
     }
 

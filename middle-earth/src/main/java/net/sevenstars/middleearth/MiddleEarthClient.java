@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.reloader.ResourceReloaderKeys;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.resource.SynchronousResourceReloader;
+import net.minecraft.block.entity.BlockEntityType;
 import net.sevenstars.middleearth.common.feature.ClientFeature;
 import net.sevenstars.middleearth.config.ClientConfigME;
 import net.sevenstars.middleearth.config.ServerConfigME;
@@ -31,9 +32,7 @@ import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.block.registration.*;
 import net.sevenstars.middleearth.block.special.fire_of_orthanc.FireOfOrthancEntityRenderer;
-import net.sevenstars.middleearth.features.cooking.block.plate.PlateEntityRenderer;
 import net.sevenstars.middleearth.block.special.pots.LootablePotBlockEntityRenderer;
-import net.sevenstars.middleearth.features.storage.block.reinforcedChest.ReinforcedChestEntityRenderer;
 import net.sevenstars.middleearth.block.special.skull.OldSkullBlockEntityRenderer;
 import net.sevenstars.middleearth.client.BlockColorsME;
 import net.sevenstars.middleearth.client.model.equipment.CustomBootsModel;
@@ -78,11 +77,8 @@ import net.sevenstars.middleearth.entity.spider.spawn.SpawnOfShelobRenderer;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.onboarding.onboarding_faction.OnboardingFactionScreenController;
 import net.sevenstars.middleearth.gui.ScreenHandlerRegistryME;
-import net.sevenstars.middleearth.features.artisan.gui.ArtisanTableScreen;
-import net.sevenstars.middleearth.features.inscription.gui.InscriptionTableScreen;
 import net.sevenstars.middleearth.gui.structuremanager.StructureManagerScreen;
 import net.sevenstars.middleearth.gui.structuremanager.structurenest.StructureNestScreen;
-import net.sevenstars.middleearth.features.storage.gui.wood_pile.WoodPileScreen;
 import net.sevenstars.middleearth.item.EquipmentItemsME;
 import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.item.items.weapons.SneakAttackProperty;
@@ -167,7 +163,7 @@ public class MiddleEarthClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(BlockEntityRegistryME.OLD_SKULL, OldSkullBlockEntityRenderer::new);
         //BlockEntityRendererFactories.register(ModBlockEntities.CROCKPOT, CrockpotEntityRenderer::new);
-        BlockEntityRendererFactories.register(net.minecraft.block.entity.BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockEntityType.DECORATED_POT, LootablePotBlockEntityRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_HELMET, CustomHelmetModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CUSTOM_ARMOR_CHESTPLATE, CustomChestplateModel::getTexturedModelData);
