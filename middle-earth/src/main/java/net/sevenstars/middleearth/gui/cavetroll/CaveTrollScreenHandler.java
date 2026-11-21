@@ -23,7 +23,7 @@ public class CaveTrollScreenHandler extends ScreenHandler {
 
     // Client side
     public CaveTrollScreenHandler(int syncId, PlayerInventory playerInventory, int entityId) {
-        this(syncId, playerInventory, (CaveTrollEntity)playerInventory.player.getWorld().getEntityById(entityId));
+        this(syncId, playerInventory, (CaveTrollEntity)playerInventory.player.getEntityWorld().getEntityById(entityId));
     }
 
     public CaveTrollScreenHandler(int syncId, PlayerInventory playerInventory, CaveTrollEntity troll) {

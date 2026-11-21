@@ -57,7 +57,7 @@ public class HeldItemRendererMixin {
 
     // The mace has a super long cooldown so remove the weird weapon raising animation.
     @WrapOperation(method = "updateHeldItems", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/client/network/ClientPlayerEntity;getAttackCooldownProgress(F)F"))
+            target = "Lnet/minecraft/client/network/ClientPlayerEntity;getHandEquippingProgress(F)F"))
     private float updateHeldItems(ClientPlayerEntity player, float baseTime, Operation<Float> original) {
         if(player.getVehicle() instanceof CaveTrollEntity troll && troll.getControllingPassenger() == player) {
             return 1.0f;

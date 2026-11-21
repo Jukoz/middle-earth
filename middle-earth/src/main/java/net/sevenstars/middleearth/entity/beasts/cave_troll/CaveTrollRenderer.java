@@ -24,7 +24,7 @@ public class CaveTrollRenderer extends MobEntityRenderer<CaveTrollEntity, CaveTr
         this.addFeature(new CaveTrollDroolFeatureRenderer(this));
         this.addFeature(new CaveTrollSaddleFeatureRenderer(this, context.getEntityModels(), context.getEquipmentRenderer()));
         this.addFeature(new CaveTrollHeldItemFeatureRenderer(this));
-        this.addFeature(new CaveTrollBannerFeatureRenderer(this, context.getEntityModels()));
+        this.addFeature(new CaveTrollBannerFeatureRenderer(this, context.getEntityModels(), context.getSpriteHolder()));
     }
 
     @Override
