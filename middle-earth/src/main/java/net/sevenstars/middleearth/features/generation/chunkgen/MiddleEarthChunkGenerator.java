@@ -358,6 +358,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.GNAWED_TUNNELS),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.GLOWWORM_GROTTO),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.GLITTERING_CAVES),
+            biomeRegistry.getOrThrow(BiomeKeyRegistryME.LAVA_TUBES),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.BASALT_CAVE),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.MAGMA_CAVE),
             biomeRegistry.getOrThrow(BiomeKeyRegistryME.DRY_CAVE),

@@ -95,6 +95,9 @@ public final class BiomeAmbianceME {
     // Aglarond: dark until a torch is lit, and the drip of water into still pools
     public static final BiomeAmbianceME GLITTERING_CAVES = sky(0x0B0D10, 0x0E1014)
             .withSounds(Sounds.DRIPS);
+    // the lava tubes of Gorgoroth: dark and dry, with the far rumble of the Mountain
+    public static final BiomeAmbianceME LAVA_TUBES = sky(0x120C0B, 0x160E0C)
+            .withSounds(Sounds.EMBERS);
 
     // Caves with fog of their own, in blocks from the camera and no matter the view distance: nothing is seen further than a ravine is wide
     public static final float UNDERGROUND_FOG_START = 50;
@@ -282,6 +285,7 @@ public final class BiomeAmbianceME {
         public static final Sounds MORDOR = new Sounds(SoundEvents.AMBIENT_NETHER_WASTES_LOOP, SoundEvents.AMBIENT_NETHER_WASTES_MOOD, SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS);
         public static final Sounds HAUNTED = new Sounds(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_LOOP, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS);
         public static final Sounds MIRKWOOD = new Sounds(SoundEvents.AMBIENT_WARPED_FOREST_LOOP, SoundEvents.AMBIENT_WARPED_FOREST_MOOD, SoundEvents.AMBIENT_WARPED_FOREST_ADDITIONS);
+        public static final Sounds EMBERS = new Sounds(null, SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS);
         public static final Sounds DRIPS = new Sounds(null, SoundEvents.AMBIENT_CAVE, RegistryEntry.of(SoundEvents.BLOCK_POINTED_DRIPSTONE_DRIP_WATER));
         public static final Sounds SPIDER_NESTS = new Sounds(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP, SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS);
     }

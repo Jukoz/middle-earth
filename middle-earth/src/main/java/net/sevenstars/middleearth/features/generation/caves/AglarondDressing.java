@@ -112,7 +112,7 @@ final class AglarondDressing {
         boolean underWater = at.caves.water(x, y + 1, z);
         if (!floor && !ceiling && !wall && !underWater) {
             // a second layer of limestone, so a broken face shows the same rock
-            if (near(air, x, y, z)) at.blocks.put(x, y, z, LIMESTONE);
+            if (air.nearAir(x, y, z)) at.blocks.put(x, y, z, LIMESTONE);
             return;
         }
         float richness = richness(at.caves, x, z);
@@ -129,16 +129,6 @@ final class AglarondDressing {
         at.blocks.put(x, y, z, ceiling ? ceilingStone(at, x, y, z) : wallStone(at, x, y, z, richness));
     }
 
-    private static boolean near(CarveMask air, int x, int y, int z) {
-        for (int dx = -2; dx <= 2; dx++) {
-            for (int dz = -2; dz <= 2; dz++) {
-                for (int dy = -2; dy <= 2; dy++) {
-                    if (Math.abs(dx) + Math.abs(dz) + Math.abs(dy) <= 2 && air.at(x + dx, y + dy, z + dz)) return true;
-                }
-            }
-        }
-        return false;
-    }
 
     // many-coloured: broad patches of rose, saffron, white and grey; the outer caves plain, with grit underfoot
     private static BlockState floorStone(Context at, int x, int z, float richness) {

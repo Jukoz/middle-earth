@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.generation.biomes.surface;
 
 import net.sevenstars.middleearth.features.generation.caves.Aglarond;
+import net.sevenstars.middleearth.features.generation.caves.LavaTubes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -100,6 +101,9 @@ public class BiomeSourceME extends BiomeSource {
         RegistryKey<Biome> processedBiome;
         if (j < column.caveBelow && Aglarond.of(column.seed).holds(i, j, k)) {
             processedBiome = BiomeKeyRegistryME.GLITTERING_CAVES;
+        } else if (LavaTubes.mayTouch(i, k) && j < column.caveBelow + LAVA_TUBE_BIOME_TOP && LavaTubes.of(column.seed).holds(i, j, k)) {
+            // the tubes lie above the cave line, so they get their own check, kept under the surface
+            processedBiome = BiomeKeyRegistryME.LAVA_TUBES;
         } else if (j < column.caveBelow || j < column.marshCaveBelow) {
             DepthBands.Band band = DepthBands.bandAt(j, column.edges);
             if (band == null) band = DepthBands.Band.UPPER;
@@ -132,6 +136,7 @@ public class BiomeSourceME extends BiomeSource {
         return new RegistryKey[DepthBands.BANDS.length];
     }
 
+    private static final int LAVA_TUBE_BIOME_TOP = 10; // caveBelow is 16 under ground; a block reads the biome cell a little below it
     private static final int COLUMN_CACHE_SIZE = 256;
     private static final ThreadLocal<Column[]> columnCache = ThreadLocal.withInitial(() -> new Column[COLUMN_CACHE_SIZE]);
 

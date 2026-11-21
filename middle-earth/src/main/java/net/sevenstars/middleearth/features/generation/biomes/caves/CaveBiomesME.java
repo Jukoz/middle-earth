@@ -141,7 +141,8 @@ public class CaveBiomesME {
         context.register(BiomeKeyRegistryME.NAMELESS_DEEPS, createNamelessDeeps(context, new BiomeColorsDTO(BiomeAmbianceME.NAMELESS_DEEPS, 0x0B1620, 0x01030A, 0x2A2F33, 0x2A2F33)));
         context.register(BiomeKeyRegistryME.GNAWED_TUNNELS, createGnawedTunnels(context, new BiomeColorsDTO(BiomeAmbianceME.GNAWED_TUNNELS, 0x6E6A60, 0x4A4740, 0x9A9384, 0x9A9384)));
         context.register(BiomeKeyRegistryME.GLOWWORM_GROTTO, createGlowwormGrotto(context, new BiomeColorsDTO(BiomeAmbianceME.GLOWWORM_GROTTO, 0x1E5C62, 0x04161A, 0x2F5E4F, 0x2F5E4F)));
-        context.register(BiomeKeyRegistryME.GLITTERING_CAVES, createGlitteringCaves(context, new BiomeColorsDTO(BiomeAmbianceME.GLITTERING_CAVES, 0x2E6A7A, 0x07181E, 10338918, 10604137)));
+        context.register(BiomeKeyRegistryME.GLITTERING_CAVES, createBareCave(context, new BiomeColorsDTO(BiomeAmbianceME.GLITTERING_CAVES, 0x2E6A7A, 0x07181E, 10338918, 10604137), 0.5f));
+        context.register(BiomeKeyRegistryME.LAVA_TUBES, createBareCave(context, new BiomeColorsDTO(BiomeAmbianceME.LAVA_TUBES, 6450777, 1513734, 3550502, 2169880), 2.0f));
 
         context.register(BiomeKeyRegistryME.BASALT_CAVE, createBasaltCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
         context.register(BiomeKeyRegistryME.MAGMA_CAVE, createMagmaCave(context, new BiomeColorsDTO(BiomeAmbianceME.ASH_MOUNTAINS.withoutParticles().withoutSounds(), 6450777, 1513734, 3550502, 2169880)));
@@ -150,11 +151,11 @@ public class CaveBiomesME {
         context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(BiomeAmbianceME.MISTY_CAVE, defaultWater, defaultWaterFog, 11121530, 10990723)));
     }
 
-    // Aglarond dresses itself; no features, so nothing grows over the formations
-    public static Biome createGlitteringCaves(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
+    // for caves that dress themselves (Aglarond, the lava tubes); no features, so nothing grows over them
+    public static Biome createBareCave(Registerable<Biome> context, BiomeColorsDTO biomeColors, float temperature) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-        return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, false, false);
+        return createBiome(biomeColors, spawnSettings, generationSettings, temperature, false, false);
     }
 
     public static Biome createBasicCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {

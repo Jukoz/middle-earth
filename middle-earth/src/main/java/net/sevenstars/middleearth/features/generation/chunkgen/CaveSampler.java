@@ -11,6 +11,7 @@ import net.sevenstars.middleearth.features.generation.caves.Entrance;
 import net.sevenstars.middleearth.features.generation.caves.Galleries;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.Lake;
+import net.sevenstars.middleearth.features.generation.caves.LavaTubes;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
 import net.sevenstars.middleearth.features.generation.caves.Shaft;
 import net.sevenstars.middleearth.features.generation.caves.Worm;
@@ -85,6 +86,7 @@ final class CaveSampler {
     private final Entrance[] entrances;
     private final Galleries galleries;
     private final Aglarond aglarond; // null where the Glittering Caves are far off
+    private final LavaTubes.Near tubes; // null away from the tubes of Gorgoroth
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;
@@ -178,6 +180,7 @@ final class CaveSampler {
         this.galleries = Galleries.near(candidate, map, startX, startZ);
         Aglarond glittering = Aglarond.of(seed);
         this.aglarond = glittering.touchesChunk(startX, startZ) ? glittering : null;
+        this.tubes = LavaTubes.mayTouchChunk(startX, startZ) ? LavaTubes.of(seed).near(startX, startZ) : null;
         if (!any && !deepHere && tunnels.length == 0) {
             this.misty = null;
             this.mistyWeight = null;
@@ -306,7 +309,11 @@ final class CaveSampler {
             if (aglarond.water(x, y, z)) return WATER;
             if (aglarond.quiet(x, y, z)) return STONE;
         }
-        if (misty == null) return openingAt(x, y, z) || !baseSolid(x, y, z) ? AIR : galleryWater(x, y, z) ? WATER : STONE;
+        if (tubes != null) {
+            if (tubes.carves(x, y, z)) return AIR;
+            if (tubes.quiet(x, y, z)) return STONE;
+        }
+        if (misty == null) return otherOpeningAt(x, y, z) || !baseSolid(x, y, z) ? AIR : galleryWater(x, y, z) ? WATER : STONE;
         if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
             int column = ((x - startX) * CHUNK_SIZE + (z - startZ)) * 2;
             for (int i = 0; i < lakes.length; i++) {
@@ -319,7 +326,7 @@ final class CaveSampler {
                 if (MistyCaves.inLakeTunnel(lake, x, y, z)) return AIR;
             }
         }
-        if (openingAt(x, y, z)) return AIR;
+        if (otherOpeningAt(x, y, z)) return AIR;
         if (galleryWater(x, y, z)) return WATER;
         return (gnawedRock(y) || frozenLayer(x, y, z) || baseSolid(x, y, z)) && mistySolid(x, y, z) ? STONE : AIR;
     }
@@ -335,7 +342,12 @@ final class CaveSampler {
     }
 
     boolean openingAt(int x, int y, int z) {
-        return aglarond != null && aglarond.carves(x, y, z) || entrances.length > 0 && entranceAt(x, y, z) || !galleries.isEmpty() && galleries.carves(x, y, z);
+        return aglarond != null && aglarond.carves(x, y, z) || tubes != null && tubes.carves(x, y, z) || otherOpeningAt(x, y, z);
+    }
+
+    // sample has already asked Aglarond and the tubes
+    private boolean otherOpeningAt(int x, int y, int z) {
+        return entrances.length > 0 && entranceAt(x, y, z) || !galleries.isEmpty() && galleries.carves(x, y, z);
     }
 
     // the layer under the Misty surface, where only the halls and tunnels open
@@ -502,8 +514,9 @@ final class CaveSampler {
         return false;
     }
 
-    // inside the ground plan of an entrance, where no boulder goes
+    // round an entrance or skylight, where no boulder goes
     boolean nearEntrance(int x, int z) {
+        if (tubes != null && tubes.nearSkylight(x, z)) return true;
         for (Entrance entrance : entrances) {
             if (entrance.aroundMouth(x, z)) return true;
         }
@@ -513,6 +526,7 @@ final class CaveSampler {
     void dressOpenings(Chunk chunk, BlockBuffer blocks) {
         if (!galleries.isEmpty()) galleries.dress(chunk, blocks);
         if (aglarond != null) aglarond.dress(chunk, blocks);
+        if (tubes != null) tubes.dress(chunk, blocks);
         for (Entrance entrance : entrances) entrance.dress(chunk, blocks, surfaceY);
     }
 

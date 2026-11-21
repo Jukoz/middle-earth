@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.features.generation.caves;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // a shape's carving worked out once over a box, so the many neighbour checks of a dressing pass are lookups
 final class CarveMask implements Walk.Carving {
     private final Walk.Carving shape;
@@ -89,5 +92,27 @@ final class CarveMask implements Walk.Carving {
         int dz = z - z0;
         if (dx < 0 || dy < 0 || dz < 0 || dx >= sizeX || dy >= sizeY || dz >= sizeZ) return shape.at(x, y, z);
         return air[(dx * sizeZ + dz) * sizeY + dy];
+    }
+
+    // carving within 2 blocks, counting each step along an axis
+    boolean nearAir(int x, int y, int z) {
+        for (int[] o : NEAR) {
+            if (at(x + o[0], y + o[1], z + o[2])) return true;
+        }
+        return false;
+    }
+
+    private static final int[][] NEAR = near();
+
+    private static int[][] near() {
+        List<int[]> out = new ArrayList<>();
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dy = -2; dy <= 2; dy++) {
+                for (int dz = -2; dz <= 2; dz++) {
+                    if (Math.abs(dx) + Math.abs(dy) + Math.abs(dz) <= 2) out.add(new int[]{dx, dy, dz});
+                }
+            }
+        }
+        return out.toArray(new int[0][]);
     }
 }

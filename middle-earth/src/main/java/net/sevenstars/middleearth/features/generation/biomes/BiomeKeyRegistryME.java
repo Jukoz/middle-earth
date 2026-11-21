@@ -288,6 +288,7 @@ public class BiomeKeyRegistryME extends BiomeKeys {
     public static final RegistryKey<Biome> GNAWED_TUNNELS = register("gnawed_tunnels");
     public static final RegistryKey<Biome> GLOWWORM_GROTTO = register("glowworm_grotto");
     public static final RegistryKey<Biome> GLITTERING_CAVES = register("glittering_caves");
+    public static final RegistryKey<Biome> LAVA_TUBES = register("lava_tubes");
     public static final RegistryKey<Biome> DRY_CAVE = register("dry_cave");
     public static final RegistryKey<Biome> ICE_CAVE = register("ice_cave");
 
