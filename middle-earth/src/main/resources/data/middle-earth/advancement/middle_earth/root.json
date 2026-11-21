@@ -11,7 +11,7 @@
     "announce_to_chat": true,
     "background": "middle-earth:gui/advancements/backgrounds/white_daub",
     "description": {
-      "translate": "advancements.middle_earth.root.description"
+      "translate": "advancements.middle-earth.middle_earth.root.description"
     },
     "frame": "task",
     "hidden": false,
@@ -21,7 +21,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.middle_earth.root.title"
+      "translate": "advancements.middle-earth.middle_earth.root.title"
     }
   },
     "requirements": [
