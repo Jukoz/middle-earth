@@ -7,9 +7,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.Chunk;
+import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.special.pointedBlocks.PointedStoneBlock;
 import net.sevenstars.middleearth.block.registration.OreStoneSetRegistryME;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
@@ -24,7 +29,6 @@ final class AglarondDressing {
     private static final BlockState TRAVERTINE = StoneBlockSetRegistryME.TRAVERTINE_SET.baseBlocks.base().getDefaultState();
     private static final BlockState QUARTZITE = StoneBlockSetRegistryME.QUARTZITE_SET.baseBlocks.base().getDefaultState();
     private static final BlockState CHALK = StoneBlockSetRegistryME.CHALK_SET.baseBlocks.base().getDefaultState();
-    private static final BlockState STRAW = StoneBlockSetRegistryME.CALCITE_SET.baseBlocks.wall().getDefaultState();
     private static final BlockState GOLD = OreStoneSetRegistryME.CALCITE.gold_ore().getDefaultState();
     private static final BlockState SILVER = OreStoneSetRegistryME.CALCITE.silver_ore().getDefaultState();
     private static final BlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
@@ -33,10 +37,14 @@ final class AglarondDressing {
 
     private static final float FORMATIONS = 0.03f; // drip points per square block of floor, at full richness
     private static final float STRAWS = 0.04f;
+    private static final float HANG = 0.6f; // stalactites hang this share of the drop that set them
+    private static final int SPIKE = 2; // every stalactite ends in at least this much pointed calcite
+    private static final float THIN = 1; // narrower than this a formation is one block wide, a thread of pointed calcite
+    private static final PointedStoneBlock POINTED_CALCITE = (PointedStoneBlock) BlockRegistryME.POINTED_CALCITE;
     private static final float CORRIDOR = 2.5f; // formations keep this clear beside the ways through a hall
     private static final float CURTAIN_LINE = 0.07f;
     private static final float CURTAIN_SCALE = 7;
-    private static final int CURTAIN_MAX = 7;
+    private static final int CURTAIN_MAX = 4;
     private static final float VEIN = 0.03f;
     private static final int ISLAND = 12; // lumps of rock left by the wobble up to this size are cleared
 
@@ -64,11 +72,12 @@ final class AglarondDressing {
         }
         for (Aglarond.Chamber c : caves.chambers) {
             if (!c.box.touchesChunk(startX, startZ)) continue;
+            List<Pool> pools = pools(at, c);
             curtains(at, c);
-            formations(at, c);
+            formations(at, c, pools);
             straws(at, c);
             if (c.kind != Aglarond.Chamber.Kind.OUTER) {
-                rimstone(at, c);
+                rimstone(at, c, pools);
                 vugs(at, c);
             }
         }
@@ -175,12 +184,13 @@ final class AglarondDressing {
 
     // THE FORMATIONS: every stalagmite stands under the stalactite that fed it, and where the two meet, a column
 
-    private static void formations(Context at, Aglarond.Chamber c) {
+    private static void formations(Context at, Aglarond.Chamber c, List<Pool> pools) {
         int count = Math.round(c.rx * c.rz * FORMATIONS * c.richness);
         for (int i = 0; i < count; i++) {
             int h = mix(c.hash, 100 + i, 0);
             float[] p = pointIn(c, h, 0.85f);
-            if (p == null || corridor(at.caves, p[0], p[1], CORRIDOR + 2)) continue;
+            // nothing stands in a pool
+            if (p == null || corridor(at.caves, p[0], p[1], CORRIDOR + 2) || nearPool(pools, p[0], p[1], 3.5f)) continue;
             int px = (int) Math.floor(p[0]);
             int pz = (int) Math.floor(p[1]);
             int top = ceiling(at.caves, c, px, pz);
@@ -197,7 +207,7 @@ final class AglarondDressing {
                 float radius = MathHelper.clamp(0.9f + (1.8f + 1.2f * u3) * gap / 24f, 0.9f, 3.6f);
                 shape.column(at, bed, top, radius);
             } else {
-                shape.stalactite(at, top, hang, MathHelper.clamp(0.55f + 0.09f * hang, 0.55f, 2.4f));
+                shape.stalactite(at, top, hang * HANG, MathHelper.clamp(0.55f + 0.09f * hang * HANG, 0.55f, 2.4f));
                 shape.stalagmite(at, bed, c.floor, stand, MathHelper.clamp(0.65f + 0.1f * stand, 0.65f, 2.8f));
             }
         }
@@ -236,26 +246,57 @@ final class AglarondDressing {
             for (int y = bed; y <= top; y++) {
                 float t = (y - bed) / (float) span;
                 float flare = 1 + 0.55f * sq(2 * t - 1) * Math.abs(2 * t - 1);
-                fill(at, y, radius * flare, true);
+                fill(at, y, radius * flare, true, null);
             }
         }
 
         void stalactite(Context at, int top, float length, float radius) {
-            for (int d = 0; d < length; d++) {
-                float r = radius * (float) Math.pow(1 - d / length, 0.8);
-                fill(at, top - d, Math.max(r, 0.3f), false);
+            int last = (int) Math.ceil(length) - 1;
+            int thin = 0;
+            for (int d = 0; d <= last; d++) {
+                if (hanging(d, last, length, radius) < THIN) thin++;
             }
+            boolean calcite = thin > last || band(top - (last - thin)).isOf(Blocks.CALCITE);
+            for (int d = 0; d <= last; d++) {
+                fill(at, top - d, hanging(d, last, length, radius), false, calcite ? POINTED_CALCITE.pointing(Direction.DOWN, last - d, thin) : null);
+            }
+        }
+
+        private static float hanging(int d, int last, float length, float radius) {
+            if (d > last - SPIKE) return 0;
+            return Math.max(radius * (float) Math.pow(1 - d / length, 0.8), 0.3f);
         }
 
         void stalagmite(Context at, int bed, int floor, float length, float radius) {
             int under = floor - bed; // through the water of a lake to stand on its bed
-            for (int d = 0; d < length + under; d++) {
-                float r = radius * (float) Math.pow(1 - Math.max(0, d - under) / length, 0.9);
-                fill(at, bed + d, Math.max(r, 0.3f), false);
+            int last = (int) Math.ceil(length + under) - 1;
+            int thin = 0;
+            for (int d = 0; d <= last; d++) {
+                if (standing(d, last, under, length, radius) < THIN) thin++;
+            }
+            boolean calcite = thin > last || band(bed + last - thin).isOf(Blocks.CALCITE);
+            for (int d = 0; d <= last; d++) {
+                fill(at, bed + d, standing(d, last, under, length, radius), false, calcite ? POINTED_CALCITE.pointing(Direction.UP, last - d, thin) : null);
             }
         }
 
-        private void fill(Context at, int y, float radius, boolean fluted) {
+        // the top is always a point
+        private static float standing(int d, int last, int under, float length, float radius) {
+            if (d == last && d >= under) return 0;
+            return Math.max(radius * (float) Math.pow(1 - Math.max(0, d - under) / length, 0.9), 0.3f);
+        }
+
+        // where it is one block wide it is the point, if it has one, out of the water
+        private void fill(Context at, int y, float radius, boolean fluted, BlockState point) {
+            if (point != null && radius < THIN) {
+                int bx = (int) Math.floor(x);
+                int bz = (int) Math.floor(z);
+                if (!at.inside(bx, bz)) return;
+                BlockState here = at.blocks.get(bx, y, bz);
+                if (here.isAir()) at.blocks.put(bx, y, bz, point);
+                else if (here.isOf(Blocks.WATER)) at.blocks.put(bx, y, bz, band(y));
+                return;
+            }
             int reach = (int) Math.ceil(radius * 1.15f) + 1;
             for (int bx = (int) Math.floor(x) - reach; bx <= (int) Math.floor(x) + reach; bx++) {
                 for (int bz = (int) Math.floor(z) - reach; bz <= (int) Math.floor(z) + reach; bz++) {
@@ -268,8 +309,7 @@ final class AglarondDressing {
                     if (px * px + pz * pz >= r * r && !core) continue;
                     BlockState here = at.blocks.get(bx, y, bz);
                     if (!here.isAir() && !here.isOf(Blocks.WATER)) continue;
-                    // the slenderest tips are spears and threads
-                    at.blocks.put(bx, y, bz, radius < 0.45f && !here.isOf(Blocks.WATER) ? STRAW : band(y));
+                    at.blocks.put(bx, y, bz, band(y));
                 }
             }
         }
@@ -287,10 +327,9 @@ final class AglarondDressing {
             if (!at.inside(px, pz)) continue;
             int top = ceiling(at.air, c, px, pz);
             int length = 1 + Math.floorMod(mix(h, 1, 1), 4);
-            for (int y = top; y > top - length && y > c.floor + 2; y--) {
-                if (!at.blocks.get(px, y, pz).isAir()) break;
-                at.blocks.put(px, y, pz, STRAW);
-            }
+            int run = 0;
+            while (run < length && top - run > c.floor + 2 && at.blocks.get(px, top - run, pz).isAir()) run++;
+            for (int k = 0; k < run; k++) at.blocks.put(px, top - k, pz, POINTED_CALCITE.pointing(Direction.DOWN, run - 1 - k, run));
         }
     }
 
@@ -310,31 +349,64 @@ final class AglarondDressing {
                 float edge = (float) SimplexNoise.noise((x + at.oz()) / 2.5, (z + at.ox()) / 2.5);
                 int length = Math.min(CURTAIN_MAX, Math.round((1 + slope * 0.7f) * c.richness * (1 + 0.4f * edge)));
                 boolean rose = SimplexNoise.noise((x + at.ox()) / 1.5, (z + at.oz()) / 1.5) > 0.3;
-                for (int y = top; y > top - length && y > c.floor + 2; y--) {
-                    if (!at.blocks.get(x, y, z).isAir()) break;
-                    at.blocks.put(x, y, z, rose ? QUARTZITE : CALCITE);
+                int run = 0;
+                while (run < length && top - run > c.floor + 2 && at.blocks.get(x, top - run, z).isAir()) run++;
+                // a white fold ends in a point of calcite
+                for (int k = 0; k < run; k++) {
+                    int fromTip = run - 1 - k;
+                    at.blocks.put(x, top - k, z, rose ? QUARTZITE : fromTip < SPIKE ? POINTED_CALCITE.pointing(Direction.DOWN, fromTip, Math.min(run, SPIKE)) : CALCITE);
                 }
             }
         }
     }
 
     // rimstone: shallow still pools held in by little dams of flowstone
-    private static void rimstone(Context at, Aglarond.Chamber c) {
+    private record Pool(float x, float z, float radius) {
+    }
+
+    private static List<Pool> pools(Context at, Aglarond.Chamber c) {
+        List<Pool> pools = new ArrayList<>();
+        if (c.kind == Aglarond.Chamber.Kind.OUTER) return pools;
         int count = 1 + Math.round(3 * c.richness) - (c.lake > 0 ? 1 : 0);
         for (int i = 0; i < count; i++) {
             int h = mix(c.hash, 700 + i, 0);
             float[] p = pointIn(c, h, 0.6f);
             float radius = 2 + 2.2f * (mix(h, 1, 1) & 0xFF) / 255f;
             if (p == null || corridor(at.caves, p[0], p[1], CORRIDOR + radius)) continue;
-            int y = c.floor;
-            int reach = (int) Math.ceil(radius) + 1;
-            for (int x = (int) p[0] - reach; x <= (int) p[0] + reach; x++) {
-                for (int z = (int) p[1] - reach; z <= (int) p[1] + reach; z++) {
-                    if (!at.inside(x, z)) continue;
-                    float d = (float) Math.sqrt(sq(x + 0.5f - p[0]) + sq(z + 0.5f - p[1]));
-                    float wobble = 1 + 0.25f * (float) SimplexNoise.noise((x + at.ox()) / 2.0, (z + at.oz()) / 2.0);
-                    if (d >= radius * wobble || !at.blocks.get(x, y, z).isAir() || !at.solid(x, y - 1, z)) continue;
-                    at.blocks.put(x, y, z, d > radius * wobble - 0.9f ? TRAVERTINE : Blocks.WATER.getDefaultState());
+            pools.add(new Pool(p[0], p[1], radius));
+        }
+        return pools;
+    }
+
+    // inside a pool's water; a function of position only, so neighbouring chunks agree on the dams
+    private static boolean pooled(Context at, List<Pool> pools, int x, int z) {
+        float wobble = 1 + 0.25f * (float) SimplexNoise.noise((x + at.ox()) / 2.0, (z + at.oz()) / 2.0);
+        for (Pool p : pools) {
+            if (sq(x + 0.5f - p.x) + sq(z + 0.5f - p.z) < sq(p.radius * wobble - 0.9f)) return true;
+        }
+        return false;
+    }
+
+    private static boolean nearPool(List<Pool> pools, float x, float z, float margin) {
+        for (Pool p : pools) {
+            if (sq(x - p.x) + sq(z - p.z) < sq(p.radius * 1.25f + margin)) return true;
+        }
+        return false;
+    }
+
+    // water only on solid ground, and every open side dammed, so no pool can spill
+    private static void rimstone(Context at, Aglarond.Chamber c, List<Pool> pools) {
+        int y = c.floor;
+        for (Pool p : pools) {
+            int reach = (int) Math.ceil(p.radius * 1.25f) + 2;
+            for (int x = (int) p.x - reach; x <= (int) p.x + reach; x++) {
+                for (int z = (int) p.z - reach; z <= (int) p.z + reach; z++) {
+                    if (!at.inside(x, z) || !at.blocks.get(x, y, z).isAir()) continue;
+                    if (pooled(at, pools, x, z)) {
+                        at.blocks.put(x, y, z, at.solid(x, y - 1, z) ? Blocks.WATER.getDefaultState() : TRAVERTINE);
+                    } else if (pooled(at, pools, x + 1, z) || pooled(at, pools, x - 1, z) || pooled(at, pools, x, z + 1) || pooled(at, pools, x, z - 1)) {
+                        at.blocks.put(x, y, z, TRAVERTINE);
+                    }
                 }
             }
         }

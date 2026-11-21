@@ -2,9 +2,11 @@ package net.sevenstars.middleearth.features.generation.caves;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.block.registration.BlockRegistryME;
+import net.sevenstars.middleearth.block.special.pointedBlocks.PointedStoneBlock;
 import net.sevenstars.middleearth.features.building.StoneBlockSetRegistryME;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 
@@ -25,6 +27,7 @@ final class LavaTubeDressing {
     private static final BlockState ASHEN_GRAVEL = BlockRegistryME.ASHEN_GRAVEL.getDefaultState();
     private static final BlockState ASH = BlockRegistryME.ASH_BLOCK.getDefaultState();
     private static final BlockState ASH_LAYER = BlockRegistryME.ASHEN_SAND_LAYER.getDefaultState();
+    private static final PointedStoneBlock POINTED_BASALT = (PointedStoneBlock) BlockRegistryME.POINTED_BASALT;
 
     private static final int ISLAND = 12;
     private static final int DRIPS = 14; // out of 256 roof blocks
@@ -180,14 +183,18 @@ final class LavaTubeDressing {
         return at.noise(x + 500, y, z, 7) > 0 ? BLACKSTONE : SMOOTH_BASALT;
     }
 
-    // THE ROOF: frozen lava drips, in clusters
+    // THE ROOF: lava that dripped and froze as the tube drained, in clusters, a stub under some of them
 
     private static void drips(Context at, Column c, int x, int z) {
         if ((mix(x, z, at.tubes.noiseX) & 255) >= DRIPS || at.noise(x, z, 6) < 0.1) return;
         int y = c.floor;
         while (y <= c.roof && at.air.at(x, y + 1, z)) y++;
         if (y > c.roof || y - c.floor < 4 || !at.solid(x, y + 1, z) || !at.blocks.get(x, y, z).isAir()) return;
-        at.blocks.put(x, y, z, (mix(x, z, at.tubes.noiseZ) & 1) == 0 ? BLACKSTONE : BASALT);
+        int h = mix(x, z, at.tubes.noiseZ);
+        int run = (h & 1) == 0 || !at.blocks.get(x, y - 1, z).isAir() ? 1 : 2;
+        for (int k = 0; k < run; k++) at.blocks.put(x, y - k, z, POINTED_BASALT.pointing(Direction.DOWN, run - 1 - k, run));
+        if (c.heat > 0 || (h & 6) != 0 || !at.blocks.get(x, c.floor, z).isAir() || !at.solid(x, c.floor - 1, z)) return;
+        at.blocks.put(x, c.floor, z, POINTED_BASALT.pointing(Direction.UP, 0, 1));
     }
 
     // THE SKYLIGHTS: a low cone of fallen roof, with ash blown in over it and round it

@@ -2683,6 +2683,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 createBrickRecipe(exporter, BlockRegistryME.POINTED_GALONN.asItem(), StoneBlockSetRegistryME.GALONN_SET.baseBlocks.base(), 1);
                 createBrickRecipe(exporter, BlockRegistryME.POINTED_IZHERABAN.asItem(), StoneBlockSetRegistryME.IZHERABAN_SET.baseBlocks.base(), 1);
                 createBrickRecipe(exporter, BlockRegistryME.POINTED_LIMESTONE.asItem(), StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base(), 1);
+                createBrickRecipe(exporter, BlockRegistryME.POINTED_CALCITE.asItem(), Blocks.CALCITE, 1);
+                createBrickRecipe(exporter, BlockRegistryME.POINTED_BASALT.asItem(), Blocks.BASALT, 1);
 
                 CookingRecipeJsonBuilder.createSmoking(Ingredient.ofTag(itemLookup.getOrThrow(TagKey.of(RegistryKeys.ITEM, Identifier.of("planks")))), RecipeCategory.BUILDING_BLOCKS, WoodBlockSetRegistryME.SCORCHED_SET.planksBlocks.base(), 0.0f, 100)
                         .criterion(hasItem(Items.OAK_PLANKS),
