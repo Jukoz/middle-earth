@@ -53,7 +53,7 @@ public final class MistyCaveDecorator {
                 int x = startX + lx;
                 int z = startZ + lz;
                 edges[index] = DepthBands.Edges.of(surfaceY[index], DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, caves.seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, caves.seed));
-                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY[index], edges[index].upperBottom(), pos, entrances);
+                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY, edges[index].upperBottom(), pos, entrances);
             }
         }
         new MistyCaveSetPieces(chunk, blocks, caves, surfaceY, weights, edges).place();
@@ -103,7 +103,8 @@ public final class MistyCaveDecorator {
     }
 
     // cold from the surface and the entrances: sheets of ice and snow near them, bare rock deeper down
-    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int surface, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances) {
+    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int[] surfaceY, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances) {
+        int surface = surfaceY[lx * CHUNK + lz];
         int bottom = Math.max(chunk.getBottomY() + 2, Math.min(upperBottom, Galleries.layerFloor(caves, x, z) - 2));
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
         // the block above is read once and carried to the next step; it is replaced when a snow layer goes there
@@ -118,10 +119,10 @@ public final class MistyCaveDecorator {
             if (state.isOf(Blocks.ICE) || state.isOf(Blocks.PACKED_ICE) || state.isOf(Blocks.BLUE_ICE) || state.isOf(Blocks.SNOW_BLOCK)) continue;
             boolean floor = above.isAir();
             boolean ceiling = blocks.get(x, y - 1, z).isAir();
-            boolean wall = (lx > 0 && blocks.get(x - 1, y, z).isAir())
-                    || (lx < 15 && blocks.get(x + 1, y, z).isAir())
-                    || (lz > 0 && blocks.get(x, y, z - 1).isAir())
-                    || (lz < 15 && blocks.get(x, y, z + 1).isAir());
+            boolean wall = (lx > 0 && caveAir(blocks, surfaceY, x - 1, y, z, lx - 1, lz))
+                    || (lx < 15 && caveAir(blocks, surfaceY, x + 1, y, z, lx + 1, lz))
+                    || (lz > 0 && caveAir(blocks, surfaceY, x, y, z - 1, lx, lz - 1))
+                    || (lz < 15 && caveAir(blocks, surfaceY, x, y, z + 1, lx, lz + 1));
             if (!floor && !ceiling && !wall) continue;
             float cold = cold(entrances, x, y, z, surface);
             if (cold <= 0 || entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
@@ -144,6 +145,11 @@ public final class MistyCaveDecorator {
                 if ((h & 0xFF) < 256 * ICICLE_CHANCE * cold) blocks.put(x, y - 1, z, NatureBlockRegistryME.SHORT_ICICLES.getDefaultState());
             }
         }
+    }
+
+    // air under its own column's ground; beside a slope the open sky is lower than the rock, and is no cave wall
+    private static boolean caveAir(BlockBuffer blocks, int[] surfaceY, int x, int y, int z, int lx, int lz) {
+        return y < surfaceY[lx * CHUNK + lz] - 1 && blocks.get(x, y, z).isAir();
     }
 
     private static float cold(Entrance[] entrances, int x, int y, int z, int surface) {
