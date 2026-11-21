@@ -40,7 +40,7 @@ public final class MistyCaveDecorator {
     }
 
     // weights and surface heights are indexed local x * 16 + local z
-    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake[] lakes, int[] surfaceY, float[] weights, Entrance[] entrances) {
+    public static void decorate(Chunk chunk, BlockBuffer blocks, MistyCaves caves, Lake[] lakes, int[] surfaceY, float[] weights, Entrance[] entrances, RiverCaves.Near rivers) {
         int startX = chunk.getPos().getStartX();
         int startZ = chunk.getPos().getStartZ();
         BlockPos.Mutable pos = new BlockPos.Mutable();
@@ -53,7 +53,7 @@ public final class MistyCaveDecorator {
                 int x = startX + lx;
                 int z = startZ + lz;
                 edges[index] = DepthBands.Edges.of(surfaceY[index], DepthBands.deepFloor(MiddleEarthMapRuntime.getInstance(), x, z, caves.seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, caves.seed));
-                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY, edges[index].upperBottom(), pos, entrances);
+                ice(chunk, blocks, caves, x, z, lx, lz, surfaceY, edges[index].upperBottom(), pos, entrances, rivers);
             }
         }
         new MistyCaveSetPieces(chunk, blocks, caves, surfaceY, weights, edges).place();
@@ -103,7 +103,7 @@ public final class MistyCaveDecorator {
     }
 
     // cold from the surface and the entrances: sheets of ice and snow near them, bare rock deeper down
-    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int[] surfaceY, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances) {
+    private static void ice(Chunk chunk, BlockBuffer blocks, MistyCaves caves, int x, int z, int lx, int lz, int[] surfaceY, int upperBottom, BlockPos.Mutable pos, Entrance[] entrances, RiverCaves.Near rivers) {
         int surface = surfaceY[lx * CHUNK + lz];
         int bottom = Math.max(chunk.getBottomY() + 2, Math.min(upperBottom, Galleries.layerFloor(caves, x, z) - 2));
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
@@ -126,6 +126,8 @@ public final class MistyCaveDecorator {
             if (!floor && !ceiling && !wall) continue;
             float cold = cold(entrances, x, y, z, surface);
             if (cold <= 0 || entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
+            // a river runs warm out of the mountain
+            if (rivers != null && rivers.quiet(x, y, z)) continue;
             float sheet = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_SHEET, (y + caves.offsetY) / ICE_SHEET, (z + caves.offsetZ) / ICE_SHEET);
             if (sheet < 1 - ICE_SPREAD * cold) continue;
             if (floor) {

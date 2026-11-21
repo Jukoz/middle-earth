@@ -13,6 +13,7 @@ import net.sevenstars.middleearth.features.generation.caves.MistyCaveDecorator;
 import net.sevenstars.middleearth.features.generation.caves.Lake;
 import net.sevenstars.middleearth.features.generation.caves.LavaTubes;
 import net.sevenstars.middleearth.features.generation.caves.MistyCaves;
+import net.sevenstars.middleearth.features.generation.caves.RiverCaves;
 import net.sevenstars.middleearth.features.generation.caves.Shaft;
 import net.sevenstars.middleearth.features.generation.caves.Worm;
 import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
@@ -87,6 +88,7 @@ final class CaveSampler {
     private final Galleries galleries;
     private final Aglarond aglarond; // null where the Glittering Caves are far off
     private final LavaTubes.Near tubes; // null away from the tubes of Gorgoroth
+    private final RiverCaves.Near rivers; // null away from the rivers that run under a mountain
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;
@@ -181,6 +183,7 @@ final class CaveSampler {
         Aglarond glittering = Aglarond.of(seed);
         this.aglarond = glittering.touchesChunk(startX, startZ) ? glittering : null;
         this.tubes = LavaTubes.mayTouchChunk(startX, startZ) ? LavaTubes.of(seed).near(startX, startZ) : null;
+        this.rivers = RiverCaves.mayTouchChunk(startX, startZ) ? RiverCaves.of(seed).near(startX, startZ) : null;
         if (!any && !deepHere && tunnels.length == 0) {
             this.misty = null;
             this.mistyWeight = null;
@@ -313,6 +316,12 @@ final class CaveSampler {
             if (tubes.carves(x, y, z)) return AIR;
             if (tubes.quiet(x, y, z)) return STONE;
         }
+        if (rivers != null) {
+            int river = rivers.state(x, y, z);
+            if (river == RiverCaves.AIR) return AIR;
+            if (river == RiverCaves.WATER) return WATER;
+            if (rivers.quiet(x, y, z)) return STONE;
+        }
         if (misty == null) return otherOpeningAt(x, y, z) || !baseSolid(x, y, z) ? AIR : galleryWater(x, y, z) ? WATER : STONE;
         if (lakes.length > 0 && y >= lakeMinY && y <= MistyCaves.lakeMaxY()) {
             int column = ((x - startX) * CHUNK_SIZE + (z - startZ)) * 2;
@@ -342,10 +351,11 @@ final class CaveSampler {
     }
 
     boolean openingAt(int x, int y, int z) {
-        return aglarond != null && aglarond.carves(x, y, z) || tubes != null && tubes.carves(x, y, z) || otherOpeningAt(x, y, z);
+        return aglarond != null && aglarond.carves(x, y, z) || tubes != null && tubes.carves(x, y, z)
+                || rivers != null && rivers.state(x, y, z) != RiverCaves.NONE || otherOpeningAt(x, y, z);
     }
 
-    // sample has already asked Aglarond and the tubes
+    // sample has already asked Aglarond, the tubes and the rivers
     private boolean otherOpeningAt(int x, int y, int z) {
         return entrances.length > 0 && entranceAt(x, y, z) || !galleries.isEmpty() && galleries.carves(x, y, z);
     }
@@ -482,7 +492,7 @@ final class CaveSampler {
                 weights[x * CHUNK_SIZE + z] = bilerp2(mistyWeight, x / CELL, z / CELL, (float) (x % CELL) / CELL, (float) (z % CELL) / CELL);
             }
         }
-        MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights, entrances);
+        MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights, entrances, rivers);
     }
 
     private boolean mistySolid(int x, int y, int z) {
@@ -517,6 +527,7 @@ final class CaveSampler {
     // round an entrance or skylight, where no boulder goes
     boolean nearEntrance(int x, int z) {
         if (tubes != null && tubes.nearSkylight(x, z)) return true;
+        if (rivers != null && rivers.nearPool(x, z)) return true;
         for (Entrance entrance : entrances) {
             if (entrance.aroundMouth(x, z)) return true;
         }
@@ -527,6 +538,7 @@ final class CaveSampler {
         if (!galleries.isEmpty()) galleries.dress(chunk, blocks);
         if (aglarond != null) aglarond.dress(chunk, blocks);
         if (tubes != null) tubes.dress(chunk, blocks);
+        if (rivers != null) rivers.dress(chunk, blocks);
         for (Entrance entrance : entrances) entrance.dress(chunk, blocks, surfaceY);
     }
 
