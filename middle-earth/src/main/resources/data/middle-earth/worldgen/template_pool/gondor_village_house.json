@@ -11,7 +11,7 @@
         "processors": "middle-earth:randomize_gondor_road"
       }
     },
-	{
+    {
       "weight": 9,
       "element": {
         "element_type": "minecraft:single_pool_element",
@@ -20,49 +20,60 @@
         "processors": "middle-earth:randomize_gondor_road"
       }
     },
-	{
+    {
       "weight": 8,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:gondor/gondor_village_pottery_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_gondor_road",
+        "name": "gondor_pottery",
+        "max_count": 1
       }
     },
-	{
+    {
       "weight": 6,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:gondor/gondor_village_smith_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_gondor_road",
+        "name": "gondor_smith",
+        "max_count": 1,
+        "priority": true
       }
     },
-	{
+    {
       "weight": 4,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:gondor/gondor_village_barn_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_gondor_road",
+        "name": "gondor_barn",
+        "max_count": 2
       }
     },
-	{
+    {
       "weight": 4,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:gondor/gondor_village_barn_house_1",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_gondor_road",
+        "name": "gondor_barn",
+        "max_count": 2
       }
     },
-	{
+    {
       "weight": 3,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:gondor/gondor_village_windmill",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_gondor_road"
+        "processors": "middle-earth:randomize_gondor_road",
+        "name": "gondor_windmill",
+        "max_count": 1
       }
     },
     {

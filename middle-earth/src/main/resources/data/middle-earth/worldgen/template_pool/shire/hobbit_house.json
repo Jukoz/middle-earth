@@ -77,19 +77,24 @@
     {
       "weight": 4,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:shire/bakery_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_shire_road"
+        "processors": "middle-earth:randomize_shire_road",
+        "name": "shire_bakery",
+        "max_count": 1,
+        "priority": true
       }
     },
     {
       "weight": 4,
       "element": {
-        "element_type": "minecraft:single_pool_element",
+        "element_type": "middle-earth:rule_pool_element",
         "location": "middle-earth:shire/beekeeper_house",
         "projection": "rigid",
-        "processors": "middle-earth:randomize_shire_road"
+        "processors": "middle-earth:randomize_shire_road",
+        "name": "shire_beekeeper",
+        "max_count": 1
       }
     },
     {
