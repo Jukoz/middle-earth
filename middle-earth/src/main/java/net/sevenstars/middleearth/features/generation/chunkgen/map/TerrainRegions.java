@@ -3,14 +3,14 @@ package net.sevenstars.middleearth.features.generation.chunkgen.map;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
+import net.sevenstars.middleearth.features.generation.biomes.surface.MapBasedCustomBiome;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-// Tectonic's regions on the lowlands, blended across biome borders on a world-fixed lattice.
+// Tectonic's regions on the lowlands, blended across biome borders
 final class TerrainRegions {
     enum Landform {
         ROLLING_HILLS(Family.HEART, 2, 1),
@@ -78,9 +78,8 @@ final class TerrainRegions {
     }
 
     private static final Landform[] ALL = Landform.values();
-    private static final int LATTICE = 32;
-    private static final int SAMPLE_STEP = 24;
-    private static final int SAMPLE_RADIUS = 3;
+    private static final BiomeShareGrid GRID = new BiomeShareGrid(ALL.length, TerrainRegions::weigh);
+    private static final ThreadLocal<float[]> SHARES = ThreadLocal.withInitial(() -> new float[ALL.length]);
     private static final float MIN_SHARE = 0.001f;
 
     private static final double BLOCKS_PER_UNIT = 128;
@@ -90,8 +89,7 @@ final class TerrainRegions {
     private static final double FACTOR = 5.6;
     private static final double SEA = 63.52;
     private static final double SELECTOR_SKEW = 0; // Tectonic's 0.1 would leave half the regions flat
-    private static final float WETLAND_WATER_FADE = 3;
-    private static final float WATER_FADE = 10; // blue of the height map at which a landform is gone
+    private static final float WETLAND_RIVER_FADE = 3;
     private static final double SHORE_START = 1;
     private static final double SHORE_WIDTH = 6;
 
@@ -100,13 +98,13 @@ final class TerrainRegions {
 
     static float raise(int x, int z, float height) {
         float[] shares = SHARES.get();
-        sharesAt(x, z, shares);
+        GRID.sharesAt(x, z, shares);
         boolean any = false;
         for (float share : shares) any |= share > MIN_SHARE;
         if (!any) return height;
 
-        float water = MiddleEarthMapRuntime.getInstance().getHeightRgb(x, z) & 0xFF;
-        float fade = Math.max(0, 1 - water / WATER_FADE);
+        float river = MiddleEarthHeightMap.riverDepth(x, z);
+        float fade = MiddleEarthHeightMap.riverFade(river);
         if (fade <= 0) return height;
 
         // ground already at the water line keeps its shape
@@ -136,7 +134,7 @@ final class TerrainRegions {
             if (landform == Landform.DUNES) blocks += BLOCKS_PER_UNIT * dunes(in) / FACTOR;
             if (landform == Landform.JUNGLE) blocks += BLOCKS_PER_UNIT * pillars(in);
             // wetlands stay out of rivers, everything else fades out towards the water line
-            change += share * blocks * (landform == Landform.WETLAND ? Math.max(0, 1 - water / WETLAND_WATER_FADE) : shore);
+            change += share * blocks * (landform == Landform.WETLAND ? Math.max(0, 1 - river / WETLAND_RIVER_FADE) : shore);
         }
         return height + (float) (fade * change);
     }
@@ -216,51 +214,10 @@ final class TerrainRegions {
         in.offsetZ = Math.cos(Math.PI * wind);
     }
 
-    // landform shares from nearby map biomes, bilinear between lattice points
-    private static final ThreadLocal<float[]> SHARES = ThreadLocal.withInitial(() -> new float[ALL.length]);
-
-    private static final class Point {
-        int ix = Integer.MIN_VALUE;
-        int iz;
-        final float[] shares = new float[ALL.length];
-    }
-
-    private static final int CACHE_SIZE = 256;
-    private static final ThreadLocal<Point[]> CACHE = ThreadLocal.withInitial(() -> new Point[CACHE_SIZE]);
-
-    private static void sharesAt(int x, int z, float[] out) {
-        int ix = Math.floorDiv(x, LATTICE);
-        int iz = Math.floorDiv(z, LATTICE);
-        float fx = (x - ix * LATTICE) / (float) LATTICE;
-        float fz = (z - iz * LATTICE) / (float) LATTICE;
-        Point p00 = point(ix, iz);
-        Point p10 = point(ix + 1, iz);
-        Point p01 = point(ix, iz + 1);
-        Point p11 = point(ix + 1, iz + 1);
-        for (int i = 0; i < out.length; i++) {
-            float top = p00.shares[i] + fx * (p10.shares[i] - p00.shares[i]);
-            float bottom = p01.shares[i] + fx * (p11.shares[i] - p01.shares[i]);
-            out[i] = top + fz * (bottom - top);
+    private static void weigh(MapBasedCustomBiome[] biomes, float[] shares) {
+        for (MapBasedCustomBiome biome : biomes) {
+            Landform landform = LANDFORMS.get(biome.getBiomeKey());
+            if (landform != null) shares[landform.ordinal()] += 1f / BiomeShareGrid.SAMPLES;
         }
-    }
-
-    private static Point point(int ix, int iz) {
-        Point[] points = CACHE.get();
-        int slot = (ix * 31 + iz * 17) & (CACHE_SIZE - 1);
-        Point point = points[slot];
-        if (point != null && point.ix == ix && point.iz == iz) return point;
-        if (point == null) point = points[slot] = new Point();
-        point.ix = ix;
-        point.iz = iz;
-        Arrays.fill(point.shares, 0);
-        MiddleEarthMapRuntime map = MiddleEarthMapRuntime.getInstance();
-        int samples = (2 * SAMPLE_RADIUS + 1) * (2 * SAMPLE_RADIUS + 1);
-        for (int i = -SAMPLE_RADIUS; i <= SAMPLE_RADIUS; i++) {
-            for (int j = -SAMPLE_RADIUS; j <= SAMPLE_RADIUS; j++) {
-                Landform landform = LANDFORMS.get(map.getBiome(ix * LATTICE + i * SAMPLE_STEP, iz * LATTICE + j * SAMPLE_STEP).getBiomeKey());
-                if (landform != null) point.shares[landform.ordinal()] += 1f / samples;
-            }
-        }
-        return point;
     }
 }

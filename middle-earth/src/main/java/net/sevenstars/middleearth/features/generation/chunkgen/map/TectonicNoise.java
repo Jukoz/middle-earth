@@ -1,5 +1,7 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
+import net.sevenstars.middleearth.features.generation.noise.SaltedSimplexNoise;
+
 // Tectonic's noises (vanilla first octave, amplitudes, xz scale) on hashed simplex. Octave weights and value factor
 // are vanilla's. The simplex is widened as for the ridges, scaled and its tails lifted so the median, p90 and p99
 // of |value| land within a few percent of vanilla's.
@@ -59,7 +61,7 @@ final class TectonicNoise {
         for (int i = 0; i < weights.length; i++) {
             if (weights[i] == 0) continue;
             int octaveSalt = salt + i * 0x9e3779b9;
-            value += weights[i] * TerrainRidges.noise(u * frequencies[i] + TerrainRidges.offset(seed, octaveSalt), w * frequencies[i], octaveSalt);
+            value += weights[i] * SaltedSimplexNoise.noise(u * frequencies[i] + SaltedSimplexNoise.seedOffset(seed, octaveSalt), w * frequencies[i], octaveSalt);
         }
         return value * (1 + tail * value * value);
     }

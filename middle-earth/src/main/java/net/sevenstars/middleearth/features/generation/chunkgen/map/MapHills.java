@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
-import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
+import net.sevenstars.middleearth.features.generation.noise.SaltedSimplexNoise;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,6 @@ public final class MapHills {
     private static final float WOBBLE = 0.12f;
     private static final double WOBBLE_SCALE = 48;
     private static final int WOBBLE_SALT = 0x7f4a7c15;
-    private static final float WATER_FADE = 10; // blue of the height map at which a hill is gone
 
     // plateau: flat share of the radius. sharpness above 1 gives steep crowns, below 1 round domes.
     // stretch lengthens along an angle (degrees from east, clockwise). level flattens the top.
@@ -28,13 +27,14 @@ public final class MapHills {
         float sin;
         float level;
         boolean island; // skips the river fade
-        private volatile CentreBase centre;
+        final PerSeedHeight centreBase;
 
         Hill(float mapX, float mapZ, float radius, float height) {
             this.x = mapX * MiddleEarthChunkGenerator.mapMultiplier;
             this.z = mapZ * MiddleEarthChunkGenerator.mapMultiplier;
             this.radius = radius;
             this.height = height;
+            this.centreBase = new PerSeedHeight(() -> MiddleEarthHeightMap.getUnraisedHeight((int) this.x, (int) this.z));
         }
 
         Hill plateau(float plateau) { this.plateau = plateau; return this; }
@@ -48,18 +48,6 @@ public final class MapHills {
             this.sin = (float) Math.sin(Math.toRadians(degrees));
             return this;
         }
-
-        float centreBase(long seed) {
-            CentreBase known = centre;
-            if (known == null || known.seed != seed) {
-                known = new CentreBase(seed, MiddleEarthHeightMap.getUnraisedHeight((int) x, (int) z));
-                centre = known;
-            }
-            return known.height;
-        }
-    }
-
-    private record CentreBase(long seed, float height) {
     }
 
     private static final Map<Long, Hill[]> BY_CELL = new HashMap<>();
@@ -145,9 +133,8 @@ public final class MapHills {
     static float raise(int x, int z, float height) {
         Hill[] hills = BY_CELL.get(key(Math.floorDiv(x, CELL), Math.floorDiv(z, CELL)));
         if (hills == null) return height;
-        long seed = MiddleEarthHeightMap.getSeed();
         float base = height;
-        float water = Float.NaN;
+        float river = Float.NaN;
         for (Hill hill : hills) {
             float dx = x - hill.x;
             float dz = z - hill.z;
@@ -155,19 +142,19 @@ public final class MapHills {
             float across = -dx * hill.sin + dz * hill.cos;
             float distance = (float) Math.sqrt(along * along + across * across) / hill.radius;
             if (distance >= 1 + WOBBLE) continue;
-            distance *= 1 + WOBBLE * (float) TerrainRidges.noise(x / WOBBLE_SCALE, z / WOBBLE_SCALE, WOBBLE_SALT);
+            distance *= 1 + WOBBLE * (float) SaltedSimplexNoise.noise(x / WOBBLE_SCALE, z / WOBBLE_SCALE, WOBBLE_SALT);
             if (distance >= 1) continue;
 
             float u = Math.max(0, (distance - hill.plateau) / (1 - hill.plateau));
             float s = 1 - u;
             float profile = (float) Math.pow(s * s * (3 - 2 * s), hill.sharpness);
             if (!hill.island) {
-                if (Float.isNaN(water)) water = MiddleEarthMapRuntime.getInstance().getHeightRgb(x, z) & 0xFF;
-                profile *= Math.max(0, 1 - water / WATER_FADE);
+                if (Float.isNaN(river)) river = MiddleEarthHeightMap.riverDepth(x, z);
+                profile *= MiddleEarthHeightMap.riverFade(river);
                 if (profile <= 0) continue;
             }
             float raised = hill.height;
-            if (hill.level > 0) raised += hill.level * (hill.centreBase(seed) - base);
+            if (hill.level > 0) raised += hill.level * (hill.centreBase.get() - base);
             height += profile * raised;
         }
         return height;

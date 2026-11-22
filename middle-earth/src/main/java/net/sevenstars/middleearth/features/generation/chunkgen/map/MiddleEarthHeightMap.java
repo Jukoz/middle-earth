@@ -33,6 +33,7 @@ public final class MiddleEarthHeightMap {
     private static final int WATER_MAX = 24;
     private static final float WATER_MULTIPLIER = 0.65f;
     private static final float WATER_PERLIN_DIVIDER = 3.6f;
+    private static final float RIVER_FADE = 10; // river depth at which hills and landforms are gone
     private static final int PIXEL_WEIGHT = MiddleEarthMapConfigs.PIXEL_WEIGHT;
     private static MiddleEarthMapRuntime middleEarthMapRuntime;
     private static Float defaultWeightHeight = null;
@@ -63,31 +64,54 @@ public final class MiddleEarthHeightMap {
         return SEED;
     }
 
-    private static float getImageHeight(int xWorld, int zWorld) {
+    private static MiddleEarthMapRuntime map() {
         if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
+        return middleEarthMapRuntime;
+    }
 
-        int rgb = middleEarthMapRuntime.getHeightRgb(xWorld, zWorld);
+    // the height map's channels: red the land height, green the noise strength, blue the river depth
+    private static int landChannel(int rgb) {
+        return (rgb >> 16) & 0xFF;
+    }
 
-        float blue = rgb & 0xFF;
-        float height = (rgb >> 16) & 0xFF;
+    private static int noiseChannel(int rgb) {
+        return (rgb >> 8) & 0xFF;
+    }
 
-        if(blue > 0) {
-            MapBasedCustomBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
-            float percentage = (WATER_MAX - blue) / WATER_MAX;
+    private static int riverChannel(int rgb) {
+        return rgb & 0xFF;
+    }
+
+    static float riverDepth(int x, int z) {
+        return riverChannel(map().getHeightRgb(x, z));
+    }
+
+    // 1 away from rivers, down to 0 where the river is RIVER_FADE deep
+    static float riverFade(float riverDepth) {
+        return Math.max(0, 1 - riverDepth / RIVER_FADE);
+    }
+
+    private static float getImageHeight(int xWorld, int zWorld) {
+        int rgb = map().getHeightRgb(xWorld, zWorld);
+
+        float river = riverChannel(rgb);
+        float height = landChannel(rgb);
+
+        if(river > 0) {
+            MapBasedCustomBiome meBiome = map().getBiome(xWorld, zWorld);
+            float percentage = (WATER_MAX - river) / WATER_MAX;
             percentage = Math.max(0, Math.min(1, percentage));
             float waterDifference = (float) (meBiome.getWaterHeight() - MapBasedCustomBiome.DEFAULT_WATER_HEIGHT);
             height -= waterDifference;
             height *= percentage;
             height += waterDifference;
-            height -= blue * WATER_MULTIPLIER;
+            height -= river * WATER_MULTIPLIER;
         }
         return height;
     }
 
     private static float getImageNoiseModifier(int xWorld, int zWorld) {
-        if(middleEarthMapRuntime == null) middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
-
-        return (middleEarthMapRuntime.getHeightRgb(xWorld, zWorld) >> 8) & 0xFF;
+        return noiseChannel(map().getHeightRgb(xWorld, zWorld));
     }
 
     private static double getPerlinHeight(int x, int z) {
@@ -106,9 +130,6 @@ public final class MiddleEarthHeightMap {
     }
 
     private static float getPerlinMapHeight(int x, int z) {
-        if(middleEarthMapRuntime == null)
-            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
-
         double additionalHeight;
 
         double perlin = getPerlinHeight(x, z);
@@ -117,8 +138,7 @@ public final class MiddleEarthHeightMap {
 
         if(MiddleEarthMapUtils.getInstance().isWorldCoordinateInBorder(x,z)) {
             biomeHeight = getBiomeWeightHeight(x, z);
-            int green = (middleEarthMapRuntime.getHeightRgb(x, z) >> 8) & 0xFF;
-            perlin *= ((float)green) / 128f;
+            perlin *= getImageNoiseModifier(x, z) / 128f;
         } else {
             biomeHeight = ((getSmoothHeight(x, z) + getDefaultWeightHeight()) / 2f);
         }
@@ -260,7 +280,7 @@ public final class MiddleEarthHeightMap {
         if(subBiome != null) {
             double perlin = BiomeSourceME.getSubBiomeNoise(x, z, subBiome.getFrequency());
             double additionalHeight = Math.max(subBiome.getAdditionalHeight((float) perlin) - 1, 0);
-            additionalHeight *= middleEarthMapRuntime.getEdge(x, z);
+            additionalHeight *= map().getEdge(x, z);
             height += (float) additionalHeight;
         } else if(key == BiomeKeyRegistryME.MOUNT_DOOM || key == BiomeKeyRegistryME.MOUNT_DOOM_PIT) {
             float percentage = (float) Math.sqrt(MiddleEarthChunkGenerator.mountDoom.distanceSquared(new Vec2f(x, z))) / 42;
@@ -344,8 +364,6 @@ public final class MiddleEarthHeightMap {
     }
 
     public static MapBasedCustomBiome getBiomeFromMap(int posX, int posZ) {
-        if(middleEarthMapRuntime == null)
-            middleEarthMapRuntime = MiddleEarthMapRuntime.getInstance();
-        return middleEarthMapRuntime.getBiome(posX, posZ);
+        return map().getBiome(posX, posZ);
     }
 }

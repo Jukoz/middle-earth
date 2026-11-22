@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
 import net.minecraft.util.math.MathHelper;
+import net.sevenstars.middleearth.features.generation.noise.SaltedSimplexNoise;
 
 // Helm's Deep: the gorge from the Deeping-coomb to the Glittering Caves. It only lowers the ground.
 public final class HelmsDeep {
@@ -43,10 +44,8 @@ public final class HelmsDeep {
         MAX_Z = (int) (maxZ + REACH);
     }
 
-    private record Base(long seed, float height) {
-    }
-
-    private static volatile Base base; // the ground at the mouth before the gorge
+    // the ground at the mouth before the gorge
+    private static final PerSeedHeight MOUTH_GROUND = new PerSeedHeight(() -> MiddleEarthHeightMap.getRaisedHeight((int) LINE[0][0], (int) LINE[0][1]));
 
     private HelmsDeep() {
     }
@@ -54,7 +53,7 @@ public final class HelmsDeep {
     public static boolean stream(int x, int z) {
         if (x < MIN_X || x > MAX_X || z < MIN_Z || z > MAX_Z) return false;
         float[] near = nearest(x, z);
-        float meander = 1.2f * (float) TerrainRidges.noise(near[1] / 11.0, 0.5, WOBBLE_SALT + 4);
+        float meander = 1.2f * (float) SaltedSimplexNoise.noise(near[1] / 11.0, 0.5, WOBBLE_SALT + 4);
         return Math.abs(near[2] - meander) < STREAM_HALF_WIDTH;
     }
 
@@ -84,24 +83,14 @@ public final class HelmsDeep {
         float best = near[0];
         float along = near[1];
         float share = along / LENGTH;
-        float wobble = 1 + WOBBLE * (float) (TerrainRidges.noise(x / WOBBLE_SCALE, z / WOBBLE_SCALE, WOBBLE_SALT)
-                + 0.5 * TerrainRidges.noise(x / (WOBBLE_SCALE / 2.5), z / (WOBBLE_SCALE / 2.5), WOBBLE_SALT + 2));
+        float wobble = 1 + WOBBLE * (float) (SaltedSimplexNoise.noise(x / WOBBLE_SCALE, z / WOBBLE_SCALE, WOBBLE_SALT)
+                + 0.5 * SaltedSimplexNoise.noise(x / (WOBBLE_SCALE / 2.5), z / (WOBBLE_SCALE / 2.5), WOBBLE_SALT + 2));
         float halfWidth = MathHelper.lerp(share, MOUTH_HALF_WIDTH, HEAD_HALF_WIDTH) * wobble;
-        float floor = mouthGround() + RISE * (float) Math.pow(share, 1.3)
-                + FLOOR_ROUGH * (float) TerrainRidges.noise(x / 9.0, z / 9.0, WOBBLE_SALT + 1);
+        float floor = MOUTH_GROUND.get() + RISE * (float) Math.pow(share, 1.3)
+                + FLOOR_ROUGH * (float) SaltedSimplexNoise.noise(x / 9.0, z / 9.0, WOBBLE_SALT + 1);
         float steep = WALL * MathHelper.clamp(share / FLARE, 0.3f, 1f);
         float out = Math.max(0, best - halfWidth);
-        float jag = JAG * (float) TerrainRidges.noise(x / JAG_SCALE, z / JAG_SCALE, WOBBLE_SALT + 3) * Math.min(1, out / 4);
+        float jag = JAG * (float) SaltedSimplexNoise.noise(x / JAG_SCALE, z / JAG_SCALE, WOBBLE_SALT + 3) * Math.min(1, out / 4);
         return Math.min(height, floor + out * steep + jag);
-    }
-
-    private static float mouthGround() {
-        long seed = MiddleEarthHeightMap.getSeed();
-        Base known = base;
-        if (known == null || known.seed != seed) {
-            known = new Base(seed, MiddleEarthHeightMap.getRaisedHeight((int) LINE[0][0], (int) LINE[0][1]));
-            base = known;
-        }
-        return known.height;
     }
 }
