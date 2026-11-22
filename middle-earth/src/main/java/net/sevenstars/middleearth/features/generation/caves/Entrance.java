@@ -20,7 +20,7 @@ import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sm
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.DIRT_HEIGHT;
 
-// a cave mouth in a steep Misty hillside, its passage running level into the slope and then down into a gallery hall;
+// a cave mouth in a steep Misty hillside, its passage running level into the slope and then down into a gallery hall.
 // at most one per cell, at the steepest of a few spots
 public final class Entrance {
     public enum Kind { HILLSIDE, PORCH, OUTFLOW, ICE }
@@ -55,6 +55,16 @@ public final class Entrance {
     private static final int ICICLE_CHANCE = 60; // out of 256
     private static final float GROOVE = 0.75f;
     private static final int REACH = 110; // furthest any block lies from the mouth, sideways
+
+    private static final BlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
+    private static final BlockState COBBLESTONE = Blocks.COBBLESTONE.getDefaultState();
+    private static final BlockState MOSSY_COBBLESTONE = Blocks.MOSSY_COBBLESTONE.getDefaultState();
+    private static final BlockState PACKED_ICE = Blocks.PACKED_ICE.getDefaultState();
+    private static final BlockState BLUE_ICE = Blocks.BLUE_ICE.getDefaultState();
+    private static final BlockState COARSE_DIRT = Blocks.COARSE_DIRT.getDefaultState();
+    private static final BlockState WATER = Blocks.WATER.getDefaultState();
+    private static final BlockState AIR = Blocks.AIR.getDefaultState();
+    private static final BlockState SNOW_BLOCK = Blocks.SNOW_BLOCK.getDefaultState();
 
     private static final CellCache<Entrance> CACHE = new CellCache<>(8192);
     private static final Entrance[] NONE = new Entrance[0];
@@ -139,7 +149,7 @@ public final class Entrance {
         this.bottom = target;
         this.grade = (surfaceY - target) / Math.max(1, run - level);
         float widest = Math.max(Math.max(halfWidth * (1 + FLARE), hallWidth), room);
-        // the centre line strays up to twice the wiggle; the chamber sits on it
+        // the centre line strays up to twice the wiggle, the chamber sits on it
         this.lateral = 2 * wiggle + widest * (1 + WOBBLE * Galleries.NOISE_BOUND) + 1;
         float side = widest * (1 + WOBBLE) + wiggle + APRON + 2;
         float ex = mx + dx * (length + room);
@@ -175,11 +185,7 @@ public final class Entrance {
         int h = mix(cellX, cellZ, Long.hashCode(misty.seed) ^ SALT);
         if ((h & 0xFF) >= CHANCE) return null;
         int span = CELL - 2 * CELL_EDGE;
-        int[] xs = new int[CANDIDATES];
-        int[] zs = new int[CANDIDATES];
-        float[] slopes = new float[CANDIDATES];
-        float[] gxs = new float[CANDIDATES];
-        float[] gzs = new float[CANDIDATES];
+        Spot[] spots = new Spot[CANDIDATES];
         int count = 0;
         for (int i = 0; i < CANDIDATES; i++) {
             int hc = mix(h, i, 17);
@@ -192,28 +198,21 @@ public final class Entrance {
             if (slope < MIN_SLOPE) continue;
             // steepest first
             int at = count++;
-            while (at > 0 && slopes[at - 1] < slope) {
-                xs[at] = xs[at - 1];
-                zs[at] = zs[at - 1];
-                slopes[at] = slopes[at - 1];
-                gxs[at] = gxs[at - 1];
-                gzs[at] = gzs[at - 1];
+            while (at > 0 && spots[at - 1].slope < slope) {
+                spots[at] = spots[at - 1];
                 at--;
             }
-            xs[at] = x;
-            zs[at] = z;
-            slopes[at] = slope;
-            gxs[at] = gx;
-            gzs[at] = gz;
+            spots[at] = new Spot(x, z, slope, gx, gz);
         }
         for (int i = 0; i < Math.min(count, TRIES); i++) {
-            int x = xs[i];
-            int z = zs[i];
+            Spot spot = spots[i];
+            int x = spot.x;
+            int z = spot.z;
             int surfaceY = (int) (DIRT_HEIGHT + height(x, z));
             if (surfaceY < MIN_SURFACE_Y || MistyCaves.weight(map, x, z) < MIN_WEIGHT) continue;
-            Kind kind = kind(map, x, z, surfaceY, slopes[i], h);
-            float ux = gxs[i] / slopes[i];
-            float uz = gzs[i] / slopes[i];
+            Kind kind = kind(map, x, z, surfaceY, spot.slope, h);
+            float ux = spot.gx / spot.slope;
+            float uz = spot.gz / spot.slope;
             // aim into the hill at a hall: ones that lead on first, then the nearest
             GalleryLayout layout = GalleryLayout.of(misty, map);
             List<Hall> halls = layout.hallsAround(x, z, AIM_REACH);
@@ -236,6 +235,10 @@ public final class Entrance {
             }
         }
         return null;
+    }
+
+    // a steep spot in a cell and its uphill gradient
+    private record Spot(int x, int z, float slope, float gx, float gz) {
     }
 
     private static Kind kind(MiddleEarthMapRuntime map, int x, int z, int surfaceY, float slope, int h) {
@@ -371,7 +374,7 @@ public final class Entrance {
         return (z + 0.5f - mz) * dx - (x + 0.5f - mx) * dz;
     }
 
-    // scree below the mouth, then the rock round the passage: ice, a porch floor, a spring;
+    // scree below the mouth, then the rock round the passage: ice, a porch floor, a spring.
     // only this chunk's blocks, each choice from a position or a hash, so chunks agree
     public void dress(Chunk chunk, BlockBuffer blocks, int[] surfaceY) {
         int startX = chunk.getPos().getStartX();
@@ -414,16 +417,15 @@ public final class Entrance {
         if (0.9f * fan + 0.5f * patch < 0.8f) return;
         boolean second = SimplexNoise.noise((x + noiseZ) / 2.5, (z + noiseX) / 2.5) > 0.2;
         BlockState scree = switch (kind) {
-            case ICE -> Blocks.SNOW_BLOCK.getDefaultState();
-            case OUTFLOW -> second ? Blocks.MOSSY_COBBLESTONE.getDefaultState() : Blocks.GRAVEL.getDefaultState();
-            default -> second ? Blocks.COBBLESTONE.getDefaultState() : Blocks.GRAVEL.getDefaultState();
+            case ICE -> SNOW_BLOCK;
+            case OUTFLOW -> second ? MOSSY_COBBLESTONE : GRAVEL;
+            default -> second ? COBBLESTONE : GRAVEL;
         };
         blocks.put(x, surface, z, scree);
     }
 
     private void rock(Chunk chunk, BlockBuffer blocks, CarveMask air, BlockPos.Mutable pos, int x, int y, int z, boolean floor, boolean ceiling) {
         float s = along(x, z);
-        float patch = (float) SimplexNoise.noise((x + noiseZ) / 2.5, y / 2.5, (z + noiseX) / 2.5);
         switch (kind) {
             case ICE -> {
                 if (s > ICE_DEPTH) return;
@@ -431,40 +433,47 @@ public final class Entrance {
                 float ice = (float) SimplexNoise.noise((x + noiseX) / 3.0, y / 3.0, (z + noiseZ) / 3.0);
                 if (ice < 1.4f * s / ICE_DEPTH - 0.6f) return;
                 if (floor) {
-                    blocks.put(x, y, z, Blocks.PACKED_ICE.getDefaultState());
+                    blocks.put(x, y, z, PACKED_ICE);
                     return;
                 }
-                blocks.put(x, y, z, ice > 0.45f ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+                blocks.put(x, y, z, ice > 0.45f ? BLUE_ICE : PACKED_ICE);
                 int drip = (mix(hash, z * 13 + y, x) >>> 16) & 0xFF;
                 if (ceiling && drip < ICICLE_CHANCE && air.at(x, y - 2, z)) Icicles.hang(blocks, x, y - 1, z, drip < ICICLE_CHANCE / 2 && air.at(x, y - 3, z));
             }
             case PORCH -> {
                 if (!floor || s > hallDepth || y != floorY - 1) return;
-                if (patch > -0.2f) blocks.put(x, y, z, Blocks.COARSE_DIRT.getDefaultState());
-                else if (patch < -0.5f) blocks.put(x, y, z, Blocks.GRAVEL.getDefaultState());
+                float patch = patch(x, y, z);
+                if (patch > -0.2f) blocks.put(x, y, z, COARSE_DIRT);
+                else if (patch < -0.5f) blocks.put(x, y, z, GRAVEL);
             }
             case OUTFLOW -> {
                 if (!floor || s > level) return;
+                float patch = patch(x, y, z);
                 if (Math.abs(across(x, z) - centre(s)) < GROOVE) {
                     // the spring rises under the roof, where it cannot freeze, and runs out once the chunk loads
                     if (roofed(blocks, x, y + 1, z)) {
-                        blocks.put(x, y, z, Blocks.WATER.getDefaultState());
+                        blocks.put(x, y, z, WATER);
                         chunk.markBlockForPostProcessing(pos.set(x, y, z));
                     } else {
-                        blocks.put(x, y, z, Blocks.AIR.getDefaultState());
+                        blocks.put(x, y, z, AIR);
                     }
                 } else if (patch > 0.1f) {
-                    blocks.put(x, y, z, Blocks.MOSSY_COBBLESTONE.getDefaultState());
+                    blocks.put(x, y, z, MOSSY_COBBLESTONE);
                 } else if (patch < -0.4f) {
-                    blocks.put(x, y, z, Blocks.GRAVEL.getDefaultState());
+                    blocks.put(x, y, z, GRAVEL);
                 }
             }
             default -> {
                 if (!floor) return;
-                if (patch > 0.35f) blocks.put(x, y, z, Blocks.GRAVEL.getDefaultState());
-                else if (patch < -0.55f) blocks.put(x, y, z, Blocks.COBBLESTONE.getDefaultState());
+                float patch = patch(x, y, z);
+                if (patch > 0.35f) blocks.put(x, y, z, GRAVEL);
+                else if (patch < -0.55f) blocks.put(x, y, z, COBBLESTONE);
             }
         }
+    }
+
+    private float patch(int x, int y, int z) {
+        return (float) SimplexNoise.noise((x + noiseZ) / 2.5, y / 2.5, (z + noiseX) / 2.5);
     }
 
     private boolean roofed(BlockBuffer blocks, int x, int y, int z) {
@@ -473,5 +482,4 @@ public final class Entrance {
         }
         return false;
     }
-
 }

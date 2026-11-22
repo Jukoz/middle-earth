@@ -5,7 +5,7 @@ import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME;
 import net.sevenstars.middleearth.features.generation.noise.BlendedNoise;
 
-// which deep biome a column belongs to; biome source and chunk generation both ask, so they agree
+// which deep biome a column belongs to, biome source and chunk generation both ask, so they agree
 public final class DeepThemes {
     public enum Theme {
         WET(BiomeKeyRegistryME.NAMELESS_DEEPS),

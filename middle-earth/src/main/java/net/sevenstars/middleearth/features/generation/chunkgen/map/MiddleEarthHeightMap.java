@@ -43,7 +43,7 @@ public final class MiddleEarthHeightMap {
     private static final float RIDGE_RAMP = 2; // mountain multiplier at which the ridges are full
     private static final ThreadLocal<float[]> MOUNTAIN_SHARES = ThreadLocal.withInitial(() -> new float[MountainRanges.VARIANTS]);
 
-    // above the start the terrain bends towards the ceiling (y values, not heights relative to DIRT_HEIGHT)
+    // above the start the terrain bends towards the ceiling, as y values
     private static final int SOFT_CEILING_START = 380;
     private static final int SOFT_CEILING = 430;
 
@@ -71,7 +71,7 @@ public final class MiddleEarthHeightMap {
         float blue = rgb & 0xFF;
         float height = (rgb >> 16) & 0xFF;
 
-        if(blue > 0) { // water carver
+        if(blue > 0) {
             MapBasedCustomBiome meBiome = middleEarthMapRuntime.getBiome(xWorld, zWorld);
             float percentage = (WATER_MAX - blue) / WATER_MAX;
             percentage = Math.max(0, Math.min(1, percentage));
@@ -159,8 +159,8 @@ public final class MiddleEarthHeightMap {
         return term;
     }
 
-    // Tectonic raises the land by 0.6 - ridges, 0.2 * 128 blocks per unit at most; a share is the range's amplitude,
-    // so a range at the usual amplitude gets exactly that
+    // Tectonic raises the land by 0.6 - ridges, 0.2 * 128 blocks per unit at most. A share is the range's amplitude,
+    // so a range at the usual amplitude gets exactly that.
     private static double ridge(int x, int z, double[] stretch) {
         return RIDGE_BLOCKS / DEFAULT_RIDGE_AMPLITUDE * (0.6 - TerrainRidges.ridges(x, z, stretch, getSeed()));
     }
@@ -210,42 +210,39 @@ public final class MiddleEarthHeightMap {
         return total / ((SMOOTH_BRUSH_SIZE * 2 + 1) * (SMOOTH_BRUSH_SIZE * 2 + 1));
     }
 
-    // the terrain height every system agrees on: the map and noise height, the sub biome hills, the Mount Doom cone,
-    // the Dead Marshes, Tectonic's regions, the named hills and the soft ceiling; relative to MiddleEarthChunkGenerator.DIRT_HEIGHT
+    // The terrain height every system agrees on, relative to DIRT_HEIGHT.
     public static float getHeight(int x, int z) {
         ChunkHeights heights = findChunkHeights(x >> 4, z >> 4);
         if(heights != null) return heights.at(x & 15, z & 15);
         return computeHeight(x, z);
     }
 
-    // same value, remembered per chunk for the callers that ask for many columns of one chunk
+    // same value, cached per chunk for callers that read many columns
     public static float getCachedHeight(int x, int z) {
         return getChunkHeights(x >> 4, z >> 4).at(x & 15, z & 15);
     }
 
-    // worked out every LATTICE blocks and blended between, like Tectonic's cells: a quarter of the noise per column
-    // to the power of two, and no detail finer than the map's own pixels
+    // computed every LATTICE blocks and blended, like Tectonic's cells
     private static float computeHeight(int x, int z) {
+        return finish(x, z, latticeHeight(x, z));
+    }
+
+    private static float latticeHeight(int x, int z) {
         int x0 = Math.floorDiv(x, LATTICE) * LATTICE;
         int z0 = Math.floorDiv(z, LATTICE) * LATTICE;
         float fx = (float) (x - x0) / LATTICE;
         float fz = (float) (z - z0) / LATTICE;
-        float blended = bilerp(getUnraisedHeight(x0, z0), getUnraisedHeight(x0 + LATTICE, z0), getUnraisedHeight(x0, z0 + LATTICE), getUnraisedHeight(x0 + LATTICE, z0 + LATTICE), fx, fz);
-        return finish(x, z, blended);
+        return bilerp(getUnraisedHeight(x0, z0), getUnraisedHeight(x0 + LATTICE, z0), getUnraisedHeight(x0, z0 + LATTICE), getUnraisedHeight(x0 + LATTICE, z0 + LATTICE), fx, fz);
     }
 
-    // the named hills and Helm's Deep go on per column, both finer than the lattice
+    // hills and Helm's Deep are finer than the lattice
     private static float finish(int x, int z, float blended) {
         return softCeiling(HelmsDeep.carve(x, z, MapHills.raise(x, z, blended)));
     }
 
     // with the named hills but before Helm's Deep is cut
     static float getRaisedHeight(int x, int z) {
-        int x0 = Math.floorDiv(x, LATTICE) * LATTICE;
-        int z0 = Math.floorDiv(z, LATTICE) * LATTICE;
-        float fx = (float) (x - x0) / LATTICE;
-        float fz = (float) (z - z0) / LATTICE;
-        return MapHills.raise(x, z, bilerp(getUnraisedHeight(x0, z0), getUnraisedHeight(x0 + LATTICE, z0), getUnraisedHeight(x0, z0 + LATTICE), getUnraisedHeight(x0 + LATTICE, z0 + LATTICE), fx, fz));
+        return MapHills.raise(x, z, latticeHeight(x, z));
     }
 
     private static float bilerp(float c00, float c10, float c01, float c11, float fx, float fz) {
@@ -254,7 +251,6 @@ public final class MiddleEarthHeightMap {
         return top + (bottom - top) * fz;
     }
 
-    // the height before the named hills are added, with Tectonic's regions
     static float getUnraisedHeight(int x, int z) {
         float height = getPerlinMapHeight(x, z);
 
@@ -288,8 +284,7 @@ public final class MiddleEarthHeightMap {
         return SOFT_CEILING_START + range * (float) Math.tanh((y - SOFT_CEILING_START) / range) - MiddleEarthChunkGenerator.DIRT_HEIGHT;
     }
 
-    // the 16x16 columns of a chunk plus a margin of 4 on every side for the slope samples, blended from lattice corners
-    // that are each computed when first needed
+    // a chunk's columns plus a margin for slope samples, blended from lazily computed lattice corners
     public static final class ChunkHeights {
         private static final int CHUNK_SIZE = 16;
         public static final int MARGIN = 4;
@@ -307,7 +302,6 @@ public final class MiddleEarthHeightMap {
             Arrays.fill(corners, Float.NaN);
         }
 
-        // not remembered per column: the blend and the hill lookup are cheap next to a corner
         public float at(int dx, int dz) {
             int i = Math.floorDiv(dx, LATTICE);
             int k = Math.floorDiv(dz, LATTICE);
@@ -344,7 +338,6 @@ public final class MiddleEarthHeightMap {
         }
         return heights;
     }
-
 
     private static float lerp(float a, float b, float interpolation) {
         return a + interpolation * (b - a);

@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// rivers painted up a mountain's foot bake into sheer walls; their tips are trimmed back to low ground and RiverCaves
-// runs the old course under the mountain
+// Rivers painted up a mountain's foot bake into sheer walls. Their tips are trimmed back to low ground and RiverCaves
+// runs the old course under the mountain.
 public final class RiverHeads {
     private static final int CUTOFF = 40; // base height a river may not climb past
     private static final int MAX_NEIGHBOURS = 3; // a tip, not the bank of a wider river
@@ -37,7 +37,7 @@ public final class RiverHeads {
     private RiverHeads() {
     }
 
-    // the map with high tips repainted; base height is red, at the map's scale
+    // The map with high tips repainted. Base height is red, at the map's scale.
     public static BufferedImage trim(BufferedImage map, BufferedImage baseHeight) {
         int width = map.getWidth();
         int height = map.getHeight();
@@ -96,7 +96,7 @@ public final class RiverHeads {
         return heads;
     }
 
-    // wears high tips away, repainting into out if given; the pixels in the order taken
+    // Wears high tips away, repainting into out if given. Returns the pixels in the order taken.
     private static IntArrayList erode(BufferedImage map, BufferedImage baseHeight, BufferedImage out) {
         int width = map.getWidth();
         int height = map.getHeight();
@@ -113,7 +113,7 @@ public final class RiverHeads {
                 if (river[i] && (base[i] >> 16 & 0xFF) > CUTOFF) high.add(i);
             }
         }
-        // high tips wear away; a river through a gorge has river on both sides and stays
+        // a river through a gorge has river on both sides and stays
         IntArrayList removed = new IntArrayList();
         boolean changed = true;
         while (changed) {

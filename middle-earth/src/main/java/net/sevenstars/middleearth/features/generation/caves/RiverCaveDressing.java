@@ -5,7 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 
-// river water and air written over the surface layers, a gravel bed and moss at the waterline; this chunk only
+// river water and air written over the surface layers, a gravel bed and moss at the waterline, this chunk only
 final class RiverCaveDressing {
     private static final BlockState WATER = Blocks.WATER.getDefaultState();
     private static final BlockState AIR = Blocks.AIR.getDefaultState();

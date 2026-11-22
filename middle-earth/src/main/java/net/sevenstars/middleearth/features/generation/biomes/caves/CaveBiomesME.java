@@ -81,7 +81,7 @@ public class CaveBiomesME {
         whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MOUNTAIN_CAVE, new Vec2f(-1.0f,-0.5f)));
         whiteMountainCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.BASIC_CAVE, new Vec2f(0.0f,-1.1f)));
 
-        // the Misty Mountains by depth band; the middle one is the mountain palette
+        // the Misty Mountains by depth band, the middle one is the mountain palette
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.ICE_CAVE, new Vec2f(-0.6f,0.3f), DepthBands.Band.UPPER));
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(0.6f,0.3f), DepthBands.Band.UPPER));
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MOUNTAIN_CAVE, new Vec2f(0.0f,-0.6f), DepthBands.Band.UPPER));
@@ -93,7 +93,7 @@ public class CaveBiomesME {
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.BASIC_CAVE, new Vec2f(0.0f,-1.0f), DepthBands.Band.MIDDLE));
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.LUSH_CAVE, new Vec2f(-1.25f,-1.1f), DepthBands.Band.MIDDLE));
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.FUNGUS_CAVE, new Vec2f(0f,-1.1f), DepthBands.Band.MIDDLE));
-        // the deeps proper are picked by DeepThemes; a Misty column with the usual floor has no deeps to speak of
+        // the deeps proper are picked by DeepThemes, a Misty column with the usual floor has no deeps to speak of
         mistyCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.MITHRIL_CAVE, new Vec2f(0.0f,0.0f), DepthBands.Band.MITHRIL, DepthBands.Band.DEEPS));
 
         ashCaves.addCave(new CaveBiomeDTO(BiomeKeyRegistryME.DRIPSTONE_CAVE, new Vec2f(1.0f,0.5f)));
@@ -151,7 +151,7 @@ public class CaveBiomesME {
         context.register(BiomeKeyRegistryME.ICE_CAVE, createIceCaves(context, new BiomeColorsDTO(BiomeAmbianceME.MISTY_CAVE, defaultWater, defaultWaterFog, 11121530, 10990723)));
     }
 
-    // for caves that dress themselves (Aglarond, the lava tubes); no features, so nothing grows over them
+    // for caves that dress themselves (Aglarond, the lava tubes), no features, so nothing grows over them
     public static Biome createBareCave(Registerable<Biome> context, BiomeColorsDTO biomeColors, float temperature) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
@@ -348,7 +348,7 @@ public class CaveBiomesME {
         return createBiome(biomeColors, spawnSettings, generationSettings, 0.5f, true);
     }
 
-    // The Dwarves' deepest delvings: plain and noble ores in the deep rock, and no fire, lava or geodes
+    // metal and gem ores only, no lava or geodes
     public static Biome createMithrilCave(Registerable<Biome> context, BiomeColorsDTO biomeColors) {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE), context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));

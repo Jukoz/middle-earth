@@ -43,7 +43,6 @@ final class Hall {
     private static final float POOL_SPREAD = 0.7f;
     private static final float GLAZE = 0.75f;
     private static final int ICICLES = 150; // out of 256
-    private static final int[][] NEIGHBOURS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
 
     final Kind kind;
     final float x;
@@ -144,7 +143,7 @@ final class Hall {
         return sq(u / (rx * wob)) + sq(v / (rz * wob)) + dy * dy < 1;
     }
 
-    // straight and wide, narrowing upward, with rough walls; the core stays clear so a fall reaches the floor
+    // straight and wide, narrowing upward, with rough walls, the core stays clear so a fall reaches the floor
     private boolean shaft(int bx, int y, int bz) {
         if (y < floor + height * 0.5f || y > chimneyTop) return false;
         float rise = (y - floor) / (float) Math.max(1, chimneyTop - floor);
@@ -193,7 +192,7 @@ final class Hall {
             int c = k % tall;
             int a = k / tall / side;
             int b = k / tall % side;
-            for (int[] step : NEIGHBOURS) {
+            for (int[] step : CarveMask.SIDES) {
                 int na = a + step[0];
                 int nb = b + step[1];
                 int nc = c + step[2];
@@ -321,7 +320,7 @@ final class Hall {
         }
     }
 
-    // clear ice over the water; the basin's edge rounds to no water, so the shore snow starts at the ice
+    // clear ice over the water, the basin's edge rounds to no water, so the shore snow starts at the ice
     private void lake(BlockBuffer blocks, int startX, int startZ) {
         for (int bx = Math.max(box.minX(), startX); bx <= Math.min(box.maxX(), startX + 15); bx++) {
             for (int bz = Math.max(box.minZ(), startZ); bz <= Math.min(box.maxZ(), startZ + 15); bz++) {
@@ -430,7 +429,7 @@ final class Hall {
         return found;
     }
 
-    // the icefall fills its alcove, rippled into columns and spreading into a cone over a ragged pool;
+    // the icefall fills its alcove, rippled into columns and spreading into a cone over a ragged pool,
     // the spray froze over the whole hall
     private void icefall(BlockBuffer blocks, int startX, int startZ) {
         float[] f = fall();

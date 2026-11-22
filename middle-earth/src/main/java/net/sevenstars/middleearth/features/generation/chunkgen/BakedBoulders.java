@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 // comes from a hash of its origin chunk, so neighbouring chunks build the same boulder without reading each other,
 // and the blocks of structures are kept clear without asking which structures a feature could still see
 final class BakedBoulders {
-    private static final int MAX_SLOTS = 16; // boulder features a biome may list, each rolled in turn like a placed feature; the most now is 9
+    private static final int MAX_SLOTS = 16; // boulder features a biome may list, each rolled in turn like a placed feature (most now is 9)
     private static final int SURFACE_BIOME_Y = 320;
     private static final int STRUCTURE_CLEARANCE = 2;
     private static final int SLOPE_STEP = 2;
@@ -42,7 +42,7 @@ final class BakedBoulders {
     }
 
     private record Boulder(BigBoulderFeatureConfig config, int x, int y, int z, float length, float width, float height,
-                           float cos, float sin, long hash) {
+                           float cos, float sin, long hash, float alongMaxSq, float acrossMaxSq) {
     }
 
     private static final Map<RegistryKey<Biome>, Kind[]> KINDS = new ConcurrentHashMap<>();
@@ -75,7 +75,7 @@ final class BakedBoulders {
             long hash = hash(seed, originX, originZ, slot);
             int x = (originX << 4) + (int) (hash & 15);
             int z = (originZ << 4) + (int) ((hash >>> 4) & 15);
-            // the surface biome, which every height above the ground gives; the height itself only once a boulder is rolled
+            // the surface biome is the same at every height, the ground height is only read once a boulder is rolled
             Kind[] kinds = kinds(biomes.getBiome(BiomeCoords.fromBlock(x), BiomeCoords.fromBlock(SURFACE_BIOME_Y), BiomeCoords.fromBlock(z), null));
             if (slot >= kinds.length) continue;
             Kind kind = kinds[slot];
@@ -93,7 +93,10 @@ final class BakedBoulders {
             // a feature on water found nothing to stand on
             if (surfaceY < MiddleEarthMapRuntime.getInstance().getBiome(x, z).getWaterHeight()) continue;
             double angle = Math.toRadians(unit(hash, 5) * 180);
-            boulders.add(new Boulder(config, x, surfaceY + 1, z, length, width, height, (float) Math.cos(angle), (float) Math.sin(angle), hash));
+            float alongMax = length + config.randomness;
+            float acrossMax = width + config.randomness;
+            boulders.add(new Boulder(config, x, surfaceY + 1, z, length, width, height, (float) Math.cos(angle), (float) Math.sin(angle), hash,
+                    alongMax * alongMax, acrossMax * acrossMax));
         }
     }
 
@@ -109,24 +112,23 @@ final class BakedBoulders {
         for (Boulder boulder : boulders) {
             float dx = x - boulder.x;
             float dz = z - boulder.z;
-            float alongMax = boulder.length + boulder.config.randomness;
-            float acrossMax = boulder.width + boulder.config.randomness;
             float along = dx * boulder.cos - dz * boulder.sin;
             float across = dx * boulder.sin + dz * boulder.cos;
-            if (along * along / (alongMax * alongMax) + across * across / (acrossMax * acrossMax) > 1) continue;
-            int top = (int) Math.ceil(boulder.height + boulder.config.randomness);
+            if (along * along / boulder.alongMaxSq + across * across / boulder.acrossMaxSq > 1) continue;
+            float randomness = boulder.config.randomness;
+            List<BlockState> states = boulder.config.blockStates;
+            int top = (int) Math.ceil(boulder.height + randomness);
             for (int dy = -top; dy <= top; dy++) {
                 int y = boulder.y + dy;
                 if (out.outOfHeightLimit(y)) continue;
                 long blockHash = hash(boulder.hash, x, y, z);
                 // the rough surface of the feature: each block sees the shape a little bigger or smaller
-                float rough = (unit(blockHash, 0) * 2 - 1) * boulder.config.randomness;
+                float rough = (unit(blockHash, 0) * 2 - 1) * randomness;
                 float l = boulder.length + rough;
                 float w = boulder.width + rough;
                 float h = boulder.height + rough;
                 if (along * along / (l * l) + dy * dy / (h * h) + across * across / (w * w) > 1) continue;
                 if (cleared(x, y, z)) continue;
-                List<BlockState> states = boulder.config.blockStates;
                 out.set(localX, y, localZ, states.get((int) (unit(blockHash, 1) * states.size())));
             }
         }

@@ -57,8 +57,7 @@ public final class MiddleEarthMapRegion {
         return distance < (CALC_REGION_SIZE / 2) + MiddleEarthMapConfigs.BIOME_VALIDATION_DIST_CHECK;
     }
 
-    // BufferedImage.getRGB allocates for every pixel; the common PNG layouts are read straight from their arrays, with
-    // exactly the value getRGB gives (opaque for the RGB layouts), and anything else still goes through getRGB
+    // BufferedImage.getRGB allocates per pixel, so common layouts are read from their arrays with getRGB's exact value.
     private static final class Pixels {
         private static final int GENERIC = 0;
         private static final int BGR = 1;
@@ -107,20 +106,18 @@ public final class MiddleEarthMapRegion {
         int rgb(int x, int y) {
             if (kind == GENERIC || x < 0 || y < 0 || x >= width || y >= height) return image.getRGB(x, y);
             int index = y * width + x;
-            switch (kind) {
-                case BGR: {
+            return switch (kind) {
+                case BGR -> {
                     int i = index * 3;
-                    return 0xFF000000 | (bytes[i + 2] & 0xFF) << 16 | (bytes[i + 1] & 0xFF) << 8 | (bytes[i] & 0xFF);
+                    yield 0xFF000000 | (bytes[i + 2] & 0xFF) << 16 | (bytes[i + 1] & 0xFF) << 8 | (bytes[i] & 0xFF);
                 }
-                case ABGR: {
+                case ABGR -> {
                     int i = index * 4;
-                    return (bytes[i] & 0xFF) << 24 | (bytes[i + 3] & 0xFF) << 16 | (bytes[i + 2] & 0xFF) << 8 | (bytes[i + 1] & 0xFF);
+                    yield (bytes[i] & 0xFF) << 24 | (bytes[i + 3] & 0xFF) << 16 | (bytes[i + 2] & 0xFF) << 8 | (bytes[i + 1] & 0xFF);
                 }
-                case INT_RGB:
-                    return (ints[index] & 0xFFFFFF) | 0xFF000000;
-                default:
-                    return ints[index];
-            }
+                case INT_RGB -> (ints[index] & 0xFFFFFF) | 0xFF000000;
+                default -> ints[index];
+            };
         }
     }
 }

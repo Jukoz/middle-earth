@@ -22,7 +22,7 @@ import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mi
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 
 // Gorgoroth's lava tubes: drained flows from Orodruin a few blocks under the ash, running downhill, branching,
-// and open where the roof fell in; a few near the Mountain still carry fire. Laid out once per world seed
+// and open where the roof fell in, a few near the Mountain still carry fire. Laid out once per world seed
 public final class LavaTubes {
     private static final float ORODRUIN_X = 68208;
     private static final float ORODRUIN_Z = 54896;
@@ -127,7 +127,7 @@ public final class LavaTubes {
                 + WOBBLE_FINE * (float) SimplexNoise.noise((x + noiseZ) / 4.0, y / 4.0, (z + noiseX) / 4.0);
     }
 
-    // one chunk's tubes; used by one thread at a time
+    // one chunk's tubes, used by one thread at a time
     public static final class Near {
         final LavaTubes tubes;
         final Segment[] segments;
@@ -310,7 +310,7 @@ public final class LavaTubes {
             return new float[]{(smooth(x + d, z) - smooth(x - d, z)) / (2 * d), (smooth(x, z + d) - smooth(x, z - d)) / (2 * d)};
         }
 
-        // a tube from its head down the plain; null if it came to nothing
+        // a tube from its head down the plain, null if it came to nothing
         Tube walk(Tube parent, int fork, float x, float z, float heading, float floor, float baseW, float baseH, float maxLength, boolean active, int hash) {
             Tube tube = new Tube(parent, active ? 120 + 130 * u(hash, 9) : 0, hash);
             float along = 0;
@@ -344,7 +344,7 @@ public final class LavaTubes {
                 if (roofCover > MAX_COVER) break;
                 boolean light = false;
                 if (roofCover < MIN_COVER) {
-                    // a thin roof falls in now and then; under a pond, or open between falls, the tube ends
+                    // a thin roof falls in now and then. Under a pond or open between falls, the tube ends
                     exposed = pond || roofCover < 2;
                     if (pond || roofCover < -2) break;
                     if (roofCover < 3 && along - lastLight >= COLLAPSE_SPACING) {
@@ -409,7 +409,7 @@ public final class LavaTubes {
 
         enum Join { CLEAR, MEETS, BLOCKED }
 
-        // at its own level a tube joins another; well above or below it passes; else it stops short
+        // at its own level a tube joins another, well above or below it passes, else it stops short
         Join clearance(Tube tube, Tube parent, int fork, Node node) {
             List<Segment> near = new ArrayList<>();
             int cx = Math.floorDiv((int) node.x, GRID);
@@ -521,7 +521,7 @@ public final class LavaTubes {
     static final class Node {
         final float x;
         final float z;
-        float floor; // the lowest air; the floor block is one under
+        float floor; // the lowest air, the floor block is one under
         final float w; // half width
         final float h;
         final float bench; // bench height over the trench floor, 0 for none

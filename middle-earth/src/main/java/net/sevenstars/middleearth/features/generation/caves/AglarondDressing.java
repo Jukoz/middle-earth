@@ -32,6 +32,8 @@ final class AglarondDressing {
     private static final BlockState GOLD = OreStoneSetRegistryME.CALCITE.gold_ore().getDefaultState();
     private static final BlockState SILVER = OreStoneSetRegistryME.CALCITE.silver_ore().getDefaultState();
     private static final BlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
+    private static final BlockState AIR = Blocks.AIR.getDefaultState();
+    private static final BlockState WATER = Blocks.WATER.getDefaultState();
     // white, saffron and dawn-rose, white most of all
     private static final BlockState[] COLUMN_COLOURS = {CALCITE, CALCITE, TRAVERTINE, QUARTZITE, CALCITE, CHALK};
 
@@ -112,7 +114,7 @@ final class AglarondDressing {
         BlockState state = at.blocks.get(x, y, z);
         if (state.isAir() || !state.getFluidState().isEmpty()) return;
         if (air.at(x, y, z)) {
-            at.blocks.put(x, y, z, at.caves.water(x, y, z) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
+            at.blocks.put(x, y, z, at.caves.water(x, y, z) ? WATER : AIR);
             return;
         }
         boolean floor = air.at(x, y + 1, z);
@@ -139,7 +141,7 @@ final class AglarondDressing {
     }
 
 
-    // many-coloured: broad patches of rose, saffron, white and grey; the outer caves plain, with grit underfoot
+    // many-coloured: broad patches of rose, saffron, white and grey, the outer caves plain, with grit underfoot
     private static BlockState floorStone(Context at, int x, int z, float richness) {
         float n = (float) (SimplexNoise.noise((x + at.ox()) / 22.0, (z + at.oz()) / 22.0) + 0.12 * SimplexNoise.noise((x + at.oz()) / 6.0, (z + at.ox()) / 6.0));
         if (richness < 0.3f) return n > 0.45f ? GRAVEL : LIMESTONE;
@@ -298,14 +300,16 @@ final class AglarondDressing {
                 return;
             }
             int reach = (int) Math.ceil(radius * 1.15f) + 1;
-            for (int bx = (int) Math.floor(x) - reach; bx <= (int) Math.floor(x) + reach; bx++) {
-                for (int bz = (int) Math.floor(z) - reach; bz <= (int) Math.floor(z) + reach; bz++) {
+            int cx = (int) Math.floor(x);
+            int cz = (int) Math.floor(z);
+            for (int bx = cx - reach; bx <= cx + reach; bx++) {
+                for (int bz = cz - reach; bz <= cz + reach; bz++) {
                     if (!at.inside(bx, bz)) continue;
                     float px = bx + 0.5f - x;
                     float pz = bz + 0.5f - z;
                     float r = radius;
                     if (fluted && radius >= 1.4f) r *= 1 + 0.12f * MathHelper.cos(flutes * (float) Math.atan2(pz, px) + twist * y);
-                    boolean core = bx == (int) Math.floor(x) && bz == (int) Math.floor(z);
+                    boolean core = bx == cx && bz == cz;
                     if (px * px + pz * pz >= r * r && !core) continue;
                     BlockState here = at.blocks.get(bx, y, bz);
                     if (!here.isAir() && !here.isOf(Blocks.WATER)) continue;
@@ -378,7 +382,7 @@ final class AglarondDressing {
         return pools;
     }
 
-    // inside a pool's water; a function of position only, so neighbouring chunks agree on the dams
+    // inside a pool's water, a function of position only, so neighbouring chunks agree on the dams
     private static boolean pooled(Context at, List<Pool> pools, int x, int z) {
         float wobble = 1 + 0.25f * (float) SimplexNoise.noise((x + at.ox()) / 2.0, (z + at.oz()) / 2.0);
         for (Pool p : pools) {
@@ -403,7 +407,7 @@ final class AglarondDressing {
                 for (int z = (int) p.z - reach; z <= (int) p.z + reach; z++) {
                     if (!at.inside(x, z) || !at.blocks.get(x, y, z).isAir()) continue;
                     if (pooled(at, pools, x, z)) {
-                        at.blocks.put(x, y, z, at.solid(x, y - 1, z) ? Blocks.WATER.getDefaultState() : TRAVERTINE);
+                        at.blocks.put(x, y, z, at.solid(x, y - 1, z) ? WATER : TRAVERTINE);
                     } else if (pooled(at, pools, x + 1, z) || pooled(at, pools, x - 1, z) || pooled(at, pools, x, z + 1) || pooled(at, pools, x, z - 1)) {
                         at.blocks.put(x, y, z, TRAVERTINE);
                     }
@@ -429,14 +433,15 @@ final class AglarondDressing {
                 for (int z = (int) vug.z - 3; z <= (int) vug.z + 3; z++) {
                     if (!at.inside(x, z)) continue;
                     for (int by = y - 3; by <= y + 3; by++) {
-                        if (vug.hollow(x, by, z)) {
-                            if (!at.air.at(x, by, z)) at.blocks.put(x, by, z, Blocks.AIR.getDefaultState());
+                        boolean hollow = vug.hollow(x, by, z);
+                        if (hollow) {
+                            if (!at.air.at(x, by, z)) at.blocks.put(x, by, z, AIR);
                         } else if (vug.lining(at.air, x, by, z)) {
                             at.blocks.put(x, by, z, Blocks.AMETHYST_BLOCK.getDefaultState());
                         } else {
                             continue;
                         }
-                        if (!vug.hollow(x, by, z) || (mix(x, by, z ^ h) & 3) == 0) continue;
+                        if (!hollow || (mix(x, by, z ^ h) & 3) == 0) continue;
                         // crystals grow inward off the lining
                         for (Direction toward : Direction.values()) {
                             if (!vug.lining(at.air, x - toward.getOffsetX(), by - toward.getOffsetY(), z - toward.getOffsetZ())) continue;
@@ -480,7 +485,7 @@ final class AglarondDressing {
                 if (Math.abs(pz * way.dx - px * way.dz - way.centre(f) - meander) >= 0.85f) continue;
                 int y = way.floorAt(f) - 1;
                 if (!at.air.at(x, y + 1, z) || !at.solid(x, y, z)) continue;
-                at.blocks.put(x, y, z, Blocks.WATER.getDefaultState());
+                at.blocks.put(x, y, z, WATER);
                 at.chunk.markBlockForPostProcessing(pos.set(x, y, z));
             }
         }

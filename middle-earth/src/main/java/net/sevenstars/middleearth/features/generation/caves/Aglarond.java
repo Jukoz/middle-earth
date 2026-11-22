@@ -13,7 +13,7 @@ import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.DIRT_HEIGHT;
 
 // Aglarond, the Glittering Caves at the head of Helm's Deep: a chain of halls climbing gently into the Thrihyrne,
-// joined by avenues, with dry outer caves by the mouth; the Deeping-stream runs down through them and out of the mouth.
+// joined by avenues, with dry outer caves by the mouth. The Deeping-stream runs down through them and out of the mouth.
 // Laid out once per world seed
 public final class Aglarond {
     // the mouth, in the cliff at the head of the Deep, facing back down it
@@ -199,10 +199,10 @@ public final class Aglarond {
     }
 
     private static Chamber place(Rock rock, Random rng, List<Chamber> placed, Chamber from, float bearing, Chamber.Kind kind, boolean great, float richness) {
+        float toCentre = (float) Math.atan2(CENTRE_Z - from.z, CENTRE_X - from.x);
+        float lean = kind == Chamber.Kind.SIDE ? 0 : LEAN;
+        float ahead = bearing + MathHelper.wrapDegrees((float) Math.toDegrees(toCentre - bearing)) * (float) Math.PI / 180 * lean;
         for (int t = 0; t < TRIES; t++) {
-            float toCentre = (float) Math.atan2(CENTRE_Z - from.z, CENTRE_X - from.x);
-            float lean = kind == Chamber.Kind.SIDE ? 0 : LEAN;
-            float ahead = bearing + MathHelper.wrapDegrees((float) Math.toDegrees(toCentre - bearing)) * (float) Math.PI / 180 * lean;
             float turn = ahead + (rng.nextFloat() - 0.5f) * (kind == Chamber.Kind.SIDE ? 2f : 1.6f);
             float rx = great ? 38 + rng.nextFloat() * 6 : kind == Chamber.Kind.SIDE ? 9 + rng.nextFloat() * 7 : 16 + rng.nextFloat() * 14;
             float rz = rx * (great ? 0.65f : 0.6f + rng.nextFloat() * 0.4f);
@@ -263,7 +263,7 @@ public final class Aglarond {
         return true;
     }
 
-    // a domed hall with a level floor; the great hall and some others hold a still lake
+    // a domed hall with a level floor. The great hall and some others hold a still lake
     static final class Chamber {
         enum Kind { OUTER, HALL, GREAT, SIDE }
 
@@ -421,8 +421,9 @@ public final class Aglarond {
             float u = pz * dx - px * dz - centre(f);
             int dy = y - floorAt(f);
             if (dy < 0) return false;
-            float tall = height * flare(f);
-            float wide = halfWidth * flare(f);
+            float flare = flare(f);
+            float tall = height * flare;
+            float wide = halfWidth * flare;
             if (dy >= tall * (1 + WOBBLE_BOUND) || Math.abs(u) >= wide * (1 + WOBBLE_BOUND)) return false;
             float wob = rock.wobble(bx, y, bz);
             float h = tall * wob;

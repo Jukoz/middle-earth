@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-// answers what buildSurface would leave solid, for structure code; lives as long as one structure start and holds
-// bounded caches only: contexts of the most recent chunks, whose cave noise is evaluated one corner at a time
+// Answers what buildSurface would leave solid, for structure code. Lives for one structure start and holds
+// bounded caches only: samplers of the most recent chunks, whose cave noise is evaluated one corner at a time
 public final class CaveProbe {
     private static final int MAX_CHUNKS = 128;
     private static final int MAX_FLOORS = 1 << 16;

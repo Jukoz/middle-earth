@@ -15,7 +15,7 @@ import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq
 import static net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator.DIRT_HEIGHT;
 
 // where the galleries' halls and tunnels lie: one hall per grid cell at most, tunnels to the neighbours east,
-// south and now and then south-east; the layer sits a set depth under a smoothed copy of the ground
+// south and now and then south-east, the layer sits a set depth under a smoothed copy of the ground
 final class GalleryLayout {
     static final int CELL = 112;
     private static final int CELL_EDGE = 26;
@@ -125,7 +125,7 @@ final class GalleryLayout {
         return (int) (DIRT_HEIGHT + level(x, z)) - DEPTH;
     }
 
-    // the noise caves are kept out from here up; never closer to the real ground than the old upper band's depth
+    // the noise caves are kept out from here up, never closer to the real ground than the old upper band's depth
     int zoneBottom(int x, int z, int surface) {
         float jitter = ZONE_JITTER * (float) SimplexNoise.noise((x + misty.offsetX + 911) / 19.0, (z + misty.offsetZ + 1543) / 19.0);
         return Math.min(layerFloor(x, z) - ZONE_BELOW, surface - ZONE_UNDER_GROUND) + Math.round(jitter);
@@ -152,8 +152,7 @@ final class GalleryLayout {
         int floor = layerFloor((int) x, (int) z) + Math.round((r4 - 0.5f) * DEPTH_SPREAD);
         if (floor < MIN_FLOOR) return null;
         int roll = mix(h, 7, 7) & 0xFF;
-        Hall.Kind kind = roll < 65 ? Hall.Kind.PLAIN : roll < 95 ? Hall.Kind.ICEFALL : roll < 135 ? Hall.Kind.LAKE
-                : roll < 175 ? Hall.Kind.PILLARS : roll < 215 ? Hall.Kind.COLLAPSED : Hall.Kind.CHIMNEY;
+        Hall.Kind kind = kindFor(roll);
         if (kind == Hall.Kind.ICEFALL) height += 6;
         // off the centre, where the tunnels meet
         float chimneyX = x + (r1 - 0.5f) * rx * 0.5f;
@@ -171,7 +170,16 @@ final class GalleryLayout {
         return hall;
     }
 
-    // a planned tunnel that can be walked end to end; one crossing another at a different height leaves a drop
+    private static Hall.Kind kindFor(int roll) {
+        if (roll < 65) return Hall.Kind.PLAIN;
+        if (roll < 95) return Hall.Kind.ICEFALL;
+        if (roll < 135) return Hall.Kind.LAKE;
+        if (roll < 175) return Hall.Kind.PILLARS;
+        if (roll < 215) return Hall.Kind.COLLAPSED;
+        return Hall.Kind.CHIMNEY;
+    }
+
+    // a planned tunnel that can be walked end to end, one crossing another at a different height leaves a drop
     Tunnel tunnel(int cx, int cz, int link) {
         Tunnel tunnel = plannedTunnel(cx, cz, link);
         if (tunnel == null) return null;

@@ -39,12 +39,12 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 // jigsaw assembly for the mines: vanilla placement rules, but a candidate only avoids the boxes of placed pieces
-// (shrunk by one block, so walls can touch) and passes the caller's own test; no free-space shapes
+// (shrunk by one block, so walls can touch) and passes the caller's own test. No free-space shapes
 final class JigsawAssembler {
     private static final List<Block> FLOOR_BLOCKS = List.of(Blocks.COBBLESTONE, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
     private static final int ROTATIONS = BlockRotation.values().length;
 
-    // floor columns by template manager (one per server, so a reload starts clean); chunks generate in parallel
+    // floor columns by template manager (one per server, so a reload starts clean). Chunks generate in parallel
     private static final Map<StructureTemplateManager, Map<FloorKey, int[]>> FLOORS = Collections.synchronizedMap(new WeakHashMap<>());
 
     private final StructureTemplateManager manager;
@@ -78,8 +78,8 @@ final class JigsawAssembler {
         this.boxes = new ArrayList<>(taken);
     }
 
-    // first piece uses the named jigsaw (facing the given way) on pos, or its corner when no name; at most limit pieces
-    // fallback-pool pieces are dead ends someone may stand in, so they pass acceptEnd; empty when the first doesn't fit
+    // first piece uses the named jigsaw (facing the given way) on pos, or its corner when no name. At most limit pieces
+    // fallback-pool pieces are dead ends someone may stand in, so they pass acceptEnd. Empty when the first doesn't fit
     static List<StructurePiece> assemble(Structure.Context context, RegistryEntry<StructurePool> pool, Optional<Identifier> startJigsaw, Optional<Direction> startFacing,
                                          BlockPos pos, int size, int limit, List<BlockBox> taken, Fit accept, Fit acceptEnd, Random random) {
         JigsawAssembler assembler = new JigsawAssembler(context, random, accept, acceptEnd, taken);
@@ -157,7 +157,7 @@ final class JigsawAssembler {
     }
 
     private boolean fits(BlockBox box, BlockPos origin, int[] floor, Fit test) {
-        // the box shrunk by one block must not touch another; plain comparisons, as a thin piece shrinks to nothing
+        // the box shrunk by one block must not touch another. Plain comparisons, as a thin piece shrinks to nothing
         for (BlockBox other : boxes) {
             if (box.getMinX() + 1 <= other.getMaxX() && box.getMaxX() - 1 >= other.getMinX()
                     && box.getMinY() + 1 <= other.getMaxY() && box.getMaxY() - 1 >= other.getMinY()

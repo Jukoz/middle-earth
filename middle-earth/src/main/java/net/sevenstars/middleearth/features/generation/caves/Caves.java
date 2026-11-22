@@ -24,7 +24,7 @@ public class Caves {
         MineTunnelPiece.register();
         Registry.register(Registries.FEATURE, MiddleEarth.id("misty_mine_mithril"), MISTY_MINE_MITHRIL);
         Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, MiddleEarth.id("not_in_deeps"), NotInDeepsPlacementModifier.TYPE);
-        // after every other cave feature; does nothing without a mine, though mountain caves share these biomes
+        // after every other cave feature, does nothing without a mine, though mountain caves share these biomes
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                         BiomeKeyRegistryME.IZHERABAN_CAVE, BiomeKeyRegistryME.LIMESTONE_CAVE, BiomeKeyRegistryME.DOLOMITE_CAVE,
                         BiomeKeyRegistryME.DRIPSTONE_CAVE, BiomeKeyRegistryME.MOUNTAIN_CAVE, BiomeKeyRegistryME.BASIC_CAVE,

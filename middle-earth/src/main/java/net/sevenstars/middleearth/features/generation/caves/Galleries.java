@@ -3,12 +3,12 @@ package net.sevenstars.middleearth.features.generation.caves;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
-// the caves just under the Misty Mountains: domed halls joined by smooth tunnels (see GalleryLayout);
+// the caves just under the Misty Mountains: domed halls joined by smooth tunnels (see GalleryLayout),
 // one of these holds the halls and tunnels that reach into a chunk
 public final class Galleries {
     static final float WOBBLE = 0.14f;
     static final float WOBBLE_SCALE = 7;
-    // the simplex noise stays within about plus or minus one; a margin on top for the shortcuts that skip it
+    // the simplex noise stays within about plus or minus one, a margin on top for the shortcuts that skip it
     static final float NOISE_BOUND = 1.25f;
     static final float WOBBLE_BOUND = WOBBLE * NOISE_BOUND;
 

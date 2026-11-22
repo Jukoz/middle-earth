@@ -6,17 +6,16 @@ import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 import java.util.HashMap;
 import java.util.Map;
 
-// named hills set by hand on top of the map height; positions in initial map pixels, sizes in blocks
+// Named hills set by hand on top of the map height. Positions in initial map pixels, sizes in blocks.
 public final class MapHills {
     private static final int CELL = 512;
-    private static final float WOBBLE = 0.12f; // how far the outline strays from an ellipse
+    private static final float WOBBLE = 0.12f;
     private static final double WOBBLE_SCALE = 48;
     private static final int WOBBLE_SALT = 0x7f4a7c15;
-    private static final float WATER_FADE = 10; // blue of the baked height map at which a hill is gone, rivers stay rivers
+    private static final float WATER_FADE = 10; // blue of the height map at which a hill is gone
 
-    // plateau: share of the radius that is flat on top; sharpness above 1 gives steep crowns and long skirts, below 1 round
-    // domes; stretch lengthens the hill along angle (degrees from east, clockwise); level pulls the top flat instead of
-    // carrying the rolling noise up
+    // plateau: flat share of the radius. sharpness above 1 gives steep crowns, below 1 round domes.
+    // stretch lengthens along an angle (degrees from east, clockwise). level flattens the top.
     private static final class Hill {
         final float x;
         final float z;
@@ -28,7 +27,7 @@ public final class MapHills {
         float cos = 1;
         float sin;
         float level;
-        boolean island; // stands in water, so the river fade is skipped
+        boolean island; // skips the river fade
         private volatile CentreBase centre;
 
         Hill(float mapX, float mapZ, float radius, float height) {

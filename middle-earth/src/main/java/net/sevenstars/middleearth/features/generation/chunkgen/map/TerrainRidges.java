@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
-// Tectonic's mountain_ridges: a 150 block base plus detail whose dominant octave is 32 blocks, sampled where the
-// base slope pushes it, so ribs and gullies shear across the flanks; pure function of position and seed, hashed
-// simplex so it never repeats. Callers sample it every 4 blocks and blend, as Tectonic does, or it turns to stripes
+// Tectonic's mountain_ridges: a 150 block base plus 32 block detail, sampled where the base slope pushes it so ribs
+// and gullies shear across the flanks. Pure function of position and seed. Callers sample every 4 blocks and blend,
+// as Tectonic does, or it turns to stripes.
 final class TerrainRidges {
     // blocks per noise cell
     private static final double BASE_SCALE = 218;
@@ -17,7 +17,7 @@ final class TerrainRidges {
     private static final double SLOPE_STEP = 5.9;
     private static final double SHIFT_BLOCKS_PER_UNIT = 1500;
 
-    // stretch factors of the noise space per axis; the larger one lengthens the ridges along that axis
+    // noise stretch per axis, the larger lengthens the ridges along it
     static final double[] NORTH_SOUTH = {1, 2.2};
     static final double[] EAST_WEST = {2.2, 1};
     static final double[] ISOTROPIC = {1, 1};
@@ -45,7 +45,7 @@ final class TerrainRidges {
     private TerrainRidges() {
     }
 
-    // Tectonic's ridges value, about -0.6 to 0.6; the land stands high where it is low
+    // Tectonic's ridges value, about -0.6 to 0.6. Land stands high where it is low.
     static double ridges(double x, double z, double[] stretch, long seed) {
         double px = x / stretch[0];
         double pz = z / stretch[1];

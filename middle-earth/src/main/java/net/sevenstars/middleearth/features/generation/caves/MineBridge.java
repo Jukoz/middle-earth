@@ -48,7 +48,7 @@ final class MineBridge {
         return JigsawBlock.getFacing(jigsaws.get(0).info().state()).getAxis() == Direction.Axis.X ? box.getBlockCountX() : box.getBlockCountZ();
     }
 
-    // span centred on the given block (the deck block), with a landing at each end; empty if a template is missing
+    // span centred on the given block (the deck block), with a landing at each end. Empty if a template is missing
     // or a landing that was asked to have support would hang over a void (see FOOTING_* for the support test)
     static Optional<List<StructurePiece>> bridge(StructureTemplateManager manager, CaveProbe probe, int size, boolean rotten, Direction positive,
                                                  BlockPos centre, boolean lampPositive, boolean lampNegative, boolean supportPositive, boolean supportNegative, boolean landNegative) {

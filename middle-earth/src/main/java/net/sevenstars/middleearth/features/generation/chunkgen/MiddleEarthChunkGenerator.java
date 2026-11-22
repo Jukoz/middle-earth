@@ -69,6 +69,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     private static final int MAX_CLIFF_FACE = 48;
     private static final int MOUNT_DOOM_LAVA_TOP = 100;
     private static final int MOUNT_DOOM_MAGMA_BELOW = 110;
+    private static final BlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
+    private static final BlockState WATER = Blocks.WATER.getDefaultState();
+    private static final BlockState LAVA = Blocks.LAVA.getDefaultState();
+    private static final BlockState MAGMA = Blocks.MAGMA_BLOCK.getDefaultState();
+    private static final BlockState DEEPSLATE = Blocks.DEEPSLATE.getDefaultState();
 
     private final MiddleEarthMapUtils middleEarthMapUtils;
     private final MiddleEarthMapRuntime middleEarthMapRuntime;
@@ -398,6 +403,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         }
         return starts;
     }
+
     @Override
     public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
         int bottomY = chunk.getBottomY();
@@ -454,15 +460,16 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 for(int y = MEDGON_LEVEL + (int) caveBlendNoise; y < NURGON_LEVEL + caveBlendNoise; y++) {
                     trySetBlock(caves, out, x, y, z, posX, posZ, nurgonBlock);
                 }
-                BlockState deepslate = Blocks.DEEPSLATE.getDefaultState();
                 for(int y = NURGON_LEVEL + (int) caveBlendNoise; y < DEEPSLATE_LEVEL + caveBlendNoise; y++) {
-                    trySetBlock(caves, out, x, y, z, posX, posZ, deepslate);
+                    trySetBlock(caves, out, x, y, z, posX, posZ, DEEPSLATE);
                 }
 
                 float dirtHeight = HEIGHT + height - 1;
                 int currentHeight = DEEPSLATE_LEVEL + (int) caveBlendNoise;
                 int totalLayersHeight = (int) (dirtHeight - currentHeight);
-                List<BlocksLayeringData.LayerData> layers = biomeData.getBiome().getBlocksLayering().layers;
+                var biomeType = biomeData.getBiome();
+                var slopeMap = biomeType.getSlopeMap();
+                List<BlocksLayeringData.LayerData> layers = biomeType.getBlocksLayering().layers;
                 for(BlocksLayeringData.LayerData layerData : layers) {
                     int blocks = (int) (totalLayersHeight * layerData.percentage);
                     BlockState layerState = layerData.block.getDefaultState();
@@ -473,7 +480,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 caves.setSurface(posX, posZ, surfaceY);
                 setSkin(caves, out, x, (int) (HEIGHT + height - 2), z, posX, posZ, layers.getLast().block.getDefaultState());
 
-                Block surfaceBlock = biomeData.getBiome().getSlopeMap().slopeDatas.getFirst().block;
+                Block surfaceBlock = slopeMap.slopeDatas.getFirst().block;
                 Block soilBlock = soilBelow(surfaceBlock);
                 boolean belowWater = DIRT_HEIGHT + height < waterHeight;
                 Block underSurfaceBlock;
@@ -481,7 +488,7 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                     surfaceBlock = soilBlock;
                     underSurfaceBlock = soilBlock;
                 } else {
-                    surfaceBlock = biomeData.getBiome().getSlopeMap().getBlockAtAngle(slopeAngle);
+                    surfaceBlock = slopeMap.getBlockAtAngle(slopeAngle);
                     soilBlock = soilBelow(surfaceBlock);
                     if(soilBlock != null) underSurfaceBlock = soilBlock;
                     else if(surfaceBlock == BlockRegistryME.SNOWY_GRASS_BLOCK) underSurfaceBlock = Blocks.DIRT;
@@ -495,12 +502,12 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
                 }
                 setSkin(caves, out, x, surfaceY, z, posX, posZ, surfaceBlock.getDefaultState());
                 if(HelmsDeep.stream(posX, posZ) && !belowWater && !caves.opensBelow(posX, surfaceY, posZ)) {
-                    out.set(x, surfaceY, z, Blocks.WATER.getDefaultState());
+                    out.set(x, surfaceY, z, WATER);
                     chunk.markBlockForPostProcessing(new BlockPos(posX, surfaceY, posZ));
                 }
                 // a cliff shows its face down to the ground beside it, so that face is all the cliff block rather
                 // than a crust over the soil and the layers, which differ from column to column
-                if(!belowWater && isCliff(biomeData.getBiome().getSlopeMap(), slopeAngle)) {
+                if(!belowWater && isCliff(slopeMap, slopeAngle)) {
                     BlockState cliffState = surfaceBlock.getDefaultState();
                     int bottom = surfaceY - Math.min(MAX_CLIFF_FACE, (int) Math.ceil(height - lowestNeighbour(heights, x, z)) + 1);
                     for(int y = surfaceY - 1; y >= bottom; y--) trySetBlock(caves, out, x, y, z, posX, posZ, cliffState);
@@ -508,14 +515,14 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
 
                 if(biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM || biomeRegistryKey == BiomeKeyRegistryME.MOUNT_DOOM_PIT) {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= MOUNT_DOOM_LAVA_TOP; y++) {
-                        out.set(x, y, z, Blocks.LAVA.getDefaultState());
+                        out.set(x, y, z, LAVA);
                     }
                     if(DIRT_HEIGHT + height < MOUNT_DOOM_MAGMA_BELOW) {
-                        out.set(x, surfaceY, z, Blocks.MAGMA_BLOCK.getDefaultState());
+                        out.set(x, surfaceY, z, MAGMA);
                     }
                 } else {
                     for(int y = (int) (DIRT_HEIGHT + height + 1); y <= waterHeight; y++) {
-                        out.set(x, y, z, Blocks.WATER.getDefaultState());
+                        out.set(x, y, z, WATER);
                     }
                 }
 
@@ -596,12 +603,11 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         // rock above this column's water, up to where a higher neighbour's water reaches, so none is left open to the side
         int sealed = water > 0 ? floors.highestFloor(x, z) + water : Integer.MIN_VALUE;
         boolean island = theme == DeepThemes.Theme.GROTTO && DeepThemes.island(posX, posZ, seed);
-        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         for(int y = bottomY; y <= floor; y++) {
-            out.set(x, y, z, bedrock);
+            out.set(x, y, z, BEDROCK);
         }
         for(int y = floor + 1; y <= floor + water; y++) {
-            out.set(x, y, z, Blocks.WATER.getDefaultState());
+            out.set(x, y, z, WATER);
         }
         BlockState medgon = StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState();
         for(int y = floor + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
@@ -620,22 +626,21 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
     }
 
     private static void fillShallowBottom(CaveSampler caves, ColumnWriter out, boolean hasDeepFloors, int bottomY, int x, int z, int posX, int posZ, float caveBlendNoise) {
-        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         if(hasDeepFloors) {
             for(int y = bottomY; y < DepthBands.SHALLOW_FLOOR; y++) {
-                out.set(x, y, z, bedrock);
+                out.set(x, y, z, BEDROCK);
             }
         }
-        out.set(x, DepthBands.SHALLOW_FLOOR, z, bedrock);
+        out.set(x, DepthBands.SHALLOW_FLOOR, z, BEDROCK);
         for(int y = DepthBands.SHALLOW_FLOOR + 1; y <= LAVA_HEIGHT; y++) {
-            out.set(x, y, z, Blocks.LAVA.getDefaultState());
+            out.set(x, y, z, LAVA);
         }
 
         BlockState medgon = StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base().getDefaultState();
         for(int y = DepthBands.SHALLOW_FLOOR + 1; y < MEDGON_LEVEL + caveBlendNoise; y++) {
             trySetBlock(caves, out, x, y, z, posX, posZ, medgon);
         }
-        if(Math.random() < 0.5f) out.set(x, DepthBands.SHALLOW_FLOOR + 1, z, bedrock);
+        if(Math.random() < 0.5f) out.set(x, DepthBands.SHALLOW_FLOOR + 1, z, BEDROCK);
     }
 
     public static float caveBlendNoise(int x, int z, long seed) {
@@ -676,10 +681,9 @@ public class MiddleEarthChunkGenerator extends ChunkGenerator {
         if(result == CaveSampler.STONE) {
             out.set(x, y, z, blockState);
         } else if(result == CaveSampler.WATER) {
-            out.set(x, y, z, Blocks.WATER.getDefaultState());
+            out.set(x, y, z, WATER);
         }
     }
-
 
     public static float getMarshesHeight(int x, int z) {
         float height = -2 + (2.0f * (float) BlendedNoise.noise((double) x / 19,  (double) z / 19));

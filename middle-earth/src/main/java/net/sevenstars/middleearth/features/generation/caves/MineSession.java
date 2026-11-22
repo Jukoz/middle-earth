@@ -36,7 +36,7 @@ final class MineSession {
     final Structure.Context context;
     final CaveProbe probe;
     final BlockBox window;
-    // pieces of each bridge and the mine beyond it, by the piece the bridge starts from; they go when that piece does
+    // pieces of each bridge and the mine beyond it, by the piece the bridge starts from, removed when that piece does
     final Map<StructurePiece, List<StructurePiece>> links = new IdentityHashMap<>();
     private final MistyCaves caves;
     private final Map<Long, DepthBands.Edges> edges = new HashMap<>();
@@ -51,7 +51,7 @@ final class MineSession {
                 ((chunk.x + WINDOW_CHUNKS) << 4) + 15, context.world().getTopYInclusive(), ((chunk.z + WINDOW_CHUNKS) << 4) + 15);
     }
 
-    // the jigsaws of a piece in the order the template gives them; pieces never move, so this is read once
+    // the jigsaws of a piece in the order the template gives them, read once as pieces never move
     List<Opening> openingsOf(PoolStructurePiece piece) {
         return openings.computeIfAbsent(piece, key -> piece.getPoolElement()
                 .getStructureBlockInfos(context.structureTemplateManager(), piece.getPos(), piece.getRotation(), Random.create(0)).stream()
@@ -89,8 +89,8 @@ final class MineSession {
         return box.getMaxY() > column.top(DepthBands.Band.MIDDLE) - TOP_MARGIN || box.getMinY() < column.bottom(DepthBands.Band.MITHRIL);
     }
 
-    // inside the limits, rock under every floor column, not much air in the volume; a cave pocket in it is dug through
-    // a floor over a drop is not built, so pieces stop short of a chasm; the processor fills a one block dip over rock
+    // inside the limits, rock under every floor column, not much air in the volume (a cave pocket is dug through).
+    // a floor over a drop is not built, so pieces stop short of a chasm. The processor fills a one block dip over rock
     boolean fits(BlockBox box, BlockPos origin, int[] floor) {
         if (outOfBounds(box)) return false;
         return floorHolds(box, origin, floor) && volumeHolds(box);

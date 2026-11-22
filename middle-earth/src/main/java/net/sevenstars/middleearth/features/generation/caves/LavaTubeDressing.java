@@ -168,7 +168,7 @@ final class LavaTubeDressing {
         return BLACKSTONE;
     }
 
-    // smooth basalt glaze with rough streaks; magma low down where fire still runs
+    // smooth basalt glaze with rough streaks, magma low down where fire still runs
     private static BlockState wallStone(Context at, int x, int y, int z, Column c) {
         if (c.heat > 0 && y <= c.floor + 1 && at.noise(x, y, z, 4) > 0.65 - 0.5 * c.heat) return MAGMA;
         double streak = SimplexNoise.noise((x + at.tubes.noiseX) / 5.0, y / 16.0, (z + at.tubes.noiseZ) / 5.0);

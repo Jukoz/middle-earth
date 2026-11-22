@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
-// Tectonic's noises (vanilla normal noise: first octave, amplitudes, xz scale) on hashed simplex; the octave weights and
-// value factor are vanilla's, the simplex is widened as for the mountain ridges, then scaled and its tails lifted so
-// the median, p90 and p99 of |value| come within a few percent of vanilla's for these octave sets
+// Tectonic's noises (vanilla first octave, amplitudes, xz scale) on hashed simplex. Octave weights and value factor
+// are vanilla's. The simplex is widened as for the ridges, scaled and its tails lifted so the median, p90 and p99
+// of |value| land within a few percent of vanilla's.
 final class TectonicNoise {
     private static final double WIDEN = 1.45;
     private static final double SCALE = 0.714;

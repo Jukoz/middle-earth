@@ -22,9 +22,10 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.LongStream;
 
-// writes the column blocks into the chunk sections, skipping the light and heightmap bookkeeping of ProtoChunk.setBlockState
-// (light is untracked before INITIALIZE_LIGHT; finish() rebuilds heightmaps like vanilla); other chunk types use the regular path
-// touched sections are built from plain arrays in one go, so the palette does not grow block by block; palette order may differ
+// Writes column blocks straight into chunk sections, skipping the light and heightmap bookkeeping of
+// ProtoChunk.setBlockState (light is untracked before INITIALIZE_LIGHT and finish() rebuilds heightmaps like vanilla).
+// Other chunk types use the regular path. Touched sections are built from plain arrays in one go, so the palette
+// does not grow block by block. Palette order may differ.
 final class ColumnWriter implements BlockBuffer {
     private static final PaletteProvider<BlockState> BLOCK_PALETTE = PaletteProvider.forBlockStates(Block.STATE_IDS);
     private static final BlockState AIR = Blocks.AIR.getDefaultState();

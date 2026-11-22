@@ -23,9 +23,9 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 import java.util.Arrays;
 import java.util.List;
 
-// vanilla's OreFeature with the same random calls in the same order and the same blocks; only the bookkeeping differs:
-// target rule verdicts are kept per block state, the visited set is a reused array, section lookups and air checks skip allocations
-public class FastOreFeature extends Feature<OreFeatureConfig> {
+// vanilla's OreFeature with identical random calls and blocks. Only the bookkeeping differs: rule verdicts are cached
+// per block state, the visited set is a reused array, and section lookups and air checks do not allocate
+public final class FastOreFeature extends Feature<OreFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
     private static final int MAX_CACHED_TARGETS = 64;
     private static final int CACHE_SIZE = 8;
@@ -72,16 +72,19 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
         float angle = random.nextFloat() * (float) Math.PI;
         float halfSpread = config.size / 8.0F;
         int radiusPad = MathHelper.ceil((config.size / 16.0F * 2.0F + 1.0F) / 2.0F);
-        double startX = origin.getX() + Math.sin(angle) * halfSpread;
-        double endX = origin.getX() - Math.sin(angle) * halfSpread;
-        double startZ = origin.getZ() + Math.cos(angle) * halfSpread;
-        double endZ = origin.getZ() - Math.cos(angle) * halfSpread;
+        double sin = Math.sin(angle);
+        double cos = Math.cos(angle);
+        double startX = origin.getX() + sin * halfSpread;
+        double endX = origin.getX() - sin * halfSpread;
+        double startZ = origin.getZ() + cos * halfSpread;
+        double endZ = origin.getZ() - cos * halfSpread;
         double startY = origin.getY() + random.nextInt(3) - 2;
         double endY = origin.getY() + random.nextInt(3) - 2;
-        int minX = origin.getX() - MathHelper.ceil(halfSpread) - radiusPad;
+        int spreadPad = MathHelper.ceil(halfSpread) + radiusPad;
+        int minX = origin.getX() - spreadPad;
         int minY = origin.getY() - 2 - radiusPad;
-        int minZ = origin.getZ() - MathHelper.ceil(halfSpread) - radiusPad;
-        int horizontalSpan = 2 * (MathHelper.ceil(halfSpread) + radiusPad);
+        int minZ = origin.getZ() - spreadPad;
+        int horizontalSpan = 2 * spreadPad;
         int verticalSpan = 2 * (2 + radiusPad);
 
         for (int x = minX; x <= minX + horizontalSpan; x++) {
@@ -101,7 +104,7 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
                 || type == BlockStateMatchRuleTest.class || type == AlwaysTrueRuleTest.class;
     }
 
-    // x, y, z and radius of each blob along the vein; a negative radius marks one swallowed by another
+    // x, y, z and radius per blob, a negative radius marks one swallowed by another
     private static void fillBlobs(double[] blobs, int size, Random random, double startX, double endX, double startY, double endY, double startZ, double endZ) {
         for (int k = 0; k < size; k++) {
             float f = (float) k / size;
@@ -150,8 +153,7 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
 
         List<OreFeatureConfig.Target> targets = config.targets;
         int targetCount = targets.size();
-        // a rule's verdict can be remembered per block state only when it reads nothing but the state; a rule that draws
-        // from the random (the Random* tests) is asked every time, exactly as before
+        // verdicts can be cached per state only for rules that read nothing else, Random* tests are asked every time
         boolean cached = targetCount <= MAX_CACHED_TARGETS;
         for (int k = 0; k < targetCount && cached; k++) cached = deterministic(targets.get(k).target);
         scratch.cachedCount = 0;
@@ -258,11 +260,7 @@ public class FastOreFeature extends Feature<OreFeatureConfig> {
     }
 
     private static boolean shouldNotDiscard(Random random, float chance) {
-        if (chance <= 0.0F) {
-            return true;
-        } else {
-            return chance >= 1.0F ? false : random.nextFloat() >= chance;
-        }
+        return chance <= 0.0F || (chance < 1.0F && random.nextFloat() >= chance);
     }
 
     // Feature.isExposedToAir, looking at the neighbours in the same order and stopping at the first air

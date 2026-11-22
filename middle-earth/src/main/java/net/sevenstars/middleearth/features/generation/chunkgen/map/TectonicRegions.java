@@ -1,8 +1,8 @@
 package net.sevenstars.middleearth.features.generation.chunkgen.map;
 
 // Tectonic's region landforms (Apollounknowndev, MIT), generated from its density function files under
-// worldgen/density_function/region, terrain_spline/offset/depth_additive and region/diamond/dune; values are Tectonic's
-// offsets, 128 blocks per unit. Regenerate rather than edit by hand
+// worldgen/density_function/region, terrain_spline/offset/depth_additive and region/diamond/dune. Values are Tectonic's
+// offsets, 128 blocks per unit. Regenerate rather than edit by hand.
 final class TectonicRegions {
     private TectonicRegions() {
     }
@@ -15,7 +15,7 @@ final class TectonicRegions {
         return in -> value;
     }
 
-    // what the splines read; the noises are filled in by TerrainRegions, the rest set per landform
+    // What the splines read. TerrainRegions fills in the noises, the rest is set per landform.
     static final class In {
         double r;
         double rf;

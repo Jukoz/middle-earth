@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 // miners leave the rock as it is: shell blocks of the templates are skipped, so natural rock and air stay
-// only the floor row is laid, and only on rock; supports, props and webs are kept only where something holds them
+// only the floor row is laid, and only on rock. Supports, props and webs are kept only where something holds them
 public final class MineShellProcessor extends StructureProcessor {
     public static final MapCodec<MineShellProcessor> CODEC = MapCodec.unit(new MineShellProcessor());
     public static final StructureProcessorType<MineShellProcessor> TYPE = () -> CODEC;
@@ -50,7 +50,7 @@ public final class MineShellProcessor extends StructureProcessor {
         if (!world.isChunkLoaded(at.getX() >> 4, at.getZ() >> 4)) return current;
         BlockState existing = world.getBlockState(at);
         if (SHELL.contains(state.getBlock())) {
-            // the floor row sits in the template's lowest layer; it also fills a dip of one block over rock
+            // the floor row sits in the template's lowest layer, and also fills a dip of one block over rock
             return original.pos().getY() == 0 && (solid(existing) || solid(world.getBlockState(at.down()))) ? current : null;
         }
         Role role = role(state);
@@ -70,7 +70,7 @@ public final class MineShellProcessor extends StructureProcessor {
     }
 
     // supports bottom-up on what is under them, beams on a kept post or rock, standing props on what is under them, hanging
-    // things on what is above, ladders on the wall behind; webs where they are attached
+    // things on what is above, ladders on the wall behind, webs where they are attached
     @Override
     public List<StructureTemplate.StructureBlockInfo> reprocess(ServerWorldAccess world, BlockPos pos, BlockPos pivot, List<StructureTemplate.StructureBlockInfo> original,
                                                                 List<StructureTemplate.StructureBlockInfo> current, StructurePlacementData data) {

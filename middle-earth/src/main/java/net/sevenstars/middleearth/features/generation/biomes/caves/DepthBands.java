@@ -44,8 +44,8 @@ public final class DepthBands {
     private DepthBands() {
     }
 
-    // the band edges of one column; the lower bands claim the rock first, so a low surface squeezes the upper ones out
-    // tops are exclusive; the wobble is the stone layers' own
+    // the band edges of one column, the lower bands claim the rock first, so a low surface squeezes the upper ones out
+    // tops are exclusive, the wobble is the stone layers' own
     public record Edges(int surface, int floor, int cap, int upperBottom, int middleBottom, int mithrilBottom) {
         public static Edges of(int surface, int floor, float blend) {
             int cap = surface - UPPER_DEPTH;
@@ -92,14 +92,11 @@ public final class DepthBands {
 
     // null above the cave line, where the surface biome rules
     public static Span at(int y, Edges edges) {
-        if(y >= edges.cap()) return null;
-        for(Band band : BANDS) {
-            if(y >= edges.bottom(band) || band == Band.DEEPS) return new Span(band, edges.bottom(band), edges.top(band) - 1);
-        }
-        return null;
+        Band band = bandAt(y, edges);
+        return band == null ? null : new Span(band, edges.bottom(band), edges.top(band) - 1);
     }
 
-    // the band of at(y, edges), without the span; null above the cave line
+    // the band of at(y, edges), without the span, null above the cave line
     public static Band bandAt(int y, Edges edges) {
         if(y >= edges.cap()) return null;
         for(Band band : BANDS) {
@@ -112,7 +109,7 @@ public final class DepthBands {
         return floorFor(x, z, map.getDepth(x, z), seed);
     }
 
-    // whole blocks below -64 by the depth of the map; the wobble breaks up contour lines on a gentle slope
+    // whole blocks below -64 by the depth of the map, the wobble breaks up contour lines on a gentle slope
     // and fades towards both ends, so a column with no depth stays exactly at the old floor
     public static int floorFor(int x, int z, float depth, long seed) {
         if(depth <= 0) return SHALLOW_FLOOR;

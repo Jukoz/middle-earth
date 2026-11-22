@@ -107,7 +107,7 @@ public final class MistyCaveDecorator {
         int surface = surfaceY[lx * CHUNK + lz];
         int bottom = Math.max(chunk.getBottomY() + 2, Math.min(upperBottom, Galleries.layerFloor(caves, x, z) - 2));
         int top = Math.min(surface - 2, chunk.getTopYInclusive() - 2);
-        // the block above is read once and carried to the next step; it is replaced when a snow layer goes there
+        // the block above is read once and carried to the next step, replaced when a snow layer goes there
         BlockState carried = null;
         for (int y = bottom; y <= top; y++) {
             BlockState state = carried != null ? carried : blocks.get(x, y, z);
@@ -149,7 +149,7 @@ public final class MistyCaveDecorator {
         }
     }
 
-    // air below its column's ground; open sky beside a slope is no cave wall
+    // air below its column's ground. Open sky beside a slope is no cave wall
     private static boolean caveAir(BlockBuffer blocks, int[] surfaceY, int x, int y, int z, int lx, int lz) {
         return y < surfaceY[lx * CHUNK + lz] - 1 && blocks.get(x, y, z).isAir();
     }

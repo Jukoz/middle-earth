@@ -22,8 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(CloudRenderer.class)
 public class CloudRendererMixin {
-    // blocks under the camera column's highest solid block that count as underground; the way back out is a little shorter,
-    // so the clouds do not flicker at a cave mouth
+    // blocks below the column's top that count as underground, the way out is shorter so clouds do not flicker at a cave mouth
     @Unique
     private static final double HIDE_BELOW = 4;
     @Unique
@@ -38,7 +37,7 @@ public class CloudRendererMixin {
     @Unique
     private static double lastTime = Double.NaN;
 
-    // scales the opacity of the clouds by how far they have faded; the colour is argb
+    // scales the argb opacity by the fade progress
     @ModifyVariable(method = "renderClouds", at = @At("HEAD"), argsOnly = true, index = 1)
     private int fadeClouds(int color, int unused, CloudRenderMode mode, float cloudHeight, Vec3d cameraPos, long time, float tickProgress) {
         ClientWorld world = MinecraftClient.getInstance().world;

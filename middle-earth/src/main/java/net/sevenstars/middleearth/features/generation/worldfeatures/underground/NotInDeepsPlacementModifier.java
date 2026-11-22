@@ -10,8 +10,8 @@ import net.sevenstars.middleearth.features.generation.biomes.caves.DepthBands;
 import net.sevenstars.middleearth.features.generation.chunkgen.MiddleEarthChunkGenerator;
 import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapRuntime;
 
-// keeps the fire features out of the deeps, and far enough above them that a blob cannot spill in
-// a column with the usual floor has no deeps, so nothing changes there
+// keeps the fire features out of the deeps, and far enough above that a blob cannot spill in.
+// Columns with the usual floor have no deeps, so nothing changes there
 public final class NotInDeepsPlacementModifier extends AbstractConditionalPlacementModifier {
     public static final NotInDeepsPlacementModifier INSTANCE = new NotInDeepsPlacementModifier();
     public static final MapCodec<NotInDeepsPlacementModifier> CODEC = MapCodec.unit(INSTANCE);

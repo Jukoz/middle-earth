@@ -11,7 +11,7 @@ import static net.sevenstars.middleearth.features.generation.caves.Galleries.WOB
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 
-// from one hall's centre to another's, the floor sloping evenly between theirs; some cross a crevasse on an ice
+// from one hall's centre to another's, the floor sloping evenly between theirs. Some cross a crevasse on an ice
 // bridge, and on steep ones the drop is gathered into a frozen waterfall with a ledge round it
 final class Tunnel {
     enum Kind { PLAIN, CREVASSE, WATERFALL }
@@ -35,6 +35,10 @@ final class Tunnel {
     private static final int ICEFALL_DEPTH = 18; // down the crevasse walls under the bridge
     private static final float STREAM_MEANDER = 1.2f;
     private static final float STREAM_HALF_WIDTH = 1.3f;
+
+    private static final BlockState BLUE_ICE = Blocks.BLUE_ICE.getDefaultState();
+    private static final BlockState PACKED_ICE = Blocks.PACKED_ICE.getDefaultState();
+    private static final BlockState ICE = Blocks.ICE.getDefaultState();
 
     final Kind kind;
     final Hall a;
@@ -187,7 +191,7 @@ final class Tunnel {
         return along < gap * wob * narrowing * (1 - 0.5f * lateral * lateral);
     }
 
-    // the bridge: a rib of rock sagging a block in the middle, ragged, deepest at the lips; a is along from the middle
+    // the bridge: a rib of rock sagging a block in the middle, ragged, deepest at the lips. "a" is along from the middle
     private boolean fin(float a, float u, int y, int floor) {
         if (Math.abs(u) >= finWidth(a)) return false;
         return y < finTop(a, floor) && y >= finBottom(a, u, floor);
@@ -258,7 +262,7 @@ final class Tunnel {
                     float sheet = (float) SimplexNoise.noise((bx + layout.misty.offsetX) / 4.0, (bz + layout.misty.offsetZ) / 4.0);
                     BlockState below = blocks.get(bx, y, bz);
                     if (sheet > 1.6f * (off - gap) / BRIDGE_APPROACH - 0.8f && !below.isAir() && below.getFluidState().isEmpty()) {
-                        blocks.put(bx, y, bz, off < gap + 2 ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+                        blocks.put(bx, y, bz, off < gap + 2 ? BLUE_ICE : PACKED_ICE);
                     }
                 }
                 if (off > gap * (1 + WOBBLE) + 1 || Math.abs(u) > reach) continue;
@@ -267,7 +271,7 @@ final class Tunnel {
                 for (int y = bottom; y < floor; y++) {
                     if (!fin(a, u, y, floor) || !touches(air, bx, y, bz, true)) continue;
                     float vein = (float) SimplexNoise.noise((bx + layout.misty.offsetX) / 3.0, y / 3.0, (bz + layout.misty.offsetZ) / 3.0);
-                    blocks.put(bx, y, bz, vein > 0.2f ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+                    blocks.put(bx, y, bz, vein > 0.2f ? BLUE_ICE : PACKED_ICE);
                 }
                 if (Math.abs(u) < finWidth(a)) Icicles.maybeHang(blocks, bx, bottom - 1, bz, mix(bx, bottom, bz ^ hash) & 0xFF, BRIDGE_ICICLES);
                 if (Math.abs(u) > finWidth(a) + 3) continue;
@@ -276,7 +280,7 @@ final class Tunnel {
                     if (state.isAir() || !state.getFluidState().isEmpty() || fin(a, u, y, floor) || !touches(air, bx, y, bz, false)) continue;
                     float fade = 1 - (floor - y) / (float) ICEFALL_DEPTH;
                     float flow = (float) SimplexNoise.noise((bx + layout.misty.offsetZ) / 2.0, y / 6.0, (bz + layout.misty.offsetX) / 2.0);
-                    if (flow > 1 - 1.8f * fade) blocks.put(bx, y, bz, flow > 0.6f ? Blocks.BLUE_ICE.getDefaultState() : Blocks.PACKED_ICE.getDefaultState());
+                    if (flow > 1 - 1.8f * fade) blocks.put(bx, y, bz, flow > 0.6f ? BLUE_ICE : PACKED_ICE);
                 }
             }
         }
@@ -288,7 +292,7 @@ final class Tunnel {
     }
 
     // a frozen fall down the face of the drop, thicker at its foot, a frozen pool below and a frozen stream
-    // running to its lip; the ledge is left clear
+    // running to its lip, the ledge is left clear
     private void waterfall(BlockBuffer blocks, int startX, int startZ) {
         for (int bx = Math.max(box.minX(), startX); bx <= Math.min(box.maxX(), startX + 15); bx++) {
             for (int bz = Math.max(box.minZ(), startZ); bz <= Math.min(box.maxZ(), startZ + 15); bz++) {
@@ -332,6 +336,6 @@ final class Tunnel {
 
     private static void freeze(BlockBuffer blocks, int x, int y, int z) {
         BlockState bed = blocks.get(x, y, z);
-        if (!bed.isAir() && bed.getFluidState().isEmpty()) blocks.put(x, y, z, Blocks.ICE.getDefaultState());
+        if (!bed.isAir() && bed.getFluidState().isEmpty()) blocks.put(x, y, z, ICE);
     }
 }

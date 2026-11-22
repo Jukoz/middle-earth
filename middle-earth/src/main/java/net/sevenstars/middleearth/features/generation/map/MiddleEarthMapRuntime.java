@@ -62,7 +62,7 @@ public class MiddleEarthMapRuntime {
         }
     }
 
-    // Blocks the bottom of the world lies below y -64: bilinear between the pixels of the depth map, 0 outside the map
+    // blocks the world bottom lies below y -64, bilinear between depth map pixels, 0 outside the map
     public float getDepth(int posX, int posZ) {
         if(depths == null || !middleEarthMapUtils.isWorldCoordinateInBorder(posX, posZ)) return 0;
         float scale = middleEarthMapUtils.ratioX * MiddleEarthMapConfigs.DEPTH_STEP;
@@ -126,8 +126,7 @@ public class MiddleEarthMapRuntime {
         return (int)((float)pos / MiddleEarthMapConfigs.PIXEL_WEIGHT % MiddleEarthMapConfigs.REGION_SIZE);
     }
 
-    // The last region a thread used, so a lookup in the same region allocates no key. It is dropped whenever a purge removed
-    // regions, so a purged region is not kept alive by a thread.
+    // last region a thread used, so a repeat lookup allocates no key. Dropped when a purge removed regions.
     private static final class LastRegion {
         int x = Integer.MIN_VALUE;
         int z;
@@ -139,7 +138,7 @@ public class MiddleEarthMapRuntime {
     private volatile int purgeEpoch;
 
     private MiddleEarthMapRegion regionAt(int posX, int posZ) {
-        // the same cells as getRegionByWorldCoordinate: truncating division, twice
+        // truncating division twice, as getRegionByWorldCoordinate
         int regionX = posX / MiddleEarthMapConfigs.PIXEL_WEIGHT / MiddleEarthMapConfigs.REGION_SIZE;
         int regionZ = posZ / MiddleEarthMapConfigs.PIXEL_WEIGHT / MiddleEarthMapConfigs.REGION_SIZE;
         purgeRegions();
@@ -155,23 +154,20 @@ public class MiddleEarthMapRuntime {
     }
 
     private void purgeRegions() {
-        // Block delay
         if(currentValidationBlockCount.incrementAndGet() < MiddleEarthMapConfigs.BIOME_VALIDATION_BLOCK_DELAY) return;
         currentValidationBlockCount.set(0);
 
-        // Tick delay
         int serverTick = middleEarthMapUtils.getTick();
         if(serverTick - latestValidationTick < MiddleEarthMapConfigs.BIOME_VALIDATION_TICK_DELAY) return;
-        // several world generation threads can get here at once, only one of them purges
+        // only one generation thread purges
         if(!purging.compareAndSet(false, true)) return;
 
         try{
             latestValidationTick = serverTick;
 
-            // Create purge array
             List<Vector2i> toPurge = new ArrayList<>();
             List<Vector2i> playerCoordinates = new ArrayList<>();
-            // the player list belongs to the server thread, so copy it before reading
+            // the player list belongs to the server thread, copy first
             for(ServerPlayerEntity player : new ArrayList<>(middleEarthMapUtils.getPlayers())){
                 if(player == null) continue;
                 playerCoordinates.add(new Vector2i(player.getBlockX(), player.getBlockZ()));
@@ -189,8 +185,6 @@ public class MiddleEarthMapRuntime {
                     toPurge.add(key);
             });
 
-            // Purging
-            //MiddleEarth.LOGGER.logDebugMsg("Purging [%s/%s] regions (tick : %s)".formatted(toPurge.size(), regions.size(), serverTick));
             for (Vector2i region : toPurge){
                 regions.remove(region);
             }

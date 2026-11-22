@@ -50,7 +50,7 @@ public class ProceduralStructures {
             }
         } else if(distance < isengardRingRadius + isengardRingThickness + isengardRingHillThickness) { // ring hills (before walls)
             if (distance > isengardRingRadius - isengardRingThickness - isengardRingHillThickness) {
-                float percentageDistance = Math.abs(Math.abs(isengardRingRadius - distance));
+                float percentageDistance = Math.abs(isengardRingRadius - distance);
                 percentageDistance = (isengardRingThickness + isengardRingHillThickness) - percentageDistance;
                 float hillHeight = Math.min(3, 0.4f * percentageDistance);
 

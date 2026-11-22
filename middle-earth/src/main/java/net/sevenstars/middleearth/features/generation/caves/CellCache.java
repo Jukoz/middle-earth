@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.LongFunction;
 
-// results per grid cell, absent ones included; cleared when it fills or the world seed changes
+// results per grid cell, absent ones included, cleared when it fills or the world seed changes
 final class CellCache<T> {
     private static final Object NONE = new Object();
 

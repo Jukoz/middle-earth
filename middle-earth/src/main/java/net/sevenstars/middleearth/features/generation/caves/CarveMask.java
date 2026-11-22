@@ -5,6 +5,8 @@ import java.util.List;
 
 // a shape's carving worked out once over a box, so the many neighbour checks of a dressing pass are lookups
 final class CarveMask implements Walk.Carving {
+    static final int[][] SIDES = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
+
     private final Walk.Carving shape;
     private final int x0;
     private final int y0;
@@ -14,7 +16,7 @@ final class CarveMask implements Walk.Carving {
     private final int sizeZ;
     private final boolean[] air;
 
-    // the box is inclusive; points outside it are asked of the shape
+    // the box is inclusive, points outside it are asked of the shape
     CarveMask(Walk.Carving shape, int minX, int maxX, int minY, int maxY, int minZ, int maxZ) {
         this.shape = shape;
         this.x0 = minX;
@@ -31,9 +33,7 @@ final class CarveMask implements Walk.Carving {
         }
     }
 
-    private static final int[][] SIDES = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
-
-    // lumps of rock of at most `limit` blocks with carving all round are counted as carved; they depend only on
+    // lumps of rock of at most `limit` blocks with carving all round are counted as carved, they depend only on
     // the shape, so neighbouring chunks agree
     void clearIslands(int limit) {
         boolean[] loose = new boolean[air.length];

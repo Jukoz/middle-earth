@@ -94,7 +94,7 @@ public final class ImageUtils {
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                     colorOccurences.clear();
                 } catch (Exception exception) {
-                    //MiddleEarth.LOGGER.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    // leave the pixel as it was
                 }
                 colorOccurences.clear();
 
@@ -125,7 +125,7 @@ public final class ImageUtils {
                     Integer color = getMostOccuringColorFromBiomeList(colorOccurences, x, y);
                     result.setRGB(x, y, (color != null ) ? color : colorOccurences.get(0));
                 } catch (Exception exception) {
-                    //MiddleEarth.LOGGER.logError("ImageUtils::Can't find color at [%s,%s]".formatted(x,y));
+                    // leave the pixel as it was
                 }
                 colorOccurences.clear();
             }
@@ -235,8 +235,8 @@ public final class ImageUtils {
         }
     }
 
-    // The depth of the world's bottom from the biomes of the map, as grey levels of 0 to 64 blocks. A max filter first keeps a range's core
-    // at its full depth, then a wide gaussian lets the floor slope out under the foothills; the result is averaged down by step.
+    // Depth of the world's bottom from the map biomes, as grey levels of 0 to 64 blocks. A max filter keeps a range's
+    // core at full depth, then a wide gaussian slopes the floor out under the foothills. The result is averaged down by step.
     public static BufferedImage depth(BufferedImage biomes, int dilation, float sigma, float cutoff, int step) {
         int width = biomes.getWidth();
         int height = biomes.getHeight();

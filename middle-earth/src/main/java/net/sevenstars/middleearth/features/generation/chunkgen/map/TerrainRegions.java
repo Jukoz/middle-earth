@@ -10,11 +10,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-// Tectonic's regions on the lowlands: each biome is given the region family and the temperature and vegetation bands
-// that pick its landform in Tectonic, and the landforms are blended across biome borders on a world-fixed lattice
+// Tectonic's regions on the lowlands, blended across biome borders on a world-fixed lattice.
 final class TerrainRegions {
     enum Landform {
-        // Tectonic family, temperature band, vegetation band
         ROLLING_HILLS(Family.HEART, 2, 1),
         PLATEAU(Family.CLUB, 4, 3),
         COLD_PLATEAU(Family.CLUB, 1, 1),
@@ -37,12 +35,11 @@ final class TerrainRegions {
         }
     }
 
-    // club and spade are Tectonic's strong families, with a weak version and a flat neighbour picked by its selector
+    // club and spade have a weak version and a flat neighbour picked by the selector
     enum Family { CLUB, SPADE, HEART, DIAMOND }
 
     private static final Map<RegistryKey<Biome>, Landform> LANDFORMS = new HashMap<>();
 
-    // checked against the lore: Tolkien seldom gives the lie of the land, so most of these only go unchallenged
     static {
         assign(Landform.ROLLING_HILLS, BiomeKeyRegistryME.ROHAN, BiomeKeyRegistryME.ROHAN_FIELD, BiomeKeyRegistryME.THE_WOLD,
                 BiomeKeyRegistryME.THE_WOLD_WHEAT_FIELD, BiomeKeyRegistryME.ENEDWAITH, BiomeKeyRegistryME.ENEDWAITH_FIELD,
@@ -64,7 +61,7 @@ final class TerrainRegions {
                 BiomeKeyRegistryME.WITHERED_HEATH, BiomeKeyRegistryME.DALE, BiomeKeyRegistryME.OLD_RHUDAUR);
         assign(Landform.DOUBLE_VALLEY, BiomeKeyRegistryME.ITHILIEN, BiomeKeyRegistryME.ITHILIEN_GLADE, BiomeKeyRegistryME.ITHILIEN_WASTES,
                 BiomeKeyRegistryME.ITHILIEN_WASTES_GLADE);
-        // no lore for Torogwaith either way; Harad and Harondor are only desert land, so they keep the painted terrain
+        // No lore for Torogwaith either way. Harad and Harondor are plain desert, so they keep the painted terrain.
         assign(Landform.BADLANDS, BiomeKeyRegistryME.TOROGWAITH);
         assign(Landform.TIERS, BiomeKeyRegistryME.BELFALAS, BiomeKeyRegistryME.LOSSARNACH, BiomeKeyRegistryME.DRUWAITH_IAUR,
                 BiomeKeyRegistryME.NURN_EDGE);
@@ -87,21 +84,20 @@ final class TerrainRegions {
     private static final float MIN_SHARE = 0.001f;
 
     private static final double BLOCKS_PER_UNIT = 128;
-    private static final double VERTICAL_SCALE = 1.125; // Tectonic's, on the offsets above sea level only
-    private static final double FLAT = 0.01; // Tectonic's level land, which our map height already is
-    private static final double RIVER_FLOOR = 0.1; // the channels Tectonic cuts where its ridge noise is 0 are left out, the map has its rivers
-    private static final double FACTOR = 5.6; // Tectonic's squash outside the windswept band, dunes are added after it
+    private static final double VERTICAL_SCALE = 1.125;
+    private static final double FLAT = 0.01;
+    private static final double RIVER_FLOOR = 0.1; // no Tectonic river channels, the map has its rivers
+    private static final double FACTOR = 5.6;
     private static final double SEA = 63.52;
-    private static final double SELECTOR_SKEW = 0; // Tectonic's 0.1 leaves half its regions flat, these are chosen per biome
-    private static final float WETLAND_WATER_FADE = 3; // quicker for the wetlands
-    private static final float WATER_FADE = 10;
-    private static final double SHORE_START = 1; // blocks above the water where a landform starts to show
-    private static final double SHORE_WIDTH = 6; // and over which it comes in fully // blue of the baked height map at which a landform is gone, as for the named hills
+    private static final double SELECTOR_SKEW = 0; // Tectonic's 0.1 would leave half the regions flat
+    private static final float WETLAND_WATER_FADE = 3;
+    private static final float WATER_FADE = 10; // blue of the height map at which a landform is gone
+    private static final double SHORE_START = 1;
+    private static final double SHORE_WIDTH = 6;
 
     private TerrainRegions() {
     }
 
-    // the height with the landforms of the nearby lowland biomes added
     static float raise(int x, int z, float height) {
         float[] shares = SHARES.get();
         sharesAt(x, z, shares);
@@ -113,7 +109,7 @@ final class TerrainRegions {
         float fade = Math.max(0, 1 - water / WATER_FADE);
         if (fade <= 0) return height;
 
-        // and where the ground already lies at the water line: rivers and their banks keep their shape
+        // ground already at the water line keeps its shape
         double surface = MiddleEarthChunkGenerator.DIRT_HEIGHT + height;
         int waterHeight = MiddleEarthMapRuntime.getInstance().getBiome(x, z).getWaterHeight();
         float shore = (float) Math.clamp((surface - waterHeight - SHORE_START) / SHORE_WIDTH, 0, 1);
@@ -132,15 +128,14 @@ final class TerrainRegions {
             if (offset > 0) offset *= VERTICAL_SCALE;
             double blocks;
             if (landform == Landform.WETLAND) {
-                // set to Tectonic's own level, so its ponds sink below the water line
+                // Tectonic's own level, so its ponds sink below the water line
                 blocks = SEA + BLOCKS_PER_UNIT * offset - surface;
             } else {
                 blocks = BLOCKS_PER_UNIT * (offset - FLAT * hm * VERTICAL_SCALE);
             }
             if (landform == Landform.DUNES) blocks += BLOCKS_PER_UNIT * dunes(in) / FACTOR;
             if (landform == Landform.JUNGLE) blocks += BLOCKS_PER_UNIT * pillars(in);
-            // wetlands belong at the water line but stay out of the rivers, where their ponds would break the river
-            // into patches; everything else fades out towards the water line
+            // wetlands stay out of rivers, everything else fades out towards the water line
             change += share * blocks * (landform == Landform.WETLAND ? Math.max(0, 1 - water / WETLAND_WATER_FADE) : shore);
         }
         return height + (float) (fade * change);
@@ -172,7 +167,7 @@ final class TerrainRegions {
         return a + t * (b - a);
     }
 
-    // inland, in the erosion band of the regions and with the selector open, as Tectonic needs for dunes and pillars
+    // inland, mid erosion, selector open, as Tectonic needs for dunes and pillars
     private static double dunes(TectonicRegions.In in) {
         double sel = in.sel;
         double ef = in.ef;
@@ -221,8 +216,7 @@ final class TerrainRegions {
         in.offsetZ = Math.cos(Math.PI * wind);
     }
 
-    // shares of each landform from the map biomes nearby, on a world-fixed lattice and bilinear between its points, so
-    // the landforms fade across biome borders and chunks agree
+    // landform shares from nearby map biomes, bilinear between lattice points
     private static final ThreadLocal<float[]> SHARES = ThreadLocal.withInitial(() -> new float[ALL.length]);
 
     private static final class Point {

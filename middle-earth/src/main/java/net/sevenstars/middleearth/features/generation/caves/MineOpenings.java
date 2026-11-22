@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// the jigsaws of a list of pieces, flattened in piece order; the ones of a piece are next to each other
+// the jigsaws of a list of pieces, flattened in piece order, the ones of a piece are next to each other
 final class MineOpenings {
     final List<BlockPos> positions = new ArrayList<>();
     final List<Direction> facings = new ArrayList<>();

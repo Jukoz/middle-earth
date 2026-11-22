@@ -18,7 +18,7 @@ final class Icicles {
         }
     }
 
-    // roll is out of 256; half the hits are long icicles where there is room
+    // roll is out of 256, half the hits are long icicles where there is room
     static void maybeHang(BlockBuffer blocks, int x, int y, int z, int roll, int chance) {
         if (roll >= chance || !blocks.get(x, y, z).isAir()) return;
         hang(blocks, x, y, z, roll < chance / 2 && blocks.get(x, y - 1, z).isAir());

@@ -14,7 +14,7 @@ import static net.sevenstars.middleearth.features.generation.caves.LavaTubes.u;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 
-// rivers trimmed off a mountain's foot run on under it: a pool, a channel at river level, a dark lake; laid out per seed
+// rivers trimmed off a mountain's foot run on under it: a pool, a channel at river level, a dark lake, laid out per seed
 public final class RiverCaves {
     public static final int NONE = 0;
     public static final int AIR = 1;
@@ -31,7 +31,7 @@ public final class RiverCaves {
     private static final int POOL_BANK_TOP = 10; // no bank is cut higher above the water
     private static final float POOL_BANK_MAX = (POOL_BANK_TOP - 1) * POOL_BANK;
     private static final float BANK_WIDTH = 2;
-    private static final float SHELF = 0.82f; // share of the lake's radius under water; the rest is shelf
+    private static final float SHELF = 0.82f; // share of the lake radius under water, the rest is shelf
     private static final int QUIET = 6; // other caves keep this far off so the water stays in
     private static final int GRID = 32;
     private static final float WOBBLE = 0.1f;
@@ -113,7 +113,7 @@ public final class RiverCaves {
         return 1 + WOBBLE * (float) SimplexNoise.noise((x + noiseX) / 9.0, y / 6.0, (z + noiseZ) / 9.0);
     }
 
-    // one chunk's share; not thread safe, it caches the last column and wobble
+    // one chunk's share, not thread safe, it caches the last column and wobble
     public static final class Near {
         final RiverCaves caves;
         final Piece[] pieces;
@@ -217,7 +217,7 @@ public final class RiverCaves {
         List<float[]> course = resample(line, hash);
         if (course.size() < 8) return;
         float roofTop = (ROOF + ROOF_VARY) * SWELL;
-        // mouth: first point with enough rock over the roof; the pool sits back where the ground opens
+        // mouth: first point with enough rock over the roof, the pool sits back where the ground opens
         int mouth = -1;
         for (int i = 0; i < course.size(); i++) {
             float[] p = course.get(i);
@@ -263,7 +263,7 @@ public final class RiverCaves {
         pieces.add(new Lake(cx, cz, water, radius, 9 + 3 * u(hash, 4), 5 + Math.round(3 * u(hash, 5)), hash));
     }
 
-    // the baked river stops short of its last pixel; lead the course back to open water
+    // the baked river stops short of its last pixel, lead the course back to open water
     private static float[][] reachWater(float[][] line, int water) {
         float[] x = line[0];
         float[] z = line[1];
@@ -314,7 +314,7 @@ public final class RiverCaves {
         return new float[][]{x, z};
     }
 
-    // points every STEP along the line, pushed sideways a little so the channel winds; {x, z, along}
+    // points every STEP along the line, pushed sideways a little so the channel winds, {x, z, along}
     private static List<float[]> resample(float[][] line, int hash) {
         List<float[]> out = new ArrayList<>();
         float phase = 100 * u(hash, 6);

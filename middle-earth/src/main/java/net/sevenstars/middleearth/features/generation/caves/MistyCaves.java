@@ -204,12 +204,12 @@ public final class MistyCaves {
         return DepthBands.Edges.of((int) surface(x, z), DepthBands.deepFloor(map, x, z, seed), MiddleEarthChunkGenerator.caveBlendNoise(x, z, seed));
     }
 
-    // the sideways offset of the centreline at this distance along it; zero at the centre
+    // the sideways offset of the centreline at this distance along it, zero at the centre
     static float ravineLateral(Shaft shaft, int t) {
         return shaft.amplitude * ((float) SimplexNoise.noise(shaft.wobble + 17, t / RAVINE_MEANDER_SCALE) - shaft.meanderBase);
     }
 
-    // out[index]: distance across the centreline; out[index + 1]: half width before depth profile, 0 beyond the ends
+    // out[index]: distance across the centreline, out[index + 1]: half width before depth profile, 0 beyond the ends
     public static void shaftColumn(Shaft shaft, int x, int z, float[] out, int index) {
         int t = shaft.alongX ? x - shaft.x : z - shaft.z;
         int u = shaft.alongX ? z - shaft.z : x - shaft.x;
@@ -235,8 +235,8 @@ public final class MistyCaves {
         return wobble;
     }
 
-    // cross-section factor at this height, with shaftWobble, for a column with these band edges; 0 where closed
-    // ravine: middle band above the mithril; abyss: top of the middle band (or 50-78 under the surface if lower) to the floor
+    // cross-section factor at this height, with shaftWobble, for a column with these band edges, 0 where closed
+    // ravine: middle band above the mithril. Abyss: top of the middle band (or 50-78 under the surface if lower) to the floor
     public static float shaftScale(Shaft shaft, int y, DepthBands.Edges edges, float wobble) {
         int floor = edges.floor();
         int bottom = shaft.abyss ? floor + (floor < DepthBands.SHALLOW_FLOOR ? ABYSS_DEEP_CLEARANCE : SHAFT_FLOOR_CLEARANCE) + shaft.spread % 3
@@ -440,7 +440,7 @@ public final class MistyCaves {
         out[index + 1] = 1 + LAKE_DOME_WOBBLE * MathHelper.clamp(dome, -1, 1);
     }
 
-    // chamber, pillars, islands and the solid shell below and around the water; the tunnel is checked on its own
+    // chamber, pillars, islands and the solid shell below and around the water. The tunnel is checked on its own
     public static int lakeState(Lake lake, float wobble, float dome, int x, int y, int z) {
         int top = lake.waterTop;
         float height = lake.height * dome;
@@ -491,7 +491,7 @@ public final class MistyCaves {
         return false;
     }
 
-    // straight tunnel climbing away from the chamber's air; always above the water line
+    // straight tunnel climbing away from the chamber's air, always above the water line
     public static boolean inLakeTunnel(Lake lake, int x, int y, int z) {
         float px = x + 0.5f - lake.tunnelX;
         float py = y + 0.5f - lake.tunnelY;

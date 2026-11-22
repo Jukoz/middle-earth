@@ -38,7 +38,7 @@ final class CaveSampler {
     private static final int CELL = 2;
     private static final int CORNERS = CHUNK_SIZE / CELL + 1;
     private static final int VALUES = 6;
-    // base cave noise is sampled every 4 blocks of height, twice as far apart as in x and z; the Misty channels keep CELL
+    // base cave noise is sampled every 4 blocks of height, twice as far apart as in x and z. The Misty channels keep CELL
     private static final int BASE_CELL_Y = 4;
     private static final int PAGE_LAYERS = 16;
     private static final int LAYER_SIZE = CORNERS * CORNERS * VALUES;
@@ -54,6 +54,7 @@ final class CaveSampler {
     private static final int ISLAND_ROCK = 2;
     private static final int ISLAND_FLUID = 3;
     private static final int ISLAND_VISITING = 4;
+    private static final int ISLAND_TYPE_MASK = 3;
     private static final int ISLAND_BIG = 8;
     private static final byte SOLID_CELL = 1;
     private static final byte CARVING_CELL = 2;
@@ -77,10 +78,10 @@ final class CaveSampler {
     private final float[][] layerPages;
     private final PagePool pool;
     private final boolean[] layerDone;
-    // per cell, 0 not decided yet, else the verdict of cellVerdict; null for the probe, which keeps its own small map
+    // per cell, 0 not decided yet, else the verdict of cellVerdict. Null for the probe, which keeps its own small map
     private final byte[] cellVerdict;
     private final float[] cellValues = new float[8 * VALUES];
-    // the probe's verdicts, by cell (-1 to 8 each way) and layer; 0 until known
+    // the probe's verdicts, by cell (-1 to 8 each way) and layer, 0 until known
     private byte[] looseVerdicts;
     private final MistyCaves misty;
     private final float[] mistyWeight; // null when no corner of the chunk is Misty
@@ -109,7 +110,7 @@ final class CaveSampler {
     private int shaftMaxY;
     private int lakeMinY;
 
-    // the blend weights and corner blends of the column being sampled; a stamp marks a slot as filled for that column
+    // blend weights and corner blends of the current column, a stamp marks a slot as filled for it
     private int columnX = -1;
     private int columnZ = -1;
     private int cellX;
@@ -232,9 +233,7 @@ final class CaveSampler {
                 float c10 = latticeWeights[(i + 1) * lattice + j];
                 float c01 = latticeWeights[i * lattice + j + 1];
                 float c11 = latticeWeights[(i + 1) * lattice + j + 1];
-                float top = c00 + (c10 - c00) * fx;
-                float bottom = c01 + (c11 - c01) * fx;
-                float w = top + (bottom - top) * fz;
+                float w = bilerp(c00, c10, c01, c11, fx, fz);
                 int corner = cornerX * CORNERS + cornerZ;
                 mistyWeight[corner] = w;
                 int cornerWorldX = startX + cornerX * CELL;
@@ -344,7 +343,6 @@ final class CaveSampler {
         return !galleries.isEmpty() && galleries.water(x, y, z);
     }
 
-    // an entrance or a gallery, which may cut through the surface
     // the Glittering Caves open at or just under this block
     boolean opensBelow(int x, int y, int z) {
         return aglarond != null && (aglarond.carves(x, y, z) || aglarond.carves(x, y - 1, z));
@@ -371,7 +369,7 @@ final class CaveSampler {
     }
 
     // loose lumps of rock beside a ravine or abyss (under ISLAND_BLOCKS blocks, all neighbours air) are removed
-    // only lumps wholly inside the chunk, clear of its outer columns, are judged, so chunks agree; border lumps stay
+    // only lumps wholly inside the chunk, clear of its outer columns, are judged so chunks agree. Border lumps stay
     void removeIslands(ColumnWriter out) {
         if (shafts == null || shafts.length == 0) return;
         int yMin = Math.max(shaftMinY - 2, minCellY * CELL + 2);
@@ -423,7 +421,7 @@ final class CaveSampler {
                 for (int step : steps) {
                     int neighbour = start + step;
                     if (step == 1 && level + 1 >= height || step == -1 && level == 0) continue;
-                    if (neighbour >= 0 && neighbour < kind.length && (kind[neighbour] & 3) == ISLAND_AIR) {
+                    if (neighbour >= 0 && neighbour < kind.length && (kind[neighbour] & ISLAND_TYPE_MASK) == ISLAND_AIR) {
                         touches = true;
                         break;
                     }
@@ -452,7 +450,7 @@ final class CaveSampler {
                             break;
                         }
                         int flags = kind[neighbour];
-                        int type = flags & 3;
+                        int type = flags & ISLAND_TYPE_MASK;
                         if (type == ISLAND_AIR) continue;
                         if (type != ISLAND_ROCK || (flags & ISLAND_BIG) != 0) {
                             loose = false;
@@ -495,10 +493,22 @@ final class CaveSampler {
         MistyCaveDecorator.decorate(chunk, blocks, misty, lakes, surfaceY, weights, entrances, rivers);
     }
 
+    private boolean inChamberRange(int y) {
+        return y >= chamberMinY && y <= chamberMaxY;
+    }
+
+    private boolean inShaftRange(int y) {
+        return shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
+    }
+
+    private boolean inStreamRange(int y) {
+        return y >= streamMinY && y <= streamMaxY;
+    }
+
     private boolean mistySolid(int x, int y, int z) {
-        boolean chamber = y >= chamberMinY && y <= chamberMaxY;
-        boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
-        boolean stream = y >= streamMinY && y <= streamMaxY;
+        boolean chamber = inChamberRange(y);
+        boolean shaft = inShaftRange(y);
+        boolean stream = inStreamRange(y);
         if (!chamber && !shaft && !stream) return true;
         if (weight() <= 0 && !gnawedRock(y)) return true;
         int cellY = Math.floorDiv(y, CELL) - minCellY;
@@ -543,10 +553,11 @@ final class CaveSampler {
     }
 
     private static float bilerp2(float[] grid, int cellX, int cellZ, float fx, float fz) {
-        float c00 = grid[cellX * CORNERS + cellZ];
-        float c10 = grid[(cellX + 1) * CORNERS + cellZ];
-        float c01 = grid[cellX * CORNERS + cellZ + 1];
-        float c11 = grid[(cellX + 1) * CORNERS + cellZ + 1];
+        return bilerp(grid[cellX * CORNERS + cellZ], grid[(cellX + 1) * CORNERS + cellZ],
+                grid[cellX * CORNERS + cellZ + 1], grid[(cellX + 1) * CORNERS + cellZ + 1], fx, fz);
+    }
+
+    private static float bilerp(float c00, float c10, float c01, float c11, float fx, float fz) {
         float top = c00 + (c10 - c00) * fx;
         float bottom = c01 + (c11 - c01) * fx;
         return top + (bottom - top) * fz;
@@ -578,9 +589,7 @@ final class CaveSampler {
             c01 = mistyCorner(layer, cellX, cellZ + 1)[v];
             c11 = mistyCorner(layer, cellX + 1, cellZ + 1)[v];
         }
-        float top = c00 + (c10 - c00) * fx;
-        float bottom = c01 + (c11 - c01) * fx;
-        float blend = top + (bottom - top) * fz;
+        float blend = bilerp(c00, c10, c01, c11, fx, fz);
         mistyBlend[slot] = blend;
         mistyStamp[slot] = stamp;
         return blend;
@@ -591,17 +600,16 @@ final class CaveSampler {
         float[] page = mistyPages[pageIndex];
         if (page == null) page = mistyPages[pageIndex] = new float[PAGE_LAYERS * MISTY_LAYER_SIZE];
         if (!mistyDone[cellY]) {
-            float[] layer = page;
             int layerBase = (cellY % PAGE_LAYERS) * MISTY_LAYER_SIZE;
             int y = (cellY + minCellY) * CELL;
-            boolean chamber = y >= chamberMinY && y <= chamberMaxY;
-            boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
-            boolean stream = y >= streamMinY && y <= streamMaxY;
+            boolean chamber = inChamberRange(y);
+            boolean shaft = inShaftRange(y);
+            boolean stream = inStreamRange(y);
             float[] wobbles = shaftWobbles(y, shaft);
             for (int cornerX = 0; cornerX < CORNERS; cornerX++) {
                 for (int cornerZ = 0; cornerZ < CORNERS; cornerZ++) {
                     int corner = cornerX * CORNERS + cornerZ;
-                    mistyCorner(corner, y, chamber, shaft, stream, wobbles, layer, layerBase + corner * MistyCaves.VALUES);
+                    mistyCorner(corner, y, chamber, shaft, stream, wobbles, page, layerBase + corner * MistyCaves.VALUES);
                 }
             }
             mistyDone[cellY] = true;
@@ -644,9 +652,9 @@ final class CaveSampler {
         if (values != null) return values;
         if (mistyCorners.size() >= MAX_CORNERS) mistyCorners.clear();
         int y = (layer + minCellY) * CELL;
-        boolean chamber = y >= chamberMinY && y <= chamberMaxY;
-        boolean shaft = shafts.length > 0 && y >= shaftMinY && y <= shaftMaxY;
-        boolean stream = y >= streamMinY && y <= streamMaxY;
+        boolean chamber = inChamberRange(y);
+        boolean shaft = inShaftRange(y);
+        boolean stream = inStreamRange(y);
         values = new float[MistyCaves.VALUES];
         mistyCorner(cornerX * CORNERS + cornerZ, y, chamber, shaft, stream, shaftWobbles(y, shaft), values, 0);
         mistyCorners.put(key, values);
@@ -697,17 +705,12 @@ final class CaveSampler {
                 || ((carving & 4) != 0 && lerp3(cellY, 2, fy) >= BLOB_THRESHOLD_2);
     }
 
-    // the value of one channel at a corner of the world-fixed grid, for the probe
-    private float cornerValue(int layer, int cx, int cz, int v) {
-        return baseCorner(layer, cx, cz)[v];
-    }
-
     private void fillValues(int cx, int cz, int cellY) {
         for (int layer = 0; layer < 2; layer++) {
             for (int dz = 0; dz < 2; dz++) {
                 for (int dx = 0; dx < 2; dx++) {
                     for (int v = 0; v < VALUES; v++) {
-                        cellValues[((layer * 2 + dz) * 2 + dx) * VALUES + v] = cornerValue(cellY + layer, cx + dx, cz + dz, v);
+                        cellValues[((layer * 2 + dz) * 2 + dx) * VALUES + v] = baseCorner(cellY + layer, cx + dx, cz + dz)[v];
                     }
                 }
             }
@@ -726,7 +729,7 @@ final class CaveSampler {
         return verdict;
     }
 
-    // SOLID_CELL: nothing in the cell can be air; else CARVING_CELL plus a bit per blob channel (0 to 2) that may open air
+    // SOLID_CELL if nothing in the cell can be air, else CARVING_CELL plus a bit per blob channel (0 to 2) that may open air
     // the blend stays within the min and max of its 8 corners (rounding is far below CULL_MARGIN), so the spaghetti bound is safe
     private byte cellVerdict(int cellY) {
         float[] values = cellValues;
@@ -801,9 +804,7 @@ final class CaveSampler {
             c01 = baseCorner(layer, cellX, cellZ + 1)[v];
             c11 = baseCorner(layer, cellX + 1, cellZ + 1)[v];
         }
-        float top = c00 + (c10 - c00) * fx;
-        float bottom = c01 + (c11 - c01) * fx;
-        float blend = top + (bottom - top) * fz;
+        float blend = bilerp(c00, c10, c01, c11, fx, fz);
         baseBlend[slot] = blend;
         baseStamp[slot] = stamp;
         return blend;
@@ -853,7 +854,7 @@ final class CaveSampler {
         out[offset] = noise;
         out[offset + 1] = noise3;
         out[offset + 2] = miniNoise;
-        // 3D simplex, each shifted so the three stay unrelated to each other and the noises above; 3D swings wider than a 4D slice,
+        // 3D simplex, each shifted so the three stay unrelated to each other and the noises above. 3D swings wider than a 4D slice,
         // so the scale keeps the same share of rock inside the thin tunnels
         out[offset + 3] = SPAGHETTI_SCALE * (float) SimplexNoise.noise(
                 (float) x / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 5714.2f, layerY.y4 + 214.7f, (float) z / (SPAGHETTI_CAVE_STRETCH_H * 1.5f) + 321.9f);
