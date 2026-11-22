@@ -1,6 +1,8 @@
 package net.sevenstars.middleearth.features.generation.map;
 
+import it.unimi.dsi.fastutil.ints.Int2BooleanOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.sevenstars.middleearth.MiddleEarth;
@@ -12,14 +14,12 @@ import net.sevenstars.middleearth.utils.resources.FileUtils;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// a few rivers are painted on up the foot of a mountain; baked, the water carves the slope into a sheer wall.
-// Their tips are taken back to where the ground is still low, a pixel at a time, and given the land beside them;
-// the way they used to go is where the river now runs on under the mountain
+// rivers painted up a mountain's foot bake into sheer walls; their tips are trimmed back to low ground and RiverCaves
+// runs the old course under the mountain
 public final class RiverHeads {
     private static final int CUTOFF = 40; // base height a river may not climb past
     private static final int MAX_NEIGHBOURS = 3; // a tip, not the bank of a wider river
@@ -30,25 +30,25 @@ public final class RiverHeads {
 
     private static List<Head> heads;
 
-    // the way a trimmed river went, in block centres from where it now ends into the mountain
+    // a trimmed river's old course in block centres, from where it now ends
     public record Head(float[] xs, float[] zs, int waterHeight) {
     }
 
     private RiverHeads() {
     }
 
-    // a copy of the map with the climbing tips repainted; the base height is red, at the map's own scale
+    // the map with high tips repainted; base height is red, at the map's scale
     public static BufferedImage trim(BufferedImage map, BufferedImage baseHeight) {
-        BufferedImage out = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        for (int z = 0; z < map.getHeight(); z++) {
-            for (int x = 0; x < map.getWidth(); x++) out.setRGB(x, z, map.getRGB(x, z));
-        }
+        int width = map.getWidth();
+        int height = map.getHeight();
+        BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        out.setRGB(0, 0, width, height, map.getRGB(0, 0, width, height, null, 0, width), 0, width);
         int trimmed = erode(map, baseHeight, out).size();
         MiddleEarth.LOGGER.logInfoMsg("River heads: %d river pixels trimmed".formatted(trimmed));
         return out;
     }
 
-    // worked out again from the painted map, so instant-booted worlds know them too
+    // redone from the painted map so instant-booted worlds have them too
     public static synchronized List<Head> heads() {
         if (heads != null) return heads;
         heads = List.of();
@@ -57,15 +57,14 @@ public final class RiverHeads {
         if (map == null || baseHeight == null) return heads;
         int width = map.getWidth();
         IntArrayList removed = erode(map, baseHeight, null);
-        // removed from the far tip back, so the last one taken lies next to the river that is left
-        Set<Integer> gone = new HashSet<>();
-        for (int i = 0; i < removed.size(); i++) gone.add(removed.getInt(i));
-        Set<Integer> left = new HashSet<>(gone);
+        // taken from the far tip back, so the last one taken touches the river left
+        IntOpenHashSet gone = new IntOpenHashSet(removed);
+        IntOpenHashSet left = new IntOpenHashSet(removed);
         List<Head> found = new ArrayList<>();
         for (int i = removed.size() - 1; i >= 0; i--) {
             int start = removed.getInt(i);
             if (!left.remove(start)) continue;
-            List<Integer> path = new ArrayList<>();
+            IntArrayList path = new IntArrayList();
             path.add(start);
             int at = start;
             while (true) {
@@ -84,12 +83,12 @@ public final class RiverHeads {
             }
             int end = riverBeside(map, width, start, gone);
             if (end < 0) continue;
-            path.addFirst(end);
+            path.add(0, end);
             float[] xs = new float[path.size()];
             float[] zs = new float[path.size()];
             for (int k = 0; k < path.size(); k++) {
-                xs[k] = (path.get(k) % width + 0.5f) * BLOCKS_PER_PIXEL;
-                zs[k] = (path.get(k) / width + 0.5f) * BLOCKS_PER_PIXEL;
+                xs[k] = (path.getInt(k) % width + 0.5f) * BLOCKS_PER_PIXEL;
+                zs[k] = (path.getInt(k) / width + 0.5f) * BLOCKS_PER_PIXEL;
             }
             found.add(new Head(xs, zs, MapBasedBiomePool.getBiomeByColor(map.getRGB(end % width, end / width)).getWaterHeight()));
         }
@@ -97,33 +96,43 @@ public final class RiverHeads {
         return heads;
     }
 
-    // wears the climbing tips away, repainting them in out when given; the pixels taken, in the order taken
+    // wears high tips away, repainting into out if given; the pixels in the order taken
     private static IntArrayList erode(BufferedImage map, BufferedImage baseHeight, BufferedImage out) {
         int width = map.getWidth();
         int height = map.getHeight();
+        int[] rgb = map.getRGB(0, 0, width, height, null, 0, width);
+        int[] base = baseHeight.getRGB(0, 0, width, height, null, 0, width);
+        Int2BooleanOpenHashMap riverColours = new Int2BooleanOpenHashMap();
         boolean[] river = new boolean[width * height];
-        for (int z = 0; z < height; z++) {
-            for (int x = 0; x < width; x++) river[z * width + x] = isRiver(map.getRGB(x, z));
+        for (int i = 0; i < river.length; i++) river[i] = riverColours.computeIfAbsent(rgb[i], RiverHeads::isRiver);
+        // only high river pixels can go, so each pass walks those, in scan order
+        IntArrayList high = new IntArrayList();
+        for (int z = 1; z < height - 1; z++) {
+            for (int x = 1; x < width - 1; x++) {
+                int i = z * width + x;
+                if (river[i] && (base[i] >> 16 & 0xFF) > CUTOFF) high.add(i);
+            }
         }
-        // a tip is worn back while it stands high; the inside of a river through a gorge has river on both sides and stays
+        // high tips wear away; a river through a gorge has river on both sides and stays
         IntArrayList removed = new IntArrayList();
         boolean changed = true;
         while (changed) {
             changed = false;
-            for (int z = 1; z < height - 1; z++) {
-                for (int x = 1; x < width - 1; x++) {
-                    if (!river[z * width + x] || (baseHeight.getRGB(x, z) >> 16 & 0xFF) <= CUTOFF || !tip(river, width, x, z)) continue;
-                    river[z * width + x] = false;
-                    if (out != null) out.setRGB(x, z, land(out, river, width, x, z, map.getRGB(x, z)));
-                    removed.add(z * width + x);
-                    changed = true;
-                }
+            for (int k = 0; k < high.size(); k++) {
+                int i = high.getInt(k);
+                int x = i % width;
+                int z = i / width;
+                if (!river[i] || !tip(river, width, x, z)) continue;
+                river[i] = false;
+                if (out != null) out.setRGB(x, z, land(out, river, width, x, z, rgb[i]));
+                removed.add(i);
+                changed = true;
             }
         }
         return removed;
     }
 
-    private static int riverBeside(BufferedImage map, int width, int pixel, Set<Integer> gone) {
+    private static int riverBeside(BufferedImage map, int width, int pixel, IntOpenHashSet gone) {
         for (int[] d : RING) {
             int n = pixel + d[1] * width + d[0];
             if (!gone.contains(n) && isRiver(map.getRGB(n % width, n / width))) return n;

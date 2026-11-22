@@ -88,7 +88,7 @@ final class CaveSampler {
     private final Galleries galleries;
     private final Aglarond aglarond; // null where the Glittering Caves are far off
     private final LavaTubes.Near tubes; // null away from the tubes of Gorgoroth
-    private final RiverCaves.Near rivers; // null away from the rivers that run under a mountain
+    private final RiverCaves.Near rivers; // null away from the river caves
     private final float[] streamGates; // the stream's 2D noise per corner, NaN until needed
     private final float[][] mistyPages;
     private final boolean[] mistyDone;

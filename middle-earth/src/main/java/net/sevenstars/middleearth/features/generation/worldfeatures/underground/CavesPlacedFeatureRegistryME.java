@@ -375,7 +375,7 @@ public class CavesPlacedFeatureRegistryME {
         PlacedFeatures.register(featureRegisterable, POINTED_LIMESTONE, pointedLimestone, CountPlacementModifier.of(UniformIntProvider.create(192, 256)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 5)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
 
-        // fewer tries than the others; they only take where the rock is already calcite or basalt
+        // fewer tries; they only take on calcite or basalt
         PlacedFeatures.register(featureRegisterable, POINTED_CALCITE, pointedCalcite, CountPlacementModifier.of(UniformIntProvider.create(64, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,
                 CountPlacementModifier.of(UniformIntProvider.create(1, 3)), RandomOffsetPlacementModifier.of(ClampedNormalIntProvider.of(0.0F, 3.0F, -10, 10), ClampedNormalIntProvider.of(0.0F, 0.6F, -2, 2)), BiomePlacementModifier.of());
         PlacedFeatures.register(featureRegisterable, POINTED_BASALT, pointedBasalt, CountPlacementModifier.of(UniformIntProvider.create(64, 96)), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE,

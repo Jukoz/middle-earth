@@ -126,7 +126,7 @@ public final class MistyCaveDecorator {
             if (!floor && !ceiling && !wall) continue;
             float cold = cold(entrances, x, y, z, surface);
             if (cold <= 0 || entrances.length > 0 && entranceRock(entrances, x, y, z)) continue;
-            // a river runs warm out of the mountain
+            // no ice by the river water
             if (rivers != null && rivers.quiet(x, y, z)) continue;
             float sheet = (float) SimplexNoise.noise((x + caves.offsetX) / ICE_SHEET, (y + caves.offsetY) / ICE_SHEET, (z + caves.offsetZ) / ICE_SHEET);
             if (sheet < 1 - ICE_SPREAD * cold) continue;
@@ -149,7 +149,7 @@ public final class MistyCaveDecorator {
         }
     }
 
-    // air under its own column's ground; beside a slope the open sky is lower than the rock, and is no cave wall
+    // air below its column's ground; open sky beside a slope is no cave wall
     private static boolean caveAir(BlockBuffer blocks, int[] surfaceY, int x, int y, int z, int lx, int lz) {
         return y < surfaceY[lx * CHUNK + lz] - 1 && blocks.get(x, y, z).isAir();
     }

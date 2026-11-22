@@ -485,7 +485,7 @@ public class CavesConfiguredFeatureRegistryME {
         ConfiguredFeatures.register(featureRegisterable, POINTED_LIMESTONE, Feature.SIMPLE_RANDOM_SELECTOR, pointedStone(
                 new SmallPointedStoneFeatureConfig(0.2F, StoneBlockSetRegistryME.LIMESTONE_SET.baseBlocks.base().getDefaultState(), BlockRegistryME.POINTED_LIMESTONE.getDefaultState(), 0.7F, 0.5F, 0.5F),
                 offset -> BlockPredicate.not(BlockPredicate.matchingBlocks(offset, Blocks.CALCITE))));
-        // these two only grow from rock that is already theirs, with smaller patches
+        // these only grow from their own rock, with smaller patches
         ConfiguredFeatures.register(featureRegisterable, POINTED_CALCITE, Feature.SIMPLE_RANDOM_SELECTOR, pointedStone(
                 new SmallPointedStoneFeatureConfig(0.2F, Blocks.CALCITE.getDefaultState(), BlockRegistryME.POINTED_CALCITE.getDefaultState(), 0.3F, 0.3F, 0.3F),
                 offset -> BlockPredicate.matchingBlocks(offset, Blocks.CALCITE)));
@@ -601,7 +601,7 @@ public class CavesConfiguredFeatureRegistryME {
                 true, 4, 1, RegistryEntryList.of(Block::getRegistryEntry, StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base(), StoneBlockSetRegistryME.MEDGON_SET.baseBlocks.base())));
     }
 
-    // a stalagmite on the floor or a stalactite from the ceiling, where anchor holds for the rock it hangs from
+    // a spike up from the floor or down from the ceiling, where anchor holds for the rock it grows from
     private static SimpleRandomFeatureConfig pointedStone(SmallPointedStoneFeatureConfig config, Function<Vec3i, BlockPredicate> anchor) {
         return new SimpleRandomFeatureConfig(RegistryEntryList.of(
                 PlacedFeatures.createEntry(FeatureRegistryME.SMALL_POINTED_STONE, config,

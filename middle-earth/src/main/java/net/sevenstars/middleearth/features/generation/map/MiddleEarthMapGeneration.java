@@ -112,7 +112,7 @@ public class MiddleEarthMapGeneration {
         MiddleEarth.LOGGER.logInfoMsg("Validating initial map BIOME colors;");
         if(!validateBaseColors(initialMap)) return;
 
-        // the base height comes from the map as painted; river heads are trimmed against it before anything else is baked
+        // river heads are trimmed against the painted base height before anything else bakes
         MiddleEarth.LOGGER.logInfoMsg("Validating initial map HEIGHT MODIFIER generation availability;");
         if(!validateBaseHeightDatas()){
             MiddleEarth.LOGGER.logInfoMsg("Begin initial map HEIGHT MODIFIER generation;");

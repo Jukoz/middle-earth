@@ -5,8 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.world.chunk.Chunk;
 import net.sevenstars.middleearth.features.generation.noise.SimplexNoise;
 
-// the water and air of a river cave written again over whatever the surface layers put there, a gravel bed under the
-// water and moss where it laps the rock. Every choice comes from a position, and only this chunk's blocks are written
+// river water and air written over the surface layers, a gravel bed and moss at the waterline; this chunk only
 final class RiverCaveDressing {
     private static final BlockState WATER = Blocks.WATER.getDefaultState();
     private static final BlockState AIR = Blocks.AIR.getDefaultState();
@@ -23,14 +22,20 @@ final class RiverCaveDressing {
         int lowY = Integer.MAX_VALUE;
         int highY = Integer.MIN_VALUE;
         for (RiverCaves.Piece p : near.pieces) {
-            int water = water(p);
-            lowY = Math.min(lowY, water - 9);
-            highY = Math.max(highY, water + 18);
+            lowY = Math.min(lowY, p.water - 9);
+            highY = Math.max(highY, p.water + 18);
         }
-        for (int x = startX; x < startX + 16; x++) {
-            for (int z = startZ; z < startZ + 16; z++) {
+        // states from lowY - 1 to highY + 1, for the bed below and the moss beside
+        int height = highY - lowY + 3;
+        byte[] states = new byte[16 * 16 * height];
+        for (int lx = 0; lx < 16; lx++) {
+            for (int lz = 0; lz < 16; lz++) {
+                int x = startX + lx;
+                int z = startZ + lz;
+                int column = (lx * 16 + lz) * height;
+                for (int y = lowY - 1; y <= highY + 1; y++) states[column + y - lowY + 1] = (byte) near.state(x, y, z);
                 for (int y = lowY; y <= highY; y++) {
-                    int state = near.state(x, y, z);
+                    int state = states[column + y - lowY + 1];
                     if (state == RiverCaves.WATER) {
                         blocks.put(x, y, z, WATER);
                     } else if (state == RiverCaves.AIR && !blocks.get(x, y, z).isAir()) {
@@ -39,37 +44,32 @@ final class RiverCaveDressing {
                 }
             }
         }
-        for (int x = startX; x < startX + 16; x++) {
-            for (int z = startZ; z < startZ + 16; z++) {
+        for (int lx = 0; lx < 16; lx++) {
+            for (int lz = 0; lz < 16; lz++) {
+                int x = startX + lx;
+                int z = startZ + lz;
+                int column = (lx * 16 + lz) * height;
                 for (int y = lowY; y <= highY; y++) {
-                    if (near.state(x, y, z) != RiverCaves.WATER) continue;
-                    // the bed: gravel where the current left it
-                    if (near.state(x, y - 1, z) == RiverCaves.NONE && solid(blocks.get(x, y - 1, z))
+                    if (states[column + y - lowY + 1] != RiverCaves.WATER) continue;
+                    if (states[column + y - lowY] == RiverCaves.NONE && solid(blocks.get(x, y - 1, z))
                             && SimplexNoise.noise((x + near.caves.noiseX) / 3.0, (z + near.caves.noiseZ) / 3.0) > -0.4) {
                         blocks.put(x, y - 1, z, GRAVEL);
                     }
-                    // moss along the waterline
                     for (int[] d : SIDES) {
+                        int nlx = lx + d[0];
+                        int nlz = lz + d[1];
+                        if (nlx < 0 || nlx >= 16 || nlz < 0 || nlz >= 16) continue;
                         int nx = x + d[0];
                         int nz = z + d[1];
-                        if (nx < startX || nx >= startX + 16 || nz < startZ || nz >= startZ + 16) continue;
+                        int neighbour = (nlx * 16 + nlz) * height;
                         for (int ny = y; ny <= y + 1; ny++) {
-                            if (near.state(nx, ny, nz) != RiverCaves.NONE || !solid(blocks.get(nx, ny, nz))) continue;
+                            if (states[neighbour + ny - lowY + 1] != RiverCaves.NONE || !solid(blocks.get(nx, ny, nz))) continue;
                             if (SimplexNoise.noise((nx + near.caves.noiseZ) / 4.0, ny / 3.0, (nz + near.caves.noiseX) / 4.0) > 0.25) blocks.put(nx, ny, nz, MOSS);
                         }
                     }
                 }
             }
         }
-    }
-
-    private static int water(RiverCaves.Piece p) {
-        return switch (p) {
-            case RiverCaves.Segment s -> s.water;
-            case RiverCaves.Lake l -> l.water;
-            case RiverCaves.Pool pool -> pool.water;
-            default -> 64;
-        };
     }
 
     private static boolean solid(BlockState state) {

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.sevenstars.middleearth.features.generation.caves.GalleryLayout.ground;
+import static net.sevenstars.middleearth.features.generation.caves.LavaTubes.u;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.mix;
 import static net.sevenstars.middleearth.features.generation.caves.MistyCaves.sq;
 
-// where a river once ran on up a mountain's foot it now goes under it: from a pool where the water stops, a channel
-// level with the river winds in along the old course to a dark lake, the river's source. Laid out once per world seed
+// rivers trimmed off a mountain's foot run on under it: a pool, a channel at river level, a dark lake; laid out per seed
 public final class RiverCaves {
     public static final int NONE = 0;
     public static final int AIR = 1;
@@ -25,21 +25,25 @@ public final class RiverCaves {
     private static final float MEANDER = 4;
     private static final int MOUTH_COVER = 3; // ground over the roof where the cut becomes a cave
     private static final int OPEN_GROUND = 2; // above the water by this, the river's end
-    private static final float BACK_REACH = 120; // how far back down the valley the open water is looked for
+    private static final float BACK_REACH = 120; // how far back the open water is looked for
     private static final float POOL_RADIUS = 6;
-    private static final float POOL_BANK = 1.3f; // the bank round the pool steps back this much per block up
-    private static final int POOL_BANK_TOP = 10; // the banks are cut back this far above the water, no further
+    private static final float POOL_BANK = 1.3f; // per block up
+    private static final int POOL_BANK_TOP = 10; // no bank is cut higher above the water
     private static final float POOL_BANK_MAX = (POOL_BANK_TOP - 1) * POOL_BANK;
     private static final float BANK_WIDTH = 2;
-    private static final float SHELF = 0.82f; // share of the lake's radius under water; the rest a dry shelf
-    private static final int QUIET = 6; // other caves keep this far off, so the water stays in
+    private static final float SHELF = 0.82f; // share of the lake's radius under water; the rest is shelf
+    private static final int QUIET = 6; // other caves keep this far off so the water stays in
     private static final int GRID = 32;
     private static final float WOBBLE = 0.1f;
-    static final float SWELL = 1 + WOBBLE * Galleries.NOISE_BOUND;
+    private static final float SWELL = 1 + WOBBLE * Galleries.NOISE_BOUND;
+    private static final float ROOF = 4.5f;
+    private static final float ROOF_VARY = 1.5f;
+    private static final int HEAD_REACH = 64; // past the old course, for the pool and lake
+    private static final int MARGIN = 8; // pieces this far outside a chunk can still matter to it
     private static final long SALT = 0x52495645524c4f4eL;
 
     private static volatile RiverCaves current;
-    private static volatile int[][] bounds;
+    private static volatile Box[] bounds;
 
     final long seed;
     final int noiseX;
@@ -53,30 +57,30 @@ public final class RiverCaves {
         this.noiseZ = (int) Math.floorMod((seed ^ SALT) >>> 20, 4096L) + 977;
     }
 
-    // a cheap test before anything is laid out, from the heads alone
+    // a cheap test from the heads alone, before anything is laid out
     public static boolean mayTouchChunk(int startX, int startZ) {
-        for (int[] box : bounds()) {
-            if (startX + 15 >= box[0] && startX <= box[1] && startZ + 15 >= box[2] && startZ <= box[3]) return true;
+        for (Box box : bounds()) {
+            if (box.touchesChunk(startX, startZ)) return true;
         }
         return false;
     }
 
-    private static int[][] bounds() {
-        int[][] known = bounds;
+    private static Box[] bounds() {
+        Box[] known = bounds;
         if (known != null) return known;
         List<RiverHeads.Head> heads = RiverHeads.heads();
-        int[][] made = new int[heads.size()][];
+        Box[] made = new Box[heads.size()];
         for (int i = 0; i < heads.size(); i++) {
-            RiverHeads.Head head = heads.get(i);
+            float[] xs = heads.get(i).xs();
+            float[] zs = heads.get(i).zs();
             float minX = Float.MAX_VALUE, maxX = -Float.MAX_VALUE, minZ = Float.MAX_VALUE, maxZ = -Float.MAX_VALUE;
-            for (int k = 0; k < head.xs().length; k++) {
-                minX = Math.min(minX, head.xs()[k]);
-                maxX = Math.max(maxX, head.xs()[k]);
-                minZ = Math.min(minZ, head.zs()[k]);
-                maxZ = Math.max(maxZ, head.zs()[k]);
+            for (int k = 0; k < xs.length; k++) {
+                minX = Math.min(minX, xs[k]);
+                maxX = Math.max(maxX, xs[k]);
+                minZ = Math.min(minZ, zs[k]);
+                maxZ = Math.max(maxZ, zs[k]);
             }
-            int reach = 64;
-            made[i] = new int[]{(int) minX - reach, (int) maxX + reach, (int) minZ - reach, (int) maxZ + reach};
+            made[i] = new Box((int) minX - HEAD_REACH, (int) maxX + HEAD_REACH, 0, 0, (int) minZ - HEAD_REACH, (int) maxZ + HEAD_REACH);
         }
         bounds = made;
         return made;
@@ -93,7 +97,7 @@ public final class RiverCaves {
     }
 
     public Near near(int startX, int startZ) {
-        int x0 = startX - 8, z0 = startZ - 8, x1 = startX + 23, z1 = startZ + 23;
+        int x0 = startX - MARGIN, z0 = startZ - MARGIN, x1 = startX + 15 + MARGIN, z1 = startZ + 15 + MARGIN;
         List<Piece> found = new ArrayList<>();
         for (int cx = Math.floorDiv(x0, GRID); cx <= Math.floorDiv(x1, GRID); cx++) {
             for (int cz = Math.floorDiv(z0, GRID); cz <= Math.floorDiv(z1, GRID); cz++) {
@@ -109,18 +113,34 @@ public final class RiverCaves {
         return 1 + WOBBLE * (float) SimplexNoise.noise((x + noiseX) / 9.0, y / 6.0, (z + noiseZ) / 9.0);
     }
 
-    // one chunk's share; used by one thread at a time
+    // one chunk's share; not thread safe, it caches the last column and wobble
     public static final class Near {
         final RiverCaves caves;
         final Piece[] pieces;
+        private final int lowY;
+        private final int highY;
         private int wobbleX;
         private int wobbleY = Integer.MIN_VALUE;
         private int wobbleZ;
         private float wobble;
+        private int columnX;
+        private int columnZ;
+        private boolean columnSet;
+        private final Piece[] inColumn;
+        private int inColumnCount;
+        private int quietFrom;
 
         Near(RiverCaves caves, Piece[] pieces) {
             this.caves = caves;
             this.pieces = pieces;
+            this.inColumn = new Piece[pieces.length];
+            int low = Integer.MAX_VALUE, high = Integer.MIN_VALUE;
+            for (Piece p : pieces) {
+                low = Math.min(low, p.lowY);
+                high = Math.max(high, p.highY);
+            }
+            this.lowY = low;
+            this.highY = high;
         }
 
         float wobble(int x, int y, int z) {
@@ -133,20 +153,34 @@ public final class RiverCaves {
             return wobble;
         }
 
-        public int state(int x, int y, int z) {
+        // the pieces that can reach this column, in order, and where the quiet starts
+        private void column(int x, int z) {
+            if (columnSet && x == columnX && z == columnZ) return;
+            columnSet = true;
+            columnX = x;
+            columnZ = z;
+            inColumnCount = 0;
+            quietFrom = Integer.MAX_VALUE;
             for (Piece p : pieces) {
-                int s = p.state(this, x, y, z);
+                if (p.reaches(x, z)) inColumn[inColumnCount++] = p;
+                quietFrom = Math.min(quietFrom, p.quietFrom(x, z));
+            }
+        }
+
+        public int state(int x, int y, int z) {
+            if (y < lowY || y > highY) return NONE;
+            column(x, z);
+            for (int i = 0; i < inColumnCount; i++) {
+                int s = inColumn[i].state(this, x, y, z);
                 if (s != NONE) return s;
             }
             return NONE;
         }
 
-        // other caves and the cold of the Misty caves keep off the rock round the water
+        // other caves and the Misty cold keep off the rock round the water
         public boolean quiet(int x, int y, int z) {
-            for (Piece p : pieces) {
-                if (p.quiet(x, y, z)) return true;
-            }
-            return false;
+            column(x, z);
+            return y >= quietFrom;
         }
 
         public boolean nearPool(int x, int z) {
@@ -182,8 +216,8 @@ public final class RiverCaves {
         float[][] line = reachWater(smooth(head.xs(), head.zs()), water);
         List<float[]> course = resample(line, hash);
         if (course.size() < 8) return;
-        float roofTop = (4.5f + 1.5f) * SWELL;
-        // the river ends where its banks first stand clear of the water, and the cut becomes a cave under enough rock
+        float roofTop = (ROOF + ROOF_VARY) * SWELL;
+        // mouth: first point with enough rock over the roof; the pool sits back where the ground opens
         int mouth = -1;
         for (int i = 0; i < course.size(); i++) {
             float[] p = course.get(i);
@@ -209,11 +243,11 @@ public final class RiverCaves {
             float[] p = course.get(i);
             float s = p[2];
             float w = 2.4f + 0.8f * noise(s / 31 + phase, 1);
-            float h = 4.5f + 1.5f * noise(s / 43 + phase, 2);
+            float h = ROOF + ROOF_VARY * noise(s / 43 + phase, 2);
             float bankNoise = noise(s / 29 + phase, 3);
             int bank = bankNoise > 0.25f ? 1 : bankNoise < -0.25f ? -1 : 0;
             int depth = 2 + Math.round(1.2f * (noise(s / 23 + phase, 4) * 0.5f + 0.5f));
-            Node node = new Node(p[0], p[1], s, w, h, bank, depth);
+            Node node = new Node(p[0], p[1], w, h, bank, depth);
             if (previous != null) pieces.add(new Segment(previous, node, water));
             previous = node;
         }
@@ -229,7 +263,7 @@ public final class RiverCaves {
         pieces.add(new Lake(cx, cz, water, radius, 9 + 3 * u(hash, 4), 5 + Math.round(3 * u(hash, 5)), hash));
     }
 
-    // the map's river stops short of its last pixel once baked; the course is led back to the nearest open water
+    // the baked river stops short of its last pixel; lead the course back to open water
     private static float[][] reachWater(float[][] line, int water) {
         float[] x = line[0];
         float[] z = line[1];
@@ -304,56 +338,90 @@ public final class RiverCaves {
         return out;
     }
 
-    static float u(int h, int k) {
-        return (mix(h, k, k * 31) & 0xFFFF) / 65535f;
-    }
-
-    static float noise(float t, int salt) {
+    private static float noise(float t, int salt) {
         return (float) SimplexNoise.noise(t, salt * 17.3 + 401);
     }
 
     // PIECES
 
     abstract static class Piece {
+        final int water;
         int minX, maxX, minZ, maxZ;
+        int lowY, highY; // state is NONE outside these
+
+        Piece(int water) {
+            this.water = water;
+        }
 
         abstract int state(Near near, int x, int y, int z);
 
-        abstract boolean quiet(int x, int y, int z);
+        // false only where state is NONE at every height
+        boolean reaches(int x, int z) {
+            return x >= minX && x <= maxX && z >= minZ && z <= maxZ;
+        }
+
+        // the lowest y of this column that is quiet
+        int quietFrom(int x, int z) {
+            return Integer.MAX_VALUE;
+        }
     }
 
-    record Node(float x, float z, float along, float w, float h, int bank, int depth) {
+    record Node(float x, float z, float w, float h, int bank, int depth) {
     }
 
-    // one stretch of the channel: water between rock walls, a ledge along one side now and then, an arch over both
+    // a stretch of channel: water between walls, now and then a ledge on one side, an arch over
     static final class Segment extends Piece {
         final Node a;
         final Node b;
-        final int water;
         final float dx;
         final float dz;
         final float length2;
-        final float length;
         final int minY;
 
         Segment(Node a, Node b, int water) {
+            super(water);
             this.a = a;
             this.b = b;
-            this.water = water;
             this.dx = b.x() - a.x();
             this.dz = b.z() - a.z();
             this.length2 = Math.max(1e-4f, dx * dx + dz * dz);
-            this.length = (float) Math.sqrt(length2);
             float reach = (Math.max(a.w(), b.w()) + BANK_WIDTH + 1) * SWELL + QUIET + 1;
             this.minX = (int) Math.floor(Math.min(a.x(), b.x()) - reach);
             this.maxX = (int) Math.ceil(Math.max(a.x(), b.x()) + reach);
             this.minZ = (int) Math.floor(Math.min(a.z(), b.z()) - reach);
             this.maxZ = (int) Math.ceil(Math.max(a.z(), b.z()) + reach);
             this.minY = water - Math.max(a.depth(), b.depth()) - QUIET;
+            this.lowY = minY;
+            this.highY = water + 9;
         }
 
         float project(float px, float pz) {
             return MathHelper.clamp(((px - a.x()) * dx + (pz - a.z()) * dz) / length2, 0f, 1f);
+        }
+
+        private boolean onBank(float px, float pz, float t) {
+            float side = Math.signum((px - a.x()) * dz - (pz - a.z()) * dx);
+            int bank = t < 0.5f ? a.bank() : b.bank();
+            return bank != 0 && side == bank;
+        }
+
+        private static float half(float w, boolean onBank) {
+            return w + (onBank ? BANK_WIDTH : 0) + 0.5f;
+        }
+
+        private float across(float px, float pz, float t) {
+            float lx = px - a.x() - dx * t;
+            float lz = pz - a.z() - dz * t;
+            return (float) Math.sqrt(lx * lx + lz * lz);
+        }
+
+        @Override
+        boolean reaches(int x, int z) {
+            if (!super.reaches(x, z)) return false;
+            float px = x + 0.5f;
+            float pz = z + 0.5f;
+            float t = project(px, pz);
+            return across(px, pz, t) < half(MathHelper.lerp(t, a.w(), b.w()), onBank(px, pz, t)) * SWELL;
         }
 
         @Override
@@ -362,14 +430,10 @@ public final class RiverCaves {
             float px = x + 0.5f;
             float pz = z + 0.5f;
             float t = project(px, pz);
-            float lx = px - a.x() - dx * t;
-            float lz = pz - a.z() - dz * t;
-            float u = (float) Math.sqrt(lx * lx + lz * lz);
-            float side = Math.signum((px - a.x()) * dz - (pz - a.z()) * dx);
+            float u = across(px, pz, t);
             float w = MathHelper.lerp(t, a.w(), b.w());
-            int bank = t < 0.5f ? a.bank() : b.bank();
-            boolean onBank = bank != 0 && side == bank;
-            float half = w + (onBank ? BANK_WIDTH : 0) + 0.5f;
+            boolean onBank = onBank(px, pz, t);
+            float half = half(w, onBank);
             if (u >= half * SWELL) return NONE;
             int dy = y - water;
             float wob = near.wobble(x, y, z);
@@ -387,40 +451,39 @@ public final class RiverCaves {
         }
 
         @Override
-        boolean quiet(int x, int y, int z) {
-            if (x < minX || x > maxX || z < minZ || z > maxZ || y < minY) return false;
+        int quietFrom(int x, int z) {
+            if (!super.reaches(x, z)) return Integer.MAX_VALUE;
             float px = x + 0.5f;
             float pz = z + 0.5f;
             float t = project(px, pz);
             float u2 = sq(px - a.x() - dx * t) + sq(pz - a.z() - dz * t);
             float w = MathHelper.lerp(t, a.w(), b.w());
-            return u2 < sq((w + BANK_WIDTH + 0.5f) * SWELL + QUIET);
-        }
-
-        float along(float px, float pz) {
-            return MathHelper.lerp(project(px, pz), a.along(), b.along());
+            return u2 < sq((w + BANK_WIDTH + 0.5f) * SWELL + QUIET) ? minY : Integer.MAX_VALUE;
         }
     }
 
-    // the dark lake the river comes from: a dome over deep still water and a dry shelf round it
+    // the lake: a dome over deep still water, a dry shelf round it
     static final class Lake extends Piece {
         final float x;
         final float z;
-        final int water;
         final float radius;
+        final float outer; // the outline's widest, wobble and all
         final float dome;
         final int depth;
         final int hash;
 
         Lake(float x, float z, int water, float radius, float dome, int depth, int hash) {
+            super(water);
             this.x = x;
             this.z = z;
-            this.water = water;
             this.radius = radius;
+            this.outer = radius * 1.25f * SWELL;
             this.dome = dome;
             this.depth = depth;
             this.hash = hash;
-            int reach = (int) Math.ceil(radius * 1.25f * SWELL) + QUIET + 1;
+            this.lowY = water - depth - 1;
+            this.highY = (int) Math.floor(water + dome * SWELL + 1);
+            int reach = (int) Math.ceil(outer) + QUIET + 1;
             this.minX = (int) x - reach;
             this.maxX = (int) x + reach;
             this.minZ = (int) z - reach;
@@ -433,12 +496,21 @@ public final class RiverCaves {
             return radius * (1 + 0.2f * (float) SimplexNoise.noise(Math.cos(angle) * 1.3 + (hash & 0xFF), Math.sin(angle) * 1.3));
         }
 
+        private float r(int bx, int bz) {
+            float px = bx + 0.5f;
+            float pz = bz + 0.5f;
+            return (float) Math.sqrt(sq(px - x) + sq(pz - z)) / reach(px, pz);
+        }
+
+        @Override
+        boolean reaches(int bx, int bz) {
+            return super.reaches(bx, bz) && r(bx, bz) < SWELL;
+        }
+
         @Override
         int state(Near near, int bx, int y, int bz) {
             if (bx < minX || bx > maxX || bz < minZ || bz > maxZ || y < water - depth - 1 || y > water + dome * SWELL + 1) return NONE;
-            float px = bx + 0.5f;
-            float pz = bz + 0.5f;
-            float r = (float) Math.sqrt(sq(px - x) + sq(pz - z)) / reach(px, pz);
+            float r = r(bx, bz);
             float wob = near.wobble(bx, y, bz);
             int dy = y - water;
             if (dy <= 0) {
@@ -452,9 +524,9 @@ public final class RiverCaves {
         }
 
         @Override
-        boolean quiet(int bx, int y, int bz) {
-            if (bx < minX || bx > maxX || bz < minZ || bz > maxZ || y < water - depth - QUIET) return false;
-            return sq(bx + 0.5f - x) + sq(bz + 0.5f - z) < sq(radius * 1.25f * SWELL + QUIET);
+        int quietFrom(int bx, int bz) {
+            if (!super.reaches(bx, bz)) return Integer.MAX_VALUE;
+            return sq(bx + 0.5f - x) + sq(bz + 0.5f - z) < sq(outer + QUIET) ? water - depth - QUIET : Integer.MAX_VALUE;
         }
     }
 
@@ -462,14 +534,15 @@ public final class RiverCaves {
     static final class Pool extends Piece {
         final float x;
         final float z;
-        final int water;
         final float radius;
 
         Pool(float x, float z, int water, float radius) {
+            super(water);
             this.x = x;
             this.z = z;
-            this.water = water;
             this.radius = radius;
+            this.lowY = water - 4;
+            this.highY = water + POOL_BANK_TOP;
             int reach = (int) Math.ceil(radius + POOL_BANK_MAX) + 1;
             this.minX = (int) x - reach;
             this.maxX = (int) x + reach;
@@ -487,11 +560,6 @@ public final class RiverCaves {
                 return -dy < 1 + 2 * (1 - sq(d / radius)) ? WATER : NONE;
             }
             return d < radius + (dy - 1) * POOL_BANK ? AIR : NONE;
-        }
-
-        @Override
-        boolean quiet(int bx, int y, int bz) {
-            return false;
         }
     }
 }

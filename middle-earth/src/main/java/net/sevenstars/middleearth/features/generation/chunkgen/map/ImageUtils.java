@@ -165,7 +165,7 @@ public final class ImageUtils {
 
         if(list.size() == 1)
             return list.get(0);
-        // a tie goes by position, so the same map always bakes the same
+        // ties go by position so the bake is deterministic
         list.sort(null);
         int h = x * 0x27d4eb2d ^ y * 0x165667b1;
         h ^= h >>> 15;
