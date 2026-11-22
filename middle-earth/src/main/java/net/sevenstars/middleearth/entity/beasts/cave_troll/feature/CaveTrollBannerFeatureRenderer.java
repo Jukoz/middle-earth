@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.entity.beasts.cave_troll.feature;
 
 import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -12,9 +13,12 @@ import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.entity.EntityModelLayersME;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityRenderState;
+
+import java.util.function.Function;
 
 // Draws the banners, see CaveTrollBannerModel
 public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEntityRenderState, CaveTrollEntityModel> {
@@ -27,8 +31,8 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
 
     public CaveTrollBannerFeatureRenderer(FeatureRendererContext<CaveTrollEntityRenderState, CaveTrollEntityModel> context, LoadedEntityModels loader, SpriteHolder spriteHolder) {
         super(context);
-        this.poles = new CaveTrollBannerModel(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_BANNER), false);
-        this.flags = new CaveTrollBannerModel(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_BANNER), true);
+        this.poles = CaveTrollBannerModel.poles(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_BANNER));
+        this.flags = CaveTrollBannerModel.flags(loader.getModelPart(EntityModelLayersME.CAVE_TROLL_BANNER));
         this.spriteHolder = spriteHolder;
     }
 
@@ -38,38 +42,25 @@ public class CaveTrollBannerFeatureRenderer extends FeatureRenderer<CaveTrollEnt
             return;
         }
 
-        SpriteIdentifier sprite = ModelBaker.BANNER_BASE;
-
-        if(state.fadeBanner) {
-            queue.submitModel(this.poles, state, matrices, sprite.getRenderLayer(RenderLayers::entityTranslucent), light, OverlayTexture.DEFAULT_UV,
-                    withOpacity(0xFFFFFFFF, FADED_OPACITY), this.spriteHolder.getSprite(sprite), 0, null);
-        }
-        else {
-            queue.submitModel(this.poles, state, matrices, this.poles.getLayer(sprite.getAtlasId()), light, OverlayTexture.DEFAULT_UV,
-                    -1, this.spriteHolder.getSprite(sprite), state.outlineColor, null);
-        }
+        submit(matrices, queue, light, state, this.poles, ModelBaker.BANNER_BASE, this.poles::getLayer, -1, state.outlineColor);
 
         // Same layering as a vanilla banner, minus the plain base when see-through as it would stack up the opacity
         if(!state.fadeBanner) {
-            queue.submitModel(this.flags, state, matrices, sprite.getRenderLayer(RenderLayers::entitySolid), light, OverlayTexture.DEFAULT_UV,
-                    -1, this.spriteHolder.getSprite(sprite), state.outlineColor, null);
+            submit(matrices, queue, light, state, this.flags, ModelBaker.BANNER_BASE, RenderLayers::entitySolid, -1, state.outlineColor);
         }
-        renderLayer(matrices, queue, light, state, TexturedRenderLayers.BANNER_BASE, state.bannerColor.getEntityColor());
+        submit(matrices, queue, light, state, this.flags, TexturedRenderLayers.BANNER_BASE, RenderLayers::entityNoOutline, state.bannerColor.getEntityColor(), 0);
         for(int i = 0; i < 16 && i < state.bannerPatterns.layers().size(); i++) {
             BannerPatternsComponent.Layer layer = state.bannerPatterns.layers().get(i);
-            renderLayer(matrices, queue, light, state, TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()), layer.color().getEntityColor());
+            submit(matrices, queue, light, state, this.flags, TexturedRenderLayers.getBannerPatternTextureId(layer.pattern()), RenderLayers::entityNoOutline, layer.color().getEntityColor(), 0);
         }
     }
 
-    private void renderLayer(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, CaveTrollEntityRenderState state, SpriteIdentifier sprite, int color) {
-        if(state.fadeBanner) {
-            queue.submitModel(this.flags, state, matrices, sprite.getRenderLayer(RenderLayers::entityTranslucent), light, OverlayTexture.DEFAULT_UV,
-                    withOpacity(color, FADED_OPACITY), this.spriteHolder.getSprite(sprite), 0, null);
-        }
-        else {
-            queue.submitModel(this.flags, state, matrices, sprite.getRenderLayer(RenderLayers::entityNoOutline), light, OverlayTexture.DEFAULT_UV,
-                    color, this.spriteHolder.getSprite(sprite), 0, null);
-        }
+    // Faded banners all go see-through with no outline, whatever layer they'd use otherwise
+    private void submit(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, CaveTrollEntityRenderState state,
+                        CaveTrollBannerModel model, SpriteIdentifier sprite, Function<Identifier, RenderLayer> layer, int color, int outlineColor) {
+        boolean faded = state.fadeBanner;
+        queue.submitModel(model, state, matrices, sprite.getRenderLayer(faded ? RenderLayers::entityTranslucent : layer), light, OverlayTexture.DEFAULT_UV,
+                faded ? withOpacity(color, FADED_OPACITY) : color, this.spriteHolder.getSprite(sprite), faded ? 0 : outlineColor, null);
     }
 
     private static int withOpacity(int color, float opacity) {
