@@ -9,10 +9,8 @@ import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
 import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 
-/**
- * The troll's skeleton with a banner on each rear corner of the harness platform bone, so the banners move with the harness.
- * Only the banners are drawn, poles and flags in separate passes as they use different textures.
- */
+// The troll's skeleton with a banner on each rear corner of the harness platform bone, so the banners move with the harness.
+// Only the banners are drawn
 public class CaveTrollBannerModel extends CaveTrollEntityModel {
     // Pole bases relative to the platform bone's origin
     private static final float CORNER_X = 17.0f;
@@ -23,8 +21,16 @@ public class CaveTrollBannerModel extends CaveTrollEntityModel {
     private final ModelPart[] poles;
     private final ModelPart[] flags;
 
-    // Poles and flags use different textures, so each gets its own model
-    public CaveTrollBannerModel(ModelPart root, boolean showFlags) {
+    // submitModel draws later, so poles and flags can't share one model with visibility toggled between submits
+    public static CaveTrollBannerModel poles(ModelPart root) {
+        return new CaveTrollBannerModel(root, false);
+    }
+
+    public static CaveTrollBannerModel flags(ModelPart root) {
+        return new CaveTrollBannerModel(root, true);
+    }
+
+    private CaveTrollBannerModel(ModelPart root, boolean showFlags) {
         super(root);
 
         ModelPart platform = root.getChild("root").getChild("body_no_legs").getChild("body_no_limbs").getChild("platform");
