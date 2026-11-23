@@ -29,6 +29,15 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 /** Flame and smoke particles at the tip of torches and candles carried in the off hand or worn. */
 @Environment(EnvType.CLIENT)
@@ -85,13 +94,13 @@ public final class HeldFlames {
         ClientTickEvents.END_CLIENT_TICK.register(HeldFlames::tick);
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> HeldLights.load(handler.getRegistryManager(), true));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> HeldLights.clear(true));
-        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if (HeldLights.of(true, stack) instanceof HeldLight light && light.toggled()) {
-                lines.add(net.minecraft.text.Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit"
-                    : "tooltip.middle-earth.held_light.shaded").formatted(net.minecraft.util.Formatting.GRAY));
-                lines.add(net.minecraft.text.Text.translatable(net.minecraft.client.gui.screen.Screen.hasShiftDown()
+                lines.add(Text.translatable(HeldLights.isOn(stack) ? "tooltip.middle-earth.held_light.lit"
+                    : "tooltip.middle-earth.held_light.shaded").formatted(Formatting.GRAY));
+                lines.add(Text.translatable(Screen.hasShiftDown()
                     ? "tooltip.middle-earth.held_light.hint" : "tooltip.middle-earth.held_light.hold_shift")
-                    .formatted(net.minecraft.util.Formatting.DARK_GRAY));
+                    .formatted(Formatting.DARK_GRAY));
             }
         });
     }
@@ -170,11 +179,11 @@ public final class HeldFlames {
                 }
             }
         }
-        for (net.minecraft.entity.Entity entity : world.getEntities()) {
-            if (!(entity instanceof net.minecraft.entity.LivingEntity living) || living.isInvisible() || living.isSpectator()) {
+        for (Entity entity : world.getEntities()) {
+            if (!(entity instanceof LivingEntity living) || living.isInvisible() || living.isSpectator()) {
                 continue;
             }
-            ItemStack head = living.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD);
+            ItemStack head = living.getEquippedStack(EquipmentSlot.HEAD);
             Kind worn = Kind.of(HeldLights.wornData(true, head));
             if (worn == null) {
                 continue;
@@ -193,17 +202,17 @@ public final class HeldFlames {
             return;
         }
         boolean candle = kind.small();
-        net.minecraft.client.particle.ParticleManager particles = MinecraftClient.getInstance().particleManager;
+        ParticleManager particles = MinecraftClient.getInstance().particleManager;
         if (RANDOM.nextInt(3) == 0) {
             if (candle) {
-                net.minecraft.client.particle.Particle flame = particles.addParticle(kind.particle(), at.x, at.y, at.z, 0, 0.004, 0);
+                Particle flame = particles.addParticle(kind.particle(), at.x, at.y, at.z, 0, 0.004, 0);
                 if (flame != null) {
                     flame.scale(CANDLE_PARTICLE_SCALE);
                 }
             } else if (kind.tint() < 0) {
                 world.addParticleClient(kind.particle(), at.x, at.y, at.z, 0, 0.004, 0);
             } else {
-                net.minecraft.client.particle.Particle flame = MinecraftClient.getInstance().particleManager
+                Particle flame = MinecraftClient.getInstance().particleManager
                     .addParticle(kind.particle(), at.x, at.y, at.z, 0, 0.012, 0);
                 if (flame != null) {
                     int rgb = kind.tint();
@@ -214,7 +223,7 @@ public final class HeldFlames {
         }
         if (RANDOM.nextInt(12) == 0) {
             if (candle) {
-                net.minecraft.client.particle.Particle smoke = particles.addParticle(ParticleTypes.SMOKE, at.x, at.y + 0.05, at.z, 0, 0.01, 0);
+                Particle smoke = particles.addParticle(ParticleTypes.SMOKE, at.x, at.y + 0.05, at.z, 0, 0.01, 0);
                 if (smoke != null) {
                     smoke.scale(CANDLE_PARTICLE_SCALE);
                 }

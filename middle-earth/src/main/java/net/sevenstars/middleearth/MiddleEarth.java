@@ -40,6 +40,9 @@ import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
 import net.sevenstars.middleearth.world.gen.CustomWorldGeneration;
 import net.sevenstars.middleearth.world.map.MiddleEarthMapGeneration;
 import net.sevenstars.middleearth.world.spawners.EntitySpawningME;
+import net.sevenstars.middleearth.light.BeamLights;
+import net.sevenstars.middleearth.light.HeldLights;
+import net.sevenstars.middleearth.light.LanternToggling;
 
 public class MiddleEarth implements ModInitializer {
 	public static final String MOD_ID = "middle-earth";
@@ -127,9 +130,9 @@ public class MiddleEarth implements ModInitializer {
 		CustomWorldGeneration.generateModWorldGen();
 		LootModifiers.modifyLootTables();
 		InscriptionWordBank.addWordsToBank();
-		net.sevenstars.middleearth.light.HeldLights.registerDefaults();
-		net.sevenstars.middleearth.light.BeamLights.register();
-		net.sevenstars.middleearth.light.LanternToggling.register();
+		HeldLights.registerDefaults();
+		BeamLights.register();
+		LanternToggling.register();
 
 		// Dynamic Data
         DynamicRegistriesME.register();

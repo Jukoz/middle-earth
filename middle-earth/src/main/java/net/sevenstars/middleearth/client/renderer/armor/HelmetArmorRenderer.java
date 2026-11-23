@@ -17,6 +17,8 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
+import net.sevenstars.middleearth.client.renderer.light.HeldFlames;
 
 public class HelmetArmorRenderer implements ArmorRenderer {
 
@@ -63,11 +65,11 @@ public class HelmetArmorRenderer implements ArmorRenderer {
                 } else {
                     CustomArmorRenderer.renderArmor(matrices, vertexConsumers, light, stack, this.helmetAddonModel, Identifier.of(MiddleEarth.MOD_ID, texture.replaceAll(".png", "_addition.png")), dyeable);
                 }
-                if (net.sevenstars.middleearth.client.renderer.light.HeldFlames.hasWornFlames(stack)
-                    && bipedEntityRenderState instanceof net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess access) {
+                if (HeldFlames.hasWornFlames(stack)
+                    && bipedEntityRenderState instanceof ArmedEntityRenderStateAccess access) {
                     matrices.push();
                     this.helmetAddonModel.head.applyTransform(matrices);
-                    net.sevenstars.middleearth.client.renderer.light.HeldFlames.noteWorn(access.getHeadStackItself(), matrices.peek().getPositionMatrix());
+                    HeldFlames.noteWorn(access.getHeadStackItself(), matrices.peek().getPositionMatrix());
                     matrices.pop();
                 }
             }

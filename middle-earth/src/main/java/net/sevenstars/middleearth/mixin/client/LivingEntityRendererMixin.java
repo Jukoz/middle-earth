@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.entity.EquipmentSlot;
 
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {
@@ -29,6 +30,6 @@ public class LivingEntityRendererMixin {
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setMainHandStack(mainHandStack);
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setOffHandStack(offHandStack);
         ((ArmedEntityRenderStateAccess)livingEntityRenderState).setRestrained(restrained);
-        ((ArmedEntityRenderStateAccess)livingEntityRenderState).setHeadStackItself(livingEntity.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD));
+        ((ArmedEntityRenderStateAccess)livingEntityRenderState).setHeadStackItself(livingEntity.getEquippedStack(EquipmentSlot.HEAD));
     }
 }

@@ -10,6 +10,8 @@ import net.minecraft.util.Identifier;
 import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.UnaryOperator;
+import com.mojang.serialization.Codec;
+import net.minecraft.network.codec.PacketCodecs;
 
 public class DataComponentTypesME {
 
@@ -77,8 +79,8 @@ public class DataComponentTypesME {
     );
 
     public static final ComponentType<Boolean> LAMP_ON = register("lamp_on", builder -> builder
-            .codec(com.mojang.serialization.Codec.BOOL)
-            .packetCodec(net.minecraft.network.codec.PacketCodecs.BOOLEAN));
+            .codec(Codec.BOOL)
+            .packetCodec(PacketCodecs.BOOLEAN));
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         RegistryAliasesME.aliases.add(new RegistryAliasesME.Alias(Registries.DATA_COMPONENT_TYPE, id));
