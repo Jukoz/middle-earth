@@ -47,6 +47,8 @@
     "client.BipedEntityRendererMixin",
     "client.BipedEntityRenderStateMixin",
     "client.GuiRendererMixin",
+    "client.HeldItemFeatureRendererMixin",
+    "client.HeldItemRendererBeamMixin",
     "client.HeldItemRendererMixin",
     "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",

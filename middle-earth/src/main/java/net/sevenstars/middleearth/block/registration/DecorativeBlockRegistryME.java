@@ -53,6 +53,7 @@ import net.sevenstars.middleearth.registries.RegistryAliasesME;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
+import net.sevenstars.middleearth.block.special.beamlight.BeamLightBlock;
 
 public class DecorativeBlockRegistryME {
 
@@ -772,6 +773,11 @@ public class DecorativeBlockRegistryME {
     public static final Block REINFORCED_SCAFFOLDING = registerBlock("reinforced_scaffolding",
             ReinforcedScaffoldingBlock::new, AbstractBlock.Settings.copy(Blocks.SCAFFOLDING).mapColor(MapColor.SPRUCE_BROWN)
                     .sounds(BlockSoundGroup.WOOD).allowsSpawning(Blocks::never).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never));
+
+    public static final Block BEAM_LIGHT = registerBlock("beam_light", BeamLightBlock::new,
+            AbstractBlock.Settings.create().replaceable().noCollision().dropsNothing().nonOpaque().noBlockBreakParticles()
+                    .luminance(state -> state.get(BeamLightBlock.LEVEL))
+                    .pistonBehavior(PistonBehavior.DESTROY));
 
     public static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = (Block)factory.apply(settings.registryKey(BlockRegistryME.keyOfBlock(name)));

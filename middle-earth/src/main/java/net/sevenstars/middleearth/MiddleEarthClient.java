@@ -88,6 +88,8 @@ import net.sevenstars.middleearth.particles.ParticleTypeRegistryME;
 import net.sevenstars.middleearth.particles.custom.AnvilBonkParticle;
 import net.sevenstars.middleearth.particles.custom.BiomeFogParticle;
 import net.sevenstars.middleearth.registries.AtlasesME;
+import net.sevenstars.middleearth.client.renderer.light.HeldFlames;
+import net.sevenstars.middleearth.client.renderer.light.LampBeams;
 
 public class MiddleEarthClient implements ClientModInitializer {
     
@@ -160,6 +162,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockEntityRegistryME.STONE_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.TREATED_ANVIL, ShapingAnvilEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.FORGE, ForgeEntityRenderer::new);
+        LampBeams.register();
+        HeldFlames.register();
         BlockEntityRendererFactories.register(BlockEntityRegistryME.LARCH_COFFER, LarchCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.PINE_COFFER, PineCofferEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockEntityRegistryME.SPRUCE_COFFER, SpruceCofferEntityRenderer::new);

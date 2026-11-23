@@ -4,7 +4,12 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Arm;
+import net.minecraft.util.math.MathHelper;
+import net.sevenstars.middleearth.light.HeldLight;
+import net.sevenstars.middleearth.light.HeldLights;
 import net.sevenstars.middleearth.client.renderer.ArmedEntityRenderStateAccess;
+import net.sevenstars.middleearth.client.renderer.light.HangingLanterns;
 import net.sevenstars.middleearth.item.DecorativeItemsME;
 import net.sevenstars.middleearth.item.WeaponItemsME;
 import net.sevenstars.middleearth.item.items.weapons.ReachWeaponItem;
@@ -35,7 +40,8 @@ public class BipedEntityModelMixin {
         } else if(handItem != null) {
             tryItemAnimation(handItem, true);
         }
-
+        middleearth$raiseLamp(state, true);
+        middleearth$lowerLantern(state, armPose, true);
     }
 
     @Inject(at = @At("TAIL"), method = "positionLeftArm")
@@ -47,6 +53,40 @@ public class BipedEntityModelMixin {
         } else if(handItem != null) {
             tryItemAnimation(handItem, false);
         }
+        middleearth$raiseLamp(state, false);
+        middleearth$lowerLantern(state, armPose, false);
+    }
+
+    private static final float RAISED_ARM_PITCH = -1.3F;
+
+    /** Raises the off arm for a held light: along the gaze, or held up a little below level. */
+    private void middleearth$raiseLamp(BipedEntityRenderState state, boolean rightArm) {
+        ArmedEntityRenderStateAccess access = (ArmedEntityRenderStateAccess) state;
+        ItemStack offHand = access.getOffHandStack();
+        boolean offHandRight = state.mainArm == Arm.LEFT;
+        if (access.isRestrained() || offHand == null || offHandRight != rightArm) {
+            return;
+        }
+        HeldLight light = HeldLights.active(true, offHand);
+        if (light == null) {
+            return;
+        }
+        boolean raised = light.hold() == HeldLight.Hold.RAISED;
+        ModelPart arm = rightArm ? this.rightArm : this.leftArm;
+        arm.pitch = raised ? RAISED_ARM_PITCH : -MathHelper.HALF_PI + state.pitch * MathHelper.RADIANS_PER_DEGREE;
+        arm.yaw = state.relativeHeadYaw * MathHelper.RADIANS_PER_DEGREE * (raised ? 0.5F : 1.0F);
+        arm.roll = 0.0F;
+    }
+
+    /** Lowers the off arm for a shaded lantern, which hangs from the fist. */
+    private void middleearth$lowerLantern(BipedEntityRenderState state, BipedEntityModel.ArmPose armPose, boolean rightArm) {
+        ArmedEntityRenderStateAccess access = (ArmedEntityRenderStateAccess) state;
+        boolean offHandRight = state.mainArm == Arm.LEFT;
+        if (access.isRestrained() || offHandRight != rightArm || armPose != BipedEntityModel.ArmPose.ITEM
+            || !HangingLanterns.hangs(access.getOffHandStack())) {
+            return;
+        }
+        (rightArm ? this.rightArm : this.leftArm).pitch += MathHelper.PI / 10;
     }
 
     private void restrainedAnimation() {

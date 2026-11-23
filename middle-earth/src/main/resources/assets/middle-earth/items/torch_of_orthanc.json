@@ -1,6 +1,19 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "middle-earth:block/torch_of_orthanc"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": ["gui", "ground", "fixed"],
+        "model": {
+          "type": "minecraft:model",
+          "model": "middle-earth:block/torch_of_orthanc"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "middle-earth:item/held/torch_of_orthanc"
+    }
   }
 }
