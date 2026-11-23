@@ -18,6 +18,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -37,7 +38,6 @@ import net.sevenstars.middleearth.light.BeamLights;
 import net.sevenstars.middleearth.light.BeamLitBlock;
 import net.sevenstars.middleearth.light.HeldLight;
 import net.sevenstars.middleearth.light.HeldLights;
-import net.sevenstars.middleearth.mixin.client.GameRendererFovInvoker;
 import net.sevenstars.middleearth.resources.datas.held_lights.HeldLightData;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -160,9 +160,9 @@ public final class LampBeams {
     /** Maps a hand-space point into the world, correcting for the hand's separate field of view. */
     public static Vec3d handToWorld(MinecraftClient client, Vector3f handView, float tickProgress) {
         Camera camera = client.gameRenderer.getCamera();
-        GameRendererFovInvoker fov = (GameRendererFovInvoker) client.gameRenderer;
-        double world = Math.tan(fov.middleearth$getFov(camera, tickProgress, true) * MathHelper.RADIANS_PER_DEGREE / 2);
-        double hand = Math.tan(fov.middleearth$getFov(camera, tickProgress, false) * MathHelper.RADIANS_PER_DEGREE / 2);
+        GameRenderer fov = client.gameRenderer;
+        double world = Math.tan(fov.getFov(camera, tickProgress, true) * MathHelper.RADIANS_PER_DEGREE / 2);
+        double hand = Math.tan(fov.getFov(camera, tickProgress, false) * MathHelper.RADIANS_PER_DEGREE / 2);
         float scale = (float) (world / hand);
         Vector3f view = new Vector3f(handView.x * scale, handView.y * scale, handView.z);
         Vector3f offset = new Quaternionf(camera.getRotation()).transform(view);
