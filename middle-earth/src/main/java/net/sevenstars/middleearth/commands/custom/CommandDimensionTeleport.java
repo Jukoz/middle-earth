@@ -12,7 +12,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 
 public class CommandDimensionTeleport {
     private static final String TP = "tp";

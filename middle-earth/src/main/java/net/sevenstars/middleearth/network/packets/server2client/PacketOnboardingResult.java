@@ -10,7 +10,7 @@ import net.sevenstars.api.network.contexts.ClientPacketContext;
 import net.sevenstars.middleearth.network.handlers.OnboardingScreenHandler;
 import net.sevenstars.api.network.packets.ServerToClientPacket;
 import net.sevenstars.middleearth.resources.datas.attributes.AttributePoolElement;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;

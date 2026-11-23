@@ -19,6 +19,8 @@ public class MineablePickaxe {
     public static List<Block> blocks = new ArrayList<>() {
         {
             add(BlockRegistryME.POINTED_GALONN);
+            add(BlockRegistryME.POINTED_CALCITE);
+            add(BlockRegistryME.POINTED_BASALT);
             add(BlockRegistryME.POINTED_LIMESTONE);
             add(BlockRegistryME.POINTED_DOLOMITE);
             add(BlockRegistryME.POINTED_IZHERABAN);

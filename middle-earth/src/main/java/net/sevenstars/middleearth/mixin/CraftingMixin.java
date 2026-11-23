@@ -2,7 +2,7 @@ package net.sevenstars.middleearth.mixin;
 
 import net.minecraft.server.world.ServerWorld;
 import net.sevenstars.middleearth.config.ServerConfigME;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.RecipeInputInventory;

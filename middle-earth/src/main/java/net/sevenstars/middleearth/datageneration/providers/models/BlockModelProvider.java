@@ -841,6 +841,8 @@ public class BlockModelProvider extends FabricModelProvider {
         registerPointedBlock(blockStateModelGenerator, BlockRegistryME.POINTED_GALONN);
         registerPointedBlock(blockStateModelGenerator, BlockRegistryME.POINTED_LIMESTONE);
         registerPointedBlock(blockStateModelGenerator, BlockRegistryME.POINTED_IZHERABAN);
+        registerPointedBlock(blockStateModelGenerator, BlockRegistryME.POINTED_CALCITE);
+        registerPointedBlock(blockStateModelGenerator, BlockRegistryME.POINTED_BASALT);
 
         registerHangingMoss(blockStateModelGenerator, NatureBlockRegistryME.WILLOW_VINES);
 

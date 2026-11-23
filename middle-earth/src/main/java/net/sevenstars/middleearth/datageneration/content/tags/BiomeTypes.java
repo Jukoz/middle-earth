@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.datageneration.content.tags;
 
-import static net.sevenstars.middleearth.world.biomes.BiomeKeyRegistryME.*;
+import static net.sevenstars.middleearth.features.generation.biomes.BiomeKeyRegistryME.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 
@@ -118,7 +118,7 @@ public class BiomeTypes {
         add(BiomeType.CAVE,
                 BASALT_CAVE, BASIC_CAVE, DOLOMITE_CAVE, DRIPSTONE_CAVE, DRY_CAVE, FUNGUS_CAVE, GALONN_CAVE,
                 GILDED_CAVE, ICE_CAVE, IZHERABAN_CAVE, LIMESTONE_CAVE, LUSH_CAVE, MAGMA_CAVE, MITHRIL_CAVE,
-                MOUNTAIN_CAVE, MUD_CAVE);
+                MOUNTAIN_CAVE, MUD_CAVE, NAMELESS_DEEPS, GNAWED_TUNNELS, GLOWWORM_GROTTO, GLITTERING_CAVES, LAVA_TUBES);
     }
 
     public static Set<BiomeType> of(RegistryKey<Biome> biome) {

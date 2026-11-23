@@ -1,0 +1,36 @@
+{
+  "name": "middle-earth:misty_dwarf_mine_ends",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/end_dead",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/end_collapsed",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/end_tools",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

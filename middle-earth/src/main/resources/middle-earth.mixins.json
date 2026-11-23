@@ -42,6 +42,7 @@
     "IntegratedServerLoaderMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.AtmosphericFogModifierMixin",
+    "client.CloudRendererMixin",
     "client.ClientWorldMixin",
     "client.CreateWorldScreenMixin",
     "client.BipedEntityModelMixin",

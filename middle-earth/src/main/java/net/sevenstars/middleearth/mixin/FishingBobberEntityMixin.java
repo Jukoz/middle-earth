@@ -1,7 +1,7 @@
 package net.sevenstars.middleearth.mixin;
 
 import net.sevenstars.middleearth.utils.LootModifiers;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;

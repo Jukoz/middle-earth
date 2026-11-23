@@ -21,7 +21,7 @@ public class OreStoneSetRegistryME {
     public static OreRockSet STONE = registerOreSet("", STONE_STRENGTH,
             List.of(ORES.TIN_ORE), Blocks.STONE);
     public static OreRockSet CALCITE = registerOreSet("calcite_", STONE_STRENGTH,
-            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), Blocks.CALCITE);
+            Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE), Blocks.CALCITE);
 
     public static OreRockSet ASHEN = registerOreSet("ashen_", STONE_STRENGTH,
             Arrays.asList(ORES.COAL_ORE, ORES.COPPER_ORE, ORES.TIN_ORE), StoneBlockSetRegistryME.ASHENSTONE_SET.baseBlocks.base());
@@ -44,7 +44,7 @@ public class OreStoneSetRegistryME {
             Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE), Blocks.DEEPSLATE);
 
     public static OreRockSet NURGON = registerOreSet("nurgon_", NURGON_STRENGTH,
-            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE,
+            Arrays.asList(ORES.TIN_ORE, ORES.LEAD_ORE, ORES.SILVER_ORE, ORES.GOLD_ORE, ORES.IRON_ORE, ORES.MITHRIL_ORE,
                     ORES.EMERALD_ORE, ORES.RUBY_ORE, ORES.SAPPHIRE_ORE), StoneBlockSetRegistryME.NURGON_SET.baseBlocks.base());
 
     public static OreRockSet MEDGON = registerOreSet("medgon_", MEDGON_STRENGTH,

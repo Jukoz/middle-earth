@@ -1,6 +1,6 @@
 package net.sevenstars.middleearth.mixin;
 
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.server.world.ServerWorld;

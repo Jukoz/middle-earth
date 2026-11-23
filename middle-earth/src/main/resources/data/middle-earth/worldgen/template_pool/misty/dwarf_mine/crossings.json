@@ -1,0 +1,76 @@
+{
+  "name": "middle-earth:misty_dwarf_mine_crossings",
+  "fallback": "middle-earth:misty/dwarf_mine/ends",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_t",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_x",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_bend",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_store",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_y",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_offset",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "middle-earth:misty/dwarf_mine/crossing_shaft_top",
+        "projection": "rigid",
+        "processors": "middle-earth:misty_dwarf_mine_aged",
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

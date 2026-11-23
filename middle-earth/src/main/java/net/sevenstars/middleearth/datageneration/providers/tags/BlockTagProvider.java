@@ -299,6 +299,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         needsStoneTools.add(OreStoneSetRegistryME.CALCITE.copper_ore());
         needsStoneTools.add(OreStoneSetRegistryME.CALCITE.tin_ore());
+        needsIronTools.add(OreStoneSetRegistryME.CALCITE.silver_ore());
+        needsIronTools.add(OreStoneSetRegistryME.CALCITE.gold_ore());
 
         needsStoneTools.add(OreStoneSetRegistryME.SLATE.copper_ore());
         needsStoneTools.add(OreStoneSetRegistryME.SLATE.tin_ore());
@@ -320,6 +322,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
         needsIronTools.add(OreStoneSetRegistryME.NURGON.emerald_ore());
         needsIronTools.add(OreStoneSetRegistryME.NURGON.ruby_ore());
 
+        needsDiamondTools.add(OreStoneSetRegistryME.NURGON.mithril_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.lead_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.silver_ore());
         needsDiamondTools.add(OreStoneSetRegistryME.MEDGON.gold_ore());

@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 import net.sevenstars.middleearth.event.KeyInputHandler;
 import net.sevenstars.middleearth.gui.utils.widgets.CustomWidget;
 import net.sevenstars.middleearth.network.packets.client2server.PacketTeleportToDynamicWorldCoordinate;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
-import net.sevenstars.middleearth.world.map.MiddleEarthMapConfigs;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.map.MiddleEarthMapConfigs;
 import org.joml.Vector2d;
 
 import java.awt.event.KeyEvent;

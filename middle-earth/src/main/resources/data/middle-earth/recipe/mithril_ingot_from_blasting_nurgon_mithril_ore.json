@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "middle-earth:nurgon_mithril_ore",
+  "result": {
+    "id": "middle-earth:mithril_ingot"
+  },
+  "experience": 5,
+  "cookingtime": 300
+}

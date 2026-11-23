@@ -19,6 +19,7 @@ import net.sevenstars.middleearth.block.special.pointedBlocks.PointedDolomiteBlo
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedGalonnBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedIzherabanBlock;
 import net.sevenstars.middleearth.block.special.pointedBlocks.PointedLimestoneBlock;
+import net.sevenstars.middleearth.block.special.pointedBlocks.PointedStoneBlock;
 import net.sevenstars.middleearth.features.building.block.verticalSlabs.VerticalSlabBlock;
 import net.sevenstars.middleearth.datageneration.content.TranslationEntries;
 import net.sevenstars.middleearth.item.utils.ItemGroupsME;
@@ -48,6 +49,10 @@ public class BlockRegistryME {
             PointedIzherabanBlock::new,AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
     public static final Block POINTED_GALONN = registerStoneBlock("pointed_galonn",
             PointedGalonnBlock::new,AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
+    public static final Block POINTED_CALCITE = registerStoneBlock("pointed_calcite",
+            settings -> new PointedStoneBlock(Blocks.CALCITE, settings), AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).sounds(BlockSoundGroup.CALCITE).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
+    public static final Block POINTED_BASALT = registerStoneBlock("pointed_basalt",
+            settings -> new PointedStoneBlock(Blocks.BASALT, settings), AbstractBlock.Settings.copy(Blocks.POINTED_DRIPSTONE).sounds(BlockSoundGroup.BASALT).ticksRandomly().strength(1.5F, 3.0F).dynamicBounds().offset(AbstractBlock.OffsetType.XZ).pistonBehavior(PistonBehavior.DESTROY).solidBlock(Blocks::never), false);
 
     public static final Block BLACK_WATTLE_TRAPDOOR = registerWoodBlock("black_wattle_trapdoor",
             (settings) -> new TrapdoorBlock(BlockSetType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR), true);

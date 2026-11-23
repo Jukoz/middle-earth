@@ -384,6 +384,8 @@ public class MiddleEarthClient implements ClientModInitializer {
         BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_GALONN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_IZHERABAN, BlockRenderLayer.CUTOUT);
         BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_DOLOMITE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_CALCITE, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlockRegistryME.POINTED_BASALT, BlockRenderLayer.CUTOUT);
 
         BlockRenderLayerMap.putBlock(BlockRegistryME.EMBERS, BlockRenderLayer.CUTOUT);
 

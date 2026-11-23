@@ -27,8 +27,8 @@ import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.sevenstars.middleearth.MiddleEarth;
 import net.sevenstars.middleearth.commands.CommandRegistryME;
 import net.sevenstars.middleearth.commands.suggestions.MapBiomeSuggestionProvider;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
-import net.sevenstars.middleearth.world.map.MapBiomeLocator;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.map.MapBiomeLocator;
 
 public class CommandLocateBiome {
     private static final String LOCATE = "locate";

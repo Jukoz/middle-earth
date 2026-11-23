@@ -1,6 +1,7 @@
 package net.sevenstars.middleearth.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -33,9 +34,9 @@ import net.sevenstars.middleearth.item.ResourceItemsME;
 import net.sevenstars.middleearth.resources.StateSaverAndLoader;
 import net.sevenstars.middleearth.resources.datas.races.RaceUtil;
 import net.sevenstars.middleearth.resources.persistent_datas.PlayerData;
-import net.sevenstars.middleearth.world.chunkgen.map.MiddleEarthHeightMap;
-import net.sevenstars.middleearth.world.StartInMiddleEarth;
-import net.sevenstars.middleearth.world.dimension.DimensionRegistryME;
+import net.sevenstars.middleearth.features.generation.chunkgen.map.MiddleEarthHeightMap;
+import net.sevenstars.middleearth.features.generation.StartInMiddleEarth;
+import net.sevenstars.middleearth.features.generation.dimension.DimensionRegistryME;
 
 import java.util.Objects;
 
@@ -43,6 +44,9 @@ public class EventRegistryME {
     private static final String GOT_STARTER_ITEM = MiddleEarth.MOD_ID + ".received_starter_item";
 
     public static void register(){
+        // before the spawn chunks generate; set on join, they got seed 0
+        ServerWorldEvents.LOAD.register((server, world) -> MiddleEarthHeightMap.setSeed(world.getSeed()));
+
         // The client passes so the attack packet still reaches the server, which swaps the rider's hit for the troll's
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if(player.getVehicle() instanceof CaveTrollEntity troll && troll != entity && troll.getControllingPassenger() == player) {
@@ -56,7 +60,6 @@ public class EventRegistryME {
 
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
             ServerPlayerEntity player = serverPlayNetworkHandler.getPlayer();
-            MiddleEarthHeightMap.setSeed(player.getEntityWorld().getSeed());
 
             StartInMiddleEarth.onJoin(player);
 

@@ -1,0 +1,13 @@
+{
+  "type": "middle-earth:misty_dwarf_mine",
+  "biomes": "#middle-earth:has_structure/misty_caves_biomes",
+  "step": "underground_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "start_pool": "middle-earth:misty/dwarf_mine/start",
+  "corridor_pool": "middle-earth:misty/dwarf_mine/corridors",
+  "ends_pool": "middle-earth:misty/dwarf_mine/ends",
+  "plugs_pool": "middle-earth:misty/dwarf_mine/plugs",
+  "size": 20,
+  "max_distance_from_center": 128
+}
