@@ -16,7 +16,7 @@ import net.sevenstars.middleearth.entity.beasts.cave_troll.CaveTrollEntityModel;
 public class CaveTrollBannerModel extends CaveTrollEntityModel {
     // Pole bases relative to the platform bone's origin
     private static final float CORNER_X = 17.0f;
-    private static final float BASE_Y = 15.0f;
+    private static final float BASE_Y = 23.0f;
     private static final float BASE_Z = 16.0f;
     private static final float SCALE = 0.7f;
 
